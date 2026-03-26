@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Шпаргалки СМП</title>
   <style>
-    /* Базовые стили */
     body {
       font-family: 'Segoe UI', 'Roboto', sans-serif;
       margin: 0;
@@ -41,11 +40,11 @@
 
     .menu {
       display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
+      flex-direction: column; /* один столбик */
+      align-items: center;
       gap: 10px;
       width: 100%;
-      max-width: 1000px;
+      max-width: 300px; /* сужаем для эстетики */
       padding: 10px;
       box-sizing: border-box;
     }
@@ -58,7 +57,7 @@
       border-radius: 8px;
       font-weight: 600;
       text-align: center;
-      flex: 1 1 150px; /* плавное расширение */
+      width: 100%;
       transition: background 0.2s;
     }
 
@@ -70,35 +69,7 @@
       background: #2c3e66;
     }
 
-    .buttons {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-      width: 100%;
-      max-width: 500px;
-      padding: 10px;
-      box-sizing: border-box;
-    }
-
-    .nav-btn {
-      width: 100%;
-      padding: 14px 20px;
-      font-size: 1rem;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      background: #2c3e66;
-      color: white;
-      transition: background 0.2s, transform 0.2s;
-    }
-
-    .nav-btn:hover {
-      background: #1e2a3e;
-      transform: translateY(-2px);
-    }
-
-    /* Адаптивность */
+    /* Адаптивность для маленьких экранов */
     @media (max-width: 600px) {
       .header .logo {
         width: 70%;
@@ -109,11 +80,10 @@
       .header p {
         font-size: 0.9rem;
       }
-      .menu-btn {
-        flex: 1 1 100%;
-        font-size: 0.9rem;
+      .menu {
+        max-width: 90%;
       }
-      .nav-btn {
+      .menu-btn {
         font-size: 0.9rem;
       }
     }
@@ -128,7 +98,7 @@
     <p>Проект EMHelp Group '2026</p>
   </div>
 
-  <!-- Меню -->
+  <!-- Меню в один столбик -->
   <nav class="menu">
     <a href="index.html" class="menu-btn active">ГЛАВНАЯ</a>
     <a href="templates.html" class="menu-btn">ШАБЛОНЫ КАРТ</a>
@@ -139,20 +109,6 @@
     <a href="orders.html" class="menu-btn">ПРИКАЗЫ</a>
     <a href="stations.html" class="menu-btn">ПОДСТАНЦИИ МСК</a>
   </nav>
-
-  <!-- Основные кнопки -->
-  <div class="buttons">
-    <button class="nav-btn" id="moscow-stations-btn">Подстанции Москвы</button>
-    <button class="nav-btn" id="calculator1-btn">Калькулятор 1</button>
-    <button class="nav-btn" id="calculator2-btn">Калькулятор 2</button>
-  </div>
-
-  <script>
-    document.getElementById('moscow-stations-btn').addEventListener('click', () => {
-      window.location.href = 'stations.html';
-    });
-    // Здесь можно добавить обработчики для других калькуляторов
-  </script>
 
 </body>
 </html>
