@@ -1,8 +1,17 @@
-/* === Общие стили === */
-body {
+/* style.css - обновлённый для Шпаргалок СМП */
+
+* {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background-color: #f0f0f0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', 'Inter', 'Roboto', system-ui, -apple-system, sans-serif;
+  background-color: #f8f9fa;
+  color: #1e2a3e;
+  line-height: 1.5;
+  min-height: 100vh;
 }
 
 /* Шапка */
@@ -10,106 +19,80 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
-  padding: 16px;
-  background-color: #f8f8f8;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  gap: 8px;
+  padding: 20px;
+  text-align: center;
 }
 
-.logo {
+.header .logo {
   width: 120px;
-  max-width: 25vw;
   height: auto;
 }
 
-h1 {
-  font-size: 24px;
-  margin: 0;
-  text-align: center;
+.header h1 {
+  font-size: 1.8rem;
+  font-weight: 800;
 }
 
-.subtitle {
-  font-size: 14px;
-  color: #555;
-  margin: 0;
-  text-align: center;
+.header p {
+  font-size: 1rem;
+  opacity: 0.8;
 }
 
-/* Сетка кнопок — один столбец */
+/* Сетка кнопок */
 .grid {
-  display: grid;
-  grid-template-columns: 1fr; /* один столбец */
+  display: flex;
+  flex-direction: column; /* одна колонка на всех устройствах */
   gap: 12px;
   padding: 16px;
+  max-width: 400px;
+  margin: 0 auto;
 }
 
-/* Общие стили кнопок */
+/* Кнопки */
 .card {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #e0e0e0;
-  padding: 14px;
+  display: block;
   text-align: center;
-  border-radius: 12px;
+  padding: 16px;
+  background-color: #f0f0f0;
+  color: #1e2a3e;
   text-decoration: none;
-  color: #000;
+  border-radius: 12px;
   font-weight: 700; /* жирный шрифт */
-  font-size: 16px;
-  transition: all 0.2s ease;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  font-size: 1rem;
+  transition: background 0.2s;
 }
 
 .card:hover {
-  background-color: #d0d0d0;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 8px rgba(0,0,0,0.15);
+  background-color: #d9d9d9;
 }
 
-.card:active {
-  transform: translateY(0);
-  box-shadow: 0 3px 4px rgba(0,0,0,0.1);
-}
-
-/* Выделенная красная кнопка */
+/* Красная кнопка */
 .card.red {
-  background-color: #ff4d4d;       /* ярко-красный фон */
-  color: #fff;                     /* белый текст */
-  box-shadow: 0 4px 6px rgba(255, 0, 0, 0.3);
+  background-color: #c62828;
+  color: #ffffff;
 }
 
 .card.red:hover {
-  background-color: #ff1a1a;       /* более яркая при наведении */
-  transform: translateY(-2px);
-  box-shadow: 0 6px 8px rgba(255, 0, 0, 0.4);
+  background-color: #8b0000;
 }
 
-.card.red:active {
-  transform: translateY(0);
-  box-shadow: 0 3px 4px rgba(255, 0, 0, 0.2);
-}
-
-/* Адаптивные размеры логотипа и текста */
-@media (max-width: 1024px) {
-  .logo {
-    width: 100px;
-  }
-  h1 {
-    font-size: 22px;
-  }
-  .subtitle {
-    font-size: 13px;
-  }
-}
-
+/* Адаптивность текста */
 @media (max-width: 600px) {
-  .logo {
-    width: 80px;
+  .header h1 {
+    font-size: 1.6rem;
   }
-  h1 {
-    font-size: 20px;
+  .header p {
+    font-size: 0.9rem;
   }
-  .subtitle {
-    font-size: 12px;
+  .card {
+    font-size: 0.95rem;
+    padding: 14px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .grid {
+    max-width: 500px;
   }
 }
