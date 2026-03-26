@@ -1,136 +1,121 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Медицинские калькуляторы</title>
-<style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Шпаргалки СМП</title>
+  <style>
     body {
-        font-family: 'Segoe UI', 'Inter', 'Roboto', sans-serif;
-        margin: 0;
-        padding: 0;
-        background: #f0f2f5;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        min-height: 100vh;
+      font-family: 'Segoe UI', 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f5f5f5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
     }
 
-    header {
-        width: 100%;
-        text-align: center;
-        padding: 1rem 0;
-        background: linear-gradient(135deg, #7b2c5e 0%, #5a1e46 100%);
-        color: white;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    .header {
+      text-align: center;
+      padding: 20px;
     }
 
-    header h1 {
-        margin: 0;
-        font-size: 1.8rem;
-        font-weight: 700;
+    .header .logo {
+      max-width: 150px;
+      width: 50%;
+      height: auto;
+      margin-bottom: 10px;
     }
 
-    .nav-bar {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        width: 100%;
-        max-width: 600px;
-        padding: 1rem;
+    .header h1 {
+      font-size: 2rem;
+      margin: 5px 0;
     }
 
-    .nav-btn {
-        width: 100%;
-        padding: 14px 0;
-        font-size: 1rem;
-        font-weight: 600;
-        color: white;
-        background-color: #1f6e9c; /* синий фон */
-        border: none;
-        border-radius: 12px;
-        cursor: pointer;
-        transition: background 0.2s, transform 0.15s;
+    .header p {
+      font-size: 1rem;
+      margin: 0;
     }
 
-    .nav-btn:hover {
-        background-color: #155080;
-        transform: scale(0.98);
+    .menu {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      max-width: 300px;
+      padding: 10px;
+      box-sizing: border-box;
     }
 
-    .nav-btn.active {
-        background-color: #e53935; /* красная подсветка */
+    .menu-btn {
+      text-decoration: none;
+      color: white;
+      background: #1f6e9c;
+      padding: 12px 15px;
+      border-radius: 8px;
+      font-weight: 600;
+      text-align: center;
+      width: 100%;
+      transition: background 0.2s;
     }
 
-    .content {
-        max-width: 1000px;
-        width: 100%;
-        padding: 1rem;
-        background: white;
-        border-radius: 20px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        margin: 1rem;
-        flex: 1;
+    .menu-btn.active {
+      background: #e53935;
     }
 
-    footer {
-        text-align: center;
-        padding: 1rem;
-        font-size: 0.75rem;
-        color: #6c7a8e;
+    .menu-btn:hover {
+      background: #155080;
     }
 
-    @media (max-width: 480px) {
-        .nav-btn {
-            font-size: 0.9rem;
-            padding: 12px 0;
-        }
+    @media (max-width: 600px) {
+      .header .logo {
+        width: 70%;
+      }
+      .header h1 {
+        font-size: 1.5rem;
+      }
+      .header p {
+        font-size: 0.9rem;
+      }
+      .menu {
+        max-width: 90%;
+      }
+      .menu-btn {
+        font-size: 0.9rem;
+      }
     }
-</style>
+  </style>
 </head>
 <body>
 
-<header>
-    <h1>Медицинские калькуляторы</h1>
-</header>
+  <div class="header">
+    <img src="1712743647196.png" alt="Логотип" class="logo">
+    <h1>Шпаргалки СМП</h1>
+    <p>Проект EMHelp Group '2026</p>
+  </div>
 
-<div class="nav-bar">
-    <button class="nav-btn" id="algovera-btn">Альговера шоковый индекс</button>
-    <button class="nav-btn" id="glasgow-btn">Шкала ком Глазго</button>
-    <button class="nav-btn" id="fundus-btn">Высота стояния дна матки</button>
-</div>
+  <nav class="menu">
+    <a href="index.html" class="menu-btn">ГЛАВНАЯ</a>
+    <a href="templates.html" class="menu-btn">ШАБЛОНЫ КАРТ</a>
+    <a href="archive.html" class="menu-btn">АРХИВ КАРТ СМП</a>
+    <a href="status.html" class="menu-btn">STATUS LOCALIS</a>
+    <a href="calculators.html" class="menu-btn">КАЛЬКУЛЯТОРЫ</a>
+    <a href="consilium.html" class="menu-btn">КОНСИЛИУМЫ</a>
+    <a href="orders.html" class="menu-btn">ПРИКАЗЫ</a>
+    <a href="stations.html" class="menu-btn">ПОДСТАНЦИИ МСК</a>
+  </nav>
 
-<div class="content">
-    <h2>Добро пожаловать!</h2>
-    <p>Выберите калькулятор выше, чтобы открыть соответствующую страницу.</p>
-</div>
-
-<footer>
-    © 2026 Медицинские калькуляторы
-</footer>
-
-<script>
-const buttons = [
-    {id: 'algovera-btn', href: 'algovera-shock.html'},
-    {id: 'glasgow-btn', href: 'glasgow.html'},
-    {id: 'fundus-btn', href: 'fundus.html'}
-];
-
-buttons.forEach(btn => {
-    const element = document.getElementById(btn.id);
-    if (!element) return;
-
-    // Подсветка активной кнопки
-    if (window.location.pathname.includes(btn.href)) {
-        element.classList.add('active');
-    }
-
-    // Переход при клике
-    element.addEventListener('click', () => {
-        window.location.href = btn.href;
+  <script>
+    // Автоматическая подсветка активной кнопки по URL
+    const current = window.location.pathname.split("/").pop();
+    document.querySelectorAll('.menu-btn').forEach(btn => {
+      if(btn.getAttribute('href') === current) {
+        btn.classList.add('active');
+      }
     });
-});
-</script>
+  </script>
 
 </body>
 </html>
