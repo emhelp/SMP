@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Карта вызова: Роды | Шаблон СМП</title>
+    <title>Карта вызова СМП | Беременность 38 недель, 1 период родов</title>
     <style>
         * {
             margin: 0;
@@ -12,272 +12,323 @@
         }
 
         body {
-            background: #eef2f7;
-            font-family: 'Segoe UI', 'Roboto', 'Inter', system-ui, -apple-system, sans-serif;
+            background: #e2e8f0;
+            font-family: 'Segoe UI', 'Roboto', 'Inter', system-ui, sans-serif;
             line-height: 1.5;
-            padding: 30px 20px;
+            padding: 32px 24px;
             color: #1a2c3e;
         }
 
-        .document-card {
+        .container {
             max-width: 1200px;
             margin: 0 auto;
+        }
+
+        .medical-card {
             background: #ffffff;
             border-radius: 28px;
-            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.2);
             overflow: hidden;
         }
 
-        /* шапка с меткой */
-        .header-badge {
-            background: linear-gradient(135deg, #0b5e7c 0%, #0f3b4f 100%);
-            padding: 14px 28px;
-            border-bottom: 3px solid #ffb347;
-        }
-
-        .header-badge span {
+        .card-header {
+            background: linear-gradient(135deg, #0b5e7c 0%, #0a4b64 100%);
+            padding: 20px 32px;
             color: white;
-            font-weight: 600;
+            border-bottom: 4px solid #ffb347;
+        }
+
+        .card-header .mkb {
             font-size: 14px;
-            letter-spacing: 0.5px;
-            background: rgba(255,255,255,0.15);
-            padding: 6px 14px;
-            border-radius: 60px;
-            display: inline-block;
+            opacity: 0.9;
+            font-family: monospace;
         }
 
-        /* основной контент */
-        .content {
-            padding: 32px 36px;
+        .card-content {
+            padding: 28px 36px;
         }
 
-        /* заголовки секций */
-        .section-title {
-            font-size: 20px;
-            font-weight: 700;
-            color: #0b5e7c;
-            margin: 28px 0 14px 0;
-            padding-bottom: 6px;
-            border-bottom: 2px solid #ffb347;
-            display: inline-block;
-        }
-
-        .first-title {
-            margin-top: 0;
-        }
-
-        .sub-section {
-            margin: 20px 0 8px 0;
-            font-weight: 700;
-            color: #1e4663;
-            font-size: 17px;
-            background: #f0f6fa;
-            padding: 6px 12px;
-            border-radius: 12px;
-        }
-
-        /* диагностический блок */
-        .diagnosis-block {
-            background: #fefaf5;
-            border-left: 5px solid #ffb347;
-            padding: 16px 20px;
+        .exam-block {
+            margin-bottom: 28px;
+            border: 1px solid #e2edf2;
             border-radius: 20px;
-            margin: 16px 0 20px 0;
+            overflow: hidden;
+            background: white;
         }
 
-        .diagnosis-line {
-            font-family: 'Courier New', 'Fira Code', monospace;
-            font-size: 14px;
-            background: #f4f9fe;
-            padding: 6px 12px;
-            border-radius: 14px;
-            margin: 8px 0;
-            word-break: break-word;
-        }
-
-        .mkb-code {
-            background: #e9ecef;
-            padding: 4px 12px;
-            border-radius: 40px;
-            font-size: 13px;
-            font-weight: 600;
-            display: inline-block;
-            margin-bottom: 8px;
-            color: #0b5e7c;
-        }
-
-        /* текст жалоб, анамнеза */
-        .text-block {
-            background: #fafcff;
-            padding: 14px 18px;
-            border-radius: 20px;
-            margin: 12px 0;
-            border: 1px solid #e6edf4;
-            line-height: 1.55;
-        }
-
-        .grid-2col {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            margin: 20px 0;
-        }
-
-        .info-card-sm {
-            flex: 1;
-            min-width: 240px;
-            background: #f8fbfe;
-            border-radius: 20px;
-            padding: 16px 18px;
-            border: 1px solid #e2edf7;
-        }
-
-        .info-label {
+        .block-title {
+            background: #f1f6fb;
+            padding: 14px 24px;
             font-weight: 800;
-            color: #1c5d7a;
-            font-size: 14px;
-            margin-bottom: 6px;
+            font-size: 18px;
+            color: #0b5e7c;
+            border-left: 5px solid #ffb347;
             letter-spacing: -0.2px;
         }
 
-        .info-value {
+        .block-content {
+            padding: 20px 28px;
+            background: #fefefe;
             font-size: 15px;
+            line-height: 1.55;
+            color: #1e3a4f;
+            text-align: left;
+        }
+
+        .field-row {
+            margin-bottom: 12px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 8px;
+            text-align: left;
+        }
+
+        .field-label {
+            font-weight: 700;
+            color: #1c6d8f;
+            min-width: 180px;
+            font-size: 14px;
+        }
+
+        .field-value {
+            flex: 1;
             color: #1e2f3c;
+            text-align: left;
+        }
+
+        .inline-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            margin: 12px 0;
+            text-align: left;
+        }
+
+        .inline-item {
+            flex: 1;
+            min-width: 180px;
+            text-align: left;
+        }
+
+        .status-local {
+            background: #f9fef7;
+            border-left: 4px solid #2c9c6e;
+            padding: 16px 20px;
+            border-radius: 16px;
+            margin-top: 8px;
+            text-align: left;
+        }
+
+        .status-local div {
+            margin-bottom: 8px;
+            text-align: left;
+        }
+
+        .diagnosis-box {
+            background: #fefaf5;
+            border-left: 4px solid #ffb347;
+            padding: 16px 20px;
+            border-radius: 16px;
+            margin-bottom: 8px;
+            text-align: left;
+        }
+
+        .diagnosis-box div {
+            margin-bottom: 8px;
+            text-align: left;
         }
 
         hr {
-            margin: 24px 0;
+            margin: 16px 0;
             border: none;
             height: 1px;
-            background: linear-gradient(90deg, #cbdde9, transparent);
+            background: #e2ecf3;
         }
 
-        .status-localis {
-            background: #f1f6fb;
-            padding: 20px;
-            border-radius: 24px;
-            margin: 20px 0;
-        }
-
-        .badge-pill {
-            background: #eef2f9;
-            border-radius: 40px;
-            padding: 2px 12px;
+        .footer-note {
             font-size: 13px;
-            font-weight: 500;
-            display: inline-block;
-            margin-right: 12px;
-            margin-bottom: 8px;
-            color: #2c5a74;
+            color: #6c8eaa;
+            text-align: right;
         }
 
-        @media (max-width: 750px) {
-            .content {
-                padding: 20px 18px;
+        @media (max-width: 700px) {
+            .card-content {
+                padding: 18px;
             }
-            .section-title {
-                font-size: 18px;
+            .block-content {
+                padding: 14px 18px;
             }
-            .grid-2col {
-                flex-direction: column;
-                gap: 12px;
+            .field-label {
+                min-width: 130px;
             }
         }
     </style>
 </head>
 <body>
-<div class="document-card">
-    <div class="header-badge">
-        <span>📄 Шаблон вызова СМП / Акушерство</span>
-    </div>
-    <div class="content">
-        <!-- Блок диагноза, МКБ, основной текст без изменений -->
-        <div>
-            <div class="mkb-code">МКБ-10: O63.0</div>
-            <div class="diagnosis-block">
-                <div style="font-weight: 800; font-size: 18px; margin-bottom: 12px;">📌 ДИАГНОЗ</div>
-                <div><strong>Основное заболевание:</strong> Беременность 38 недель. Период родов: I период родов (латентная/активная фаза – уточняется при влагалищном исследовании в стационаре). II период родов (потуги) – не наступил. III период родов (последовый) – не наступил.</div>
-                <div style="margin-top: 10px;"><strong>Осложнения:</strong> Нет.</div>
-                <div><strong>Сопутствующие заболевания:</strong> Не выявлены.</div>
+<div class="container">
+    <div class="medical-card">
+        <div class="card-header">
+            <div class="mkb">МКБ-10: O63.0 — Затяжные роды (первый период)</div>
+        </div>
+        <div class="card-content">
+
+            <!-- ДИАГНОЗ -->
+            <div class="exam-block">
+                <div class="block-title">ДИАГНОЗ</div>
+                <div class="block-content">
+                    <div class="diagnosis-box">
+                        <div><strong>Основное заболевание:</strong> Беременность 38 недель. Период родов: I период родов (латентная/активная фаза – уточняется при влагалищном исследовании в стационаре). II период родов (потуги) – не наступил. III период родов (последовый) – не наступил.</div>
+                        <div><strong>Осложнения:</strong> Нет.</div>
+                        <div><strong>Сопутствующие заболевания:</strong> Не выявлены.</div>
+                    </div>
+                </div>
             </div>
-        </div>
 
-        <!-- ЖАЛОБЫ -->
-        <div class="section-title first-title">ЖАЛОБЫ</div>
-        <div class="text-block">
-            На схваткообразные боли внизу живота и в поясничной области, регулярные, повторяющиеся каждые 5-7 минут, продолжительностью 30-40 секунд. Боли умеренной интенсивности. Отхождение околоплодных вод отрицает. Кровянистых выделений из половых путей нет.
-        </div>
-
-        <!-- АНАМНЕЗ (в том числе: эпидемиологический, аллергологический, гинекологический) -->
-        <div class="section-title">АНАМНЕЗ</div>
-        <div class="text-block">
-            Родовая деятельность началась около 2 часов назад с появления регулярных схваток. Беременность вторая, предстоят вторые роды. Первые роды 3 года назад, срочные, через естественные родовые пути, без осложнений, ребенок здоров. Данная беременность протекала без особенностей, на учете в женской консультации состоит с 12 недель, обследована в полном объеме. Эпидемиологический анамнез: Контакта с инфекционными больными нет. Аллергологический анамнез: Не отягощен. Гинекологический анамнез: Менструальная функция с 14 лет, цикл установился сразу, по 5 дней, через 28 дней, регулярный, безболезненный. Гинекологические заболевания отрицает. Гинекологических операций не было. Беременность вторая (первая закончилась срочными родами). Беременностей вне брака, абортов не было. Выделения из половых путей в настоящее время – слизистые, светлые, без патологических примесей, без кровянистых выделений.
-        </div>
-
-        <!-- ОБЪЕКТИВНО -->
-        <div class="section-title">ОБЪЕКТИВНО</div>
-        <div class="grid-2col">
-            <div class="info-card-sm">
-                <div class="info-label">Общее состояние</div>
-                <div class="info-value">Удовлетворительное. Сознание: Ясное. GCS: 15 баллов (E4, V5, M6). Положение: Активное, в период схватки – вынужденное (присаживается, наклоняется вперед).</div>
-                <div class="info-label" style="margin-top: 12px;">Кожные покровы</div>
-                <div class="info-value">Чистые, обычной окраски, влажные (легкая потливость в связи с родовой деятельностью). Бледности, цианоза, желтушности, сыпи нет. Сыпь: Нет.</div>
-                <div class="info-label" style="margin-top: 12px;">Зев, миндалины, лимфоузлы</div>
-                <div class="info-value">Слизистая розовая, чистая. Миндалины не увеличены. Периферические лимфоузлы не пальпируются.</div>
+            <!-- ЖАЛОБЫ -->
+            <div class="exam-block">
+                <div class="block-title">ЖАЛОБЫ</div>
+                <div class="block-content">
+                    На схваткообразные боли внизу живота и в поясничной области, регулярные, повторяющиеся каждые 5-7 минут, продолжительностью 30-40 секунд. Боли умеренной интенсивности. Отхождение околоплодных вод отрицает. Кровянистых выделений из половых путей нет.
+                </div>
             </div>
-            <div class="info-card-sm">
-                <div class="info-label">Пролежни / отеки / температура</div>
-                <div class="info-value">Пролежни: Нет. Отеки: Пастозность голеней и стоп, невыраженная (физиологическая беременных). t°: 36,7 °C.</div>
-                <div class="info-label" style="margin-top: 12px;">ОРГАНЫ ДЫХАНИЯ</div>
-                <div class="info-value">ЧДД: 20 в мин (легкое учащение связано с родовой деятельностью). Одышка: Инспираторная, незначительная, на высоте схватки. Аускультативно: дыхание везикулярное, хрипов нет. Перкуторный звук легочный.</div>
+
+            <!-- АНАМНЕЗ -->
+            <div class="exam-block">
+                <div class="block-title">АНАМНЕЗ</div>
+                <div class="block-content">
+                    <div class="field-row">
+                        <span class="field-label">Развитие заболевания:</span>
+                        <span class="field-value">Родовая деятельность началась около 2 часов назад с появления регулярных схваток.</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Гинекологический анамнез:</span>
+                        <span class="field-value">Менструальная функция с 14 лет, цикл установился сразу, по 5 дней, через 28 дней, регулярный, безболезненный. Гинекологические заболевания отрицает. Гинекологических операций не было. Беременность вторая (первая закончилась срочными родами 3 года назад, без осложнений, ребенок здоров). Беременностей вне брака, абортов не было.</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Течение беременности:</span>
+                        <span class="field-value">Данная беременность протекала без особенностей, на учете в женской консультации состоит с 12 недель, обследована в полном объеме.</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Аллергологический анамнез:</span>
+                        <span class="field-value">Не отягощен.</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Эпидемиологический анамнез:</span>
+                        <span class="field-value">Контакта с инфекционными больными нет.</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Выделения из половых путей:</span>
+                        <span class="field-value">Слизистые, светлые, без патологических примесей, без кровянистых выделений.</span>
+                    </div>
+                </div>
             </div>
-        </div>
 
-        <!-- ОРГАНЫ КРОВООБРАЩЕНИЯ -->
-        <div class="sub-section">❤️ ОРГАНЫ КРОВООБРАЩЕНИЯ</div>
-        <div class="text-block" style="margin-top: 0;">
-            Пульс: 92 в мин (тахикардия в родах). Ритмичный, удовлетворительного наполнения. ЧСС: 92 в мин. Дефицит пульса: Нет. АД: 120/70 мм.рт.ст. на момент осмотра, привычное АД 115/70 мм.рт.ст., максимальное АД не известно. Тоны сердца: Звучные, ритмичные. Шумов нет.
-        </div>
-
-        <!-- ОРГАНЫ ПИЩЕВАРЕНИЯ + НЕРВНАЯ СИСТЕМА -->
-        <div class="grid-2col">
-            <div class="info-card-sm">
-                <div class="info-label">🍽️ ОРГАНЫ ПИЩЕВАРЕНИЯ</div>
-                <div class="info-value">Язык влажный, чистый. Живот увеличен за счет беременной матки, овоидной формы, продольное положение плода. Окружность живота ~95-100 см. Пальпация живота в межсхваточный период безболезненна. Симптомы раздражения брюшины отрицательные. Перистальтика активная. Печень, селезенка не пальпируются. Стул был утром, оформленный.</div>
+            <!-- ОБЪЕКТИВНО -->
+            <div class="exam-block">
+                <div class="block-title">ОБЪЕКТИВНО</div>
+                <div class="block-content">
+                    <div class="inline-group">
+                        <div class="inline-item"><strong>Состояние:</strong> удовлетворительное</div>
+                        <div class="inline-item"><strong>Сознание:</strong> ясное (GCS 15 баллов)</div>
+                        <div class="inline-item"><strong>Положение:</strong> активное, в период схватки вынужденное</div>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Кожные покровы:</span>
+                        <span class="field-value">Чистые, обычной окраски, влажные (легкая потливость). Сыпи нет. Бледности, цианоза, желтушности нет.</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Зев, миндалины:</span>
+                        <span class="field-value">Слизистая розовая, чистая. Миндалины не увеличены.</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Лимфоузлы, пролежни:</span>
+                        <span class="field-value">Периферические лимфоузлы не пальпируются. Пролежни: нет.</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Отеки, температура:</span>
+                        <span class="field-value">Пастозность голеней и стоп, невыраженная (физиологическая беременных). t°: 36,7 °C.</span>
+                    </div>
+                </div>
             </div>
-            <div class="info-card-sm">
-                <div class="info-label">🧠 НЕРВНАЯ СИСТЕМА</div>
-                <div class="info-value">Поведение спокойное, адекватное, контактна. Чувствительность не нарушена. Речь внятная. Зрачки равные, фотореакция живая. Менингеальные симптомы отрицательные. Очаговой симптоматики нет. Координаторные пробы выполняет удовлетворительно.</div>
+
+            <!-- ОРГАНЫ ДЫХАНИЯ -->
+            <div class="exam-block">
+                <div class="block-title">ОРГАНЫ ДЫХАНИЯ</div>
+                <div class="block-content">
+                    <div class="field-row"><span class="field-label">ЧДД:</span><span class="field-value">20 в мин (легкое учащение связано с родовой деятельностью).</span></div>
+                    <div class="field-row"><span class="field-label">Одышка:</span><span class="field-value">Инспираторная, незначительная, на высоте схватки.</span></div>
+                    <div class="field-row"><span class="field-label">Аускультативно:</span><span class="field-value">Дыхание везикулярное, проводится во все отделы, хрипов нет.</span></div>
+                    <div class="field-row"><span class="field-label">Перкуторный звук:</span><span class="field-value">Легочный над всеми отделами.</span></div>
+                    <div class="field-row"><span class="field-label">Кашель, мокрота:</span><span class="field-value">Нет.</span></div>
+                </div>
             </div>
-        </div>
 
-        <!-- МОЧЕПОЛОВАЯ СИСТЕМА -->
-        <div class="sub-section">🚰 МОЧЕПОЛОВАЯ СИСТЕМА</div>
-        <div class="text-block">
-            Мочеиспускание свободное, безболезненное. Частота мочеиспускания учащена (физиологически). Моча светлая, прозрачная. Симптом поколачивания отрицательный с обеих сторон.
-        </div>
+            <!-- ОРГАНЫ КРОВООБРАЩЕНИЯ -->
+            <div class="exam-block">
+                <div class="block-title">ОРГАНЫ КРОВООБРАЩЕНИЯ</div>
+                <div class="block-content">
+                    <div class="field-row"><span class="field-label">Пульс:</span><span class="field-value">92 в мин (тахикардия в родах), ритмичный, удовлетворительного наполнения. ЧСС: 92 в мин. Дефицит пульса: нет.</span></div>
+                    <div class="field-row"><span class="field-label">АД:</span><span class="field-value">120/70 мм рт.ст. на момент осмотра, привычное АД 115/70 мм рт.ст., максимальное АД не известно.</span></div>
+                    <div class="field-row"><span class="field-label">Тоны сердца:</span><span class="field-value">Звучные, ритмичные. Шумы не выслушиваются.</span></div>
+                </div>
+            </div>
 
-        <!-- STATUS LOCALIS (акушерский статус) -->
-        <div class="section-title">STATUS LOCALIS</div>
-        <div class="status-localis">
-            <div><strong>Акушерский статус:</strong></div>
-            <div style="margin-top: 10px;">Положение плода: Продольное. Предлежание: Головное (головка прижата ко входу в малый таз). Позиция: Первая (спинка слева).</div>
-            <div>Сердцебиение плода: Ясное, ритмичное, 142 уд/мин, выслушивается слева ниже пупка.</div>
-            <div>Высота стояния дна матки: 36 см.</div>
-            <div>Схватки: Регулярные, продолжительностью 30-40 сек, через 5-7 мин, средней силы.</div>
-            <div>Околоплодные воды: Целы (подтекание отрицает).</div>
-            <div>Выделения из половых путей: Слизистые, светлые, в умеренном количестве, без патологических примесей, без кровянистых выделений.</div>
-            <div style="margin-top: 12px; background: #fff3e0; padding: 8px 12px; border-radius: 16px;">Влагалищное исследование: Не проводилось на догоспитальном этапе (проводится в условиях родильного зала).</div>
-        </div>
+            <!-- ОРГАНЫ ПИЩЕВАРЕНИЯ -->
+            <div class="exam-block">
+                <div class="block-title">ОРГАНЫ ПИЩЕВАРЕНИЯ</div>
+                <div class="block-content">
+                    <div class="field-row"><span class="field-label">Язык:</span><span class="field-value">Влажный, чистый.</span></div>
+                    <div class="field-row"><span class="field-label">Живот:</span><span class="field-value">Увеличен за счет беременной матки, овоидной формы, продольное положение плода. Окружность живота ~95-100 см. Пальпация в межсхваточный период безболезненна. Симптомы раздражения брюшины отрицательные.</span></div>
+                    <div class="field-row"><span class="field-label">Перистальтика:</span><span class="field-value">Выслушивается, активная.</span></div>
+                    <div class="field-row"><span class="field-label">Печень, селезенка:</span><span class="field-value">Не пальпируются (печень за счет высокого стояния дна матки).</span></div>
+                    <div class="field-row"><span class="field-label">Стул:</span><span class="field-value">Был утром, оформленный.</span></div>
+                </div>
+            </div>
 
-        <!-- Дополнительные поля: Беременность 38 недель 1 период родов -->
-        <hr>
-        <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-top: 8px;">
-            <div><span class="badge-pill">📆 Беременность 38 недель</span><span class="badge-pill">🤱 1 период родов</span></div>
-            <div style="font-size: 13px; color: #5f7f9a;">Код по МКБ-10: O63.0 — Затяжные роды</div>
-        </div>
-        <div style="margin-top: 24px; font-size: 12px; color: #6f8eaa; text-align: right; border-top: 1px solid #e2edf2; padding-top: 16px;">
-            Шаблон карты вызова СМП | Акушерство, роды | версия 1.0
+            <!-- НЕРВНАЯ СИСТЕМА -->
+            <div class="exam-block">
+                <div class="block-title">НЕРВНАЯ СИСТЕМА</div>
+                <div class="block-content">
+                    <div class="field-row"><span class="field-label">Поведение, контакт:</span><span class="field-value">Спокойное, адекватное, контактна, контролирует свое состояние. Контакт полный, сохранен.</span></div>
+                    <div class="field-row"><span class="field-label">Чувствительность, речь:</span><span class="field-value">Не нарушена. Речь внятная.</span></div>
+                    <div class="field-row"><span class="field-label">Зрачки:</span><span class="field-value">OD = OS, обычные, средней величины, округлые. Фотореакция живая, содружественная. Нистагм отсутствует.</span></div>
+                    <div class="field-row"><span class="field-label">Менингеальные симптомы, очаговая симптоматика:</span><span class="field-value">Отрицательные. Очаговых симптомов нет.</span></div>
+                    <div class="field-row"><span class="field-label">Координаторные пробы:</span><span class="field-value">Выполняет удовлетворительно.</span></div>
+                </div>
+            </div>
+
+            <!-- МОЧЕПОЛОВАЯ СИСТЕМА -->
+            <div class="exam-block">
+                <div class="block-title">МОЧЕПОЛОВАЯ СИСТЕМА</div>
+                <div class="block-content">
+                    <div class="field-row"><span class="field-label">Мочеиспускание:</span><span class="field-value">Свободное, безболезненное. Частота мочеиспускания учащена (физиологически). Моча светлая, прозрачная.</span></div>
+                    <div class="field-row"><span class="field-label">Симптом поколачивания:</span><span class="field-value">Отрицательный с обеих сторон.</span></div>
+                </div>
+            </div>
+
+            <!-- STATUS LOCALIS -->
+            <div class="exam-block">
+                <div class="block-title">STATUS LOCALIS (акушерский статус)</div>
+                <div class="block-content">
+                    <div class="status-local">
+                        <div><strong>Положение плода:</strong> Продольное.</div>
+                        <div><strong>Предлежание:</strong> Головное (головка прижата ко входу в малый таз).</div>
+                        <div><strong>Позиция:</strong> Первая (спинка слева).</div>
+                        <div><strong>Сердцебиение плода:</strong> Ясное, ритмичное, 142 уд/мин, выслушивается слева ниже пупка.</div>
+                        <div><strong>Высота стояния дна матки:</strong> 36 см.</div>
+                        <div><strong>Схватки:</strong> Регулярные, продолжительностью 30-40 сек, через 5-7 мин, средней силы.</div>
+                        <div><strong>Околоплодные воды:</strong> Целы (подтекание отрицает).</div>
+                        <div><strong>Выделения из половых путей:</strong> Слизистые, светлые, в умеренном количестве, без патологических примесей, без кровянистых выделений.</div>
+                        <div style="margin-top: 12px; background: #fff3e0; padding: 8px 12px; border-radius: 12px;"><strong>Влагалищное исследование:</strong> Не проводилось на догоспитальном этапе (проводится в условиях родильного зала).</div>
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+            <div class="footer-note">
+                Беременность 38 недель | I период родов | O63.0
+            </div>
         </div>
     </div>
 </div>
