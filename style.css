@@ -1,3 +1,4 @@
+/* Сброс отступов */
 body {
   margin: 0;
   font-family: Arial, sans-serif;
@@ -5,6 +6,7 @@ body {
   color: #000;
 }
 
+/* Хедер с логотипом */
 .header {
   text-align: center;
   padding: 20px;
@@ -16,46 +18,45 @@ body {
   margin: 0 auto 10px auto;
 }
 
+/* Меню по всей ширине экрана */
 .menu {
   display: flex;
-  flex-direction: column; /* Все кнопки в один столбик */
-  width: 220px;
-  margin: 0 auto;
-  gap: 10px;
-  padding: 10px;
+  flex-direction: column;
+  width: 100%; /* Полная ширина */
+  margin: 0;
+  padding: 0;
 }
 
+/* Кнопки меню */
 .menu-btn {
+  display: block;
+  width: 100%;      /* Ширина кнопки на весь экран */
+  text-align: center;
+  padding: 15px 0;
+  font-size: 18px;
   background-color: #ccc;
+  color: #000;
+  text-decoration: none; /* Убираем подчеркивание ссылки */
   border: none;
-  padding: 12px;
-  font-size: 16px;
   cursor: pointer;
   transition: 0.2s;
 }
 
+/* Наведение */
 .menu-btn:hover {
   background-color: #bbb;
 }
 
+/* Активная кнопка */
 .menu-btn.active {
   background-color: red;
   color: #fff;
 }
 
-.content {
-  max-width: 800px;
-  margin: 20px auto;
-  padding: 10px;
-  background-color: #fff;
-  border-radius: 6px;
-  box-shadow: 0 0 8px rgba(0,0,0,0.1);
-}
-
-.section {
-  display: none; /* по умолчанию скрыто */
-}
-
-.section.active {
-  display: block; /* показываем активный раздел */
+/* Адаптивность для телефонов и планшетов */
+@media (max-width: 600px) {
+  .menu-btn {
+    font-size: 16px;
+    padding: 12px 0;
+  }
 }
