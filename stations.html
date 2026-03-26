@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Подстанции СМП им. А.С. Пучкова - интерактивный справочник</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: linear-gradient(135deg, #1a3a3a 0%, #0e2a2a 100%);
+            font-family: 'Segoe UI', 'Inter', 'Roboto', system-ui, -apple-system, sans-serif;
+            line-height: 1.5;
+            color: #1e2a3e;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+        .container { max-width: 1300px; width: 100%; background: #ffffff; border-radius: 32px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.3); overflow: hidden; }
+        .header { background: linear-gradient(135deg, #c62828 0%, #8b0000 100%); color: white; padding: 1.5rem 2rem; text-align: center; border-bottom: 4px solid #ffc107; }
+        .header h1 { font-size: 1.8rem; font-weight: 800; margin-bottom: 0.25rem; }
+        .header p { font-size: 0.9rem; opacity: 0.9; }
+        .content { padding: 2rem; }
+        .stations-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 2px solid #e2e8f0; }
+        .station-btn { background: #e2e8f0; border: none; padding: 0.7rem 1.2rem; border-radius: 40px; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.2s ease; color: #2c3e66; min-width: 70px; }
+        .station-btn:hover { background: #cbd5e1; transform: translateY(-2px); }
+        .station-btn.active { background: #c62828; color: white; box-shadow: 0 4px 12px rgba(198, 40, 40, 0.3); }
+        .info-card { background: #f8fafc; border-radius: 28px; padding: 1.8rem; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; transition: all 0.2s ease; }
+        .info-card:hover { box-shadow: 0 20px 30px -12px rgba(0,0,0,0.1); }
+        .station-number { font-size: 1.4rem; font-weight: 800; color: #c62828; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #ffc107; display: inline-block; }
+        .info-row { margin: 1rem 0; display: flex; flex-wrap: wrap; align-items: flex-start; gap: 0.5rem; }
+        .info-label { font-weight: 700; min-width: 100px; color: #2c3e66; }
+        .info-value { flex: 1; color: #1e2a3e; }
+        .phone-list { list-style: none; padding-left: 0; }
+        .phone-list li { margin-bottom: 0.3rem; }
+        .phone-list a { color: #c62828; text-decoration: none; font-weight: 500; }
+        .phone-list a:hover { text-decoration: underline; }
+        .map-links { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 0.25rem; }
+        .map-link { display: inline-flex; align-items: center; gap: 8px; background: #fff8e7; padding: 0.5rem 1rem; border-radius: 40px; color: #ea580c; text-decoration: none; font-weight: 500; transition: background 0.2s; border: 1px solid #fed7aa; }
+        .map-link.app-link { background: #e8f0fe; border-color: #b9d6fe; color: #1e5f7a; }
+        .map-link:hover { background: #ffe6cc; }
+        .map-link.app-link:hover { background: #d9e9ff; }
+        .divider { height: 1px; background: linear-gradient(90deg, #e2e8f0, transparent); margin: 1rem 0; }
+        @media (max-width: 700px) { .content { padding: 1rem; } .station-btn { padding: 0.5rem 0.9rem; font-size: 0.8rem; } .info-card { padding: 1.2rem; } .info-label { min-width: 80px; } }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>🚑 Подстанции скорой помощи</h1>
+        <p>ГБУ «Станция скорой и неотложной медицинской помощи им. А.С. Пучкова»</p>
+    </div>
+    <div class="content">
+        <div class="stations-grid" id="stations-buttons"></div>
+        <div id="info-display" class="info-card">
+            <div class="station-number">Выберите подстанцию</div>
+            <div class="info-row">
+                <div class="info-label">📍 Адрес:</div>
+                <div class="info-value">Нажмите на номер подстанции, чтобы увидеть данные</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function extractGeoId(url) { const match = url && url.includes('2gis.ru') ? url.match(/\/geo\/(\d+)/) : null; return match ? match[1] : null; }
+
+const stationsList = [
+    { id: "1", name: "Подстанция №1", address: "ГКБ №1 им. Н.И. Пирогова, Ленинский проспект, 8 к15, 119049, Москва, Якиманка", phones: ["+7(495)9592730","+7(495)6204140"], mapLink: "https://2gis.ru/moscow/geo/70000001025062716" },
+    { id: "2", name: "Подстанция №2", address: "улица Поликарпова, 4, 125284, Москва, Беговой", phones: ["+7(495)9459130"], mapLink: "https://2gis.ru/moscow/geo/70000001020810259" },
+    // ... добавь все остальные подстанции сюда (3–63) ...
+    { id: "31post", name: "Пост №31", address: "Весёлая улица, 31, 115516, Москва, Царицыно", phones: [], mapLink: "https://2gis.ru/moscow/geo/70000001049732299" }
+];
+
+stationsList.forEach(station => { station.geoId = extractGeoId(station.mapLink); });
+
+const buttonsContainer = document.getElementById('stations-buttons');
+stationsList.forEach(station => {
+    const btn = document.createElement('button');
+    btn.className = 'station-btn';
+    btn.textContent = station.id === '31post' ? '31п' : station.id;
+    btn.dataset.id = station.id;
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('.station-btn').forEach(btn => btn.classList.remove('active'));
+        btn.classList.add('active');
+        showStation(station.id);
+    });
+    buttonsContainer.appendChild(btn);
+});
+
+function showStation(id) {
+    const station = stationsList.find(s => s.id === id);
+    if (!station) return;
+    let phonesHtml = '';
+    if (station.phones && station.phones.length > 0) {
+        if (station.phones.length === 1) phonesHtml = `<a href="tel:${station.phones[0].replace(/[^0-9+]/g,'')}">${station.phones[0]}</a>`;
+        else { phonesHtml = '<ul class="phone-list">'; station.phones.forEach(p => { phonesHtml += `<li><a href="tel:${p.replace(/[^0-9+]/g,'')}">${p}</a></li>`; }); phonesHtml += '</ul>'; }
+    } else phonesHtml = '<span style="color: #8a99b0;">не указан</span>';
+    let mapLinksHtml = station.geoId ? `<div class="map-links"><a href="${station.mapLink}" target="_blank" rel="noopener noreferrer" class="map-link">🌍 Открыть в браузере</a><a href="dgis://2gis.ru/geo/${station.geoId}" class="map-link app-link">📱 Открыть в приложении 2ГИС</a></div>` : `<div class="map-links"><a href="${station.mapLink}" target="_blank" rel="noopener noreferrer" class="map-link">🌍 Открыть на карте</a></div>`;
+    const displayDiv = document.getElementById('info-display');
+    displayDiv.innerHTML = `<div class="station-number">${station.name}</div>
+        <div class="info-row"><div class="info-label">📍 Адрес:</div><div class="info-value">${station.address}</div></div>
+        <div class="info-row"><div class="info-label">📞 Телефон${station.phones && station.phones.length>1?'ы':''}:</div><div class="info-value">${phonesHtml}</div></div>
+        <div class="divider"></div>
+        <div class="info-row"><div class="info-label">🗺️ Карта:</div><div class="info-value">${mapLinksHtml}</div></div>`;
+}
+const firstBtn = document.querySelector('.station-btn'); if(firstBtn){ firstBtn.classList.add('active'); showStation('1'); }
+</script>
+</body>
+</html>
