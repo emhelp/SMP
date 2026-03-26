@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Карта вызова СМП | Преждевременная отслойка плаценты (ПОНРП)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #e2e8f0;
+            font-family: 'Segoe UI', 'Roboto', 'Inter', system-ui, sans-serif;
+            line-height: 1.5;
+            padding: 32px 24px;
+            color: #1a2c3e;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .medical-card {
+            background: #ffffff;
+            border-radius: 28px;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #a11c1c 0%, #7a1313 100%);
+            padding: 20px 32px;
+            color: white;
+            border-bottom: 4px solid #ffb347;
+        }
+
+        .card-header .mkb {
+            font-size: 14px;
+            opacity: 0.9;
+            font-family: monospace;
+        }
+
+        .card-header .warning {
+            font-size: 12px;
+            opacity: 0.85;
+            margin-top: 8px;
+            background: rgba(255,255,255,0.15);
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+
+        .card-content {
+            padding: 28px 36px;
+        }
+
+        .exam-block {
+            margin-bottom: 28px;
+            border: 1px solid #e2edf2;
+            border-radius: 20px;
+            overflow: hidden;
+            background: white;
+        }
+
+        .block-title {
+            background: #f1f6fb;
+            padding: 14px 24px;
+            font-weight: 800;
+            font-size: 18px;
+            color: #0b5e7c;
+            border-left: 5px solid #ffb347;
+            letter-spacing: -0.2px;
+        }
+
+        .block-content {
+            padding: 20px 28px;
+            background: #fefefe;
+            font-size: 15px;
+            line-height: 1.55;
+            color: #1e3a4f;
+            text-align: left;
+        }
+
+        .field-row {
+            margin-bottom: 12px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 8px;
+            text-align: left;
+        }
+
+        .field-label {
+            font-weight: 700;
+            color: #1c6d8f;
+            min-width: 220px;
+            font-size: 14px;
+        }
+
+        .field-value {
+            flex: 1;
+            color: #1e2f3c;
+            text-align: left;
+        }
+
+        .inline-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            margin: 12px 0;
+            text-align: left;
+        }
+
+        .inline-item {
+            flex: 1;
+            min-width: 180px;
+            text-align: left;
+        }
+
+        .diagnosis-box {
+            background: #fefaf5;
+            border-left: 4px solid #ffb347;
+            padding: 16px 20px;
+            border-radius: 16px;
+            margin-bottom: 8px;
+            text-align: left;
+        }
+
+        .diagnosis-box div {
+            margin-bottom: 8px;
+            text-align: left;
+        }
+
+        .status-local {
+            background: #f9fef7;
+            border-left: 4px solid #2c9c6e;
+            padding: 16px 20px;
+            border-radius: 16px;
+            margin-top: 8px;
+            text-align: left;
+        }
+
+        .status-local div {
+            margin-bottom: 8px;
+            text-align: left;
+        }
+
+        .key-signs {
+            background: #f0f4fa;
+            padding: 16px 20px;
+            border-radius: 16px;
+            margin: 12px 0;
+        }
+
+        .key-signs p {
+            margin-bottom: 6px;
+        }
+
+        .scales-box {
+            background: #f0f4fa;
+            padding: 16px 20px;
+            border-radius: 16px;
+            margin: 12px 0;
+        }
+
+        .scale-item {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .scale-label {
+            font-weight: 700;
+            color: #1c6d8f;
+            min-width: 180px;
+        }
+
+        .alert-note {
+            background: #ffebee;
+            border-left: 4px solid #c62828;
+            padding: 12px 16px;
+            border-radius: 12px;
+            margin-top: 16px;
+            font-size: 13px;
+        }
+
+        hr {
+            margin: 16px 0;
+            border: none;
+            height: 1px;
+            background: #e2ecf3;
+        }
+
+        .footer-note {
+            font-size: 13px;
+            color: #6c8eaa;
+            text-align: right;
+        }
+
+        @media (max-width: 700px) {
+            .card-content {
+                padding: 18px;
+            }
+            .block-content {
+                padding: 14px 18px;
+            }
+            .field-label {
+                min-width: 140px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="medical-card">
+        <div class="card-header">
+            <div class="mkb">МКБ-10: O45.9 — Преждевременная отслойка плаценты неуточненная (ПОНРП)</div>
+            <div class="warning">⚠️ НЕОТЛОЖНОЕ СОСТОЯНИЕ! ЭКСТРЕННАЯ ГОСПИТАЛИЗАЦИЯ! РИСК ГЕМОРРАГИЧЕСКОГО ШОКА И ГИБЕЛИ ПЛОДА!</div>
+        </div>
+        <div class="card-content">
+
+            <!-- ДИАГНОЗ -->
+            <div class="exam-block">
+                <div class="block-title">ДИАГНОЗ</div>
+                <div class="block-content">
+                    <div class="diagnosis-box">
+                        <div><strong>Основное заболевание:</strong> Преждевременная отслойка нормально расположенной плаценты (ПОНРП). Частичная / полная, не прогрессирующая / прогрессирующая. Центральная / краевая / смешанная форма. С наружным / внутренним / комбинированным кровотечением.</div>
+                        <div><strong>Осложнения:</strong> Геморрагический шок. ДВС-синдром (при нарушении свертываемости – O45.0). Матка Кувелера (маточно-плацентарная апоплексия). Острая гипоксия плода / антенатальная гибель плода.</div>
+                        <div><strong>Сопутствующие заболевания:</strong> Беременность ______ недель / I–II период родов. Преэклампсия / артериальная гипертензия / анемия / рубец на матке / многоплодие / многоводие (указать при наличии).</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ЖАЛОБЫ -->
+            <div class="exam-block">
+                <div class="block-title">ЖАЛОБЫ</div>
+                <div class="block-content">
+                    <div class="field-row"><span class="field-label">Кровянистые выделения:</span><span class="field-value">Кровянистые выделения из половых путей – от скудных до обильных, с темными сгустками / жидкие, алые (при наружном кровотечении). <strong>Важно: объем кровопотери может не соответствовать тяжести состояния при скрытом кровотечении.</strong></span></div>
+                    <div class="field-row"><span class="field-label">Болевой синдром:</span><span class="field-value">Резкая, внезапно возникшая боль в животе – в проекции плаценты (по передней или задней стенке матки), с иррадиацией в поясницу, крестец, бедро. При локализации плаценты по задней стенке боль может имитировать почечную колику.</span></div>
+                    <div class="field-row"><span class="field-label">Гипертонус матки:</span><span class="field-value">Напряжение и «окаменение» живота – матка не расслабляется, резко болезненна при пальпации.</span></div>
+                    <div class="field-row"><span class="field-label">Состояние плода:</span><span class="field-value">Изменение двигательной активности плода – бурное шевеление / резкое ослабление / отсутствие шевелений (при острой гипоксии или антенатальной гибели).</span></div>
+                    <div class="field-row"><span class="field-label">Общие проявления:</span><span class="field-value">Резкая слабость, головокружение, потемнение в глазах, холодный пот (при массивной кровопотере, геморрагическом шоке). Тошнота, рвота (рефлекторные, болевые).</span></div>
+                </div>
+            </div>
+
+            <!-- АНАМНЕЗ -->
+            <div class="exam-block">
+                <div class="block-title">АНАМНЕЗ</div>
+                <div class="block-content">
+                    <div class="field-row">
+                        <span class="field-label">Анамнез заболевания:</span>
+                        <span class="field-value">Заболела остро (указать время: ______). Среди полного здоровья / на фоне (преэклампсии, травмы, физической нагрузки, гипертонического криза, родовой деятельности). Состояние ухудшалось быстро / постепенно (при прогрессирующей отслойке). Ранее отслойки плаценты не было / была в анамнезе (фактор риска).</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Эпидемиологический анамнез:</span>
+                        <span class="field-value">Контакта с инфекционными больными нет.</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Аллергологический анамнез:</span>
+                        <span class="field-value">Не отягощен / отягощен (указать аллергию на лекарственные препараты).</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Гинекологический и акушерский анамнез:</span>
+                        <span class="field-value">Менструальная функция: менархе с __ лет, цикл __ дней, по __ дней, регулярный/нерегулярный. Последняя менструация: (дата) ______. Срок беременности настоящей: ______ недель (по менструации / УЗИ). Репродуктивная функция: беременностей – __, родов – __, абортов – __, выкидышей – __. Настоящая беременность: по счету ______. Состоит / не состоит на учете в женской консультации. Течение беременности: без осложнений / осложнено (преэклампсия, гипертензия, анемия, многоводие, многоплодие, предлежание плаценты – исключено ранее по УЗИ). УЗИ плода и плаценты: дата, срок, локализация плаценты (передняя/задняя стенка, дно), состояние кровотока. ПОНРП в анамнезе: была / не была (риск рецидива повышен в 10 раз).</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Экстрагенитальная патология (факторы риска!):</span>
+                        <span class="field-value">Артериальная гипертензия (хроническая / гестационная / преэклампсия) – ведущий фактор риска. Заболевания почек (гломерулонефрит, пиелонефрит). Аутоиммунные заболевания, антифосфолипидный синдром, тромбофилии. Сахарный диабет. Курение, употребление алкоголя, наркотиков.</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Выделения из половых путей:</span>
+                        <span class="field-value">На момент осмотра: кровянистые, количество: скудные / умеренные / обильные, характер: сгустки темные / жидкая алая кровь. Патологических (гнойных, пенистых, творожистых) выделений нет.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ОБЪЕКТИВНО -->
+            <div class="exam-block">
+                <div class="block-title">ОБЪЕКТИВНО</div>
+                <div class="block-content">
+                    <div class="inline-group">
+                        <div class="inline-item"><strong>Состояние:</strong> средней степени тяжести / тяжелое / крайне тяжелое</div>
+                        <div class="inline-item"><strong>Сознание:</strong> ясное / оглушение / сопор</div>
+                        <div class="inline-item"><strong>GCS:</strong> 15 / 14–13 / 12 баллов</div>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Положение:</span>
+                        <span class="field-value">Вынужденное (лежит на боку, щадит живот; при массивном кровотечении – гиподинамия).</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Кожные покровы:</span>
+                        <span class="field-value">Резко бледные, холодные, влажные, липкий пот. Акроцианоз, цианоз губ, носогубного треугольника. Сыпи, желтушности нет. Петехии, экхимозы (при ДВС-синдроме).</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Температура:</span>
+                        <span class="field-value">36,0 – 36,6 °C (нормотермия / гипотермия при шоке).</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ОРГАНЫ ДЫХАНИЯ -->
+            <div class="exam-block">
+                <div class="block-title">ОРГАНЫ ДЫХАНИЯ</div>
+                <div class="block-content">
+                    <div class="field-row"><span class="field-label">ЧДД:</span><span class="field-value">22–26–30 в мин (тахипноэ).</span></div>
+                    <div class="field-row"><span class="field-label">Одышка:</span><span class="field-value">Смешанная, инспираторная, выраженная.</span></div>
+                    <div class="field-row"><span class="field-label">Аускультативно:</span><span class="field-value">Дыхание везикулярное, проводится во все отделы. При отеке легких (терминальная стадия шока) – влажные хрипы в нижних отделах.</span></div>
+                </div>
+            </div>
+
+            <!-- ОРГАНЫ КРОВООБРАЩЕНИЯ -->
+            <div class="exam-block">
+                <div class="block-title">ОРГАНЫ КРОВООБРАЩЕНИЯ</div>
+                <div class="block-content">
+                    <div class="field-row"><span class="field-label">Пульс:</span><span class="field-value">100–120–140 в мин и выше, слабого наполнения и напряжения, нитевидный. ЧСС: 100–120–140 в мин.</span></div>
+                    <div class="field-row"><span class="field-label">АД:</span><span class="field-value">100/60 – 90/60 – 80/50 – <60/0 мм рт.ст. (прогрессирующая гипотония). Примечание: у пациенток с исходно высоким АД гипотония может быть относительной (снижение на 30–40% от привычного).</span></div>
+                    <div class="field-row"><span class="field-label">Тоны сердца:</span><span class="field-value">Приглушены, глухие, выраженная тахикардия. Систолический шум на верхушке.</span></div>
+                </div>
+            </div>
+
+            <!-- ОРГАНЫ ПИЩЕВАРЕНИЯ -->
+            <div class="exam-block">
+                <div class="block-title">ОРГАНЫ ПИЩЕВАРЕНИЯ</div>
+                <div class="block-content">
+                    <div class="field-row"><span class="field-label">Язык:</span><span class="field-value">Сухой, бледный.</span></div>
+                    <div class="field-row"><span class="field-label">Живот:</span><span class="field-value">Увеличен за счет беременной матки. Форма матки может быть асимметричной (при локальном выбухании в зоне ретроплацентарной гематомы). <strong>Резко болезненный при пальпации в проекции плаценты. Тонус матки: гипертонус, вплоть до тетании («каменистая» матка). Матка не расслабляется – ключевой признак!</strong></span></div>
+                    <div class="field-row"><span class="field-label">Симптомы раздражения брюшины:</span><span class="field-value">Отрицательные (при отсутствии разрыва матки).</span></div>
+                    <div class="field-row"><span class="field-label">Перистальтика:</span><span class="field-value">Выслушивается, ослаблена (парез кишечника при ретроперитонеальной гематоме).</span></div>
+                </div>
+            </div>
+
+            <!-- STATUS LOCALIS (акушерский статус) -->
+            <div class="exam-block">
+                <div class="block-title">STATUS LOCALIS (акушерский статус)</div>
+                <div class="block-content">
+                    <div class="status-local">
+                        <div><strong>Форма живота:</strong> Обычная / асимметричная (при больших ретроплацентарных гематомах).</div>
+                        <div><strong>Высота стояния дна матки (ВДМ):</strong> ______ см (соответствует / не соответствует сроку беременности; при большой гематоме ВДМ увеличена).</div>
+                        <div><strong>Тонус матки:</strong> Резко повышен (гипертонус), матка «каменистой» плотности, не расслабляется. При пальпации – резкая болезненность, особенно в проекции плаценты.</div>
+                        <div><strong>Положение плода:</strong> Продольное / поперечное / косое.</div>
+                        <div><strong>Сердцебиение плода:</strong> Тахикардия (>160 уд/мин) – начальная стадия гипоксии; брадикардия (<110 уд/мин) – тяжелая гипоксия; отсутствие – антенатальная гибель.</div>
+                        <div><strong>Двигательная активность плода:</strong> Бурная / ослаблена / отсутствует.</div>
+                        <div><strong>Характер родовой деятельности (при развитии в родах):</strong> Схватки: регулярные / нерегулярные. Резко болезненные, расслабление матки неполное или отсутствует (тетания). Эффективность токолитиков: не купируют гипертонус.</div>
+                        <div><strong>Наружные половые органы:</strong> В области преддверия влагалища, на промежности – кровянистые выделения.</div>
+                        <div><strong>Выделения из половых путей:</strong> Кровянистые, с темными сгустками / жидкая алая кровь. <strong>Ключевой признак: выделения могут быть скудными при тяжелой отслойке (скрытое кровотечение, матка Кувелера) – несоответствие объема видимой кровопотери тяжести состояния!</strong></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- КЛЮЧЕВЫЕ ПРИЗНАКИ -->
+            <div class="exam-block">
+                <div class="block-title">КЛЮЧЕВЫЕ ПРИЗНАКИ ПОНРП</div>
+                <div class="block-content">
+                    <div class="key-signs">
+                        <p>• Боль + гипертонус матки + кровотечение (классическая триада).</p>
+                        <p>• Несоответствие объема видимой кровопотери тяжести состояния (при скрытом кровотечении).</p>
+                        <p>• Острая гипоксия/гибель плода на фоне относительного благополучия.</p>
+                        <p>• Отсутствие эффекта от токолитиков.</p>
+                        <p>• Наличие факторов риска (гипертензия, преэклампсия, травма, ПОНРП в анамнезе).</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ОЦЕНКА ПО ШКАЛАМ -->
+            <div class="exam-block">
+                <div class="block-title">ОЦЕНКА ТЯЖЕСТИ</div>
+                <div class="block-content">
+                    <div class="scales-box">
+                        <div class="scale-item">
+                            <span class="scale-label">NEWS2:</span>
+                            <span>7–12 баллов и выше – критическое состояние, высокий риск летального исхода.</span>
+                        </div>
+                        <div class="scale-item">
+                            <span class="scale-label">Индекс Альговера (шоковый индекс):</span>
+                            <span>0,8–1,0 – кровопотеря 20–30% ОЦК (легкий шок).<br>1,0–1,5 – кровопотеря 30–40% ОЦК (средней тяжести).<br>>1,5 – кровопотеря >40% ОЦК (тяжелый шок, терминальное состояние).</span>
+                        </div>
+                        <div class="scale-item">
+                            <span class="scale-label">Степень тяжести ПОНРП (клиническая):</span>
+                            <span>Легкая: кровопотеря до 500 мл, незначительная боль, гипертонус не выражен, сердцебиение плода в норме.<br>Средняя: кровопотеря 500–1000 мл, боль, гипертонус, тахикардия плода, АД >90/60.<br>Тяжелая: кровопотеря >1000 мл, резкая боль, «каменистая» матка, гипотония, дистресс/гибель плода, ДВС, шок.</span>
+                        </div>
+                        <div class="scale-item">
+                            <span class="scale-label">Оценка состояния плода:</span>
+                            <span>120–160 уд/мин – компенсация.<br>>160 уд/мин – начальная гипоксия.<br><110 уд/мин – тяжелая гипоксия, декомпенсация.<br>Отсутствие – антенатальная гибель.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ДИФФЕРЕНЦИАЛЬНАЯ ДИАГНОСТИКА И ТАКТИКА -->
+            <div class="exam-block">
+                <div class="block-title">ДИФФЕРЕНЦИАЛЬНАЯ ДИАГНОСТИКА И ТАКТИКА</div>
+                <div class="block-content">
+                    <div class="alert-note">
+                        <strong>Дифференциальная диагностика проведена с:</strong><br>
+                        — <strong>Предлежанием плаценты:</strong> кровотечение алое, безболезненное, матка в нормотонусе, безболезненна. Сердцебиение плода страдает во вторую очередь. <strong>Дифференцировать клинически невозможно без УЗИ! Абсолютный запрет на влагалищное исследование!</strong><br>
+                        — <strong>Разрывом матки:</strong> резкая боль, шок, кровотечение. В анамнезе – рубец на матке, многорожавшие. Прекращение родовой деятельности, пальпация частей плода вне матки.<br>
+                        — <strong>Преэклампсией/эклампсией:</strong> гипертензия, отеки, протеинурия. Судороги, нарушение сознания. Кровотечение не характерно (может быть осложнением – ПОНРП на фоне преэклампсии).<br><br>
+                        <strong>Примечание для бригады СМП:</strong><br>
+                        — Экстренная госпитализация в акушерский стационар (родильный зал, отделение патологии беременных).<br>
+                        — Транспортировка на носилках в положении лежа на спине, полный покой.<br>
+                        — <strong>Категорически запрещены влагалищное исследование, пальпация шейки матки!</strong><br>
+                        — Инфузионная терапия на догоспитальном этапе (кристаллоиды) для стабилизации гемодинамики.<br>
+                        — Мониторинг сердцебиения плода каждые 10–15 минут.<br>
+                        — При признаках ДВС-синдрома – свежезамороженная плазма, транексамовая кислота (после консультации с врачом стационара).<br>
+                        — <strong>Время от вызова до операционной – критический фактор выживания матери и плода!</strong>
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+            <div class="footer-note">
+                O45.9 — Преждевременная отслойка плаценты | Экстренная госпитализация в акушерский стационар | Экстренное кесарево сечение
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
