@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Калькулятор инфузии добутамина | Дети</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(145deg, #f0f5fa 0%, #e4ecf3 100%);
+            font-family: 'Inter', -apple-system, 'Segoe UI', Roboto, system-ui, sans-serif;
+            padding: 16px;
+            min-height: 100vh;
+            color: #1a4a5f;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(115deg, #6f9eae 0%, #4a7a8a 100%);
+            border-radius: 28px;
+            padding: 24px 28px;
+            margin-bottom: 24px;
+            color: white;
+            box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .header h1 span {
+            font-size: 0.9rem;
+            background: rgba(255,255,255,0.2);
+            padding: 5px 14px;
+            border-radius: 40px;
+        }
+
+        .header p {
+            margin-top: 12px;
+            opacity: 0.92;
+            border-left: 3px solid #bcd9e3;
+            padding-left: 18px;
+            font-size: 0.9rem;
+        }
+
+        /* Вкладки способов введения */
+        .tabs-wrapper {
+            margin-bottom: 24px;
+        }
+
+        .tabs-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #4a7a8a;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tabs-label::before {
+            content: "👶";
+            font-size: 1rem;
+        }
+
+        .nav-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .tab-btn {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border: 2px solid #cbdde6;
+            padding: 10px 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #4a7a8a;
+            cursor: pointer;
+            border-radius: 60px;
+            transition: all 0.25s ease;
+            font-family: inherit;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            flex: 0 0 auto;
+        }
+
+        .tab-btn:hover {
+            background: linear-gradient(135deg, #e8f0f5 0%, #dfeaf0 100%);
+            border-color: #6f9eae;
+            transform: translateY(-2px);
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, #6f9eae 0%, #4a7a8a 100%);
+            border-color: #ffc107;
+            color: white;
+            box-shadow: 0 4px 12px rgba(111,158,174,0.4);
+        }
+
+        /* Карточки */
+        .card {
+            background: white;
+            border-radius: 28px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            border: 1px solid #e2ecf3;
+            transition: all 0.2s;
+        }
+
+        .card:hover {
+            box-shadow: 0 12px 28px rgba(0,0,0,0.1);
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #4a7a8a;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-left: 4px solid #8fb7c5;
+            padding-left: 16px;
+        }
+
+        /* Параметры ввода */
+        .param-group {
+            margin-bottom: 24px;
+        }
+
+        .param-label {
+            font-weight: 600;
+            color: #2c6b5a;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+
+        .input-row {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .input-field {
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .input-field label {
+            font-size: 0.75rem;
+            color: #6f8eaa;
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+
+        .input-field input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e2ecf3;
+            border-radius: 18px;
+            font-size: 0.95rem;
+            font-family: inherit;
+            transition: all 0.25s ease;
+            background: white;
+        }
+
+        .input-field input:hover {
+            border-color: #8fb7c5;
+        }
+
+        .input-field input:focus {
+            outline: none;
+            border-color: #4a7a8a;
+            box-shadow: 0 0 0 3px rgba(74,122,138,0.1);
+        }
+
+        /* Таблица результатов */
+        .result-table-wrapper {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        .result-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+            min-width: 550px;
+        }
+
+        .result-table th, .result-table td {
+            padding: 12px 10px;
+            text-align: center;
+            border-bottom: 1px solid #e2ecf3;
+        }
+
+        .result-table th {
+            background: #f0f7fc;
+            color: #4a7a8a;
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+
+        .result-table td {
+            font-weight: 500;
+            color: #1a4a5f;
+        }
+
+        /* Выделение часто используемых скоростей */
+        .result-table td.highlight-speed {
+            background: #e8f5e9;
+            color: #2e7d32;
+            font-weight: 700;
+            position: relative;
+        }
+
+        .result-table td.highlight-speed::after {
+            content: "⭐";
+            position: absolute;
+            top: 2px;
+            right: 4px;
+            font-size: 10px;
+        }
+
+        .speed-note {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 10px 14px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            margin-top: 12px;
+        }
+
+        .info-note {
+            background: #e8f4fc;
+            border-left: 4px solid #8fb7c5;
+            padding: 12px 16px;
+            border-radius: 16px;
+            margin: 16px 0;
+            font-size: 0.8rem;
+        }
+
+        .warning-note {
+            background: #fff8e8;
+            border-left: 4px solid #e6a017;
+            padding: 12px 16px;
+            border-radius: 16px;
+            margin: 16px 0;
+            font-size: 0.8rem;
+        }
+
+        .danger-note {
+            background: #fee8e8;
+            border-left: 4px solid #c62828;
+            padding: 12px 16px;
+            border-radius: 16px;
+            margin: 16px 0;
+            font-size: 0.8rem;
+        }
+
+        .btn-reset {
+            background: linear-gradient(135deg, #eef2f8 0%, #e6edf4 100%);
+            border: 2px solid #cbdde6;
+            padding: 10px 20px;
+            border-radius: 60px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            color: #4a7a8a;
+            transition: all 0.25s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .btn-reset:hover {
+            background: linear-gradient(135deg, #e2eaf2 0%, #d8e2ec 100%);
+            border-color: #4a7a8a;
+            transform: translateY(-2px);
+        }
+
+        .footnote {
+            font-size: 0.7rem;
+            color: #7c9ab3;
+            text-align: center;
+            margin-top: 24px;
+            padding-top: 16px;
+            border-top: 1px solid #e2ecf3;
+            line-height: 1.5;
+        }
+
+        /* Скрытие контента вкладок */
+        .tab-content {
+            display: none;
+            animation: fade 0.25s ease;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        @keyframes fade {
+            from { opacity: 0; transform: translateY(8px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+
+        /* Адаптация под мобильные */
+        @media (max-width: 768px) {
+            body {
+                padding: 12px;
+            }
+            .header {
+                padding: 18px 20px;
+            }
+            .header h1 {
+                font-size: 1.3rem;
+            }
+            .header p {
+                font-size: 0.8rem;
+            }
+            .tab-btn {
+                padding: 8px 14px;
+                font-size: 0.75rem;
+                flex: 1;
+                justify-content: center;
+            }
+            .card {
+                padding: 18px;
+            }
+            .card-title {
+                font-size: 1.1rem;
+            }
+            .input-field input {
+                padding: 10px 14px;
+                font-size: 0.85rem;
+            }
+            .result-table th, .result-table td {
+                padding: 8px 6px;
+                font-size: 0.7rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .input-row {
+                flex-direction: column;
+                gap: 12px;
+            }
+            .tab-btn {
+                padding: 8px 10px;
+                font-size: 0.7rem;
+            }
+            .result-table td.highlight-speed::after {
+                font-size: 8px;
+            }
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .tab-btn, .btn-reset {
+                display: none;
+            }
+            .card {
+                box-shadow: none;
+                border: 1px solid #ccc;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>
+            👶 Калькулятор инфузии добутамина
+            <span>для детей</span>
+        </h1>
+        <p>Расчет скорости введения добутамина у детей с использованием шприцевого насоса (мл/час) и капельной инфузии (капли/мин). ⭐ — выделены наиболее часто используемые в практике скорости (5–15 мкг/кг/мин).</p>
+    </div>
+
+    <!-- Вкладки способов введения -->
+    <div class="tabs-wrapper">
+        <div class="tabs-label">Способ введения:</div>
+        <div class="nav-tabs">
+            <button class="tab-btn active" data-tab="syringe">💉 Шприцевой насос (мл/час)</button>
+            <button class="tab-btn" data-tab="drip">💧 Капельная инфузия (капли/мин)</button>
+        </div>
+    </div>
+
+    <!-- Шприцевой насос -->
+    <div id="syringe" class="tab-content active">
+        <div class="card">
+            <div class="card-title">📊 Шприцевой насос | Шприц 20 мл</div>
+            <div class="param-group">
+                <div class="param-label">👶 Данные ребенка</div>
+                <div class="input-row">
+                    <div class="input-field">
+                        <label>Масса тела (кг)</label>
+                        <input type="number" id="weightSyringe" value="10" step="0.5" min="2" max="45">
+                    </div>
+                </div>
+            </div>
+            <div class="info-note">
+                <strong>📌 Разведение:</strong> Добутамин 250 мг (флакон) + Натрия хлорид 0,9% до 20 мл (12,5 мг/мл).<br>
+                <strong>⚙️ Единица измерения:</strong> мл/час (устанавливается на шприцевом насосе)<br>
+                <strong>👥 Весовая категория:</strong> 2,5–45 кг<br>
+                <strong>💊 Терапевтический диапазон:</strong> 2,5–15 мкг/кг/мин
+            </div>
+            <div class="result-table-wrapper">
+                <table class="result-table" id="tableSyringe">
+                    <thead>
+                        <tr>
+                            <th>Вес (кг)</th>
+                            <th>2,5 мкг/кг/мин</th>
+                            <th>5 мкг/кг/мин</th>
+                            <th>7,5 мкг/кг/мин</th>
+                            <th>10 мкг/кг/мин</th>
+                            <th>15 мкг/кг/мин</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableSyringeBody"></tbody>
+                </table>
+            </div>
+            <div class="speed-note">
+                ⭐ <strong>Часто используемые скорости:</strong> 5–15 мкг/кг/мин — стандартный диапазон для инотропной поддержки у детей.
+            </div>
+        </div>
+    </div>
+
+    <!-- Капельная инфузия -->
+    <div id="drip" class="tab-content">
+        <div class="card">
+            <div class="card-title">📊 Капельная инфузия</div>
+            <div class="param-group">
+                <div class="param-label">👶 Данные ребенка</div>
+                <div class="input-row">
+                    <div class="input-field">
+                        <label>Масса тела (кг)</label>
+                        <input type="number" id="weightDrip" value="10" step="0.5" min="2" max="45">
+                    </div>
+                </div>
+            </div>
+            <div class="info-note">
+                <strong>📌 Разведение:</strong> Добутамин 250 мг (флакон) + Натрия хлорид 0,9% 250 мл (1 мг/мл).<br>
+                <strong>⚙️ Единица измерения:</strong> капли в минуту (20 капель = 1 мл)<br>
+                <strong>👥 Весовая категория:</strong> 2,5–45 кг<br>
+                <strong>💊 Терапевтический диапазон:</strong> 2,5–15 мкг/кг/мин
+            </div>
+            <div class="result-table-wrapper">
+                <table class="result-table" id="tableDrip">
+                    <thead>
+                        <tr>
+                            <th>Вес (кг)</th>
+                            <th>2,5 мкг/кг/мин</th>
+                            <th>5 мкг/кг/мин</th>
+                            <th>7,5 мкг/кг/мин</th>
+                            <th>10 мкг/кг/мин</th>
+                            <th>15 мкг/кг/мин</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableDripBody"></tbody>
+                </table>
+            </div>
+            <div class="speed-note">
+                ⭐ <strong>Часто используемые скорости:</strong> 5–15 мкг/кг/мин — стандартный диапазон для инотропной поддержки.
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-title">⚠️ Клинические рекомендации (добутамин у детей)</div>
+        <div class="warning-note">
+            <strong>💊 Дозы добутамина у детей:</strong><br>
+            • <strong>2,5–5 мкг/кг/мин</strong> — слабый инотропный эффект<br>
+            • <strong>5–10 мкг/кг/мин</strong> — умеренный инотропный эффект (увеличение сердечного выброса)<br>
+            • <strong>10–15 мкг/кг/мин</strong> — выраженный инотропный эффект<br>
+            • <strong>>15 мкг/кг/мин</strong> — риск тахикардии, аритмий
+        </div>
+        <div class="danger-note">
+            <strong>⚠️ Важно!</strong> Добутамин преимущественно влияет на β₁-адренорецепторы. При дозах выше 10–15 мкг/кг/мин может вызывать тахикардию и аритмии. Инфузия проводится под контролем ЭКГ и АД. У детей требуется особый контроль скорости введения!
+        </div>
+        <button class="btn-reset" id="resetBtn">⟳ Сбросить все значения к 10 кг</button>
+    </div>
+
+    <div class="footnote">
+        ⚕️ Расчеты основаны на стандартных протоколах инфузии добутамина у детей. Скорость введения корректируется индивидуально под контролем гемодинамики и ЭКГ. ⭐ — выделены скорости, наиболее часто применяемые в клинической практике (5–15 мкг/кг/мин).<br>
+        <strong>📌 Формулы расчета:</strong><br>
+        • Шприцевой насос (мл/час) = (доза мкг/кг/мин × вес кг × 60) / (концентрация мг/мл × 1000)<br>
+        • Капельная инфузия (капли/мин) = (доза мкг/кг/мин × вес кг × 60) / (концентрация мг/мл × 1000) × 20<br>
+        <strong>📌 Концентрации:</strong> Шприц 20 мл — 12,5 мг/мл; Капельно — 1 мг/мл (250 мг в 250 мл)
+    </div>
+</div>
+
+<script>
+    // Данные для шприцевого насоса (мл/час) - на основе таблицы
+    const syringeData = {
+        doses: [2.5, 5, 7.5, 10, 15],
+        weights: [2.5, 5, 10, 15, 20, 25, 30, 35, 40, 45],
+        unit: "мл/час",
+        values: {
+            2.5: [0.03, 0.06, 0.09, 0.12, 0.18],
+            5: [0.06, 0.12, 0.18, 0.24, 0.36],
+            10: [0.12, 0.24, 0.36, 0.48, 0.72],
+            15: [0.18, 0.36, 0.54, 0.72, 1.08],
+            20: [0.24, 0.48, 0.72, 0.96, 1.44],
+            25: [0.30, 0.60, 0.90, 1.20, 1.80],
+            30: [0.36, 0.72, 1.08, 1.44, 2.16],
+            35: [0.42, 0.84, 1.26, 1.68, 2.52],
+            40: [0.48, 0.96, 1.44, 1.92, 2.88],
+            45: [0.54, 1.08, 1.62, 2.16, 3.24]
+        }
+    };
+
+    // Данные для капельной инфузии (капли/мин) - концентрация 1 мг/мл
+    const dripData = {
+        doses: [2.5, 5, 7.5, 10, 15],
+        weights: [2.5, 5, 10, 15, 20, 25, 30, 35, 40, 45],
+        unit: "кап/мин",
+        // Расчет: (доза × вес × 60) / (концентрация × 1000) × 20
+        // концентрация = 1 мг/мл, поэтому формула: доза × вес × 60 / 1000 × 20 = доза × вес × 1.2
+        values: {
+            2.5: [7.5, 15, 22.5, 30, 45],
+            5: [15, 30, 45, 60, 90],
+            10: [30, 60, 90, 120, 180],
+            15: [45, 90, 135, 180, 270],
+            20: [60, 120, 180, 240, 360],
+            25: [75, 150, 225, 300, 450],
+            30: [90, 180, 270, 360, 540],
+            35: [105, 210, 315, 420, 630],
+            40: [120, 240, 360, 480, 720],
+            45: [135, 270, 405, 540, 810]
+        }
+    };
+
+    function isHighlightSpeed(dose) {
+        return dose >= 5;
+    }
+
+    function formatValue(value, unit, dose) {
+        let formattedValue;
+        if (unit === "мл/час") {
+            formattedValue = value.toFixed(2);
+        } else {
+            // Для капель используем целые числа
+            formattedValue = Math.round(value);
+        }
+        return `${formattedValue} ${unit}`;
+    }
+
+    function findClosestWeight(weight, weights) {
+        return weights.reduce((prev, curr) => {
+            return (Math.abs(curr - weight) < Math.abs(prev - weight) ? curr : prev);
+        });
+    }
+
+    function updateSyringeTable() {
+        let weight = parseFloat(document.getElementById('weightSyringe').value);
+        if (isNaN(weight)) weight = 10;
+        weight = Math.min(Math.max(weight, 2), 45);
+        
+        let closestWeight = findClosestWeight(weight, syringeData.weights);
+        const values = syringeData.values[closestWeight];
+        const unit = syringeData.unit;
+        const tbody = document.getElementById('tableSyringeBody');
+        tbody.innerHTML = '';
+        
+        const row = document.createElement('tr');
+        row.innerHTML = `<td style="font-weight: 600;">${closestWeight} кг</td>`;
+        for (let i = 0; i < syringeData.doses.length; i++) {
+            const value = values[i];
+            const formattedValue = formatValue(value, unit, syringeData.doses[i]);
+            const td = document.createElement('td');
+            td.textContent = formattedValue;
+            if (isHighlightSpeed(syringeData.doses[i])) {
+                td.classList.add('highlight-speed');
+            }
+            row.appendChild(td);
+        }
+        tbody.appendChild(row);
+        
+        if (Math.abs(weight - closestWeight) > 0.1) {
+            const note = document.createElement('tr');
+            note.style.backgroundColor = '#fff8e8';
+            note.innerHTML = `<td colspan="6" style="text-align: center; font-size: 0.7rem; padding: 8px;">
+                ⚠️ Ближайшее табличное значение для веса ${weight} кг — ${closestWeight} кг.
+                Для точного расчета используйте формулу в примечании.
+             </td>`;
+            tbody.appendChild(note);
+        }
+    }
+
+    function updateDripTable() {
+        let weight = parseFloat(document.getElementById('weightDrip').value);
+        if (isNaN(weight)) weight = 10;
+        weight = Math.min(Math.max(weight, 2), 45);
+        
+        let closestWeight = findClosestWeight(weight, dripData.weights);
+        const values = dripData.values[closestWeight];
+        const unit = dripData.unit;
+        const tbody = document.getElementById('tableDripBody');
+        tbody.innerHTML = '';
+        
+        const row = document.createElement('tr');
+        row.innerHTML = `<td style="font-weight: 600;">${closestWeight} кг</td>`;
+        for (let i = 0; i < dripData.doses.length; i++) {
+            const value = values[i];
+            const formattedValue = formatValue(value, unit, dripData.doses[i]);
+            const td = document.createElement('td');
+            td.textContent = formattedValue;
+            if (isHighlightSpeed(dripData.doses[i])) {
+                td.classList.add('highlight-speed');
+            }
+            row.appendChild(td);
+        }
+        tbody.appendChild(row);
+        
+        if (Math.abs(weight - closestWeight) > 0.1) {
+            const note = document.createElement('tr');
+            note.style.backgroundColor = '#fff8e8';
+            note.innerHTML = `<td colspan="6" style="text-align: center; font-size: 0.7rem; padding: 8px;">
+                ⚠️ Ближайшее табличное значение для веса ${weight} кг — ${closestWeight} кг.
+                Для точного расчета используйте формулу в примечании.
+             </td>`;
+            tbody.appendChild(note);
+        }
+    }
+
+    function resetAllWeights() {
+        document.getElementById('weightSyringe').value = '10';
+        document.getElementById('weightDrip').value = '10';
+        updateSyringeTable();
+        updateDripTable();
+    }
+
+    function activateTab(tabId) {
+        const contents = document.querySelectorAll('.tab-content');
+        contents.forEach(content => {
+            content.classList.remove('active');
+            if (content.id === tabId) content.classList.add('active');
+        });
+        const tabs = document.querySelectorAll('.tab-btn');
+        tabs.forEach(btn => {
+            btn.classList.remove('active');
+            if (btn.getAttribute('data-tab') === tabId) btn.classList.add('active');
+        });
+    }
+
+    document.getElementById('weightSyringe').addEventListener('input', updateSyringeTable);
+    document.getElementById('weightDrip').addEventListener('input', updateDripTable);
+    document.getElementById('resetBtn').addEventListener('click', resetAllWeights);
+
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            activateTab(btn.getAttribute('data-tab'));
+        });
+    });
+    
+    updateSyringeTable();
+    updateDripTable();
+</script>
+</body>
+</html>
