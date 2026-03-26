@@ -22,7 +22,7 @@ body {
 .menu {
   display: flex;
   flex-direction: column;
-  width: 100%; /* Полная ширина */
+  width: 100%;
   margin: 0;
   padding: 0;
 }
@@ -30,33 +30,42 @@ body {
 /* Кнопки меню */
 .menu-btn {
   display: block;
-  width: 100%;      /* Ширина кнопки на весь экран */
+  width: 100%;               /* Полная ширина */
   text-align: center;
-  padding: 15px 0;
+  padding: 16px 0;           /* Высота кнопки */
   font-size: 18px;
-  background-color: #ccc;
-  color: #000;
-  text-decoration: none; /* Убираем подчеркивание ссылки */
+  font-weight: bold;
+  background-color: #e0e0e0;
+  color: #222;
+  text-decoration: none;     /* Убираем подчеркивание ссылки */
   border: none;
   cursor: pointer;
-  transition: 0.2s;
+  transition: all 0.3s ease; /* Плавная анимация */
+  border-radius: 8px;        /* Скругление углов */
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Тень */
+  margin: 6px 10px;          /* Отступы между кнопками */
 }
 
-/* Наведение */
+/* Наведение на кнопку */
 .menu-btn:hover {
-  background-color: #bbb;
+  background-color: #d0d0d0;
+  transform: translateY(-2px); /* Лёгкое “всплытие” */
+  box-shadow: 0 6px 8px rgba(0,0,0,0.15);
 }
 
 /* Активная кнопка */
 .menu-btn.active {
-  background-color: red;
+  background-color: #e53935; /* Красный */
   color: #fff;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+  transform: translateY(0);
 }
 
-/* Адаптивность для телефонов и планшетов */
+/* Адаптивность для телефонов */
 @media (max-width: 600px) {
   .menu-btn {
     font-size: 16px;
-    padding: 12px 0;
+    padding: 14px 0;
+    margin: 4px 5px;
   }
 }
