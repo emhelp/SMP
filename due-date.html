@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Акушерский калькулятор: срок беременности, дата родов, ВСДМ</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(145deg, #f5f0eb 0%, #e8dfd7 100%);
+            font-family: 'Segoe UI', 'Roboto', system-ui, -apple-system, 'Helvetica Neue', sans-serif;
+            padding: 2rem 1rem;
+            min-height: 100vh;
+        }
+
+        .calculator-container {
+            max-width: 780px;
+            margin: 0 auto;
+            background: #fffef7;
+            border-radius: 48px;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .calc-header {
+            background: #f3e1d4;
+            padding: 1.8rem 2rem;
+            border-bottom: 2px solid #f2cfbc;
+        }
+        .calc-header h1 {
+            font-size: 1.8rem;
+            color: #5a3e2b;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .calc-header p {
+            color: #7a5a44;
+            margin-top: 8px;
+            font-size: 0.95rem;
+        }
+
+        .calc-body {
+            padding: 2rem;
+        }
+
+        .input-group {
+            margin-bottom: 1.8rem;
+        }
+        .input-group label {
+            font-weight: 600;
+            color: #4b3621;
+            display: block;
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+        .date-input {
+            width: 100%;
+            padding: 14px 18px;
+            font-size: 1rem;
+            border: 2px solid #f0d5c4;
+            border-radius: 60px;
+            background: white;
+            transition: 0.2s;
+            font-family: inherit;
+            color: #2c241a;
+        }
+        .date-input:focus {
+            outline: none;
+            border-color: #c2855b;
+            box-shadow: 0 0 0 3px rgba(194, 133, 91, 0.2);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin: 24px 0 20px;
+        }
+        .btn {
+            background: #e7d3c6;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 80px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: #4f2f1a;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+        .btn-primary {
+            background: #b97f54;
+            color: white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+        .btn-primary:hover {
+            background: #9c6642;
+            transform: scale(0.97);
+        }
+        .btn-secondary {
+            background: #f0e3db;
+            border: 1px solid #ddcbbc;
+        }
+        .btn-secondary:hover {
+            background: #e3d2c7;
+        }
+
+        .result-card {
+            background: #fef8f2;
+            border-radius: 32px;
+            padding: 1.2rem 1.6rem;
+            margin: 1.8rem 0 1rem;
+            border-left: 8px solid #c28a62;
+            transition: all 0.2s;
+        }
+        
+        /* Стиль для текущего срока беременности - крупно и голубое выделение */
+        .gestational {
+            background: #e3f2fd;
+            padding: 16px 20px;
+            border-radius: 28px;
+            margin: 16px 0;
+            text-align: center;
+            border-left: 6px solid #2196f3;
+        }
+        .gestational .gestational-label {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #0d47a1;
+            display: block;
+            margin-bottom: 8px;
+        }
+        .gestational .gestational-value {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #0b5e9e;
+            letter-spacing: 0.5px;
+        }
+        
+        /* Стиль для ПДР - оранжевое выделение обычным шрифтом */
+        .due-date {
+            background: #fff3e0;
+            padding: 12px 18px;
+            border-radius: 28px;
+            margin: 16px 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+            border-left: 4px solid #ff9800;
+        }
+        .due-date-label {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #e65100;
+        }
+        .due-date-value {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #e65100;
+        }
+        
+        /* Стиль для количества дней до родов - зеленое выделение обычным шрифтом */
+        .days-left {
+            background: #e8f5e9;
+            padding: 12px 18px;
+            border-radius: 28px;
+            margin: 16px 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+            border-left: 4px solid #4caf50;
+        }
+        .days-left-label {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #2e7d32;
+        }
+        .days-left-value {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #2e7d32;
+        }
+        
+        /* Стиль для ВСДМ - крупный шрифт */
+        .fundus-box {
+            background: #fff5ea;
+            border-radius: 28px;
+            padding: 16px 20px;
+            margin-top: 18px;
+            border: 1px solid #f2e0d2;
+        }
+        .fundus-title {
+            font-weight: 800;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #7c5a42;
+            margin-bottom: 12px;
+        }
+        .fundus-desc {
+            font-size: 1rem;
+            line-height: 1.45;
+            color: #3a2a1f;
+        }
+        
+        /* Стиль для аускультации и шевелений - крупный шрифт */
+        .fetal-title {
+            font-weight: 800;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #7c5a42;
+            margin: 12px 0 12px 0;
+        }
+        .fetal-desc {
+            font-size: 1rem;
+            line-height: 1.45;
+            color: #3a2a1f;
+        }
+        
+        /* Стиль для локального статуса шевелений */
+        .movement-status {
+            background: #faf3e8;
+            border-radius: 20px;
+            padding: 12px 16px;
+            margin-top: 12px;
+            border-left: 4px solid #c28a62;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        .movement-status strong {
+            color: #a56b3a;
+        }
+        
+        .warning-note {
+            font-size: 0.75rem;
+            color: #a77958;
+            margin-top: 20px;
+            text-align: center;
+            border-top: 1px solid #f2e2d6;
+            padding-top: 18px;
+        }
+        
+        @media (max-width: 550px) {
+            .calc-body { padding: 1.5rem; }
+            .due-date { flex-direction: column; align-items: flex-start; }
+            .days-left { flex-direction: column; align-items: flex-start; }
+            .gestational .gestational-value { font-size: 1.5rem; }
+            .fundus-title, .fetal-title { font-size: 1rem; }
+        }
+        .fade-in { animation: fadeSlide 0.3s ease; }
+        @keyframes fadeSlide {
+            from { opacity: 0; transform: translateY(8px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+    </style>
+</head>
+<body>
+<div class="calculator-container">
+    <div class="calc-header">
+        <h1>
+            📅 Калькулятор даты родов
+            <span style="font-size: 1rem; background: #ffffffaa; border-radius: 40px; padding: 4px 12px;">по последней менструации</span>
+        </h1>
+        <p>Акушерский срок + высота дна матки + сердцебиение и шевеления плода</p>
+    </div>
+    <div class="calc-body">
+        <div class="input-group">
+            <label>📆 Первый день последней менструации (ПДПМ):</label>
+            <input type="date" id="lastMenstrualDate" class="date-input" value="2026-01-01">
+        </div>
+
+        <div class="button-group">
+            <button id="calculateBtn" class="btn btn-primary">✅ Рассчитать</button>
+            <button id="resetBtn" class="btn btn-secondary">🗑️ Сбросить (01.01.2026)</button>
+        </div>
+
+        <div id="resultArea">
+            <div class="result-card">
+                <!-- Текущий срок беременности - крупно и голубое выделение -->
+                <div class="gestational">
+                    <div class="gestational-label">📍 Текущий срок беременности (акушерский):</div>
+                    <div class="gestational-value" id="weeksDays">—</div>
+                </div>
+                
+                <!-- Предполагаемая дата родов - оранжевое выделение -->
+                <div class="due-date">
+                    <span class="due-date-label">🤰 Предполагаемая дата родов (ПДР):</span>
+                    <span class="due-date-value" id="dueDateDisplay">—</span>
+                </div>
+                
+                <!-- Количество дней до родов - зеленое выделение -->
+                <div class="days-left">
+                    <span class="days-left-label">⏳ Количество дней до родов (ПДР):</span>
+                    <span class="days-left-value" id="daysLeftDisplay">—</span>
+                </div>
+                
+                <div class="fundus-box">
+                    <div class="fundus-title">📏 Высота стояния дна матки (ВСДМ)</div>
+                    <div class="fundus-desc" id="fundusDescription"></div>
+                    
+                    <div class="fetal-title">❤️ Аускультация и шевеления</div>
+                    <div class="fetal-desc" id="fetalInfo"></div>
+                    <div class="movement-status" id="movementStatus"></div>
+                </div>
+                
+                <div class="warning-note">
+                    ⚕️ Значения ВСДМ ориентировочны (±2 см). Формула Негеле: ПДР = ПДПМ + 280 дней.<br>
+                    Сердцебиение плода выслушивается акушерским стетоскопом с 18–20 недель, допплером — с 10–12 недель.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function() {
+        const dateInput = document.getElementById('lastMenstrualDate');
+        const calcBtn = document.getElementById('calculateBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const dueDateSpan = document.getElementById('dueDateDisplay');
+        const weeksDaysSpan = document.getElementById('weeksDays');
+        const daysLeftSpan = document.getElementById('daysLeftDisplay');
+        const fundusDescSpan = document.getElementById('fundusDescription');
+        const fetalInfoSpan = document.getElementById('fetalInfo');
+        const movementStatusSpan = document.getElementById('movementStatus');
+
+        function formatDateToDMY(date) {
+            if (!date || isNaN(date.getTime())) return '—';
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const year = date.getFullYear();
+            return `${day}.${month}.${year}`;
+        }
+
+        function getDueDate(lmpDate) {
+            let due = new Date(lmpDate);
+            due.setDate(due.getDate() + 280);
+            return due;
+        }
+
+        function getGestationalAge(lmpDate, refDate = new Date()) {
+            if (!lmpDate || isNaN(lmpDate.getTime())) return null;
+            const diffMs = refDate - lmpDate;
+            if (diffMs < 0) return { weeks: 0, days: 0, isNegative: true, daysTotal: 0 };
+            const daysTotal = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+            const weeks = Math.floor(daysTotal / 7);
+            const days = daysTotal % 7;
+            return { weeks, days, daysTotal, isNegative: false };
+        }
+
+        function getDaysUntilDue(dueDate, refDate = new Date()) {
+            if (!dueDate || isNaN(dueDate.getTime())) return null;
+            refDate.setHours(0, 0, 0, 0);
+            dueDate.setHours(0, 0, 0, 0);
+            const diffMs = dueDate - refDate;
+            if (diffMs <= 0) return { days: 0, weeks: 0, isPast: diffMs < 0 };
+            const daysTotal = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+            const weeks = Math.floor(daysTotal / 7);
+            const days = daysTotal % 7;
+            return { days: daysTotal, weeks, days, isPast: false };
+        }
+
+        function declensionWeeks(weeks) {
+            if (weeks % 10 === 1 && weeks % 100 !== 11) return "неделя";
+            if ([2,3,4].includes(weeks % 10) && ![12,13,14].includes(weeks % 100)) return "недели";
+            return "недель";
+        }
+        function declensionDays(days) {
+            if (days % 10 === 1 && days % 100 !== 11) return "день";
+            if ([2,3,4].includes(days % 10) && ![12,13,14].includes(days % 100)) return "дня";
+            return "дней";
+        }
+
+        // Высота дна матки (описание)
+        function getFundusHeightDescription(weeks) {
+            if (weeks < 12) return "🔹 До 12 недель: дно матки находится за лонным сочленением, пальпаторно не определяется.";
+            if (weeks < 16) return "🔸 12–14 недель: дно матки на уровне верхнего края лобка (2–3 см над лоном).";
+            if (weeks < 20) return "🔸 16 недель: дно матки на середине между лоном и пупком (~6–8 см выше лона).";
+            if (weeks < 24) return "🔸 20 недель: дно матки на 2 пальца ниже пупка (~18–20 см).";
+            if (weeks < 28) return "🔸 24 недели: дно матки на уровне пупка (22–24 см).";
+            if (weeks < 32) return "🔸 28 недель: дно матки на 2–3 пальца выше пупка (26–28 см).";
+            if (weeks < 36) return "🔸 32 недели: дно матки между пупком и мечевидным отростком (30–32 см).";
+            if (weeks < 40) return "🔸 36–38 недель: дно матки достигает мечевидного отростка (34–36 см).";
+            if (weeks <= 42) return "🔸 40–42 недели: перед родами дно матки опускается до 32–34 см.";
+            return "⚠️ Срок >42 недель: переношенная беременность.";
+        }
+
+        // Информация о сердцебиении и шевелениях
+        function getFetalData(weeks) {
+            let heartbeat = "";
+            let movements = "";
+
+            if (weeks < 5) {
+                heartbeat = "🫀 Сердцебиение эмбриона определяется при УЗИ с 5–6 недель.";
+                movements = "🤰 Шевеления отсутствуют.";
+            } else if (weeks < 10) {
+                heartbeat = "🫀 Сердцебиение плода визуализируется при УЗИ (от 90–110 уд/мин до 170 уд/мин).";
+                movements = "🤰 Шевеления ещё не ощущаются, на УЗИ видны единичные движения.";
+            } else if (weeks < 18) {
+                heartbeat = `🫀 ЧСС плода: 140–160 уд/мин (регистрируется допплером или УЗИ). Аускультация акушерским стетоскопом возможна с 18–20 недель.`;
+                movements = `🤰 Первые шевеления обычно появляются в ${weeks < 16 ? '16–20' : 'этот период'} недель (повторнородящие — раньше, первородящие — ближе к 20).`;
+            } else if (weeks < 28) {
+                heartbeat = "❤️ ЧСС плода 120–160 уд/мин. Хорошо выслушивается акушерским стетоскопом.";
+                movements = "🦶 Шевеления активные, регулярные. Женщина ощущает их ежедневно.";
+            } else if (weeks < 36) {
+                heartbeat = "❤️ ЧСС плода 120–160 уд/мин, ритмичное. Аускультация ясная.";
+                movements = "🦶 Шевеления хорошо ощущаются, возможны периоды покоя. С 28 недель рекомендуется подсчёт шевелений.";
+            } else if (weeks <= 42) {
+                heartbeat = "❤️ ЧСС плода 110–160 уд/мин. Перед родами возможны вариации.";
+                movements = "🦶 Шевеления сохраняются, но могут стать менее интенсивными из-за ограничения места. Важно контролировать их частоту.";
+            } else {
+                heartbeat = "⚠️ Срок превышает 42 недели — требуется КТГ и наблюдение.";
+                movements = "⚠️ Снижение шевелений может указывать на перенашивание.";
+            }
+            return { heartbeat, movements };
+        }
+        
+        // Локальный статус ощущений шевелений (в формате медицинской документации)
+        function getMovementStatus(weeks, isFirstPregnancy = true) {
+            let status = "";
+            
+            if (weeks < 12) {
+                status = `📋 <strong>Локальный статус (ощущения роженицы):</strong><br>
+                На сроке <strong>${weeks} недель</strong> плод совершает активные движения, однако их сила и характер таковы, что <strong>женщина их не ощущает</strong>.<br><br>
+                🧬 <strong>Обоснование:</strong> Первые шевеления у первородящих возникают в 18–20 недель, у повторнородящих — в 16–18 недель. Плод ещё слишком мал (размер 4–6 см, вес 7–12 г), а амниотическая жидкость и стенки матки эффективно амортизируют его движения, не позволяя им достичь чувствительных рецепторов брюшной стенки.<br><br>
+                🔬 <strong>Данные УЗИ:</strong> В данном сроке визуализируются хаотичные движения туловища и конечностей, сгибательно-разгибательные движения, возможны единичные вращательные движения.<br><br>
+                👩‍⚕️ <strong>Субъективные ощущения пациентки:</strong> Шевеления не ощущаются. Живот не увеличен (матка находится за лонным сочленением). Отсутствуют дискомфортные ощущения, связанные с двигательной активностью плода.`;
+            } 
+            else if (weeks >= 12 && weeks < 16) {
+                status = `📋 <strong>Локальный статус (ощущения роженицы):</strong><br>
+                На сроке <strong>${weeks} недель</strong> шевеления плода <strong>ещё не ощущаются</strong>.<br><br>
+                🧬 <strong>Обоснование:</strong> Плод уже активно двигается, совершает сгибательные и разгибательные движения конечностями, однако из-за небольших размеров (длина плода 6–10 см, масса 20–50 г) и наличия достаточного количества околоплодных вод эти движения ещё не достигают порога чувствительности брюшной стенки.<br><br>
+                🔬 <strong>На УЗИ:</strong> Чётко визуализируются хаотичные движения плода, возможно определение пола (с 12–13 недель).<br><br>
+                👩‍⚕️ <strong>Прогноз:</strong> Ожидаемое появление первых шевелений — в сроке 16–20 недель (у повторнородящих — раньше, у первородящих — ближе к 20 неделям).`;
+            }
+            else if (weeks >= 16 && weeks < 20) {
+                status = `📋 <strong>Локальный статус (ощущения роженицы):</strong><br>
+                На сроке <strong>${weeks} недель</strong> женщина <strong>может начинать ощущать первые шевеления</strong> плода.<br><br>
+                🧬 <strong>Характер ощущений:</strong> Пациентки описывают первые шевеления как «лёгкое порхание бабочки», «переливание жидкости», «нежное прикосновение изнутри», «бульканье» или «слабое постукивание». Ощущения нерегулярные, возникают эпизодически, чаще в покое (вечером или ночью).<br><br>
+                👩‍⚕️ <strong>Особенности:</strong> У повторнородящих женщин шевеления обычно появляются на 2–3 недели раньше, так как они уже знакомы с этими ощущениями и могут их дифференцировать от перистальтики кишечника.<br><br>
+                📝 <strong>Рекомендация:</strong> При появлении первых шевелений рекомендовано запомнить дату — она будет учтена при расчёте предполагаемой даты родов (к первым шевелениям прибавляют 20 недель у первородящих и 22 недели у повторнородящих).`;
+            }
+            else if (weeks >= 20 && weeks < 28) {
+                status = `📋 <strong>Локальный статус (ощущения роженицы):</strong><br>
+                На сроке <strong>${weeks} недель</strong> шевеления плода <strong>ощущаются регулярно и становятся более отчётливыми</strong>.<br><br>
+                🧬 <strong>Характер ощущений:</strong> Шевеления воспринимаются как толчки, перекатывания, пиночки. Женщина может чувствовать икоту плода — ритмичные подёргивания. К 24–25 неделям движения становятся достаточно сильными, чтобы их могли ощутить окружающие, приложив руку к животу.<br><br>
+                🔬 <strong>Активность плода:</strong> В этом сроке плод наиболее активен, совершает до 30–60 движений в час. Периоды бодрствования и сна чередуются (обычно цикл 40–60 минут).<br><br>
+                👩‍⚕️ <strong>Оценка:</strong> С 28 недель рекомендуется проводить подсчёт шевелений (тест Д. Пирсона — не менее 10 шевелений за 12 часов).`;
+            }
+            else if (weeks >= 28 && weeks < 36) {
+                status = `📋 <strong>Локальный статус (ощущения роженицы):</strong><br>
+                На сроке <strong>${weeks} недель</strong> шевеления плода <strong>отчётливые, регулярные, хорошо дифференцируемые</strong>.<br><br>
+                🧬 <strong>Характер ощущений:</strong> Женщина чётко различает отдельные движения (толчки ножками, повороты туловища, икоту). Сила шевелений может увеличиваться при физической нагрузке матери, стрессе, приёме сладкой пищи.<br><br>
+                🔬 <strong>Физиологическая норма:</strong> В норме женщина ощущает не менее 10 шевелений за 12 часов (или 3–5 шевелений за 1 час в период бодрствования плода). С 32 недель активность может незначительно снижаться из-за ограничения свободного пространства в матке.<br><br>
+                📊 <strong>Контроль:</strong> Рекомендовано ведение дневника шевелений. Уменьшение или отсутствие шевелений более 6–8 часов требует обращения к врачу.`;
+            }
+            else if (weeks >= 36 && weeks <= 42) {
+                status = `📋 <strong>Локальный статус (ощущения роженицы):</strong><br>
+                На сроке <strong>${weeks} недель</strong> шевеления плода <strong>сохраняются, но характер их меняется</strong>.<br><br>
+                🧬 <strong>Особенности поздних сроков:</strong> Плод занимает устойчивое положение (чаще головное предлежание). Движения становятся менее интенсивными, но более ощутимыми из-за уменьшения объёма околоплодных вод и ограничения пространства. Женщина чувствует выпрямление конечностей, разгибание шеи, повороты головки.<br><br>
+                👩‍⚕️ <strong>Перед родами (38–40 недель):</strong> Шевеления могут несколько уменьшаться, что связано с опусканием головки плода в малый таз и физиологическим затишьем. Однако полное прекращение шевелений — недопустимо.<br><br>
+                🚨 <strong>Тревожные признаки:</strong> Отсутствие шевелений в течение 12 часов, резкое снижение активности, болезненные шевеления требуют экстренной медицинской помощи.`;
+            }
+            else {
+                status = `📋 <strong>Локальный статус:</strong><br>
+                Срок беременности составляет ${weeks} недель. Для данного срока требуется индивидуальная оценка двигательной активности плода с проведением КТГ и допплерометрии.`;
+            }
+            
+            return status;
+        }
+
+        function updateCalculator() {
+            let lmpString = dateInput.value;
+            if (!lmpString) {
+                dueDateSpan.innerText = "—";
+                weeksDaysSpan.innerText = "—";
+                daysLeftSpan.innerText = "—";
+                fundusDescSpan.innerText = "Укажите дату последней менструации.";
+                fetalInfoSpan.innerText = "";
+                movementStatusSpan.innerHTML = "";
+                return;
+            }
+
+            const lmpDate = new Date(lmpString);
+            if (isNaN(lmpDate.getTime())) {
+                dueDateSpan.innerText = "Ошибка";
+                weeksDaysSpan.innerText = "Неверная дата";
+                daysLeftSpan.innerText = "—";
+                fundusDescSpan.innerText = "Пожалуйста, выберите корректную дату.";
+                fetalInfoSpan.innerText = "";
+                movementStatusSpan.innerHTML = "";
+                return;
+            }
+
+            const today = new Date();
+            today.setHours(0,0,0,0);
+            lmpDate.setHours(0,0,0,0);
+
+            if (lmpDate > today) {
+                dueDateSpan.innerText = "—";
+                weeksDaysSpan.innerText = "Дата в будущем";
+                daysLeftSpan.innerText = "—";
+                fundusDescSpan.innerText = "Дата менструации не может быть позже сегодняшнего дня.";
+                fetalInfoSpan.innerText = "";
+                movementStatusSpan.innerHTML = "";
+                return;
+            }
+
+            const due = getDueDate(lmpDate);
+            dueDateSpan.innerText = formatDateToDMY(due);
+
+            const gestation = getGestationalAge(lmpDate, today);
+            if (gestation && !gestation.isNegative) {
+                const { weeks, days, daysTotal } = gestation;
+                if (daysTotal < 0) {
+                    weeksDaysSpan.innerText = "0 недель 0 дней";
+                    fundusDescSpan.innerText = "Беременность ещё не наступила.";
+                    fetalInfoSpan.innerText = "";
+                    movementStatusSpan.innerHTML = "";
+                } else {
+                    weeksDaysSpan.innerText = `${weeks} ${declensionWeeks(weeks)} и ${days} ${declensionDays(days)}`;
+
+                    const daysUntil = getDaysUntilDue(due, today);
+                    if (daysUntil && !daysUntil.isPast) {
+                        daysLeftSpan.innerText = `${daysUntil.weeks} ${declensionWeeks(daysUntil.weeks)} и ${daysUntil.days} ${declensionDays(daysUntil.days)}`;
+                    } else if (daysUntil && daysUntil.isPast) {
+                        daysLeftSpan.innerText = "ПДР уже прошла";
+                    } else {
+                        daysLeftSpan.innerText = "—";
+                    }
+
+                    const fundusText = getFundusHeightDescription(weeks);
+                    fundusDescSpan.innerHTML = fundusText;
+
+                    const fetal = getFetalData(weeks);
+                    fetalInfoSpan.innerHTML = `<strong>${fetal.heartbeat}</strong><br>${fetal.movements}`;
+                    
+                    // Добавляем локальный статус ощущений шевелений
+                    const movementStatusText = getMovementStatus(weeks);
+                    movementStatusSpan.innerHTML = movementStatusText;
+                }
+            } else {
+                weeksDaysSpan.innerText = "Ошибка";
+                daysLeftSpan.innerText = "—";
+                fundusDescSpan.innerText = "Ошибка расчета";
+                fetalInfoSpan.innerText = "";
+                movementStatusSpan.innerHTML = "";
+            }
+        }
+
+        function resetToFirstJan2026() {
+            dateInput.value = "2026-01-01";
+            updateCalculator();
+        }
+
+        calcBtn.addEventListener('click', updateCalculator);
+        resetBtn.addEventListener('click', resetToFirstJan2026);
+        dateInput.addEventListener('change', updateCalculator);
+
+        // Инициализация: ставим 01.01.2026 и рассчитываем
+        dateInput.value = "2026-01-01";
+        updateCalculator();
+    })();
+</script>
+</body>
+</html>
