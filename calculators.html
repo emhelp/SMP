@@ -58,7 +58,10 @@
       background: #2c3e66;
     }
 
-    /* Адаптивность для маленьких экранов */
+    .menu-btn.active {
+      background: #c0392b; /* красная подсветка для активной кнопки */
+    }
+
     @media (max-width: 600px) {
       .header h1 {
         font-size: 1.5rem;
@@ -108,6 +111,17 @@
     <a href="iv-rate.html" class="menu-btn">Расчет скорости в/в введения</a>
     <a href="shoxs.html" class="menu-btn">ШОКС шкала</a>
   </nav>
+
+  <script>
+    const menuButtons = document.querySelectorAll('.menu-btn');
+
+    menuButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        menuButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+  </script>
 
 </body>
 </html>
