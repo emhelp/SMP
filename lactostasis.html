@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Карта вызова СМП | Лактостаз</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #e2e8f0;
+            font-family: 'Segoe UI', 'Roboto', 'Inter', system-ui, sans-serif;
+            line-height: 1.5;
+            padding: 32px 24px;
+            color: #1a2c3e;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .medical-card {
+            background: #ffffff;
+            border-radius: 28px;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #4a6b7f 0%, #2c4e66 100%);
+            padding: 20px 32px;
+            color: white;
+            border-bottom: 4px solid #ffb347;
+        }
+
+        .card-header .mkb {
+            font-size: 14px;
+            opacity: 0.9;
+            font-family: monospace;
+        }
+
+        .card-header .warning {
+            font-size: 12px;
+            opacity: 0.85;
+            margin-top: 8px;
+            background: rgba(255,255,255,0.15);
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+
+        .card-content {
+            padding: 28px 36px;
+        }
+
+        .exam-block {
+            margin-bottom: 28px;
+            border: 1px solid #e2edf2;
+            border-radius: 20px;
+            overflow: hidden;
+            background: white;
+        }
+
+        .block-title {
+            background: #f1f6fb;
+            padding: 14px 24px;
+            font-weight: 800;
+            font-size: 18px;
+            color: #0b5e7c;
+            border-left: 5px solid #ffb347;
+            letter-spacing: -0.2px;
+        }
+
+        .block-content {
+            padding: 20px 28px;
+            background: #fefefe;
+            font-size: 15px;
+            line-height: 1.55;
+            color: #1e3a4f;
+            text-align: left;
+        }
+
+        .field-row {
+            margin-bottom: 12px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 8px;
+            text-align: left;
+        }
+
+        .field-label {
+            font-weight: 700;
+            color: #1c6d8f;
+            min-width: 220px;
+            font-size: 14px;
+        }
+
+        .field-value {
+            flex: 1;
+            color: #1e2f3c;
+            text-align: left;
+        }
+
+        .inline-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            margin: 12px 0;
+            text-align: left;
+        }
+
+        .inline-item {
+            flex: 1;
+            min-width: 180px;
+            text-align: left;
+        }
+
+        .diagnosis-box {
+            background: #fefaf5;
+            border-left: 4px solid #ffb347;
+            padding: 16px 20px;
+            border-radius: 16px;
+            margin-bottom: 8px;
+            text-align: left;
+        }
+
+        .diagnosis-box div {
+            margin-bottom: 8px;
+            text-align: left;
+        }
+
+        .status-local {
+            background: #f9fef7;
+            border-left: 4px solid #2c9c6e;
+            padding: 16px 20px;
+            border-radius: 16px;
+            margin-top: 8px;
+            text-align: left;
+        }
+
+        .status-local div {
+            margin-bottom: 8px;
+            text-align: left;
+        }
+
+        .severity-scale {
+            background: #f0f4fa;
+            padding: 16px 20px;
+            border-radius: 16px;
+            margin: 12px 0;
+        }
+
+        .severity-scale p {
+            margin-bottom: 6px;
+        }
+
+        .alert-note {
+            background: #fff3e0;
+            border-left: 4px solid #ff9800;
+            padding: 12px 16px;
+            border-radius: 12px;
+            margin-top: 16px;
+            font-size: 13px;
+        }
+
+        hr {
+            margin: 16px 0;
+            border: none;
+            height: 1px;
+            background: #e2ecf3;
+        }
+
+        .footer-note {
+            font-size: 13px;
+            color: #6c8eaa;
+            text-align: right;
+        }
+
+        @media (max-width: 700px) {
+            .card-content {
+                padding: 18px;
+            }
+            .block-content {
+                padding: 14px 18px;
+            }
+            .field-label {
+                min-width: 140px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="medical-card">
+        <div class="card-header">
+            <div class="mkb">МКБ-10: O91.2 — Негнойный мастит, лимфангиит молочной железы, лактостаз</div>
+            <div class="warning">⚠️ Ключевой признак — эффективность сцеживания: боль и уплотнение уменьшаются!</div>
+        </div>
+        <div class="card-content">
+
+            <!-- ДИАГНОЗ -->
+            <div class="exam-block">
+                <div class="block-title">ДИАГНОЗ</div>
+                <div class="block-content">
+                    <div class="diagnosis-box">
+                        <div><strong>Основное заболевание:</strong> Лактостаз (застой грудного молока) правой/левой/обеих молочных желез. Дисфункциональное состояние лактирующей молочной железы, обусловленное несоответствием процессов молокообразования и молокоотдачи.</div>
+                        <div><strong>Осложнения:</strong> Острый болевой синдром. Локальный отек тканей молочной железы. Субфебрилитет (при наличии).</div>
+                        <div><strong>Сопутствующие заболевания:</strong> Не выявлены / (указать при наличии: трещины сосков – O92.1, гипогалактия, анемия послеродовая).</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ЖАЛОБЫ -->
+            <div class="exam-block">
+                <div class="block-title">ЖАЛОБЫ</div>
+                <div class="block-content">
+                    <div class="field-row"><span class="field-label">Локальные симптомы:</span><span class="field-value">Чувство распирания, тяжести и болезненность в молочной железе, усиливающиеся при прикосновении, кормлении и сцеживании. Наличие локального уплотнения («шишки», «комочка») в одном из сегментов груди, которое сохраняется после кормления и не уходит при сцеживании.</span></div>
+                    <div class="field-row"><span class="field-label">Нарушение оттока молока:</span><span class="field-value">Молоко выделяется с трудом, неравномерно, «капельно»; сцеживание резко болезненно.</span></div>
+                    <div class="field-row"><span class="field-label">Воспалительные проявления:</span><span class="field-value">Покраснение кожи над областью уплотнения (при локальном воспалении). Повышение температуры тела до субфебрильных цифр (37,1–38,0 °С). Примечание: температуру рекомендовано измерять в локтевом сгибе противоположной руки, так как в подмышечной впадине на стороне поражения показатели могут быть ложно завышены из-за локальной воспалительной реакции.</span></div>
+                    <div class="field-row"><span class="field-label">Отсутствие облегчения:</span><span class="field-value">Отсутствие облегчения после кормления и сцеживания – чувство наполнения груди сохраняется.</span></div>
+                </div>
+            </div>
+
+            <!-- АНАМНЕЗ -->
+            <div class="exam-block">
+                <div class="block-title">АНАМНЕЗ</div>
+                <div class="block-content">
+                    <div class="field-row">
+                        <span class="field-label">Анамнез заболевания:</span>
+                        <span class="field-value">Заболела остро / подостро, связывает начало с (указать предположительную причину): длительным перерывом в кормлении (более 3–4 часов); неполным опорожнением груди; неправильным прикладыванием ребенка; сном на животе/на боку с передавливанием груди; ношением тесного бюстгальтера; стрессом, переутомлением; травмой груди (удар, давление); переохлаждением. Длительность застоя: от нескольких часов до 1–2 суток. Самостоятельно принимала меры: учащение кормлений, сцеживание, массаж, компрессы – с эффектом / без эффекта / с временным эффектом.</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Эпидемиологический анамнез:</span>
+                        <span class="field-value">Контакт с инфекционными больными (в т.ч. с гнойно-воспалительными заболеваниями, носителями стафилококка) отрицает / (указать при наличии). За пределы РФ в последние 3 недели не выезжала.</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Аллергологический анамнез:</span>
+                        <span class="field-value">Не отягощен / отягощен (указать аллергию на лекарственные препараты, пищевые продукты).</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Гинекологический и акушерский анамнез:</span>
+                        <span class="field-value">Менструальная функция: менархе с __ лет, цикл установился, по __ дней, через __ дней, регулярный, умеренный. Репродуктивная функция: беременностей – __, родов – __ (из них: срочные/преждевременные, через естественные родовые пути/кесарево сечение). Настоящая лактация: роды (дата) ______, __ дней/недель/месяцев назад. Ребенок на грудном вскармливании / смешанном. Кормление по требованию / по режиму. Прикладывание правильное/неправильное (захват соска с ареолой/только соска). Сцеживается регулярно/нерегулярно/не сцеживается. Ранее лактостазы были/не были (количество, исход). Гинекологические заболевания: мастопатия, фиброаденома, операции на молочных железах (в анамнезе) – указать. Трещины сосков (есть/нет, длительность, лечение). Аномалии сосков (плоские, втянутые).</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Экстрагенитальная патология:</span>
+                        <span class="field-value">Сахарный диабет, ожирение, анемия, гипотиреоз, гиперпролактинемия – (указать при наличии).</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Социальный анамнез:</span>
+                        <span class="field-value">Стресс, недосыпание, усталость. Питьевой режим: потребление жидкости __ л/сут.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ОБЪЕКТИВНО -->
+            <div class="exam-block">
+                <div class="block-title">ОБЪЕКТИВНО</div>
+                <div class="block-content">
+                    <div class="inline-group">
+                        <div class="inline-item"><strong>Состояние:</strong> удовлетворительное / средней степени тяжести</div>
+                        <div class="inline-item"><strong>Сознание:</strong> ясное (GCS 15 баллов)</div>
+                        <div class="inline-item"><strong>Положение:</strong> активное</div>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Кожные покровы:</span>
+                        <span class="field-value">Чистые, обычной окраски / бледные (при утомлении), влажность нормальная. Сыпи, цианоза, желтушности нет.</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Лимфоузлы:</span>
+                        <span class="field-value">Периферические лимфоузлы не пальпируются. Подмышечные лимфоузлы на стороне поражения: не увеличены / умеренно увеличены, эластичные, безболезненные / слабо болезненные.</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Температура:</span>
+                        <span class="field-value">36,6 – 37,2 – 37,8 °C (рекомендовано измерение в локтевом сгибе противоположной руки).</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ОРГАНЫ ДЫХАНИЯ -->
+            <div class="exam-block">
+                <div class="block-title">ОРГАНЫ ДЫХАНИЯ</div>
+                <div class="block-content">
+                    <div class="field-row"><span class="field-label">ЧДД:</span><span class="field-value">16–18 в мин.</span></div>
+                    <div class="field-row"><span class="field-label">Аускультативно:</span><span class="field-value">Дыхание везикулярное, проводится во все отделы, хрипов нет.</span></div>
+                </div>
+            </div>
+
+            <!-- ОРГАНЫ КРОВООБРАЩЕНИЯ -->
+            <div class="exam-block">
+                <div class="block-title">ОРГАНЫ КРОВООБРАЩЕНИЯ</div>
+                <div class="block-content">
+                    <div class="field-row"><span class="field-label">Пульс:</span><span class="field-value">72–80 в мин (при лихорадке, боли – до 90–100 в мин), ритмичный, удовлетворительного наполнения.</span></div>
+                    <div class="field-row"><span class="field-label">АД:</span><span class="field-value">110/70 – 120/80 мм рт.ст. на момент осмотра (или привычное для пациентки).</span></div>
+                    <div class="field-row"><span class="field-label">Тоны сердца:</span><span class="field-value">Звучные, ритмичные.</span></div>
+                </div>
+            </div>
+
+            <!-- ОРГАНЫ ПИЩЕВАРЕНИЯ -->
+            <div class="exam-block">
+                <div class="block-title">ОРГАНЫ ПИЩЕВАРЕНИЯ</div>
+                <div class="block-content">
+                    <div class="field-row"><span class="field-label">Язык:</span><span class="field-value">Влажный, чистый.</span></div>
+                    <div class="field-row"><span class="field-label">Живот:</span><span class="field-value">Мягкий, не вздут, участвует в акте дыхания, безболезненный при пальпации во всех отделах. Симптомы раздражения брюшины — отрицательные.</span></div>
+                    <div class="field-row"><span class="field-label">Стул:</span><span class="field-value">Регулярный, оформленный (со слов).</span></div>
+                </div>
+            </div>
+
+            <!-- НЕРВНАЯ СИСТЕМА -->
+            <div class="exam-block">
+                <div class="block-title">НЕРВНАЯ СИСТЕМА</div>
+                <div class="block-content">
+                    <div class="field-row"><span class="field-label">Поведение, контакт:</span><span class="field-value">Спокойное / тревожное (в связи с болью и беспокойством за возможность продолжать грудное вскармливание). Контакт полный, сохранен.</span></div>
+                    <div class="field-row"><span class="field-label">Менингеальные симптомы, очаговая симптоматика:</span><span class="field-value">Отрицательные.</span></div>
+                </div>
+            </div>
+
+            <!-- МОЧЕПОЛОВАЯ СИСТЕМА -->
+            <div class="exam-block">
+                <div class="block-title">МОЧЕПОЛОВАЯ СИСТЕМА</div>
+                <div class="block-content">
+                    <div class="field-row"><span class="field-label">Мочеиспускание:</span><span class="field-value">Свободное, безболезненное. Моча светлая, прозрачная.</span></div>
+                    <div class="field-row"><span class="field-label">Симптом поколачивания:</span><span class="field-value">Отрицательный с обеих сторон.</span></div>
+                </div>
+            </div>
+
+            <!-- STATUS LOCALIS -->
+            <div class="exam-block">
+                <div class="block-title">STATUS LOCALIS (молочные железы)</div>
+                <div class="block-content">
+                    <div class="status-local">
+                        <div><strong>Осмотр:</strong> Молочные железы развиты правильно, симметричны / асимметричны за счет увеличения пораженной железы. Кожные покровы: над областью уплотнения определяется локальная гиперемия розового цвета, без четких границ, площадью соответственно проекции застойной дольки. Кожа над уплотнением отечна, лоснится, симптома «апельсиновой корки» нет.</div>
+                        <div><strong>Сосок и ареола:</strong> Сосок чистый, без повреждений / имеются трещины (указать локализацию, размер, наличие корочек). Форма соска: обычная / плоская / втянутая. При надавливании на ареолу из соска выделяется молоко – створоженное, густое, с хлопьями, желтоватого/белого цвета. Патологических примесей (гноя, крови) нет. Белое пятно на соске («молочный пузырек») – имеется / отсутствует.</div>
+                        <div><strong>Пальпация:</strong> Молочная железа мягкая, податливая, на фоне неизмененной ткани пальпируется локальное уплотнение. Уплотнение имеет четкие границы, повторяет контуры одной или нескольких долек (форма треугольная, овальная, дольчатая). Поверхность уплотнения бугристая. Консистенция плотно-эластическая. Уплотнение подвижное, не спаяно с кожей и подлежащими тканями. Пальпация зоны уплотнения резко болезненна. Вне зоны уплотнения пальпация безболезненна. Отмечается локальное повышение температуры кожи над уплотнением. Флюктуация отсутствует.</div>
+                        <div><strong>Проба со сцеживанием:</strong> При надавливании на область уплотнения и ареолу молоко выделяется свободно / с затруднением, струйно / капельно. После сцеживания отмечается значительное облегчение, уменьшение болезненности, уплотнение становится мягче, уменьшается в размерах или полностью исчезает.</div>
+                        <div><strong>Регионарные лимфоузлы:</strong> Подмышечные лимфоузлы на стороне поражения пальпируются / не пальпируются. При пальпации: безболезненные / слабо болезненные, эластичной консистенции, подвижные, не спаяны между собой и с окружающими тканями. Кожа над ними не изменена.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ОЦЕНКА ТЯЖЕСТИ -->
+            <div class="exam-block">
+                <div class="block-title">ОЦЕНКА ТЯЖЕСТИ ЛАКТОСТАЗА</div>
+                <div class="block-content">
+                    <div class="severity-scale">
+                        <p><strong>Легкая степень:</strong> локальное уплотнение до 3 см, температура N, боль при пальпации.</p>
+                        <p><strong>Средняя степень:</strong> уплотнение более 3 см, гиперемия, субфебрилитет, боль постоянная.</p>
+                        <p><strong>Тяжелая степень:</strong> распространенный застой, выраженный отек, лихорадка >38,0°С (подозрение на мастит).</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ДИФФЕРЕНЦИАЛЬНАЯ ДИАГНОСТИКА -->
+            <div class="exam-block">
+                <div class="block-title">ДИФФЕРЕНЦИАЛЬНАЯ ДИАГНОСТИКА</div>
+                <div class="block-content">
+                    <div class="alert-note">
+                        <strong>Примечание для бригады СМП:</strong><br>
+                        Ключевым дифференциально-диагностическим признаком лактостаза является <strong>эффективность сцеживания</strong>: боль и уплотнение уменьшаются, молоко выделяется. При мастите сцеживание неэффективно, резко болезненно, облегчения не приносит. Наличие флюктуации, фебрильной лихорадки (>38,0°С), озноба, выраженного отека и диффузной гиперемии свидетельствует о развитии гнойного мастита и является показанием к экстренной госпитализации в хирургический стационар.<br><br>
+                        <strong>Рекомендации:</strong><br>
+                        — Обеспечить полное опорожнение пораженной молочной железы (частое прикладывание ребенка к груди, сцеживание).<br>
+                        — Перед кормлением — теплый компресс (усиливает рефлекс окситоцина), легкий массаж от основания к соску.<br>
+                        — После кормления — холодный компресс (уменьшает отек и воспаление).<br>
+                        — Адекватный питьевой режим (1,5–2 л/сут).<br>
+                        — При неэффективности в течение 24–48 часов, нарастании симптомов, появлении фебрильной лихорадки — госпитализация.
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+            <div class="footer-note">
+                O91.2 — Лактостаз | При неэффективности сцеживания, нарастании симптомов — госпитализация в гинекологическое/хирургическое отделение
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
