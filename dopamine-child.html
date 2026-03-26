@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Калькулятор инфузии допамина | Дети</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(145deg, #f0f5fa 0%, #e4ecf3 100%);
+            font-family: 'Inter', -apple-system, 'Segoe UI', Roboto, system-ui, sans-serif;
+            padding: 16px;
+            min-height: 100vh;
+            color: #1a4a5f;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(115deg, #4a9e8c 0%, #2c7a5e 100%);
+            border-radius: 28px;
+            padding: 24px 28px;
+            margin-bottom: 24px;
+            color: white;
+            box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .header h1 span {
+            font-size: 0.9rem;
+            background: rgba(255,255,255,0.2);
+            padding: 5px 14px;
+            border-radius: 40px;
+        }
+
+        .header p {
+            margin-top: 12px;
+            opacity: 0.92;
+            border-left: 3px solid #b8e0d0;
+            padding-left: 18px;
+            font-size: 0.9rem;
+        }
+
+        /* Вкладки способов введения */
+        .tabs-wrapper {
+            margin-bottom: 24px;
+        }
+
+        .tabs-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #2c7a5e;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tabs-label::before {
+            content: "👶";
+            font-size: 1rem;
+        }
+
+        .nav-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .tab-btn {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border: 2px solid #cbdde6;
+            padding: 10px 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #2c7a5e;
+            cursor: pointer;
+            border-radius: 60px;
+            transition: all 0.25s ease;
+            font-family: inherit;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            flex: 0 0 auto;
+        }
+
+        .tab-btn:hover {
+            background: linear-gradient(135deg, #e8f0f5 0%, #dfeaf0 100%);
+            border-color: #4a9e8c;
+            transform: translateY(-2px);
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, #4a9e8c 0%, #2c7a5e 100%);
+            border-color: #ffc107;
+            color: white;
+            box-shadow: 0 4px 12px rgba(74,158,140,0.4);
+        }
+
+        /* Карточки */
+        .card {
+            background: white;
+            border-radius: 28px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            border: 1px solid #e2ecf3;
+            transition: all 0.2s;
+        }
+
+        .card:hover {
+            box-shadow: 0 12px 28px rgba(0,0,0,0.1);
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #2c7a5e;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-left: 4px solid #4a9e8c;
+            padding-left: 16px;
+        }
+
+        /* Параметры ввода */
+        .param-group {
+            margin-bottom: 24px;
+        }
+
+        .param-label {
+            font-weight: 600;
+            color: #2c6b5a;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+
+        .input-row {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .input-field {
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .input-field label {
+            font-size: 0.75rem;
+            color: #6f8eaa;
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+
+        .input-field input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e2ecf3;
+            border-radius: 18px;
+            font-size: 0.95rem;
+            font-family: inherit;
+            transition: all 0.25s ease;
+            background: white;
+        }
+
+        .input-field input:hover {
+            border-color: #4a9e8c;
+        }
+
+        .input-field input:focus {
+            outline: none;
+            border-color: #2c7a5e;
+            box-shadow: 0 0 0 3px rgba(44,122,94,0.1);
+        }
+
+        /* Таблица результатов */
+        .result-table-wrapper {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        .result-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+            min-width: 550px;
+        }
+
+        .result-table th, .result-table td {
+            padding: 12px 10px;
+            text-align: center;
+            border-bottom: 1px solid #e2ecf3;
+        }
+
+        .result-table th {
+            background: #f0f7fc;
+            color: #2c7a5e;
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+
+        .result-table td {
+            font-weight: 500;
+            color: #1a4a5f;
+        }
+
+        /* Выделение часто используемых скоростей */
+        .result-table td.highlight-speed {
+            background: #e8f5e9;
+            color: #2e7d32;
+            font-weight: 700;
+            position: relative;
+        }
+
+        .result-table td.highlight-speed::after {
+            content: "⭐";
+            position: absolute;
+            top: 2px;
+            right: 4px;
+            font-size: 10px;
+        }
+
+        .speed-note {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 10px 14px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            margin-top: 12px;
+        }
+
+        .info-note {
+            background: #e8f4fc;
+            border-left: 4px solid #4a9ec7;
+            padding: 12px 16px;
+            border-radius: 16px;
+            margin: 16px 0;
+            font-size: 0.8rem;
+        }
+
+        .warning-note {
+            background: #fff8e8;
+            border-left: 4px solid #e6a017;
+            padding: 12px 16px;
+            border-radius: 16px;
+            margin: 16px 0;
+            font-size: 0.8rem;
+        }
+
+        .btn-reset {
+            background: linear-gradient(135deg, #eef2f8 0%, #e6edf4 100%);
+            border: 2px solid #cbdde6;
+            padding: 10px 20px;
+            border-radius: 60px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            color: #2c7a5e;
+            transition: all 0.25s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .btn-reset:hover {
+            background: linear-gradient(135deg, #e2eaf2 0%, #d8e2ec 100%);
+            border-color: #2c7a5e;
+            transform: translateY(-2px);
+        }
+
+        .footnote {
+            font-size: 0.7rem;
+            color: #7c9ab3;
+            text-align: center;
+            margin-top: 24px;
+            padding-top: 16px;
+            border-top: 1px solid #e2ecf3;
+            line-height: 1.5;
+        }
+
+        /* Скрытие контента вкладок */
+        .tab-content {
+            display: none;
+            animation: fade 0.25s ease;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        @keyframes fade {
+            from { opacity: 0; transform: translateY(8px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+
+        /* Адаптация под мобильные */
+        @media (max-width: 768px) {
+            body {
+                padding: 12px;
+            }
+            .header {
+                padding: 18px 20px;
+            }
+            .header h1 {
+                font-size: 1.3rem;
+            }
+            .header p {
+                font-size: 0.8rem;
+            }
+            .tab-btn {
+                padding: 8px 14px;
+                font-size: 0.75rem;
+                flex: 1;
+                justify-content: center;
+            }
+            .card {
+                padding: 18px;
+            }
+            .card-title {
+                font-size: 1.1rem;
+            }
+            .input-field input {
+                padding: 10px 14px;
+                font-size: 0.85rem;
+            }
+            .result-table th, .result-table td {
+                padding: 8px 6px;
+                font-size: 0.7rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .input-row {
+                flex-direction: column;
+                gap: 12px;
+            }
+            .tab-btn {
+                padding: 8px 10px;
+                font-size: 0.7rem;
+            }
+            .result-table td.highlight-speed::after {
+                font-size: 8px;
+            }
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .tab-btn, .btn-reset {
+                display: none;
+            }
+            .card {
+                box-shadow: none;
+                border: 1px solid #ccc;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>
+            👶 Калькулятор инфузии допамина
+            <span>для детей</span>
+        </h1>
+        <p>Расчет скорости введения допамина у детей с использованием шприцевого насоса (мл/час) и капельной инфузии (капли/мин). ⭐ — выделены наиболее часто используемые в практике скорости (5–15 мкг/кг/мин).</p>
+    </div>
+
+    <!-- Вкладки способов введения -->
+    <div class="tabs-wrapper">
+        <div class="tabs-label">Способ введения:</div>
+        <div class="nav-tabs">
+            <button class="tab-btn active" data-tab="syringe20">💉 Шприц 20 мл</button>
+            <button class="tab-btn" data-tab="syringe50">💊 Шприц 50 мл</button>
+            <button class="tab-btn" data-tab="dripLow">💧 Капельно (0,08 мг/мл)</button>
+            <button class="tab-btn" data-tab="dripHigh">💧 Капельно (0,4 мг/мл)</button>
+        </div>
+    </div>
+
+    <!-- Шприц 20 мл -->
+    <div id="syringe20" class="tab-content active">
+        <div class="card">
+            <div class="card-title">📊 Шприцевой насос | Шприц 20 мл</div>
+            <div class="param-group">
+                <div class="param-label">👶 Данные ребенка</div>
+                <div class="input-row">
+                    <div class="input-field">
+                        <label>Масса тела (кг)</label>
+                        <input type="number" id="weight20" value="10" step="0.5" min="2" max="45">
+                    </div>
+                </div>
+            </div>
+            <div class="info-note">
+                <strong>📌 Разведение:</strong> Допамин 40 мг (4% - 1 мл) + Натрия хлорид 0,9% до 20 мл.<br>
+                <strong>⚙️ Единица измерения:</strong> мл/час (устанавливается на шприцевом насосе)
+            </div>
+            <div class="result-table-wrapper">
+                <table class="result-table" id="table20">
+                    <thead>
+                        <tr><th>Вес (кг)</th><th>5 мкг/кг/мин</th><th>10</th><th>15</th><th>20</th><th>25</th></tr>
+                    </thead>
+                    <tbody id="table20Body"></tbody>
+                </table>
+            </div>
+            <div class="speed-note">
+                ⭐ <strong>Часто используемые скорости:</strong> 5–15 мкг/кг/мин — стандартный диапазон для инотропной поддержки у детей.
+            </div>
+        </div>
+    </div>
+
+    <!-- Шприц 50 мл -->
+    <div id="syringe50" class="tab-content">
+        <div class="card">
+            <div class="card-title">📊 Шприцевой насос | Шприц 50 мл</div>
+            <div class="param-group">
+                <div class="param-label">👶 Данные ребенка</div>
+                <div class="input-row">
+                    <div class="input-field">
+                        <label>Масса тела (кг)</label>
+                        <input type="number" id="weight50" value="10" step="0.5" min="2" max="45">
+                    </div>
+                </div>
+            </div>
+            <div class="info-note">
+                <strong>📌 Разведение:</strong> Допамин 40 мг (4% - 1 мл) + Натрия хлорид 0,9% до 50 мл.<br>
+                <strong>⚙️ Единица измерения:</strong> мл/час (устанавливается на шприцевом насосе)
+            </div>
+            <div class="result-table-wrapper">
+                <table class="result-table" id="table50">
+                    <thead>
+                        <tr><th>Вес (кг)</th><th>5 мкг/кг/мин</th><th>10</th><th>15</th><th>20</th><th>25</th></tr>
+                    </thead>
+                    <tbody id="table50Body"></tbody>
+                </table>
+            </div>
+            <div class="speed-note">
+                ⭐ <strong>Часто используемые скорости:</strong> 5–15 мкг/кг/мин — стандартный диапазон для инотропной поддержки у детей.
+            </div>
+        </div>
+    </div>
+
+    <!-- Капельно низкая концентрация (0,08 мг/мл) -->
+    <div id="dripLow" class="tab-content">
+        <div class="card">
+            <div class="card-title">📊 Капельная инфузия | Низкая концентрация</div>
+            <div class="param-group">
+                <div class="param-label">👶 Данные ребенка</div>
+                <div class="input-row">
+                    <div class="input-field">
+                        <label>Масса тела (кг)</label>
+                        <input type="number" id="weightDripLow" value="10" step="0.5" min="2" max="15">
+                    </div>
+                </div>
+            </div>
+            <div class="info-note">
+                <strong>📌 Разведение:</strong> Допамин 20 мг (4% - 0,5 мл) + Натрия хлорид 0,9% 250 мл (0,08 мг/мл)<br>
+                <strong>⚙️ Единица измерения:</strong> капли в минуту (20 капель = 1 мл)
+            </div>
+            <div class="result-table-wrapper">
+                <table class="result-table" id="tableDripLow">
+                    <thead>
+                        <tr><th>Вес (кг)</th><th>5 мкг/кг/мин</th><th>10</th><th>15</th><th>20</th><th>25</th></tr>
+                    </thead>
+                    <tbody id="tableDripLowBody"></tbody>
+                </table>
+            </div>
+            <div class="speed-note">
+                ⭐ <strong>Часто используемые скорости:</strong> 5–15 мкг/кг/мин — стандартный диапазон для инотропной поддержки.
+            </div>
+        </div>
+    </div>
+
+    <!-- Капельно средняя концентрация (0,4 мг/мл) -->
+    <div id="dripHigh" class="tab-content">
+        <div class="card">
+            <div class="card-title">📊 Капельная инфузия | Средняя концентрация</div>
+            <div class="param-group">
+                <div class="param-label">👶 Данные ребенка</div>
+                <div class="input-row">
+                    <div class="input-field">
+                        <label>Масса тела (кг)</label>
+                        <input type="number" id="weightDripHigh" value="30" step="1" min="20" max="45">
+                    </div>
+                </div>
+            </div>
+            <div class="info-note">
+                <strong>📌 Разведение:</strong> Допамин 100 мг (4% - 2,5 мл) + Натрия хлорид 0,9% 250 мл (0,4 мг/мл)<br>
+                <strong>⚙️ Единица измерения:</strong> капли в минуту (20 капель = 1 мл)
+            </div>
+            <div class="result-table-wrapper">
+                <table class="result-table" id="tableDripHigh">
+                    <thead>
+                        <tr><th>Вес (кг)</th><th>5 мкг/кг/мин</th><th>10</th><th>15</th><th>20</th><th>25</th></tr>
+                    </thead>
+                    <tbody id="tableDripHighBody"></tbody>
+                </table>
+            </div>
+            <div class="speed-note">
+                ⭐ <strong>Часто используемые скорости:</strong> 5–15 мкг/кг/мин — стандартный диапазон для инотропной поддержки.
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-title">⚠️ Клинические рекомендации (дети)</div>
+        <div class="warning-note">
+            <strong>💊 Дозы допамина у детей:</strong><br>
+            • <strong>2–5 мкг/кг/мин</strong> — почечный эффект (увеличение диуреза)<br>
+            • <strong>5–10 мкг/кг/мин</strong> — инотропный эффект (увеличение сердечного выброса)<br>
+            • <strong>10–20 мкг/кг/мин</strong> — α-адренергический эффект (вазоконстрикция)<br>
+            • <strong>>20 мкг/кг/мин</strong> — выраженная вазоконстрикция, риск осложнений<br>
+            <strong>⚠️ У детей требуется особый контроль скорости введения!</strong>
+        </div>
+        <button class="btn-reset" id="resetBtn">⟳ Сбросить все значения к стандартному весу</button>
+    </div>
+
+    <div class="footnote">
+        ⚕️ Расчеты основаны на стандартных протоколах инфузии допамина у детей. Скорость введения корректируется индивидуально под контролем гемодинамики. ⭐ — выделены скорости, наиболее часто применяемые в клинической практике (5–15 мкг/кг/мин).
+    </div>
+</div>
+
+<script>
+    // Данные для шприца 20 мл (мл/час)
+    const data20 = {
+        doses: [5, 10, 15, 20, 25],
+        weights: [2.5, 5, 10, 15, 20, 25, 30, 35, 40, 45],
+        unit: "мл/час",
+        values: {
+            2.5: [0.2, 0.4, 0.6, 0.8, 1.1],
+            5: [0.4, 0.8, 1.1, 1.5, 2.3],
+            10: [0.8, 1.5, 2.3, 3.0, 4.5],
+            15: [1.1, 2.3, 3.4, 4.5, 6.8],
+            20: [1.5, 3.0, 4.5, 6.0, 9.0],
+            25: [1.9, 3.8, 5.6, 7.5, 11.3],
+            30: [2.3, 4.5, 6.8, 9.0, 13.5],
+            35: [2.6, 5.3, 7.9, 10.5, 15.8],
+            40: [3.0, 6.0, 9.0, 12.0, 18.0],
+            45: [3.4, 6.8, 10.1, 13.5, 20.3]
+        }
+    };
+
+    // Данные для шприца 50 мл (мл/час)
+    const data50 = {
+        doses: [5, 10, 15, 20, 25],
+        weights: [2.5, 5, 10, 15, 20, 25, 30, 35, 40, 45],
+        unit: "мл/час",
+        values: {
+            2.5: [0.9, 1.9, 2.8, 3.7, 4.7],
+            5: [1.9, 3.7, 5.6, 7.5, 9.4],
+            10: [3.7, 7.5, 11.2, 15.0, 18.7],
+            15: [5.6, 11.2, 16.9, 22.5, 28.1],
+            20: [7.5, 15.0, 22.5, 30.0, 37.5],
+            25: [9.4, 18.7, 28.1, 37.5, 46.9],
+            30: [11.2, 22.5, 33.7, 45.0, 56.2],
+            35: [13.1, 26.2, 39.4, 52.5, 65.7],
+            40: [15.0, 30.0, 45.0, 60.0, 75.0],
+            45: [16.9, 33.7, 50.6, 67.5, 84.4]
+        }
+    };
+
+    // Данные для капельной инфузии (капли/мин) - низкая концентрация 0,08 мг/мл
+    const dataDripLow = {
+        doses: [5, 10, 15, 20, 25],
+        weights: [2.5, 5, 10, 15],
+        unit: "кап/мин",
+        values: {
+            2.5: [3, 6, 9, 13, 16],
+            5: [6, 13, 19, 25, 31],
+            10: [13, 25, 38, 50, 63],
+            15: [19, 38, 56, 75, 94]
+        }
+    };
+
+    // Данные для капельной инфузии (капли/мин) - средняя концентрация 0,4 мг/мл
+    const dataDripHigh = {
+        doses: [5, 10, 15, 20, 25],
+        weights: [20, 25, 30, 35, 40, 45],
+        unit: "кап/мин",
+        values: {
+            20: [5, 10, 15, 20, 30],
+            25: [6, 13, 19, 25, 31],
+            30: [8, 15, 23, 30, 38],
+            35: [9, 18, 26, 35, 44],
+            40: [10, 20, 30, 40, 50],
+            45: [11, 23, 34, 45, 56]
+        }
+    };
+
+    function isHighlightSpeed(dose) {
+        return dose >= 5 && dose <= 15;
+    }
+
+    function findClosestWeight(weight, weights) {
+        return weights.reduce((prev, curr) => {
+            return (Math.abs(curr - weight) < Math.abs(prev - weight) ? curr : prev);
+        });
+    }
+
+    function formatValue(value, unit, dose) {
+        // Форматируем число: если целое, то без десятичных, иначе с одним знаком
+        const formattedValue = Number.isInteger(value) ? value.toString() : value.toFixed(1);
+        return `${formattedValue} ${unit}`;
+    }
+
+    function updateTable20() {
+        let weight = parseFloat(document.getElementById('weight20').value);
+        if (isNaN(weight)) weight = 10;
+        weight = Math.min(Math.max(weight, 2), 45);
+        
+        let closestWeight = findClosestWeight(weight, data20.weights);
+        const values = data20.values[closestWeight];
+        const unit = data20.unit;
+        const tbody = document.getElementById('table20Body');
+        tbody.innerHTML = '';
+        
+        const row = document.createElement('tr');
+        row.innerHTML = `<td style="font-weight: 600;">${closestWeight} кг</td>`;
+        for (let i = 0; i < data20.doses.length; i++) {
+            const value = values[i];
+            const formattedValue = formatValue(value, unit, data20.doses[i]);
+            const td = document.createElement('td');
+            td.textContent = formattedValue;
+            if (isHighlightSpeed(data20.doses[i])) td.classList.add('highlight-speed');
+            row.appendChild(td);
+        }
+        tbody.appendChild(row);
+    }
+
+    function updateTable50() {
+        let weight = parseFloat(document.getElementById('weight50').value);
+        if (isNaN(weight)) weight = 10;
+        weight = Math.min(Math.max(weight, 2), 45);
+        
+        let closestWeight = findClosestWeight(weight, data50.weights);
+        const values = data50.values[closestWeight];
+        const unit = data50.unit;
+        const tbody = document.getElementById('table50Body');
+        tbody.innerHTML = '';
+        
+        const row = document.createElement('tr');
+        row.innerHTML = `<td style="font-weight: 600;">${closestWeight} кг</td>`;
+        for (let i = 0; i < data50.doses.length; i++) {
+            const value = values[i];
+            const formattedValue = formatValue(value, unit, data50.doses[i]);
+            const td = document.createElement('td');
+            td.textContent = formattedValue;
+            if (isHighlightSpeed(data50.doses[i])) td.classList.add('highlight-speed');
+            row.appendChild(td);
+        }
+        tbody.appendChild(row);
+    }
+
+    function updateTableDripLow() {
+        let weight = parseFloat(document.getElementById('weightDripLow').value);
+        if (isNaN(weight)) weight = 10;
+        weight = Math.min(Math.max(weight, 2), 15);
+        
+        let closestWeight = findClosestWeight(weight, dataDripLow.weights);
+        const values = dataDripLow.values[closestWeight];
+        const unit = dataDripLow.unit;
+        const tbody = document.getElementById('tableDripLowBody');
+        tbody.innerHTML = '';
+        
+        const row = document.createElement('tr');
+        row.innerHTML = `<td style="font-weight: 600;">${closestWeight} кг</td>`;
+        for (let i = 0; i < dataDripLow.doses.length; i++) {
+            const value = values[i];
+            const formattedValue = formatValue(value, unit, dataDripLow.doses[i]);
+            const td = document.createElement('td');
+            td.textContent = formattedValue;
+            if (isHighlightSpeed(dataDripLow.doses[i])) td.classList.add('highlight-speed');
+            row.appendChild(td);
+        }
+        tbody.appendChild(row);
+    }
+
+    function updateTableDripHigh() {
+        let weight = parseFloat(document.getElementById('weightDripHigh').value);
+        if (isNaN(weight)) weight = 30;
+        weight = Math.min(Math.max(weight, 20), 45);
+        
+        let closestWeight = findClosestWeight(weight, dataDripHigh.weights);
+        const values = dataDripHigh.values[closestWeight];
+        const unit = dataDripHigh.unit;
+        const tbody = document.getElementById('tableDripHighBody');
+        tbody.innerHTML = '';
+        
+        const row = document.createElement('tr');
+        row.innerHTML = `<td style="font-weight: 600;">${closestWeight} кг</td>`;
+        for (let i = 0; i < dataDripHigh.doses.length; i++) {
+            const value = values[i];
+            const formattedValue = formatValue(value, unit, dataDripHigh.doses[i]);
+            const td = document.createElement('td');
+            td.textContent = formattedValue;
+            if (isHighlightSpeed(dataDripHigh.doses[i])) td.classList.add('highlight-speed');
+            row.appendChild(td);
+        }
+        tbody.appendChild(row);
+    }
+
+    function resetAllWeights() {
+        document.getElementById('weight20').value = '10';
+        document.getElementById('weight50').value = '10';
+        document.getElementById('weightDripLow').value = '10';
+        document.getElementById('weightDripHigh').value = '30';
+        updateTable20();
+        updateTable50();
+        updateTableDripLow();
+        updateTableDripHigh();
+    }
+
+    function activateTab(tabId) {
+        const contents = document.querySelectorAll('.tab-content');
+        contents.forEach(content => {
+            content.classList.remove('active');
+            if (content.id === tabId) content.classList.add('active');
+        });
+        const tabs = document.querySelectorAll('.tab-btn');
+        tabs.forEach(btn => {
+            btn.classList.remove('active');
+            if (btn.getAttribute('data-tab') === tabId) btn.classList.add('active');
+        });
+    }
+
+    document.getElementById('weight20').addEventListener('input', updateTable20);
+    document.getElementById('weight50').addEventListener('input', updateTable50);
+    document.getElementById('weightDripLow').addEventListener('input', updateTableDripLow);
+    document.getElementById('weightDripHigh').addEventListener('input', updateTableDripHigh);
+    document.getElementById('resetBtn').addEventListener('click', resetAllWeights);
+
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            activateTab(btn.getAttribute('data-tab'));
+        });
+    });
+
+    updateTable20();
+    updateTable50();
+    updateTableDripLow();
+    updateTableDripHigh();
+</script>
+</body>
+</html>
