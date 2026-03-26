@@ -16,6 +16,12 @@
       min-height: 100vh;
     }
 
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #0f1446;
+    }
+
     .calc-menu {
       display: flex;
       flex-direction: column;
@@ -28,21 +34,26 @@
     .calc-btn {
       text-decoration: none;
       color: white;
-      background: #0f1446; /* темно-синий */
+      background: #0f1446;
       padding: 12px 15px;
       border-radius: 8px;
       font-weight: 600;
       text-align: center;
       width: 100%;
       transition: background 0.2s;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      font-family: inherit;
+      box-sizing: border-box;
     }
 
     .calc-btn:hover {
       background: #3949ab;
     }
 
-    .calc-btn.active {
-      background: #c62828; /* красная подсветка для активного калькулятора */
+    .calc-btn:active {
+      transform: scale(0.98);
     }
 
     @media (max-width: 600px) {
@@ -57,189 +68,48 @@
 </head>
 <body>
 
-  <h1 style="text-align:center; margin-bottom: 20px;">Калькуляторы СМП</h1>
+  <h1>Калькуляторы СМП</h1>
 
   <div class="calc-menu">
-    <a href="calculators/algovera-shock.html" class="calc-btn">Альговера шоковый индекс</a>
-    <a href="calculators/fundal-height.html" class="calc-btn">Высота стояния дна матки</a>
-    <a href="calculators/glasgow-scale.html" class="calc-btn">Глазго шкала комы</a>
-    <a href="calculators/pediatric-norms.html" class="calc-btn">Детские возрастные нормы</a>
-    <a href="calculators/dental-formula.html" class="calc-btn">Зубная формула</a>
-    <a href="calculators/ventilation-modes.html" class="calc-btn">ИВЛ режимы</a>
-    <a href="calculators/intubation.html" class="calc-btn">Интубации описание</a>
-    <a href="calculators/dobutamine-adult.html" class="calc-btn">Инфузия Добутамина взрослым</a>
-    <a href="calculators/dobutamine-child.html" class="calc-btn">Инфузия Добутамина детям</a>
-    <a href="calculators/dopamine-adult.html" class="calc-btn">Инфузия Допамина взрослым</a>
-    <a href="calculators/dopamine-child.html" class="calc-btn">Инфузия Допамина детям</a>
-    <a href="calculators/norepinephrine-adult.html" class="calc-btn">Инфузия Норэпинефрина взрослым</a>
-    <a href="calculators/norepinephrine-child.html" class="calc-btn">Инфузия Норэпинефрина детям</a>
-    <a href="calculators/itls-trauma.html" class="calc-btn">ITLS протокол травм-осмотра</a>
-    <a href="calculators/due-date.html" class="calc-btn">Калькулятор даты родов</a>
-    <a href="calculators/lams-scale.html" class="calc-btn">LAMS шкала</a>
-    <a href="calculators/news2-scale.html" class="calc-btn">NEWS 2 шкала</a>
-    <a href="calculators/odn-kassil.html" class="calc-btn">ОДН по Кассиль</a>
-    <a href="calculators/fontanelle.html" class="calc-btn">Описание родничков у детей</a>
-    <a href="calculators/pain-vas.html" class="calc-btn">Оценка по шкале боли ВАШ</a>
-    <a href="calculators/mg-conversion.html" class="calc-btn">Пересчёт % в mg</a>
-    <a href="calculators/burn-area.html" class="calc-btn">Площадь ожога</a>
-    <a href="calculators/gastric-lavage-adult.html" class="calc-btn">Промывание желудка взрослым</a>
-    <a href="calculators/gastric-lavage-child.html" class="calc-btn">Промывание желудка детям</a>
-    <a href="calculators/rass-scale.html" class="calc-btn">RASS шкала</a>
-    <a href="calculators/iv-infusion-rate.html" class="calc-btn">Расчет скорости в/в введения</a>
-    <a href="calculators/shocks-scale.html" class="calc-btn">ШОКС шкала</a>
+    <button class="calc-btn" data-url="algovera-shock.html">Альговера шоковый индекс</button>
+    <button class="calc-btn" data-url="fundal-height.html">Высота стояния дна матки</button>
+    <button class="calc-btn" data-url="glasgow-scale.html">Глазго шкала комы</button>
+    <button class="calc-btn" data-url="pediatric-norms.html">Детские возрастные нормы</button>
+    <button class="calc-btn" data-url="dental-formula.html">Зубная формула</button>
+    <button class="calc-btn" data-url="ventilation-modes.html">ИВЛ режимы</button>
+    <button class="calc-btn" data-url="intubation.html">Интубации описание</button>
+    <button class="calc-btn" data-url="dobutamine-adult.html">Инфузия Добутамина взрослым</button>
+    <button class="calc-btn" data-url="dobutamine-child.html">Инфузия Добутамина детям</button>
+    <button class="calc-btn" data-url="dopamine-adult.html">Инфузия Допамина взрослым</button>
+    <button class="calc-btn" data-url="dopamine-child.html">Инфузия Допамина детям</button>
+    <button class="calc-btn" data-url="norepinephrine-adult.html">Инфузия Норэпинефрина взрослым</button>
+    <button class="calc-btn" data-url="norepinephrine-child.html">Инфузия Норэпинефрина детям</button>
+    <button class="calc-btn" data-url="itls-trauma.html">ITLS протокол травм-осмотра</button>
+    <button class="calc-btn" data-url="due-date.html">Калькулятор даты родов</button>
+    <button class="calc-btn" data-url="lams-scale.html">LAMS шкала</button>
+    <button class="calc-btn" data-url="news2-scale.html">NEWS 2 шкала</button>
+    <button class="calc-btn" data-url="odn-kassil.html">ОДН по Кассиль</button>
+    <button class="calc-btn" data-url="fontanelle.html">Описание родничков у детей</button>
+    <button class="calc-btn" data-url="pain-vas.html">Оценка по шкале боли ВАШ</button>
+    <button class="calc-btn" data-url="mg-conversion.html">Пересчёт % в mg</button>
+    <button class="calc-btn" data-url="burn-area.html">Площадь ожога</button>
+    <button class="calc-btn" data-url="gastric-lavage-adult.html">Промывание желудка взрослым</button>
+    <button class="calc-btn" data-url="gastric-lavage-child.html">Промывание желудка детям</button>
+    <button class="calc-btn" data-url="rass-scale.html">RASS шкала</button>
+    <button class="calc-btn" data-url="iv-infusion-rate.html">Расчет скорости в/в введения</button>
+    <button class="calc-btn" data-url="shocks-scale.html">ШОКС шкала</button>
   </div>
 
-  <div class="calculator-menu">
-    <button class="nav-btn" id="algovera-btn">Альговера шоковый индекс</button>
-    <button class="nav-btn" id="fundus-height-btn">Высота стояния дна матки</button>
-    <button class="nav-btn" id="glasgow-btn">Глазго шкала комы</button>
-    <button class="nav-btn" id="child-norms-btn">Детские возрастные нормы</button>
-    <button class="nav-btn" id="tooth-formula-btn">Зубная формула</button>
-    <button class="nav-btn" id="vent-modes-btn">ИВЛ режимы</button>
-    <button class="nav-btn" id="intubation-desc-btn">Интубации описание</button>
-    <button class="nav-btn" id="dobutamine-adult-btn">Инфузия Добутамина взрослым</button>
-    <button class="nav-btn" id="dobutamine-child-btn">Инфузия Добутамина детям</button>
-    <button class="nav-btn" id="dopamine-adult-btn">Инфузия Допамина взрослым</button>
-    <button class="nav-btn" id="dopamine-child-btn">Инфузия Допамина детям</button>
-    <button class="nav-btn" id="norepinephrine-adult-btn">Инфузия Норэпинефрина взрослым</button>
-    <button class="nav-btn" id="norepinephrine-child-btn">Инфузия Норэпинефрина детям</button>
-    <button class="nav-btn" id="itls-btn">ITLS протокол травм-осмотра</button>
-    <button class="nav-btn" id="due-date-btn">Калькулятор даты родов</button>
-    <button class="nav-btn" id="lams-btn">LAMS шкала</button>
-    <button class="nav-btn" id="news2-btn">NEWS 2 шкала</button>
-    <button class="nav-btn" id="odn-kassil-btn">ОДН по Кассиль</button>
-    <button class="nav-btn" id="fontanel-desc-btn">Описание родничков у детей</button>
-    <button class="nav-btn" id="vash-btn">Оценка по шкале боли ВАШ</button>
-    <button class="nav-btn" id="percent-to-mg-btn">Пересчёт % в mg</button>
-    <button class="nav-btn" id="burn-area-btn">Площадь ожога</button>
-    <button class="nav-btn" id="gastric-wash-adult-btn">Промывание желудка взрослым</button>
-    <button class="nav-btn" id="gastric-wash-child-btn">Промывание желудка детям</button>
-    <button class="nav-btn" id="rass-btn">RASS шкала</button>
-    <button class="nav-btn" id="iv-rate-btn">Расчет скорости в/в введения</button>
-    <button class="nav-btn" id="shox-btn">ШОКС шкала</button>
-</div>
-
   <script>
-document.getElementById('algovera-btn').addEventListener('click', () => {
-    window.location.href = 'algovera-shock.html';
-});
-
-document.getElementById('fundal-height-btn').addEventListener('click', () => {
-    window.location.href = 'fundal-height.html';
-});
-
-document.getElementById('glasgow-btn').addEventListener('click', () => {
-    window.location.href = 'glasgow-scale.html';
-});
-
-document.getElementById('pediatric-btn').addEventListener('click', () => {
-    window.location.href = 'pediatric-norms.html';
-});
-
-document.getElementById('dental-btn').addEventListener('click', () => {
-    window.location.href = 'dental-formula.html';
-});
-
-document.getElementById('ventilation-btn').addEventListener('click', () => {
-    window.location.href = 'ventilation-modes.html';
-});
-
-document.getElementById('intubation-btn').addEventListener('click', () => {
-    window.location.href = 'intubation.html';
-});
-
-document.getElementById('dobutamine-adult-btn').addEventListener('click', () => {
-    window.location.href = 'dobutamine-adult.html';
-});
-
-document.getElementById('dobutamine-child-btn').addEventListener('click', () => {
-    window.location.href = 'dobutamine-child.html';
-});
-
-document.getElementById('dopamine-adult-btn').addEventListener('click', () => {
-    window.location.href = 'dopamine-adult.html';
-});
-
-document.getElementById('dopamine-child-btn').addEventListener('click', () => {
-    window.location.href = 'dopamine-child.html';
-});
-
-document.getElementById('norepinephrine-adult-btn').addEventListener('click', () => {
-    window.location.href = 'norepinephrine-adult.html';
-});
-
-document.getElementById('norepinephrine-child-btn').addEventListener('click', () => {
-    window.location.href = 'norepinephrine-child.html';
-});
-
-document.getElementById('itls-btn').addEventListener('click', () => {
-    window.location.href = 'itls-trauma.html';
-});
-
-document.getElementById('due-date-btn').addEventListener('click', () => {
-    window.location.href = 'due-date.html';
-});
-
-document.getElementById('lams-btn').addEventListener('click', () => {
-    window.location.href = 'lams-scale.html';
-});
-
-document.getElementById('news2-btn').addEventListener('click', () => {
-    window.location.href = 'news2-scale.html';
-});
-
-document.getElementById('odn-btn').addEventListener('click', () => {
-    window.location.href = 'odn-kassil.html';
-});
-
-document.getElementById('fontanelle-btn').addEventListener('click', () => {
-    window.location.href = 'fontanelle.html';
-});
-
-document.getElementById('pain-btn').addEventListener('click', () => {
-    window.location.href = 'pain-vas.html';
-});
-
-document.getElementById('mg-btn').addEventListener('click', () => {
-    window.location.href = 'mg-conversion.html';
-});
-
-document.getElementById('burn-btn').addEventListener('click', () => {
-    window.location.href = 'burn-area.html';
-});
-
-document.getElementById('lavage-adult-btn').addEventListener('click', () => {
-    window.location.href = 'gastric-lavage-adult.html';
-});
-
-document.getElementById('lavage-child-btn').addEventListener('click', () => {
-    window.location.href = 'gastric-lavage-child.html';
-});
-
-document.getElementById('rass-btn').addEventListener('click', () => {
-    window.location.href = 'rass-scale.html';
-});
-
-document.getElementById('iv-rate-btn').addEventListener('click', () => {
-    window.location.href = 'iv-infusion-rate.html';
-});
-
-document.getElementById('shocks-btn').addEventListener('click', () => {
-    window.location.href = 'shocks-scale.html';
-});
-</script>
-
-  <script>
-    document.getElementById('algovera-btn').addEventListener('click', () => {
-        window.location.href = 'algovera-shock.html';
+    document.querySelectorAll('.calc-btn').forEach(button => {
+      button.addEventListener('click', function() {
+        const url = this.getAttribute('data-url');
+        if (url) {
+          window.location.href = url;
+        }
+      });
     });
-</script>
-
-<script>
-    document.getElementById('fundal-height-btn').addEventListener('click', () => {
-        window.location.href = 'fundal-height.html';
-    });
-</script>
+  </script>
 
 </body>
 </html>
