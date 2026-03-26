@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Карта вызова СМП | Гнойный мастит</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #e2e8f0;
+            font-family: 'Segoe UI', 'Roboto', 'Inter', system-ui, sans-serif;
+            line-height: 1.5;
+            padding: 32px 24px;
+            color: #1a2c3e;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .medical-card {
+            background: #ffffff;
+            border-radius: 28px;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #c62828 0%, #8b0000 100%);
+            padding: 20px 32px;
+            color: white;
+            border-bottom: 4px solid #ffb347;
+        }
+
+        .card-header .mkb {
+            font-size: 14px;
+            opacity: 0.9;
+            font-family: monospace;
+        }
+
+        .card-header .warning {
+            font-size: 12px;
+            opacity: 0.85;
+            margin-top: 8px;
+            background: rgba(255,255,255,0.15);
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+
+        .card-content {
+            padding: 28px 36px;
+        }
+
+        .exam-block {
+            margin-bottom: 28px;
+            border: 1px solid #e2edf2;
+            border-radius: 20px;
+            overflow: hidden;
+            background: white;
+        }
+
+        .block-title {
+            background: #f1f6fb;
+            padding: 14px 24px;
+            font-weight: 800;
+            font-size: 18px;
+            color: #0b5e7c;
+            border-left: 5px solid #ffb347;
+            letter-spacing: -0.2px;
+        }
+
+        .block-content {
+            padding: 20px 28px;
+            background: #fefefe;
+            font-size: 15px;
+            line-height: 1.55;
+            color: #1e3a4f;
+            text-align: left;
+        }
+
+        .field-row {
+            margin-bottom: 12px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 8px;
+            text-align: left;
+        }
+
+        .field-label {
+            font-weight: 700;
+            color: #1c6d8f;
+            min-width: 220px;
+            font-size: 14px;
+        }
+
+        .field-value {
+            flex: 1;
+            color: #1e2f3c;
+            text-align: left;
+        }
+
+        .inline-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            margin: 12px 0;
+            text-align: left;
+        }
+
+        .inline-item {
+            flex: 1;
+            min-width: 180px;
+            text-align: left;
+        }
+
+        .diagnosis-box {
+            background: #fefaf5;
+            border-left: 4px solid #ffb347;
+            padding: 16px 20px;
+            border-radius: 16px;
+            margin-bottom: 8px;
+            text-align: left;
+        }
+
+        .diagnosis-box div {
+            margin-bottom: 8px;
+            text-align: left;
+        }
+
+        .status-local {
+            background: #f9fef7;
+            border-left: 4px solid #2c9c6e;
+            padding: 16px 20px;
+            border-radius: 16px;
+            margin-top: 8px;
+            text-align: left;
+        }
+
+        .status-local div {
+            margin-bottom: 8px;
+            text-align: left;
+        }
+
+        .scales-box {
+            background: #f0f4fa;
+            padding: 16px 20px;
+            border-radius: 16px;
+            margin: 12px 0;
+        }
+
+        .scale-item {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .scale-label {
+            font-weight: 700;
+            color: #1c6d8f;
+            min-width: 160px;
+        }
+
+        .alert-note {
+            background: #ffebee;
+            border-left: 4px solid #c62828;
+            padding: 12px 16px;
+            border-radius: 12px;
+            margin-top: 16px;
+            font-size: 13px;
+        }
+
+        hr {
+            margin: 16px 0;
+            border: none;
+            height: 1px;
+            background: #e2ecf3;
+        }
+
+        .footer-note {
+            font-size: 13px;
+            color: #6c8eaa;
+            text-align: right;
+        }
+
+        @media (max-width: 700px) {
+            .card-content {
+                padding: 18px;
+            }
+            .block-content {
+                padding: 14px 18px;
+            }
+            .field-label {
+                min-width: 140px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="medical-card">
+        <div class="card-header">
+            <div class="mkb">МКБ-10: N61 — Гнойный мастит | O91.1 — Гнойный мастит гестационный/послеродовый</div>
+            <div class="warning">⚠️ НЕОТЛОЖНОЕ СОСТОЯНИЕ! Экстренная госпитализация в хирургический стационар! Риск сепсиса!</div>
+        </div>
+        <div class="card-content">
+
+            <!-- ДИАГНОЗ -->
+            <div class="exam-block">
+                <div class="block-title">ДИАГНОЗ</div>
+                <div class="block-content">
+                    <div class="diagnosis-box">
+                        <div><strong>Основное заболевание:</strong> Острый гнойный мастит правой/левой молочной железы. Инфильтративно-гнойная / абсцедирующая / флегмонозная форма. Послеродовый / лактационный / вне лактации.</div>
+                        <div><strong>Осложнения:</strong> Синдром системной воспалительной реакции (SIRS). Лихорадка. Острый болевой синдром. Реактивный подмышечный лимфаденит. Сепсис (при тяжелом течении – указать).</div>
+                        <div><strong>Сопутствующие заболевания:</strong> Лактостаз (в анамнезе). Трещины сосков. Анемия послеродовая. Сахарный диабет.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ЖАЛОБЫ -->
+            <div class="exam-block">
+                <div class="block-title">ЖАЛОБЫ</div>
+                <div class="block-content">
+                    <div class="field-row"><span class="field-label">Болевой синдром:</span><span class="field-value">Резкая, пульсирующая, распирающая боль в молочной железе, усиливающаяся при малейшем прикосновении, движении рукой, попытке кормления или сцеживания.</span></div>
+                    <div class="field-row"><span class="field-label">Локальные изменения:</span><span class="field-value">Значительное увеличение и отек молочной железы, чувство «распирания» изнутри. Покраснение кожи всей железы или значительной ее части, кожа «горячая» на ощупь.</span></div>
+                    <div class="field-row"><span class="field-label">Нарушение лактации:</span><span class="field-value">Невозможность кормить и сцеживать пораженную железу – резкая болезненность, молоко не выделяется или выделяется с огромным трудом, облегчения после сцеживания НЕТ.</span></div>
+                    <div class="field-row"><span class="field-label">Общие проявления:</span><span class="field-value">Повышение температуры тела до фебрильных цифр (38,5–40,0 °С), озноб, потрясающий озноб, проливной пот. Выраженная общая слабость, разбитость, головная боль, ломота в теле, отсутствие аппетита.</span></div>
+                    <div class="field-row"><span class="field-label">Гнойное отделяемое:</span><span class="field-value">Наличие размягчения, флюктуации в центре инфильтрата (при абсцедировании). Гнойное отделяемое из соска (при вскрывшемся абсцессе) – желто-зеленого цвета, густое, с неприятным запахом.</span></div>
+                </div>
+            </div>
+
+            <!-- АНАМНЕЗ -->
+            <div class="exam-block">
+                <div class="block-title">АНАМНЕЗ</div>
+                <div class="block-content">
+                    <div class="field-row">
+                        <span class="field-label">Анамнез заболевания:</span>
+                        <span class="field-value">Заболевание начиналось как лактостаз (указать давность: __ дней/недель назад). Несмотря на учащение кормлений, сцеживание, массаж, компрессы – улучшения не наступало. Состояние прогрессивно ухудшалось: нарастали боль, отек, покраснение, присоединилась фебрильная лихорадка с ознобами. Самостоятельно принимала НПВС (парацетамол, ибупрофен) – с кратковременным эффектом / без эффекта. Антибиотики не принимала / принимала (указать: препарат, доза, длительность – бессистемно/курс). За медицинской помощью ранее не обращалась / обращалась (амбулаторное лечение без эффекта).</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Эпидемиологический анамнез:</span>
+                        <span class="field-value">Контакт с инфекционными больными, носителями стафилококка (медицинский персонал, члены семьи с гнойничковыми заболеваниями) – отрицает / указывает. Гнойничковые заболевания у самой пациентки в настоящее время/в анамнезе (фурункулез, гидраденит) – указать.</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Аллергологический анамнез:</span>
+                        <span class="field-value">Не отягощен / отягощен (пенициллины, цефалоспорины, местные анестетики – уточнить критично для выбора антибиотика!).</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Гинекологический и акушерский анамнез:</span>
+                        <span class="field-value">Менструальная функция: менархе с __ лет, цикл __ дней, по __ дней, регулярный, безболезненный/болезненный. Последняя менструация: (вне лактации – указать; при лактационном мастите – лактационная аменорея). Репродуктивная функция: беременностей – __, родов – __, абортов – __, выкидышей – __. Настоящая лактация (при послеродовом мастите): роды (дата) ______, __ дней/недель назад. Ребенок на грудном вскармливании / вынужденно отнят от груди из-за болезни. Кормление по требованию/режиму. Прикладывание правильное/неправильное. Трещины сосков – есть/нет, лечила/не лечила. Лактостазы в анамнезе – были/не были, исходы. Гинекологические заболевания: мастопатия, фиброаденома, кисты молочных желез, операции на молочной железе (в анамнезе). Травмы молочной железы. Экстрагенитальная патология: сахарный диабет, ожирение, анемия, иммунодефицитные состояния – факторы риска.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ОБЪЕКТИВНО -->
+            <div class="exam-block">
+                <div class="block-title">ОБЪЕКТИВНО</div>
+                <div class="block-content">
+                    <div class="inline-group">
+                        <div class="inline-item"><strong>Состояние:</strong> средней степени тяжести / тяжелое</div>
+                        <div class="inline-item"><strong>Сознание:</strong> ясное / оглушение</div>
+                        <div class="inline-item"><strong>GCS:</strong> 15 / 14–13 баллов</div>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Положение:</span>
+                        <span class="field-value">Вынужденное – щадит пораженную руку и грудь, придерживает железу, лежит на здоровом боку.</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Кожные покровы:</span>
+                        <span class="field-value">Бледные, влажные (лихорадка, пот). Акроцианоз (при сепсисе). Сыпи нет. Желтушности нет.</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Лимфоузлы:</span>
+                        <span class="field-value">Подмышечные лимфоузлы на стороне поражения увеличены (до 2–3 см), резко болезненны, плотно-эластической консистенции, подвижные / спаяны в пакеты (при флегмоне).</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Температура:</span>
+                        <span class="field-value">38,5 – 39,0 – 40,0 °С (фебрильная/пиретическая лихорадка).</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ОРГАНЫ ДЫХАНИЯ -->
+            <div class="exam-block">
+                <div class="block-title">ОРГАНЫ ДЫХАНИЯ</div>
+                <div class="block-content">
+                    <div class="field-row"><span class="field-label">ЧДД:</span><span class="field-value">20–24 в мин (тахипноэ).</span></div>
+                    <div class="field-row"><span class="field-label">Одышка:</span><span class="field-value">Смешанная, при физической нагрузке.</span></div>
+                    <div class="field-row"><span class="field-label">Аускультативно:</span><span class="field-value">Дыхание везикулярное, проводится во все отделы, хрипов нет.</span></div>
+                </div>
+            </div>
+
+            <!-- ОРГАНЫ КРОВООБРАЩЕНИЯ -->
+            <div class="exam-block">
+                <div class="block-title">ОРГАНЫ КРОВООБРАЩЕНИЯ</div>
+                <div class="block-content">
+                    <div class="field-row"><span class="field-label">Пульс:</span><span class="field-value">100–120–140 в мин, ритмичный, слабого наполнения и напряжения. ЧСС: 100–120–140 в мин.</span></div>
+                    <div class="field-row"><span class="field-label">АД:</span><span class="field-value">110/70 – 100/60 – 90/60 мм рт.ст. (тенденция к гипотонии; при септическом шоке – ниже 90/60).</span></div>
+                    <div class="field-row"><span class="field-label">Тоны сердца:</span><span class="field-value">Приглушены, глухие, тахикардия. Систолический шум на верхушке (интоксикационный, анемический).</span></div>
+                </div>
+            </div>
+
+            <!-- ОРГАНЫ ПИЩЕВАРЕНИЯ -->
+            <div class="exam-block">
+                <div class="block-title">ОРГАНЫ ПИЩЕВАРЕНИЯ</div>
+                <div class="block-content">
+                    <div class="field-row"><span class="field-label">Язык:</span><span class="field-value">Сухой, обложен густым белым/серым налетом (признак выраженной интоксикации).</span></div>
+                    <div class="field-row"><span class="field-label">Живот:</span><span class="field-value">Мягкий, не вздут, участвует в акте дыхания, безболезненный во всех отделах. Симптомы раздражения брюшины — отрицательные.</span></div>
+                    <div class="field-row"><span class="field-label">Печень, селезенка:</span><span class="field-value">Не пальпируются / увеличены (при сепсисе – токсический гепатит, спленомегалия).</span></div>
+                </div>
+            </div>
+
+            <!-- STATUS LOCALIS -->
+            <div class="exam-block">
+                <div class="block-title">STATUS LOCALIS (молочные железы)</div>
+                <div class="block-content">
+                    <div class="status-local">
+                        <div><strong>Положение и симметрия:</strong> Пораженная молочная железа значительно увеличена в объеме, резко асимметрична по сравнению со здоровой. Кожа над железой диффузно гиперемирована (ярко-красная, багрово-синюшная при флегмоне), отечна, лоснится. Венозный рисунок усилен. При флегмонозной форме – возможны участки цианоза, отслойка эпидермиса с образованием пузырей (лимфатические пузыри). Симптом «апельсиновой корки» – положительный.</div>
+                        <div><strong>Сосок и ареола:</strong> Сосок может быть втянут, сглажен, отечен. Трещины соска – часто входные ворота инфекции (указать наличие, размер, гнойное отделяемое). Из соска – гнойное отделяемое (желто-зеленое, густое, сливкообразное) при надавливании или самопроизвольное. Кровянисто-гнойное отделяемое – при деструкции тканей.</div>
+                        <div><strong>Пальпация:</strong> Пальпация резко болезненна. Начальная стадия (инфильтративная): пальпируется плотный, болезненный инфильтрат без четких границ. Стадия абсцедирования: в центре инфильтрата определяется очаг размягчения, положительный симптом флюктуации (зыбление). Флегмонозная форма: инфильтрат занимает практически всю железу, кожа багрово-синюшная, отечная.</div>
+                        <div><strong>Регионарные лимфоузлы:</strong> Подмышечные лимфоузлы на стороне поражения значительно увеличены (до 2–4 см), резко болезненны, плотные, подвижность ограничена (периаденит).</div>
+                        <div><strong>Проба со сцеживанием:</strong> Сцеживание невозможно из-за резчайшей боли. При попытке сцеживания из соска выделяется гной или капля молока с примесью гноя. <strong>Облегчения после сцеживания НЕТ</strong> – абсолютный дифференциальный признак, отличающий гнойный мастит от лактостаза.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ОЦЕНКА ПО ШКАЛАМ -->
+            <div class="exam-block">
+                <div class="block-title">ОЦЕНКА ПО ШКАЛАМ</div>
+                <div class="block-content">
+                    <div class="scales-box">
+                        <div class="scale-item">
+                            <span class="scale-label">NEWS2:</span>
+                            <span>5–9 баллов и выше – высокий риск.</span>
+                        </div>
+                        <div class="scale-item">
+                            <span class="scale-label">Шкала боли ВАШ:</span>
+                            <span>8–10 баллов из 10 (нестерпимая, пульсирующая боль).</span>
+                        </div>
+                        <div class="scale-item">
+                            <span class="scale-label">SIRS-критерии:</span>
+                            <span>t° >38,0°C – ДА; ЧСС >90 уд/мин – ДА; ЧДД >20 в мин – ДА. Наличие 2 и более критериев – SIRS-ответ положительный. Сепсис.</span>
+                        </div>
+                        <div class="scale-item">
+                            <span class="scale-label">Индекс Альговера (шоковый индекс):</span>
+                            <span>>0,8 – 1,0 – 1,2 (риск декомпенсации).</span>
+                        </div>
+                        <div class="scale-item">
+                            <span class="scale-label">Шкала тяжести мастита (клиническая):</span>
+                            <span>Инфильтративный – без флюктуации, SIRS 2 критерия.<br>Абсцедирующий – флюктуация, SIRS 2–3 критерия.<br>Флегмонозный – распространенный процесс, SIRS 3–4 критерия, органная дисфункция.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ДИФФЕРЕНЦИАЛЬНАЯ ДИАГНОСТИКА И ТАКТИКА -->
+            <div class="exam-block">
+                <div class="block-title">ДИФФЕРЕНЦИАЛЬНАЯ ДИАГНОСТИКА И ТАКТИКА</div>
+                <div class="block-content">
+                    <div class="alert-note">
+                        <strong>Дифференциальная диагностика проведена с:</strong><br>
+                        — <strong>Лактостазом:</strong> уплотнение подвижное, с четкими границами, сцеживание эффективно, приносит облегчение, лихорадка не характерна, SIRS-ответа нет.<br>
+                        — <strong>Инфильтративным маститом:</strong> нет флюктуации, сцеживание невозможно, но дифференцировать от абсцедирующего можно только по наличию флюктуации и/или данным УЗИ.<br>
+                        — <strong>Раком молочной железы (воспалительная форма):</strong> менее острое начало, нет лихорадки, кожа гиперемирована, но не горячая, симптом «апельсиновой корки» без отека, SIRS-ответа нет.<br>
+                        — <strong>Рожистым воспалением:</strong> яркая гиперемия с четкими границами, «языки пламени», нет глубокого инфильтрата, флюктуации, гнойного отделяемого из соска.<br><br>
+                        <strong>Примечание для бригады СМП:</strong><br>
+                        — Экстренная госпитализация в хирургический/гинекологический стационар.<br>
+                        — Транспортировка на носилках в положении лежа на спине, щадящий режим.<br>
+                        — При подозрении на сепсис – инфузионная терапия, контроль витальных функций.<br>
+                        — Категорически запрещены согревающие компрессы, массаж, физиопроцедуры на догоспитальном этапе!
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+            <div class="footer-note">
+                N61 / O91.1 — Гнойный мастит | Экстренная госпитализация в хирургическое отделение | Абсцесс – хирургическое вскрытие и дренирование
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
