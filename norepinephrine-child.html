@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Калькулятор инфузии норэпинефрина | Дети</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(145deg, #f0f5fa 0%, #e4ecf3 100%);
+            font-family: 'Inter', -apple-system, 'Segoe UI', Roboto, system-ui, sans-serif;
+            padding: 16px;
+            min-height: 100vh;
+            color: #1a4a5f;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: linear-gradient(115deg, #8f6b6b 0%, #6a4a4a 100%);
+            border-radius: 28px;
+            padding: 24px 28px;
+            margin-bottom: 24px;
+            color: white;
+            box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .header h1 span {
+            font-size: 0.9rem;
+            background: rgba(255,255,255,0.2);
+            padding: 5px 14px;
+            border-radius: 40px;
+        }
+
+        .header p {
+            margin-top: 12px;
+            opacity: 0.92;
+            border-left: 3px solid #c49b9b;
+            padding-left: 18px;
+            font-size: 0.9rem;
+        }
+
+        .tabs-wrapper {
+            margin-bottom: 24px;
+        }
+
+        .tabs-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #6a4a4a;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tabs-label::before {
+            content: "👶";
+            font-size: 1rem;
+        }
+
+        .nav-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .tab-btn {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border: 2px solid #cbdde6;
+            padding: 10px 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #6a4a4a;
+            cursor: pointer;
+            border-radius: 60px;
+            transition: all 0.25s ease;
+            font-family: inherit;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            flex: 0 0 auto;
+        }
+
+        .tab-btn:hover {
+            background: linear-gradient(135deg, #e8f0f5 0%, #dfeaf0 100%);
+            border-color: #8f6b6b;
+            transform: translateY(-2px);
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, #8f6b6b 0%, #6a4a4a 100%);
+            border-color: #ffc107;
+            color: white;
+            box-shadow: 0 4px 12px rgba(143,107,107,0.4);
+        }
+
+        .card {
+            background: white;
+            border-radius: 28px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            border: 1px solid #e2ecf3;
+            transition: all 0.2s;
+        }
+
+        .card:hover {
+            box-shadow: 0 12px 28px rgba(0,0,0,0.1);
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #6a4a4a;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-left: 4px solid #c49b9b;
+            padding-left: 16px;
+        }
+
+        .param-group {
+            margin-bottom: 24px;
+        }
+
+        .param-label {
+            font-weight: 600;
+            color: #2c6b5a;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+
+        .input-row {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .input-field {
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .input-field label {
+            font-size: 0.75rem;
+            color: #6f8eaa;
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+
+        .input-field input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e2ecf3;
+            border-radius: 18px;
+            font-size: 0.95rem;
+            font-family: inherit;
+            transition: all 0.25s ease;
+            background: white;
+        }
+
+        .input-field input:hover {
+            border-color: #c49b9b;
+        }
+
+        .input-field input:focus {
+            outline: none;
+            border-color: #6a4a4a;
+            box-shadow: 0 0 0 3px rgba(106,74,74,0.1);
+        }
+
+        .result-table-wrapper {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        .result-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+            min-width: 600px;
+        }
+
+        .result-table th, .result-table td {
+            padding: 12px 10px;
+            text-align: center;
+            border-bottom: 1px solid #e2ecf3;
+        }
+
+        .result-table th {
+            background: #f0f7fc;
+            color: #6a4a4a;
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+
+        .result-table td {
+            font-weight: 500;
+            color: #1a4a5f;
+        }
+
+        .result-table td.highlight-speed {
+            background: #fff3e0;
+            color: #e67e22;
+            font-weight: 700;
+            position: relative;
+        }
+
+        .result-table td.highlight-speed::after {
+            content: "⭐";
+            position: absolute;
+            top: 2px;
+            right: 4px;
+            font-size: 10px;
+        }
+
+        .speed-note {
+            background: #fff3e0;
+            border-left: 4px solid #e67e22;
+            padding: 10px 14px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            margin-top: 12px;
+        }
+
+        .info-note {
+            background: #e8f4fc;
+            border-left: 4px solid #6a4a4a;
+            padding: 12px 16px;
+            border-radius: 16px;
+            margin: 16px 0;
+            font-size: 0.8rem;
+        }
+
+        .warning-note {
+            background: #fff8e8;
+            border-left: 4px solid #e6a017;
+            padding: 12px 16px;
+            border-radius: 16px;
+            margin: 16px 0;
+            font-size: 0.8rem;
+        }
+
+        .danger-note {
+            background: #fee8e8;
+            border-left: 4px solid #c62828;
+            padding: 12px 16px;
+            border-radius: 16px;
+            margin: 16px 0;
+            font-size: 0.8rem;
+        }
+
+        .btn-reset {
+            background: linear-gradient(135deg, #eef2f8 0%, #e6edf4 100%);
+            border: 2px solid #cbdde6;
+            padding: 10px 20px;
+            border-radius: 60px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            color: #6a4a4a;
+            transition: all 0.25s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .btn-reset:hover {
+            background: linear-gradient(135deg, #e2eaf2 0%, #d8e2ec 100%);
+            border-color: #6a4a4a;
+            transform: translateY(-2px);
+        }
+
+        .footnote {
+            font-size: 0.7rem;
+            color: #7c9ab3;
+            text-align: center;
+            margin-top: 24px;
+            padding-top: 16px;
+            border-top: 1px solid #e2ecf3;
+            line-height: 1.5;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fade 0.25s ease;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        @keyframes fade {
+            from { opacity: 0; transform: translateY(8px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 12px;
+            }
+            .header {
+                padding: 18px 20px;
+            }
+            .header h1 {
+                font-size: 1.3rem;
+            }
+            .header p {
+                font-size: 0.8rem;
+            }
+            .tab-btn {
+                padding: 8px 12px;
+                font-size: 0.7rem;
+                flex: 1;
+                justify-content: center;
+            }
+            .card {
+                padding: 18px;
+            }
+            .card-title {
+                font-size: 1.1rem;
+            }
+            .input-field input {
+                padding: 10px 14px;
+                font-size: 0.85rem;
+            }
+            .result-table th, .result-table td {
+                padding: 8px 6px;
+                font-size: 0.7rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .input-row {
+                flex-direction: column;
+                gap: 12px;
+            }
+            .tab-btn {
+                padding: 8px 8px;
+                font-size: 0.65rem;
+            }
+            .result-table td.highlight-speed::after {
+                font-size: 8px;
+            }
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .tab-btn, .btn-reset {
+                display: none;
+            }
+            .card {
+                box-shadow: none;
+                border: 1px solid #ccc;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>
+            👶 Калькулятор инфузии норэпинефрина
+            <span>для детей</span>
+        </h1>
+        <p>Расчет скорости введения норэпинефрина у детей (капельная инфузия). ⭐ — выделены наиболее часто используемые в практике вазопрессорные дозы (0,1–2 мкг/кг/мин).</p>
+    </div>
+
+    <div class="tabs-wrapper">
+        <div class="tabs-label">Способ введения:</div>
+        <div class="nav-tabs">
+            <button class="tab-btn active" data-tab="low">💧 Низкая концентрация (0,004 мг/мл)</button>
+            <button class="tab-btn" data-tab="high">💧 Высокая концентрация (0,032 мг/мл)</button>
+        </div>
+    </div>
+
+    <!-- Низкая концентрация (0,004 мг/мл) -->
+    <div id="low" class="tab-content active">
+        <div class="card">
+            <div class="card-title">📊 Капельная инфузия | Низкая концентрация</div>
+            <div class="param-group">
+                <div class="param-label">👶 Данные ребенка</div>
+                <div class="input-row">
+                    <div class="input-field">
+                        <label>Масса тела (кг)</label>
+                        <input type="number" id="weightLow" value="10" step="0.5" min="2" max="45">
+                    </div>
+                </div>
+            </div>
+            <div class="info-note">
+                <strong>📌 Разведение:</strong> Норэпинефрин 1 мг (0,5 мл) + Натрия хлорид 0,9% 250 мл (0,004 мг/мл)<br>
+                <strong>⚙️ Единица измерения:</strong> капли в минуту (20 капель = 1 мл)<br>
+                <strong>👥 Весовая категория:</strong> 2,5–45 кг<br>
+                <strong>💊 Терапевтический диапазон:</strong> 0,1–0,5 мкг/кг/мин
+            </div>
+            <div class="result-table-wrapper">
+                <table class="result-table" id="tableLow">
+                    <thead>
+                        <tr>
+                            <th>Вес (кг)</th>
+                            <th>0,1 мкг/кг/мин</th>
+                            <th>0,5 мкг/кг/мин</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableLowBody"></tbody>
+                </table>
+            </div>
+            <div class="speed-note">
+                ⭐ <strong>Часто используемые скорости:</strong> 0,1–0,5 мкг/кг/мин — диапазон для вазопрессорной поддержки у детей с низкой концентрацией.
+            </div>
+        </div>
+    </div>
+
+    <!-- Высокая концентрация (0,032 мг/мл) -->
+    <div id="high" class="tab-content">
+        <div class="card">
+            <div class="card-title">📊 Капельная инфузия | Высокая концентрация</div>
+            <div class="param-group">
+                <div class="param-label">👶 Данные ребенка</div>
+                <div class="input-row">
+                    <div class="input-field">
+                        <label>Масса тела (кг)</label>
+                        <input type="number" id="weightHigh" value="10" step="0.5" min="2" max="45">
+                    </div>
+                </div>
+            </div>
+            <div class="info-note">
+                <strong>📌 Разведение:</strong> Норэпинефрин 8 мг (4 мл) + Натрия хлорид 0,9% 250 мл (0,032 мг/мл)<br>
+                <strong>⚙️ Единица измерения:</strong> капли в минуту (20 капель = 1 мл)<br>
+                <strong>👥 Весовая категория:</strong> 2,5–45 кг<br>
+                <strong>💊 Терапевтический диапазон:</strong> 1–5 мкг/кг/мин
+            </div>
+            <div class="result-table-wrapper">
+                <table class="result-table" id="tableHigh">
+                    <thead>
+                        <tr>
+                            <th>Вес (кг)</th>
+                            <th>1 мкг/кг/мин</th>
+                            <th>2 мкг/кг/мин</th>
+                            <th>3 мкг/кг/мин</th>
+                            <th>4 мкг/кг/мин</th>
+                            <th>5 мкг/кг/мин</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableHighBody"></tbody>
+                </table>
+            </div>
+            <div class="speed-note">
+                ⭐ <strong>Часто используемые скорости:</strong> 1–2 мкг/кг/мин — стандартный диапазон для вазопрессорной поддержки у детей.
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-title">⚠️ Клинические рекомендации (норэпинефрин у детей)</div>
+        <div class="warning-note">
+            <strong>💊 Дозы норэпинефрина у детей (вазопрессорная поддержка):</strong><br>
+            • <strong>0,1–0,5 мкг/кг/мин</strong> — слабый вазопрессорный эффект (низкая концентрация)<br>
+            • <strong>1–2 мкг/кг/мин</strong> — умеренный вазопрессорный эффект (поддержание АД)<br>
+            • <strong>2–5 мкг/кг/мин</strong> — выраженный вазопрессорный эффект<br>
+            • <strong>>5 мкг/кг/мин</strong> — риск тяжелой вазоконстрикции, ишемии конечностей
+        </div>
+        <div class="danger-note">
+            <strong>⚠️ Важно!</strong> Норэпинефрин является мощным вазопрессором. Инфузия проводится строго через центральный венозный катетер под контролем АД и ЧСС. У детей требуется особый контроль скорости введения! При экстравазации возможен некроз тканей!
+        </div>
+        <button class="btn-reset" id="resetBtn">⟳ Сбросить все значения к 10 кг</button>
+    </div>
+
+    <div class="footnote">
+        ⚕️ Расчеты основаны на стандартных протоколах инфузии норэпинефрина у детей. Скорость введения титруется под контролем гемодинамики (целевое АД). ⭐ — выделены наиболее часто применяемые в клинической практике дозы.<br>
+        <strong>📌 Концентрации:</strong> Низкая — 0,004 мг/мл (1 мг в 250 мл); Высокая — 0,032 мг/мл (8 мг в 250 мл)<br>
+        <strong>📌 Формула расчета:</strong> капли/мин = (доза мкг/кг/мин × вес кг × 60) / (концентрация мг/мл × 1000) × 20
+    </div>
+</div>
+
+<script>
+    // Данные для низкой концентрации (0,004 мг/мл) - 0,1 и 0,5 мкг/кг/мин
+    const lowData = {
+        doses: [0.1, 0.5],
+        weights: [2.5, 5, 10, 15, 20, 25, 30, 35, 40, 45],
+        unit: "кап/мин",
+        values: {
+            2.5: [1, 6],
+            5: [3, 13],
+            10: [5, 25],
+            15: [8, 38],
+            20: [10, 50],
+            25: [13, 63],
+            30: [15, 75],
+            35: [18, 87],
+            40: [20, 100],
+            45: [23, 113]
+        }
+    };
+
+    // Данные для высокой концентрации (0,032 мг/мл) - 1,2,3,4,5 мкг/кг/мин
+    const highData = {
+        doses: [1, 2, 3, 4, 5],
+        weights: [2.5, 5, 10, 15, 20, 25, 30, 35, 40, 45],
+        unit: "кап/мин",
+        values: {
+            2.5: [2, 3, 5, 6, 8],
+            5: [3, 6, 9, 13, 16],
+            10: [6, 13, 19, 25, 31],
+            15: [9, 19, 28, 38, 47],
+            20: [13, 25, 38, 50, 63],
+            25: [16, 31, 47, 63, 78],
+            30: [19, 38, 56, 75, 94],
+            35: [22, 44, 66, 88, 109],
+            40: [25, 50, 75, 100, 125],
+            45: [28, 56, 84, 113, 141]
+        }
+    };
+
+    function isHighlightSpeedLow(dose) {
+        return dose <= 0.5;
+    }
+
+    function isHighlightSpeedHigh(dose) {
+        return dose <= 2;
+    }
+
+    function formatValue(value, unit) {
+        // Форматируем число: целые числа без десятичных
+        return `${Math.round(value)} ${unit}`;
+    }
+
+    function findClosestWeight(weight, weights) {
+        return weights.reduce((prev, curr) => {
+            return (Math.abs(curr - weight) < Math.abs(prev - weight) ? curr : prev);
+        });
+    }
+
+    function updateLowTable() {
+        let weight = parseFloat(document.getElementById('weightLow').value);
+        if (isNaN(weight)) weight = 10;
+        weight = Math.min(Math.max(weight, 2), 45);
+        
+        let closestWeight = findClosestWeight(weight, lowData.weights);
+        const values = lowData.values[closestWeight];
+        const unit = lowData.unit;
+        const tbody = document.getElementById('tableLowBody');
+        tbody.innerHTML = '';
+        
+        const row = document.createElement('tr');
+        row.innerHTML = `<td style="font-weight: 600;">${closestWeight} кг</td>`;
+        for (let i = 0; i < lowData.doses.length; i++) {
+            const value = values[i];
+            const formattedValue = formatValue(value, unit);
+            const td = document.createElement('td');
+            td.textContent = formattedValue;
+            if (isHighlightSpeedLow(lowData.doses[i])) {
+                td.classList.add('highlight-speed');
+            }
+            row.appendChild(td);
+        }
+        tbody.appendChild(row);
+        
+        if (Math.abs(weight - closestWeight) > 0.1 && !lowData.weights.includes(weight)) {
+            const note = document.createElement('tr');
+            note.style.backgroundColor = '#fff8e8';
+            note.innerHTML = `<td colspan="3" style="text-align: center; font-size: 0.7rem; padding: 8px;">
+                ⚠️ Ближайшее табличное значение для веса ${weight} кг — ${closestWeight} кг.
+            </td>`;
+            tbody.appendChild(note);
+        }
+    }
+
+    function updateHighTable() {
+        let weight = parseFloat(document.getElementById('weightHigh').value);
+        if (isNaN(weight)) weight = 10;
+        weight = Math.min(Math.max(weight, 2), 45);
+        
+        let closestWeight = findClosestWeight(weight, highData.weights);
+        const values = highData.values[closestWeight];
+        const unit = highData.unit;
+        const tbody = document.getElementById('tableHighBody');
+        tbody.innerHTML = '';
+        
+        const row = document.createElement('tr');
+        row.innerHTML = `<td style="font-weight: 600;">${closestWeight} кг</td>`;
+        for (let i = 0; i < highData.doses.length; i++) {
+            const value = values[i];
+            const formattedValue = formatValue(value, unit);
+            const td = document.createElement('td');
+            td.textContent = formattedValue;
+            if (isHighlightSpeedHigh(highData.doses[i])) {
+                td.classList.add('highlight-speed');
+            }
+            row.appendChild(td);
+        }
+        tbody.appendChild(row);
+        
+        if (Math.abs(weight - closestWeight) > 0.1 && !highData.weights.includes(weight)) {
+            const note = document.createElement('tr');
+            note.style.backgroundColor = '#fff8e8';
+            note.innerHTML = `<td colspan="6" style="text-align: center; font-size: 0.7rem; padding: 8px;">
+                ⚠️ Ближайшее табличное значение для веса ${weight} кг — ${closestWeight} кг.
+            </td>`;
+            tbody.appendChild(note);
+        }
+    }
+
+    function resetAllWeights() {
+        document.getElementById('weightLow').value = '10';
+        document.getElementById('weightHigh').value = '10';
+        updateLowTable();
+        updateHighTable();
+    }
+
+    function activateTab(tabId) {
+        const contents = document.querySelectorAll('.tab-content');
+        contents.forEach(content => {
+            content.classList.remove('active');
+            if (content.id === tabId) content.classList.add('active');
+        });
+        const tabs = document.querySelectorAll('.tab-btn');
+        tabs.forEach(btn => {
+            btn.classList.remove('active');
+            if (btn.getAttribute('data-tab') === tabId) btn.classList.add('active');
+        });
+    }
+
+    document.getElementById('weightLow').addEventListener('input', updateLowTable);
+    document.getElementById('weightHigh').addEventListener('input', updateHighTable);
+    document.getElementById('resetBtn').addEventListener('click', resetAllWeights);
+
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            activateTab(btn.getAttribute('data-tab'));
+        });
+    });
+    
+    updateLowTable();
+    updateHighTable();
+</script>
+</body>
+</html>
