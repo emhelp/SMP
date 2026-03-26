@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
+    <title>Режимы ИВЛ | Полное руководство</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(145deg, #eef2f5 0%, #e2eaf0 100%);
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            padding: 16px;
+            color: #1a2c3e;
+            line-height: 1.5;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #0b2b3d 0%, #144d68 100%);
+            border-radius: 24px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: white;
+            box-shadow: 0 12px 20px rgba(0,0,0,0.1);
+        }
+        .hero h1 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .hero p {
+            margin-top: 10px;
+            opacity: 0.9;
+            font-size: 0.9rem;
+            border-left: 3px solid #5f9bc2;
+            padding-left: 14px;
+        }
+
+        /* Контейнер для надписи и кнопок */
+        .tabs-wrapper {
+            margin-bottom: 1.5rem;
+        }
+        
+        .tabs-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #1f5e7e;
+            margin-bottom: 12px;
+            letter-spacing: 0.3px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .tabs-label::before {
+            content: "📌";
+            font-size: 1rem;
+        }
+        
+        .nav-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 4px 0;
+        }
+        
+        /* ВИЗУАЛЬНО ВЫДЕЛЕННЫЕ КНОПКИ */
+        .tab-btn {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border: 2px solid #cbdde6;
+            padding: 12px 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #1f5e7e;
+            cursor: pointer;
+            border-radius: 60px;
+            transition: all 0.25s ease;
+            font-family: inherit;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            flex: 0 0 auto;
+        }
+        
+        .tab-btn:hover {
+            background: linear-gradient(135deg, #e8f0f5 0%, #dfeaf0 100%);
+            border-color: #5f9bc2;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+        }
+        
+        .tab-btn.active {
+            background: linear-gradient(135deg, #1f6e9c 0%, #155a80 100%);
+            border-color: #ffc107;
+            color: white;
+            box-shadow: 0 4px 12px rgba(31,110,156,0.4);
+        }
+        
+        .tab-btn.active:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(31,110,156,0.5);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fade 0.3s ease;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        @keyframes fade {
+            from { opacity: 0; transform: translateY(10px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+
+        .card {
+            background: white;
+            border-radius: 24px;
+            padding: 1.25rem;
+            margin-bottom: 1.25rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+            border: 1px solid #e2edf2;
+            transition: all 0.2s;
+        }
+        .card:hover {
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #1f5e7e;
+            margin-bottom: 0.8rem;
+            border-left: 5px solid #2c9bce;
+            padding-left: 14px;
+        }
+        .card-subtitle {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #2a6b8f;
+            margin: 0.8rem 0 0.5rem;
+        }
+        .badge-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 1rem 0;
+        }
+        .badge {
+            background: #eef2fa;
+            padding: 5px 12px;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: #1f5e7e;
+            font-family: monospace;
+        }
+        .pros-cons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin: 1rem 0;
+        }
+        .pros, .cons {
+            flex: 1;
+            background: #f9fbfd;
+            border-radius: 18px;
+            padding: 0.9rem;
+            min-width: 220px;
+        }
+        .pros h4, .cons h4 {
+            font-weight: 700;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+        .pros { border-left: 4px solid #3ba55d; }
+        .cons { border-left: 4px solid #e67e22; }
+        ul {
+            margin-left: 1.2rem;
+            margin-top: 0.5rem;
+        }
+        li {
+            margin: 0.4rem 0;
+            font-size: 0.85rem;
+        }
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+        .accent-text {
+            background: #f0f7fc;
+            padding: 0.7rem 1rem;
+            border-radius: 16px;
+            font-size: 0.85rem;
+            margin: 0.8rem 0;
+        }
+        hr {
+            margin: 1.2rem 0;
+            border: none;
+            height: 1px;
+            background: #e2ecf3;
+        }
+        .footnote {
+            text-align: center;
+            font-size: 0.7rem;
+            color: #6f8eaa;
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid #d4e2f0;
+        }
+        
+        /* Адаптация под мобильные устройства */
+        @media (max-width: 680px) {
+            body {
+                padding: 12px;
+            }
+            .hero {
+                padding: 1.2rem;
+                border-radius: 20px;
+            }
+            .hero h1 {
+                font-size: 1.3rem;
+            }
+            .hero p {
+                font-size: 0.8rem;
+            }
+            .card-title {
+                font-size: 1.2rem;
+            }
+            .card-subtitle {
+                font-size: 1rem;
+            }
+            
+            /* Кнопки на мобильных — более удобные для касания */
+            .tab-btn {
+                padding: 10px 16px;
+                font-size: 0.8rem;
+                flex: 1;
+                justify-content: center;
+                min-width: calc(50% - 10px);
+            }
+            
+            .nav-tabs {
+                gap: 8px;
+            }
+            
+            .grid-2 {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+            
+            .pros, .cons {
+                padding: 0.8rem;
+            }
+            
+            li {
+                font-size: 0.8rem;
+            }
+            
+            .badge {
+                font-size: 0.7rem;
+                padding: 4px 10px;
+            }
+            
+            .accent-text {
+                font-size: 0.8rem;
+                padding: 0.6rem 0.9rem;
+            }
+            
+            .tabs-label {
+                font-size: 0.8rem;
+                margin-bottom: 10px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .tab-btn {
+                padding: 8px 12px;
+                font-size: 0.75rem;
+                gap: 4px;
+            }
+            
+            .card {
+                padding: 1rem;
+                border-radius: 20px;
+            }
+            
+            .card-title {
+                font-size: 1.1rem;
+                padding-left: 12px;
+            }
+            
+            .hero h1 {
+                font-size: 1.2rem;
+            }
+        }
+        
+        /* Планшеты и средние экраны */
+        @media (min-width: 681px) and (max-width: 900px) {
+            .tab-btn {
+                padding: 10px 18px;
+                font-size: 0.85rem;
+            }
+            
+            .grid-2 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .tab-btn {
+                display: none;
+            }
+            .tabs-wrapper {
+                display: none;
+            }
+            .tab-content {
+                display: block !important;
+            }
+            .card {
+                break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid #ccc;
+            }
+        }
+        
+        /* Дополнительные улучшения для сенсорного ввода */
+        .tab-btn:active {
+            transform: scale(0.97);
+            transition: transform 0.05s;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="hero">
+        <h1>
+            📖 Режимы искусственной вентиляции легких
+        </h1>
+        <p>Полная классификация, клинические особенности, преимущества и недостатки основных режимов ИВЛ. Основано на современных клинических рекомендациях.</p>
+    </div>
+
+    <!-- Визуально выделенные кнопки-вкладки -->
+    <div class="tabs-wrapper">
+        <div class="tabs-label">Выберите из списка:</div>
+        <div class="nav-tabs">
+            <button class="tab-btn active" data-tab="forced">
+                🫁 Принудительная ИВЛ
+            </button>
+            <button class="tab-btn" data-tab="sync">
+                🔄 Принудительно-вспомогательные (SIMV)
+            </button>
+            <button class="tab-btn" data-tab="support">
+                💨 Вспомогательные режимы (ВИВЛ)
+            </button>
+            <button class="tab-btn" data-tab="abbr">
+                📚 Словарь аббревиатур
+            </button>
+        </div>
+    </div>
+
+    <div id="forced" class="tab-content active">
+        <div class="card">
+            <div class="card-title">🔹 Принудительная (управляемая) вентиляция — CMV</div>
+            <p>Режим, при котором все дыхательные циклы полностью задаются аппаратом. Пациент не совершает самостоятельных вдохов, а его дыхательная активность (если есть) игнорируется. Используется у пациентов без спонтанного дыхания, в глубокой седации или миоплегии.</p>
+            <div class="grid-2">
+                <div class="pros">
+                    <h4>✅ Вентиляция с контролем по объему (VC-CMV, IPPV)</h4>
+                    <ul>
+                        <li>Гарантирован дыхательный объем и минутная вентиляция</li>
+                        <li>Простота настройки</li>
+                    </ul>
+                    <div class="accent-text"><strong>Недостатки:</strong> высокий риск баротравмы, неравномерность вентиляции, проблемы при негерметичности контура.</div>
+                </div>
+                <div class="pros">
+                    <h4>✅ Вентиляция с контролем по давлению (PC-CMV, PCV)</h4>
+                    <ul>
+                        <li>Меньший риск баротравмы</li>
+                        <li>Более равномерная вентиляция, возможность использования при утечке (безманжеточные трубки)</li>
+                    </ul>
+                    <div class="accent-text"><strong>Недостатки:</strong> дыхательный объём не гарантирован, зависит от compliance и сопротивления.</div>
+                </div>
+            </div>
+            <div class="badge-list">
+                <span class="badge">VC-CMV</span>
+                <span class="badge">PC-CMV</span>
+                <span class="badge">IPPV</span>
+                <span class="badge">CMV</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">⚙️ Дополнительные параметры и триггеры</div>
+            <p><strong>Триггер</strong> — пусковая схема, включающая вдох в ответ на попытку пациента (в принудительных режимах не используется, но важен для вспомогательных). Виды: по давлению (Pressure trigger), по потоку (Flow trigger — наиболее чувствительный), по объему.</p>
+            <p>При принудительной вентиляции врач задаёт: <strong>частоту, дыхательный объём или инспираторное давление, соотношение вдох:выдох, ПДКВ (PEEP)</strong>.</p>
+        </div>
+    </div>
+
+    <div id="sync" class="tab-content">
+        <div class="card">
+            <div class="card-title">🔄 Синхронизированная перемежающаяся принудительная вентиляция (SIMV)</div>
+            <p>Режим, сочетающий принудительные вдохи с возможностью самостоятельного дыхания пациента. Принудительные вдохи синхронизированы с дыхательными попытками (триггер). Если пациент не дышит — респиратор подаёт заданное количество аппаратных вдохов. Это универсальный режим для пациентов с частично сохранённым спонтанным дыханием.</p>
+            <div class="grid-2">
+                <div class="pros">
+                    <h4>🔹 VC-SIMV (объемный SIMV)</h4>
+                    <ul>
+                        <li>Задаётся дыхательный объём, частота принудительных вдохов, триггер</li>
+                        <li>Может дополняться поддержкой давлением (SIMV+PS) или объёмом (SIMV+VS)</li>
+                        <li>Гарантирует заданный объём при принудительных вдохах</li>
+                    </ul>
+                </div>
+                <div class="pros">
+                    <h4>🔹 PC-SIMV (давление-контролируемый SIMV)</h4>
+                    <ul>
+                        <li>Задаётся инспираторное давление, частота принудительных вдохов</li>
+                        <li>Меньший риск баротравмы, подходит при негерметичности ДП</li>
+                        <li>Спонтанные вдохи могут поддерживаться PSV или VS</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="accent-text"><strong>Важно:</strong> при отсутствии самостоятельных вдохов SIMV трансформируется в CMV (принудительную вентиляцию), что делает режим безопасным при угнетении дыхания.</div>
+            <div class="badge-list">
+                <span class="badge">SIMV</span>
+                <span class="badge">VC-SIMV</span>
+                <span class="badge">PC-SIMV</span>
+                <span class="badge">SIMV+PS</span>
+                <span class="badge">IMV</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="support" class="tab-content">
+        <div class="card">
+            <div class="card-title">💡 Вспомогательные режимы (поддержка спонтанного дыхания)</div>
+            <p>Применяются у стабильных пациентов с сохранённой гемодинамикой для облегчения работы дыхания и отлучения от респиратора. <strong>Не используются у критических больных!</strong> Часто применяются совместно с SIMV или как самостоятельные режимы.</p>
+            <div class="grid-2">
+                <div class="pros">
+                    <h4>🔹 PSV (Pressure Support Ventilation)</h4>
+                    <ul>
+                        <li>Поддержка спонтанных вдохов заданным давлением</li>
+                        <li>Устанавливается давление поддержки, триггер</li>
+                        <li>Широко используется при отлучении от ИВЛ (постепенное снижение PS)</li>
+                    </ul>
+                </div>
+                <div class="pros">
+                    <h4>🔹 VS (Volume Support)</h4>
+                    <ul>
+                        <li>Респиратор автоматически подбирает давление поддержки для достижения заданного дыхательного объёма</li>
+                        <li>Удобен при изменении механики лёгких</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card-subtitle">📌 CPAP / PEEP</div>
+            <p><strong>CPAP (Continuous Positive Airway Pressure)</strong> — постоянное положительное давление в дыхательных путях при самостоятельном дыхании. <strong>PEEP (Positive End-Expiratory Pressure)</strong> — положительное давление в конце выдоха, используется в любых режимах для предотвращения ателектазирования и улучшения оксигенации.</p>
+            <div class="accent-text"><strong>Важно:</strong> при всех вспомогательных режимах рекомендуется активировать опцию <strong>«вентиляция апноэ» (Apnoe Ventilation)</strong>: при отсутствии дыхательных попыток в течение заданного времени аппарат автоматически переключается на принудительную ИВЛ.</div>
+            <div class="badge-list">
+                <span class="badge">PSV</span>
+                <span class="badge">VS</span>
+                <span class="badge">CPAP</span>
+                <span class="badge">PAV</span>
+                <span class="badge">Apnoe Vent</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="abbr" class="tab-content">
+        <div class="card">
+            <div class="card-title">📖 Расшифровка международных аббревиатур режимов ИВЛ</div>
+            <div class="grid-2">
+                <div>
+                    <ul>
+                        <li><strong>APRV</strong> — Airway pressure release ventilation (вентиляция с периодическим снижением давления)</li>
+                        <li><strong>ACV</strong> — Assist control ventilation (вспомогательная управляемая вентиляция)</li>
+                        <li><strong>BIPAP</strong> — Bi-level positive airway pressure (двухуровневое положительное давление)</li>
+                        <li><strong>CMV</strong> — Controlled mechanical ventilation (управляемая ИВЛ)</li>
+                        <li><strong>CPAP</strong> — Continuous positive airway pressure (постоянное положительное давление)</li>
+                        <li><strong>CPPV / PEEP</strong> — положительное давление в конце выдоха</li>
+                        <li><strong>HFJV</strong> — высокочастотная струйная вентиляция</li>
+                        <li><strong>HFO</strong> — высокочастотная осцилляция</li>
+                        <li><strong>IMV</strong> — Intermittent mandatory ventilation (перемежающаяся принудительная вентиляция)</li>
+                    </ul>
+                </div>
+                <div>
+                    <ul>
+                        <li><strong>IPPV</strong> — Intermittent positive pressure ventilation (прерывистая вентиляция с положительным давлением)</li>
+                        <li><strong>IRV</strong> — Inverse ratio ventilation (инверсированное отношение вдох:выдох)</li>
+                        <li><strong>PAV</strong> — Proportional assist ventilation (пропорциональная вспомогательная вентиляция)</li>
+                        <li><strong>SIMV</strong> — Synchronized intermittent mandatory ventilation (синхронизированная перемежающаяся принудительная вентиляция)</li>
+                        <li><strong>PSV</strong> — Pressure support ventilation (поддержка давлением)</li>
+                        <li><strong>VSV</strong> — Volume support ventilation (поддержка объёмом)</li>
+                        <li><strong>VCV</strong> — Volume controlled ventilation (вентиляция с контролем по объему)</li>
+                        <li><strong>PCV</strong> — Pressure controlled ventilation (вентиляция с контролем по давлению)</li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <div class="accent-text">
+                <strong>🔹 Примечание:</strong> В клинической практике часто используются комбинации (например, SIMV+PSV, PCV-VG — объёмная гарантия при давлении). Выбор режима зависит от респираторной механики, гемодинамики и фазы лечения.
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-title">🧠 Важные клинические моменты</div>
+            <ul>
+                <li><strong>Мониторинг:</strong> SpO₂, EtCO₂, минутная вентиляция (МОД), пиковое давление (Ppeak), плато давление (Pplat), КЩС.</li>
+                <li><strong>Безопасность:</strong> При нестабильной гемодинамике предпочтительны режимы с контролем по давлению (PCV, PC-SIMV) для снижения риска баротравмы.</li>
+                <li><strong>Отлучение от респиратора:</strong> постепенное снижение SIMV частоты и уменьшение PSV, переход на CPAP + PSV с последующей экстубацией.</li>
+                <li><strong>Специальные режимы:</strong> APRV и BIPAP — для пациентов с тяжёлым ОРДС; высокочастотная вентиляция (HFOV) — при бронхоплевральных свищах.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="footnote">
+        ⚕️ Информация основана на актуальных клинических рекомендациях и материалах для специалистов. Режимы ИВЛ подбираются индивидуально с учётом состояния пациента, показателей газообмена и гемодинамики.
+    </div>
+</div>
+
+<script>
+    const tabs = document.querySelectorAll('.tab-btn');
+    const contents = document.querySelectorAll('.tab-content');
+
+    function activateTab(tabId) {
+        contents.forEach(content => {
+            content.classList.remove('active');
+            if (content.id === tabId) content.classList.add('active');
+        });
+        tabs.forEach(btn => {
+            btn.classList.remove('active');
+            if (btn.getAttribute('data-tab') === tabId) btn.classList.add('active');
+        });
+        
+        // Плавная прокрутка к началу контента на мобильных
+        if (window.innerWidth <= 768) {
+            const tabsWrapper = document.querySelector('.tabs-wrapper');
+            if (tabsWrapper) {
+                tabsWrapper.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+    }
+
+    tabs.forEach(btn => {
+        btn.addEventListener('click', () => activateTab(btn.getAttribute('data-tab')));
+    });
+
+    // Активация вкладки по умолчанию (принудительная ИВЛ)
+    activateTab('forced');
+</script>
+</body>
+</html>
