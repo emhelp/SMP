@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Карта вызова СМП | Постменопаузальное кровотечение</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #e2e8f0;
+            font-family: 'Segoe UI', 'Roboto', 'Inter', system-ui, sans-serif;
+            line-height: 1.5;
+            padding: 32px 24px;
+            color: #1a2c3e;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .medical-card {
+            background: #ffffff;
+            border-radius: 28px;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #7b1e2c 0%, #5a1420 100%);
+            padding: 20px 32px;
+            color: white;
+            border-bottom: 4px solid #ffb347;
+        }
+
+        .card-header .mkb {
+            font-size: 14px;
+            opacity: 0.9;
+            font-family: monospace;
+        }
+
+        .card-header .warning {
+            font-size: 12px;
+            opacity: 0.85;
+            margin-top: 8px;
+            background: rgba(255,255,255,0.15);
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+
+        .card-content {
+            padding: 28px 36px;
+        }
+
+        .exam-block {
+            margin-bottom: 28px;
+            border: 1px solid #e2edf2;
+            border-radius: 20px;
+            overflow: hidden;
+            background: white;
+        }
+
+        .block-title {
+            background: #f1f6fb;
+            padding: 14px 24px;
+            font-weight: 800;
+            font-size: 18px;
+            color: #0b5e7c;
+            border-left: 5px solid #ffb347;
+            letter-spacing: -0.2px;
+        }
+
+        .block-content {
+            padding: 20px 28px;
+            background: #fefefe;
+            font-size: 15px;
+            line-height: 1.55;
+            color: #1e3a4f;
+            text-align: left;
+        }
+
+        .field-row {
+            margin-bottom: 12px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 8px;
+            text-align: left;
+        }
+
+        .field-label {
+            font-weight: 700;
+            color: #1c6d8f;
+            min-width: 220px;
+            font-size: 14px;
+        }
+
+        .field-value {
+            flex: 1;
+            color: #1e2f3c;
+            text-align: left;
+        }
+
+        .inline-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            margin: 12px 0;
+            text-align: left;
+        }
+
+        .inline-item {
+            flex: 1;
+            min-width: 180px;
+            text-align: left;
+        }
+
+        .diagnosis-box {
+            background: #fefaf5;
+            border-left: 4px solid #ffb347;
+            padding: 16px 20px;
+            border-radius: 16px;
+            margin-bottom: 8px;
+            text-align: left;
+        }
+
+        .diagnosis-box div {
+            margin-bottom: 8px;
+            text-align: left;
+        }
+
+        .risk-factors {
+            background: #f0f4fa;
+            padding: 16px 20px;
+            border-radius: 16px;
+            margin: 12px 0;
+        }
+
+        .risk-factors p {
+            margin-bottom: 6px;
+        }
+
+        .scales-box {
+            background: #f0f4fa;
+            padding: 16px 20px;
+            border-radius: 16px;
+            margin: 12px 0;
+        }
+
+        .scale-item {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .scale-label {
+            font-weight: 700;
+            color: #1c6d8f;
+            min-width: 160px;
+        }
+
+        .status-local {
+            background: #f9fef7;
+            border-left: 4px solid #2c9c6e;
+            padding: 16px 20px;
+            border-radius: 16px;
+            margin-top: 8px;
+            text-align: left;
+        }
+
+        .status-local div {
+            margin-bottom: 8px;
+            text-align: left;
+        }
+
+        .alert-note {
+            background: #ffebee;
+            border-left: 4px solid #c62828;
+            padding: 12px 16px;
+            border-radius: 12px;
+            margin-top: 16px;
+            font-size: 13px;
+        }
+
+        hr {
+            margin: 16px 0;
+            border: none;
+            height: 1px;
+            background: #e2ecf3;
+        }
+
+        .footer-note {
+            font-size: 13px;
+            color: #6c8eaa;
+            text-align: right;
+        }
+
+        @media (max-width: 700px) {
+            .card-content {
+                padding: 18px;
+            }
+            .block-content {
+                padding: 14px 18px;
+            }
+            .field-label {
+                min-width: 140px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="medical-card">
+        <div class="card-header">
+            <div class="mkb">МКБ-10: N95.0 — Постменопаузальное кровотечение</div>
+            <div class="warning">⚠️ ТРЕВОЖНЫЙ СИМПТОМ! Требует исключения органической патологии (рак эндометрия, гиперплазия, полип)</div>
+        </div>
+        <div class="card-content">
+
+            <!-- ДИАГНОЗ -->
+            <div class="exam-block">
+                <div class="block-title">ДИАГНОЗ</div>
+                <div class="block-content">
+                    <div class="diagnosis-box">
+                        <div><strong>Основное заболевание:</strong> Кровотечение в постменопаузе. Атрофический постменопаузальный эндометрит / Полип эндометрия / Гиперплазия эндометрия (под вопросом) / Рак эндометрия (под вопросом) – нозология уточняется после гистологического исследования.</div>
+                        <div><strong>Осложнения:</strong> Постгеморрагическая анемия легкой/средней степени тяжести (при обильном/длительном кровотечении).</div>
+                        <div><strong>Сопутствующие заболевания:</strong> Гипертоническая болезнь / Сахарный диабет 2 типа / Ожирение / Варикозная болезнь / (указать при наличии).</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ЖАЛОБЫ -->
+            <div class="exam-block">
+                <div class="block-title">ЖАЛОБЫ</div>
+                <div class="block-content">
+                    <div class="field-row"><span class="field-label">Характер кровотечения:</span><span class="field-value">Кровянистые выделения из половых путей, возникшие на фоне длительного отсутствия менструаций (постменопауза): скудные / умеренные / обильные, мажущие / жидкие, алые / темные, со сгустками / без сгустков. Длительность: однократные / периодические в течение __ дней/недель/месяцев. Связь с чем-либо: возникли спонтанно / после полового контакта (контактные) / после физической нагрузки / после подъема тяжестей.</span></div>
+                    <div class="field-row"><span class="field-label">Болевой синдром:</span><span class="field-value">Боли внизу живота (при наличии) – тянущие, ноющие, постоянные / схваткообразные.</span></div>
+                    <div class="field-row"><span class="field-label">Анемические проявления:</span><span class="field-value">Общая слабость, головокружение, сердцебиение (при анемизации).</span></div>
+                    <div class="field-row"><span class="field-label">Длительность постменопаузы:</span><span class="field-value">Отсутствие менструаций в течение 1 года и более (уточнить длительность постменопаузы).</span></div>
+                </div>
+            </div>
+
+            <!-- АНАМНЕЗ -->
+            <div class="exam-block">
+                <div class="block-title">АНАМНЕЗ</div>
+                <div class="block-content">
+                    <div class="field-row">
+                        <span class="field-label">Анамнез заболевания:</span>
+                        <span class="field-value">Кровянистые выделения появились впервые / повторно на фоне постменопаузы длительностью __ лет. Ранее подобных эпизодов не было / были (указать дату, объем обследования, результат гистологии). Самостоятельно не лечилась / принимала (этамзилат, транексам, кровоостанавливающие травы) – без эффекта / с временным эффектом. К врачу обращалась / не обращалась (указать: УЗИ, РДВ, гистероскопия, гистология ранее).</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Эпидемиологический анамнез:</span>
+                        <span class="field-value">Контакта с инфекционными больными нет. За пределы РФ в последние 3 недели не выезжала.</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Аллергологический анамнез:</span>
+                        <span class="field-value">Не отягощен / отягощен (указать аллергию на лекарственные препараты, пищевые продукты).</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Гинекологический анамнез:</span>
+                        <span class="field-value">Менструальная функция: менархе с __ лет. Цикл установился сразу / не сразу, по __ дней, через __ дней, регулярный/нерегулярный, умеренный/обильный, безболезненный/болезненный. Длительность постменопаузы: __ лет (считается от даты последней самостоятельной менструации). Последняя менструация: (дата). Климактерический синдром: приливы жара, потливость, лабильность АД, сухость кожи и слизистых, остеопороз (указать при наличии). Репродуктивная функция: беременностей – __, родов – __, абортов – __, выкидышей – __. Гинекологические заболевания: миома матки (размеры, локализация узлов), эндометриоз (аденомиоз), гиперплазия эндометрия, полип эндометрия (данные УЗИ, гистероскопии, гистологии в анамнезе). Оперативные вмешательства: раздельное диагностическое выскабливание (РДВ), гистероскопия, гистерорезектоскопия, экстирпация матки (указать).</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Гормональная терапия в постменопаузе:</span>
+                        <span class="field-value">Заместительная гормональная терапия (ЗГТ) – принимает/не принимала ранее/не принимает. Препарат, доза, режим приема, длительность (указать). Прием фитоэстрогенов, БАДов.</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Экстрагенитальная патология:</span>
+                        <span class="field-value">Артериальная гипертензия (длительность, степень, регулярность терапии). Сахарный диабет 2 типа (длительность, компенсация, терапия). Ожирение (ИМТ >30). Заболевания щитовидной железы, печени, почек. Нарушения свертывающей системы крови (прием антикоагулянтов, антиагрегантов).</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Онкологический анамнез:</span>
+                        <span class="field-value">Рак молочной железы, яичников, толстой кишки (личный/семейный анамнез). Скрининг (маммография, колоноскопия) – регулярность, результат.</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Выделения из половых путей:</span>
+                        <span class="field-value">На момент осмотра: скудные/умеренные/обильные, темно-красные/алые/коричневатые, со сгустками/без сгустков, обычного запаха. Патологических (гнойных, пенистых, творожистых) выделений нет.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ФАКТОРЫ РИСКА -->
+            <div class="exam-block">
+                <div class="block-title">ФАКТОРЫ РИСКА РАКА ЭНДОМЕТРИЯ</div>
+                <div class="block-content">
+                    <div class="risk-factors">
+                        <p>• Ожирение (ИМТ >30) – гиперэстрогенемия</p>
+                        <p>• Сахарный диабет 2 типа</p>
+                        <p>• Артериальная гипертензия</p>
+                        <p>• Поздняя менопауза (>52 лет)</p>
+                        <p>• Ановуляция, бесплодие в анамнезе</p>
+                        <p>• Гиперплазия эндометрия в анамнезе</p>
+                        <p>• Синдром Линча (наследственный неполипозный рак толстой кишки)</p>
+                        <p>• Прием тамоксифена (терапия рака молочной железы)</p>
+                        <p>• Отсутствие родов в анамнезе</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ОБЪЕКТИВНО -->
+            <div class="exam-block">
+                <div class="block-title">ОБЪЕКТИВНО</div>
+                <div class="block-content">
+                    <div class="inline-group">
+                        <div class="inline-item"><strong>Состояние:</strong> удовлетворительное / средней степени тяжести</div>
+                        <div class="inline-item"><strong>Сознание:</strong> ясное (GCS 15 баллов)</div>
+                        <div class="inline-item"><strong>Положение:</strong> активное / вынужденное</div>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Кожные покровы:</span>
+                        <span class="field-value">Чистые, бледные (при анемии), сухие. Тургор снижен. Акроцианоза, желтушности, сыпи нет.</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Телосложение:</span>
+                        <span class="field-value">Гиперстеническое, ожирение (указать степень).</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Температура:</span>
+                        <span class="field-value">36,6 °C (при пиометре/гематометре – фебрильная лихорадка).</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ОРГАНЫ ДЫХАНИЯ -->
+            <div class="exam-block">
+                <div class="block-title">ОРГАНЫ ДЫХАНИЯ</div>
+                <div class="block-content">
+                    <div class="field-row"><span class="field-label">ЧДД:</span><span class="field-value">18–20 в мин.</span></div>
+                    <div class="field-row"><span class="field-label">Одышка:</span><span class="field-value">Нет / при анемии – смешанная.</span></div>
+                    <div class="field-row"><span class="field-label">Аускультативно:</span><span class="field-value">Дыхание везикулярное, проводится во все отделы, хрипов нет.</span></div>
+                </div>
+            </div>
+
+            <!-- ОРГАНЫ КРОВООБРАЩЕНИЯ -->
+            <div class="exam-block">
+                <div class="block-title">ОРГАНЫ КРОВООБРАЩЕНИЯ</div>
+                <div class="block-content">
+                    <div class="field-row"><span class="field-label">Пульс:</span><span class="field-value">76–88–100 в мин, ритмичный, удовлетворительного наполнения. ЧСС: 76–88–100 в мин.</span></div>
+                    <div class="field-row"><span class="field-label">АД:</span><span class="field-value">130/80 – 140/90 – 150/90 мм рт.ст. Привычное АД ____ мм рт.ст.</span></div>
+                    <div class="field-row"><span class="field-label">Тоны сердца:</span><span class="field-value">Приглушены / звучные. Акцент II тона на аорте. Систолический шум на верхушке.</span></div>
+                </div>
+            </div>
+
+            <!-- ОРГАНЫ ПИЩЕВАРЕНИЯ -->
+            <div class="exam-block">
+                <div class="block-title">ОРГАНЫ ПИЩЕВАРЕНИЯ</div>
+                <div class="block-content">
+                    <div class="field-row"><span class="field-label">Язык:</span><span class="field-value">Влажный, чистый / сухой.</span></div>
+                    <div class="field-row"><span class="field-label">Живот:</span><span class="field-value">Увеличен за счет подкожно-жировой клетчатки, мягкий, не вздут, участвует в акте дыхания, безболезненный при пальпации во всех отделах. При гематометре/пиометре – болезненность в гипогастрии.</span></div>
+                    <div class="field-row"><span class="field-label">Симптомы раздражения брюшины:</span><span class="field-value">Отрицательные.</span></div>
+                    <div class="field-row"><span class="field-label">Стул:</span><span class="field-value">Регулярный, оформленный / склонность к запорам.</span></div>
+                </div>
+            </div>
+
+            <!-- НЕРВНАЯ СИСТЕМА -->
+            <div class="exam-block">
+                <div class="block-title">НЕРВНАЯ СИСТЕМА</div>
+                <div class="block-content">
+                    <div class="field-row"><span class="field-label">Поведение, контакт:</span><span class="field-value">Спокойное, адекватное, тревожность. Контакт полный, сохранен.</span></div>
+                    <div class="field-row"><span class="field-label">Менингеальные симптомы, очаговая симптоматика:</span><span class="field-value">Отрицательные.</span></div>
+                </div>
+            </div>
+
+            <!-- МОЧЕПОЛОВАЯ СИСТЕМА -->
+            <div class="exam-block">
+                <div class="block-title">МОЧЕПОЛОВАЯ СИСТЕМА</div>
+                <div class="block-content">
+                    <div class="field-row"><span class="field-label">Мочеиспускание:</span><span class="field-value">Свободное, безболезненное / учащенное. Моча светлая, прозрачная.</span></div>
+                    <div class="field-row"><span class="field-label">Симптом поколачивания:</span><span class="field-value">Отрицательный с обеих сторон.</span></div>
+                </div>
+            </div>
+
+            <!-- STATUS LOCALIS -->
+            <div class="exam-block">
+                <div class="block-title">STATUS LOCALIS</div>
+                <div class="block-content">
+                    <div class="status-local">
+                        <div><strong>Наружные половые органы:</strong> Развиты правильно, по женскому типу. Имеются возрастные изменения: истончение слизистых, снижение тургора, сухость. Кожа и слизистая вульвы без видимых повреждений, опухолевидных образований. В области преддверия влагалища и на промежности визуализируются следы кровянистых выделений.</div>
+                        <div><strong>Выделения из половых путей на момент осмотра:</strong></div>
+                        <div>• Количество: скудные / умеренные / обильные.</div>
+                        <div>• Цвет: темно-красные / алые / коричневатые («грязные»).</div>
+                        <div>• Консистенция: жидкие, мажущие / с прожилками крови.</div>
+                        <div>• Сгустки: отсутствуют / мелкие (до 1 см) / крупные (более 2 см).</div>
+                        <div>• Запах: обычный, без патологического запаха.</div>
+                        <div>• Примеси: патологических примесей (гноя, пенистых, творожистых масс, пленок) нет.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ОЦЕНКА ПО ШКАЛАМ -->
+            <div class="exam-block">
+                <div class="block-title">ОЦЕНКА СОСТОЯНИЯ</div>
+                <div class="block-content">
+                    <div class="scales-box">
+                        <div class="scale-item">
+                            <span class="scale-label">Индекс Альговера (шоковый индекс):</span>
+                            <span>&lt;0,8 / 0,8–1,0 (компенсированная кровопотеря).</span>
+                        </div>
+                        <div class="scale-item">
+                            <span class="scale-label">Оценка степени анемии (клинически):</span>
+                            <span>Легкая: бледность, слабость, ЧСС &lt;100, АД N.<br>
+                            Средняя: бледность, головокружение, ЧСС 100–120, АД сист. 90–100 мм рт.ст.<br>
+                            Тяжелая: резкая бледность, холодный пот, синкопе, ЧСС >120, АД сист. &lt;90 мм рт.ст.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ДИФФЕРЕНЦИАЛЬНАЯ ДИАГНОСТИКА И ТАКТИКА -->
+            <div class="exam-block">
+                <div class="block-title">ДИФФЕРЕНЦИАЛЬНАЯ ДИАГНОСТИКА И ТАКТИКА</div>
+                <div class="block-content">
+                    <div class="alert-note">
+                        <strong>Дифференциальная диагностика проведена с:</strong><br>
+                        — атрофическим кольпитом (выделения кровянистые, но обычно контактные, слизистая истончена, сухая),<br>
+                        — полипом цервикального канала/эндометрия (возможны межменструальные/контактные кровянистые выделения),<br>
+                        — подслизистой миомой матки (обильные, длительные кровотечения, боли, увеличение матки),<br>
+                        — раком шейки матки (контактные кровотечения, изменения на шейке),<br>
+                        — инородным телом влагалища (забытый пессарий, тампон – гнилостный запах).<br><br>
+                        <strong>Примечание для бригады СМП:</strong><br>
+                        Любое постменопаузальное кровотечение требует обязательного обследования в стационаре для исключения рака эндометрия!<br>
+                        — Экстренная госпитализация в гинекологическое отделение стационара показана при: профузном кровотечении, нестабильной гемодинамике, выраженной анемии, подозрении на гематометру/пиометру, выраженном болевом синдроме.<br>
+                        — Транспортировка на носилках в положении лежа на спине.<br>
+                        — При подозрении на онкологический процесс – максимальная деликатность, соблюдение онконастороженности.
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+            <div class="footer-note">
+                N95.0 — Постменопаузальное кровотечение | Экстренная/плановая госпитализация в гинекологическое отделение | Необходимо обследование: УЗИ органов малого таза, РДВ, гистероскопия, гистология
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
