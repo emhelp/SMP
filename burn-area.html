@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Калькулятор площади ожоговой поверхности</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: linear-gradient(145deg, #eef2f5 0%, #e2eaf0 100%);
+            font-family: 'Inter', -apple-system, 'Segoe UI', Roboto, system-ui, sans-serif;
+            line-height: 1.5;
+            color: #1a2c3e;
+            padding: 16px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+        .calculator-card {
+            max-width: 1200px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 28px;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.12);
+            overflow: hidden;
+            margin: 0 auto;
+        }
+        .card-header {
+            background: linear-gradient(115deg, #c62828 0%, #8b0000 100%);
+            color: white;
+            padding: 1.5rem;
+            border-bottom: 3px solid #ffc107;
+        }
+        .card-header h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .card-header p {
+            font-size: 0.85rem;
+            opacity: 0.92;
+            border-left: 3px solid #ffc107;
+            padding-left: 14px;
+        }
+        .card-content {
+            padding: 1.5rem;
+        }
+        
+        /* Переключатель возраста - ВИЗУАЛЬНО ВЫДЕЛЕННЫЕ КНОПКИ */
+        .age-selector {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            padding: 4px;
+        }
+        .age-btn {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border: 2px solid #cbdde6;
+            text-align: center;
+            padding: 12px 20px;
+            border-radius: 60px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            font-family: inherit;
+            color: #1f5e7e;
+            flex: 1;
+            min-width: 100px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .age-btn:hover {
+            background: linear-gradient(135deg, #e8f0f5 0%, #dfeaf0 100%);
+            border-color: #c62828;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+        }
+        .age-btn.active {
+            background: linear-gradient(135deg, #c62828 0%, #9b2a2a 100%);
+            border-color: #ffc107;
+            color: white;
+            box-shadow: 0 4px 12px rgba(198,40,40,0.4);
+        }
+        .age-btn.active:hover {
+            transform: translateY(-1px);
+        }
+        .age-btn:active {
+            transform: scale(0.97);
+            transition: transform 0.05s;
+        }
+        
+        /* Две колонки - адаптив */
+        .two-columns {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .body-parts {
+            flex: 1;
+            min-width: 280px;
+            background: #f8fafc;
+            border-radius: 24px;
+            padding: 1rem;
+            border: 1px solid #e2e8f0;
+        }
+        .calc-section {
+            flex: 1;
+            min-width: 260px;
+        }
+        .parts-title {
+            font-weight: 700;
+            color: #c62828;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-left: 4px solid #ffc107;
+            padding-left: 12px;
+        }
+        .parts-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            max-height: 500px;
+            overflow-y: auto;
+            padding-right: 6px;
+        }
+        .part-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: white;
+            border-radius: 14px;
+            padding: 8px 10px;
+            border: 1px solid #e2e8f0;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .part-item:hover {
+            border-color: #c62828;
+            background: #fff5f5;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+        .part-item.selected {
+            background: #ffebee;
+            border-color: #c62828;
+            border-width: 2px;
+        }
+        .part-checkbox {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: #c62828;
+            flex-shrink: 0;
+        }
+        .part-name {
+            flex: 1;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        .part-percent {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #c62828;
+            background: #fff0f0;
+            padding: 3px 8px;
+            border-radius: 20px;
+            flex-shrink: 0;
+        }
+        
+        .input-group {
+            margin-bottom: 1rem;
+        }
+        .input-group label {
+            font-weight: 600;
+            color: #1e5f7a;
+            display: block;
+            margin-bottom: 6px;
+            font-size: 0.85rem;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 12px 16px;
+            font-size: 0.95rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 18px;
+            transition: 0.2s;
+            font-family: inherit;
+            background: white;
+        }
+        .input-group input:focus {
+            outline: none;
+            border-color: #c62828;
+            box-shadow: 0 0 0 3px rgba(198,40,40,0.1);
+        }
+        .input-row {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .input-row .input-group {
+            flex: 1;
+            min-width: 120px;
+        }
+        
+        .manual-percent {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px dashed #e2e8f0;
+        }
+        
+        /* Результат */
+        .result-block {
+            background: linear-gradient(135deg, #ffebee 0%, #fff0f0 100%);
+            border-radius: 24px;
+            padding: 1.2rem;
+            margin: 1rem 0;
+            border: 1px solid #ffcdd2;
+        }
+        .result-title {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #c62828;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+        .burn-area {
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        .burn-percent {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #c62828;
+        }
+        .burn-unit {
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        .shock-card {
+            background: white;
+            border-radius: 18px;
+            padding: 0.8rem;
+            margin: 0.8rem 0;
+        }
+        .shock-level {
+            font-weight: 800;
+            font-size: 1rem;
+        }
+        .infusion-card {
+            background: #e3f2fd;
+            border-radius: 18px;
+            padding: 0.8rem;
+            margin-top: 0.8rem;
+        }
+        .infusion-value {
+            font-size: 0.95rem;
+            font-weight: 800;
+            color: #0b5e7c;
+            line-height: 1.5;
+        }
+        
+        /* ВИЗУАЛЬНО ВЫДЕЛЕННЫЕ КНОПКИ */
+        .button-group {
+            display: flex;
+            gap: 12px;
+            margin: 1rem 0;
+            flex-wrap: wrap;
+        }
+        .btn {
+            flex: 1;
+            padding: 12px 20px;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            font-family: inherit;
+            border: none;
+            text-align: center;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #c62828 0%, #9b2a2a 100%);
+            color: white;
+            border: 2px solid #ffc107;
+        }
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #b52424 0%, #8b2323 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(198,40,40,0.3);
+        }
+        .btn-primary:active {
+            transform: scale(0.97);
+        }
+        .btn-secondary {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            color: #c62828;
+            border: 2px solid #cbdde6;
+        }
+        .btn-secondary:hover {
+            background: linear-gradient(135deg, #e8f0f5 0%, #dfeaf0 100%);
+            border-color: #c62828;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .btn-secondary:active {
+            transform: scale(0.97);
+        }
+        
+        .info-text {
+            font-size: 0.7rem;
+            color: #7c95af;
+            text-align: center;
+            margin-top: 1.2rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e2e8f0;
+            line-height: 1.5;
+        }
+        
+        .selected-summary {
+            background: #fef5e8;
+            border-radius: 16px;
+            padding: 0.8rem;
+            margin-top: 1rem;
+            font-size: 0.8rem;
+        }
+        
+        /* Адаптация под мобильные устройства */
+        @media (max-width: 768px) {
+            body {
+                padding: 12px;
+            }
+            .card-header {
+                padding: 1.2rem;
+            }
+            .card-header h1 {
+                font-size: 1.3rem;
+            }
+            .card-header p {
+                font-size: 0.75rem;
+            }
+            .card-content {
+                padding: 1rem;
+            }
+            
+            /* Кнопки возраста на мобильных */
+            .age-btn {
+                padding: 10px 16px;
+                font-size: 0.8rem;
+                min-width: calc(33% - 8px);
+                flex: 0 0 auto;
+            }
+            
+            .parts-grid {
+                grid-template-columns: 1fr;
+                max-height: 400px;
+            }
+            .part-name {
+                font-size: 0.8rem;
+            }
+            .part-percent {
+                font-size: 0.7rem;
+                padding: 2px 6px;
+            }
+            .burn-percent {
+                font-size: 2rem;
+            }
+            .infusion-value {
+                font-size: 0.85rem;
+            }
+            .button-group {
+                flex-direction: column;
+            }
+            .btn {
+                padding: 10px 18px;
+                font-size: 0.85rem;
+            }
+            .two-columns {
+                gap: 1rem;
+            }
+            .body-parts, .calc-section {
+                min-width: 100%;
+            }
+            .parts-title {
+                font-size: 0.9rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .age-btn {
+                padding: 8px 12px;
+                font-size: 0.7rem;
+                min-width: calc(50% - 6px);
+            }
+            .age-selector {
+                gap: 8px;
+            }
+            .result-block {
+                padding: 1rem;
+            }
+            .burn-percent {
+                font-size: 1.8rem;
+            }
+            .shock-card, .infusion-card {
+                padding: 0.7rem;
+            }
+            .part-item {
+                padding: 6px 8px;
+            }
+            .selected-summary {
+                font-size: 0.7rem;
+            }
+        }
+        
+        @media (min-width: 769px) and (max-width: 900px) {
+            .parts-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .age-btn {
+                padding: 10px 16px;
+                font-size: 0.85rem;
+            }
+        }
+        
+        @media (min-width: 901px) {
+            .card-header {
+                padding: 1.5rem 2rem;
+            }
+            .card-header h1 {
+                font-size: 1.8rem;
+            }
+            .card-content {
+                padding: 2rem;
+            }
+            .parts-grid {
+                max-height: 550px;
+            }
+        }
+        
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .calculator-card {
+                box-shadow: none;
+                border: 1px solid #ccc;
+                border-radius: 0;
+            }
+            .age-btn, .btn {
+                display: none;
+            }
+            .button-group {
+                display: none;
+            }
+        }
+        
+        /* Стили для скроллбара */
+        .parts-grid::-webkit-scrollbar {
+            width: 6px;
+        }
+        .parts-grid::-webkit-scrollbar-track {
+            background: #e2e8f0;
+            border-radius: 10px;
+        }
+        .parts-grid::-webkit-scrollbar-thumb {
+            background: #c62828;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator-card">
+        <div class="card-header">
+            <h1>
+                🔥 Расчет площади ожоговой поверхности
+                <span style="font-size: 0.8rem;">правило девяток</span>
+            </h1>
+            <p>Выбор пораженных частей тела | Оценка шока и инфузионной терапии по формуле Паркленда</p>
+        </div>
+        <div class="card-content">
+            
+            <!-- Переключатель возраста - ВИЗУАЛЬНО ВЫДЕЛЕННЫЕ КНОПКИ -->
+            <div class="age-selector" id="ageSelector">
+                <button class="age-btn active" data-age="adult">🧑 Взрослый</button>
+                <button class="age-btn" data-age="teen">🧒 Подросток (12-17 лет)</button>
+                <button class="age-btn" data-age="child">👶 Ребенок (до 12 лет)</button>
+            </div>
+            
+            <div class="two-columns">
+                <!-- Левая колонка - части тела -->
+                <div class="body-parts">
+                    <div class="parts-title">🩻 Части тела (выберите пораженные)</div>
+                    <div class="parts-grid" id="partsGrid"></div>
+                    <div class="selected-summary" id="selectedSummary">
+                        <strong>📊 Выбранные области:</strong><br>
+                        <span id="selectedList">—</span>
+                    </div>
+                </div>
+                
+                <!-- Правая колонка - расчет -->
+                <div class="calc-section">
+                    <div class="input-row">
+                        <div class="input-group">
+                            <label>⚖️ Вес пациента (кг)</label>
+                            <input type="number" id="weight" step="1" value="70" placeholder="вес в кг">
+                        </div>
+                        <div class="input-group">
+                            <label>📏 Возраст (лет) для детей</label>
+                            <input type="number" id="childAge" step="1" value="5" placeholder="до 12 лет" disabled>
+                        </div>
+                    </div>
+                    
+                    <div class="manual-percent">
+                        <div class="input-group">
+                            <label>✏️ Или введите площадь ожога вручную (%)</label>
+                            <input type="number" id="burnPercent" step="1" value="" placeholder="например, 15">
+                        </div>
+                    </div>
+                    
+                    <div class="result-block">
+                        <div class="result-title">📊 РЕЗУЛЬТАТ ОЦЕНКИ</div>
+                        <div class="burn-area">
+                            <span class="burn-percent" id="burnPercentDisplay">0%</span>
+                            <span class="burn-unit">поверхности тела</span>
+                        </div>
+                        <div class="shock-card" id="shockCard">
+                            <strong>🚨 Ожоговый шок:</strong>
+                            <div class="shock-level" id="shockLevel">—</div>
+                            <div id="hypovolemia"></div>
+                        </div>
+                        <div class="infusion-card">
+                            <strong>💧 Инфузионная терапия (первые 8 часов):</strong>
+                            <div class="infusion-value" id="infusionVolume">—</div>
+                            <div style="font-size: 0.6rem; margin-top: 6px;">* По формуле Паркленда: 4 мл × вес (кг) × % ожога (50% в первые 8 часов)</div>
+                        </div>
+                        <div id="warningMsg" style="color: #c62828; font-size: 0.7rem; margin-top: 8px;"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- ВИЗУАЛЬНО ВЫДЕЛЕННЫЕ КНОПКИ -->
+            <div class="button-group">
+                <button class="btn btn-primary" id="calculateBtn">📊 Рассчитать</button>
+                <button class="btn btn-secondary" id="resetBtn">⟳ Сбросить выбор</button>
+            </div>
+            
+            <div class="info-text">
+                ⚕️ <strong>Формула Паркленда:</strong> Объем инфузии (мл) за 24 часа = 4 × вес (кг) × % ожога<br>
+                • Первые 8 часов — 50% объема<br>
+                • Следующие 16 часов — 50% объема<br>
+                • <strong>Степень ожогового шока:</strong> легкий (10-20%), средний (21-40%), тяжелый (>40%)<br>
+                • У детей: голова 18%, ноги 14% (вместо 18% у взрослых)
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // ОБЪЕДИНЕННЫЕ парные части тела
+        const bodyPartsAdult = [
+            { id: "head", name: "Голова", percent: 9 },
+            { id: "neck", name: "Шея", percent: 1 },
+            { id: "chest", name: "Грудная клетка (перед)", percent: 9 },
+            { id: "abdomen", name: "Живот", percent: 9 },
+            { id: "back", name: "Спина", percent: 18 },
+            { id: "buttocks", name: "Ягодицы (обе)", percent: 5 },
+            { id: "genitals", name: "Гениталии", percent: 1 },
+            { id: "arms", name: "Руки (обе)", percent: 18 },
+            { id: "hands", name: "Кисти (обе)", percent: 5 },
+            { id: "legs", name: "Ноги (обе)", percent: 18 },
+            { id: "feet", name: "Стопы (обе)", percent: 7 }
+        ];
+        
+        // Данные для ребенка (голова 18%, ноги 14% вместо 18% у взрослых)
+        const bodyPartsChild = [
+            { id: "head", name: "Голова", percent: 18 },
+            { id: "neck", name: "Шея", percent: 1 },
+            { id: "chest", name: "Грудная клетка (перед)", percent: 9 },
+            { id: "abdomen", name: "Живот", percent: 9 },
+            { id: "back", name: "Спина", percent: 18 },
+            { id: "buttocks", name: "Ягодицы (обе)", percent: 5 },
+            { id: "genitals", name: "Гениталии", percent: 1 },
+            { id: "arms", name: "Руки (обе)", percent: 18 },
+            { id: "hands", name: "Кисти (обе)", percent: 5 },
+            { id: "legs", name: "Ноги (обе)", percent: 14 },
+            { id: "feet", name: "Стопы (обе)", percent: 7 }
+        ];
+        
+        // Функция сортировки по алфавиту
+        function sortPartsAlphabetically(partsArray) {
+            return [...partsArray].sort((a, b) => {
+                return a.name.localeCompare(b.name, 'ru');
+            });
+        }
+        
+        const bodyPartsAdultSorted = sortPartsAlphabetically(bodyPartsAdult);
+        const bodyPartsChildSorted = sortPartsAlphabetically(bodyPartsChild);
+        const bodyPartsTeenSorted = sortPartsAlphabetically(bodyPartsAdult);
+        
+        let currentParts = [...bodyPartsAdultSorted];
+        let selectedParts = new Set();
+        let currentAge = 'adult';
+        
+        function updatePartsDisplay() {
+            const grid = document.getElementById('partsGrid');
+            grid.innerHTML = '';
+            
+            currentParts.forEach(part => {
+                const isSelected = selectedParts.has(part.id);
+                const item = document.createElement('div');
+                item.className = `part-item ${isSelected ? 'selected' : ''}`;
+                item.innerHTML = `
+                    <input type="checkbox" class="part-checkbox" data-id="${part.id}" ${isSelected ? 'checked' : ''}>
+                    <span class="part-name">${part.name}</span>
+                    <span class="part-percent">${part.percent}%</span>
+                `;
+                grid.appendChild(item);
+                
+                const checkbox = item.querySelector('.part-checkbox');
+                checkbox.addEventListener('change', (e) => {
+                    e.stopPropagation();
+                    if (e.target.checked) {
+                        selectedParts.add(part.id);
+                    } else {
+                        selectedParts.delete(part.id);
+                    }
+                    updateSelectedSummary();
+                    updateBurnPercentFromParts();
+                    item.classList.toggle('selected', e.target.checked);
+                });
+                
+                item.addEventListener('click', (e) => {
+                    if (e.target !== checkbox) {
+                        checkbox.checked = !checkbox.checked;
+                        if (checkbox.checked) {
+                            selectedParts.add(part.id);
+                        } else {
+                            selectedParts.delete(part.id);
+                        }
+                        updateSelectedSummary();
+                        updateBurnPercentFromParts();
+                        item.classList.toggle('selected', checkbox.checked);
+                    }
+                });
+            });
+            
+            updateSelectedSummary();
+        }
+        
+        function updateSelectedSummary() {
+            const summarySpan = document.getElementById('selectedList');
+            if (selectedParts.size === 0) {
+                summarySpan.innerHTML = '—';
+                return;
+            }
+            
+            const selectedList = [];
+            let totalPercent = 0;
+            currentParts.forEach(part => {
+                if (selectedParts.has(part.id)) {
+                    selectedList.push(`${part.name} (${part.percent}%)`);
+                    totalPercent += part.percent;
+                }
+            });
+            summarySpan.innerHTML = selectedList.join(', ') + `<br><strong>Всего: ${totalPercent}%</strong>`;
+        }
+        
+        function updateBurnPercentFromParts() {
+            let total = 0;
+            currentParts.forEach(part => {
+                if (selectedParts.has(part.id)) {
+                    total += part.percent;
+                }
+            });
+            const manualInput = document.getElementById('burnPercent');
+            manualInput.value = total > 0 ? total : '';
+            updateCalculation();
+        }
+        
+        function updateCalculation() {
+            let percent = parseFloat(document.getElementById('burnPercent').value);
+            let weight = parseFloat(document.getElementById('weight').value);
+            
+            if (isNaN(percent)) percent = 0;
+            if (isNaN(weight)) weight = 0;
+            
+            percent = Math.max(0, Math.min(100, percent));
+            weight = Math.max(0, Math.min(300, weight));
+            
+            document.getElementById('burnPercentDisplay').innerHTML = `${percent}%`;
+            
+            const shock = getShockInfo(percent);
+            const shockLevelElem = document.getElementById('shockLevel');
+            const hypovolemiaElem = document.getElementById('hypovolemia');
+            shockLevelElem.innerHTML = shock.level;
+            shockLevelElem.style.color = shock.color;
+            hypovolemiaElem.innerHTML = shock.hypovolemia;
+            hypovolemiaElem.style.color = shock.color;
+            
+            let warningMsg = '';
+            let infusionHtml = '';
+            
+            if (percent <= 0 || weight <= 0) {
+                infusionHtml = '<span style="color: #9e9e9e;">Введите данные для расчета</span>';
+                document.getElementById('warningMsg').innerHTML = '';
+            } else {
+                const infusion = calculateInfusion(weight, percent);
+                infusionHtml = `
+                    <div>📌 Общий объем за 24 часа: <strong>${Math.round(infusion.total24h)} мл</strong></div>
+                    <div>🕐 Первые 8 часов: <strong>${Math.round(infusion.first8h)} мл</strong></div>
+                    <div>🕑 Следующие 16 часов: <strong>${Math.round(infusion.next16h)} мл</strong></div>
+                `;
+                
+                if (percent >= 40) {
+                    warningMsg = '⚠️ КРИТИЧЕСКИЙ ОЖОГ! Немедленная госпитализация в ожоговый центр!';
+                } else if (percent >= 20) {
+                    warningMsg = '⚠️ Тяжелый ожог. Обязательная госпитализация!';
+                } else if (percent >= 10) {
+                    warningMsg = '⚠️ Среднетяжелый ожог. Рекомендована госпитализация.';
+                } else if (percent > 0) {
+                    warningMsg = 'ℹ️ Легкий ожог. Амбулаторное лечение возможно при отсутствии других факторов.';
+                }
+            }
+            
+            document.getElementById('infusionVolume').innerHTML = infusionHtml;
+            document.getElementById('warningMsg').innerHTML = warningMsg;
+        }
+        
+        function getShockInfo(percent) {
+            if (percent <= 0) return { level: "Нет ожогового шока", hypovolemia: "Гиповолемии нет", color: "#2e7d32" };
+            if (percent < 10) return { level: "Ожоговый шок отсутствует", hypovolemia: "Риск гиповолемии минимальный", color: "#2e7d32" };
+            if (percent <= 20) return { level: "Легкий ожоговый шок", hypovolemia: "Умеренная гиповолемия. Требуется инфузионная терапия.", color: "#f57c00" };
+            if (percent <= 40) return { level: "Средний ожоговый шок", hypovolemia: "Выраженная гиповолемия. Срочная инфузионная терапия!", color: "#f57c00" };
+            if (percent <= 60) return { level: "Тяжелый ожоговый шок", hypovolemia: "Критическая гиповолемия. Немедленная инфузия!", color: "#c62828" };
+            return { level: "Крайне тяжелый ожоговый шок", hypovolemia: "Угрожающая жизни гиповолемия. Реанимационные мероприятия!", color: "#c62828" };
+        }
+        
+        function calculateInfusion(weight, percent) {
+            const total24h = 4 * weight * percent;
+            const first8h = total24h / 2;
+            const next16h = total24h / 2;
+            return { total24h, first8h, next16h };
+        }
+        
+        function toggleChildAge() {
+            const childAgeInput = document.getElementById('childAge');
+            if (currentAge === 'child') {
+                childAgeInput.disabled = false;
+                childAgeInput.style.opacity = '1';
+                childAgeInput.style.background = 'white';
+            } else {
+                childAgeInput.disabled = true;
+                childAgeInput.style.opacity = '0.6';
+                childAgeInput.style.background = '#f1f5f9';
+            }
+        }
+        
+        function setAge(age) {
+            currentAge = age;
+            document.querySelectorAll('.age-btn').forEach(btn => {
+                if (btn.dataset.age === age) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+            
+            if (age === 'child') {
+                currentParts = JSON.parse(JSON.stringify(bodyPartsChildSorted));
+            } else if (age === 'teen') {
+                currentParts = JSON.parse(JSON.stringify(bodyPartsTeenSorted));
+            } else {
+                currentParts = JSON.parse(JSON.stringify(bodyPartsAdultSorted));
+            }
+            
+            selectedParts.clear();
+            toggleChildAge();
+            updatePartsDisplay();
+            updateBurnPercentFromParts();
+        }
+        
+        function resetAll() {
+            selectedParts.clear();
+            setAge('adult');
+            document.getElementById('weight').value = '70';
+            document.getElementById('childAge').value = '5';
+            document.getElementById('burnPercent').value = '';
+            updatePartsDisplay();
+            updateCalculation();
+        }
+        
+        document.querySelectorAll('.age-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                setAge(btn.dataset.age);
+            });
+        });
+        
+        document.getElementById('calculateBtn').addEventListener('click', updateCalculation);
+        document.getElementById('resetBtn').addEventListener('click', resetAll);
+        document.getElementById('burnPercent').addEventListener('input', (e) => {
+            if (e.target.value !== '') {
+                selectedParts.clear();
+                updatePartsDisplay();
+            }
+            updateCalculation();
+        });
+        document.getElementById('weight').addEventListener('input', updateCalculation);
+        document.getElementById('childAge').addEventListener('input', updateCalculation);
+        
+        setAge('adult');
+    </script>
+</body>
+</html>
