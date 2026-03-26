@@ -1,80 +1,84 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Медицинские калькуляторы</title>
-<style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Калькуляторы СМП</title>
+  <style>
     body {
-        font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
-        background: linear-gradient(145deg, #eef2f7 0%, #dce3ec 100%);
-        margin: 0;
-        padding: 2rem 1rem;
-        display: flex;
-        justify-content: center;
-        align-items: flex-start;
-        min-height: 100vh;
+      font-family: 'Segoe UI', 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f5f5f5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
     }
 
-    .calculator-menu {
-        width: 100%;
-        max-width: 400px;
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
+    .menu {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      max-width: 300px;
+      padding: 10px;
+      box-sizing: border-box;
+      margin-top: 20px;
     }
 
-    .nav-btn {
-        width: 100%;
-        padding: 14px 24px;
-        font-size: 1rem;
-        font-weight: 600;
-        text-align: center;
-        border-radius: 50px;
-        border: none;
-        background-color: #1f6e9c;
-        color: #fff;
-        cursor: pointer;
-        transition: background 0.2s, transform 0.2s;
+    .menu-btn {
+      text-decoration: none;
+      color: white;
+      background: #1e2a3e; /* темно-синий */
+      padding: 12px 15px;
+      border-radius: 8px;
+      font-weight: 600;
+      text-align: center;
+      width: 100%;
+      transition: background 0.2s;
     }
 
-    .nav-btn:hover {
-        background-color: #0f557c;
-        transform: scale(0.97);
+    .menu-btn.active {
+      background: #c62828; /* красная подсветка активной кнопки */
     }
 
-    @media (max-width: 768px) {
-        .calculator-menu {
-            max-width: 90%;
-        }
+    .menu-btn:hover {
+      background: #2c3e66;
     }
-</style>
+
+    @media (max-width: 600px) {
+      .menu {
+        max-width: 90%;
+      }
+      .menu-btn {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
 </head>
 <body>
 
-<div class="calculator-menu">
-    <button class="nav-btn" id="algovera-btn">🩸 Альговера шоковый индекс</button>
-    <button class="nav-btn" id="glasgow-btn">🧠 Шкала комы Глазго</button>
-    <button class="nav-btn" id="fundus-btn">🤰 Высота стояния дна матки</button>
-    <!-- Добавляй сюда новые кнопки по аналогии -->
-</div>
+  <!-- Меню -->
+  <nav class="menu">
+    <a href="index.html" class="menu-btn">ГЛАВНАЯ</a>
+    <a href="templates.html" class="menu-btn">ШАБЛОНЫ КАРТ</a>
+    <a href="archive.html" class="menu-btn">АРХИВ КАРТ СМП</a>
+    <a href="status.html" class="menu-btn">STATUS LOCALIS</a>
+    <a href="calculators.html" class="menu-btn active">КАЛЬКУЛЯТОРЫ</a>
+    <a href="consilium.html" class="menu-btn">КОНСИЛИУМЫ</a>
+    <a href="orders.html" class="menu-btn">ПРИКАЗЫ</a>
+    <a href="stations.html" class="menu-btn">ПОДСТАНЦИИ МСК</a>
+  </nav>
 
-<script>
-    const buttons = [
-        {id: 'algovera-btn', href: 'algovera-shock.html'},
-        {id: 'glasgow-btn', href: 'glasgow.html'},
-        {id: 'fundus-btn', href: 'fundus.html'}
-    ];
-
-    buttons.forEach(btn => {
-        const element = document.getElementById(btn.id);
-        if (element) {
-            element.addEventListener('click', () => {
-                window.location.href = btn.href;
-            });
-        }
-    });
-</script>
+  <!-- Раздел калькуляторов -->
+  <nav class="menu">
+    <a href="calculators/algovera-shock.html" class="menu-btn">Альговера шоковый индекс</a>
+    <a href="calculators/glasgow-scale.html" class="menu-btn">Шкала комы Глазго</a>
+    <a href="calculators/fundal-height.html" class="menu-btn">Высота стояния дна матки</a>
+    <!-- сюда добавляй другие калькуляторы -->
+  </nav>
 
 </body>
 </html>
