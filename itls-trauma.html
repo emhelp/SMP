@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Первичный ITLS-осмотр - Травма</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: linear-gradient(135deg, #1a3a3a 0%, #0e2a2a 100%);
+            font-family: 'Segoe UI', 'Inter', 'Roboto', system-ui, -apple-system, sans-serif;
+            line-height: 1.5;
+            color: #1e2a3e;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+        .document-container {
+            max-width: 1100px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 32px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            margin: 20px;
+        }
+        .document-header {
+            background: linear-gradient(135deg, #c62828 0%, #8b0000 100%);
+            color: white;
+            padding: 1.5rem 2rem;
+            border-bottom: 4px solid #ffc107;
+            text-align: center;
+        }
+        .document-header h1 {
+            font-size: 1.9rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.25rem;
+        }
+        .document-header .subtitle {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            font-family: monospace;
+        }
+        .document-content {
+            padding: 2rem;
+        }
+        /* Секции */
+        .section {
+            margin-bottom: 2rem;
+            border-left: 5px solid;
+            padding-left: 1.25rem;
+        }
+        .section-assessment {
+            border-left-color: #d32f2f;
+        }
+        .section-primary {
+            border-left-color: #f57c00;
+        }
+        .section-secondary {
+            border-left-color: #2c7a4d;
+        }
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            display: inline-block;
+            padding-bottom: 0.25rem;
+        }
+        .section-assessment .section-title { color: #d32f2f; border-bottom: 2px solid #ffcdd2; }
+        .section-primary .section-title { color: #f57c00; border-bottom: 2px solid #ffe0b2; }
+        .section-secondary .section-title { color: #2c7a4d; border-bottom: 2px solid #c8e6c9; }
+        
+        .subsection {
+            margin: 1rem 0 1rem 0.5rem;
+        }
+        .subsection-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #2c3e66;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .subsection-title span {
+            font-size: 1.2rem;
+        }
+        .checklist {
+            list-style: none;
+            padding-left: 0;
+            margin: 0.5rem 0 0.75rem 0;
+        }
+        .checklist li {
+            padding-left: 1.5rem;
+            position: relative;
+            margin-bottom: 0.4rem;
+            font-size: 0.95rem;
+        }
+        .checklist li::before {
+            content: "•";
+            color: #c62828;
+            font-weight: bold;
+            font-size: 1.1rem;
+            position: absolute;
+            left: 0.25rem;
+            top: -0.05rem;
+        }
+        .badge-critical {
+            display: inline-block;
+            background: #d32f2f;
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 0.2rem 0.7rem;
+            border-radius: 20px;
+            margin-right: 0.5rem;
+            vertical-align: middle;
+        }
+        .badge-warning {
+            background: #f57c00;
+        }
+        .badge-success {
+            background: #2c7a4d;
+        }
+        .highlight {
+            background-color: #ffecb3;
+            padding: 0.1rem 0.3rem;
+            border-radius: 4px;
+            font-weight: 600;
+            color: #b85c00;
+        }
+        .important-text {
+            font-weight: 700;
+            color: #c62828;
+            text-decoration: underline;
+        }
+        .info-card {
+            background: #e3f2fd;
+            border-left: 5px solid #1976d2;
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+            margin: 1rem 0;
+        }
+        .grid-2col {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+            margin: 0.75rem 0;
+        }
+        .examination-block {
+            background: #f9fafb;
+            border-radius: 16px;
+            padding: 1rem;
+            border: 1px solid #e2e8f0;
+        }
+        .examination-block .block-title {
+            font-weight: 700;
+            font-size: 1rem;
+            color: #2c3e66;
+            margin-bottom: 0.6rem;
+            border-left: 3px solid #c62828;
+            padding-left: 0.6rem;
+        }
+        hr {
+            margin: 1.5rem 0;
+            border: none;
+            height: 1px;
+            background: linear-gradient(90deg, #e2e8f0, transparent);
+        }
+        .subnote {
+            font-size: 0.85rem;
+            color: #5a6e85;
+            margin-top: 1rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid #e2e8f0;
+        }
+        .algorithm-step {
+            background: #fef9f0;
+            border-radius: 16px;
+            padding: 1rem;
+            margin: 0.75rem 0;
+            border: 1px solid #ffe0b2;
+        }
+        @media (max-width: 768px) {
+            .document-container {
+                margin: 0;
+                border-radius: 0;
+            }
+            .document-content {
+                padding: 1rem;
+            }
+            .section {
+                padding-left: 0.75rem;
+            }
+            .section-title {
+                font-size: 1.1rem;
+            }
+            .grid-2col {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="document-container">
+        <div class="document-header">
+            <h1>🚑 ПЕРВИЧНЫЙ ITLS-ОСМОТР</h1>
+            <div class="subtitle">International Trauma Life Support | Алгоритм обследования травматологического пациента</div>
+        </div>
+        <div class="document-content">
+            
+            <!-- ОЦЕНКА МЕСТА ПРОИСШЕСТВИЯ -->
+            <div class="section section-assessment">
+                <div class="section-title">📍 ОЦЕНКА МЕСТА ПРОИСШЕСТВИЯ</div>
+                <ul class="checklist">
+                    <li>стандартные меры предосторожности</li>
+                    <li>опасность на месте происшествия</li>
+                    <li>количество пострадавших</li>
+                    <li>необходимость в дополнительной помощи или оборудовании</li>
+                    <li><span class="highlight">механизм травмы</span></li>
+                </ul>
+            </div>
+            
+            <!-- ПЕРВИЧНАЯ ОЦЕНКА -->
+            <div class="section section-primary">
+                <div class="section-title">🩺 ПЕРВИЧНАЯ ОЦЕНКА</div>
+                
+                <div class="subsection">
+                    <div class="subsection-title"><span>👤</span> ОБЩЕЕ ВПЕЧАТЛЕНИЕ</div>
+                    <ul class="checklist">
+                        <li>возраст, пол, вес, общий вид, положение тела</li>
+                        <li>целенаправленные движения, видимые травмы, цвет кожи</li>
+                        <li><span class="badge-critical">САВС</span> <span class="highlight">опасное для жизни кровотечение</span></li>
+                    </ul>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title"><span>🧠</span> УРОВЕНЬ СОЗНАНИЯ</div>
+                    <ul class="checklist">
+                        <li><span class="highlight">AVPU</span> (Alert, Verbal, Pain, Unresponsive)</li>
+                        <li>основные жалобы / симптомы</li>
+                    </ul>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title"><span>🌬️</span> ДЫХАТЕЛЬНЫЕ ПУТИ</div>
+                    <div class="info-card" style="margin: 0.5rem 0;">
+                        <strong>⚠️ РАССМОТРИТЕ НЕОБХОДИМОСТЬ ИММОБИЛИЗАЦИИ ШЕЙНОГО ОТДЕЛА ПОЗВОНОЧНИКА</strong>
+                    </div>
+                    <ul class="checklist">
+                        <li>храп, булькающее дыхание, стридор; тишина</li>
+                    </ul>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title"><span>💨</span> ДЫХАНИЕ</div>
+                    <ul class="checklist">
+                        <li>наличие? частота, глубина, усилие</li>
+                    </ul>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title"><span>❤️</span> КРОВООБРАЩЕНИЕ</div>
+                    <ul class="checklist">
+                        <li>пульс на лучевой/сонной артерии? частота, ритм, качество</li>
+                        <li>цвет кожи, температура, влажность; капиллярное наполнение</li>
+                        <li><span class="highlight">контролируемое ли кровотечение?</span></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- БЫСТРЫЙ ТРАВМА-ОСМОТР -->
+            <div class="section section-secondary">
+                <div class="section-title">🔍 БЫСТРЫЙ ТРАВМА-ОСМОТР</div>
+                
+                <div class="grid-2col">
+                    <div class="examination-block">
+                        <div class="block-title">🧠 ГОЛОВА и ШЕЯ</div>
+                        <ul class="checklist">
+                            <li>раны?</li>
+                            <li>набухание шейных вен?</li>
+                            <li>смещение трахеи?</li>
+                        </ul>
+                    </div>
+                    <div class="examination-block">
+                        <div class="block-title">🫁 ГРУДНАЯ КЛЕТКА</div>
+                        <ul class="checklist">
+                            <li>асимметрия (парадоксальное дыхание?), ушибы, пенетрирующие раны</li>
+                            <li>болезненность, нестабильность, крепитации</li>
+                            <li><span class="highlight">дыхательные шумы</span> (наличие? симметричные? при асимметрии: перкутирование)</li>
+                            <li><span class="highlight">тоны сердца</span></li>
+                        </ul>
+                    </div>
+                    <div class="examination-block">
+                        <div class="block-title">🍽️ ЖИВОТ</div>
+                        <ul class="checklist">
+                            <li>контузии, пенетрирующие раны / эвентрация</li>
+                            <li>болезненность, ригидность, вздутие живота</li>
+                        </ul>
+                    </div>
+                    <div class="examination-block">
+                        <div class="block-title">🦴 ТАЗ</div>
+                        <ul class="checklist">
+                            <li>болезненность, нестабильность, крепитации</li>
+                        </ul>
+                    </div>
+                    <div class="examination-block">
+                        <div class="block-title">🦵 НИЖНИЕ И ВЕРХНИЕ КОНЕЧНОСТИ</div>
+                        <ul class="checklist">
+                            <li>видимые отеки, деформации</li>
+                            <li><span class="highlight">двигательная реакция и чувствительность</span></li>
+                        </ul>
+                    </div>
+                    <div class="examination-block">
+                        <div class="block-title">🔙 СПИНА</div>
+                        <ul class="checklist">
+                            <li>видимые раны, очевидная деформация</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="algorithm-step">
+                    <strong>⚠️ если пациент в критическом состоянии —</strong> <span class="highlight">перенесите в карету скорой помощи для быстрого осмотра там и для проведения скорейшей ургентной терапии</span>
+                </div>
+            </div>
+            
+            <!-- ЖИЗНЕННЫЕ ПОКАЗАТЕЛИ И НЕВРОЛОГИЧЕСКИЙ ОСМОТР -->
+            <div class="section section-primary">
+                <div class="section-title">📊 ЖИЗНЕННЫЕ ПОКАЗАТЕЛИ</div>
+                
+                <div class="subsection">
+                    <div class="subsection-title"><span>📈</span> если есть пульс на лучевой артерии</div>
+                    <ul class="checklist">
+                        <li>измерение пульса, дыхания, кровяного давления</li>
+                    </ul>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title"><span>🧠</span> при нарушении сознания — быстрый неврологический осмотр</div>
+                    <ul class="checklist">
+                        <li><span class="highlight">ЗРАЧКИ</span>: размер? реакция на свет? <span class="important-text">симметрия?</span></li>
+                        <li><span class="highlight">ШКАЛА КОМЫ ГЛАЗГО</span>: глаза, вербальная и двигательная реакция</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <hr>
+            
+            <div class="subnote">
+                📋 <strong>ITLS — International Trauma Life Support (Международная поддержка жизни при травме)</strong><br>
+                • <strong>САВС</strong> — критическое наружное кровотечение, требующее немедленного контроля (жгут, прямое давление)<br>
+                • <strong>AVPU</strong> — шкала оценки уровня сознания: Alert (ясное), Verbal (реагирует на голос), Pain (реагирует на боль), Unresponsive (не реагирует)<br>
+                • <strong>Первичный осмотр</strong> (ABCDE) выявляет жизнеугрожающие состояния; <strong>быстрый травма-осмотр</strong> — систематический поиск травм<br>
+                • <strong>Шкала комы Глазго (GCS)</strong> — объективная оценка степени нарушения сознания (3–15 баллов)<br>
+                <br>
+                🔍 <em>Алгоритм предназначен для первичной оценки травматологического пациента. Соблюдение последовательности и выявление критических состояний (САВС, нарушения дыхания, шок) — основа спасения жизни.</em>
+            </div>
+            
+        </div>
+    </div>
+</body>
+</html>
