@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Карта вызова СМП | Дородовый разрыв околоплодных оболочек</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #e2e8f0;
+            font-family: 'Segoe UI', 'Roboto', 'Inter', system-ui, sans-serif;
+            line-height: 1.5;
+            padding: 32px 24px;
+            color: #1a2c3e;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .medical-card {
+            background: #ffffff;
+            border-radius: 28px;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #3a6b8f 0%, #1e4a6e 100%);
+            padding: 20px 32px;
+            color: white;
+            border-bottom: 4px solid #ffb347;
+        }
+
+        .card-header .mkb {
+            font-size: 14px;
+            opacity: 0.9;
+            font-family: monospace;
+        }
+
+        .card-header .warning {
+            font-size: 12px;
+            opacity: 0.85;
+            margin-top: 8px;
+            background: rgba(255,255,255,0.15);
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+
+        .card-content {
+            padding: 28px 36px;
+        }
+
+        .exam-block {
+            margin-bottom: 28px;
+            border: 1px solid #e2edf2;
+            border-radius: 20px;
+            overflow: hidden;
+            background: white;
+        }
+
+        .block-title {
+            background: #f1f6fb;
+            padding: 14px 24px;
+            font-weight: 800;
+            font-size: 18px;
+            color: #0b5e7c;
+            border-left: 5px solid #ffb347;
+            letter-spacing: -0.2px;
+        }
+
+        .block-content {
+            padding: 20px 28px;
+            background: #fefefe;
+            font-size: 15px;
+            line-height: 1.55;
+            color: #1e3a4f;
+            text-align: left;
+        }
+
+        .field-row {
+            margin-bottom: 12px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 8px;
+            text-align: left;
+        }
+
+        .field-label {
+            font-weight: 700;
+            color: #1c6d8f;
+            min-width: 220px;
+            font-size: 14px;
+        }
+
+        .field-value {
+            flex: 1;
+            color: #1e2f3c;
+            text-align: left;
+        }
+
+        .inline-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            margin: 12px 0;
+            text-align: left;
+        }
+
+        .inline-item {
+            flex: 1;
+            min-width: 180px;
+            text-align: left;
+        }
+
+        .diagnosis-box {
+            background: #fefaf5;
+            border-left: 4px solid #ffb347;
+            padding: 16px 20px;
+            border-radius: 16px;
+            margin-bottom: 8px;
+            text-align: left;
+        }
+
+        .diagnosis-box div {
+            margin-bottom: 8px;
+            text-align: left;
+        }
+
+        .status-local {
+            background: #f9fef7;
+            border-left: 4px solid #2c9c6e;
+            padding: 16px 20px;
+            border-radius: 16px;
+            margin-top: 8px;
+            text-align: left;
+        }
+
+        .status-local div {
+            margin-bottom: 8px;
+            text-align: left;
+        }
+
+        .key-signs {
+            background: #f0f4fa;
+            padding: 16px 20px;
+            border-radius: 16px;
+            margin: 12px 0;
+        }
+
+        .key-signs p {
+            margin-bottom: 6px;
+        }
+
+        .scales-box {
+            background: #f0f4fa;
+            padding: 16px 20px;
+            border-radius: 16px;
+            margin: 12px 0;
+        }
+
+        .scale-item {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .scale-label {
+            font-weight: 700;
+            color: #1c6d8f;
+            min-width: 180px;
+        }
+
+        .alert-note {
+            background: #fff3e0;
+            border-left: 4px solid #ff9800;
+            padding: 12px 16px;
+            border-radius: 12px;
+            margin-top: 16px;
+            font-size: 13px;
+        }
+
+        hr {
+            margin: 16px 0;
+            border: none;
+            height: 1px;
+            background: #e2ecf3;
+        }
+
+        .footer-note {
+            font-size: 13px;
+            color: #6c8eaa;
+            text-align: right;
+        }
+
+        @media (max-width: 700px) {
+            .card-content {
+                padding: 18px;
+            }
+            .block-content {
+                padding: 14px 18px;
+            }
+            .field-label {
+                min-width: 140px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="medical-card">
+        <div class="card-header">
+            <div class="mkb">МКБ-10: O42.9 — Дородовый разрыв околоплодных оболочек, неуточненный (преждевременное излитие околоплодных вод)</div>
+            <div class="warning">⚠️ ТРЕБУЕТ ГОСПИТАЛИЗАЦИИ В АКУШЕРСКИЙ СТАЦИОНАР! Риск восходящей инфекции и дистресса плода!</div>
+        </div>
+        <div class="card-content">
+
+            <!-- ДИАГНОЗ -->
+            <div class="exam-block">
+                <div class="block-title">ДИАГНОЗ</div>
+                <div class="block-content">
+                    <div class="diagnosis-box">
+                        <div><strong>Основное заболевание:</strong> Дородовый разрыв плодных оболочек. Преждевременное излитие околоплодных вод. Безводный промежуток ______ часов.</div>
+                        <div><strong>Осложнения:</strong> Угроза восходящей инфекции (хориоамнионит – риск). Слабость родовой деятельности (риск). Дистресс плода (при длительном безводном промежутке, маловодии, инфицировании).</div>
+                        <div><strong>Сопутствующие заболевания:</strong> Беременность ______ недель. Тазовое предлежание / поперечное положение / головное предлежание (указать). Истмико-цервикальная недостаточность (в анамнезе). Многоводие. Многоплодная беременность.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ЖАЛОБЫ -->
+            <div class="exam-block">
+                <div class="block-title">ЖАЛОБЫ</div>
+                <div class="block-content">
+                    <div class="field-row"><span class="field-label">Выделения:</span><span class="field-value">Обильные / умеренные / скудные жидкие выделения из половых путей светлого, прозрачного цвета, без запаха / с примесью крови (при отслойке) / с зеленоватым оттенком (меконий – дистресс плода).</span></div>
+                    <div class="field-row"><span class="field-label">Симптом вытекания:</span><span class="field-value">Ощущение «вытекания» жидкости – выделения усиливаются при движении, смене положения тела, кашле, натуживании (положительный симптом кашлевого толчка).</span></div>
+                    <div class="field-row"><span class="field-label">Характер излития:</span><span class="field-value">Внезапное излитие вод «струей» / «подтекание» в течение ______ часов/дней.</span></div>
+                    <div class="field-row"><span class="field-label">Родовая деятельность:</span><span class="field-value">Отсутствие схваток / наличие нерегулярных / регулярных схваток (при развитии родовой деятельности).</span></div>
+                    <div class="field-row"><span class="field-label">Признаки инфекции:</span><span class="field-value">Изменение цвета и запаха выделений (при присоединении инфекции – зеленые, желтые, с неприятным запахом). Повышение температуры тела (при хориоамнионите).</span></div>
+                </div>
+            </div>
+
+            <!-- АНАМНЕЗ -->
+            <div class="exam-block">
+                <div class="block-title">АНАМНЕЗ</div>
+                <div class="block-content">
+                    <div class="field-row">
+                        <span class="field-label">Анамнез заболевания:</span>
+                        <span class="field-value">Излитие вод произошло (дата, время: ______). Обстоятельства: в покое / после физической нагрузки / после полового акта / после травмы / на фоне полного благополучия. Количество вод: обильное («вылилось», промокла одежда) / скудное (подтекание). Цвет, запах: прозрачные, без запаха / зеленые, мутные, с запахом. Схватки: не начались / начались через ______ часов. Самостоятельно не обращалась / обращалась в женскую консультацию / приемный покой (осмотр, проведен / не проведен тест на подтекание вод, УЗИ, влагалищное исследование). Рекомендована госпитализация: согласна / отказалась (указать причину).</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Эпидемиологический анамнез:</span>
+                        <span class="field-value">Контакта с инфекционными больными нет.</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Аллергологический анамнез:</span>
+                        <span class="field-value">Не отягощен / отягощен (указать аллергию на лекарственные препараты, особенно на антибиотики).</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Гинекологический и акушерский анамнез:</span>
+                        <span class="field-value">Менструальная функция: менархе с __ лет, цикл __ дней, по __ дней, регулярный/нерегулярный. Последняя менструация: (дата) ______. Срок беременности настоящей: ______ недель (по менструации / УЗИ). Репродуктивная функция: беременностей – __, родов – __, абортов – __, выкидышей – __. Настоящая беременность: по счету ______. Состоит / не состоит на учете в женской консультации. Течение беременности: без осложнений / осложнено (указать: ИЦН, многоводие, маловодие, кольпит, бактериальный вагиноз, пиелонефрит, носительство стрептококка группы В). Преждевременные роды в анамнезе: были / не были (фактор риска). <strong>ПРЕДЛЕЖАНИЕ ПЛАЦЕНТЫ – ИСКЛЮЧЕНО! (по данным УЗИ).</strong> Гинекологические заболевания: кольпит, бактериальный вагиноз, цервицит, ИППП (в анамнезе), истмико-цервикальная недостаточность (ИЦН) – коррекция (пессарий / швы на шейку матки).</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Данные лабораторного обследования (из обменной карты):</span>
+                        <span class="field-value">Мазок на флору (срок, результат). Посев на стрептококк группы В (35–37 недель, результат). Тест на подтекание вод (амниотест, ПАМГ-1) – при наличии.</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Выделения из половых путей:</span>
+                        <span class="field-value">На момент осмотра: жидкие, обильные / умеренные / скудные, прозрачные / беловатые / зеленые / с примесью крови / с хлопьями мекония, без запаха / с неприятным запахом.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ОБЪЕКТИВНО -->
+            <div class="exam-block">
+                <div class="block-title">ОБЪЕКТИВНО</div>
+                <div class="block-content">
+                    <div class="inline-group">
+                        <div class="inline-item"><strong>Состояние:</strong> удовлетворительное / средней степени тяжести</div>
+                        <div class="inline-item"><strong>Сознание:</strong> ясное (GCS 15 баллов)</div>
+                        <div class="inline-item"><strong>Положение:</strong> активное</div>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Кожные покровы:</span>
+                        <span class="field-value">Чистые, обычной окраски, влажность нормальная. Сыпи, цианоза, желтушности нет.</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Температура:</span>
+                        <span class="field-value">36,6 °C / 37,5–38,0 °C (при хориоамнионите).</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ОРГАНЫ ДЫХАНИЯ -->
+            <div class="exam-block">
+                <div class="block-title">ОРГАНЫ ДЫХАНИЯ</div>
+                <div class="block-content">
+                    <div class="field-row"><span class="field-label">ЧДД:</span><span class="field-value">16–18 в мин.</span></div>
+                    <div class="field-row"><span class="field-label">Аускультативно:</span><span class="field-value">Дыхание везикулярное, проводится во все отделы, хрипов нет.</span></div>
+                </div>
+            </div>
+
+            <!-- ОРГАНЫ КРОВООБРАЩЕНИЯ -->
+            <div class="exam-block">
+                <div class="block-title">ОРГАНЫ КРОВООБРАЩЕНИЯ</div>
+                <div class="block-content">
+                    <div class="field-row"><span class="field-label">Пульс:</span><span class="field-value">72–80–90 в мин (при инфекции – тахикардия), ритмичный, удовлетворительного наполнения. ЧСС: 72–80–90 в мин.</span></div>
+                    <div class="field-row"><span class="field-label">АД:</span><span class="field-value">110/70 – 120/80 мм рт.ст. (привычное для пациентки).</span></div>
+                    <div class="field-row"><span class="field-label">Тоны сердца:</span><span class="field-value">Звучные, ритмичные.</span></div>
+                </div>
+            </div>
+
+            <!-- ОРГАНЫ ПИЩЕВАРЕНИЯ -->
+            <div class="exam-block">
+                <div class="block-title">ОРГАНЫ ПИЩЕВАРЕНИЯ</div>
+                <div class="block-content">
+                    <div class="field-row"><span class="field-label">Живот:</span><span class="field-value">Увеличен за счет беременной матки. Мягкий, не вздут, участвует в акте дыхания, безболезненный при пальпации во всех отделах. Болезненность в гипогастрии – при хориоамнионите, угрозе преждевременных родов.</span></div>
+                    <div class="field-row"><span class="field-label">Симптомы раздражения брюшины:</span><span class="field-value">Отрицательные.</span></div>
+                </div>
+            </div>
+
+            <!-- STATUS LOCALIS -->
+            <div class="exam-block">
+                <div class="block-title">STATUS LOCALIS (акушерский статус)</div>
+                <div class="block-content">
+                    <div class="status-local">
+                        <div><strong>Высота стояния дна матки (ВДМ):</strong> ______ см (соответствует сроку беременности).</div>
+                        <div><strong>Окружность живота (ОЖ):</strong> ______ см.</div>
+                        <div><strong>Положение плода:</strong> продольное / поперечное / косое.</div>
+                        <div><strong>Предлежание плода:</strong> головное / тазовое.</div>
+                        <div><strong>Сердцебиение плода:</strong> ясное, ритмичное, ______ уд/мин (норма 120–160). Признаки дистресса: тахикардия >160, брадикардия <110, глухость тонов, аритмия.</div>
+                        <div><strong>Двигательная активность плода:</strong> сохранена / снижена / отсутствует.</div>
+                        <div><strong>Симптомы дородового разрыва плодных оболочек:</strong></div>
+                        <div>• Визуализация: жидкие выделения, стекающие по бедру, пропитывающие прокладку, одежду.</div>
+                        <div>• Симптом кашлевого толчка: при натуживании, кашле количество выделений увеличивается (положительный / сомнительный / отрицательный).</div>
+                        <div>• Запах: отсутствие патологического запаха / неприятный, гнилостный (при хориоамнионите).</div>
+                        <div>• Цвет: прозрачные / беловатые / зеленые (меконий) / желтые (инфекция) / с примесью крови (отслойка, предлежание плаценты – исключить!).</div>
+                        <div><strong>Выделения из половых путей:</strong> обильные / умеренные / скудные, жидкие, «водянистые», легко впитываются в прокладку. Цвет: прозрачные / беловатые / зеленоватые / желтые / с примесью крови. Запах: обычный / неприятный, гнилостный.</div>
+                        <div><strong>Наружные половые органы:</strong> Развиты правильно, по женскому типу. В области преддверия влагалища, на промежности – выделения.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- КЛЮЧЕВЫЕ ПРИЗНАКИ -->
+            <div class="exam-block">
+                <div class="block-title">КЛЮЧЕВЫЕ ПРИЗНАКИ ДОРОВОГО РАЗРЫВА ОКОЛОПЛОДНЫХ ОБОЛОЧЕК</div>
+                <div class="block-content">
+                    <div class="key-signs">
+                        <p>• Жидкие, водянистые выделения.</p>
+                        <p>• Положительный симптом кашлевого толчка (усиление выделений при кашле, натуживании).</p>
+                        <p>• Усиление выделений при движении, смене положения.</p>
+                        <p>• Отсутствие слизи, зуда, жжения.</p>
+                        <p>• Данные анамнеза – внезапное излитие жидкости.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ОЦЕНКА РИСКА ХОРИОАМНИОНИТА -->
+            <div class="exam-block">
+                <div class="block-title">ОЦЕНКА РИСКА ХОРИОАМНИОНИТА</div>
+                <div class="block-content">
+                    <div class="scales-box">
+                        <div class="scale-item">
+                            <span class="scale-label">Длительность безводного промежутка:</span>
+                            <span>>18–24 часов – высокий риск.</span>
+                        </div>
+                        <div class="scale-item">
+                            <span class="scale-label">Лихорадка >38,0°C:</span>
+                            <span>хориоамнионит.</span>
+                        </div>
+                        <div class="scale-item">
+                            <span class="scale-label">Тахикардия плода >160 уд/мин:</span>
+                            <span>риск инфекции.</span>
+                        </div>
+                        <div class="scale-item">
+                            <span class="scale-label">Гнойные, зловонные выделения:</span>
+                            <span>хориоамнионит.</span>
+                        </div>
+                        <div class="scale-item">
+                            <span class="scale-label">Болезненность матки при пальпации:</span>
+                            <span>хориоамнионит.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ОЦЕНКА СОСТОЯНИЯ ПЛОДА -->
+            <div class="exam-block">
+                <div class="block-title">ОЦЕНКА СОСТОЯНИЯ ПЛОДА</div>
+                <div class="block-content">
+                    <div class="key-signs">
+                        <p>• 120–160 уд/мин – норма.</p>
+                        <p>• Тахикардия >160 уд/мин – начальная гипоксия, риск инфекции.</p>
+                        <p>• Брадикардия <110 уд/мин – тяжелая гипоксия.</p>
+                        <p>• Отсутствие сердцебиения – антенатальная гибель плода.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ДИФФЕРЕНЦИАЛЬНАЯ ДИАГНОСТИКА И ТАКТИКА -->
+            <div class="exam-block">
+                <div class="block-title">ДИФФЕРЕНЦИАЛЬНАЯ ДИАГНОСТИКА И ТАКТИКА</div>
+                <div class="block-content">
+                    <div class="alert-note">
+                        <strong>Дифференциальная диагностика проведена с:</strong><br>
+                        — <strong>Недержанием мочи:</strong> выделения усиливаются после мочеиспускания, отрицательный симптом кашлевого толчка, моча имеет цвет и запах, может быть стрессовым (чихание, смех).<br>
+                        — <strong>Обильными белями (кольпит, бактериальный вагиноз):</strong> густые, слизистые, творожистые, пенистые выделения, не усиливаются при кашле, сопровождаются зудом, жжением, pH влагалищного отделяемого – кислая среда (воды – щелочная).<br>
+                        — <strong>Отхождением слизистой пробки:</strong> густые, слизистые, желеобразные выделения, возможно с прожилками крови, однократное отхождение, отсутствие постоянного «подтекания».<br>
+                        — <strong>Предлежанием плаценты:</strong> кровянистые выделения, чаще безболезненные. <strong>Абсолютное противопоказание к влагалищному исследованию до стационара!</strong><br><br>
+                        <strong>Примечание для бригады СМП:</strong><br>
+                        — Экстренная госпитализация в акушерский стационар (родильный зал, отделение патологии беременных).<br>
+                        — Транспортировка на носилках в положении лежа на спине (при тазовом предлежании, поперечном положении – строго лежа).<br>
+                        — <strong>Категорически запрещены влагалищное исследование, пальпация шейки матки, введение тампонов, проведение клизм!</strong><br>
+                        — При подозрении на предлежание плаценты (кровянистые выделения) – транспортировка с приподнятым ножным концом, исключить любые манипуляции во влагалище.<br>
+                        — При признаках хориоамнионита – антибактериальная терапия в стационаре.<br>
+                        — Мониторинг сердцебиения плода каждые 15–30 минут.
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+            <div class="footer-note">
+                O42.9 — Дородовый разрыв околоплодных оболочек | Экстренная госпитализация в акушерский стационар | Профилактика инфекции, оценка состояния плода
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
