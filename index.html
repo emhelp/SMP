@@ -1,121 +1,101 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Шпаргалки СМП</title>
-  <link rel="stylesheet" href="style.css?v=3">
-  <style>
-    /* Встроенный стиль для полной автономности, можно удалить если используешь style.css */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      font-family: 'Segoe UI', 'Inter', 'Roboto', system-ui, -apple-system, sans-serif;
-      background-color: #f8f9fa;
-      color: #1e2a3e;
-      line-height: 1.5;
-      min-height: 100vh;
-    }
-    .header {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-      padding: 20px;
-      text-align: center;
-    }
-    .header .logo {
-      width: 120px;
-      height: auto;
-    }
-    .header h1 {
-      font-size: 1.8rem;
-      font-weight: 800;
-    }
-    .header p {
-      font-size: 1rem;
-      opacity: 0.8;
-    }
-    .grid {
-      display: flex;
-      flex-direction: column; /* одна колонка на всех устройствах */
-      gap: 12px;
-      padding: 16px;
-      max-width: 400px;
-      margin: 0 auto;
-    }
-    .card {
-      display: block;
-      text-align: center;
-      padding: 16px;
-      background-color: #e0e0e0; /* серый фон по умолчанию */
-      color: #1e2a3e;
-      text-decoration: none;
-      border-radius: 12px;
-      font-weight: 700; /* жирный шрифт */
-      font-size: 1rem;
-      transition: background 0.2s;
-      cursor: pointer;
-    }
-    .card:hover {
-      background-color: #d0d0d0;
-    }
-    .card.active {
-      background-color: #c62828; /* красный фон */
-      color: #ffffff;
-    }
-    @media (max-width: 600px) {
-      .header h1 {
-        font-size: 1.6rem;
-      }
-      .header p {
-        font-size: 0.9rem;
-      }
-      .card {
-        font-size: 0.95rem;
-        padding: 14px;
-      }
-    }
-    @media (min-width: 1200px) {
-      .grid {
-        max-width: 500px;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Шпаргалки СМП - Главная</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <div class="container">
+        <!-- Шапка с логотипом -->
+        <div class="header">
+            <div class="logo">
+                <div class="logo-icon">🚑</div>
+                <div class="logo-text">Шпаргалки СМП</div>
+            </div>
+            <div class="subtitle">Проект EMHelp Group '2026</div>
+        </div>
 
-  <!-- ШАПКА -->
-  <div class="header">
-    <img src="logo.png" class="logo" alt="Логотип">
-    <h1>Шпаргалки СМП</h1>
-    <p>Проект EMHelp Group '2026</p>
-  </div>
+        <!-- Главное меню -->
+        <div class="main-menu">
+            <a href="pages/status-localis.html" class="menu-card">
+                <div class="menu-icon">📋</div>
+                <div class="menu-title">ШАБЛОНЫ КАРТ</div>
+                <div class="menu-desc">Готовые шаблоны для заполнения</div>
+            </a>
+            <a href="pages/архив-аир.html" class="menu-card">
+                <div class="menu-icon">📚</div>
+                <div class="menu-title">АРХИВ КАРТ СМП</div>
+                <div class="menu-desc">Архивные карты по разделам</div>
+            </a>
+            <a href="pages/status-localis.html" class="menu-card">
+                <div class="menu-icon">🩺</div>
+                <div class="menu-title">STATUS LOCALIS</div>
+                <div class="menu-desc">Локальный статус по патологиям</div>
+            </a>
+            <a href="pages/kalkulyatory.html" class="menu-card">
+                <div class="menu-icon">🧮</div>
+                <div class="menu-title">КАЛЬКУЛЯТОРЫ</div>
+                <div class="menu-desc">Медицинские шкалы и расчеты</div>
+            </a>
+            <a href="pages/konsiliumy.html" class="menu-card">
+                <div class="menu-icon">👥</div>
+                <div class="menu-title">КОНСИЛИУМЫ</div>
+                <div class="menu-desc">Поводы для консультаций</div>
+            </a>
+            <a href="pages/prikazy.html" class="menu-card">
+                <div class="menu-icon">📜</div>
+                <div class="menu-title">ПРИКАЗЫ</div>
+                <div class="menu-desc">Нормативная документация</div>
+            </a>
+            <a href="pages/podstancii-msk.html" class="menu-card">
+                <div class="menu-icon">🏥</div>
+                <div class="menu-title">ПОДСТАНЦИИ МСК</div>
+                <div class="menu-desc">Справочная информация</div>
+            </a>
+        </div>
 
-  <!-- КНОПКИ -->
-  <div class="grid">
-    <a href="#" class="card">ШАБЛОНЫ КАРТ</a>
-    <a href="#" class="card">АРХИВ КАРТ СМП</a>
-    <a href="#" class="card">STATUS LOCALIS</a>
-    <a href="#" class="card">КАЛЬКУЛЯТОРЫ</a>
-    <a href="#" class="card">КОНСИЛИУМЫ</a>
-    <a href="#" class="card">ПРИКАЗЫ</a>
-    <a href="#" class="card">ПОДСТАНЦИИ МСК</a>
-  </div>
+        <!-- Подменю ШАБЛОНЫ КАРТ (категории) -->
+        <div class="section-title">📁 ШАБЛОНЫ КАРТ ПО РАЗДЕЛАМ</div>
+        <div class="categories-grid">
+            <a href="pages/акушерство.html" class="category-link">Акушерство и гинекология</a>
+            <a href="pages/анестезиология.html" class="category-link">Анестезиология и реанимация</a>
+            <a href="pages/инфекции.html" class="category-link">Инфекционные заболевания</a>
+            <a href="pages/кардиология.html" class="category-link">Кардиология</a>
+            <a href="pages/констатация.html" class="category-link">Констатация</a>
+            <a href="pages/неврология.html" class="category-link">Неврология</a>
+            <a href="pages/лор.html" class="category-link">Оториноларингология</a>
+            <a href="pages/офтальмология.html" class="category-link">Офтальмология</a>
+            <a href="pages/педиатрия.html" class="category-link">Педиатрия</a>
+            <a href="pages/стоматология.html" class="category-link">Стоматология</a>
+            <a href="pages/терапия.html" class="category-link">Терапия</a>
+            <a href="pages/токсикология.html" class="category-link">Токсикология</a>
+            <a href="pages/травматология.html" class="category-link">Травматология</a>
+            <a href="pages/урология.html" class="category-link">Урология</a>
+            <a href="pages/хирургия.html" class="category-link">Хирургия</a>
+        </div>
 
-  <script>
-    // Скрипт для активной кнопки
-    const buttons = document.querySelectorAll('.card');
-    buttons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        buttons.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-      });
-    });
-  </script>
-
+        <!-- Подменю АРХИВ КАРТ СМП -->
+        <div class="section-title">📂 АРХИВ КАРТ СМП</div>
+        <div class="categories-grid">
+            <a href="pages/архив-аир.html" class="category-link">АиР</a>
+            <a href="pages/архив-акушерство.html" class="category-link">Акушерство/гинекология</a>
+            <a href="pages/архив-инфекция.html" class="category-link">Инфекция</a>
+            <a href="pages/архив-кардиология.html" class="category-link">Кардиология</a>
+            <a href="pages/архив-лор.html" class="category-link">ЛОР</a>
+            <a href="pages/архив-неврология.html" class="category-link">Неврология</a>
+            <a href="pages/архив-онкология.html" class="category-link">Онкология</a>
+            <a href="pages/архив-офтальмология.html" class="category-link">Офтальмология</a>
+            <a href="pages/архив-пульмонология.html" class="category-link">Пульмонология</a>
+            <a href="pages/архив-стоматология.html" class="category-link">Стоматология</a>
+            <a href="pages/архив-терапия.html" class="category-link">Терапия</a>
+            <a href="pages/архив-токсикология.html" class="category-link">Токсикология</a>
+            <a href="pages/архив-травматология.html" class="category-link">Травматология</a>
+            <a href="pages/архив-урология.html" class="category-link">Урология</a>
+            <a href="pages/архив-хирургия.html" class="category-link">Хирургия</a>
+            <a href="pages/архив-эндокринология.html" class="category-link">Эндокринология</a>
+        </div>
+    </div>
 </body>
 </html>
