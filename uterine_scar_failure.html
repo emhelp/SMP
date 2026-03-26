@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Карта вызова СМП | Несостоятельность рубца на матке</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #e2e8f0;
+            font-family: 'Segoe UI', 'Roboto', 'Inter', system-ui, sans-serif;
+            line-height: 1.5;
+            padding: 32px 24px;
+            color: #1a2c3e;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .medical-card {
+            background: #ffffff;
+            border-radius: 28px;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #b94e2c 0%, #8b3a1f 100%);
+            padding: 20px 32px;
+            color: white;
+            border-bottom: 4px solid #ffb347;
+        }
+
+        .card-header .mkb {
+            font-size: 14px;
+            opacity: 0.9;
+            font-family: monospace;
+        }
+
+        .card-header .warning {
+            font-size: 12px;
+            opacity: 0.85;
+            margin-top: 8px;
+            background: rgba(255,255,255,0.15);
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+
+        .card-content {
+            padding: 28px 36px;
+        }
+
+        .exam-block {
+            margin-bottom: 28px;
+            border: 1px solid #e2edf2;
+            border-radius: 20px;
+            overflow: hidden;
+            background: white;
+        }
+
+        .block-title {
+            background: #f1f6fb;
+            padding: 14px 24px;
+            font-weight: 800;
+            font-size: 18px;
+            color: #0b5e7c;
+            border-left: 5px solid #ffb347;
+            letter-spacing: -0.2px;
+        }
+
+        .block-content {
+            padding: 20px 28px;
+            background: #fefefe;
+            font-size: 15px;
+            line-height: 1.55;
+            color: #1e3a4f;
+            text-align: left;
+        }
+
+        .field-row {
+            margin-bottom: 12px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 8px;
+            text-align: left;
+        }
+
+        .field-label {
+            font-weight: 700;
+            color: #1c6d8f;
+            min-width: 220px;
+            font-size: 14px;
+        }
+
+        .field-value {
+            flex: 1;
+            color: #1e2f3c;
+            text-align: left;
+        }
+
+        .inline-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            margin: 12px 0;
+            text-align: left;
+        }
+
+        .inline-item {
+            flex: 1;
+            min-width: 180px;
+            text-align: left;
+        }
+
+        .diagnosis-box {
+            background: #fefaf5;
+            border-left: 4px solid #ffb347;
+            padding: 16px 20px;
+            border-radius: 16px;
+            margin-bottom: 8px;
+            text-align: left;
+        }
+
+        .diagnosis-box div {
+            margin-bottom: 8px;
+            text-align: left;
+        }
+
+        .status-local {
+            background: #f9fef7;
+            border-left: 4px solid #2c9c6e;
+            padding: 16px 20px;
+            border-radius: 16px;
+            margin-top: 8px;
+            text-align: left;
+        }
+
+        .status-local div {
+            margin-bottom: 8px;
+            text-align: left;
+        }
+
+        .rupture-signs {
+            background: #f0f4fa;
+            padding: 16px 20px;
+            border-radius: 16px;
+            margin: 12px 0;
+        }
+
+        .rupture-signs p {
+            margin-bottom: 6px;
+        }
+
+        .scales-box {
+            background: #f0f4fa;
+            padding: 16px 20px;
+            border-radius: 16px;
+            margin: 12px 0;
+        }
+
+        .scale-item {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .scale-label {
+            font-weight: 700;
+            color: #1c6d8f;
+            min-width: 180px;
+        }
+
+        .alert-note {
+            background: #ffebee;
+            border-left: 4px solid #c62828;
+            padding: 12px 16px;
+            border-radius: 12px;
+            margin-top: 16px;
+            font-size: 13px;
+        }
+
+        hr {
+            margin: 16px 0;
+            border: none;
+            height: 1px;
+            background: #e2ecf3;
+        }
+
+        .footer-note {
+            font-size: 13px;
+            color: #6c8eaa;
+            text-align: right;
+        }
+
+        @media (max-width: 700px) {
+            .card-content {
+                padding: 18px;
+            }
+            .block-content {
+                padding: 14px 18px;
+            }
+            .field-label {
+                min-width: 140px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="medical-card">
+        <div class="card-header">
+            <div class="mkb">МКБ-10: O34.2 — Несостоятельность рубца на матке, требующая медицинской помощи матери</div>
+            <div class="warning">⚠️ УГРОЗА РАЗРЫВА МАТКИ! Экстренная госпитализация в акушерский стационар!</div>
+        </div>
+        <div class="card-content">
+
+            <!-- ДИАГНОЗ -->
+            <div class="exam-block">
+                <div class="block-title">ДИАГНОЗ</div>
+                <div class="block-content">
+                    <div class="diagnosis-box">
+                        <div><strong>Основное заболевание:</strong> Несостоятельность рубца на матке после кесарева сечения / миомэктомии / перфорации матки / других реконструктивно-пластических операций (указать). Истончение / дефект / неполноценность рубца. Угрожающий разрыв матки.</div>
+                        <div><strong>Осложнения:</strong> Болевой синдром. Угроза разрыва матки. Гипоксия плода (при беременности). Кровотечение (в родах/послеродовом периоде).</div>
+                        <div><strong>Сопутствующие заболевания:</strong> Беременность (срок ______ недель) / Послеродовый период ______ суток. Рубец на матке в анамнезе. Миома матки (после миомэктомии).</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ЖАЛОБЫ -->
+            <div class="exam-block">
+                <div class="block-title">ЖАЛОБЫ</div>
+                <div class="block-content">
+                    <div class="field-row"><span class="field-label">Болевой синдром:</span><span class="field-value">Боли внизу живота – постоянные / схваткообразные, локализованные в области послеоперационного рубца (над лоном, по передней брюшной стенке), иррадиирующие в поясницу, крестец, промежность. Боли усиливаются при движении, пальпации живота, в родах – во время схваток.</span></div>
+                    <div class="field-row"><span class="field-label">Локальные ощущения:</span><span class="field-value">Чувство «распирания», «давления» в области рубца.</span></div>
+                    <div class="field-row"><span class="field-label">Кровянистые выделения:</span><span class="field-value">Кровянистые выделения из половых путей (при начинающемся разрыве) – скудные / умеренные, алые / темные.</span></div>
+                    <div class="field-row"><span class="field-label">Состояние плода:</span><span class="field-value">Ухудшение состояния плода (при беременности) – изменение характера шевелений (бурные / ослабление / отсутствие), нарушение сердцебиения по данным КТГ / аускультации.</span></div>
+                    <div class="field-row"><span class="field-label">Общие проявления:</span><span class="field-value">Слабость, головокружение, холодный пот (при разрыве матки и внутрибрюшном кровотечении).</span></div>
+                    <div class="field-row"><span class="field-label">Анамнез:</span><span class="field-value">Указывает на наличие рубца на матке в анамнезе: кесарево сечение (год, показания, течение послеоперационного периода); миомэктомия (доступ, характер операции); перфорация матки (при выскабливании, аборте, гистероскопии); внематочная беременность (резекция угла матки).</span></div>
+                </div>
+            </div>
+
+            <!-- АНАМНЕЗ -->
+            <div class="exam-block">
+                <div class="block-title">АНАМНЕЗ</div>
+                <div class="block-content">
+                    <div class="field-row">
+                        <span class="field-label">Анамнез заболевания:</span>
+                        <span class="field-value">Боли в области рубца появились (когда: ______), усиливаются (при каких обстоятельствах). Связывает с (ростом срока беременности / началом родовой деятельности / физической нагрузкой / травмой). Настоящая беременность протекает на фоне рубца на матке. Состоит / не состоит на учете в женской консультации. Проводилось / не проводилось УЗИ-контроль рубца (сроки, заключение: состоятельный / несостоятельный, толщина рубца, наличие ниш, истончений). Родоразрешение планировалось через естественные родовые пути / плановое кесарево сечение. В настоящее время – беременность / роды (период) / послеродовый период.</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Эпидемиологический анамнез:</span>
+                        <span class="field-value">Контакта с инфекционными больными нет.</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Аллергологический анамнез:</span>
+                        <span class="field-value">Не отягощен / отягощен (указать).</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Гинекологический и акушерский анамнез:</span>
+                        <span class="field-value">Менструальная функция: менархе с __ лет, цикл __ дней, по __ дней, регулярный/нерегулярный, умеренный/обильный, безболезненный/болезненный. Последняя менструация: (при беременности – дата первого дня последней менструации) ______. Репродуктивная функция: беременностей – __, родов – __, абортов – __, выкидышей – __. Оперативные вмешательства на матке: кесарево сечение: __ (количество). Годы: ______. Показания: ______. Течение послеоперационного периода: без осложнений / с осложнениями (эндометрит, раневая инфекция, гематома, лихорадка). Миомэктомия: год ______, доступ (лапаротомия / лапароскопия / гистероскопия), локализация узла, вскрытие полости матки (да/нет). Перфорация матки: год ______, обстоятельства (аборт, выскабливание, гистероскопия, ВМС), ушивание перфорации. Резекция угла матки (по поводу внематочной беременности): год ______. Настоящая беременность (при наличии): срок ______ недель. Течение беременности: без осложнений / угроза прерывания / ИЦН / гестоз. УЗИ рубца: толщина ______ мм, структура (однородная/неоднородная, ниша – есть/нет, размеры ______). Гинекологические заболевания: миома матки, эндометриоз, аденомиоз, хронический эндометрит. Экстрагенитальная патология: заболевания соединительной ткани (дисплазия), анемия, ожирение, сахарный диабет, гипертензия.</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Выделения из половых путей:</span>
+                        <span class="field-value">На момент осмотра: слизистые / кровянистые / сукровичные, скудные/умеренные/обильные. Патологических (гнойных, пенистых, творожистых) выделений нет / есть.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ОБЪЕКТИВНО -->
+            <div class="exam-block">
+                <div class="block-title">ОБЪЕКТИВНО</div>
+                <div class="block-content">
+                    <div class="inline-group">
+                        <div class="inline-item"><strong>Состояние:</strong> удовлетворительное / средней степени тяжести / тяжелое</div>
+                        <div class="inline-item"><strong>Сознание:</strong> ясное / оглушение / сопор</div>
+                        <div class="inline-item"><strong>GCS:</strong> 15 / 14–13 / 12 баллов</div>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Положение:</span>
+                        <span class="field-value">Активное / вынужденное (щадит живот, лежит на боку с подтянутыми ногами).</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Кожные покровы:</span>
+                        <span class="field-value">Чистые, обычной окраски / бледные, влажные (при кровопотере, шоке). Акроцианоз. Сыпи, желтушности нет.</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Температура:</span>
+                        <span class="field-value">36,6 °C / 37,0–37,5 °C (при эндометрите, хориоамнионите).</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ОРГАНЫ КРОВООБРАЩЕНИЯ -->
+            <div class="exam-block">
+                <div class="block-title">ОРГАНЫ КРОВООБРАЩЕНИЯ</div>
+                <div class="block-content">
+                    <div class="field-row"><span class="field-label">Пульс:</span><span class="field-value">80–90–100–120–140 в мин, ритмичный, удовлетворительного / слабого наполнения. ЧСС: 80–90–100–120–140 в мин.</span></div>
+                    <div class="field-row"><span class="field-label">АД:</span><span class="field-value">120/70 – 110/60 – 100/60 – 90/50 – <60/0 мм рт.ст. Привычное АД (указать).</span></div>
+                    <div class="field-row"><span class="field-label">Тоны сердца:</span><span class="field-value">Звучные / приглушены, тахикардия.</span></div>
+                </div>
+            </div>
+
+            <!-- ОРГАНЫ ПИЩЕВАРЕНИЯ -->
+            <div class="exam-block">
+                <div class="block-title">ОРГАНЫ ПИЩЕВАРЕНИЯ</div>
+                <div class="block-content">
+                    <div class="field-row"><span class="field-label">Живот:</span><span class="field-value">Увеличен за счет беременной матки / не увеличен. Участвует в акте дыхания ограниченно (щажение). При пальпации – локальная болезненность в области послеоперационного рубца (над лоном, по передней брюшной стенке). Мышечный дефанс – положительный / отрицательный.</span></div>
+                    <div class="field-row"><span class="field-label">Симптом Щёткина-Блюмберга:</span><span class="field-value">Отрицательный / положительный (при разрыве матки, перитоните).</span></div>
+                    <div class="field-row"><span class="field-label">Перистальтика:</span><span class="field-value">Выслушивается, активная / ослаблена.</span></div>
+                </div>
+            </div>
+
+            <!-- STATUS LOCALIS -->
+            <div class="exam-block">
+                <div class="block-title">STATUS LOCALIS (акушерский статус)</div>
+                <div class="block-content">
+                    <div class="status-local">
+                        <div><strong>Беременная матка / послеродовая матка:</strong> Живот увеличен за счет матки. Матка возбудима / в нормотонусе. При пальпации – локальная болезненность в области нижнего сегмента / проекции послеоперационного рубца. Контуры матки четкие / нечеткие (при разрыве). Пальпация краев рубца (при доступе) – истончение, неровность, болезненность. Мышечный дефанс над областью рубца.</div>
+                        <div><strong>Акушерский статус (при беременности/родах):</strong> Высота стояния дна матки: ______ см (соответствует / не соответствует сроку). Положение плода: продольное / поперечное / косое. Предлежание: головное / тазовое. Сердцебиение плода: ясное, ритмичное, ______ уд/мин / приглушено / тахикардия / брадикардия / отсутствует.</div>
+                        <div><strong>Характер схваток (в родах):</strong> регулярные / нерегулярные, болезненные / резко болезненные в области рубца, сила, продолжительность, частота.</div>
+                        <div><strong>Околоплодные воды:</strong> целы / излились (время, характер: светлые / мекониальные / гнойные / с кровью).</div>
+                        <div><strong>Выделения из половых путей:</strong> слизистые / кровянистые (скудные / умеренные / обильные, алые / темные, со сгустками / без сгустков).</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ПРИЗНАКИ НАЧИНАЮЩЕГОСЯ/СВЕРШИВШЕГОСЯ РАЗРЫВА МАТКИ -->
+            <div class="exam-block">
+                <div class="block-title">ПРИЗНАКИ НАЧИНАЮЩЕГОСЯ / СВЕРШИВШЕГОСЯ РАЗРЫВА МАТКИ</div>
+                <div class="block-content">
+                    <div class="rupture-signs">
+                        <p>• Резкое усиление боли в схватке, беспокойное поведение.</p>
+                        <p>• Нерегулярные, слабые, резко болезненные схватки.</p>
+                        <p>• Затруднение мочеиспускания, гематурия.</p>
+                        <p>• Кровянистые выделения (не всегда).</p>
+                        <p>• Исчезновение сердцебиения плода, изменение положения плода.</p>
+                        <p>• При разрыве – симптомы внутрибрюшного кровотечения, шока.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ОЦЕНКА СОСТОЯНИЯ РУБЦА -->
+            <div class="exam-block">
+                <div class="block-title">ОЦЕНКА СОСТОЯНИЯ РУБЦА (КЛИНИЧЕСКАЯ)</div>
+                <div class="block-content">
+                    <div class="scales-box">
+                        <div class="scale-item">
+                            <span class="scale-label">Состоятельный рубец:</span>
+                            <span>пальпаторно безболезненный, матка в нормотонусе, сердцебиение плода в норме.</span>
+                        </div>
+                        <div class="scale-item">
+                            <span class="scale-label">Несостоятельный рубец:</span>
+                            <span>локальная болезненность, истончение при пальпации, беспокойство плода, боли в родах в области рубца.</span>
+                        </div>
+                        <div class="scale-item">
+                            <span class="scale-label">Угрожающий разрыв:</span>
+                            <span>выраженная болезненность, напряжение матки, дистресс плода, кровянистые выделения.</span>
+                        </div>
+                        <div class="scale-item">
+                            <span class="scale-label">Свершившийся разрыв:</span>
+                            <span>резкая боль, шок, прекращение родовой деятельности, исчезновение сердцебиения плода, симптомы гемоперитонеума.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ОЦЕНКА СОСТОЯНИЯ ПЛОДА -->
+            <div class="exam-block">
+                <div class="block-title">ОЦЕНКА СОСТОЯНИЯ ПЛОДА</div>
+                <div class="block-content">
+                    <div class="rupture-signs">
+                        <p>• Сердцебиение: 120–160 уд/мин – норма.</p>
+                        <p>• Тахикардия >160 уд/мин, брадикардия <110 уд/мин – дистресс плода.</p>
+                        <p>• Отсутствие сердцебиения – антенатальная гибель.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ДИФФЕРЕНЦИАЛЬНАЯ ДИАГНОСТИКА И ТАКТИКА -->
+            <div class="exam-block">
+                <div class="block-title">ДИФФЕРЕНЦИАЛЬНАЯ ДИАГНОСТИКА И ТАКТИКА</div>
+                <div class="block-content">
+                    <div class="alert-note">
+                        <strong>Дифференциальная диагностика проведена с:</strong><br>
+                        — <strong>Преждевременной отслойкой нормально расположенной плаценты:</strong> локальная болезненность матки, гипертонус, кровянистые выделения, дистресс плода, нет связи с областью рубца.<br>
+                        — <strong>Угрожающими преждевременными родами:</strong> схваткообразные боли, укорочение/сглаживание шейки матки, нет локальной болезненности в области рубца.<br>
+                        — <strong>Истмико-цервикальной недостаточностью:</strong> безболезненные схватки, укорочение шейки, пролабирование плодного пузыря.<br>
+                        — <strong>Острыми хирургическими заболеваниями:</strong> аппендицит, почечная колика – характерная иррадиация, симптомы, отсутствие связи с рубцом.<br><br>
+                        <strong>Ключевые признаки несостоятельности рубца:</strong>
+                        <p>• Локальная болезненность в проекции рубца при пальпации.</p>
+                        <p>• Болезненность схваток в области рубца (в родах).</p>
+                        <p>• Истончение, неровность, болезненность краев рубца (при пальпации через влагалище/живот).</p>
+                        <p>• Кровянистые выделения.</p>
+                        <p>• Признаки дистресса плода.</p>
+                        <p>• Ультразвуковые признаки: истончение рубца <2,5–3 мм, ниши, дефекты мышечного слоя.</p><br>
+                        <strong>Примечание для бригады СМП:</strong><br>
+                        — Экстренная госпитализация в акушерский стационар (отделение патологии беременных, родильный зал).<br>
+                        — Транспортировка на носилках в положении лежа на спине, полный покой.<br>
+                        — Категорически запрещена родостимуляция!<br>
+                        — Мониторинг сердцебиения плода каждые 10–15 минут.<br>
+                        — При признаках разрыва матки – инфузионная терапия, экстренная доставка в операционную.
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+            <div class="footer-note">
+                O34.2 — Несостоятельность рубца на матке | Экстренная госпитализация в акушерский стационар | Родоразрешение оперативным путем
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
