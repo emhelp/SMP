@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Шкала комы Глазго — интерактивная оценка</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: linear-gradient(135deg, #2c5f8a 0%, #1e3a5a 100%);
+            font-family: 'Segoe UI', 'Inter', 'Roboto', system-ui, -apple-system, sans-serif;
+            line-height: 1.5;
+            color: #1e2a3e;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;  /* прижимаем к верхнему краю */
+        }
+        .document-container {
+            max-width: 1300px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 32px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+        .document-header {
+            background: linear-gradient(135deg, #2c5f8a 0%, #1e3a5a 100%);
+            color: white;
+            padding: 1.5rem 2rem;
+            border-bottom: 4px solid #ffc107;
+            text-align: center;
+        }
+        .document-header h1 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.25rem;
+        }
+        .document-header .subtitle {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        .document-content {
+            padding: 2rem;
+        }
+        /* Вкладки */
+        .age-tabs {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .tab-button {
+            background: #e2e8f0;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: #2c3e66;
+        }
+        .tab-button.active {
+            background: #2c5f8a;
+            color: white;
+            box-shadow: 0 2px 8px rgba(44, 95, 138, 0.3);
+        }
+        .tab-button:hover:not(.active) {
+            background: #cbd5e1;
+        }
+        /* Карточка шкалы */
+        .scale-panel {
+            display: none;
+            animation: fadeIn 0.2s ease;
+        }
+        .scale-panel.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .scale-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .category-card {
+            background: linear-gradient(90deg, #fefaf5, #fffcf8);
+            border-radius: 24px;
+            border: 1px solid #e2e8f0;
+            overflow: hidden;
+            transition: box-shadow 0.2s;
+        }
+        .category-card:hover {
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+        }
+        .category-title {
+            background: linear-gradient(135deg, #2c5f8a, #1f4a6e);
+            color: white;
+            padding: 0.8rem 1.2rem;
+            font-weight: 700;
+            font-size: 1.1rem;
+            letter-spacing: 0.3px;
+        }
+        .options-list {
+            padding: 0.8rem 1.2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+        .option-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.5rem 0.8rem;
+            border-radius: 16px;
+            background: #ffffff;
+            transition: background 0.15s;
+            cursor: pointer;
+        }
+        .option-item:hover {
+            background: #fff5e8;
+        }
+        .option-radio {
+            width: 18px;
+            height: 18px;
+            accent-color: #2c5f8a;
+            cursor: pointer;
+        }
+        .option-text {
+            flex: 1;
+            font-weight: 500;
+            color: #2c3e66;
+        }
+        .option-score {
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff3e0, #ffe8d4);
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            color: #c62828;
+            font-size: 0.9rem;
+            min-width: 45px;
+            text-align: center;
+        }
+        .result-card {
+            background: linear-gradient(135deg, #fff8e7, #fff3df);
+            border-radius: 28px;
+            padding: 1.5rem;
+            text-align: center;
+            margin: 1.5rem 0 1rem;
+            border-left: 6px solid #ffc107;
+        }
+        .total-score {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #2c5f8a;
+            line-height: 1;
+        }
+        .total-label {
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+            color: #2c3e66;
+            margin-bottom: 0.5rem;
+        }
+        .severity-badge {
+            display: inline-block;
+            padding: 0.4rem 1.2rem;
+            border-radius: 40px;
+            font-weight: 700;
+            margin-top: 0.75rem;
+            font-size: 1rem;
+        }
+        .severity-severe { background: #c62828; color: white; }
+        .severity-moderate { background: #f57c00; color: white; }
+        .severity-mild { background: #2c7a4d; color: white; }
+        .severity-normal { background: #1976d2; color: white; }
+        .info-card {
+            background: linear-gradient(135deg, #e3f2fd, #eef6fc);
+            border-left: 6px solid #1976d2;
+            border-radius: 20px;
+            padding: 1rem 1.25rem;
+            margin: 1rem 0;
+        }
+        .warning-card {
+            background: linear-gradient(135deg, #fff8e7, #fff3df);
+            border-left: 6px solid #ff9800;
+            border-radius: 20px;
+            padding: 1rem 1.25rem;
+            margin: 1rem 0;
+        }
+        .highlight {
+            background-color: #ffecb3;
+            padding: 0.1rem 0.3rem;
+            border-radius: 4px;
+            font-weight: 600;
+            color: #b85c00;
+        }
+        .important-text {
+            font-weight: 700;
+            color: #c62828;
+            text-decoration: underline;
+        }
+        hr {
+            margin: 1.5rem 0;
+            border: none;
+            height: 1px;
+            background: linear-gradient(90deg, #e2e8f0, transparent);
+        }
+        @media (max-width: 680px) {
+            .document-content {
+                padding: 1rem;
+            }
+            .category-title {
+                font-size: 1rem;
+            }
+            .option-text {
+                font-size: 0.85rem;
+            }
+            .total-score {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="document-container">
+    <div class="document-header">
+        <h1>🧠 ШКАЛА КОМЫ ГЛАЗГО</h1>
+        <div class="subtitle">Оценка степени нарушения сознания у взрослых и у детей</div>
+    </div>
+    <div class="document-content">
+        
+        <div class="age-tabs">
+            <button class="tab-button active" data-tab="adult">Взрослые и дети старше 4 лет</button>
+            <button class="tab-button" data-tab="child">Дети от 1 до 4 лет</button>
+            <button class="tab-button" data-tab="infant">Дети до 1 года</button>
+        </div>
+
+        <!-- ПАНЕЛЬ: ВЗРОСЛЫЕ + ДЕТИ СТАРШЕ 4 ЛЕТ -->
+        <div id="panel-adult" class="scale-panel active">
+            <div class="scale-grid">
+                <div class="category-card">
+                    <div class="category-title">👁️ Открывание глаз</div>
+                    <div class="options-list" id="eye-adult-list"></div>
+                </div>
+                <div class="category-card">
+                    <div class="category-title">🗣️ Речевая реакция</div>
+                    <div class="options-list" id="verbal-adult-list"></div>
+                </div>
+                <div class="category-card">
+                    <div class="category-title">💪 Двигательная реакция</div>
+                    <div class="options-list" id="motor-adult-list"></div>
+                </div>
+            </div>
+            <div class="result-card">
+                <div class="total-label">ОБЩАЯ СУММА БАЛЛОВ</div>
+                <div class="total-score" id="total-adult">0</div>
+                <div id="severity-adult" class="severity-badge"></div>
+            </div>
+        </div>
+
+        <!-- ПАНЕЛЬ: ДЕТИ 1–4 ГОДА -->
+        <div id="panel-child" class="scale-panel">
+            <div class="scale-grid">
+                <div class="category-card">
+                    <div class="category-title">👁️ Открывание глаз</div>
+                    <div class="options-list" id="eye-child-list"></div>
+                </div>
+                <div class="category-card">
+                    <div class="category-title">🗣️ Речевая реакция (1–4 года)</div>
+                    <div class="options-list" id="verbal-child-list"></div>
+                </div>
+                <div class="category-card">
+                    <div class="category-title">💪 Двигательная реакция</div>
+                    <div class="options-list" id="motor-child-list"></div>
+                </div>
+            </div>
+            <div class="result-card">
+                <div class="total-label">ОБЩАЯ СУММА БАЛЛОВ</div>
+                <div class="total-score" id="total-child">0</div>
+                <div id="severity-child" class="severity-badge"></div>
+            </div>
+        </div>
+
+        <!-- ПАНЕЛЬ: ДЕТИ ДО 1 ГОДА -->
+        <div id="panel-infant" class="scale-panel">
+            <div class="scale-grid">
+                <div class="category-card">
+                    <div class="category-title">👁️ Открывание глаз</div>
+                    <div class="options-list" id="eye-infant-list"></div>
+                </div>
+                <div class="category-card">
+                    <div class="category-title">🗣️ Речевая реакция (до 1 года)</div>
+                    <div class="options-list" id="verbal-infant-list"></div>
+                </div>
+                <div class="category-card">
+                    <div class="category-title">💪 Двигательная реакция (до 1 года)</div>
+                    <div class="options-list" id="motor-infant-list"></div>
+                </div>
+            </div>
+            <div class="result-card">
+                <div class="total-label">ОБЩАЯ СУММА БАЛЛОВ</div>
+                <div class="total-score" id="total-infant">0</div>
+                <div id="severity-infant" class="severity-badge"></div>
+            </div>
+        </div>
+
+        <!-- Информационные блоки -->
+        <div class="info-card">
+            <strong>📊 Особенности оценки сознания по шкале Глазго:</strong>
+            <ul style="margin-top: 0.5rem; margin-left: 1.5rem;">
+                <li>Для детей <span class="highlight">до 1 года</span> используется специальная шкала с учётом возрастных особенностей речевого развития</li>
+                <li>Для детей <span class="highlight">от 1 до 4 лет</span> — адаптированная речевая шкала (крик, плач, лепет)</li>
+                <li>Двигательная реакция у детей раннего возраста оценивается с учётом <span class="highlight">целенаправленности движений</span></li>
+                <li>При <span class="highlight">GCS ≤ 8</span> — <span class="important-text">тяжёлая черепно-мозговая травма</span>, требуется <span class="highlight">интубация трахеи</span> и госпитализация в реанимацию</li>
+            </ul>
+        </div>
+        <div class="warning-card">
+            <strong>⚠️ Важные моменты для бригад СМП:</strong>
+            <ul style="margin-top: 0.5rem; margin-left: 1.5rem;">
+                <li>При оценке сознания у детей <span class="highlight">используйте возрастные критерии</span> (особенно для речевой реакции)</li>
+                <li>У детей до 1 года <span class="highlight">«нормальная» речевая реакция</span> — гуление, улыбка, проявление неудовольствия (5 баллов)</li>
+                <li>При <span class="highlight">GCS ≤ 8 у ребёнка</span> — <span class="important-text">немедленная подготовка к интубации</span>, так как дети более чувствительны к гипоксии</li>
+                <li>Оценку проводят <span class="highlight">до введения седативных препаратов</span> (при возможности)</li>
+                <li>При <span class="highlight">асимметрии реакции</span> — фиксировать в карте вызова, оценивать по лучшему ответу</li>
+            </ul>
+        </div>
+        <hr>
+    </div>
+</div>
+
+<script>
+    // ---------- ДАННЫЕ ДЛЯ ВЗРОСЛЫХ / ДЕТИ СТАРШЕ 4 ЛЕТ ----------
+    const adultEye = [
+        { text: "Произвольное", score: 4 },
+        { text: "На речевую команду", score: 3 },
+        { text: "На болевое раздражение", score: 2 },
+        { text: "Отсутствует", score: 1 }
+    ];
+    const adultVerbal = [
+        { text: "Ориентирован и контактен (осмысленный ответ)", score: 5 },
+        { text: "Бессвязная речевая спутанность", score: 4 },
+        { text: "Отдельные слова (в ответ на раздражение или спонтанно)", score: 3 },
+        { text: "Нечленораздельные звуки", score: 2 },
+        { text: "Отсутствует", score: 1 }
+    ];
+    const adultMotor = [
+        { text: "Выполнение команды", score: 6 },
+        { text: "Локализация боли", score: 5 },
+        { text: "Отдергивание конечности на боль", score: 4 },
+        { text: "Патологическое сгибание (декортикация)", score: 3 },
+        { text: "Патологическое разгибание (децеребрация)", score: 2 },
+        { text: "Нет ответа", score: 1 }
+    ];
+
+    // ДЕТИ 1-4 ГОДА
+    const childEye = [
+        { text: "Произвольное", score: 4 },
+        { text: "На звук", score: 3 },
+        { text: "На болевое раздражение", score: 2 },
+        { text: "Отсутствует", score: 1 }
+    ];
+    const childVerbal = [
+        { text: "Соответствующая возрасту речевая продукция", score: 5 },
+        { text: "Бессвязная речевая продукция", score: 4 },
+        { text: "Крик и/или плач", score: 3 },
+        { text: "Стон", score: 2 },
+        { text: "Отсутствует", score: 1 }
+    ];
+    const childMotor = adultMotor; // двигательная реакция та же, что у взрослых
+
+    // ДЕТИ ДО 1 ГОДА
+    const infantEye = [
+        { text: "Произвольное", score: 4 },
+        { text: "На звук", score: 3 },
+        { text: "На болевое раздражение", score: 2 },
+        { text: "Отсутствует", score: 1 }
+    ];
+    const infantVerbal = [
+        { text: "Гулит, улыбается или проявляет неудовольствие", score: 5 },
+        { text: "Эпизодический крик, плач спонтанно", score: 4 },
+        { text: "Постоянный крик или плач", score: 3 },
+        { text: "Стон на боль", score: 2 },
+        { text: "Нет ответа", score: 1 }
+    ];
+    const infantMotor = [
+        { text: "На звук", score: 6 },
+        { text: "На боль", score: 5 },
+        { text: "Вялая двигательная реакция на боль", score: 4 },
+        { text: "Патологическое сгибание (декортикация)", score: 3 },
+        { text: "Разгибание (децеребрация)", score: 2 },
+        { text: "Нет ответа", score: 1 }
+    ];
+
+    // Функция рендеринга опций с радиокнопками
+    function renderOptions(containerId, options, groupName, callback) {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+        container.innerHTML = '';
+        options.forEach((opt, idx) => {
+            const radioId = `${groupName}_${idx}`;
+            const div = document.createElement('div');
+            div.className = 'option-item';
+            div.innerHTML = `
+                <input type="radio" name="${groupName}" id="${radioId}" value="${opt.score}" class="option-radio">
+                <label for="${radioId}" class="option-text" style="flex:1; cursor:pointer;">${opt.text}</label>
+                <span class="option-score">${opt.score}</span>
+            `;
+            container.appendChild(div);
+            // По умолчанию выбираем первый (наивысший балл)
+            if (idx === 0) {
+                const radio = div.querySelector('input');
+                radio.checked = true;
+            }
+            // Добавляем обработчик изменения
+            div.querySelector('input').addEventListener('change', () => {
+                if (callback) callback();
+            });
+            // чтобы клик на лейбле тоже работал
+            div.querySelector('label').addEventListener('click', (e) => {
+                const radio = div.querySelector('input');
+                if (!radio.checked) radio.checked = true;
+                if (callback) callback();
+            });
+        });
+    }
+
+    // Получить выбранное значение из группы радио
+    function getSelectedScore(groupName) {
+        const radios = document.querySelectorAll(`input[name="${groupName}"]`);
+        for (let radio of radios) {
+            if (radio.checked) return parseInt(radio.value, 10);
+        }
+        return 0;
+    }
+
+    // Обновление результата для конкретной панели
+    function updateResult(panelId, eyeGroup, verbalGroup, motorGroup, totalSpanId, severitySpanId) {
+        const eye = getSelectedScore(eyeGroup);
+        const verbal = getSelectedScore(verbalGroup);
+        const motor = getSelectedScore(motorGroup);
+        const total = eye + verbal + motor;
+        document.getElementById(totalSpanId).innerText = total;
+        const severityDiv = document.getElementById(severitySpanId);
+        let severityClass = '', severityText = '';
+        if (total <= 8) {
+            severityClass = 'severity-severe';
+            severityText = 'Тяжёлое нарушение (3–8) — глубокая кома';
+        } else if (total <= 12) {
+            severityClass = 'severity-moderate';
+            severityText = 'Средней степени тяжести (9–12) — умеренная кома, сопор';
+        } else if (total <= 14) {
+            severityClass = 'severity-mild';
+            severityText = 'Лёгкое нарушение (13–14) — оглушение, сомноленция';
+        } else {
+            severityClass = 'severity-normal';
+            severityText = 'Норма (15) — сознание ясное';
+        }
+        severityDiv.className = `severity-badge ${severityClass}`;
+        severityDiv.innerText = severityText;
+    }
+
+    // Инициализация всех панелей
+    function initAdult() {
+        renderOptions('eye-adult-list', adultEye, 'eye_adult', () => updateResult('adult', 'eye_adult', 'verbal_adult', 'motor_adult', 'total-adult', 'severity-adult'));
+        renderOptions('verbal-adult-list', adultVerbal, 'verbal_adult', () => updateResult('adult', 'eye_adult', 'verbal_adult', 'motor_adult', 'total-adult', 'severity-adult'));
+        renderOptions('motor-adult-list', adultMotor, 'motor_adult', () => updateResult('adult', 'eye_adult', 'verbal_adult', 'motor_adult', 'total-adult', 'severity-adult'));
+        updateResult('adult', 'eye_adult', 'verbal_adult', 'motor_adult', 'total-adult', 'severity-adult');
+    }
+
+    function initChild() {
+        renderOptions('eye-child-list', childEye, 'eye_child', () => updateResult('child', 'eye_child', 'verbal_child', 'motor_child', 'total-child', 'severity-child'));
+        renderOptions('verbal-child-list', childVerbal, 'verbal_child', () => updateResult('child', 'eye_child', 'verbal_child', 'motor_child', 'total-child', 'severity-child'));
+        renderOptions('motor-child-list', childMotor, 'motor_child', () => updateResult('child', 'eye_child', 'verbal_child', 'motor_child', 'total-child', 'severity-child'));
+        updateResult('child', 'eye_child', 'verbal_child', 'motor_child', 'total-child', 'severity-child');
+    }
+
+    function initInfant() {
+        renderOptions('eye-infant-list', infantEye, 'eye_infant', () => updateResult('infant', 'eye_infant', 'verbal_infant', 'motor_infant', 'total-infant', 'severity-infant'));
+        renderOptions('verbal-infant-list', infantVerbal, 'verbal_infant', () => updateResult('infant', 'eye_infant', 'verbal_infant', 'motor_infant', 'total-infant', 'severity-infant'));
+        renderOptions('motor-infant-list', infantMotor, 'motor_infant', () => updateResult('infant', 'eye_infant', 'verbal_infant', 'motor_infant', 'total-infant', 'severity-infant'));
+        updateResult('infant', 'eye_infant', 'verbal_infant', 'motor_infant', 'total-infant', 'severity-infant');
+    }
+
+    initAdult();
+    initChild();
+    initInfant();
+
+    // Переключение вкладок
+    const tabs = document.querySelectorAll('.tab-button');
+    const panels = {
+        adult: document.getElementById('panel-adult'),
+        child: document.getElementById('panel-child'),
+        infant: document.getElementById('panel-infant')
+    };
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            const target = tab.getAttribute('data-tab');
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            Object.values(panels).forEach(p => p.classList.remove('active'));
+            panels[target].classList.add('active');
+        });
+    });
+</script>
+</body>
+</html>
