@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Перечень состояний - Оценка по шкале боли ВАШ</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: transparent;
+            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.5;
+            color: #1e2a3e;
+            padding: 20px 0;
+        }
+        .document-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+        .document-header {
+            background: linear-gradient(135deg, #c2185b 0%, #8b1e4a 100%);
+            color: white;
+            padding: 1.5rem 2rem;
+            border-bottom: 4px solid #ffc107;
+        }
+        .document-header h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .document-header .hashtag {
+            font-size: 1rem;
+            opacity: 0.9;
+            font-family: monospace;
+        }
+        .document-content {
+            padding: 2rem;
+        }
+        .section {
+            margin-bottom: 2rem;
+            border-left: 4px solid #c2185b;
+            padding-left: 1.25rem;
+        }
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #c2185b;
+            margin-bottom: 1rem;
+            display: inline-block;
+            border-bottom: 2px solid #ffc107;
+            padding-bottom: 0.25rem;
+        }
+        .badge {
+            display: inline-block;
+            background: #c2185b;
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 0.2rem 0.7rem;
+            border-radius: 20px;
+            margin-right: 0.5rem;
+            vertical-align: middle;
+        }
+        .badge-orange {
+            background: #f57c00;
+        }
+        .badge-blue {
+            background: #1976d2;
+        }
+        .badge-green {
+            background: #2e7d32;
+        }
+        .highlight {
+            background-color: #ffecb3;
+            padding: 0.1rem 0.3rem;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        .important-text {
+            font-weight: 700;
+            color: #c62828;
+            text-decoration: underline;
+        }
+        .info-card {
+            background: #e3f2fd;
+            border-left: 6px solid #1976d2;
+            padding: 1rem 1.25rem;
+            margin: 1rem 0;
+            border-radius: 0 12px 12px 0;
+        }
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        .category-card {
+            background: #fef5f0;
+            border-radius: 12px;
+            padding: 1rem;
+            border-left: 4px solid #ff9800;
+        }
+        .category-title {
+            font-weight: 800;
+            font-size: 1.1rem;
+            color: #c2185b;
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #ffe0b5;
+        }
+        .condition-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        .condition-list li {
+            padding-left: 1.3rem;
+            position: relative;
+            margin-bottom: 0.4rem;
+            font-size: 0.92rem;
+        }
+        .condition-list li::before {
+            content: "•";
+            color: #c2185b;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        .sub-list {
+            list-style: none;
+            padding-left: 1.5rem;
+            margin-top: 0.25rem;
+        }
+        .sub-list li {
+            padding-left: 1rem;
+            position: relative;
+            font-size: 0.88rem;
+            color: #4a627a;
+        }
+        .sub-list li::before {
+            content: "–";
+            color: #f57c00;
+            position: absolute;
+            left: 0;
+        }
+        hr {
+            margin: 1.5rem 0;
+            border: none;
+            height: 1px;
+            background: linear-gradient(90deg, #e2e8f0, transparent);
+        }
+        .subnote {
+            font-size: 0.85rem;
+            color: #5a6e85;
+            margin-top: 1rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid #e2e8f0;
+        }
+        @media (max-width: 768px) {
+            .document-content {
+                padding: 1rem;
+            }
+            .section {
+                padding-left: 0.75rem;
+            }
+            .section-title {
+                font-size: 1.2rem;
+            }
+            .category-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="document-container">
+    <div class="document-header">
+        <h1>📋 ОЦЕНКА ПО ШКАЛЕ БОЛИ ВАШ</h1>
+        <div class="hashtag">Перечень состояний, при которых проводится обязательная оценка</div>
+        <p style="margin-top: 0.5rem;">Визуальная аналоговая шкала (ВАШ) — инструмент объективной оценки интенсивности болевого синдрома</p>
+    </div>
+    <div class="document-content">
+        
+        <div class="info-card">
+            <strong>📌 Шкала ВАШ (Visual Analogue Scale)</strong> — метод оценки боли, при котором пациент отмечает уровень боли на прямой линии от 0 (нет боли) до 10 (невыносимая боль). <strong class="highlight">Оценка проводится у всех пациентов с указанными состояниями!</strong>
+        </div>
+        
+        <div class="section">
+            <div class="section-title">📋 Перечень состояний</div>
+            
+            <div class="category-grid">
+                
+                <!-- Онкология и неврология -->
+                <div class="category-card">
+                    <div class="category-title">🔬 Онкология / Неврология</div>
+                    <ul class="condition-list">
+                        <li>Злокачественные новообразования</li>
+                        <li>Болезни периферической нервной системы и межпозвонковых дисков</li>
+                    </ul>
+                </div>
+                
+                <!-- Черепно-мозговая травма -->
+                <div class="category-card">
+                    <div class="category-title">🧠 Черепно-мозговая травма</div>
+                    <ul class="condition-list">
+                        <li>Сотрясение головного мозга</li>
+                        <li>Перелом свода и/или основания черепа</li>
+                        <li>Ушиб головного мозга</li>
+                        <li>Травматическое субарахноидальное кровоизлияние</li>
+                        <li>Внутричерепная гематома</li>
+                        <li>Поверхностная травма волосистой части головы</li>
+                        <li>Перелом лицевых костей (костей носа, скуловой кости, верхней, нижней челюсти и др.)</li>
+                        <li>Раны лица, шеи, полости рта и волосистой части головы</li>
+                        <li>Ушиб горла, шейного отдела пищевода, глотки, гортани, трахеи</li>
+                        <li>Открытая рана, затрагивающая гортань и шейный отдел трахеи</li>
+                        <li>Перелом хрящей гортани, трахеи</li>
+                    </ul>
+                </div>
+                
+                <!-- Позвоночник -->
+                <div class="category-card">
+                    <div class="category-title">🦴 Позвоночник</div>
+                    <ul class="condition-list">
+                        <li>Перелом позвоночника</li>
+                        <li>Вывих шейного позвонка</li>
+                    </ul>
+                </div>
+                
+                <!-- Вывихи верхних конечностей -->
+                <div class="category-card">
+                    <div class="category-title">💪 Вывихи верхних конечностей</div>
+                    <ul class="condition-list">
+                        <li>Плечевой кости</li>
+                        <li>Грудиноключичного сустава</li>
+                        <li>Костей предплечья</li>
+                        <li>Костей запястья</li>
+                        <li>Пальцев кисти</li>
+                    </ul>
+                </div>
+                
+                <!-- Вывихи нижних конечностей -->
+                <div class="category-card">
+                    <div class="category-title">🦵 Вывихи нижних конечностей</div>
+                    <ul class="condition-list">
+                        <li>Костей голени</li>
+                        <li>Голеностопного сустава</li>
+                        <li>Коленного сустава</li>
+                        <li>Пальцев стопы</li>
+                    </ul>
+                </div>
+                
+                <!-- Переломы конечностей -->
+                <div class="category-card">
+                    <div class="category-title">🦴 Переломы конечностей</div>
+                    <ul class="condition-list">
+                        <li>Переломы костей верхних и нижних конечностей, закрытые</li>
+                        <li>Переломы костей верхних и нижних конечностей, открытые</li>
+                    </ul>
+                </div>
+                
+                <!-- Травмы и повреждения -->
+                <div class="category-card">
+                    <div class="category-title">⚠️ Травмы и повреждения</div>
+                    <ul class="condition-list">
+                        <li>Травма грудной клетки</li>
+                        <li>Открытые раны (огнестрельные, колотые, резаные, укушенные и т.д.)</li>
+                        <li>Синдром длительного сдавления</li>
+                        <li>Открытая травма живота</li>
+                        <li>Травма наружных половых органов</li>
+                    </ul>
+                </div>
+                
+                <!-- Термические поражения -->
+                <div class="category-card">
+                    <div class="category-title">🔥 Термические поражения</div>
+                    <ul class="condition-list">
+                        <li>Термические и химические ожоги</li>
+                        <li>Отморожение</li>
+                    </ul>
+                </div>
+                
+                <!-- Особые состояния -->
+                <div class="category-card">
+                    <div class="category-title">🩺 Особые состояния</div>
+                    <ul class="condition-list">
+                        <li><span class="highlight">Боли «под гипсом»</span></li>
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+        
+        <div class="info-card">
+            <strong>📊 Шкала ВАШ (0–10 баллов):</strong><br>
+            • <strong class="highlight">0 баллов</strong> — боли нет<br>
+            • <strong class="highlight">1–3 балла</strong> — слабая боль<br>
+            • <strong class="highlight">4–6 баллов</strong> — умеренная боль<br>
+            • <strong class="highlight">7–9 баллов</strong> — сильная боль<br>
+            • <strong class="highlight">10 баллов</strong> — невыносимая боль<br>
+            <br>
+            <strong>Оценка проводится:</strong> при первичном осмотре, после введения обезболивающих препаратов, при динамическом наблюдении.
+        </div>
+        
+        <hr>
+        
+        <div class="subnote">
+            📋 <strong>Важные моменты:</strong><br>
+            • Оценка боли по шкале ВАШ проводится <strong class="important-text">у всех пациентов с указанными состояниями</strong><br>
+            • Результат фиксируется в карте вызова <strong>до и после обезболивания</strong><br>
+            • При невозможности вербального контакта используются альтернативные шкалы (поведенческие)<br>
+            • <span class="highlight">«Боли под гипсом»</span> — обязательный критерий для оценки, требующий особого внимания (риск компартмент-синдрома)<br>
+            <br>
+            🔍 <em>Документ регламентирует перечень состояний, при которых выездные бригады скорой медицинской помощи обязаны проводить оценку интенсивности болевого синдрома с использованием шкалы ВАШ.</em>
+        </div>
+        
+    </div>
+</div>
+</body>
+</html>
