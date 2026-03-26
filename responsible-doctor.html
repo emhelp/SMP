@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Поводы для консилиума и изменение диагноза - СМП</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: transparent;
+            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.5;
+            color: #1e2a3e;
+            padding: 20px 0;
+        }
+        .document-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+        .document-header {
+            background: linear-gradient(135deg, #2c3e66 0%, #1a2a4a 100%);
+            color: white;
+            padding: 1.5rem 2rem;
+            border-bottom: 4px solid #ffc107;
+        }
+        .document-header h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .document-content {
+            padding: 2rem;
+        }
+        .intro-card {
+            background: #e3f2fd;
+            border-left: 6px solid #2c3e66;
+            padding: 1rem 1.25rem;
+            margin-bottom: 1.5rem;
+            border-radius: 0 12px 12px 0;
+        }
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #2c3e66;
+            margin: 1.5rem 0 1rem 0;
+            display: inline-block;
+            border-bottom: 3px solid #ffc107;
+            padding-bottom: 0.25rem;
+        }
+        .section-divider {
+            margin: 2rem 0 1rem 0;
+            position: relative;
+            text-align: center;
+        }
+        .section-divider span {
+            background: #fff;
+            padding: 0 1rem;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #2c3e66;
+            position: relative;
+            z-index: 1;
+        }
+        .section-divider::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #ffc107, #ffc107, transparent);
+            z-index: 0;
+        }
+        .rule-card {
+            background: #fefaf5;
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+            margin: 1rem 0;
+            transition: all 0.2s ease;
+            border-left: 5px solid #f57c00;
+        }
+        .rule-card:hover {
+            background: #fff7f0;
+            transform: translateX(2px);
+        }
+        .rule-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+        .rule-icon {
+            font-size: 1.2rem;
+            flex-shrink: 0;
+            color: #f57c00;
+        }
+        .rule-text {
+            flex: 1;
+            line-height: 1.55;
+        }
+        .rule-text strong {
+            color: #2c3e66;
+        }
+        .highlight {
+            background-color: #ffecb3;
+            padding: 0.1rem 0.3rem;
+            border-radius: 4px;
+            font-weight: 600;
+            color: #b85c00;
+        }
+        .important-text {
+            font-weight: 700;
+            color: #c62828;
+        }
+        .special-card {
+            background: #e8f0fe;
+            border-left: 5px solid #1976d2;
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+            margin: 1rem 0;
+        }
+        .warning-card {
+            background: #fff8e7;
+            border-left: 5px solid #ff9800;
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+            margin: 1rem 0;
+        }
+        .diagnosis-note {
+            background: #e3f2fd;
+            border-radius: 12px;
+            padding: 1.25rem;
+            margin: 1.5rem 0;
+            border-left: 6px solid #1976d2;
+        }
+        .diagnosis-title {
+            font-weight: 800;
+            font-size: 1.1rem;
+            color: #0b5e7c;
+            margin-bottom: 0.75rem;
+        }
+        .diagnosis-list {
+            background: #ffffff;
+            padding: 0.75rem 1rem;
+            border-radius: 10px;
+            margin: 0.75rem 0;
+            font-weight: 500;
+            color: #c62828;
+        }
+        .info-card {
+            background: #e8f0fe;
+            border-left: 6px solid #2c7a4d;
+            padding: 1rem 1.25rem;
+            margin: 1rem 0;
+            border-radius: 0 12px 12px 0;
+        }
+        .badge {
+            display: inline-block;
+            background: #2c3e66;
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 0.2rem 0.7rem;
+            border-radius: 20px;
+            margin-right: 0.5rem;
+            vertical-align: middle;
+        }
+        hr {
+            margin: 1.5rem 0;
+            border: none;
+            height: 1px;
+            background: linear-gradient(90deg, #e2e8f0, transparent);
+        }
+        .subnote {
+            font-size: 0.85rem;
+            color: #5a6e85;
+            margin-top: 1rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid #e2e8f0;
+        }
+        @media (max-width: 768px) {
+            .document-content {
+                padding: 1rem;
+            }
+            .rule-card {
+                padding: 0.75rem;
+            }
+            .rule-header {
+                gap: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="document-container">
+    <div class="document-header">
+        <h1>📋 ПОВОДЫ ДЛЯ КОНСИЛИУМА И ИЗМЕНЕНИЕ ДИАГНОЗА</h1>
+    </div>
+    <div class="document-content">
+        
+        <!-- ==================== БЛОК 1: ПОВОДЫ ДЛЯ ДИСТАНЦИОННОГО КОНСИЛИУМА ==================== -->
+        <div class="intro-card">
+            <strong>📌 ДИСТАНЦИОННЫЙ КОНСИЛИУМ</strong><br>
+            Дистанционный консилиум с ответственным врачом смены (старший врач, консультанты) проводится при наличии следующих поводов
+        </div>
+        
+        <div class="section-title">🔤 Поводы для консилиума</div>
+        
+        <div class="rule-card">
+            <div class="rule-header">
+                <div class="rule-icon">🔤</div>
+                <div class="rule-text">
+                    <strong>Обоснованность установления изолированного диагноза: «Употребление алкоголя» (Z72.1) или «Использование наркотиков» (Z72.2) при оставлении пациента на месте без предложения медицинской эвакуации.</strong>
+                </div>
+            </div>
+        </div>
+        
+        <div class="rule-card">
+            <div class="rule-header">
+                <div class="rule-icon">🔤</div>
+                <div class="rule-text">
+                    <strong>Выполнение вызовов с поводами, содержащими информацию о возможном развитии у пациента острых нарушений мозгового кровообращения (без сознания, судороги, нарушение речи, чувствительности или устойчивости, слабость в конечностях), при оставлении пациента на месте без предложения медицинской эвакуации.</strong>
+                </div>
+            </div>
+        </div>
+        
+        <div class="rule-card">
+            <div class="rule-header">
+                <div class="rule-icon">🔤</div>
+                <div class="rule-text">
+                    <strong>Повторные вызовы, при выполнении которых бригадой не определены показания для медицинской эвакуации, в следующих случаях:</strong><br>
+                    — с поводом «боли в животе»;<br>
+                    — с поводом «боль в груди»;<br>
+                    — с поводом «кровотечение»;<br>
+                    — с поводами «трудно дышать», «задыхается», «одышка».
+                </div>
+            </div>
+        </div>
+        
+        <div class="rule-card">
+            <div class="rule-header">
+                <div class="rule-icon">🔤</div>
+                <div class="rule-text">
+                    <strong>Синусовая тахикардия в покое с ЧСС более 110 ударов в минуту при отсутствии убедительных причин её возникновения.</strong>
+                </div>
+            </div>
+        </div>
+        
+        <div class="rule-card">
+            <div class="rule-header">
+                <div class="rule-icon">🔤</div>
+                <div class="rule-text">
+                    <strong>Решение вопроса о наличии показаний и противопоказаний для проведения тромболитической терапии.</strong>
+                </div>
+            </div>
+        </div>
+        
+        <div class="rule-card">
+            <div class="rule-header">
+                <div class="rule-icon">🔤</div>
+                <div class="rule-text">
+                    <strong>Назначение детям терапии, не предусмотренной действующими «Алгоритмами».</strong>
+                </div>
+            </div>
+        </div>
+        
+        <div class="rule-card">
+            <div class="rule-header">
+                <div class="rule-icon">🔤</div>
+                <div class="rule-text">
+                    <strong>Отказ от медицинской эвакуации или медицинского вмешательства (осмотра) в ситуациях невозможности подтверждения пациентом (законным представителем) отказа в карте вызова своей подписью.</strong>
+                </div>
+            </div>
+        </div>
+        
+        <div class="rule-card">
+            <div class="rule-header">
+                <div class="rule-icon">🔤</div>
+                <div class="rule-text">
+                    <strong>Оказание медицинской помощи, в клинических ситуациях, не регламентированных действующими «Алгоритмами», при которых бригадой не определены показания для медицинской эвакуации.</strong><br>
+                    <span class="highlight">Например, «Ушиб мягких тканей бедра с 34 результатом».</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="rule-card">
+            <div class="rule-header">
+                <div class="rule-icon">🔤</div>
+                <div class="rule-text">
+                    <strong>Вызов бригады к пациенту, имеющему направление от врача на медицинскую эвакуацию в стационар, в ситуациях, при которых по данным объективного осмотра отсутствуют показания для медицинской эвакуации.</strong>
+                </div>
+            </div>
+        </div>
+        
+        <div class="rule-card">
+            <div class="rule-header">
+                <div class="rule-icon">🔤</div>
+                <div class="rule-text">
+                    <strong>Изменение установленного предыдущей бригадой диагноза при выполнении повторного, «активного» вызова или вызове «на себя» в случаях, если пациент остается на месте вызова без предложения медицинской эвакуации (см. Порядок изменения установленного ранее диагноза).</strong>
+                </div>
+            </div>
+        </div>
+        
+        <div class="rule-card">
+            <div class="rule-header">
+                <div class="rule-icon">🔤</div>
+                <div class="rule-text">
+                    <strong>Конфликтные ситуации с пациентом, родственниками и окружающими лицами, медицинским персоналом лечебно-профилактических учреждений, должностными лицами смежных служб и др.</strong>
+                </div>
+            </div>
+        </div>
+        
+        <div class="rule-card">
+            <div class="rule-header">
+                <div class="rule-icon">🔤</div>
+                <div class="rule-text">
+                    <strong>Выполнение вызовов, при которых пациент остается на месте вызова без предложения медицинской эвакуации, медицинскими работниками, допущенными к осуществлению медицинской деятельности на должности врача скорой медицинской помощи по ПРИКАЗУ (№1448, 2319).</strong>
+                </div>
+            </div>
+        </div>
+        
+        <div class="rule-card">
+            <div class="rule-header">
+                <div class="rule-icon">🔤</div>
+                <div class="rule-text">
+                    <strong>Оказание медицинской помощи пациентам, имеющим статус задержанных, в том числе находящимся на территории учреждений МВД, ФСИН и иных правоохранительных органов в случае отказа от оказания медицинской помощи, а также в случае выполнения вызовов, в результате которых пациентам не проводится медицинская эвакуация (в том числе при отказе от ее проведения).</strong>
+                </div>
+            </div>
+        </div>
+        
+        <div class="rule-card">
+            <div class="rule-header">
+                <div class="rule-icon">🔤</div>
+                <div class="rule-text">
+                    <strong>Выполнение вызовов с указанием в примечании к поводу «настороженность на ОКС» или «настороженность на ОНМК» при оставлении пациента на месте без предложения медицинской эвакуации.</strong>
+                </div>
+            </div>
+        </div>
+        
+        <div class="rule-card">
+            <div class="rule-header">
+                <div class="rule-icon">🔤</div>
+                <div class="rule-text">
+                    <strong>Определение показаний для медицинской эвакуации пациентов с гриппом, острыми респираторными заболеваниями и новой коронавирусной инфекцией (COVID-19), а также пациентов, имеющих сочетание соматического и инфекционного заболевания.</strong>
+                </div>
+            </div>
+        </div>
+        
+        <!-- ОСОБЫЕ УСЛОВИЯ -->
+        <div class="diagnosis-note">
+            <div class="diagnosis-title">
+                📋 Диагнозы, требующие консультации перед медэвакуацией
+            </div>
+            <div class="diagnosis-list">
+                дорсалгия с нарушением чувствительности, ХСН, сахарный диабет, мерцательная аритмия, анемия, ОРВИ, КИНЭ (у взрослых)
+            </div>
+            <p><strong>Если вы намереваетесь медэвакуировать пациента с указанными диагнозами:</strong></p>
+            <ul style="margin-top: 0.5rem; margin-left: 1.5rem;">
+                <li><span class="highlight">С 8.00 до 16.00 по будням</span> — обязательная консультация с <strong>заведующим или старшим врачом подстанции</strong></li>
+                <li><span class="highlight">В нерабочее время администрации</span> — <strong>звонок на ОВС</strong> (оперативно-выездную службу)</li>
+            </ul>
+        </div>
+        
+        <div class="info-card">
+            <strong>📞 Порядок действий:</strong><br>
+            • При наличии любого из перечисленных поводов — <span class="highlight">обязательное обращение к ответственному врачу смены</span><br>
+            • Консилиум проводится <span class="highlight">до принятия окончательного решения</span> по тактике ведения пациента<br>
+            • Результат консилиума фиксируется в карте вызова<br>
+            • При невозможности связаться с ответственным врачом — обращение к старшему врачу оперативного отдела
+        </div>
+        
+        <!-- Разделитель -->
+        <div class="section-divider">
+            <span>📋 📋 📋</span>
+        </div>
+        
+        <!-- ==================== БЛОК 2: ИЗМЕНЕНИЕ ДИАГНОЗА НА ПОВТОРНОМ ВЫЗОВЕ ==================== -->
+        <div class="intro-card">
+            <strong>📌 ИЗМЕНЕНИЕ ДИАГНОЗА «ПЕРВИЧНОГО» ВЫЗОВА</strong><br>
+            При выезде на повторный, «активный» вызов или вызов «на себя» бригадами СМП и ОНМПВиДН
+        </div>
+        
+        <div class="section-title">🔤 Правила изменения диагноза</div>
+        
+        <div class="rule-card">
+            <div class="rule-header">
+                <div class="rule-icon">🔤</div>
+                <div class="rule-text">
+                    <strong>При выполнении повторного, «активного» вызова или вызова «на себя» допускается изменение диагноза первичного вызова только на основании достоверных анамнестических, объективных и инструментальных данных.</strong>
+                </div>
+            </div>
+        </div>
+        
+        <div class="rule-card">
+            <div class="rule-header">
+                <div class="rule-icon">🔤</div>
+                <div class="rule-text">
+                    <strong>Изменение диагноза первичного вызова должно быть максимально обосновано, особенно в случаях, когда это ведет к изменению тактики ведения больного (тактика первичного диагноза подразумевает медицинскую эвакуацию, а диагноз, установленный при выполнении повторного, «активного» или вызова «на себя», её не предполагает).</strong>
+                </div>
+            </div>
+        </div>
+        
+        <div class="rule-card">
+            <div class="rule-header">
+                <div class="rule-icon">🔤</div>
+                <div class="rule-text">
+                    <strong>Изменение установленного ранее диагноза при отсутствии на повторном, «активном» вызове или вызове «на себя» показаний для медицинской эвакуации по данным обследования пациента, в случаях, когда на первичном вызове имелись показания для медицинской эвакуации, производится только после дистанционного медицинского консилиума.</strong><br>
+                    <span class="highlight">Данный консилиум может быть проведен со старшим ответственным врачом ССМП смены подстанции, с руководителем структурного подразделения или старшим врачом ССМП с местом работы на подстанции в их рабочее время.</span><br>
+                    <strong>При изменении диагноза у беременных, рожениц, родильниц, пациентов психиатрического или токсикологического профиля, пациентов в критическом состоянии - консилиум проводится с соответствующим врачом консультантом.</strong>
+                </div>
+            </div>
+        </div>
+        
+        <div class="rule-card">
+            <div class="rule-header">
+                <div class="rule-icon">🔤</div>
+                <div class="rule-text">
+                    <strong>Бригадам любого профиля не допускается изменение диагноза, установленного экстренной консультативной выездной бригадой СМП, если данный диагноз соответствует профильности бригады.</strong> <span class="highlight">Профильный диагноз может быть изменен только экстренной консультативной выездной бригадой СМП того же профиля с обязательным клинико-анамнестическим обоснованием и данными инструментального исследования в карте вызова.</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="rule-card">
+            <div class="rule-header">
+                <div class="rule-icon">🔤</div>
+                <div class="rule-text">
+                    <strong>В случае изменения диагноза, установленного на первичном вызове, в карте вызова осуществляется подробное обоснование данного изменения.</strong>
+                </div>
+            </div>
+        </div>
+        
+        <div class="special-card">
+            <div class="rule-header">
+                <div class="rule-icon">✅</div>
+                <div class="rule-text">
+                    <strong>Не требуется проведение дистанционного консилиума для изменения первичного диагноза в случаях, когда установленный на «активном», повторном вызове или вызове «на себя» диагноз предполагает необходимость медицинской эвакуации (вызова бригады СМП для медицинской эвакуации).</strong>
+                </div>
+            </div>
+        </div>
+        
+        <div class="warning-card">
+            <div class="rule-header">
+                <div class="rule-icon">⚕️</div>
+                <div class="rule-text">
+                    <strong>Проведение дистанционного консилиума не требуется врачам-специалистам экстренных выездных специализированных консультативных бригад, если изменяемый диагноз соответствует профильности бригады.</strong>
+                </div>
+            </div>
+        </div>
+        
+        <hr>
+        
+        <div class="subnote">
+            📋 <strong>Сводка важных моментов:</strong><br>
+            • <strong>Все поводы</strong> — обязательный консилиум с ответственным врачом смены<br>
+            • <strong>Диагнозы для обязательной консультации</strong> (дорсалгия, ХСН, сахарный диабет, мерцательная аритмия, анемия, ОРВИ, КИНЭ) — перед медэвакуацией консультация с заведующим/старшим врачом подстанции (в рабочее время) или ОВС (в нерабочее)<br>
+            • <strong>Изменение диагноза:</strong> только на основании достоверных данных. При изменении тактики с «медэвакуации» на «оставление на месте» — <span class="important-text">обязательный дистанционный консилиум</span><br>
+            • <strong>Особые категории пациентов:</strong> беременные, роженицы, родильницы, психиатрические, токсикологические, критические — консилиум <span class="highlight">с профильным врачом-консультантом</span><br>
+            • <strong>Запрещено</strong> бригадам любого профиля изменять диагноз, установленный экстренной консультативной бригадой СМП (если диагноз соответствует профильности)<br>
+            • В карте вызова — <span class="highlight">обязательное подробное обоснование изменения диагноза</span><br>
+            <br>
+            🔍 <em>Документы регламентируют порядок взаимодействия выездных бригад скорой медицинской помощи с ответственными врачами смены при наличии перечисленных поводов, а также порядок изменения диагноза первичного вызова. Соблюдение правил обязательно.</em>
+        </div>
+        
+    </div>
+</div>
+</body>
+</html>
