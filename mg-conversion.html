@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Калькулятор пересчета % в мг/мл - Содержание вещества в растворе</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: linear-gradient(135deg, #1a4d6b 0%, #0f3b52 100%);
+            font-family: 'Segoe UI', 'Inter', 'Roboto', system-ui, -apple-system, sans-serif;
+            line-height: 1.5;
+            color: #1a2c3e;
+            padding: 0;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+        .calculator-container {
+            max-width: 700px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 0;
+            box-shadow: none;
+            overflow: hidden;
+            margin: 0;
+        }
+        .calculator-header {
+            background: linear-gradient(135deg, #2c7cb6 0%, #1e5f7a 100%);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+            border-bottom: 4px solid #ffc107;
+        }
+        .calculator-header h1 {
+            font-size: 1.6rem;
+            font-weight: 800;
+            margin-bottom: 0.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .calculator-header .subtitle {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+        .calculator-content {
+            padding: 1.5rem;
+        }
+        
+        /* Карточка ввода */
+        .input-card {
+            background: #f8fafc;
+            border-radius: 24px;
+            padding: 1.25rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid #e2e8f0;
+        }
+        .input-group {
+            margin-bottom: 1.25rem;
+        }
+        .input-group label {
+            font-weight: 600;
+            color: #1e5f7a;
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 12px 16px;
+            font-size: 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 40px;
+            transition: 0.2s;
+            font-family: inherit;
+            background: white;
+        }
+        .input-group input:focus {
+            outline: none;
+            border-color: #2c7cb6;
+            box-shadow: 0 0 0 3px rgba(44,124,182,0.1);
+        }
+        .input-group .hint {
+            font-size: 0.7rem;
+            color: #7c95af;
+            margin-top: 5px;
+        }
+        
+        /* Переключатель единиц измерения */
+        .unit-toggle {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 1rem;
+            background: #eef2f7;
+            border-radius: 60px;
+            padding: 4px;
+        }
+        .unit-btn {
+            flex: 1;
+            text-align: center;
+            padding: 8px 12px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            background: transparent;
+            border: none;
+            color: #4a627a;
+        }
+        .unit-btn.active {
+            background: #2c7cb6;
+            color: white;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+        .unit-btn:hover:not(.active) {
+            background: #e2e8f0;
+        }
+        
+        /* Результат */
+        .result-card {
+            background: linear-gradient(135deg, #e8f0fe 0%, #eef2fa 100%);
+            border-radius: 24px;
+            padding: 1.25rem;
+            margin: 1.5rem 0;
+            border-left: 5px solid #2c7cb6;
+        }
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 12px 0;
+            border-bottom: 1px solid #d0e2ef;
+        }
+        .result-item:last-child {
+            border-bottom: none;
+        }
+        .result-label {
+            font-weight: 600;
+            color: #1e5f7a;
+        }
+        .result-value {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #1a4d6b;
+            font-family: 'Courier New', monospace;
+        }
+        .result-value-small {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #2c7cb6;
+        }
+        
+        .info-card {
+            background: #fff8e7;
+            border-left: 5px solid #ffc107;
+            border-radius: 16px;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-size: 0.85rem;
+        }
+        .formula-card {
+            background: #f1f5f9;
+            border-radius: 16px;
+            padding: 1rem;
+            margin: 1rem 0;
+            text-align: center;
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+        }
+        .highlight {
+            background-color: #ffecb3;
+            padding: 0.1rem 0.3rem;
+            border-radius: 4px;
+            font-weight: 600;
+            color: #b85c00;
+        }
+        .drug-name {
+            font-weight: 700;
+            color: #1e5f7a;
+        }
+        .reset-btn {
+            background: #e9edf2;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            transition: 0.2s;
+            width: 100%;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+        .reset-btn:hover {
+            background: #dce4ec;
+        }
+        hr {
+            margin: 1rem 0;
+            border: none;
+            height: 1px;
+            background: linear-gradient(90deg, #e2e8f0, transparent);
+        }
+        .footer-note {
+            text-align: center;
+            font-size: 0.7rem;
+            color: #7c95af;
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e2e8f0;
+        }
+        .concentration-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+            gap: 8px;
+            margin-top: 0.5rem;
+            margin-left: 0;
+            list-style: none;
+            padding-left: 0;
+        }
+        .concentration-list li {
+            padding: 6px 10px;
+            background: #ffffff;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            border: 1px solid #e2e8f0;
+        }
+        @media (min-width: 768px) {
+            .calculator-container {
+                max-width: 750px;
+                border-radius: 0;
+                margin: 0;
+            }
+        }
+        @media (max-width: 500px) {
+            .calculator-content {
+                padding: 1rem;
+            }
+            .result-value {
+                font-size: 1.1rem;
+            }
+            .result-label {
+                font-size: 0.85rem;
+            }
+            .concentration-list {
+                grid-template-columns: 1fr;
+            }
+            .unit-btn {
+                font-size: 0.75rem;
+                padding: 6px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator-container">
+        <div class="calculator-header">
+            <h1>
+                💊 Пересчет % в мг/мл
+                <span style="font-size: 1rem;">⚕️</span>
+            </h1>
+            <div class="subtitle">Расчет содержания действующего вещества в растворе</div>
+        </div>
+        <div class="calculator-content">
+            
+            <div class="input-card">
+                <div class="input-group">
+                    <label>📊 Концентрация раствора (%)</label>
+                    <input type="number" id="percentage" step="0.1" value="1" placeholder="например, 1, 0.9, 2, 10">
+                    <div class="hint">Процентное содержание вещества (масса/объем). Пример: 1% = 1 г на 100 мл</div>
+                </div>
+                
+                <!-- Переключатель единиц измерения -->
+                <div class="unit-toggle" id="unitToggle">
+                    <button class="unit-btn active" data-unit="ml">💧 Объем (мл)</button>
+                    <button class="unit-btn" data-unit="mg">⚖️ Масса раствора (мг)</button>
+                </div>
+                
+                <div class="input-group">
+                    <label id="volumeLabelText">💧 Объем раствора (мл)</label>
+                    <input type="number" id="volume" step="0.1" value="1" placeholder="например, 1, 2, 5, 10">
+                    <div class="hint" id="volumeHint">Объем раствора, для которого рассчитывается содержание вещества</div>
+                </div>
+                <button class="reset-btn" id="resetBtn">⟳ Сбросить (1% / 1 мл)</button>
+            </div>
+            
+            <div class="result-card" id="resultCard">
+                <div class="result-item">
+                    <span class="result-label">📌 Содержание вещества в 1 мл раствора:</span>
+                    <span class="result-value" id="mgPerMl">—</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label" id="totalLabel">💊 Содержание вещества в заданном объеме (1 мл):</span>
+                    <span class="result-value" id="totalMg">—</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">🔢 Коэффициент пересчета (мг/мл на 1%):</span>
+                    <span class="result-value-small" id="conversionFactor">10 мг/мл на 1%</span>
+                </div>
+            </div>
+            
+            <div class="formula-card">
+                <strong>📐 Формула расчета:</strong><br>
+                <span style="font-size: 1.1rem;">мг/мл = % × 10</span><br>
+                <span style="font-size: 0.85rem;">1% раствор = 10 мг вещества в 1 мл</span>
+            </div>
+            
+            <div class="info-card">
+                <strong>⚡ Часто используемые концентрации препаратов (в алфавитном порядке):</strong>
+                <ul class="concentration-list">
+                    <li><span class="drug-name">Адреналин</span> — <span class="highlight">0,1%</span> (1 мг/мл), <span class="highlight">0,18%</span> (1,8 мг/мл)</li>
+                    <li><span class="drug-name">Анальгин (метамизол)</span> — <span class="highlight">50%</span> (500 мг/мл)</li>
+                    <li><span class="drug-name">Атропин</span> — <span class="highlight">0,1%</span> (1 мг/мл)</li>
+                    <li><span class="drug-name">Дексаметазон</span> — <span class="highlight">0,4%</span> (4 мг/мл)</li>
+                    <li><span class="drug-name">Кальция глюконат</span> — <span class="highlight">10%</span> (100 мг/мл)</li>
+                    <li><span class="drug-name">Кетамин</span> — <span class="highlight">5%</span> (50 мг/мл)</li>
+                    <li><span class="drug-name">Лидокаин</span> — <span class="highlight">1%</span> (10 мг/мл), <span class="highlight">2%</span> (20 мг/мл), <span class="highlight">10%</span> (100 мг/мл)</li>
+                    <li><span class="drug-name">Мидазолам</span> — <span class="highlight">0,5%</span> (5 мг/мл), <span class="highlight">1%</span> (10 мг/мл)</li>
+                    <li><span class="drug-name">Морфин</span> — <span class="highlight">1%</span> (10 мг/мл)</li>
+                    <li><span class="drug-name">Новокаин</span> — <span class="highlight">0,5%</span> (5 мг/мл), <span class="highlight">1%</span> (10 мг/мл), <span class="highlight">2%</span> (20 мг/мл)</li>
+                    <li><span class="drug-name">Преднизолон</span> — <span class="highlight">3%</span> (30 мг/мл)</li>
+                    <li><span class="drug-name">Реланиум (Диазепам)</span> — <span class="highlight">0,5%</span> (5 мг/мл)</li>
+                    <li><span class="drug-name">Трамадол (Трамал)</span> — <span class="highlight">5%</span> (50 мг/мл), <span class="highlight">10%</span> (100 мг/мл)</li>
+                    <li><span class="drug-name">Фентанил</span> — <span class="highlight">0,005%</span> (0,05 мг/мл = 50 мкг/мл)</li>
+                    <li><span class="drug-name">Эуфиллин</span> — <span class="highlight">2,4%</span> (24 мг/мл)</li>
+                </ul>
+            </div>
+            
+            <div class="info-card" style="background: #e8f0fe; border-left-color: #2c7cb6;">
+                <strong>📖 Пояснение:</strong><br>
+                Процентная концентрация (% масс/объем) означает количество граммов вещества в 100 мл раствора.<br>
+                <span class="highlight">1% = 1 г на 100 мл = 1000 мг на 100 мл = 10 мг на 1 мл</span><br>
+                <strong>Для пересчета: мг/мл = % × 10</strong><br>
+                <span style="font-size: 0.75rem;">* При вводе массы раствора (мг) используется плотность воды ≈ 1 г/мл (1 мг ≈ 0,001 мл)</span>
+            </div>
+            
+            <div class="footer-note">
+                ⚕️ Калькулятор предназначен для медицинских работников. Всегда проверяйте дозировку по официальным источникам.<br>
+                📐 Формула актуальна для водных растворов. Для масляных и спиртовых растворов плотность может отличаться.
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const percentageInput = document.getElementById('percentage');
+        const volumeInput = document.getElementById('volume');
+        const mgPerMlSpan = document.getElementById('mgPerMl');
+        const totalMgSpan = document.getElementById('totalMg');
+        const volumeLabelSpan = document.getElementById('volumeLabel');
+        const totalLabelSpan = document.getElementById('totalLabel');
+        const conversionFactorSpan = document.getElementById('conversionFactor');
+        const resetBtn = document.getElementById('resetBtn');
+        const volumeLabelText = document.getElementById('volumeLabelText');
+        const volumeHint = document.getElementById('volumeHint');
+        
+        let currentUnit = 'ml'; // 'ml' или 'mg'
+        
+        function calculate() {
+            // Получаем значения
+            let percentage = parseFloat(percentageInput.value);
+            let inputValue = parseFloat(volumeInput.value);
+            
+            // Проверка на валидность
+            if (isNaN(percentage)) percentage = 0;
+            if (isNaN(inputValue)) inputValue = 0;
+            
+            // Ограничения
+            percentage = Math.max(0, Math.min(100, percentage));
+            inputValue = Math.max(0, Math.min(1000000, inputValue));
+            
+            // Расчет содержания в 1 мл
+            const mgPerMl = percentage * 10;
+            
+            let volumeInMl;
+            let totalMg;
+            let displayValue;
+            
+            // Пересчет в зависимости от выбранной единицы
+            if (currentUnit === 'ml') {
+                volumeInMl = inputValue;
+                totalMg = mgPerMl * volumeInMl;
+                displayValue = volumeInMl;
+            } else {
+                // Ввод в мг массы раствора, пересчет в мл (плотность воды ≈ 1 г/мл)
+                const massMg = inputValue;
+                const massG = massMg / 1000;
+                // 1 г воды ≈ 1 мл, 1 мг ≈ 0.001 мл
+                volumeInMl = massMg / 1000;
+                totalMg = mgPerMl * volumeInMl;
+                displayValue = massMg;
+            }
+            
+            // Форматирование результатов
+            mgPerMlSpan.innerHTML = `${mgPerMl.toFixed(2)} мг/мл`;
+            
+            if (currentUnit === 'ml') {
+                totalLabelSpan.innerHTML = `💊 Содержание вещества в заданном объеме (${displayValue.toFixed(2)} мл):`;
+                totalMgSpan.innerHTML = `${totalMg.toFixed(2)} мг (${(totalMg / 1000).toFixed(4)} г)`;
+            } else {
+                totalLabelSpan.innerHTML = `💊 Содержание вещества в заданной массе раствора (${displayValue.toFixed(2)} мг):`;
+                totalMgSpan.innerHTML = `${totalMg.toFixed(2)} мг (${(totalMg / 1000).toFixed(4)} г)`;
+            }
+            
+            conversionFactorSpan.innerHTML = `${mgPerMl.toFixed(2)} мг/мл (${percentage}% × 10)`;
+            
+            // Изменение цвета в зависимости от концентрации
+            if (percentage === 0) {
+                mgPerMlSpan.style.color = "#c62828";
+                totalMgSpan.style.color = "#c62828";
+            } else {
+                mgPerMlSpan.style.color = "#1a4d6b";
+                totalMgSpan.style.color = "#1a4d6b";
+            }
+        }
+        
+        function setUnit(unit) {
+            currentUnit = unit;
+            
+            // Обновляем подписи
+            if (unit === 'ml') {
+                volumeLabelText.innerHTML = '💧 Объем раствора (мл)';
+                volumeHint.innerHTML = 'Объем раствора, для которого рассчитывается содержание вещества';
+                volumeInput.placeholder = 'например, 1, 2, 5, 10';
+            } else {
+                volumeLabelText.innerHTML = '⚖️ Масса раствора (мг)';
+                volumeHint.innerHTML = 'Масса раствора (плотность ≈ 1 г/мл). 1 мл = 1000 мг';
+                volumeInput.placeholder = 'например, 1000, 2000, 5000';
+            }
+            
+            // Обновляем активную кнопку
+            document.querySelectorAll('.unit-btn').forEach(btn => {
+                if (btn.dataset.unit === unit) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+            
+            calculate();
+        }
+        
+        function resetValues() {
+            percentageInput.value = "1";
+            volumeInput.value = "1";
+            setUnit('ml');
+        }
+        
+        // Обработчики событий
+        percentageInput.addEventListener('input', calculate);
+        volumeInput.addEventListener('input', calculate);
+        resetBtn.addEventListener('click', resetValues);
+        
+        // Обработчики переключателя
+        document.querySelectorAll('.unit-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                setUnit(btn.dataset.unit);
+            });
+        });
+        
+        // Инициализация
+        setUnit('ml');
+    </script>
+</body>
+</html>
