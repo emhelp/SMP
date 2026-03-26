@@ -4,7 +4,120 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Шпаргалки СМП</title>
-  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Базовые стили */
+    body {
+      font-family: 'Segoe UI', 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f5f5f5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .header {
+      text-align: center;
+      padding: 20px;
+    }
+
+    .header .logo {
+      max-width: 150px;
+      width: 50%;
+      height: auto;
+      margin-bottom: 10px;
+    }
+
+    .header h1 {
+      font-size: 2rem;
+      margin: 5px 0;
+    }
+
+    .header p {
+      font-size: 1rem;
+      margin: 0;
+    }
+
+    .menu {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      max-width: 1000px;
+      padding: 10px;
+      box-sizing: border-box;
+    }
+
+    .menu-btn {
+      text-decoration: none;
+      color: white;
+      background: #1e2a3e;
+      padding: 12px 15px;
+      border-radius: 8px;
+      font-weight: 600;
+      text-align: center;
+      flex: 1 1 150px; /* плавное расширение */
+      transition: background 0.2s;
+    }
+
+    .menu-btn.active {
+      background: #c62828;
+    }
+
+    .menu-btn:hover {
+      background: #2c3e66;
+    }
+
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      max-width: 500px;
+      padding: 10px;
+      box-sizing: border-box;
+    }
+
+    .nav-btn {
+      width: 100%;
+      padding: 14px 20px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      background: #2c3e66;
+      color: white;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .nav-btn:hover {
+      background: #1e2a3e;
+      transform: translateY(-2px);
+    }
+
+    /* Адаптивность */
+    @media (max-width: 600px) {
+      .header .logo {
+        width: 70%;
+      }
+      .header h1 {
+        font-size: 1.5rem;
+      }
+      .header p {
+        font-size: 0.9rem;
+      }
+      .menu-btn {
+        flex: 1 1 100%;
+        font-size: 0.9rem;
+      }
+      .nav-btn {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
 </head>
 <body>
 
@@ -27,11 +140,19 @@
     <a href="stations.html" class="menu-btn">ПОДСТАНЦИИ МСК</a>
   </nav>
 
-<script>
+  <!-- Основные кнопки -->
+  <div class="buttons">
+    <button class="nav-btn" id="moscow-stations-btn">Подстанции Москвы</button>
+    <button class="nav-btn" id="calculator1-btn">Калькулятор 1</button>
+    <button class="nav-btn" id="calculator2-btn">Калькулятор 2</button>
+  </div>
+
+  <script>
     document.getElementById('moscow-stations-btn').addEventListener('click', () => {
-        window.location.href = 'stations.html';
+      window.location.href = 'stations.html';
     });
-</script>
+    // Здесь можно добавить обработчики для других калькуляторов
+  </script>
 
 </body>
 </html>
