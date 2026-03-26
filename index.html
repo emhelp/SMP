@@ -4,7 +4,106 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Шпаргалки СМП</title>
-  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f5f5f5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .header {
+      text-align: center;
+      padding: 20px;
+    }
+
+    .header .logo {
+      max-width: 150px;
+      width: 50%;
+      height: auto;
+      margin-bottom: 10px;
+    }
+
+    .header h1 {
+      font-size: 2rem;
+      margin: 5px 0;
+    }
+
+    .header p {
+      font-size: 1rem;
+      margin: 0;
+    }
+
+    .menu {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      max-width: 300px;
+      padding: 10px;
+      box-sizing: border-box;
+      margin-bottom: 20px;
+    }
+
+    .menu-btn {
+      text-decoration: none;
+      color: white;
+      background: #0f1446; /* темно-синий */
+      padding: 12px 15px;
+      border-radius: 8px;
+      font-weight: 600;
+      text-align: center;
+      width: 100%;
+      transition: background 0.2s;
+    }
+
+    .menu-btn.active { background: #e53935; }
+    .menu-btn:hover { background: #3949ab; }
+
+    .main-content {
+      max-width: 1000px;
+      width: 100%;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .main-actions {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+
+    .main-btn {
+      background-color: #0f1446;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .main-btn:hover {
+      background-color: #3949ab;
+    }
+
+    @media (max-width: 600px) {
+      .header .logo { width: 70%; }
+      .header h1 { font-size: 1.5rem; }
+      .header p { font-size: 0.9rem; }
+      .menu { max-width: 90%; }
+      .menu-btn { font-size: 0.9rem; }
+      .main-btn { width: 100%; }
+    }
+  </style>
 </head>
 <body>
 
@@ -24,6 +123,10 @@
     <a href="stations.html" class="menu-btn">ПОДСТАНЦИИ МСК</a>
   </nav>
 
+  <div class="main-content">
+    <!-- Контент главной страницы -->
+  </div>
+
   <div class="main-actions">
     <button class="main-btn" id="max-btn">Наш канал в MAX</button>
     <button class="main-btn" id="contact-btn">Написать нам</button>
@@ -32,18 +135,18 @@
   <script>
     // Подсветка активной кнопки меню
     const current = window.location.pathname.split("/").pop();
-    document.querySelectorAll('.menu-btn').forEach(btn => {
-      if(btn.getAttribute('href') === current) btn.classList.add('active');
+    document.querySelectorAll('.menu-btn').forEach(btn => { 
+      if(btn.getAttribute('href')===current) btn.classList.add('active'); 
     });
 
     // Кнопка "Наш канал в MAX"
     document.getElementById('max-btn').addEventListener('click', () => {
-        window.open('https://max.ru/EMHelp_Channel', '_blank'); // <-- вставьте ссылку на канал
+        window.open('https://t.me/your_max_channel', '_blank'); // <-- замените на ваш канал
     });
 
-    // Кнопка "Написать нам"
-    document.getElementById('max-btn').addEventListener('click', () => {
-        window.open('https://vk.com/emhelp', '_blank'); // <-- вставьте ссылку на канал
+    // Кнопка "Написать нам" — открывает группу ВКонтакте
+    document.getElementById('contact-btn').addEventListener('click', () => {
+        window.open('https://vk.com/emhelp', '_blank');
     });
   </script>
 
