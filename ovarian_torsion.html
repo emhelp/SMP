@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Карта вызова СМП | Перекрут кисты яичника</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #e2e8f0;
+            font-family: 'Segoe UI', 'Roboto', 'Inter', system-ui, sans-serif;
+            line-height: 1.5;
+            padding: 32px 24px;
+            color: #1a2c3e;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .medical-card {
+            background: #ffffff;
+            border-radius: 28px;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #6a4e3a 0%, #4a3520 100%);
+            padding: 20px 32px;
+            color: white;
+            border-bottom: 4px solid #ffb347;
+        }
+
+        .card-header .mkb {
+            font-size: 14px;
+            opacity: 0.9;
+            font-family: monospace;
+        }
+
+        .card-header .warning {
+            font-size: 12px;
+            opacity: 0.85;
+            margin-top: 8px;
+            background: rgba(255,255,255,0.15);
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+
+        .card-content {
+            padding: 28px 36px;
+        }
+
+        .exam-block {
+            margin-bottom: 28px;
+            border: 1px solid #e2edf2;
+            border-radius: 20px;
+            overflow: hidden;
+            background: white;
+        }
+
+        .block-title {
+            background: #f1f6fb;
+            padding: 14px 24px;
+            font-weight: 800;
+            font-size: 18px;
+            color: #0b5e7c;
+            border-left: 5px solid #ffb347;
+            letter-spacing: -0.2px;
+        }
+
+        .block-content {
+            padding: 20px 28px;
+            background: #fefefe;
+            font-size: 15px;
+            line-height: 1.55;
+            color: #1e3a4f;
+            text-align: left;
+        }
+
+        .field-row {
+            margin-bottom: 12px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 8px;
+            text-align: left;
+        }
+
+        .field-label {
+            font-weight: 700;
+            color: #1c6d8f;
+            min-width: 220px;
+            font-size: 14px;
+        }
+
+        .field-value {
+            flex: 1;
+            color: #1e2f3c;
+            text-align: left;
+        }
+
+        .inline-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            margin: 12px 0;
+            text-align: left;
+        }
+
+        .inline-item {
+            flex: 1;
+            min-width: 180px;
+            text-align: left;
+        }
+
+        .diagnosis-box {
+            background: #fefaf5;
+            border-left: 4px solid #ffb347;
+            padding: 16px 20px;
+            border-radius: 16px;
+            margin-bottom: 8px;
+            text-align: left;
+        }
+
+        .diagnosis-box div {
+            margin-bottom: 8px;
+            text-align: left;
+        }
+
+        .status-local {
+            background: #f9fef7;
+            border-left: 4px solid #2c9c6e;
+            padding: 16px 20px;
+            border-radius: 16px;
+            margin-top: 8px;
+            text-align: left;
+        }
+
+        .status-local div {
+            margin-bottom: 8px;
+            text-align: left;
+        }
+
+        .key-signs {
+            background: #f0f4fa;
+            padding: 16px 20px;
+            border-radius: 16px;
+            margin: 12px 0;
+        }
+
+        .key-signs p {
+            margin-bottom: 6px;
+        }
+
+        .scales-box {
+            background: #f0f4fa;
+            padding: 16px 20px;
+            border-radius: 16px;
+            margin: 12px 0;
+        }
+
+        .scale-item {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .scale-label {
+            font-weight: 700;
+            color: #1c6d8f;
+            min-width: 160px;
+        }
+
+        .alert-note {
+            background: #fff3e0;
+            border-left: 4px solid #ff9800;
+            padding: 12px 16px;
+            border-radius: 12px;
+            margin-top: 16px;
+            font-size: 13px;
+        }
+
+        hr {
+            margin: 16px 0;
+            border: none;
+            height: 1px;
+            background: #e2ecf3;
+        }
+
+        .footer-note {
+            font-size: 13px;
+            color: #6c8eaa;
+            text-align: right;
+        }
+
+        @media (max-width: 700px) {
+            .card-content {
+                padding: 18px;
+            }
+            .block-content {
+                padding: 14px 18px;
+            }
+            .field-label {
+                min-width: 140px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="medical-card">
+        <div class="card-header">
+            <div class="mkb">МКБ-10: N83.5 — Перекручивание яичника, ножки яичника и маточной трубы</div>
+            <div class="warning">⚠️ НЕОТЛОЖНОЕ СОСТОЯНИЕ! ЭКСТРЕННАЯ ГОСПИТАЛИЗАЦИЯ В ГИНЕКОЛОГИЧЕСКИЙ СТАЦИОНАР!</div>
+        </div>
+        <div class="card-content">
+
+            <!-- ДИАГНОЗ -->
+            <div class="exam-block">
+                <div class="block-title">ДИАГНОЗ</div>
+                <div class="block-content">
+                    <div class="diagnosis-box">
+                        <div><strong>Основное заболевание:</strong> Перекрут кисты (ножки) левого яичника. Неполный / полный перекрут. Нарушение артериального и венозного кровоснабжения яичника. Ишемия яичника. Инфаркт яичника (при декомпенсации).</div>
+                        <div><strong>Осложнения:</strong> Острый болевой синдром. Асептическое воспаление. Некроз яичника. Перитонит (при развитии).</div>
+                        <div><strong>Сопутствующие заболевания:</strong> Киста яичника слева (фолликулярная / лютеиновая / эндометриоидная / дермоидная / цистаденома). Апоплексия яичника в анамнезе. Спаечный процесс малого таза.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ЖАЛОБЫ -->
+            <div class="exam-block">
+                <div class="block-title">ЖАЛОБЫ</div>
+                <div class="block-content">
+                    <div class="field-row"><span class="field-label">Болевой синдром:</span><span class="field-value">Внезапная, резкая, интенсивная боль в левой подвздошной области и внизу живота слева, иррадиирующая в поясницу, крестец, внутреннюю поверхность бедра, прямую кишку.</span></div>
+                    <div class="field-row"><span class="field-label">Диспептические явления:</span><span class="field-value">Схваткообразное усиление боли, тошнота, однократная / многократная рвота, не приносящая облегчения.</span></div>
+                    <div class="field-row"><span class="field-label">Желудочно-кишечные симптомы:</span><span class="field-value">Задержка стула и газов, вздутие живота (при развитии пареза кишечника).</span></div>
+                    <div class="field-row"><span class="field-label">Лихорадка:</span><span class="field-value">Повышение температуры тела до субфебрильных/фебрильных цифр (при некрозе, присоединении инфекции).</span></div>
+                    <div class="field-row"><span class="field-label">Общие проявления:</span><span class="field-value">Общая слабость, головокружение, сердцебиение (при болевом шоке).</span></div>
+                    <div class="field-row"><span class="field-label">Анамнез:</span><span class="field-value">Указывает на наличие кисты яичника в анамнезе (состоит/не состоит на учете). Связывает начало боли с физической нагрузкой, резким движением, подъемом тяжести, половым актом, переменой положения тела / возникла на фоне полного покоя.</span></div>
+                </div>
+            </div>
+
+            <!-- АНАМНЕЗ -->
+            <div class="exam-block">
+                <div class="block-title">АНАМНЕЗ</div>
+                <div class="block-content">
+                    <div class="field-row">
+                        <span class="field-label">Анамнез заболевания:</span>
+                        <span class="field-value">Заболела остро (указать время: ______). Внезапно, среди полного здоровья / после (провоцирующий фактор) появилась резкая боль внизу живота слева. Подобные боли ранее не возникали / возникали, но купировались самостоятельно / после приема спазмолитиков. О наличии кисты левого яичника знает / не знает. Состоит / не состоит на учете у гинеколога. Последнее УЗИ (дата, заключение: размеры кисты, структура, кровоток). Самостоятельно принимала (дротаверин, НПВС, анальгетики) – без эффекта. Вызвала СМП в связи с нестерпимой болью, отсутствием эффекта от препаратов.</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Эпидемиологический анамнез:</span>
+                        <span class="field-value">Контакта с инфекционными больными нет.</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Аллергологический анамнез:</span>
+                        <span class="field-value">Не отягощен / отягощен (указать аллергию на лекарственные препараты).</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Гинекологический анамнез:</span>
+                        <span class="field-value">Менструальная функция: менархе с __ лет, цикл установился сразу/не сразу, по __ дней, через __ дней, регулярный/нерегулярный, обильный/умеренный, безболезненный/болезненный. Последняя менструация: (дата) ______. Связь с циклом: перекрут чаще возникает при наличии функционирующих кист (желтого тела, фолликулярных) во 2-й фазе цикла / при задержке менструации. Репродуктивная функция: беременностей – __, родов – __, абортов – __, выкидышей – __. Бесплодие (первичное/вторичное) – фактор риска кист и перекрута. Гинекологические заболевания: киста яичника (локализация: слева/справа/двусторонние, тип: фолликулярная, киста желтого тела, эндометриоидная, дермоидная, цистаденома). Размеры: ______ см. Динамика: наблюдается / не наблюдается. Апоплексия яичника в анамнезе (указать сторону, год, лечение). Синдром поликистозных яичников (СПКЯ). Спаечный процесс малого таза (после операций, воспалений). Оперативные вмешательства: цистэктомия, резекция яичника, овариоэктомия, аднексэктомия (указать сторону, год, доступ). Лапароскопия / лапаротомия по поводу внематочной беременности, апоплексии, кист, бесплодия. Контрацепция: гормональная контрацепция (прием КОК снижает риск функционирующих кист и перекрута) – принимает/не принимает.</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Экстрагенитальная патология:</span>
+                        <span class="field-value">Заболевания соединительной ткани (дисплазия), варикозное расширение вен малого таза – факторы риска.</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Выделения из половых путей:</span>
+                        <span class="field-value">На момент осмотра: слизистые, светлые, без патологического запаха. Патологических (гнойных, пенистых, творожистых, кровянистых) выделений нет (при неосложненном перекруте).</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ОБЪЕКТИВНО -->
+            <div class="exam-block">
+                <div class="block-title">ОБЪЕКТИВНО</div>
+                <div class="block-content">
+                    <div class="inline-group">
+                        <div class="inline-item"><strong>Состояние:</strong> средней степени тяжести / тяжелое</div>
+                        <div class="inline-item"><strong>Сознание:</strong> ясное / оглушение</div>
+                        <div class="inline-item"><strong>GCS:</strong> 15 / 14–13 баллов</div>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Положение:</span>
+                        <span class="field-value">Вынужденное – лежит на боку с подтянутыми к животу коленями (поза «эмбриона»), щадит живот, любое движение усиливает боль.</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Кожные покровы:</span>
+                        <span class="field-value">Бледные, влажные (болевая реакция, ваготония). Холодный пот. Акроцианоз. Сыпи, желтушности нет.</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Температура:</span>
+                        <span class="field-value">36,6 °C / 37,5–38,5 °C (при некрозе, присоединении инфекции).</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ОРГАНЫ ДЫХАНИЯ -->
+            <div class="exam-block">
+                <div class="block-title">ОРГАНЫ ДЫХАНИЯ</div>
+                <div class="block-content">
+                    <div class="field-row"><span class="field-label">ЧДД:</span><span class="field-value">20–24 в мин (тахипноэ, реакция на боль).</span></div>
+                    <div class="field-row"><span class="field-label">Одышка:</span><span class="field-value">Смешанная, поверхностная (щажение диафрагмы).</span></div>
+                    <div class="field-row"><span class="field-label">Аускультативно:</span><span class="field-value">Дыхание везикулярное, проводится во все отделы, хрипов нет.</span></div>
+                </div>
+            </div>
+
+            <!-- ОРГАНЫ КРОВООБРАЩЕНИЯ -->
+            <div class="exam-block">
+                <div class="block-title">ОРГАНЫ КРОВООБРАЩЕНИЯ</div>
+                <div class="block-content">
+                    <div class="field-row"><span class="field-label">Пульс:</span><span class="field-value">90–100–120 в мин (рефлекторная тахикардия), ритмичный, удовлетворительного / слабого наполнения. ЧСС: 90–100–120 в мин.</span></div>
+                    <div class="field-row"><span class="field-label">АД:</span><span class="field-value">110/70 – 100/60 – 90/60 мм рт.ст. (тенденция к гипотонии).</span></div>
+                    <div class="field-row"><span class="field-label">Тоны сердца:</span><span class="field-value">Звучные / умеренно приглушены, тахикардия.</span></div>
+                </div>
+            </div>
+
+            <!-- ОРГАНЫ ПИЩЕВАРЕНИЯ -->
+            <div class="exam-block">
+                <div class="block-title">ОРГАНЫ ПИЩЕВАРЕНИЯ</div>
+                <div class="block-content">
+                    <div class="field-row"><span class="field-label">Язык:</span><span class="field-value">Влажный, чистый / обложен белым налетом (при рвоте, интоксикации).</span></div>
+                    <div class="field-row"><span class="field-label">Живот:</span><span class="field-value">Не вздут / умеренно вздут (при парезе кишечника). Участвует в акте дыхания ограниченно – «щадящее» дыхание. Резкая болезненность в левой подвздошной области, иррадиирующая в поясницу, бедро. Пальпация резко болезненна, определяется напряжение мышц передней брюшной стенки (дефанс) слева.</span></div>
+                    <div class="field-row"><span class="field-label">Симптом Щёткина-Блюмберга:</span><span class="field-value">Положительный / сомнительный в левой подвздошной области (при раздражении брюшины).</span></div>
+                    <div class="field-row"><span class="field-label">Перистальтика:</span><span class="field-value">Выслушивается, ослаблена / отсутствует (при развитии пареза).</span></div>
+                </div>
+            </div>
+
+            <!-- STATUS LOCALIS -->
+            <div class="exam-block">
+                <div class="block-title">STATUS LOCALIS</div>
+                <div class="block-content">
+                    <div class="status-local">
+                        <div><strong>Наружные половые органы:</strong> Развиты правильно, по женскому типу. Выделения из половых путей: слизистые, светлые, в умеренном количестве, без запаха. Патологических (кровянистых, гнойных, пенистых, творожистых) выделений нет.</div>
+                        <div><strong>Пальпация живота (ориентировочная оценка состояния придатков):</strong> При глубокой пальпации в левой подвздошной области, через резко напряженную брюшную стенку, пальпируется / не пальпируется резко болезненное, округлое, тугоэластическое образование (киста с перекрученной ножкой). Размеры ориентировочно ______ см. Смещаемость ограничена из-за боли и напряжения. Правые придатки без особенностей. Матка пальпаторно не изменена, безболезненная.</div>
+                        <div><strong>Выделения из половых путей:</strong> скудные / умеренные, слизистые, светлые / беловатые, обычного запаха. Патологических примесей нет.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- КЛЮЧЕВЫЕ ПРИЗНАКИ -->
+            <div class="exam-block">
+                <div class="block-title">КЛЮЧЕВЫЕ ПРИЗНАКИ ПЕРЕКРУТА КИСТЫ ЯИЧНИКА</div>
+                <div class="block-content">
+                    <div class="key-signs">
+                        <p>• Внезапное, острейшее начало («кинжальная» боль).</p>
+                        <p>• Локализация боли слева/справа внизу живота, иррадиация в бедро, поясницу, прямую кишку.</p>
+                        <p>• Тошнота, рвота, не приносящая облегчения.</p>
+                        <p>• Вынужденное положение (поза «эмбриона»).</p>
+                        <p>• Пальпируемое образование в области придатков (при возможности пальпации).</p>
+                        <p>• Отсутствие признаков беременности (отрицательный тест, нормальный цикл).</p>
+                        <p>• Наличие кисты яичника в анамнезе.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ОЦЕНКА ПО ШКАЛАМ -->
+            <div class="exam-block">
+                <div class="block-title">ОЦЕНКА ТЯЖЕСТИ</div>
+                <div class="block-content">
+                    <div class="scales-box">
+                        <div class="scale-item">
+                            <span class="scale-label">Шкала боли ВАШ:</span>
+                            <span>8–10 баллов из 10 (нестерпимая, «кинжальная» боль).</span>
+                        </div>
+                        <div class="scale-item">
+                            <span class="scale-label">Шкала тяжести (клиническая):</span>
+                            <span>Неполный перекрут: боль приступообразная, рвота, симптомы раздражения брюшины слабо положительные или отрицательные.<br>Полный перекрут с ишемией: боль постоянная, резкая, перитонеальные симптомы положительные, тошнота, рвота, тахикардия.<br>Некроз / инфаркт яичника: лихорадка, интоксикация, перитонеальные симптомы выраженные, лейкоцитоз.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ДИФФЕРЕНЦИАЛЬНАЯ ДИАГНОСТИКА И ТАКТИКА -->
+            <div class="exam-block">
+                <div class="block-title">ДИФФЕРЕНЦИАЛЬНАЯ ДИАГНОСТИКА И ТАКТИКА</div>
+                <div class="block-content">
+                    <div class="alert-note">
+                        <strong>Дифференциальная диагностика проведена с:</strong><br>
+                        — <strong>Острым аппендицитом:</strong> боль начинается в эпигастрии, мигрирует в правую подвздошную область, симптомы Ровзинга, Ситковского, Бартомье-Михельсона положительные.<br>
+                        — <strong>Внематочной беременностью:</strong> задержка менструации, положительный тест на беременность, кровянистые выделения, симптомы «крик Дугласа», френикус-симптом.<br>
+                        — <strong>Апоплексией яичника:</strong> возникает в середине/2-й фазе цикла, боль острая, но менее интенсивная, может быть внутрибрюшное кровотечение, гипотония.<br>
+                        — <strong>Почечной коликой:</strong> боль иррадиирует по ходу мочеточника, дизурия, симптом поколачивания положительный, гематурия.<br>
+                        — <strong>Дисперсией кишечника, мезаденитом:</strong> менее интенсивная боль, связь с погрешностью в диете, недавно перенесенной инфекцией.<br><br>
+                        <strong>Примечание для бригады СМП:</strong><br>
+                        — Экстренная госпитализация в гинекологическое отделение стационара.<br>
+                        — Транспортировка на носилках в положении лежа на спине, полный покой.<br>
+                        — Запрещено применение тепла!<br>
+                        — Обезболивание на догоспитальном этапе: ненаркотические анальгетики, спазмолитики (дротаверин, метамизол натрия).<br>
+                        — Необходимость экстренного хирургического лечения (лапароскопия, деторсия, цистэктомия, овариоэктомия).
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+            <div class="footer-note">
+                N83.5 — Перекрут кисты яичника | Экстренная госпитализация в гинекологическое отделение | Экстренная лапароскопия
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
