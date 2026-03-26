@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регламент мониторинга витальных функций - СМП</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: transparent;
+            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.5;
+            color: #1e2a3e;
+            padding: 20px 0;
+        }
+        .document-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+        .document-header {
+            background: linear-gradient(135deg, #b71c1c 0%, #8b0000 100%);
+            color: white;
+            padding: 1.5rem 2rem;
+            border-bottom: 4px solid #ffc107;
+        }
+        .document-header h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .document-header .hashtag {
+            font-size: 1rem;
+            opacity: 0.9;
+            font-family: monospace;
+        }
+        .document-content {
+            padding: 2rem;
+        }
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #b71c1c;
+            margin: 1rem 0 1rem 0;
+            display: inline-block;
+            border-bottom: 3px solid #ffc107;
+            padding-bottom: 0.25rem;
+        }
+        .intro-card {
+            background: #ffebee;
+            border-left: 6px solid #d32f2f;
+            padding: 1rem 1.25rem;
+            margin-bottom: 1.5rem;
+            border-radius: 0 12px 12px 0;
+        }
+        .rule-card {
+            background: #fefaf5;
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+            margin: 1rem 0;
+            transition: all 0.2s ease;
+            border-left: 5px solid #f57c00;
+        }
+        .rule-card:hover {
+            background: #fff7f0;
+            transform: translateX(2px);
+        }
+        .rule-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+        .rule-icon {
+            font-size: 1.2rem;
+            flex-shrink: 0;
+            color: #f57c00;
+        }
+        .rule-text {
+            flex: 1;
+            line-height: 1.55;
+        }
+        .rule-text strong {
+            color: #b71c1c;
+        }
+        .highlight {
+            background-color: #ffecb3;
+            padding: 0.1rem 0.3rem;
+            border-radius: 4px;
+            font-weight: 600;
+            color: #b85c00;
+        }
+        .important-text {
+            font-weight: 700;
+            color: #c62828;
+            text-decoration: underline;
+        }
+        .special-card {
+            background: #e8f0fe;
+            border-left: 5px solid #1976d2;
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+            margin: 1rem 0;
+        }
+        .critical-card {
+            background: #ffebee;
+            border-left: 6px solid #d32f2f;
+            padding: 1rem 1.25rem;
+            margin: 1rem 0;
+            border-radius: 0 12px 12px 0;
+        }
+        .warning-card {
+            background: #fff8e7;
+            border-left: 5px solid #ff9800;
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+            margin: 1rem 0;
+        }
+        .criteria-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 0.75rem;
+            margin: 1rem 0;
+        }
+        .criteria-item {
+            background: #fef5f0;
+            padding: 0.6rem 1rem;
+            border-radius: 10px;
+            border-left: 3px solid #f57c00;
+            font-size: 0.95rem;
+        }
+        .criteria-item strong {
+            color: #b71c1c;
+        }
+        .timing-table {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 1rem;
+            margin: 1rem 0;
+            border: 1px solid #e2e8f0;
+        }
+        .timing-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-bottom: 1px dashed #e2e8f0;
+        }
+        .timing-row:last-child {
+            border-bottom: none;
+        }
+        .timing-label {
+            font-weight: 600;
+        }
+        .timing-value {
+            font-weight: 800;
+            color: #b71c1c;
+            background: #fff0f0;
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+        }
+        .badge {
+            display: inline-block;
+            background: #b71c1c;
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 0.2rem 0.7rem;
+            border-radius: 20px;
+            margin-right: 0.5rem;
+            vertical-align: middle;
+        }
+        .badge-orange {
+            background: #f57c00;
+        }
+        .badge-blue {
+            background: #1976d2;
+        }
+        .badge-green {
+            background: #2e7d32;
+        }
+        hr {
+            margin: 1.5rem 0;
+            border: none;
+            height: 1px;
+            background: linear-gradient(90deg, #e2e8f0, transparent);
+        }
+        .subnote {
+            font-size: 0.85rem;
+            color: #5a6e85;
+            margin-top: 1rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid #e2e8f0;
+        }
+        @media (max-width: 768px) {
+            .document-content {
+                padding: 1rem;
+            }
+            .criteria-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="document-container">
+    <div class="document-header">
+        <h1>📊 РЕГЛАМЕНТ ПРОВЕДЕНИЯ МОНИТОРИНГА ВИТАЛЬНЫХ ФУНКЦИЙ</h1>
+        <div class="hashtag">п. 163 | При оказании скорой медицинской помощи</div>
+    </div>
+    <div class="document-content">
+        
+        <div class="intro-card">
+            <strong>🫀 ЦЕЛИ МОНИТОРИНГА ВИТАЛЬНЫХ ФУНКЦИЙ:</strong><br>
+            • Контроль динамики состояния пациента при наличии <span class="highlight">риска его ухудшения</span><br>
+            • Оценка эффективности выбранной лечебной тактики, определение необходимости ее коррекции<br>
+            • Объективизация клинических данных и их фиксация
+        </div>
+        
+        <div class="section-title">📋 Критерии риска ухудшения состояния</div>
+        
+        <div class="criteria-grid">
+            <div class="criteria-item"><strong>4.1.</strong> Чувство сердцебиения или тахикардия &gt; 120 в минуту</div>
+            <div class="criteria-item"><strong>4.2.</strong> Наличие одышки или снижение SpO₂ &lt; 93%</div>
+            <div class="criteria-item"><strong>4.3.</strong> Нарушение сознания (отличие от ясного) или обморок</div>
+            <div class="criteria-item"><strong>4.4.</strong> Резкая слабость или выраженная бледность кожных покровов</div>
+            <div class="criteria-item"><strong>4.5.</strong> Нестабильная гемодинамика (снижение систолического АД &lt; 90 мм рт. ст.)</div>
+            <div class="criteria-item"><strong>4.6.</strong> Нарушения ритма сердца (ЖТ, мерцательная аритмия, НЖТ, экстрасистолия и пр.)</div>
+            <div class="criteria-item"><strong>4.7.</strong> Нарушения проводимости сердца (блокады, СССУ) с брадикардией &lt; 50 в минуту</div>
+            <div class="criteria-item"><strong>4.8.</strong> Применение вазопрессорных препаратов бригадой СМП</div>
+            <div class="criteria-item"><strong>4.9.</strong> Подъем/депрессия сегмента ST электрокардиограммы</div>
+        </div>
+        
+        <div class="section-title">⚠️ Обязательный мониторинг</div>
+        
+        <div class="critical-card">
+            <div class="rule-header">
+                <div class="rule-icon">❗</div>
+                <div class="rule-text">
+                    <strong>Мониторинг в обязательном порядке проводится в следующих случаях:</strong><br>
+                    • при сочетании <span class="highlight">двух и более Критериев</span> риска ухудшения состояния<br>
+                    • при наличии у пациента критического состояния (в том числе при остановке кровообращения)<br>
+                    • в ситуациях, регламентированных «Алгоритмами оказания скорой и неотложной медицинской помощи»
+                </div>
+            </div>
+        </div>
+        
+        <div class="section-title">📟 Технические требования</div>
+        
+        <div class="rule-card">
+            <div class="rule-header">
+                <div class="rule-icon">📟</div>
+                <div class="rule-text">
+                    <strong>Мониторинг выполняется посредством <span class="highlight">дефибриллятора-монитора</span>.</strong> Обязательному аппаратному мониторингу подлежат: электрическая активность сердца, артериальное давление, сатурация гемоглобина периферической крови.
+                </div>
+            </div>
+        </div>
+        
+        <div class="rule-card">
+            <div class="rule-header">
+                <div class="rule-icon">📡</div>
+                <div class="rule-text">
+                    <strong>При наличии дефибриллятора <span class="highlight">Mindray BeneHeart D6</span></strong> и технической возможности — мониторинг проводится с применением <span class="highlight">телемедицинских технологий</span> с дистанционным контролем данных в режиме реального времени персоналом Центра критических состояний.
+                </div>
+            </div>
+        </div>
+        
+        <div class="section-title">⏱️ Периодичность мониторинга</div>
+        
+        <div class="timing-table">
+            <div class="timing-row">
+                <span class="timing-label">📊 Неинвазивное артериальное давление</span>
+                <span class="timing-value">каждые 10 минут</span>
+            </div>
+            <div class="timing-row">
+                <span class="timing-label">⚡ Электрическая активность сердца</span>
+                <span class="timing-value">постоянно</span>
+            </div>
+            <div class="timing-row">
+                <span class="timing-label">🩸 Сатурация гемоглобина периферической крови</span>
+                <span class="timing-value">постоянно</span>
+            </div>
+        </div>
+        
+        <div class="section-title">🫀 Мониторинг при остановке кровообращения</div>
+        
+        <div class="warning-card">
+            <div class="rule-header">
+                <div class="rule-icon">⚡</div>
+                <div class="rule-text">
+                    <strong>При проведении сердечно-легочной реанимации:</strong><br>
+                    • Мониторинг электрической активности сердца — <span class="highlight">каждые 2 минуты</span>, длительность до 5 секунд<br>
+                    • <span class="highlight">Компрессии грудной клетки на время мониторинга прерываются</span> (до 5 секунд)<br>
+                    • Регистрация на бумажном носителе — в начале СЛР и при выявлении любой электрической активности<br>
+                    • При наличии электрической активности — регистрация <span class="highlight">каждые 4 минуты</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section-title">📝 Регистрация данных</div>
+        
+        <div class="rule-card">
+            <div class="rule-header">
+                <div class="rule-icon">📄</div>
+                <div class="rule-text">
+                    <strong>При критическом состоянии пациента (не в клинической смерти) или при наличии 2+ критериев</strong> — регистрация данных на бумажном носителе короткими отрезками ЭКГ ленты <span class="highlight">до 5 секунд</span> с частотой <span class="highlight">каждые 10 минут</span> или <span class="highlight">при резком изменении состояния</span>.<br>
+                    <span class="highlight">Обязательно отображение на бумажной ленте корректного времени регистрации.</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section-title">🚑 Транспортировка и передача данных</div>
+        
+        <div class="critical-card">
+            <div class="rule-header">
+                <div class="rule-icon">🚑</div>
+                <div class="rule-text">
+                    <strong>Обязательным условием для начала транспортировки пациента в состоянии клинической смерти</strong> является наличие подтвержденного факта регистрации эпизода электрической активности сердца.<br>
+                    Документальным подтверждением могут быть данные ЭКГ, бумажная лента дефибриллятора или данные внутренней памяти дефибриллятора-монитора.
+                </div>
+            </div>
+        </div>
+        
+        <div class="rule-card">
+            <div class="rule-header">
+                <div class="rule-icon">📋</div>
+                <div class="rule-text">
+                    <strong>Бумажный носитель с результатами мониторинга</strong> передается сотрудникам медицинской организации, принимающим пациента. По возвращению на подстанцию непереданные носители передаются фельдшеру по приему вызовов.
+                </div>
+            </div>
+        </div>
+        
+        <div class="special-card">
+            <div class="rule-header">
+                <div class="rule-icon">⚠️</div>
+                <div class="rule-text">
+                    <strong>Важные требования:</strong><br>
+                    • Мониторинг проводится <span class="highlight">до передачи пациента врачу стационарной медицинской эвакуации</span><br>
+                    • <span class="important-text">Прекращение проведения мониторинга до передачи пациента не допускается!</span><br>
+                    • <span class="important-text">Удаление из памяти дефибриллятора-монитора результатов мониторинга не допускается!</span><br>
+                    • В случаях, не связанных с СЛР или чрезкожной кардиостимуляцией, применяются <span class="highlight">только одноразовые клейкие электроды для ЭКГ</span>
+                </div>
+            </div>
+        </div>
+        
+        <hr>
+        
+        <div class="subnote">
+            📋 <strong>Сводка критических параметров:</strong><br>
+            • <strong>Тахикардия</strong> &gt; 120/мин | <strong>SpO₂</strong> &lt; 93% | <strong>АД сист.</strong> &lt; 90 мм рт. ст.<br>
+            • <strong>Брадикардия</strong> &lt; 50/мин | <strong>Нарушение сознания</strong> | <strong>Изменения ST</strong><br>
+            • <strong>Мониторинг при 2+ критериях</strong> — обязателен<br>
+            • <strong>При СЛР:</strong> ЭКГ-контроль каждые 2 мин, компрессии прерывать до 5 сек<br>
+            • <strong>Транспортировка при клинической смерти</strong> — только при подтвержденной электрической активности сердца<br>
+            • <strong>Запрещено:</strong> прекращать мониторинг до передачи пациента, удалять данные из памяти дефибриллятора<br>
+            <br>
+            🔍 <em>Документ регламентирует порядок мониторинга витальных функций выездными бригадами скорой медицинской помощи. Соблюдение всех пунктов обязательно.</em>
+        </div>
+        
+    </div>
+</div>
+</body>
+</html>
