@@ -15,6 +15,8 @@
       align-items: center;
       min-height: 100vh;
     }
+
+    /* --- Header --- */
     .header {
       text-align: center;
       padding: 20px;
@@ -33,6 +35,8 @@
       font-size: 1rem;
       margin: 0;
     }
+
+    /* --- Menu --- */
     .menu {
       display: flex;
       flex-direction: column;
@@ -57,18 +61,58 @@
     }
     .menu-btn.active { background: #e53935; }
     .menu-btn:hover { background: #3949ab; }
-    .main-content { max-width: 1000px; width: 100%; padding: 20px; box-sizing: border-box; }
-    @media (max-width: 600px) { .header .logo { width: 70%; } .header h1 { font-size: 1.5rem; } .header p { font-size: 0.9rem; } .menu { max-width: 90%; } .menu-btn { font-size: 0.9rem; } }
+
+    /* --- Main content --- */
+    .main-content {
+      max-width: 1000px;
+      width: 100%;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    /* --- Главные кнопки (MAX / Контакты) --- */
+    .main-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .main-btn {
+      padding: 12px 20px;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      background: #0f1446; /* темно-синий */
+      color: white;
+      transition: background 0.2s;
+    }
+    .main-btn:hover {
+      background: #3949ab;
+    }
+
+    /* --- Адаптивность --- */
+    @media (max-width: 600px) {
+      .header .logo { width: 70%; }
+      .header h1 { font-size: 1.5rem; }
+      .header p { font-size: 0.9rem; }
+      .menu { max-width: 90%; }
+      .menu-btn { font-size: 0.9rem; }
+      .main-btn { font-size: 0.9rem; padding: 10px 16px; }
+    }
   </style>
 </head>
 <body>
 
+  <!-- Логотип и заголовок только на главной -->
   <div class="header">
     <img src="1712743647196.png" alt="Логотип" class="logo">
     <h1>Шпаргалки СМП</h1>
     <p>Проект EMHelp Group '2026</p>
   </div>
 
+  <!-- Меню -->
   <nav class="menu">
     <a href="index.html" class="menu-btn">ГЛАВНАЯ</a>
     <a href="templates.html" class="menu-btn">ШАБЛОНЫ КАРТ</a>
@@ -80,29 +124,29 @@
     <a href="stations.html" class="menu-btn">ПОДСТАНЦИИ МСК</a>
   </nav>
 
-  <div class="main-content">
-    <!-- Контент главной -->
-  </div>
-
+  <!-- Кнопки MAX / Контакты -->
   <div class="main-actions">
     <button class="main-btn" id="max-btn">Наш канал в MAX</button>
     <button class="main-btn" id="contact-btn">Написать нам</button>
-</div>
+  </div>
 
+  <!-- --- Скрипты --- -->
   <script>
+    // Подсветка текущей страницы
     const current = window.location.pathname.split("/").pop();
-    document.querySelectorAll('.menu-btn').forEach(btn => { if(btn.getAttribute('href')===current) btn.classList.add('active'); });
-  </script>
+    document.querySelectorAll('.menu-btn').forEach(btn => {
+      if(btn.getAttribute('href')===current) btn.classList.add('active');
+    });
 
-  <script>
+    // Кнопки MAX / Контакты
     document.getElementById('max-btn').addEventListener('click', () => {
-        window.open('https://...', '_blank');
+        window.open('https://max.ru/EMHelp_Channel, '_blank'); // <-- вставьте ссылку на канал
     });
 
     document.getElementById('contact-btn').addEventListener('click', () => {
-        window.location.href = 'mailto:...';
+        window.location.href = 'mailto:...'; // <-- вставьте адрес для письма
     });
-</script>
+  </script>
 
 </body>
 </html>
