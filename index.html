@@ -52,7 +52,7 @@
     .menu-btn {
       text-decoration: none;
       color: white;
-      background: #1f6e9c;
+      background: #1a237e; /* темно-синий */
       padding: 12px 15px;
       border-radius: 8px;
       font-weight: 600;
@@ -62,11 +62,18 @@
     }
 
     .menu-btn.active {
-      background: #e53935;
+      background: #e53935; /* красный активной кнопки */
     }
 
     .menu-btn:hover {
-      background: #155080;
+      background: #3949ab; /* светлее темно-синий при наведении */
+    }
+
+    .main-content {
+      max-width: 1000px;
+      width: 100%;
+      padding: 20px;
+      box-sizing: border-box;
     }
 
     @media (max-width: 600px) {
@@ -107,8 +114,12 @@
     <a href="stations.html" class="menu-btn">ПОДСТАНЦИИ МСК</a>
   </nav>
 
+  <div class="main-content">
+    <!-- Здесь будет контент конкретной страницы -->
+  </div>
+
   <script>
-    // Автоматическая подсветка активной кнопки по URL
+    // Подсветка активной кнопки по текущему URL
     const current = window.location.pathname.split("/").pop();
     document.querySelectorAll('.menu-btn').forEach(btn => {
       if(btn.getAttribute('href') === current) {
