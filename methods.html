@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Медицинские отходы - Порядок обращения</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: transparent;
+            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.5;
+            color: #1e2a3e;
+            padding: 20px 0;
+        }
+        .document-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+        .document-header {
+            background: linear-gradient(135deg, #1a5f7a 0%, #0e3b4d 100%);
+            color: white;
+            padding: 1.5rem 2rem;
+            border-bottom: 4px solid #ffc107;
+        }
+        .document-header h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .document-header p {
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+        .document-content {
+            padding: 2rem;
+        }
+        /* Стили для разделов */
+        .section {
+            margin-bottom: 2rem;
+            border-left: 4px solid #1a5f7a;
+            padding-left: 1.25rem;
+        }
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #1a5f7a;
+            margin-bottom: 1rem;
+            display: inline-block;
+            border-bottom: 2px solid #ffc107;
+            padding-bottom: 0.25rem;
+        }
+        .subsection-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #2c6e8f;
+            margin: 1.25rem 0 0.75rem 0;
+        }
+        .subsection-title2 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #3a7b9c;
+            margin: 1rem 0 0.5rem 0;
+        }
+        /* Классы отходов */
+        .class-card {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+            margin: 1rem 0;
+            border-left: 5px solid;
+        }
+        .class-a { border-left-color: #2e7d32; background: #f1f8e9; }
+        .class-b { border-left-color: #f9a825; background: #fff8e7; }
+        .class-c { border-left-color: #d32f2f; background: #ffebee; }
+        .class-g { border-left-color: #7b1fa2; background: #f3e5f5; }
+        .class-d { border-left-color: #546e7a; background: #eceff1; }
+        
+        .class-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+        /* Списки */
+        .norm-list {
+            list-style: none;
+            padding-left: 0;
+            margin: 0.75rem 0;
+        }
+        .norm-list li {
+            padding-left: 1.5rem;
+            position: relative;
+            margin-bottom: 0.5rem;
+        }
+        .norm-list li::before {
+            content: "•";
+            color: #1a5f7a;
+            font-weight: bold;
+            font-size: 1.2rem;
+            position: absolute;
+            left: 0.25rem;
+            top: -0.1rem;
+        }
+        .check-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        .check-list li {
+            padding-left: 1.8rem;
+            position: relative;
+            margin-bottom: 0.5rem;
+        }
+        .check-list li::before {
+            content: "✓";
+            color: #2e7d32;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        .prohibit-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        .prohibit-list li {
+            padding-left: 1.8rem;
+            position: relative;
+            margin-bottom: 0.5rem;
+        }
+        .prohibit-list li::before {
+            content: "✗";
+            color: #d32f2f;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        /* Таблицы */
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+        }
+        .info-table th, .info-table td {
+            border: 1px solid #e2e8f0;
+            padding: 0.75rem;
+            text-align: left;
+            vertical-align: top;
+        }
+        .info-table th {
+            background: #f1f5f9;
+            font-weight: 600;
+            color: #1e466e;
+        }
+        .info-table tr:hover {
+            background: #faf5ff;
+        }
+        /* Выделение */
+        .highlight {
+            background-color: #fff3cd;
+            padding: 0.1rem 0.3rem;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+        .important {
+            background-color: #ffecb3;
+            border-left: 4px solid #ff9800;
+            padding: 0.75rem 1rem;
+            margin: 1rem 0;
+            border-radius: 0 8px 8px 0;
+            font-weight: 500;
+        }
+        .danger {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 0.75rem 1rem;
+            margin: 1rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .note {
+            background-color: #e8f0fe;
+            border-left: 4px solid #1a5f7a;
+            padding: 0.75rem 1rem;
+            margin: 1rem 0;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.9rem;
+        }
+        .badge {
+            display: inline-block;
+            background: #1a5f7a;
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            margin-right: 0.5rem;
+            vertical-align: middle;
+        }
+        .color-tag {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border-radius: 4px;
+            margin-right: 6px;
+            vertical-align: middle;
+        }
+        hr {
+            margin: 1.5rem 0;
+            border: none;
+            height: 1px;
+            background: linear-gradient(90deg, #cbd5e0, transparent);
+        }
+        .subnote {
+            font-size: 0.85rem;
+            color: #5a6e85;
+            margin-top: 1rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid #e2e8f0;
+        }
+        @media (max-width: 768px) {
+            .document-content {
+                padding: 1rem;
+            }
+            .section {
+                padding-left: 0.75rem;
+            }
+            .section-title {
+                font-size: 1.2rem;
+            }
+            .info-table th, .info-table td {
+                padding: 0.5rem;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="document-container">
+    <div class="document-header">
+        <h1>🏥 Медицинские отходы и аварийные ситуации</h1>
+        <p>Порядок сбора, обеззараживания, временного хранения и транспортирования</p>
+    </div>
+    <div class="document-content">
+        
+        <!-- 1. Общие положения -->
+        <div class="section">
+            <div class="section-title">1. Общие положения</div>
+            <p style="margin-top: 0.75rem;">Сбор, перемещение, обеззараживание, временное хранение медицинских отходов в структурных подразделениях Станции осуществляется:</p>
+            <ul class="norm-list">
+                <li>В соответствии с требованиями <strong>СанПиН 2.1.7.2790-10</strong> «Санитарно-эпидемиологические требования к обращению с медицинскими отходами»</li>
+                <li>В соответствии с принципиальной схемой обращения с медицинскими отходами, утвержденной главным врачом Станции</li>
+                <li>В соответствии с этапами обращения с медицинскими отходами</li>
+            </ul>
+        </div>
+        
+        <!-- Классы отходов -->
+        <div class="section">
+            <div class="section-title">Классификация медицинских отходов</div>
+            
+            <div class="class-card class-a">
+                <div class="class-title"><span class="color-tag" style="background: #2e7d32;"></span> Класс «А» — эпидемиологически безопасные отходы</div>
+                <p>Отходы, не имевшие контакта с биологическими жидкостями пациентов и инфекционными больными; канцелярские принадлежности, упаковка, мебель, инвентарь, потерявшие потребительские свойства; пищевые отходы; смет от уборки территории и другой бытовой мусор.</p>
+                <p><strong>Цвет упаковки:</strong> любой, кроме желтого и красного. <strong>Маркировка:</strong> «Отходы. Класс А»</p>
+            </div>
+            
+            <div class="class-card class-b">
+                <div class="class-title"><span class="color-tag" style="background: #f9a825;"></span> Класс «Б» — эпидемиологически опасные отходы</div>
+                <p>Инфицированные и потенциально инфицированные отходы; материалы и инструменты, предметы, загрязненные кровью и/или другими биологическими жидкостями.</p>
+                <p><strong>Цвет упаковки:</strong> желтый. <strong>Маркировка:</strong> «Отходы. Класс Б»</p>
+            </div>
+            
+            <div class="class-card class-c">
+                <div class="class-title"><span class="color-tag" style="background: #d32f2f;"></span> Класс «В» — чрезвычайно эпидемиологически опасные отходы</div>
+                <p>Материалы, контактировавшие с больными инфекционными болезнями, которые могут привести к возникновению чрезвычайных ситуаций в области санитарно-эпидемиологического благополучия населения.</p>
+                <p><strong>Цвет упаковки:</strong> красный. <strong>Маркировка:</strong> «Отходы. Класс В»</p>
+            </div>
+            
+            <div class="class-card class-g">
+                <div class="class-title"><span class="color-tag" style="background: #7b1fa2;"></span> Класс «Г» — токсикологически опасные отходы</div>
+                <p>Ртутьсодержащие предметы, приборы, отходы от эксплуатации оборудования, систем освещения; лекарственные, диагностические, дезинфекционные средства.</p>
+                <p><strong>Маркировка:</strong> «Отходы. Класс Г»</p>
+            </div>
+        </div>
+        
+        <!-- 2. Требования к персоналу -->
+        <div class="section">
+            <div class="section-title">2. Требования к персоналу</div>
+            <ul class="check-list">
+                <li><strong>Возраст:</strong> не допускаются лица моложе 18 лет</li>
+                <li><strong>Иммунизация:</strong> персонал должен быть привит в соответствии с национальным календарем; не иммунизированные против гепатита В не допускаются к работам с отходами классов «Б» и «В»</li>
+                <li><strong>Инструктаж:</strong> при приеме на работу и затем ежегодно — обязательный инструктаж по правилам безопасного обращения с отходами</li>
+                <li><strong>Спецодежда:</strong> персонал работает в спецодежде и сменной обуви; личную одежду и спецодежду хранят в разных шкафах</li>
+                <li><strong>СИЗ:</strong> обеспечивается комплектами (халаты, перчатки, маски, защитные очки, спецобувь, фартук)</li>
+                <li><strong>Стирка:</strong> спецодежды осуществляется централизованно</li>
+            </ul>
+        </div>
+        
+        <!-- 3. Порядок сбора отходов класса А -->
+        <div class="section">
+            <div class="section-title">3. Порядок сбора отходов класса «А»</div>
+            <ul class="norm-list">
+                <li>Сбор осуществляется в многоразовые емкости (урны) или одноразовые пакеты <strong>любого цвета, кроме желтого и красного</strong></li>
+                <li>Емкости маркируются: <strong>«Отходы. Класс А»</strong></li>
+                <li>Заполненные емкости доставляются в маркированные металлические контейнеры</li>
+                <li>Многоразовая тара после опорожнения подлежит мытью и дезинфекции <strong>не реже 1 раза в неделю</strong></li>
+                <li>Транспортирование отходов класса «А» осуществляется специализированной организацией по договору</li>
+            </ul>
+            <div class="note">
+                <strong>📌 Отходы класса «А»:</strong> канцелярские принадлежности, упаковка, мебель, инвентарь, пищевые отходы, смет от уборки территории, пустые ампулы от использованных препаратов, упаковка от расходных материалов.
+            </div>
+        </div>
+        
+        <!-- 4. Порядок сбора отходов класса Б -->
+        <div class="section">
+            <div class="section-title">4. Порядок сбора отходов класса «Б»</div>
+            <ul class="norm-list">
+                <li>Сбор отходов класса «Б» осуществляется в <strong>желтый одноразовый промаркированный пакет</strong> «Отходы класса Б» в местах образования отходов</li>
+                <li>Смена пакетов <strong>не реже 1 раза в смену</strong></li>
+                <li>Пакет хранится в санитарном автомобиле плотно закрытым до заполнения на 75% объема</li>
+                <li>Сбор использованных инъекционных игл, колющих и режущих предметов осуществляется в <strong>одноразовые непрокалываемые контейнеры желтого цвета</strong> в течение 3-х суток</li>
+                <li>По истечении 3-х суток контейнер заполняется дезинфицирующим раствором</li>
+                <li>Многоразовый инструментарий собирается отдельно в одноразовый промаркированный мешок желтого цвета</li>
+            </ul>
+            
+            <div class="subsection-title">Обеззараживание отходов класса «Б»</div>
+            <ul class="norm-list">
+                <li>Отходы класса «Б» подлежат обязательному обеззараживанию <strong>химическим способом</strong></li>
+                <li>Дезинфекция проводится дезинфицирующим средством с противовирусным и противотуберкулезным действием</li>
+                <li>После обеззараживания отходы перегружаются в новый одноразовый маркированный пакет желтого цвета</li>
+                <li>Помещение обеззараживания и временного хранения должно быть закрыто, ключ — в диспетчерской</li>
+            </ul>
+        </div>
+        
+        <!-- 5. Порядок сбора отходов класса Г -->
+        <div class="section">
+            <div class="section-title">5. Порядок сбора отходов класса «Г»</div>
+            <ul class="norm-list">
+                <li>Ртутьсодержащие приборы, лампы (люминесцентные и другие), оборудование собираются в <strong>специальные металлические емкости с плотно прилегающими крышками</strong></li>
+                <li>Маркировка емкостей: <strong>«Отходы. Класс Г»</strong></li>
+                <li>Хранятся в специально выделенных помещениях</li>
+            </ul>
+            <div class="danger">
+                <strong>⚠️ При нарушении целостности упаковки (рассыпании) медицинских отходов класса Г:</strong> вызвать сотрудников демеркуризационного отдела специализированной организации, оградить участок загрязнения.
+            </div>
+        </div>
+        
+        <!-- 6. Запреты при сборе медицинских отходов -->
+        <div class="section">
+            <div class="section-title">6. Запрещается при сборе медицинских отходов</div>
+            <ul class="prohibit-list">
+                <li>Вручную разрушать, разрезать отходы классов «Б» и «В» в целях их обеззараживания</li>
+                <li>Снимать вручную иглу со шприца после его использования, надевать колпачок на иглу после инъекции</li>
+                <li>Прессовать контейнеры с иглами, конструкция которых допускает рассыпание игл после прессования</li>
+                <li>Пересыпать (перегружать) неупакованные отходы классов «Б» и «В» из одной емкости в другую</li>
+                <li>Утрамбовывать отходы классов «Б» и «В»</li>
+                <li>Осуществлять любые операции с отходами без перчаток или необходимых средств индивидуальной защиты</li>
+                <li>Использовать мягкую одноразовую упаковку для сбора острого медицинского инструментария</li>
+                <li>Устанавливать емкости для сбора отходов на расстоянии менее 1 метра от нагревательных приборов</li>
+            </ul>
+        </div>
+        
+        <!-- 7. Аварийные ситуации -->
+        <div class="section">
+            <div class="section-title">7. Аварийные ситуации</div>
+            <div class="important">
+                <strong>❗ При получении травмы (укол, порез с нарушением целостности кожных покровов или слизистых):</strong> необходимо принять меры экстренной профилактики ВИЧ-инфекции. На рабочем месте должна быть мини-укладка первой медицинской помощи для профилактики ВИЧ-инфекции.
+            </div>
+            <p style="margin-top: 1rem;"><strong>Порядок действий:</strong></p>
+            <ul class="norm-list">
+                <li>Внести запись в <strong>журнал учета аварийных ситуаций</strong></li>
+                <li>Составить <strong>акт о несчастном случае на производстве</strong> с указанием даты, времени, места, характера травмы</li>
+                <li>Подробно описать ситуацию, использование СИЗ, соблюдение правил техники безопасности</li>
+                <li>Указать лиц, находившихся на месте травмы, и примененный метод экстренной профилактики</li>
+            </ul>
+            <div class="note">
+                <strong>🏥 Обследование на ВИЧ и постконтактная профилактика:</strong> проводится в Московском городском центре профилактики и борьбы со СПИДОМ (8-я ул. Соколиной горы, д. 15, корп. 5). Прием антиретровирусных препаратов должен быть начат <strong>в течение первых двух часов после аварии, но не позднее 72 часов</strong>.
+            </div>
+        </div>
+        
+        <!-- 8. Учет и контроль -->
+        <div class="section">
+            <div class="section-title">8. Учет и контроль за движением медицинских отходов</div>
+            <ul class="norm-list">
+                <li>При сдаче отходов класса «Б» предоставляется <strong>акт обеззараживания отходов</strong> (на каждую партию)</li>
+                <li>Организация-перевозчик предоставляет акт приемки-передачи и талон учета вывоза отходов</li>
+                <li>После вывоза и утилизации организация-перевозчик предоставляет <strong>талон учета с отметкой об уничтожении (размещении) отходов</strong></li>
+                <li>Талон учета является документом строгой бухгалтерской отчетности</li>
+                <li>Талоны сдаются в бухгалтерию до <strong>05 числа месяца</strong>, следующего за прошедшим</li>
+            </ul>
+        </div>
+        
+        <!-- 9. Нормативные документы -->
+        <div class="section">
+            <div class="section-title">9. Основные нормативные документы</div>
+            <ul class="norm-list">
+                <li>Федеральный закон от 21.11.2011 № 323-ФЗ «Об основах охраны здоровья граждан в Российской Федерации», статья 49</li>
+                <li>СанПиН 2.1.3684-21 «Санитарно-эпидемиологические требования к содержанию территорий...», раздел X</li>
+                <li>СанПиН 3.3686-21, раздел XLIV «Профилактика инфекций, связанных с оказанием медицинской помощи»</li>
+                <li>Постановление Правительства РФ от 04.07.2012 № 681 «Об утверждении критериев разделения медицинских отходов на классы...»</li>
+            </ul>
+        </div>
+        
+        <hr>
+        
+        <div class="subnote">
+            📋 <strong>Важно:</strong> Медицинские отходы представляют эпидемиологическую опасность для персонала. При неосторожном обращении с отходами, контаминированными биологическими жидкостями пациентов, возможно инфицирование гемоконтактными инфекциями (ВИЧ, гепатиты В и С).<br><br>
+            🔍 <em>Документ подготовлен на основе СанПиН 2.1.7.2790-10, СанПиН 2.1.3684-21, СанПиН 3.3686-21 и внутренних регламентов Станции скорой и неотложной медицинской помощи.</em>
+        </div>
+        
+    </div>
+</div>
+</body>
+</html>
