@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Карта вызова СМП | Роды в машине (новорожденный)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #e2e8f0;
+            font-family: 'Segoe UI', 'Roboto', 'Inter', system-ui, sans-serif;
+            line-height: 1.5;
+            padding: 32px 24px;
+            color: #1a2c3e;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .medical-card {
+            background: #ffffff;
+            border-radius: 28px;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #2d6a4f 0%, #1b4d3a 100%);
+            padding: 20px 32px;
+            color: white;
+            border-bottom: 4px solid #ffb347;
+        }
+
+        .card-header .mkb {
+            font-size: 14px;
+            opacity: 0.9;
+            font-family: monospace;
+        }
+
+        .card-header .warning {
+            font-size: 12px;
+            opacity: 0.85;
+            margin-top: 8px;
+            background: rgba(255,255,255,0.15);
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+
+        .card-content {
+            padding: 28px 36px;
+        }
+
+        .exam-block {
+            margin-bottom: 28px;
+            border: 1px solid #e2edf2;
+            border-radius: 20px;
+            overflow: hidden;
+            background: white;
+        }
+
+        .block-title {
+            background: #f1f6fb;
+            padding: 14px 24px;
+            font-weight: 800;
+            font-size: 18px;
+            color: #0b5e7c;
+            border-left: 5px solid #ffb347;
+            letter-spacing: -0.2px;
+        }
+
+        .block-content {
+            padding: 20px 28px;
+            background: #fefefe;
+            font-size: 15px;
+            line-height: 1.55;
+            color: #1e3a4f;
+            text-align: left;
+        }
+
+        .field-row {
+            margin-bottom: 12px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 8px;
+            text-align: left;
+        }
+
+        .field-label {
+            font-weight: 700;
+            color: #1c6d8f;
+            min-width: 220px;
+            font-size: 14px;
+        }
+
+        .field-value {
+            flex: 1;
+            color: #1e2f3c;
+            text-align: left;
+        }
+
+        .inline-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            margin: 12px 0;
+            text-align: left;
+        }
+
+        .inline-item {
+            flex: 1;
+            min-width: 180px;
+            text-align: left;
+        }
+
+        .diagnosis-box {
+            background: #fefaf5;
+            border-left: 4px solid #ffb347;
+            padding: 16px 20px;
+            border-radius: 16px;
+            margin-bottom: 8px;
+            text-align: left;
+        }
+
+        .diagnosis-box div {
+            margin-bottom: 8px;
+            text-align: left;
+        }
+
+        .status-local {
+            background: #f9fef7;
+            border-left: 4px solid #2c9c6e;
+            padding: 16px 20px;
+            border-radius: 16px;
+            margin-top: 8px;
+            text-align: left;
+        }
+
+        .status-local div {
+            margin-bottom: 8px;
+            text-align: left;
+        }
+
+        .apgar-table {
+            background: #f0f4fa;
+            padding: 16px 20px;
+            border-radius: 16px;
+            margin: 12px 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: space-around;
+        }
+
+        .apgar-item {
+            text-align: center;
+        }
+
+        .apgar-score {
+            font-size: 32px;
+            font-weight: 800;
+            color: #0b5e7c;
+        }
+
+        .scales-box {
+            background: #f0f4fa;
+            padding: 16px 20px;
+            border-radius: 16px;
+            margin: 12px 0;
+        }
+
+        .scale-item {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .scale-label {
+            font-weight: 700;
+            color: #1c6d8f;
+            min-width: 180px;
+        }
+
+        .alert-note {
+            background: #e8f5e9;
+            border-left: 4px solid #2e7d32;
+            padding: 12px 16px;
+            border-radius: 12px;
+            margin-top: 16px;
+            font-size: 13px;
+        }
+
+        hr {
+            margin: 16px 0;
+            border: none;
+            height: 1px;
+            background: #e2ecf3;
+        }
+
+        .footer-note {
+            font-size: 13px;
+            color: #6c8eaa;
+            text-align: right;
+        }
+
+        @media (max-width: 700px) {
+            .card-content {
+                padding: 18px;
+            }
+            .block-content {
+                padding: 14px 18px;
+            }
+            .field-label {
+                min-width: 140px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="medical-card">
+        <div class="card-header">
+            <div class="mkb">МКБ-10: Z00.1 — Плановое общее обследование состояния здоровья ребенка (новорожденный после родов в машине СМП)</div>
+            <div class="warning">👶 Новорожденный | Состояние после срочных родов в машине СМП | Первичный туалет проведен</div>
+        </div>
+        <div class="card-content">
+
+            <!-- ДИАГНОЗ -->
+            <div class="exam-block">
+                <div class="block-title">ДИАГНОЗ / ОСНОВНОЕ СОСТОЯНИЕ</div>
+                <div class="block-content">
+                    <div class="diagnosis-box">
+                        <div><strong>Основное состояние:</strong> Новорожденный ребенок. Состояние после самопроизвольных срочных родов в машине скорой медицинской помощи. Первичный туалет новорожденного произведен. Оценка по шкале Апгар 8/9 баллов.</div>
+                        <div><strong>Осложнения:</strong> Не выявлены.</div>
+                        <div><strong>Сопутствующие состояния:</strong> Физиологическое состояние новорожденного. Группа здоровья I.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ОЦЕНКА ПО ШКАЛЕ АПГАР -->
+            <div class="exam-block">
+                <div class="block-title">ОЦЕНКА ПО ШКАЛЕ АПГАР</div>
+                <div class="block-content">
+                    <div class="apgar-table">
+                        <div class="apgar-item">
+                            <div class="apgar-score">8</div>
+                            <div>1-я минута</div>
+                        </div>
+                        <div class="apgar-item">
+                            <div class="apgar-score">9</div>
+                            <div>5-я минута</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- АНАМНЕЗ -->
+            <div class="exam-block">
+                <div class="block-title">АНАМНЕЗ (акушерский, эпидемиологический)</div>
+                <div class="block-content">
+                    <div class="field-row">
+                        <span class="field-label">Акушерский анамнез матери:</span>
+                        <span class="field-value">Беременность по счету: 2, роды по счету: 2. Настоящая беременность: протекала без осложнений. Наблюдалась в женской консультации с 12 недель. УЗИ – без патологии. Срок беременности на момент родов: 39–40 недель (доношенная беременность).</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Роды:</span>
+                        <span class="field-value">Самопроизвольное родоразрешение в машине скорой медицинской помощи. Стремительные роды в пути следования в родильный дом. Роды приняты бригадой СМП. Положение плода – головное предлежание, пособий не требовалось. Пуповина пересечена и обработана, первичный туалет новорожденного проведен в полном объеме. Контакт «кожа к коже» обеспечен, раннее прикладывание к груди.</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Масса и рост:</span>
+                        <span class="field-value">Масса тела: 3350 г, длина тела: 51 см, окружность головки: 35 см, окружность груди: 34 см.</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Околоплодные воды:</span>
+                        <span class="field-value">Светлые, прозрачные. Количество: нормальное. Безводный промежуток: 2 часа.</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Группа крови и Rh:</span>
+                        <span class="field-value">Мать: 0(I) Rh+, ребенок (экспресс-метод): 0(I) Rh+.</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Профилактика гонобленнореи:</span>
+                        <span class="field-value">Проведена (раствор сульфацила натрия 20% в оба глаза).</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Терморегуляция:</span>
+                        <span class="field-value">Ребенок укутан в стерильные теплые пеленки, одеяло, шапочка на голове. Температура тела при осмотре: 36,8 °С.</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Эпидемиологический анамнез (мать):</span>
+                        <span class="field-value">Контакта с инфекционными больными отрицает. Аллергологический анамнез не отягощен.</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Гинекологический анамнез (мать):</span>
+                        <span class="field-value">Менархе с 13 лет, цикл регулярный. Беременностей – 2, родов – 2. Абортов – 0. Гинекологические заболевания отрицает. ИППП отрицает.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ОБЪЕКТИВНО (новорожденный) -->
+            <div class="exam-block">
+                <div class="block-title">ОБЪЕКТИВНО (новорожденный)</div>
+                <div class="block-content">
+                    <div class="inline-group">
+                        <div class="inline-item"><strong>Состояние:</strong> удовлетворительное</div>
+                        <div class="inline-item"><strong>Сознание:</strong> ясное, активен</div>
+                        <div class="inline-item"><strong>Положение:</strong> физиологическое (поза эмбриона)</div>
+                    </div>
+                    <div class="field-row"><span class="field-label">Крик:</span><span class="field-value">Громкий, эмоциональный.</span></div>
+                    <div class="field-row"><span class="field-label">Кожные покровы:</span><span class="field-value">Розовые, акроцианоз стоп и кистей (физиологический). Токсическая эритема – единичные элементы. Родовая опухоль в теменной области 2,0 х 2,0 см, безболезненная. Кефалогематома: нет.</span></div>
+                    <div class="field-row"><span class="field-label">Слизистые оболочки:</span><span class="field-value">Розовые, влажные, чистые.</span></div>
+                    <div class="field-row"><span class="field-label">Лимфоузлы:</span><span class="field-value">Пальпируются единичные шейные, подмышечные, паховые – мелкие (до 0,3 см), эластичные, безболезненные.</span></div>
+                    <div class="field-row"><span class="field-label">Температура тела:</span><span class="field-value">36,8 °С.</span></div>
+                </div>
+            </div>
+
+            <!-- ОРГАНЫ ДЫХАНИЯ -->
+            <div class="exam-block">
+                <div class="block-title">ОРГАНЫ ДЫХАНИЯ</div>
+                <div class="block-content">
+                    <div class="field-row"><span class="field-label">ЧДД:</span><span class="field-value">42 в мин.</span></div>
+                    <div class="field-row"><span class="field-label">Одышка, апноэ, втяжения:</span><span class="field-value">Нет.</span></div>
+                    <div class="field-row"><span class="field-label">Аускультативно:</span><span class="field-value">Дыхание пуэрильное, проводится во все отделы, симметричное, хрипов нет.</span></div>
+                </div>
+            </div>
+
+            <!-- ОРГАНЫ КРОВООБРАЩЕНИЯ -->
+            <div class="exam-block">
+                <div class="block-title">ОРГАНЫ КРОВООБРАЩЕНИЯ</div>
+                <div class="block-content">
+                    <div class="field-row"><span class="field-label">Пульс, ЧСС:</span><span class="field-value">140 в мин, ритмичный, удовлетворительного наполнения.</span></div>
+                    <div class="field-row"><span class="field-label">АД:</span><span class="field-value">70/45 мм рт.ст. (на правой руке).</span></div>
+                    <div class="field-row"><span class="field-label">Тоны сердца:</span><span class="field-value">Ясные, ритмичные. Шумы не выслушиваются. Пульсация на бедренных артериях сохранена.</span></div>
+                </div>
+            </div>
+
+            <!-- ОРГАНЫ ПИЩЕВАРЕНИЯ -->
+            <div class="exam-block">
+                <div class="block-title">ОРГАНЫ ПИЩЕВАРЕНИЯ</div>
+                <div class="block-content">
+                    <div class="field-row"><span class="field-label">Язык, слизистая рта:</span><span class="field-value">Влажный, чистый, розовая, влажная.</span></div>
+                    <div class="field-row"><span class="field-label">Живот:</span><span class="field-value">Округлой формы, мягкий, не вздут, участвует в акте дыхания, безболезненный.</span></div>
+                    <div class="field-row"><span class="field-label">Печень:</span><span class="field-value">Пальпируется на 1,5 см ниже края реберной дуги, край эластичный, безболезненный.</span></div>
+                    <div class="field-row"><span class="field-label">Селезенка:</span><span class="field-value">Не пальпируется.</span></div>
+                    <div class="field-row"><span class="field-label">Пупочный канатик:</span><span class="field-value">Остаток пуповины длиной 2,0 см, сухой, без признаков воспаления. Обработан спиртом 70% и раствором калия перманганата 5%. Кожа вокруг пупочного кольца чистая, без гиперемии.</span></div>
+                    <div class="field-row"><span class="field-label">Стул:</span><span class="field-value">Меконий отошел, темно-зеленый, вязкий, без патологических примесей.</span></div>
+                </div>
+            </div>
+
+            <!-- НЕРВНАЯ СИСТЕМА -->
+            <div class="exam-block">
+                <div class="block-title">НЕРВНАЯ СИСТЕМА</div>
+                <div class="block-content">
+                    <div class="field-row"><span class="field-label">Поведение, мышечный тонус:</span><span class="field-value">Спокойное. Физиологический гипертонус сгибателей.</span></div>
+                    <div class="field-row"><span class="field-label">Безусловные рефлексы:</span><span class="field-value">Сосательный, поисковый, хватательный, рефлекс Моро, опоры и автоматической походки, ползания Бауэра, защитный, Галанта, Переса – вызываются, живые, симметричные.</span></div>
+                    <div class="field-row"><span class="field-label">Зрачки:</span><span class="field-value">OD = OS, округлые, средней величины. Реакция на свет живая, содружественная. Нистагм отсутствует.</span></div>
+                    <div class="field-row"><span class="field-label">Роднички:</span><span class="field-value">Большой родничок: 2,0 х 2,0 см, не напряжен, не выбухает, пульсирует. Малый родничок: 0,5 х 0,5 см, открыт. Кости черепа плотные, подвижность в области швов физиологическая.</span></div>
+                    <div class="field-row"><span class="field-label">Менингеальные симптомы, очаговая симптоматика:</span><span class="field-value">Отрицательные.</span></div>
+                </div>
+            </div>
+
+            <!-- МОЧЕПОЛОВАЯ СИСТЕМА -->
+            <div class="exam-block">
+                <div class="block-title">МОЧЕПОЛОВАЯ СИСТЕМА</div>
+                <div class="block-content">
+                    <div class="field-row"><span class="field-label">Мочеиспускание:</span><span class="field-value">Первое мочеиспускание через 20 минут после рождения. Моча светлая, прозрачная.</span></div>
+                    <div class="field-row"><span class="field-label">Наружные половые органы:</span><span class="field-value">Развиты правильно, по женскому/мужскому типу, соответственно сроку гестации. Яички (у мальчиков) пальпируются в мошонке. Анус сформирован, имперфорации нет.</span></div>
+                </div>
+            </div>
+
+            <!-- STATUS LOCALIS -->
+            <div class="exam-block">
+                <div class="block-title">STATUS LOCALIS</div>
+                <div class="block-content">
+                    <div class="status-local">
+                        <div><strong>Кожа и подкожно-жировая клетчатка:</strong> Осмотрены полностью. Сыпи, гнойничков, мацераций нет. Родовая опухоль в теменной области 2,0 х 2,0 см. Кефалогематома отсутствует.</div>
+                        <div><strong>Костно-суставная система:</strong> Движения в полном объеме во всех суставах. Симптом «щелчка» при отведении бедер отрицательный. Косолапость, синдактилия, полидактилия не выявлены.</div>
+                        <div><strong>Видимые пороки развития:</strong> Не выявлены.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ОЦЕНКА ПО ШКАЛАМ -->
+            <div class="exam-block">
+                <div class="block-title">ОЦЕНКА ПО ШКАЛАМ И ФИЗИЧЕСКОЕ РАЗВИТИЕ</div>
+                <div class="block-content">
+                    <div class="scales-box">
+                        <div class="scale-item">
+                            <span class="scale-label">Шкала NEWS2 (педиатрическая):</span>
+                            <span>0 баллов (ЧДД 42, SpO2 не измерялось, ЧСС 140, сознание ясное, t° 36,8). Риск низкий.</span>
+                        </div>
+                        <div class="scale-item">
+                            <span class="scale-label">Оценка физического развития:</span>
+                            <span>Масса тела 3350 г (50–75 центиль), длина тела 51 см (50–75 центиль). Показатели соответствуют сроку гестации, гармоничное развитие.</span>
+                        </div>
+                        <div class="scale-item">
+                            <span class="scale-label">Гестационный возраст:</span>
+                            <span>Доношенный, срок 39–40 недель.</span>
+                        </div>
+                        <div class="scale-item">
+                            <span class="scale-label">Оценка риска гипотермии:</span>
+                            <span>Температура тела 36,8 °С – норма.</span>
+                        </div>
+                        <div class="scale-item">
+                            <span class="scale-label">Оценка риска инфекции:</span>
+                            <span>Безводный промежуток 2 часа – риск низкий.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ДИФФЕРЕНЦИАЛЬНАЯ ДИАГНОСТИКА И ТАКТИКА -->
+            <div class="exam-block">
+                <div class="block-title">ПРИМЕЧАНИЕ ДЛЯ БРИГАДЫ СМП</div>
+                <div class="block-content">
+                    <div class="alert-note">
+                        <strong>Ключевые задачи бригады СМП после родов в машине:</strong><br>
+                        1. Первичная оценка состояния новорожденного по шкале Апгар, стабилизация состояния.<br>
+                        2. Первичный туалет новорожденного: отсасывание слизи из верхних дыхательных путей, пересечение и обработка пуповины, обработка кожных покровов.<br>
+                        3. Профилактика гонобленнореи: закапывание 20% раствора сульфацила натрия в оба глаза.<br>
+                        4. Терморегуляция: обеспечение «тепловой цепочки» – немедленное высушивание, удаление влажных пеленок, контакт «кожа к коже» с матерью, укутывание в теплые стерильные пеленки и одеяло, шапочка на голову.<br>
+                        5. Оценка признаков недоношенности, гипотрофии, врожденных пороков развития.<br>
+                        6. Транспортировка в родильный дом: новорожденный в кювезе/на руках у матери, обеспечение температурного режима, мониторинг состояния каждые 15 минут.<br><br>
+                        <strong>Дифференциальная диагностика (физиологические состояния vs патология):</strong><br>
+                        — Физиологические состояния: акроцианоз, токсическая эритема, половой криз, физиологическая убыль массы тела, транзиторное тахипноэ.<br>
+                        — Патологические состояния, требующие неотложной помощи: врожденная пневмония (одышка, втяжение, интоксикация), синдром дыхательных расстройств (тахипноэ, экспираторный стон), внутричерепная родовая травма (угнетение сознания, судороги, выбухание родничка), гемолитическая болезнь новорожденных (желтуха в первые часы, гепатоспленомегалия), врожденные пороки сердца (цианоз, шумы).
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+            <div class="footer-note">
+                Z00.1 — Новорожденный после родов в машине СМП | Состояние удовлетворительное | Передача в родильный дом совместно с матерью
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
