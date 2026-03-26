@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Экстренная профилактика ВИЧ-инфекции - Порядок действий</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: transparent;
+            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.5;
+            color: #1e2a3e;
+            padding: 20px 0;
+        }
+        .document-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+        .document-header {
+            background: linear-gradient(135deg, #c2185b 0%, #8b1e4a 100%);
+            color: white;
+            padding: 1.5rem 2rem;
+            border-bottom: 4px solid #ffd966;
+        }
+        .document-header h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .document-header p {
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+        .document-content {
+            padding: 2rem;
+        }
+        /* Стили для разделов */
+        .section {
+            margin-bottom: 2rem;
+            border-left: 4px solid #c2185b;
+            padding-left: 1.25rem;
+        }
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #c2185b;
+            margin-bottom: 1rem;
+            display: inline-block;
+            border-bottom: 2px solid #ffd966;
+            padding-bottom: 0.25rem;
+        }
+        .subsection-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #9b2c5c;
+            margin: 1.25rem 0 0.75rem 0;
+        }
+        /* Списки */
+        .procedure-list {
+            list-style: none;
+            padding-left: 0;
+            margin: 0.75rem 0;
+        }
+        .procedure-list li {
+            padding-left: 1.8rem;
+            position: relative;
+            margin-bottom: 0.75rem;
+            line-height: 1.5;
+        }
+        .procedure-list li::before {
+            content: "●";
+            color: #c2185b;
+            font-weight: bold;
+            font-size: 1rem;
+            position: absolute;
+            left: 0.25rem;
+            top: 0;
+        }
+        .numbered-list {
+            list-style: none;
+            padding-left: 0;
+            margin: 0.75rem 0;
+            counter-reset: step-counter;
+        }
+        .numbered-list li {
+            padding-left: 2.2rem;
+            position: relative;
+            margin-bottom: 0.75rem;
+            counter-increment: step-counter;
+        }
+        .numbered-list li::before {
+            content: counter(step-counter) ".";
+            color: #c2185b;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        /* Карточки */
+        .alert-card {
+            background: #ffebee;
+            border-left: 5px solid #d32f2f;
+            padding: 1rem 1.25rem;
+            margin: 1rem 0;
+            border-radius: 0 12px 12px 0;
+        }
+        .info-card {
+            background: #e3f2fd;
+            border-left: 5px solid #1976d2;
+            padding: 1rem 1.25rem;
+            margin: 1rem 0;
+            border-radius: 0 12px 12px 0;
+        }
+        .warning-card {
+            background: #fff3e0;
+            border-left: 5px solid #ff9800;
+            padding: 1rem 1.25rem;
+            margin: 1rem 0;
+            border-radius: 0 12px 12px 0;
+        }
+        .badge {
+            display: inline-block;
+            background: #c2185b;
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 0.2rem 0.7rem;
+            border-radius: 20px;
+            margin-right: 0.5rem;
+            vertical-align: middle;
+        }
+        .badge-red {
+            background: #d32f2f;
+        }
+        .badge-blue {
+            background: #1976d2;
+        }
+        .badge-orange {
+            background: #f57c00;
+        }
+        .highlight {
+            background-color: #ffecb3;
+            padding: 0.1rem 0.3rem;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+        /* Таблица */
+        .med-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+        }
+        .med-table th, .med-table td {
+            border: 1px solid #e2e8f0;
+            padding: 0.75rem;
+            text-align: left;
+            vertical-align: top;
+        }
+        .med-table th {
+            background: #fbe9f0;
+            font-weight: 700;
+            color: #c2185b;
+        }
+        .med-table tr:hover {
+            background: #fef5f8;
+        }
+        .table-caption {
+            font-size: 0.8rem;
+            color: #5a6e85;
+            margin-top: 0.5rem;
+        }
+        hr {
+            margin: 1.5rem 0;
+            border: none;
+            height: 1px;
+            background: linear-gradient(90deg, #e2e8f0, transparent);
+        }
+        .note {
+            background-color: #f8fafc;
+            padding: 0.75rem 1rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+            border: 1px solid #e2e8f0;
+        }
+        .subnote {
+            font-size: 0.85rem;
+            color: #5a6e85;
+            margin-top: 1rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid #e2e8f0;
+        }
+        @media (max-width: 768px) {
+            .document-content {
+                padding: 1rem;
+            }
+            .section {
+                padding-left: 0.75rem;
+            }
+            .section-title {
+                font-size: 1.2rem;
+            }
+            .med-table th, .med-table td {
+                padding: 0.5rem;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="document-container">
+    <div class="document-header">
+        <h1>🩸 Экстренная профилактика ВИЧ-инфекции</h1>
+        <p>Порядок действий при аварийных ситуациях (порезы, уколы, попадание биологических жидкостей)</p>
+    </div>
+    <div class="document-content">
+        
+        <!-- 1. Действия при аварийных ситуациях -->
+        <div class="section">
+            <div class="section-title">1. Действия при аварийных ситуациях</div>
+            
+            <div class="alert-card">
+                <strong>⚠️ ВАЖНО!</strong> При получении травмы, потенциально опасной в плане инфицирования ВИЧ, гепатитами В и С, необходимо немедленно принять меры экстренной профилактики.
+            </div>
+            
+            <div class="subsection-title">1.1. При порезах и уколах</div>
+            <ul class="numbered-list">
+                <li>Немедленно снять перчатки</li>
+                <li>Вымыть руки с мылом под проточной водой</li>
+                <li>Обработать руки <strong>70% раствором этилового спирта</strong></li>
+                <li>Смазать ранку <strong>5% спиртовым раствором йода</strong></li>
+            </ul>
+            
+            <div class="subsection-title">1.2. При попадании крови или биологических жидкостей на кожные покровы</div>
+            <ul class="numbered-list">
+                <li>Обработать участок кожи <strong>70% раствором этилового спирта</strong></li>
+                <li>Обмыть водой с мылом</li>
+                <li>Повторно обработать <strong>70% раствором этилового спирта</strong></li>
+            </ul>
+            
+            <div class="subsection-title">1.3. При попадании на слизистые оболочки</div>
+            <ul class="numbered-list">
+                <li><strong>Ротовая полость:</strong> промыть большим количеством воды и прополоскать <strong>70% раствором этилового спирта</strong></li>
+                <li><strong>Слизистая носа и глаза:</strong> обильно промыть водой <strong>(не тереть!)</strong></li>
+            </ul>
+            
+            <div class="subsection-title">1.4. При попадании на спецодежду</div>
+            <ul class="numbered-list">
+                <li>Место загрязнения обработать дезинфицирующим средством</li>
+                <li>Руки в перчатках обработать салфеткой, смоченной дезинфицирующим средством</li>
+                <li>Снять перчатки</li>
+                <li>Руки вымыть и дважды обработать спиртосодержащим антисептиком или <strong>70% этиловым спиртом</strong></li>
+                <li>Использованные перчатки удалить как <strong>медицинские отходы класса Б</strong></li>
+                <li>После выполнения вызова и по прибытии на подстанцию сменить загрязненную одежду, погрузить в дезинфицирующий раствор</li>
+            </ul>
+        </div>
+        
+        <!-- 2. Доклад и направление -->
+        <div class="section">
+            <div class="section-title">2. Доклад и направление пострадавшего</div>
+            
+            <ul class="procedure-list">
+                <li><strong>Немедленно доложить</strong> об аварийной ситуации руководителю структурного подразделения (в нерабочее время – ответственному фельдшеру по приему вызовов)</li>
+                <li>Доложить ответственному старшему врачу дежурной смены оперативного отдела</li>
+            </ul>
+            
+            <div class="info-card">
+                <strong>🏥 Пострадавший направляется для проведения обследования и постконтактной профилактики заражения ВИЧ-инфекцией в:</strong><br>
+                <strong>Московский городской центр профилактики и борьбы со СПИДОМ</strong><br>
+                ГБУЗ «Инфекционная клиническая больница № 2 ДЗМ»<br>
+                <strong>📍 Адрес:</strong> г. Москва, 8-я ул. Соколиной горы, д. 15, корп. 5, каб. 330<br>
+                <strong>🕒 Часы работы:</strong> по рабочим дням с 8:30 до 15:00
+            </div>
+            
+            <div class="warning-card">
+                <strong>📄 Важно:</strong> Пострадавшему оформляется направление. Бланки направлений на обследование и постконтактную профилактику находятся в папке документации персонала выездной бригады.
+            </div>
+        </div>
+        
+        <!-- 3. Укладка экстренной профилактики -->
+        <div class="section">
+            <div class="section-title">3. Укладка экстренной профилактики парентеральных инфекций</div>
+            
+            <div class="subsection-title">3.1. Лекарственные препараты</div>
+            <table class="med-table">
+                <thead>
+                    <tr><th colspan="2">Антисептики и дезинфицирующие средства</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="width: 40%;"><strong>Йод (калия йодид + этанол)</strong></td>
+                        <td>Раствор для наружного применения 5%</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Этанол</strong></td>
+                        <td>Раствор для наружного применения 70%</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="subsection-title">3.2. Медицинские изделия</div>
+            <table class="med-table">
+                <thead>
+                    <tr><th>Наименование медицинского изделия</th><th style="width: 100px;">Количество</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Бинт марлевый стерильный (5 м х 10 см)</td><td>2 шт.</td></tr>
+                    <tr><td>Лейкопластырь бактерицидный (не менее 1.9 см х 7,2 см)</td><td>3 шт.</td></tr>
+                    <tr><td>Салфетка марлевая медицинская стерильная (не менее 16 см х 14 см, № 10)</td><td>1 уп.</td></tr>
+                </tbody>
+            </table>
+            
+            <div class="note">
+                <strong>📌 Примечания:</strong>
+                <ul style="margin-top: 0.5rem; margin-left: 1.5rem;">
+                    <li>Укладка комплектуется лекарственными препаратами и медицинскими изделиями, зарегистрированными в Российской Федерации</li>
+                    <li>Укладка размещается в чехле (контейнере) с прочными замками. Материал должен обеспечивать многократную дезинфекцию</li>
+                    <li>Флакон с 5% спиртовым раствором йода хранится в <strong>прозрачном футляре с плотно-прилегающей завинчивающейся крышкой</strong> (для исключения летучести паров йода)</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- 4. Требования к хранению и использованию -->
+        <div class="section">
+            <div class="section-title">4. Требования к хранению и использованию</div>
+            
+            <ul class="procedure-list">
+                <li>В автомобилях скорой и неотложной медицинской помощи лекарственные препараты и медицинские изделия хранятся <strong>отдельно упакованные</strong> с перечнем в медицинской укладке</li>
+                <li>По истечению сроков годности лекарственные препараты, медицинские изделия подлежат <strong>списанию и уничтожению (утилизации)</strong> в соответствии с законодательством РФ</li>
+                <li>В случае использования препаратов, укладку необходимо <strong>пополнить</strong></li>
+                <li><strong>Не допускается</strong> использование медицинских изделий при нарушении их стерильности</li>
+                <li><strong>Не допускается</strong> использование, в том числе повторное, лекарственных препаратов, медицинских изделий, загрязненных кровью и (или) другими биологическими жидкостями</li>
+                <li>Бланки направлений на обследование и постконтактную профилактику заражения ВИЧ-инфекцией должны находиться в папке с документами бригады в автомобиле в количестве <strong>не менее трех экземпляров</strong></li>
+            </ul>
+        </div>
+        
+        <!-- 5. Дополнительная информация -->
+        <div class="section">
+            <div class="section-title">5. Важная информация</div>
+            
+            <div class="alert-card">
+                <strong>⏰ Критическое время!</strong><br>
+                Прием антиретровирусных препаратов для постконтактной профилактики ВИЧ-инфекции должен быть начат <strong>в течение первых двух часов после аварии, но не позднее 72 часов</strong>.
+            </div>
+            
+            <div class="info-card">
+                <strong>📋 Документальное оформление аварийной ситуации:</strong>
+                <ul style="margin-top: 0.5rem; margin-left: 1.5rem;">
+                    <li>Запись в карте вызова с подробным описанием обстоятельств</li>
+                    <li>Объяснительная записка пострадавшего</li>
+                    <li>Акт расследования травмы</li>
+                    <li>Запись в журнале учета аварийных ситуаций</li>
+                    <li>Рапорт на имя главного врача</li>
+                </ul>
+            </div>
+            
+            <div class="warning-card">
+                <strong>🧤 Средства индивидуальной защиты:</strong> При работе с биологическими жидкостями и медицинскими отходами необходимо использовать перчатки, маски, защитные очки, фартуки. Смена спецодежды производится централизованно.
+            </div>
+        </div>
+        
+        <hr>
+        
+        <div class="subnote">
+            🔬 <strong>Помните:</strong> каждый пациент рассматривается как потенциальный источник гемоконтактных инфекций (ВИЧ, гепатиты В и С). Строгое соблюдение правил безопасности при работе с биологическими жидкостями и медицинскими отходами — основа профилактики профессионального инфицирования.<br><br>
+            📖 <em>Документ разработан на основании СанПиН 3.3686-21 «Профилактика инфекций, связанных с оказанием медицинской помощи» и внутренних регламентов Станции скорой и неотложной медицинской помощи.</em>
+        </div>
+        
+    </div>
+</div>
+</body>
+</html>
