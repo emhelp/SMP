@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Карта вызова СМП | Неразвивающаяся беременность</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #e2e8f0;
+            font-family: 'Segoe UI', 'Roboto', 'Inter', system-ui, sans-serif;
+            line-height: 1.5;
+            padding: 32px 24px;
+            color: #1a2c3e;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .medical-card {
+            background: #ffffff;
+            border-radius: 28px;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #6b4e3a 0%, #4a3526 100%);
+            padding: 20px 32px;
+            color: white;
+            border-bottom: 4px solid #ffb347;
+        }
+
+        .card-header .mkb {
+            font-size: 14px;
+            opacity: 0.9;
+            font-family: monospace;
+        }
+
+        .card-header .warning {
+            font-size: 12px;
+            opacity: 0.85;
+            margin-top: 8px;
+            background: rgba(255,255,255,0.15);
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+
+        .card-content {
+            padding: 28px 36px;
+        }
+
+        .exam-block {
+            margin-bottom: 28px;
+            border: 1px solid #e2edf2;
+            border-radius: 20px;
+            overflow: hidden;
+            background: white;
+        }
+
+        .block-title {
+            background: #f1f6fb;
+            padding: 14px 24px;
+            font-weight: 800;
+            font-size: 18px;
+            color: #0b5e7c;
+            border-left: 5px solid #ffb347;
+            letter-spacing: -0.2px;
+        }
+
+        .block-content {
+            padding: 20px 28px;
+            background: #fefefe;
+            font-size: 15px;
+            line-height: 1.55;
+            color: #1e3a4f;
+            text-align: left;
+        }
+
+        .field-row {
+            margin-bottom: 12px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 8px;
+            text-align: left;
+        }
+
+        .field-label {
+            font-weight: 700;
+            color: #1c6d8f;
+            min-width: 220px;
+            font-size: 14px;
+        }
+
+        .field-value {
+            flex: 1;
+            color: #1e2f3c;
+            text-align: left;
+        }
+
+        .inline-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            margin: 12px 0;
+            text-align: left;
+        }
+
+        .inline-item {
+            flex: 1;
+            min-width: 180px;
+            text-align: left;
+        }
+
+        .diagnosis-box {
+            background: #fefaf5;
+            border-left: 4px solid #ffb347;
+            padding: 16px 20px;
+            border-radius: 16px;
+            margin-bottom: 8px;
+            text-align: left;
+        }
+
+        .diagnosis-box div {
+            margin-bottom: 8px;
+            text-align: left;
+        }
+
+        .status-local {
+            background: #f9fef7;
+            border-left: 4px solid #2c9c6e;
+            padding: 16px 20px;
+            border-radius: 16px;
+            margin-top: 8px;
+            text-align: left;
+        }
+
+        .status-local div {
+            margin-bottom: 8px;
+            text-align: left;
+        }
+
+        .key-signs {
+            background: #f0f4fa;
+            padding: 16px 20px;
+            border-radius: 16px;
+            margin: 12px 0;
+        }
+
+        .key-signs p {
+            margin-bottom: 6px;
+        }
+
+        .alert-note {
+            background: #fff3e0;
+            border-left: 4px solid #ff9800;
+            padding: 12px 16px;
+            border-radius: 12px;
+            margin-top: 16px;
+            font-size: 13px;
+        }
+
+        hr {
+            margin: 16px 0;
+            border: none;
+            height: 1px;
+            background: #e2ecf3;
+        }
+
+        .footer-note {
+            font-size: 13px;
+            color: #6c8eaa;
+            text-align: right;
+        }
+
+        @media (max-width: 700px) {
+            .card-content {
+                padding: 18px;
+            }
+            .block-content {
+                padding: 14px 18px;
+            }
+            .field-label {
+                min-width: 140px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="medical-card">
+        <div class="card-header">
+            <div class="mkb">МКБ-10: O02.0 — Погибшее плодное яйцо и неразвивающаяся беременность (замершая беременность)</div>
+            <div class="warning">⚠️ Требует подтверждения УЗИ и госпитализации в гинекологическое отделение</div>
+        </div>
+        <div class="card-content">
+
+            <!-- ДИАГНОЗ -->
+            <div class="exam-block">
+                <div class="block-title">ДИАГНОЗ</div>
+                <div class="block-content">
+                    <div class="diagnosis-box">
+                        <div><strong>Основное заболевание:</strong> Неразвивающаяся беременность (анэмбриония / гибель эмбриона / плода) малого срока. Замершая беременность на сроке ______ недель.</div>
+                        <div><strong>Осложнения:</strong> Угрожающий выкидыш (кровянистые выделения, болевой синдром). Интоксикационный синдром (при длительной задержке погибшего плодного яйца). Коагулопатические осложнения (при длительности более 4 недель – риск).</div>
+                        <div><strong>Сопутствующие заболевания:</strong> Не выявлены / (указать при наличии: антифосфолипидный синдром, тромбофилии, эндокринные нарушения, хронический эндометрит, инфекции, передаваемые половым путем, аномалии развития матки).</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ЖАЛОБЫ -->
+            <div class="exam-block">
+                <div class="block-title">ЖАЛОБЫ</div>
+                <div class="block-content">
+                    <div class="field-row"><span class="field-label">Исчезновение признаков беременности:</span><span class="field-value">Отсутствие признаков беременности (исчезновение тошноты, нагрубания молочных желез, сонливости) на фоне установленной беременности.</span></div>
+                    <div class="field-row"><span class="field-label">Выделения:</span><span class="field-value">Кровянистые выделения из половых путей – скудные, мажущие, темно-коричневые («грязные», «мажущие») / умеренные, алые (при начавшемся выкидыше).</span></div>
+                    <div class="field-row"><span class="field-label">Болевой синдром:</span><span class="field-value">Тянущие, ноющие боли внизу живота и пояснице – непостоянные, периодические.</span></div>
+                    <div class="field-row"><span class="field-label">Несоответствие срока:</span><span class="field-value">Несоответствие размеров матки предполагаемому сроку беременности (по данным УЗИ / при осмотре).</span></div>
+                    <div class="field-row"><span class="field-label">Анамнез:</span><span class="field-value">Указывает на наличие беременности (диагностированной по тесту / ХГЧ / УЗИ), при которой отсутствует динамика развития либо сердцебиение плода перестало регистрироваться.</span></div>
+                </div>
+            </div>
+
+            <!-- АНАМНЕЗ -->
+            <div class="exam-block">
+                <div class="block-title">АНАМНЕЗ</div>
+                <div class="block-content">
+                    <div class="field-row">
+                        <span class="field-label">Анамнез заболевания:</span>
+                        <span class="field-value">Беременность диагностирована (дата: ______) на сроке ______ недель (по менструации / УЗИ / ХГЧ). Признаки беременности (токсикоз, нагрубание молочных желез) были / отсутствовали. На сроке ______ недель (указать) отметила исчезновение симптомов беременности (резкое прекращение тошноты, уменьшение болезненности груди). Затем/одновременно появились мажущие темные выделения и периодические тянущие боли. По УЗИ (дата: ______) – анэмбриония (плодное яйцо без эмбриона) / отсутствие сердцебиения эмбриона / несоответствие размеров эмбриона сроку беременности. Диагноз неразвивающейся беременности установлен / не установлен ранее. К врачу обращалась / не обращалась. Тактика выжидательная / предложена госпитализация / пациентка отказалась (указать). Самостоятельно не лечилась.</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Эпидемиологический анамнез:</span>
+                        <span class="field-value">Контакта с инфекционными больными нет. За пределы РФ в последние 3 недели не выезжала.</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Аллергологический анамнез:</span>
+                        <span class="field-value">Не отягощен / отягощен (указать аллергию на лекарственные препараты).</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Гинекологический анамнез:</span>
+                        <span class="field-value">Менструальная функция: менархе с __ лет, цикл установился сразу/не сразу, по __ дней, через __ дней, регулярный/нерегулярный, умеренный/обильный, безболезненный/болезненный. Последняя менструация: (дата) ______. Репродуктивная функция: беременностей – __, родов – __, абортов – __, выкидышей – __ (из них: неразвивающаяся беременность – __, самопроизвольный выкидыш – __). Настоящая беременность: по счету ______. Желанная / незапланированная. На учете в женской консультации состоит / не состоит. Гинекологические заболевания: хронический эндометрит, сальпингоофорит, миома матки (субмукозная / интерстициальная), полип эндометрия, внутриматочные синехии, аномалии развития матки (двурогая, седловидная, перегородка), истмико-цервикальная недостаточность. Оперативные вмешательства: операции на матке (миомэктомия, метропластика), выскабливания полости матки (количество, даты).</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Экстрагенитальная патология:</span>
+                        <span class="field-value">Антифосфолипидный синдром (АФС) – есть/нет. Тромбофилии (мутация Лейдена, дефицит протеинов С, S, антитромбина III) – есть/нет. Эндокринные нарушения: сахарный диабет, гипотиреоз, гиперпролактинемия, гиперандрогения, недостаточность лютеиновой фазы. Инфекции: TORCH-комплекс (токсоплазмоз, краснуха, ЦМВ, ВПГ), ИППП (хламидии, микоплазмы, уреаплазмы, гонорея, трихомониаз). Заболевания свертывающей системы крови.</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Выделения из половых путей:</span>
+                        <span class="field-value">На момент осмотра: скудные/умеренные, кровянистые, темно-коричневые («грязные», «мажущие») / алые, со сгустками/без сгустков. Патологических (гнойных, пенистых, творожистых) выделений нет / есть (при присоединении инфекции).</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ОБЪЕКТИВНО -->
+            <div class="exam-block">
+                <div class="block-title">ОБЪЕКТИВНО</div>
+                <div class="block-content">
+                    <div class="inline-group">
+                        <div class="inline-item"><strong>Состояние:</strong> удовлетворительное / средней степени тяжести</div>
+                        <div class="inline-item"><strong>Сознание:</strong> ясное (GCS 15 баллов)</div>
+                        <div class="inline-item"><strong>Положение:</strong> активное</div>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Кожные покровы:</span>
+                        <span class="field-value">Чистые, обычной окраски / бледные (при анемии). При длительном стоянии – землистый оттенок, сухость. Сыпи, цианоза, желтушности нет. Петехии, экхимозы (при коагулопатии) – указать.</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Температура:</span>
+                        <span class="field-value">36,6 °C / 37,0–37,5 °C (при интоксикации).</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ОРГАНЫ ДЫХАНИЯ -->
+            <div class="exam-block">
+                <div class="block-title">ОРГАНЫ ДЫХАНИЯ</div>
+                <div class="block-content">
+                    <div class="field-row"><span class="field-label">ЧДД:</span><span class="field-value">16–18 в мин.</span></div>
+                    <div class="field-row"><span class="field-label">Аускультативно:</span><span class="field-value">Дыхание везикулярное, проводится во все отделы, хрипов нет.</span></div>
+                </div>
+            </div>
+
+            <!-- ОРГАНЫ КРОВООБРАЩЕНИЯ -->
+            <div class="exam-block">
+                <div class="block-title">ОРГАНЫ КРОВООБРАЩЕНИЯ</div>
+                <div class="block-content">
+                    <div class="field-row"><span class="field-label">Пульс:</span><span class="field-value">72–80 в мин (при кровотечении, анемии – тахикардия), ритмичный, удовлетворительного наполнения. ЧСС: 72–80 в мин.</span></div>
+                    <div class="field-row"><span class="field-label">АД:</span><span class="field-value">110/70 – 120/80 мм рт.ст. (привычное для пациентки).</span></div>
+                    <div class="field-row"><span class="field-label">Тоны сердца:</span><span class="field-value">Звучные, ритмичные.</span></div>
+                </div>
+            </div>
+
+            <!-- ОРГАНЫ ПИЩЕВАРЕНИЯ -->
+            <div class="exam-block">
+                <div class="block-title">ОРГАНЫ ПИЩЕВАРЕНИЯ</div>
+                <div class="block-content">
+                    <div class="field-row"><span class="field-label">Язык:</span><span class="field-value">Влажный, чистый / обложен белым налетом.</span></div>
+                    <div class="field-row"><span class="field-label">Живот:</span><span class="field-value">Мягкий, не вздут, участвует в акте дыхания, безболезненный при пальпации во всех отделах. Может отмечаться незначительная болезненность в гипогастрии (надлобковая область). Симптомы раздражения брюшины — отрицательные.</span></div>
+                    <div class="field-row"><span class="field-label">Стул:</span><span class="field-value">Регулярный, оформленный.</span></div>
+                </div>
+            </div>
+
+            <!-- STATUS LOCALIS -->
+            <div class="exam-block">
+                <div class="block-title">STATUS LOCALIS</div>
+                <div class="block-content">
+                    <div class="status-local">
+                        <div><strong>Наружные половые органы:</strong> Развиты правильно, по женскому типу. В области преддверия влагалища, на промежности – скудные/умеренные кровянистые выделения темно-коричневого цвета («грязные», «мажущие»), без сгустков / с мелкими сгустками, без запаха / с неприятным запахом (при инфицировании). Слизистая вульвы обычной окраски / умеренно гиперемирована.</div>
+                        <div><strong>Выделения из половых путей:</strong> Кровянистые, темно-коричневые («грязные», цвета «кофейной гущи»), мажущие, жидкие. Сгустки: отсутствуют / мелкие (до 1 см). Запах: обычный / неприятный, гнилостный. Патологических (гнойных, пенистых, творожистых) выделений нет / имеются гнойные примеси.</div>
+                        <div><strong>Пальпация живота:</strong> Дно матки пальпируется на __ см выше лона (ориентировочно). <strong>Матка плотная, безболезненная / слабо болезненная, размеры матки меньше предполагаемого срока беременности (ключевой признак!).</strong> Подвижность сохранена.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- КЛЮЧЕВЫЕ ПРИЗНАКИ -->
+            <div class="exam-block">
+                <div class="block-title">КЛЮЧЕВЫЕ ДИАГНОСТИЧЕСКИЕ ПРИЗНАКИ</div>
+                <div class="block-content">
+                    <div class="key-signs">
+                        <p><strong>Несоответствие размеров матки сроку беременности (меньше предполагаемого).</strong></p>
+                        <p><strong>Исчезновение субъективных признаков беременности (токсикоз, нагрубание молочных желез).</strong></p>
+                        <p><strong>Скудные темные «мажущие» выделения.</strong></p>
+                        <p><strong>Отрицательная динамика ХГЧ (снижение или плато) – подтверждается лабораторно.</strong></p>
+                        <p><strong>УЗИ-признаки:</strong> анэмбриония, отсутствие сердцебиения эмбриона, деформация плодного яйца.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ДИФФЕРЕНЦИАЛЬНАЯ ДИАГНОСТИКА -->
+            <div class="exam-block">
+                <div class="block-title">ДИФФЕРЕНЦИАЛЬНАЯ ДИАГНОСТИКА</div>
+                <div class="block-content">
+                    <div class="alert-note">
+                        <strong>Дифференциальная диагностика проведена с:</strong><br>
+                        — <strong>Прогрессирующей беременностью с угрозой прерывания:</strong> размеры матки соответствуют сроку, признаки беременности сохраняются, УЗИ – сердцебиение плода положительное, кровотечение обычно алое.<br>
+                        — <strong>Неполным абортом:</strong> матка мягкая, увеличена, зев открыт, кровотечение обильное со сгустками, УЗИ – остатки плодного яйца.<br>
+                        — <strong>Полным абортом:</strong> матка плотная, небольших размеров, зев закрыт, кровотечение прекратилось, УЗИ – полость матки пуста.<br>
+                        — <strong>Пузырным заносом:</strong> матка больше срока, кровотечение с пузырьками, высокий ХГЧ, УЗИ – характерная картина.<br>
+                        — <strong>Внематочной беременностью:</strong> боли, часто односторонние, кровотечение скудное, при УЗИ – плодное яйцо вне матки.<br><br>
+                        <strong>Примечание для бригады СМП:</strong><br>
+                        — Экстренная госпитализация в гинекологическое отделение стационара для инструментальной эвакуации плодного яйца.<br>
+                        — Транспортировка на носилках в положении лежа на спине.<br>
+                        — При кровотечении – гемостатическая терапия (этамзилат, транексамовая кислота).<br>
+                        — Необходим забор крови на ХГЧ для подтверждения диагноза.<br>
+                        — Обязательно информирование пациентки о диагнозе и необходимости оперативного лечения.
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+            <div class="footer-note">
+                O02.0 — Неразвивающаяся беременность (замершая беременность) | Экстренная госпитализация в гинекологическое отделение | Эвакуация плодного яйца
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
