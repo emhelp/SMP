@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Калькулятор родничков | Полная диагностика</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Inter', -apple-system, 'Segoe UI', Roboto, system-ui, sans-serif;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: white;
+            border-radius: 32px;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+            overflow: hidden;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #1a2632 100%);
+            padding: 24px 28px;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .header h1::before {
+            content: "👶";
+            font-size: 2rem;
+        }
+
+        .header p {
+            margin-top: 8px;
+            opacity: 0.85;
+            font-size: 0.9rem;
+        }
+
+        .content {
+            padding: 28px;
+        }
+
+        .age-section {
+            background: #f8fafc;
+            border-radius: 24px;
+            padding: 20px;
+            margin-bottom: 24px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .section-title {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 16px;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-left: 3px solid #667eea;
+            padding-left: 12px;
+        }
+
+        .age-input-group {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            align-items: flex-end;
+        }
+
+        .input-field {
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .input-field label {
+            font-size: 0.75rem;
+            color: #64748b;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .input-field input, .input-field select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: all 0.2s;
+            background: white;
+        }
+
+        .input-field input:focus, .input-field select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102,126,234,0.1);
+        }
+
+        .fontanelles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+
+        .fontanelle-card {
+            background: #f8fafc;
+            border-radius: 20px;
+            padding: 16px;
+            border: 1px solid #e2e8f0;
+            transition: all 0.2s;
+        }
+
+        .fontanelle-card:hover {
+            border-color: #cbd5e1;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .fontanelle-name {
+            font-weight: 700;
+            font-size: 1rem;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .fontanelle-status {
+            font-size: 0.85rem;
+            color: #475569;
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+
+        .pathology-section {
+            margin-top: 12px;
+        }
+
+        .pathology-label {
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: #64748b;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .pathology-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .path-btn {
+            padding: 6px 12px;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 40px;
+            background: white;
+            font-size: 0.7rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+            color: #2c3e50;
+        }
+
+        .path-btn:hover {
+            border-color: #667eea;
+            background: #f1f5f9;
+        }
+
+        .path-btn.active {
+            background: #667eea;
+            border-color: #667eea;
+            color: white;
+        }
+
+        .reset-all-btn {
+            background: #fee2e2;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 60px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            color: #dc2626;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+            margin-bottom: 24px;
+        }
+
+        .reset-all-btn:hover {
+            background: #fecaca;
+            transform: translateY(-1px);
+        }
+
+        .result-section {
+            background: linear-gradient(135deg, #f1f5f9 0%, #e6edf4 100%);
+            border-radius: 24px;
+            padding: 24px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .result-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .result-header span {
+            font-size: 1.2rem;
+        }
+
+        .result-header h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .protocol-text {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 20px;
+            padding: 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            margin: 16px 0;
+            white-space: pre-wrap;
+        }
+
+        .warning-note {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 12px 16px;
+            border-radius: 12px;
+            margin-top: 16px;
+            font-size: 0.75rem;
+            color: #92400e;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 12px;
+            }
+            .content {
+                padding: 20px;
+            }
+            .header h1 {
+                font-size: 1.4rem;
+            }
+            .fontanelles-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="card">
+        <div class="header">
+            <h1>Калькулятор родничков</h1>
+            <p>Оценка состояния большого, малого (заднего), клиновидных и сосцевидных родничков с дифференциальной диагностикой</p>
+        </div>
+
+        <div class="content">
+            <!-- Возраст -->
+            <div class="age-section">
+                <div class="section-title">
+                    <span>📅</span> Возраст ребёнка
+                </div>
+                <div class="age-input-group">
+                    <div class="input-field">
+                        <label>Количество</label>
+                        <input type="number" id="ageValue" value="1" step="0.5" min="0" max="24">
+                    </div>
+                    <div class="input-field">
+                        <label>Единица измерения</label>
+                        <select id="ageUnit">
+                            <option value="months">месяцев</option>
+                            <option value="weeks">недель</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Роднички -->
+            <div class="fontanelles-grid" id="fontanellesGrid"></div>
+
+            <button class="reset-all-btn" id="resetAllBtn">🗑️ Сбросить все патологии</button>
+
+            <!-- Результат -->
+            <div class="result-section">
+                <div class="result-header">
+                    <span>📋</span>
+                    <h3>Заключение для медицинской карты</h3>
+                </div>
+                <div class="protocol-text" id="protocolText">
+                    <!-- Формулировка для карты будет здесь -->
+                </div>
+                <div class="warning-note">
+                    💡 <strong>Клиническая значимость и дифференциальная диагностика:</strong><br>
+                    • <strong>Выбухание + напряжение</strong> — ВЧГ (менингит, энцефалит, гидроцефалия, объёмные процессы)<br>
+                    • <strong>Изолированное выбухание</strong> — плач, крик, повышение температуры, гипертензия<br>
+                    • <strong>Западение</strong> — дегидратация (инфекции, рвота, диарея, недостаточное питьё)<br>
+                    • <strong>Увеличение размеров</strong> — рахит, гидроцефалия, гипотиреоз, недоношенность<br>
+                    • <strong>Раннее закрытие</strong> — краниостеноз, гипервитаминоз D<br>
+                    • <strong>Позднее закрытие</strong> — рахит, гипотиреоз, гидроцефалия, синдром Дауна
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Данные о родничках
+    const fontanellesData = {
+        anterior: {
+            name: "Большой (передний) родничок",
+            icon: "🦷",
+            norms: [
+                { maxAgeMonths: 0, status: "открыт, нормальных размеров (2.5–3.5 см)", description: "Ромбовидной формы, не напряжён" },
+                { maxAgeMonths: 3, status: "открыт, умеренных размеров (1.5–2.5 см)", description: "Постепенно уменьшается" },
+                { maxAgeMonths: 6, status: "открыт, небольших размеров (0.5–1.5 см)", description: "Определяется пальпаторно" },
+                { maxAgeMonths: 12, status: "частично закрыт или закрыт", description: "Допустимо небольшое углубление" },
+                { maxAgeMonths: 18, status: "закрыт", description: "Костные края сомкнуты" },
+                { maxAgeMonths: 24, status: "закрыт", description: "Соответствует возрастной норме" }
+            ],
+            closureNorm: "12–18 месяцев"
+        },
+        posterior: {
+            name: "Малый (задний) родничок",
+            icon: "🔹",
+            norms: [
+                { maxAgeMonths: 0, status: "открыт, небольших размеров (0.5–1 см)", description: "Треугольной формы" },
+                { maxAgeMonths: 1, status: "частично закрыт", description: "Определяется с трудом" },
+                { maxAgeMonths: 2, status: "закрыт", description: "У большинства детей закрыт к 2 месяцам" }
+            ],
+            closureNorm: "1–2 месяца"
+        },
+        sphenoid: {
+            name: "Клиновидные роднички (парные)",
+            icon: "🔸",
+            norms: [
+                { maxAgeMonths: 0, status: "открыты, едва определяются", description: "Расположены в височных областях" },
+                { maxAgeMonths: 3, status: "частично закрыты", description: "Уменьшаются в размерах" },
+                { maxAgeMonths: 6, status: "закрыты", description: "К 6 месяцам обычно полностью закрываются" }
+            ],
+            closureNorm: "3–6 месяцев"
+        },
+        mastoid: {
+            name: "Сосцевидные роднички (парные)",
+            icon: "🔹",
+            norms: [
+                { maxAgeMonths: 0, status: "открыты, небольших размеров", description: "Расположены позади ушных раковин" },
+                { maxAgeMonths: 6, status: "частично закрыты", description: "Постепенно уменьшаются" },
+                { maxAgeMonths: 12, status: "закрыты", description: "К 12 месяцам обычно полностью закрываются" }
+            ],
+            closureNorm: "6–12 месяцев"
+        }
+    };
+
+    // Справочник причин и заболеваний
+    const causesReference = {
+        bulging: {
+            title: "Выбухание",
+            causes: [
+                "Физиологические причины: плач, крик, натуживание, повышение температуры тела",
+                "Внутричерепная гипертензия (ВЧГ)",
+                "Менингит, менингоэнцефалит",
+                "Гидроцефалия (врождённая или приобретённая)",
+                "Объёмные образования головного мозга (опухоли, кисты, абсцессы)",
+                "Черепно-мозговая травма",
+                "Интоксикация, инфекционно-токсический шок",
+                "Тромбоз венозных синусов"
+            ]
+        },
+        sunken: {
+            title: "Западение",
+            causes: [
+                "Дегидратация (эксикоз) — наиболее частая причина",
+                "Инфекционные заболевания с рвотой и диареей (кишечные инфекции)",
+                "Недостаточное поступление жидкости",
+                "Гипотрофия (недостаточность питания)",
+                "Сепсис",
+                "Метаболические нарушения"
+            ]
+        },
+        tense: {
+            title: "Напряжение",
+            causes: [
+                "Внутричерепная гипертензия (ВЧГ)",
+                "Менингит, энцефалит",
+                "Гидроцефалия",
+                "Лихорадка, инфекционные заболевания",
+                "Беспокойство, длительный плач (временное напряжение)"
+            ]
+        },
+        enlarged: {
+            title: "Увеличение размеров",
+            causes: [
+                "Рахит (наиболее частая причина)",
+                "Гидроцефалия",
+                "Врождённый гипотиреоз",
+                "Недоношенность",
+                "Синдром Дауна и другие хромосомные аномалии",
+                "Внутриутробная инфекция",
+                "Остеогенез несовершенный (несовершенное костеобразование)"
+            ]
+        },
+        combination_bulging_tense: {
+            title: "Сочетание выбухания и напряжения",
+            causes: [
+                "⚠️ КРИТИЧЕСКОЕ СОСТОЯНИЕ!",
+                "Выраженная внутричерепная гипертензия",
+                "Менингит/менингоэнцефалит с отёком мозга",
+                "Гидроцефалия в стадии декомпенсации",
+                "Объёмное образование головного мозга",
+                "Черепно-мозговая травма",
+                "Требуется экстренная консультация невролога/нейрохирурга!"
+            ]
+        }
+    };
+
+    // Состояние патологий для каждого родничка
+    let pathologies = {
+        anterior: { bulging: false, sunken: false, tense: false, enlarged: false },
+        posterior: { bulging: false, sunken: false, tense: false, enlarged: false },
+        sphenoid: { bulging: false, sunken: false, tense: false, enlarged: false },
+        mastoid: { bulging: false, sunken: false, tense: false, enlarged: false }
+    };
+
+    function getAgeInMonths() {
+        let value = parseFloat(document.getElementById('ageValue').value);
+        if (isNaN(value)) value = 1;
+        value = Math.max(0, Math.min(24, value));
+        const unit = document.getElementById('ageUnit').value;
+        if (unit === 'weeks') {
+            return value / 4.345;
+        }
+        return value;
+    }
+
+    function getNormForFontanelle(fontanelleKey, ageMonths) {
+        const data = fontanellesData[fontanelleKey];
+        let norm = data.norms[0];
+        for (let i = data.norms.length - 1; i >= 0; i--) {
+            if (ageMonths >= data.norms[i].maxAgeMonths) {
+                norm = data.norms[i];
+                break;
+            }
+        }
+        return norm;
+    }
+
+    function getPathologyText(fontanelleKey) {
+        const p = pathologies[fontanelleKey];
+        const signs = [];
+        if (p.bulging) signs.push("выбухает");
+        if (p.sunken) signs.push("западает");
+        if (p.tense) signs.push("напряжён");
+        if (p.enlarged) signs.push("увеличен");
+        
+        if (signs.length === 0) return null;
+        return signs.join(", ");
+    }
+
+    function getCausesDescription() {
+        const anterior = pathologies.anterior;
+        const hasAny = anterior.bulging || anterior.sunken || anterior.tense || anterior.enlarged;
+        
+        if (!hasAny) return "";
+        
+        let causesText = "\n\n🔍 <strong>Дифференциальная диагностика (вероятные причины):</strong>\n";
+        
+        // Сочетание выбухания и напряжения
+        if (anterior.bulging && anterior.tense) {
+            causesText += "\n<strong>⚠️ ВЫБУХАНИЕ + НАПРЯЖЕНИЕ:</strong>\n";
+            for (const cause of causesReference.combination_bulging_tense.causes) {
+                causesText += `• ${cause}\n`;
+            }
+        }
+        
+        // Отдельные симптомы
+        if (anterior.bulging && !anterior.tense) {
+            causesText += "\n<strong>📈 ВЫБУХАНИЕ:</strong>\n";
+            for (const cause of causesReference.bulging.causes) {
+                causesText += `• ${cause}\n`;
+            }
+        }
+        
+        if (anterior.sunken) {
+            causesText += "\n<strong>📉 ЗАПАДЕНИЕ:</strong>\n";
+            for (const cause of causesReference.sunken.causes) {
+                causesText += `• ${cause}\n`;
+            }
+        }
+        
+        if (anterior.tense && !anterior.bulging) {
+            causesText += "\n<strong>💪 НАПРЯЖЕНИЕ:</strong>\n";
+            for (const cause of causesReference.tense.causes) {
+                causesText += `• ${cause}\n`;
+            }
+        }
+        
+        if (anterior.enlarged) {
+            causesText += "\n<strong>🔍 УВЕЛИЧЕНИЕ РАЗМЕРОВ:</strong>\n";
+            for (const cause of causesReference.enlarged.causes) {
+                causesText += `• ${cause}\n`;
+            }
+        }
+        
+        // Добавляем информацию для других родничков
+        const otherPathologies = [];
+        if (pathologies.posterior.bulging || pathologies.posterior.tense || pathologies.posterior.enlarged) {
+            otherPathologies.push("малый (задний)");
+        }
+        if (pathologies.sphenoid.bulging || pathologies.sphenoid.tense || pathologies.sphenoid.enlarged) {
+            otherPathologies.push("клиновидные");
+        }
+        if (pathologies.mastoid.bulging || pathologies.mastoid.tense || pathologies.mastoid.enlarged) {
+            otherPathologies.push("сосцевидные");
+        }
+        
+        if (otherPathologies.length > 0) {
+            causesText += `\n<strong>📌 Дополнительно:</strong> Отклонения отмечены также в ${otherPathologies.join(", ")} родничках. Это может указывать на генерализованный процесс (гидроцефалия, ВЧГ, системные нарушения).\n`;
+        }
+        
+        return causesText;
+    }
+
+    function renderFontanelles() {
+        const grid = document.getElementById('fontanellesGrid');
+        const ageMonths = getAgeInMonths();
+        
+        grid.innerHTML = '';
+        
+        for (const [key, data] of Object.entries(fontanellesData)) {
+            const norm = getNormForFontanelle(key, ageMonths);
+            const pathologySigns = getPathologyText(key);
+            
+            const card = document.createElement('div');
+            card.className = 'fontanelle-card';
+            card.innerHTML = `
+                <div class="fontanelle-name">
+                    ${data.icon} ${data.name}
+                </div>
+                <div class="fontanelle-status">
+                    <strong>Норма для возраста:</strong> ${norm.status}<br>
+                    <strong>Закрытие в норме:</strong> ${data.closureNorm}<br>
+                    ${pathologySigns ? `<strong style="color: #dc2626;">Патология:</strong> ${pathologySigns}<br>` : ''}
+                    <span style="font-size: 0.75rem; color: #64748b;">${norm.description}</span>
+                </div>
+                <div class="pathology-section">
+                    <span class="pathology-label">📌 Укажите отклонение:</span>
+                    <div class="pathology-buttons">
+                        <button class="path-btn" data-fontanelle="${key}" data-path="bulging">📈 Выбухает</button>
+                        <button class="path-btn" data-fontanelle="${key}" data-path="sunken">📉 Западает</button>
+                        <button class="path-btn" data-fontanelle="${key}" data-path="tense">💪 Напряжён</button>
+                        <button class="path-btn" data-fontanelle="${key}" data-path="enlarged">🔍 Увеличен</button>
+                    </div>
+                </div>
+            `;
+            grid.appendChild(card);
+        }
+        
+        // Привязываем обработчики к кнопкам
+        document.querySelectorAll('.path-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const fontanelle = btn.dataset.fontanelle;
+                const pathType = btn.dataset.path;
+                
+                pathologies[fontanelle][pathType] = !pathologies[fontanelle][pathType];
+                
+                // Исключаем взаимно исключающие состояния для большого родничка
+                if (fontanelle === 'anterior') {
+                    if (pathType === 'bulging' && pathologies[fontanelle].bulging) {
+                        pathologies[fontanelle].sunken = false;
+                    }
+                    if (pathType === 'sunken' && pathologies[fontanelle].sunken) {
+                        pathologies[fontanelle].bulging = false;
+                    }
+                }
+                
+                updatePathologyButtons();
+                updateProtocol();
+            });
+        });
+    }
+    
+    function updatePathologyButtons() {
+        document.querySelectorAll('.path-btn').forEach(btn => {
+            const fontanelle = btn.dataset.fontanelle;
+            const pathType = btn.dataset.path;
+            if (pathologies[fontanelle] && pathologies[fontanelle][pathType]) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+    }
+    
+    function updateProtocol() {
+        const ageMonths = getAgeInMonths();
+        const ageDisplay = ageMonths.toFixed(1);
+        
+        let protocolParts = [];
+        
+        for (const [key, data] of Object.entries(fontanellesData)) {
+            const norm = getNormForFontanelle(key, ageMonths);
+            const pathologySigns = getPathologyText(key);
+            
+            let part = `${data.name}: `;
+            if (pathologySigns) {
+                part += `${pathologySigns}, `;
+            }
+            part += norm.status.toLowerCase();
+            if (norm.maxAgeMonths !== 24 && norm.maxAgeMonths !== 0 && !pathologySigns) {
+                part += ` (соответствует возрасту ${ageDisplay} мес)`;
+            }
+            part += `.`;
+            protocolParts.push(part);
+        }
+        
+        // Добавляем диагностическую информацию
+        const causesText = getCausesDescription();
+        
+        // Простое заключение без рекомендаций
+        let hasAnyPathology = false;
+        for (const key of Object.keys(fontanellesData)) {
+            if (getPathologyText(key)) {
+                hasAnyPathology = true;
+                break;
+            }
+        }
+        
+        let conclusion = "";
+        if (hasAnyPathology) {
+            conclusion = "\n\n⚠️ <strong>Заключение:</strong> Выявлены отклонения в состоянии родничков. Требуется дополнительное обследование.";
+        } else {
+            conclusion = `\n\n✅ <strong>Заключение:</strong> Состояние родничков соответствует возрасту ${ageDisplay} мес. Патологических изменений не выявлено.`;
+        }
+        
+        const protocolText = protocolParts.join("\n\n") + conclusion + causesText;
+        document.getElementById('protocolText').innerHTML = protocolText;
+    }
+    
+    function resetAll() {
+        for (const key of Object.keys(fontanellesData)) {
+            pathologies[key] = { bulging: false, sunken: false, tense: false, enlarged: false };
+        }
+        updatePathologyButtons();
+        updateProtocol();
+    }
+    
+    function init() {
+        renderFontanelles();
+        
+        document.getElementById('ageValue').addEventListener('input', () => {
+            renderFontanelles();
+            updateProtocol();
+        });
+        document.getElementById('ageUnit').addEventListener('change', () => {
+            renderFontanelles();
+            updateProtocol();
+        });
+        document.getElementById('resetAllBtn').addEventListener('click', resetAll);
+        
+        updateProtocol();
+    }
+    
+    init();
+</script>
+</body>
+</html>
