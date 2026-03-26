@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Карта вызова СМП | Роды в машине (роженица)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #e2e8f0;
+            font-family: 'Segoe UI', 'Roboto', 'Inter', system-ui, sans-serif;
+            line-height: 1.5;
+            padding: 32px 24px;
+            color: #1a2c3e;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .medical-card {
+            background: #ffffff;
+            border-radius: 28px;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #6b4e3a 0%, #4a3526 100%);
+            padding: 20px 32px;
+            color: white;
+            border-bottom: 4px solid #ffb347;
+        }
+
+        .card-header .mkb {
+            font-size: 14px;
+            opacity: 0.9;
+            font-family: monospace;
+        }
+
+        .card-header .warning {
+            font-size: 12px;
+            opacity: 0.85;
+            margin-top: 8px;
+            background: rgba(255,255,255,0.15);
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+
+        .card-content {
+            padding: 28px 36px;
+        }
+
+        .exam-block {
+            margin-bottom: 28px;
+            border: 1px solid #e2edf2;
+            border-radius: 20px;
+            overflow: hidden;
+            background: white;
+        }
+
+        .block-title {
+            background: #f1f6fb;
+            padding: 14px 24px;
+            font-weight: 800;
+            font-size: 18px;
+            color: #0b5e7c;
+            border-left: 5px solid #ffb347;
+            letter-spacing: -0.2px;
+        }
+
+        .block-content {
+            padding: 20px 28px;
+            background: #fefefe;
+            font-size: 15px;
+            line-height: 1.55;
+            color: #1e3a4f;
+            text-align: left;
+        }
+
+        .field-row {
+            margin-bottom: 12px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 8px;
+            text-align: left;
+        }
+
+        .field-label {
+            font-weight: 700;
+            color: #1c6d8f;
+            min-width: 220px;
+            font-size: 14px;
+        }
+
+        .field-value {
+            flex: 1;
+            color: #1e2f3c;
+            text-align: left;
+        }
+
+        .inline-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            margin: 12px 0;
+            text-align: left;
+        }
+
+        .inline-item {
+            flex: 1;
+            min-width: 180px;
+            text-align: left;
+        }
+
+        .diagnosis-box {
+            background: #fefaf5;
+            border-left: 4px solid #ffb347;
+            padding: 16px 20px;
+            border-radius: 16px;
+            margin-bottom: 8px;
+            text-align: left;
+        }
+
+        .diagnosis-box div {
+            margin-bottom: 8px;
+            text-align: left;
+        }
+
+        .apgar-table {
+            background: #f0f4fa;
+            padding: 16px 20px;
+            border-radius: 16px;
+            margin: 12px 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: space-around;
+        }
+
+        .apgar-item {
+            text-align: center;
+        }
+
+        .apgar-score {
+            font-size: 32px;
+            font-weight: 800;
+            color: #0b5e7c;
+        }
+
+        .status-local {
+            background: #f9fef7;
+            border-left: 4px solid #2c9c6e;
+            padding: 16px 20px;
+            border-radius: 16px;
+            margin-top: 8px;
+            text-align: left;
+        }
+
+        .status-local div {
+            margin-bottom: 8px;
+            text-align: left;
+        }
+
+        .scales-box {
+            background: #f0f4fa;
+            padding: 16px 20px;
+            border-radius: 16px;
+            margin: 12px 0;
+        }
+
+        .scale-item {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .scale-label {
+            font-weight: 700;
+            color: #1c6d8f;
+            min-width: 180px;
+        }
+
+        .alert-note {
+            background: #e8f5e9;
+            border-left: 4px solid #2e7d32;
+            padding: 12px 16px;
+            border-radius: 12px;
+            margin-top: 16px;
+            font-size: 13px;
+        }
+
+        hr {
+            margin: 16px 0;
+            border: none;
+            height: 1px;
+            background: #e2ecf3;
+        }
+
+        .footer-note {
+            font-size: 13px;
+            color: #6c8eaa;
+            text-align: right;
+        }
+
+        @media (max-width: 700px) {
+            .card-content {
+                padding: 18px;
+            }
+            .block-content {
+                padding: 14px 18px;
+            }
+            .field-label {
+                min-width: 140px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="medical-card">
+        <div class="card-header">
+            <div class="mkb">МКБ-10: O80.0 — Самопроизвольные роды в головном предлежании (в машине скорой медицинской помощи)</div>
+            <div class="warning">⚠️ СРОЧНЫЕ РОДЫ В МАШИНЕ СМП | Рождение живого доношенного ребенка</div>
+        </div>
+        <div class="card-content">
+
+            <!-- ДИАГНОЗ -->
+            <div class="exam-block">
+                <div class="block-title">ДИАГНОЗ</div>
+                <div class="block-content">
+                    <div class="diagnosis-box">
+                        <div><strong>Основное заболевание:</strong> Срочные самопроизвольные роды в головном предлежании (в машине скорой медицинской помощи). II период родов (потуги). III период родов (последовый). Рождение живого доношенного ребенка женского пола.</div>
+                        <div><strong>Осложнения:</strong> Не выявлены.</div>
+                        <div><strong>Сопутствующие состояния:</strong> Беременность 39 недель. II период родов завершен. III период родов (последовый) – продолжается.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ЖАЛОБЫ -->
+            <div class="exam-block">
+                <div class="block-title">ЖАЛОБЫ</div>
+                <div class="block-content">
+                    <div class="field-row"><span class="field-label">Первичный осмотр (до родов):</span><span class="field-value">Нерегулярные, схваткообразные боли средней интенсивности внизу живота с иррадиацией в поясничную область, возникшие в покое, длительностью по 20 секунд, через 5–7 минут.</span></div>
+                    <div class="field-row"><span class="field-label">Повторный осмотр (в пути, после усиления схваток):</span><span class="field-value">Регулярные схватки, продолжительностью до 50 секунд, через 2–3 минуты. Присоединение потуг.</span></div>
+                </div>
+            </div>
+
+            <!-- АНАМНЕЗ -->
+            <div class="exam-block">
+                <div class="block-title">АНАМНЕЗ</div>
+                <div class="block-content">
+                    <div class="field-row">
+                        <span class="field-label">Анамнез заболевания:</span>
+                        <span class="field-value">Сегодня в ______ (время) отметила появление ноющих болей внизу живота. Самостоятельно лекарств не принимала. Вызвана бригадой СМП. Во время транспортировки в родильный дом схватки участились, стали регулярными, продолжительностью 50 секунд через 2–3 минуты. Машина СМП остановлена для повторного осмотра в связи с началом II периода родов.</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Эпидемиологический анамнез:</span>
+                        <span class="field-value">Контакт с инфекционными больными отрицает. За пределы РФ в последние 3 недели не выезжала.</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Аллергологический анамнез:</span>
+                        <span class="field-value">Не отягощен (лекарственная, пищевая аллергия отрицает).</span>
+                    </div>
+                    <div class="field-row">
+                        <span class="field-label">Гинекологический и акушерский анамнез:</span>
+                        <span class="field-value">Менструальная функция: менархе с 12 лет, цикл установился сразу, по 5 дней, через 28 дней, регулярный, безболезненный, необильный. Последняя менструация: (дата) ______. Срок беременности настоящей: 39 недель (по менструации / УЗИ). Репродуктивная функция: беременностей – 2, родов – 2. Настоящая беременность: протекает без осложнений. Состоит на учете в женской консультации с 6 недель беременности. Плод 1, головное предлежание. Предыдущие роды: самостоятельные роды в ______ году, без осложнений, ребенок здоров. Гинекологические заболевания, оперативные вмешательства, экстрагенитальная патология: отрицает.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ОБЪЕКТИВНО (до родов) -->
+            <div class="exam-block">
+                <div class="block-title">ОБЪЕКТИВНО (первичный осмотр, I период родов)</div>
+                <div class="block-content">
+                    <div class="inline-group">
+                        <div class="inline-item"><strong>Состояние:</strong> средней степени тяжести</div>
+                        <div class="inline-item"><strong>Сознание:</strong> ясное (GCS 15 баллов)</div>
+                        <div class="inline-item"><strong>Положение:</strong> активное, в схватке – вынужденное</div>
+                    </div>
+                    <div class="field-row"><span class="field-label">Кожные покровы:</span><span class="field-value">Чистые, обычной окраски, влажные. Сыпи, цианоза, желтушности нет.</span></div>
+                    <div class="field-row"><span class="field-label">Температура:</span><span class="field-value">36,6 °C.</span></div>
+                    <div class="field-row"><span class="field-label">ЧДД:</span><span class="field-value">20 в мин (легкое учащение в связи с родовой деятельностью).</span></div>
+                    <div class="field-row"><span class="field-label">Пульс, АД:</span><span class="field-value">Пульс 88 в мин, ритмичный. АД 120/70 мм рт.ст.</span></div>
+                </div>
+            </div>
+
+            <!-- STATUS LOCALIS (первичный осмотр, I период) -->
+            <div class="exam-block">
+                <div class="block-title">STATUS LOCALIS (первичный осмотр, I период родов)</div>
+                <div class="block-content">
+                    <div class="status-local">
+                        <div><strong>Акушерский статус:</strong> Живот овоидной формы, увеличен за счет беременной матки. Высота стояния дна матки (ВДМ): 36 см (соответствует сроку беременности 39 недель). Окружность живота (ОЖ): 98 см (ориентировочно).</div>
+                        <div><strong>Тонус матки:</strong> Повышен, матка возбудима (во время схватки).</div>
+                        <div><strong>Положение плода:</strong> Продольное. Предлежание: головное, головка над входом в малый таз (подвижна).</div>
+                        <div><strong>Сердцебиение плода:</strong> 140 уд/мин, ясное, ритмичное. Шевеление плода активное.</div>
+                        <div><strong>Схватки:</strong> Нерегулярные, длительностью 20 секунд, через 5–7 минут.</div>
+                        <div><strong>Околоплодные воды:</strong> Целы (не изливались). Выделения из половых путей: нет.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ДИНАМИКА СОСТОЯНИЯ / РОДЫ В МАШИНЕ -->
+            <div class="exam-block">
+                <div class="block-title">РОДЫ В МАШИНЕ СМП (II период)</div>
+                <div class="block-content">
+                    <div class="field-row"><span class="field-label">Динамика в пути:</span><span class="field-value">Схватки участились, стали регулярными, продолжительностью 50 секунд, через 2–3 минуты. Признак Пискачека: положительный. Присоединились потуги. Произведено акушерское пособие.</span></div>
+                    <div class="field-row"><span class="field-label">Рождение плода:</span><span class="field-value">Время: ______. Пол ребенка: женский. Околоплодные воды: излитие задних вод после рождения ребенка, прозрачные с прожилками крови, без запаха.</span></div>
+                    <div class="field-row"><span class="field-label">Аспирация слизи:</span><span class="field-value">Произведена стерильной резиновой грушей из полости рта и носа новорожденного. Ребенок закричал сразу.</span></div>
+                </div>
+            </div>
+
+            <!-- ОЦЕНКА ПО ШКАЛЕ АПГАР -->
+            <div class="exam-block">
+                <div class="block-title">ОЦЕНКА НОВОРОЖДЕННОГО ПО ШКАЛЕ АПГАР</div>
+                <div class="block-content">
+                    <div class="apgar-table">
+                        <div class="apgar-item">
+                            <div class="apgar-score">8</div>
+                            <div>1-я минута</div>
+                            <div style="font-size: 12px; margin-top: 5px;">ЧСС >100 – 2<br>Регулярное дыхание – 2<br>Мышечный тонус – 2<br>Гримаса – 1<br>Акроцианоз – 1</div>
+                        </div>
+                        <div class="apgar-item">
+                            <div class="apgar-score">9</div>
+                            <div>5-я минута</div>
+                            <div style="font-size: 12px; margin-top: 5px;">ЧСС >100 – 2<br>Регулярное дыхание – 2<br>Мышечный тонус – 2<br>Гримаса – 2<br>Акроцианоз – 1</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ПЕРВИЧНЫЙ ТУАЛЕТ НОВОРОЖДЕННОГО -->
+            <div class="exam-block">
+                <div class="block-title">ПЕРВИЧНЫЙ ТУАЛЕТ НОВОРОЖДЕННОГО</div>
+                <div class="block-content">
+                    <div class="field-row"><span class="field-label">Обработка пуповины:</span><span class="field-value">На пуповину наложены 2 стерильных зажима: 1-й – на уровне 10 см от пупочного кольца, 2-й – на 2 см дистальнее. Участок между зажимами обработан 70% спиртом. Пуповина пересечена стерильным скальпелем. Поверхность срезов обработана 70% спиртом. На культю пуповины наложена асептическая повязка.</span></div>
+                    <div class="field-row"><span class="field-label">Профилактика гонобленнореи:</span><span class="field-value">Требуется немедленно (раствор сульфацила натрия 20% в оба глаза).</span></div>
+                    <div class="field-row"><span class="field-label">Терморегуляция:</span><span class="field-value">Ребенок обтерт, завернут в теплые стерильные пеленки и одеяло, согрет. Температура тела: 36,7 °С.</span></div>
+                </div>
+            </div>
+
+            <!-- III ПЕРИОД РОДОВ -->
+            <div class="exam-block">
+                <div class="block-title">III ПЕРИОД РОДОВ (последовый)</div>
+                <div class="block-content">
+                    <div class="field-row"><span class="field-label">Катетеризация мочевого пузыря:</span><span class="field-value">Произведена женским уретральным катетером, выделено 250 мл мочи светло-соломенного цвета.</span></div>
+                    <div class="field-row"><span class="field-label">Контроль отделения последа:</span><span class="field-value">Наложен дополнительный стерильный пупочный зажим у преддверия влагалища (по показаниям).</span></div>
+                    <div class="field-row"><span class="field-label">Кровопотеря:</span><span class="field-value">Из половых путей отмечаются умеренные кровянистые выделения темно-красного цвета, общим объемом до 250 мл (физиологическая кровопотеря, менее 0,5% массы тела).</span></div>
+                </div>
+            </div>
+
+            <!-- STATUS LOCALIS ПОСЛЕ РОДОВ -->
+            <div class="exam-block">
+                <div class="block-title">STATUS LOCALIS (после родов, перед продолжением транспортировки)</div>
+                <div class="block-content">
+                    <div class="status-local">
+                        <div><strong>Родильница:</strong> Состояние средней степени тяжести (послеродовый период). Сознание ясное. Гемодинамика стабильная: АД 120/70 мм рт.ст., пульс 84 уд/мин. Матка пальпируется на уровне пупка, плотная, хорошо сокращена. Выделения из половых путей: умеренные, кровянистые, темно-красные.</div>
+                        <div><strong>Новорожденный:</strong> Состояние удовлетворительное. Кожные покровы розовые, акроцианоз стоп и кистей. Дыхание самостоятельное, ЧДД 42 в мин. Сердцебиение ясное, ритмичное, ЧСС 140 уд/мин. Мышечный тонус хороший, рефлексы вызываются. Температура тела: 36,7 °С (поддерживается тепловыми средствами).</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ОЦЕНКА ПО ШКАЛАМ -->
+            <div class="exam-block">
+                <div class="block-title">ОЦЕНКА ПО ШКАЛАМ</div>
+                <div class="block-content">
+                    <div class="scales-box">
+                        <div class="scale-item">
+                            <span class="scale-label">Шкала NEWS2 (для родильницы):</span>
+                            <span>0 баллов (ЧДД 18, АД 120/70, ЧСС 84, сознание ясное, t° 36,6). Риск низкий.</span>
+                        </div>
+                        <div class="scale-item">
+                            <span class="scale-label">Оценка кровопотери в родах:</span>
+                            <span>250 мл (физиологическая кровопотеря, менее 0,5% массы тела).</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ПРИМЕЧАНИЕ ДЛЯ БРИГАДЫ СМП -->
+            <div class="exam-block">
+                <div class="block-title">ПРИМЕЧАНИЕ ДЛЯ БРИГАДЫ СМП</div>
+                <div class="block-content">
+                    <div class="alert-note">
+                        <strong>Выполнено:</strong><br>
+                        — Приняты срочные самопроизвольные роды в головном предлежании в машине СМП.<br>
+                        — Проведен первичный туалет новорожденного (обработка и пересечение пуповины, обтирание, терморегуляция).<br>
+                        — Проведена оценка состояния новорожденного по шкале Апгар (8/9 баллов).<br>
+                        — Проведена катетеризация мочевого пузыря родильницы.<br>
+                        — Оценен объем кровопотери (250 мл).<br>
+                        — Обеспечена транспортировка в родильный дом.<br><br>
+                        <strong>Транспортировка:</strong><br>
+                        — Родильница и новорожденный продолжают транспортировку в родильный дом.<br>
+                        — Положение лежа на носилках.<br>
+                        — Контроль гемодинамики родильницы, тонуса матки, объема кровопотери.<br>
+                        — Контроль состояния новорожденного (дыхание, сердцебиение, температура).
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+            <div class="footer-note">
+                O80.0 — Срочные роды в машине СМП | Родильница и новорожденный переданы в родильный дом | Состояние удовлетворительное
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
