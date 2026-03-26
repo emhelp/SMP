@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Шкала LAMS - Оценка моторного дефицита при инсульте</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: linear-gradient(135deg, #2c5f8a 0%, #1e3a5a 100%);
+            font-family: 'Segoe UI', 'Inter', 'Roboto', system-ui, -apple-system, sans-serif;
+            line-height: 1.5;
+            color: #1a2c3e;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            width: 100%;
+        }
+        .document-container {
+            max-width: 800px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 0;
+            box-shadow: none;
+            overflow: hidden;
+            margin: 0;
+        }
+        .document-header {
+            background: linear-gradient(135deg, #1e5f7a 0%, #0e3b4d 100%);
+            color: white;
+            padding: 1.5rem 1.5rem;
+            border-bottom: 4px solid #ffc107;
+            text-align: center;
+        }
+        .document-header h1 {
+            font-size: 1.6rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.25rem;
+        }
+        .document-header .subtitle {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+        .document-content {
+            padding: 1.5rem;
+        }
+        
+        /* Интерактивные карточки параметров */
+        .parameters-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .param-card {
+            background: #f8fafc;
+            border-radius: 20px;
+            padding: 1rem 1.25rem;
+            border: 1px solid #e2e8f0;
+            transition: all 0.2s;
+        }
+        .param-card:hover {
+            border-color: #cbd5e1;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .param-title {
+            font-weight: 700;
+            font-size: 1rem;
+            color: #1e5f7a;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-left: 4px solid #ffc107;
+            padding-left: 12px;
+        }
+        .param-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .param-btn {
+            background: #ffffff;
+            border: 1px solid #cbdae6;
+            padding: 10px 12px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.2s;
+            color: #2c3e66;
+            flex: 1 1 auto;
+            text-align: center;
+            min-width: 90px;
+        }
+        /* Стиль для нормальных значений (балл 0) — жирный шрифт */
+        .param-btn.normal-value {
+            font-weight: 700;
+            background: #e8f0e8;
+            border-color: #b8d0b8;
+        }
+        .param-btn.active {
+            background: #1e5f7a;
+            border-color: #0e3b4d;
+            color: white;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+        .param-btn.active.normal-value {
+            background: #1e5f7a;
+            border-color: #0e3b4d;
+            color: white;
+            font-weight: 700;
+        }
+        .param-btn:hover:not(.active) {
+            background: #eef2f7;
+            border-color: #b9cfdf;
+        }
+        
+        /* Панель результата */
+        .result-panel {
+            background: linear-gradient(135deg, #fef9f0 0%, #fff5e8 100%);
+            border-radius: 20px;
+            padding: 1.25rem;
+            margin: 1.25rem 0;
+            border: 1px solid #ffe0b5;
+        }
+        .score-box {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #ffe0b5;
+        }
+        .score-number {
+            font-size: 3rem;
+            font-weight: 800;
+            line-height: 1;
+            color: #1e5f7a;
+        }
+        .risk-level {
+            font-size: 1rem;
+            font-weight: 600;
+            padding: 6px 16px;
+            border-radius: 60px;
+            background: white;
+            white-space: nowrap;
+        }
+        .recommendation {
+            font-size: 0.9rem;
+            margin-top: 12px;
+            padding: 12px 14px;
+            border-radius: 18px;
+            background: white;
+        }
+        .reset-btn {
+            background: #e9edf2;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 16px;
+            font-family: inherit;
+            transition: 0.2s;
+            width: 100%;
+            font-size: 0.9rem;
+        }
+        .reset-btn:hover {
+            background: #dce4ec;
+        }
+        
+        .info-card {
+            background: #e8f0fe;
+            border-left: 5px solid #1976d2;
+            border-radius: 16px;
+            padding: 0.9rem 1.1rem;
+            margin: 1rem 0;
+        }
+        .warning-card {
+            background: #fff8e7;
+            border-left: 5px solid #f57c00;
+            border-radius: 16px;
+            padding: 0.9rem 1.1rem;
+            margin: 1rem 0;
+        }
+        .critical-card {
+            background: #ffebee;
+            border-left: 5px solid #c62828;
+            border-radius: 16px;
+            padding: 0.9rem 1.1rem;
+            margin: 1rem 0;
+        }
+        .highlight {
+            background-color: #ffecb3;
+            padding: 0.1rem 0.3rem;
+            border-radius: 4px;
+            font-weight: 600;
+            color: #b85c00;
+        }
+        .important-text {
+            font-weight: 700;
+            color: #c62828;
+        }
+        .bold-text {
+            font-weight: 700;
+        }
+        hr {
+            margin: 1.25rem 0;
+            border: none;
+            height: 1px;
+            background: linear-gradient(90deg, #e2e8f0, transparent);
+        }
+        .footer-logo {
+            text-align: center;
+            margin-top: 1.25rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e2e8f0;
+            font-size: 0.7rem;
+            color: #6c7a8e;
+        }
+        
+        /* Стили для списков */
+        ul {
+            margin-top: 0.5rem;
+            margin-left: 1.25rem;
+            padding-left: 0;
+        }
+        li {
+            margin-bottom: 0.3rem;
+            font-size: 0.85rem;
+        }
+        
+        @media (min-width: 768px) {
+            body {
+                padding: 20px;
+            }
+            .document-container {
+                max-width: 750px;
+                border-radius: 32px;
+                box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.3);
+                margin: 0 auto;
+            }
+            .document-header {
+                padding: 1.5rem 2rem;
+            }
+            .document-header h1 {
+                font-size: 1.8rem;
+            }
+            .document-content {
+                padding: 2rem;
+            }
+            .param-title {
+                font-size: 1.1rem;
+            }
+            .param-btn {
+                font-size: 0.9rem;
+                padding: 10px 16px;
+            }
+            .score-number {
+                font-size: 3.5rem;
+            }
+            .risk-level {
+                font-size: 1.2rem;
+                padding: 6px 18px;
+            }
+            li {
+                font-size: 0.9rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .document-content {
+                padding: 1rem;
+            }
+            .param-btn {
+                padding: 8px 10px;
+                font-size: 0.75rem;
+                min-width: 70px;
+            }
+            .score-number {
+                font-size: 2.2rem;
+            }
+            .risk-level {
+                font-size: 0.85rem;
+                padding: 4px 12px;
+                white-space: normal;
+            }
+            .score-box {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .param-title {
+                font-size: 0.9rem;
+            }
+            .result-panel {
+                padding: 1rem;
+            }
+            .recommendation {
+                font-size: 0.8rem;
+                padding: 10px 12px;
+            }
+            li {
+                font-size: 0.75rem;
+            }
+            .info-card, .warning-card, .critical-card {
+                padding: 0.75rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="document-container">
+        <div class="document-header">
+            <h1>🧠 ШКАЛА LAMS</h1>
+            <div class="subtitle">Los Angeles Motor Scale | Оценка моторного дефицита при инсульте</div>
+        </div>
+        <div class="document-content">
+            
+            <!-- Интерактивные параметры -->
+            <div class="parameters-grid" id="paramsGrid"></div>
+            
+            <!-- Панель результата -->
+            <div class="result-panel" id="resultPanel">
+                <div class="score-box">
+                    <div>
+                        <span style="font-size: 0.85rem; font-weight: 500;">Общий балл LAMS:</span>
+                        <div class="score-number" id="totalScore">0</div>
+                    </div>
+                    <div class="risk-level" id="riskLevel">Низкий риск</div>
+                </div>
+                <div class="recommendation" id="recommendation">
+                    <strong>📋 Интерпретация:</strong> Балл 0–2 — минимальный моторный дефицит.
+                </div>
+                <button class="reset-btn" id="resetBtn">⟳ Сбросить все параметры</button>
+            </div>
+            
+            <!-- Важное предупреждение об угнетении сознания -->
+            <div class="critical-card">
+                <strong>⚠️ <span class="important-text">ВАЖНОЕ ПРАВИЛО!</span></strong><br><br>
+                <strong>При угнетении уровня сознания до <span class="important-text">сопора или комы</span> балл по шкале LAMS не определяется!</strong><br>
+                Вместо этого в карте вызова указывается степень угнетения сознания: <strong class="important-text">сопор</strong> или <strong class="important-text">кома</strong>, а также проводится оценка по шкале комы Глазго.<br>
+                <span class="highlight">Оценка моторного дефицита по LAMS возможна только у пациентов с сохранным или оглушенным сознанием (ясное сознание, оглушение).</span>
+            </div>
+            
+            <!-- Информационные блоки -->
+            <div class="info-card">
+                <strong>⚡ Ключевые особенности шкалы LAMS:</strong>
+                <ul>
+                    <li>Быстрая оценка моторного дефицита <span class="highlight">за 1–2 минуты</span></li>
+                    <li>Оценка проводится <span class="highlight">по трем параметрам</span>: асимметрия лица, удержание рук, сила сжатия кисти</li>
+                    <li>Максимальный балл <span class="highlight">5</span> — тяжелый гемипарез</li>
+                    <li>Используется на <span class="highlight">догоспитальном этапе</span> для скрининга инсульта</li>
+                    <li>Высокий балл (≥4) — <span class="highlight">высокая вероятность крупного инсульта</span> (особенно с окклюзией крупных артерий)</li>
+                </ul>
+            </div>
+            
+            <div class="warning-card">
+                <strong>⚠️ Важные моменты для бригад СМП:</strong>
+                <ul>
+                    <li>Оценка проводится <span class="highlight">на обеих руках</span>, учитывается сторона с наибольшим дефицитом</li>
+                    <li>При <span class="highlight">LAMS ≥ 3</span> — высокая вероятность инсульта, требуется <span class="important-text">обязательное информирование стационара</span></li>
+                    <li>Шкала является частью алгоритма <span class="highlight">RACE (Rapid Arterial oCclusion Evaluation)</span> — скрининга окклюзии крупных артерий</li>
+                    <li>При положительном результате — <span class="highlight">немедленная госпитализация в сосудистый центр</span></li>
+                    <li><strong class="important-text">При угнетении сознания (сопор/кома)</strong> — LAMS не применяется, вместо нее используется <span class="highlight">шкала комы Глазго</span></li>
+                </ul>
+            </div>
+            
+            <hr>
+            <div class="footer-logo">
+                🧠 Шкала LAMS (Los Angeles Motor Scale) — валидированный инструмент скрининга инсульта на догоспитальном этапе
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Определение параметров шкалы LAMS с указанием нормальных значений (балл 0)
+        const parameters = {
+            face: {
+                name: "Асимметрия лица",
+                options: [
+                    { label: "Нет", value: 0, isNormal: true, description: "Симметрия сохранена" },
+                    { label: "Да", value: 1, isNormal: false, description: "Нарушение мимики, асимметрия" }
+                ],
+                defaultIdx: 0
+            },
+            arm: {
+                name: "Удержание рук (вытянуты вперед, ладони вверх)",
+                options: [
+                    { label: "Норма (удерживает)", value: 0, isNormal: true, description: "Руки удерживаются горизонтально 10 секунд" },
+                    { label: "Опускается вниз", value: 1, isNormal: false, description: "Рука опускается до горизонтального уровня" },
+                    { label: "Быстро падает", value: 2, isNormal: false, description: "Невозможность удержать руку" }
+                ],
+                defaultIdx: 0
+            },
+            grip: {
+                name: "Сжимание в кисти (сила сжатия)",
+                options: [
+                    { label: "Сила не снижена", value: 0, isNormal: true, description: "Полное сжатие, нормальная сила" },
+                    { label: "Снижение силы", value: 1, isNormal: false, description: "Ослабленное сжатие, частичное" },
+                    { label: "Не сжимает (нет движения)", value: 2, isNormal: false, description: "Отсутствие произвольного движения" }
+                ],
+                defaultIdx: 0
+            }
+        };
+
+        // Состояние выбранных индексов
+        let selectedIndices = {
+            face: parameters.face.defaultIdx,
+            arm: parameters.arm.defaultIdx,
+            grip: parameters.grip.defaultIdx
+        };
+
+        // Функция для получения балла параметра
+        function getParamScore(paramKey) {
+            const param = parameters[paramKey];
+            const idx = selectedIndices[paramKey];
+            if (idx >= 0 && idx < param.options.length) {
+                return param.options[idx].value;
+            }
+            return 0;
+        }
+
+        // Функция для получения общего балла
+        function getTotalScore() {
+            return getParamScore('face') + getParamScore('arm') + getParamScore('grip');
+        }
+
+        // Функция интерпретации результата
+        function getInterpretation(score) {
+            if (score <= 2) {
+                return {
+                    risk: "Низкий риск",
+                    riskColor: "#2c7a4d",
+                    recommendation: "📋 Балл 0–2 — минимальный моторный дефицит. Требуется дальнейшее наблюдение, при сохраняющейся симптоматике — консультация невролога."
+                };
+            } else if (score === 3) {
+                return {
+                    risk: "Умеренный риск",
+                    riskColor: "#f57c00",
+                    recommendation: "🟠 Балл 3 — выраженный моторный дефицит. Высокая вероятность инсульта. Требуется обязательное информирование стационара, госпитализация в сосудистый центр."
+                };
+            } else {
+                return {
+                    risk: "Высокий риск",
+                    riskColor: "#c62828",
+                    recommendation: "🔴 Балл 4–5 — тяжелый моторный дефицит. Высокая вероятность крупного инсульта (окклюзия крупных артерий). НЕМЕДЛЕННАЯ госпитализация в региональный сосудистый центр, активация инсультной бригады."
+                };
+            }
+        }
+
+        // Обновление интерфейса
+        function updateUI() {
+            const total = getTotalScore();
+            document.getElementById('totalScore').innerText = total;
+            
+            const interpretation = getInterpretation(total);
+            const riskLevelElem = document.getElementById('riskLevel');
+            riskLevelElem.innerText = interpretation.risk;
+            riskLevelElem.style.backgroundColor = interpretation.riskColor + "20";
+            riskLevelElem.style.color = interpretation.riskColor;
+            riskLevelElem.style.border = `1px solid ${interpretation.riskColor}40`;
+            
+            document.getElementById('recommendation').innerHTML = `<strong>📋 Интерпретация:</strong> ${interpretation.recommendation}`;
+        }
+
+        // Построение интерфейса параметров
+        function buildUI() {
+            const container = document.getElementById('paramsGrid');
+            container.innerHTML = '';
+            
+            for (const [key, param] of Object.entries(parameters)) {
+                const card = document.createElement('div');
+                card.className = 'param-card';
+                card.innerHTML = `
+                    <div class="param-title">${param.name}</div>
+                    <div class="param-buttons" id="buttons-${key}"></div>
+                `;
+                container.appendChild(card);
+                
+                const btnContainer = card.querySelector(`.param-buttons`);
+                param.options.forEach((opt, idx) => {
+                    const btn = document.createElement('button');
+                    btn.className = 'param-btn';
+                    if (opt.isNormal) btn.classList.add('normal-value');
+                    if (selectedIndices[key] === idx) btn.classList.add('active');
+                    btn.innerText = opt.label;
+                    btn.title = opt.description || '';
+                    btn.addEventListener('click', () => {
+                        selectedIndices[key] = idx;
+                        // Обновляем активные кнопки в этой группе
+                        document.querySelectorAll(`#buttons-${key} .param-btn`).forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+                        updateUI();
+                    });
+                    btnContainer.appendChild(btn);
+                });
+            }
+        }
+
+        // Сброс всех параметров
+        function resetAll() {
+            selectedIndices = {
+                face: parameters.face.defaultIdx,
+                arm: parameters.arm.defaultIdx,
+                grip: parameters.grip.defaultIdx
+            };
+            buildUI();
+            updateUI();
+        }
+
+        // Инициализация
+        buildUI();
+        updateUI();
+        
+        document.getElementById('resetBtn').addEventListener('click', resetAll);
+    </script>
+</body>
+</html>
