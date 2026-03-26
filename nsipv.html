@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Правила введения Сибазона, Морфина, Фентанила - СМП</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: transparent;
+            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.5;
+            color: #1e2a3e;
+            padding: 20px 0;
+        }
+        .document-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+        .document-header {
+            background: linear-gradient(135deg, #1a5f7a 0%, #0e3b4d 100%);
+            color: white;
+            padding: 1.5rem 2rem;
+            border-bottom: 4px solid #ffc107;
+        }
+        .document-header h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .document-header .hashtag {
+            font-size: 1rem;
+            opacity: 0.9;
+            font-family: monospace;
+        }
+        .document-content {
+            padding: 2rem;
+        }
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #1a5f7a;
+            margin: 1rem 0 1rem 0;
+            display: inline-block;
+            border-bottom: 3px solid #ffc107;
+            padding-bottom: 0.25rem;
+        }
+        .intro-card {
+            background: #e3f2fd;
+            border-left: 6px solid #1976d2;
+            padding: 1rem 1.25rem;
+            margin-bottom: 1.5rem;
+            border-radius: 0 12px 12px 0;
+        }
+        .drug-card {
+            background: #fefaf5;
+            border-radius: 16px;
+            padding: 1.25rem;
+            margin: 1.5rem 0;
+            transition: all 0.2s ease;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .drug-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .drug-sibazon { 
+            border-left: 6px solid #2e7d32; 
+            background: linear-gradient(135deg, #ffffff 0%, #f1f8e9 100%);
+        }
+        .drug-morphine { 
+            border-left: 6px solid #7b1fa2; 
+            background: linear-gradient(135deg, #ffffff 0%, #f3e5f5 100%);
+        }
+        .drug-fentanyl { 
+            border-left: 6px solid #d32f2f; 
+            background: linear-gradient(135deg, #ffffff 0%, #ffebee 100%);
+        }
+        .drug-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .drug-title span:first-child {
+            font-size: 1.8rem;
+        }
+        .example-box {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+            margin: 1rem 0;
+            font-family: 'Segoe UI', 'Courier New', monospace;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+        }
+        .signature {
+            font-family: 'Courier New', monospace;
+            margin-top: 0.3rem;
+            font-size: 0.8rem;
+            font-weight: bold;
+            font-style: italic;
+            color: #5a6e85;
+        }
+        .bold-text {
+            font-weight: 700;
+        }
+        .badge {
+            display: inline-block;
+            background: #1a5f7a;
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 0.2rem 0.7rem;
+            border-radius: 20px;
+            margin-right: 0.5rem;
+            vertical-align: middle;
+        }
+        .badge-red {
+            background: #d32f2f;
+        }
+        .badge-green {
+            background: #2e7d32;
+        }
+        .badge-purple {
+            background: #7b1fa2;
+        }
+        .badge-orange {
+            background: #f57c00;
+        }
+        .highlight {
+            background-color: #ffecb3;
+            padding: 0.1rem 0.3rem;
+            border-radius: 4px;
+            font-weight: 600;
+            color: #b85c00;
+        }
+        .important-text {
+            font-weight: 700;
+            color: #c62828;
+            text-decoration: underline;
+        }
+        .warning-card {
+            background: #fff8e7;
+            border-left: 5px solid #ff9800;
+            border-radius: 12px;
+            padding: 0.75rem 1rem;
+            margin: 0.75rem 0;
+        }
+        .critical-card {
+            background: #ffebee;
+            border-left: 5px solid #d32f2f;
+            border-radius: 12px;
+            padding: 0.75rem 1rem;
+            margin: 0.75rem 0;
+        }
+        .info-card {
+            background: #e8f0fe;
+            border-left: 5px solid #1976d2;
+            border-radius: 12px;
+            padding: 0.75rem 1rem;
+            margin: 0.75rem 0;
+        }
+        .rule-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+        .rule-icon {
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        hr {
+            margin: 1.5rem 0;
+            border: none;
+            height: 1px;
+            background: linear-gradient(90deg, #e2e8f0, transparent);
+        }
+        .subnote {
+            font-size: 0.85rem;
+            color: #5a6e85;
+            margin-top: 1rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid #e2e8f0;
+        }
+        @media (max-width: 768px) {
+            .document-content {
+                padding: 1rem;
+            }
+            .example-box {
+                font-size: 0.88rem;
+                overflow-x: auto;
+                padding: 0.75rem;
+            }
+            .drug-title {
+                font-size: 1.2rem;
+            }
+            .signature {
+                font-size: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="document-container">
+    <div class="document-header">
+        <h1>💊 ПРАВИЛА ВВЕДЕНИЯ СИБАЗОНА, МОРФИНА, ФЕНТАНИЛА</h1>
+        <div class="hashtag">Порядок документации и введения препаратов</div>
+    </div>
+    <div class="document-content">
+        
+        <div class="intro-card">
+            <strong>📋 ОБЩИЕ ПРАВИЛА</strong><br>
+            • Перед введением препарата обязательно указать вес пациента и сведения о приеме наркотических средств/психотропных веществ<br>
+            • Запись включает: время введения, дозировку, разведение, способ введения, подписи врача и фельдшера, эффект, состояние после введения
+        </div>
+        
+        <!-- СИБАЗОН -->
+        <div class="drug-card drug-sibazon">
+            <div class="drug-title">
+                <span>💚</span> СИБАЗОН (Diazepam)
+            </div>
+            
+            <div class="example-box">
+                <strong>📝 Образец записи (полное использование ампулы):</strong><br><br>
+                Вес пациента 85 кг.<br>
+                <strong>Ранее наркотические средства и психотропные вещества не получал.</strong><br>
+                С целью купирования судорожного синдрома в 19:00 введено:<br>
+                <span class="highlight">Sol. Sibazoni 5 mg/ml - 2 ml (1 ампула) в разведение</span><br>
+                Sol. Natrii Chloridi 0,9% - 10 ml внутривенно медленно<br>
+                <div class="signature">Врач Иванов С.И., подпись</div>
+                <div class="signature">Фельдшер Зуев С.Г., подпись</div>
+                В 19:05 судорожный синдром полностью купирован, состояние средней степени тяжести, сознание медицинская седация, АД, пульс, ЧДД, сатурация.
+            </div>
+            
+            <div class="warning-card">
+                <div class="rule-header">
+                    <div class="rule-icon">📌</div>
+                    <div><strong>Если ампула использована не полностью</strong> — запись дополняется:</div>
+                </div>
+            </div>
+            
+            <div class="example-box">
+                <strong>📝 Образец записи (частичное использование):</strong><br><br>
+                Вес пациента 45 кг.<br>
+                <strong>Ранее наркотические средства и психотропные вещества не получал.</strong><br>
+                С целью купирования судорожного синдрома в 19:00 введено:<br>
+                <span class="highlight">Sol. Sibazoni 5 mg/ml - 1 ml в разведение</span><br>
+                Sol. Natrii Chloridi 0,9% - 10 ml внутривенно медленно<br>
+                <div class="signature">Врач Иванов С.И., подпись</div>
+                <div class="signature">Фельдшер Зуев С.Г., подпись</div>
+                В 19:05 судорожный синдром полностью купирован, состояние средней степени тяжести, сознание медицинская седация, АД, пульс, ЧДД, сатурация.<br><br>
+                <span class="highlight">Ампула с остатком препарата Sol. Sibazoni 5 mg/ml - 1 ml опечатана.</span><br>
+                <div class="signature">Врач Иванов С.И., подпись</div>
+                <div class="signature">Фельдшер Зуев С.Г., подпись</div>
+                <span class="highlight">Ампула передана ответственному фельдшеру ППВ Ивановой Н.С.</span>
+            </div>
+            
+            <div class="critical-card">
+                <div class="rule-header">
+                    <div class="rule-icon">⚠️</div>
+                    <div><strong>ВАЖНО!</strong> Если необходимо дополнительное введение раствора Сибазона (судороги не купированы или возникли вновь) — <span class="important-text">вскрывается новая ампула раствора!</span></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- МОРФИН -->
+        <div class="drug-card drug-morphine">
+            <div class="drug-title">
+                <span>💜</span> МОРФИН (Morphine)
+            </div>
+            
+            <div class="example-box">
+                <strong>📝 Образец записи:</strong><br><br>
+                Вес пациента 85 кг.<br>
+                <strong>Ранее наркотические средства и психотропные вещества не получал.</strong><br>
+                С целью купирования психомоторного возбуждения в 19:00 введено:<br>
+                <span class="highlight">Sol. Morphini 10 mg/ml - 1 ml (1 ампула) в разведение</span><br>
+                Sol. Natrii Chloridi 0,9% - 10 ml внутривенно медленно дробно<br>
+                <div class="signature">Врач Иванов С.И., подпись</div>
+                <div class="signature">Фельдшер Зуев С.Г., подпись</div>
+                В 19:05 явления острой левожелудочковой недостаточности значительно регрессировали, состояние средней степени тяжести, сознание ясное, АД, пульс, ЧДД, сатурация.
+            </div>
+        </div>
+        
+        <!-- ФЕНТАНИЛ -->
+        <div class="drug-card drug-fentanyl">
+            <div class="drug-title">
+                <span>❤️</span> ФЕНТАНИЛ (Fentanyl)
+            </div>
+            
+            <div class="example-box">
+                <strong>📝 Образец записи (однократное введение):</strong><br><br>
+                Вес пациента 85 кг.<br>
+                <strong>Ранее наркотические средства и психотропные вещества не получал.</strong><br>
+                С целью купирования болевого синдрома в 19:00 введено:<br>
+                <span class="highlight">Sol. Phentanyli 50 mcg/ml - 1 ml (1 ампула) в разведение</span><br>
+                Sol. Natrii Chloridi 0,9% - 10 ml внутривенно медленно<br>
+                <div class="signature">Врач Иванов С.И., подпись</div>
+                <div class="signature">Фельдшер Зуев С.Г., подпись</div>
+                В 19:05 болевой синдром полностью купирован, состояние средней степени тяжести, сознание ясное, АД, пульс, ЧДД, сатурация.
+            </div>
+            
+            <div class="info-card">
+                <div class="rule-header">
+                    <div class="rule-icon">⏱️</div>
+                    <div><strong>Действие раствора Фентанила длится около 30 минут!</strong></div>
+                </div>
+            </div>
+            
+            <div class="warning-card">
+                <div class="rule-header">
+                    <div class="rule-icon">📌</div>
+                    <div><strong>Если время от момента введения до прибытия в стационар более 30 минут или боль возобновилась</strong> — выполняется повторное введение:</div>
+                </div>
+            </div>
+            
+            <div class="example-box">
+                <strong>📝 Образец записи (повторное введение):</strong><br><br>
+                Во время медицинской эвакуации в стационар пациент стал предъявлять жалобы на возобновление болевого синдрома в области травмы.<br>
+                <strong>Ранее наркотические средства и психотропные вещества не получал.</strong><br>
+                С целью купирования болевого синдрома в 20:00 введено:<br>
+                <span class="highlight">Sol. Phentanyli 50 mcg/ml - 1 ml (1 ампула) в разведение</span><br>
+                Sol. Natrii Chloridi 0,9% - 10 ml внутривенно медленно<br>
+                <div class="signature">Врач Иванов С.И., подпись</div>
+                <div class="signature">Фельдшер Зуев С.Г., подпись</div>
+                В 20:05 болевой синдром полностью купирован, состояние средней степени тяжести, сознание ясное, АД, пульс, ЧДД, сатурация.
+            </div>
+        </div>
+        
+        <!-- ФЕНТАНИЛ + КЕТАМИН -->
+        <div class="drug-card drug-fentanyl">
+            <div class="drug-title">
+                <span>🔴</span> ФЕНТАНИЛ + КЕТАМИН (комбинация)
+            </div>
+            
+            <div class="example-box">
+                <strong>📝 Образец записи (при неэффективности Фентанила):</strong><br><br>
+                Вес пациента 85 кг.<br>
+                <strong>Ранее наркотические средства и психотропные вещества не получал.</strong><br>
+                С целью купирования болевого синдрома в 19:00 введено:<br>
+                Sol. Phentanyli 50 mcg/ml - 1 ml (1 ампула) в разведение<br>
+                Sol. Natrii Chloridi 0,9% - 10 ml внутривенно медленно<br>
+                <div class="signature">Врач Иванов С.И., подпись</div>
+                <div class="signature">Фельдшер Зуев С.Г., подпись</div>
+                <span class="highlight">В 19:05 болевой синдром полностью не купирован</span>, состояние средней степени тяжести, сознание ясное, АД, пульс, ЧДД, сатурация.<br><br>
+                С целью купирования болевого синдрома в 19:05 введено:<br>
+                <span class="highlight">Sol. Ketamini 50 mg/ml - 2 ml (1 ампула) в разведение</span><br>
+                Sol. Natrii Chloridi 0,9% - 10 ml внутривенно медленно<br>
+                <div class="signature">Врач Иванов С.И., подпись</div>
+                <div class="signature">Фельдшер Зуев С.Г., подпись</div>
+                В 19:10 болевой синдром полностью купирован, состояние средней степени тяжести, <span class="highlight">сознание медицинская седация</span>, АД, пульс, ЧДД, сатурация.
+            </div>
+        </div>
+        
+        <hr>
+        
+        <div class="subnote">
+            📋 <strong>Ключевые важные моменты:</strong><br>
+            • <strong>Сибазон:</strong> при неполном использовании ампулы — остаток <span class="highlight">опечатать и передать ответственному фельдшеру ППВ</span>. При необходимости повторного введения — <span class="important-text">только новая ампула!</span><br>
+            • <strong>Фентанил:</strong> действие длится <strong>около 30 минут</strong>. При длительной эвакуации или возобновлении боли — допускается повторное введение с соответствующей записью<br>
+            • <strong>Фентанил + Кетамин:</strong> при неэффективности Фентанила добавляется Кетамин, запись ведется последовательно с указанием времени каждого введения<br>
+            • <strong>Обязательные элементы записи:</strong> вес пациента, <strong>сведения о приеме наркотических средств</strong>, время введения, дозировка, разведение, способ введения, подписи врача и фельдшера, эффект, состояние после введения<br>
+            <br>
+            🔍 <em>Документ регламентирует порядок введения и документации наркотических и психотропных препаратов выездными бригадами скорой медицинской помощи.</em>
+        </div>
+        
+    </div>
+</div>
+</body>
+</html>
