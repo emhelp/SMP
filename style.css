@@ -1,3 +1,9 @@
+/* === Общие стили для всех устройств === */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
 /* Шапка */
 .header {
   display: flex;
@@ -9,13 +15,13 @@
 }
 
 .logo {
-  width: 100px; /* стандартный размер */
-  max-width: 30vw; /* адаптивно на маленьких экранах */
+  width: 120px;
+  max-width: 25vw;
   height: auto;
 }
 
 h1 {
-  font-size: 22px;
+  font-size: 24px;
   margin: 0;
   text-align: center;
 }
@@ -27,25 +33,27 @@ h1 {
   text-align: center;
 }
 
-/* Сетка кнопок */
+/* Сетка кнопок — один столбец везде */
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  grid-template-columns: 1fr; /* один столбец */
   gap: 12px;
   padding: 16px;
 }
 
+/* Кнопки */
 .card {
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: #e0e0e0;
-  padding: 12px;
+  padding: 14px;
   text-align: center;
   border-radius: 8px;
   text-decoration: none;
   color: #000;
-  font-weight: 500;
+  font-weight: 700; /* жирный шрифт */
+  font-size: 16px;
   transition: background 0.2s;
 }
 
@@ -59,4 +67,29 @@ h1 {
 
 .card.red:hover {
   background-color: #ffb3b3;
+}
+
+/* Адаптивные размеры логотипа и текста */
+@media (max-width: 1024px) {
+  .logo {
+    width: 100px;
+  }
+  h1 {
+    font-size: 22px;
+  }
+  .subtitle {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 600px) {
+  .logo {
+    width: 80px;
+  }
+  h1 {
+    font-size: 20px;
+  }
+  .subtitle {
+    font-size: 12px;
+  }
 }
