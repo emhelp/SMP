@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Шкала RASS - Оценка ажитации и седации</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: linear-gradient(135deg, #2c5f8a 0%, #1e3a5a 100%);
+            font-family: 'Segoe UI', 'Inter', 'Roboto', system-ui, -apple-system, sans-serif;
+            line-height: 1.5;
+            color: #1e2a3e;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+        .document-container {
+            max-width: 1100px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 32px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            margin: 20px;
+        }
+        .document-header {
+            background: linear-gradient(135deg, #7b1fa2 0%, #4a0072 100%);
+            color: white;
+            padding: 1.5rem 2rem;
+            border-bottom: 4px solid #ffc107;
+            text-align: center;
+        }
+        .document-header h1 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.25rem;
+        }
+        .document-header .subtitle {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        .document-content {
+            padding: 2rem;
+        }
+        .scale-table-wrapper {
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            border-radius: 20px;
+            border: 1px solid #e2e8f0;
+        }
+        .scale-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+        .scale-table th {
+            background: #7b1fa2;
+            color: white;
+            padding: 1rem;
+            font-weight: 700;
+            text-align: center;
+            font-size: 1rem;
+        }
+        .scale-table td {
+            padding: 0.85rem 1rem;
+            border-bottom: 1px solid #e2e8f0;
+            vertical-align: top;
+        }
+        .scale-table tr:last-child td {
+            border-bottom: none;
+        }
+        .scale-table tr:hover {
+            background: #fef5f0;
+        }
+        .score-agitation {
+            background-color: #fff3e0;
+        }
+        .score-calm {
+            background-color: #e8f5e9;
+        }
+        .score-sedation {
+            background-color: #e3f2fd;
+        }
+        .score-badge {
+            display: inline-block;
+            font-weight: 800;
+            font-size: 1.1rem;
+            background: #7b1fa2;
+            color: white;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            border-radius: 30px;
+            margin-right: 0.5rem;
+        }
+        .agitation-badge {
+            background: #f57c00;
+        }
+        .calm-badge {
+            background: #2c7a4d;
+        }
+        .sedation-badge {
+            background: #1976d2;
+        }
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #7b1fa2;
+            margin: 1rem 0 0.5rem 0;
+            display: inline-block;
+            border-bottom: 2px solid #ffc107;
+            padding-bottom: 0.25rem;
+        }
+        .info-card {
+            background: #e3f2fd;
+            border-left: 6px solid #1976d2;
+            border-radius: 16px;
+            padding: 1rem 1.25rem;
+            margin: 1.5rem 0;
+        }
+        .warning-card {
+            background: #fff8e7;
+            border-left: 6px solid #ff9800;
+            border-radius: 16px;
+            padding: 1rem 1.25rem;
+            margin: 1rem 0;
+        }
+        .badge {
+            display: inline-block;
+            background: #7b1fa2;
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 0.2rem 0.7rem;
+            border-radius: 20px;
+            margin-right: 0.5rem;
+            vertical-align: middle;
+        }
+        .highlight {
+            background-color: #ffecb3;
+            padding: 0.1rem 0.3rem;
+            border-radius: 4px;
+            font-weight: 600;
+            color: #b85c00;
+        }
+        .important-text {
+            font-weight: 700;
+            color: #c62828;
+            text-decoration: underline;
+        }
+        .score-ranges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        .range-card {
+            flex: 1;
+            border-radius: 16px;
+            padding: 0.75rem;
+            text-align: center;
+            background: #f8fafc;
+            border-bottom: 4px solid;
+        }
+        .range-agitation {
+            border-bottom-color: #f57c00;
+        }
+        .range-calm {
+            border-bottom-color: #2c7a4d;
+        }
+        .range-sedation {
+            border-bottom-color: #1976d2;
+        }
+        .range-value {
+            font-size: 1.3rem;
+            font-weight: 800;
+            display: block;
+        }
+        hr {
+            margin: 1.5rem 0;
+            border: none;
+            height: 1px;
+            background: linear-gradient(90deg, #e2e8f0, transparent);
+        }
+        .footer-logo {
+            text-align: center;
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e2e8f0;
+            font-size: 0.75rem;
+            color: #6c7a8e;
+        }
+        @media (max-width: 768px) {
+            .document-container {
+                margin: 0;
+                border-radius: 0;
+            }
+            .document-content {
+                padding: 1rem;
+            }
+            .scale-table th, .scale-table td {
+                padding: 0.6rem;
+                font-size: 0.8rem;
+            }
+            .score-badge {
+                width: 32px;
+                height: 32px;
+                line-height: 32px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="document-container">
+        <div class="document-header">
+            <h1>🧠 ШКАЛА RASS</h1>
+            <div class="subtitle">Richmond Agitation-Sedation Scale | Оценка ажитации и седации</div>
+        </div>
+        <div class="document-content">
+            
+            <div class="scale-table-wrapper">
+                <table class="scale-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 80px;">Баллы</th>
+                            <th style="width: 150px;">Состояние</th>
+                            <th>Описание</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="score-agitation">
+                            <td style="text-align: center; font-weight: 800; font-size: 1.1rem;">+4</td>
+                            <td style="font-weight: 700; color: #f57c00;">Агрессивен</td>
+                            <td>Пациент агрессивен, возникают эпизоды выраженного психомоторного возбуждения, возможно нанесение физического ущерба мед. персоналу</td>
+                        </tr>
+                        <tr class="score-agitation">
+                            <td style="text-align: center; font-weight: 800; font-size: 1.1rem;">+3</td>
+                            <td style="font-weight: 700; color: #f57c00;">Выраженная ажитация</td>
+                            <td>Пациент агрессивен, удаляет катетеры, зонды, дренажи, трубки</td>
+                        </tr>
+                        <tr class="score-agitation">
+                            <td style="text-align: center; font-weight: 800; font-size: 1.1rem;">+2</td>
+                            <td style="font-weight: 700; color: #f57c00;">Ажитация</td>
+                            <td>Частая нецеленаправленная двигательная активность, «борьба» с респиратором при проведении ИВЛ</td>
+                        </tr>
+                        <tr class="score-agitation">
+                            <td style="text-align: center; font-weight: 800; font-size: 1.1rem;">+1</td>
+                            <td style="font-weight: 700; color: #f57c00;">Беспокойство</td>
+                            <td>Пациент беспокоен, иногда испуган, но не агрессивен, а двигательная активность не имеет деструктивной направленности</td>
+                        </tr>
+                        <tr class="score-calm">
+                            <td style="text-align: center; font-weight: 800; font-size: 1.1rem;">0</td>
+                            <td style="font-weight: 700; color: #2c7a4d;">Спокойствие и внимательность</td>
+                            <td></td>
+                        </tr>
+                        <tr class="score-sedation">
+                            <td style="text-align: center; font-weight: 800; font-size: 1.1rem;">-1</td>
+                            <td style="font-weight: 700; color: #1976d2;">Сонливость</td>
+                            <td>Недостаточно внимателен, пробуждается на оклик отсрочено: открывает глаза, фиксирует взор более 10 секунд</td>
+                        </tr>
+                        <tr class="score-sedation">
+                            <td style="text-align: center; font-weight: 800; font-size: 1.1rem;">-2</td>
+                            <td style="font-weight: 700; color: #1976d2;">Легкая седация</td>
+                            <td>Пробудим на оклик (открывает глаза, но фиксирует взор менее 10 секунд)</td>
+                        </tr>
+                        <tr class="score-sedation">
+                            <td style="text-align: center; font-weight: 800; font-size: 1.1rem;">-3</td>
+                            <td style="font-weight: 700; color: #1976d2;">Умеренная седация</td>
+                            <td>Двигательная активность или открывание глаз в ответ на оклик без фиксации взора</td>
+                        </tr>
+                        <tr class="score-sedation">
+                            <td style="text-align: center; font-weight: 800; font-size: 1.1rem;">-4</td>
+                            <td style="font-weight: 700; color: #1976d2;">Глубокая седация</td>
+                            <td>Нет реакции на оклик, но двигательная активность или открывание глаз в ответ на проницательные или неощутимые раздражители</td>
+                        </tr>
+                        <tr class="score-sedation">
+                            <td style="text-align: center; font-weight: 800; font-size: 1.1rem;">-5</td>
+                            <td style="font-weight: 700; color: #1976d2;">Отсутствие пробуждения</td>
+                            <td>Нет реакции ни на оклик, ни на проницательные или неощутимые раздражители</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="score-ranges">
+                <div class="range-card range-agitation">
+                    <span class="range-value">+1 до +4</span>
+                    <span style="font-weight: 600; color: #f57c00;">Ажитация / возбуждение</span>
+                    <span style="font-size: 0.75rem;">Требуется седация</span>
+                </div>
+                <div class="range-card range-calm">
+                    <span class="range-value">0</span>
+                    <span style="font-weight: 600; color: #2c7a4d;">Спокойствие</span>
+                    <span style="font-size: 0.75rem;">Целевой уровень</span>
+                </div>
+                <div class="range-card range-sedation">
+                    <span class="range-value">-1 до -5</span>
+                    <span style="font-weight: 600; color: #1976d2;">Седация</span>
+                    <span style="font-size: 0.75rem;">Глубина зависит от цели</span>
+                </div>
+            </div>
+            
+            <div class="info-card">
+                <strong>📊 Применение шкалы RASS:</strong>
+                <ul style="margin-top: 0.5rem; margin-left: 1.5rem;">
+                    <li>Оценка проводится <span class="highlight">за 1–2 минуты</span> путем наблюдения и вербальной/тактильной стимуляции</li>
+                    <li>Используется для определения <span class="highlight">глубины седации</span> у пациентов на ИВЛ и для оценки <span class="highlight">психомоторного возбуждения</span></li>
+                    <li>Целевой уровень для большинства пациентов в ОРИТ — <span class="highlight">от -2 до 0 баллов</span></li>
+                    <li>При <span class="highlight">RASS ≥ +2</span> — требуется коррекция седативной терапии или применение физического удержания</li>
+                    <li>При <span class="highlight">RASS ≤ -3</span> — возможно избыточное седативное действие, требуется снижение дозы</li>
+                </ul>
+            </div>
+            
+            <div class="warning-card">
+                <strong>⚠️ Важные моменты для бригад СМП:</strong>
+                <ul style="margin-top: 0.5rem; margin-left: 1.5rem;">
+                    <li>При <span class="highlight">RASS +3 или +4</span> (выраженная ажитация, агрессия) — требуется <span class="important-text">обязательный консилиум с врачом-консультантом</span> для решения вопроса о седативной терапии</li>
+                    <li>При RASS +1 или +2 — оценка динамики, возможно применение немедикаментозных методов успокоения</li>
+                    <li>При RASS -4 или -5 (глубокая седация) — требуется оценка адекватности проходимости дыхательных путей и, при необходимости, подготовка к интубации</li>
+                    <li>Шкала используется для <span class="highlight">объективизации степени возбуждения или седации</span> у пациентов с нарушением сознания</li>
+                </ul>
+            </div>
+            
+            <hr>
+                        
+        </div>
+    </div>
+</body>
+</html>
