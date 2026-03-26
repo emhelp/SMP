@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Шкала ШОКС - оценка ХСН</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: linear-gradient(135deg, #e8f0f5 0%, #d4e0e8 100%);
+            font-family: 'Segoe UI', 'Inter', 'Roboto', system-ui, -apple-system, sans-serif;
+            line-height: 1.5;
+            color: #1a2c3e;
+            padding: 0;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+        .calculator-card {
+            max-width: 800px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 0;
+            box-shadow: none;
+            overflow: hidden;
+            margin: 0;
+        }
+        .card-header {
+            background: linear-gradient(135deg, #7b1fa2 0%, #4a0072 100%);
+            color: white;
+            padding: 1.2rem 1.5rem;
+            border-bottom: 3px solid #ffc107;
+        }
+        .card-header h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+        .card-header p {
+            font-size: 0.8rem;
+            opacity: 0.9;
+        }
+        .card-content {
+            padding: 1.5rem;
+        }
+        
+        /* Параметры */
+        .parameters-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            margin-bottom: 1.5rem;
+        }
+        .param-card {
+            background: #f8fafc;
+            border-radius: 20px;
+            padding: 0.8rem 1rem;
+            border: 1px solid #e2e8f0;
+            transition: all 0.2s;
+        }
+        .param-card:hover {
+            border-color: #9c27b0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .param-title {
+            font-weight: 700;
+            color: #4a0072;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-left: 4px solid #ffc107;
+            padding-left: 10px;
+        }
+        .param-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .param-btn {
+            background: white;
+            border: 1px solid #cbdae6;
+            padding: 8px 14px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.2s;
+            color: #2c3e66;
+            flex: 1;
+            text-align: center;
+            min-width: 70px;
+        }
+        .param-btn.active {
+            background: #7b1fa2;
+            border-color: #4a0072;
+            color: white;
+            box-shadow: 0 2px 6px rgba(123,31,162,0.3);
+        }
+        .param-btn:hover:not(.active) {
+            background: #f3e5f5;
+            border-color: #ce93d8;
+        }
+        
+        /* Результат */
+        .result-block {
+            background: linear-gradient(135deg, #f3e5f5 0%, #e8e2f0 100%);
+            border-radius: 28px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            text-align: center;
+            border: 1px solid #e0d4e8;
+        }
+        .result-title {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #7b1fa2;
+            margin-bottom: 0.5rem;
+        }
+        .score-box {
+            display: flex;
+            align-items: baseline;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+        .score-value {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: #4a0072;
+            font-family: 'Courier New', monospace;
+        }
+        .score-label {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #6c4a7e;
+        }
+        .fc-box {
+            background: white;
+            border-radius: 40px;
+            padding: 0.8rem 1.5rem;
+            margin: 1rem 0;
+            display: inline-block;
+        }
+        .fc-value {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #7b1fa2;
+        }
+        .recommendation {
+            font-size: 0.85rem;
+            margin-top: 1rem;
+            padding: 0.8rem;
+            background: white;
+            border-radius: 20px;
+            text-align: left;
+        }
+        
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #cbdae6, transparent);
+            margin: 1rem 0;
+        }
+        
+        /* Кнопки */
+        .button-group {
+            display: flex;
+            gap: 12px;
+            margin: 1rem 0;
+            flex-wrap: wrap;
+        }
+        .btn {
+            flex: 1;
+            padding: 12px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: inherit;
+            border: none;
+            text-align: center;
+        }
+        .btn-primary {
+            background: #7b1fa2;
+            color: white;
+        }
+        .btn-primary:hover {
+            background: #4a0072;
+            transform: translateY(-1px);
+        }
+        .btn-secondary {
+            background: #e9edf2;
+            color: #4a0072;
+        }
+        .btn-secondary:hover {
+            background: #dce4ec;
+        }
+        
+        .info-text {
+            font-size: 0.7rem;
+            color: #7c95af;
+            text-align: center;
+            margin-top: 1rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        .fc-desc {
+            font-size: 0.8rem;
+            color: #5a6e85;
+            margin-top: 0.5rem;
+        }
+        
+        @media (max-width: 600px) {
+            .card-content {
+                padding: 1rem;
+            }
+            .score-value {
+                font-size: 2.5rem;
+            }
+            .param-btn {
+                padding: 6px 10px;
+                font-size: 0.75rem;
+            }
+            .button-group {
+                flex-direction: column;
+            }
+        }
+        
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .calculator-card {
+                box-shadow: none;
+                border: 1px solid #ccc;
+            }
+            .btn {
+                display: none;
+            }
+            .button-group {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator-card">
+        <div class="card-header">
+            <h1>💜 ШКАЛА ШОКС</h1>
+            <p>Шкала оценки клинического состояния пациента с хронической сердечной недостаточностью (ХСН)</p>
+        </div>
+        <div class="card-content">
+            
+            <div class="parameters-grid" id="paramsGrid"></div>
+            
+            <div class="result-block">
+                <div class="result-title">📊 РЕЗУЛЬТАТ ОЦЕНКИ</div>
+                <div class="score-box">
+                    <div class="score-value" id="totalScore">0</div>
+                    <div class="score-label">баллов</div>
+                </div>
+                <div class="fc-box">
+                    <span style="font-size: 0.8rem;">Функциональный класс (ФК) ХСН:</span>
+                    <div class="fc-value" id="fcClass">ФК 0</div>
+                </div>
+                <div class="recommendation" id="recommendation">
+                    <strong>📋 Интерпретация:</strong><br>
+                    Сумма баллов определяет функциональный класс ХСН.
+                </div>
+            </div>
+            
+            <div class="button-group">
+                <button class="btn btn-primary" id="calculateBtn">📊 Рассчитать</button>
+                <button class="btn btn-secondary" id="resetBtn">⟳ Сбросить все</button>
+            </div>
+            
+            <div class="info-text">
+                ⚕️ <strong>Шкала ШОКС (Шкала Оценки Клинического Состояния)</strong> — валидированный инструмент для оценки тяжести ХСН.<br>
+                • <strong>ФК 0 (0–3 балла)</strong> — ФК I (легкое течение)<br>
+                • <strong>ФК 1 (4–6 баллов)</strong> — ФК II (среднетяжелое)<br>
+                • <strong>ФК 2 (7–9 баллов)</strong> — ФК III (тяжелое)<br>
+                • <strong>ФК 3 (10–12 баллов)</strong> — ФК IV (крайне тяжелое)<br>
+                • <strong>ФК 4 (13+ баллов)</strong> — ФК IV (декомпенсация)
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Параметры шкалы ШОКС (10 признаков)
+        const parameters = [
+            { name: "1. Одышка при физической нагрузке", options: [
+                { label: "Нет", value: 0 },
+                { label: "При значительной нагрузке (подъем на 2-3 этаж)", value: 1 },
+                { label: "При умеренной нагрузке (ходьба по ровному месту)", value: 2 },
+                { label: "В покое", value: 3 }
+            ], defaultIdx: 0 },
+            { name: "2. Изменение массы тела за последнюю неделю", options: [
+                { label: "Нет", value: 0 },
+                { label: "+1–2 кг", value: 1 },
+                { label: "+2–3 кг", value: 2 },
+                { label: "+3 кг и более", value: 3 }
+            ], defaultIdx: 0 },
+            { name: "3. Жалобы на перебои в работе сердца, сердцебиение", options: [
+                { label: "Нет", value: 0 },
+                { label: "При физической нагрузке", value: 1 },
+                { label: "В покое", value: 2 }
+            ], defaultIdx: 0 },
+            { name: "4. Положение в постели", options: [
+                { label: "Горизонтальное", value: 0 },
+                { label: "С приподнятым изголовьем (1 подушка)", value: 1 },
+                { label: "С приподнятым изголовьем (2 и более подушки)", value: 2 },
+                { label: "Ортопноэ (сидя)", value: 3 }
+            ], defaultIdx: 0 },
+            { name: "5. Частота дыхания (в минуту)", options: [
+                { label: "≤20", value: 0 },
+                { label: "21–24", value: 1 },
+                { label: "25–30", value: 2 },
+                { label: "≥31", value: 3 }
+            ], defaultIdx: 0 },
+            { name: "6. Наличие влажных хрипов в легких", options: [
+                { label: "Нет", value: 0 },
+                { label: "В нижних отделах (единичные)", value: 1 },
+                { label: "В нижних отделах (обильные)", value: 2 },
+                { label: "Над всей поверхностью легких", value: 3 }
+            ], defaultIdx: 0 },
+            { name: "7. Увеличение печени", options: [
+                { label: "Нет", value: 0 },
+                { label: "+1–2 см (край пальпируется)", value: 1 },
+                { label: "+2–3 см", value: 2 },
+                { label: "+3 см и более", value: 3 }
+            ], defaultIdx: 0 },
+            { name: "8. Периферические отеки", options: [
+                { label: "Нет", value: 0 },
+                { label: "Пастозность голеней, стоп", value: 1 },
+                { label: "Отеки голеней", value: 2 },
+                { label: "Анасарка", value: 3 }
+            ], defaultIdx: 0 },
+            { name: "9. Уровень артериального давления (систолическое)", options: [
+                { label: ">120 мм рт. ст.", value: 0 },
+                { label: "100–120 мм рт. ст.", value: 1 },
+                { label: "80–100 мм рт. ст.", value: 2 },
+                { label: "<80 мм рт. ст.", value: 3 }
+            ], defaultIdx: 0 },
+            { name: "10. Частота сердечных сокращений (в покое)", options: [
+                { label: "≤80 уд/мин", value: 0 },
+                { label: "81–90 уд/мин", value: 1 },
+                { label: "91–100 уд/мин", value: 2 },
+                { label: "≥101 уд/мин", value: 3 }
+            ], defaultIdx: 0 }
+        ];
+        
+        // Состояние выбранных индексов
+        let selectedIndices = parameters.map((_, idx) => idx === 0 ? 0 : 0);
+        
+        function getTotalScore() {
+            let total = 0;
+            parameters.forEach((param, idx) => {
+                const selectedIdx = selectedIndices[idx];
+                total += param.options[selectedIdx].value;
+            });
+            return total;
+        }
+        
+        function getFunctionalClass(score) {
+            if (score <= 3) return { fc: "ФК 0 (I)", description: "Функциональный класс I — легкое течение ХСН. Физическая активность не ограничена. Обычная нагрузка не вызывает выраженной одышки, утомляемости, сердцебиения.", color: "#2e7d32" };
+            if (score <= 6) return { fc: "ФК 1 (II)", description: "Функциональный класс II — среднетяжелое течение ХСН. Незначительное ограничение физической активности. В покое жалоб нет. Обычная нагрузка вызывает одышку, утомляемость, сердцебиение.", color: "#f57c00" };
+            if (score <= 9) return { fc: "ФК 2 (III)", description: "Функциональный класс III — тяжелое течение ХСН. Выраженное ограничение физической активности. В покое жалоб нет, но минимальная нагрузка вызывает симптомы.", color: "#c62828" };
+            if (score <= 12) return { fc: "ФК 3 (IV)", description: "Функциональный класс IV — крайне тяжелое течение ХСН. Невозможность выполнить любую физическую нагрузку без дискомфорта. Симптомы ХСН имеются в покое и усиливаются при минимальной нагрузке.", color: "#c62828" };
+            return { fc: "ФК 4 (IV)", description: "Функциональный класс IV — декомпенсация ХСН. Симптомы выражены в покое. Требуется госпитализация и коррекция терапии.", color: "#c62828" };
+        }
+        
+        function updateUI() {
+            const total = getTotalScore();
+            document.getElementById('totalScore').innerText = total;
+            
+            const fcData = getFunctionalClass(total);
+            document.getElementById('fcClass').innerText = fcData.fc;
+            document.getElementById('fcClass').style.color = fcData.color;
+            
+            document.getElementById('recommendation').innerHTML = `
+                <strong>📋 Интерпретация:</strong><br>
+                <strong>Сумма баллов: ${total}</strong><br>
+                ${fcData.description}<br><br>
+                <strong>💊 Рекомендации:</strong><br>
+                • ФК I (0–3 балла) — амбулаторное наблюдение, коррекция терапии при ухудшении<br>
+                • ФК II (4–6 баллов) — усиление диуретической терапии, контроль веса<br>
+                • ФК III (7–9 баллов) — рассмотреть госпитализацию, коррекция терапии<br>
+                • ФК IV (10+ баллов) — показана госпитализация в кардиологический/реанимационный стационар
+            `;
+        }
+        
+        function buildUI() {
+            const container = document.getElementById('paramsGrid');
+            container.innerHTML = '';
+            
+            parameters.forEach((param, paramIdx) => {
+                const card = document.createElement('div');
+                card.className = 'param-card';
+                card.innerHTML = `
+                    <div class="param-title">${param.name}</div>
+                    <div class="param-buttons" id="buttons-${paramIdx}"></div>
+                `;
+                container.appendChild(card);
+                
+                const btnContainer = card.querySelector(`.param-buttons`);
+                param.options.forEach((opt, optIdx) => {
+                    const btn = document.createElement('button');
+                    btn.className = 'param-btn';
+                    if (selectedIndices[paramIdx] === optIdx) btn.classList.add('active');
+                    btn.innerText = opt.label;
+                    btn.addEventListener('click', () => {
+                        selectedIndices[paramIdx] = optIdx;
+                        document.querySelectorAll(`#buttons-${paramIdx} .param-btn`).forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+                        updateUI();
+                    });
+                    btnContainer.appendChild(btn);
+                });
+            });
+        }
+        
+        function resetAll() {
+            selectedIndices = parameters.map((_, idx) => 0);
+            buildUI();
+            updateUI();
+        }
+        
+        // Инициализация
+        buildUI();
+        updateUI();
+        
+        document.getElementById('calculateBtn').addEventListener('click', updateUI);
+        document.getElementById('resetBtn').addEventListener('click', resetAll);
+    </script>
+</body>
+</html>
