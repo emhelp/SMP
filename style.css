@@ -1,56 +1,71 @@
 /* ===== БАЗА ===== */
 body {
- font-family: -apple-system, BlinkMacSystemFont, sans-serif;
- margin: 0;
- background: #eef2f5;
- padding-bottom: env(safe-area-inset-bottom);
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  margin: 0;
+  background: #eef2f5;
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
 /* ===== ШАПКА ===== */
 .header {
- text-align: center;
- padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 15px;
+  text-align: center;
 }
 
 .logo {
- width: 70px;
+  width: 70px;
+  height: auto;
 }
 
+/* ===== ЗАГОЛОВОК ===== */
 h1 {
- margin: 5px 0;
- font-size: 20px;
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
 }
 
-/* ===== СПИСОК КНОПОК (ОДНА КОЛОНКА) ===== */
+/* ===== КОНТЕЙНЕР КНОПОК ===== */
 .grid {
- display: grid;
- grid-template-columns: 1fr;
- gap: 12px;
- padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px;
 }
 
 /* ===== КНОПКИ ===== */
 .card {
- display: block;
- padding: 18px;
- text-align: center;
- background: white;
- border-radius: 16px;
- text-decoration: none;
- color: black;
- font-weight: 600;
- font-size: 16px;
- box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+  display: block;
+  padding: 18px;
+  text-align: center;
+  background: #ffffff;
+  border-radius: 16px;
+  text-decoration: none;
+  color: #000;
+  font-weight: 600;
+  font-size: 16px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+  -webkit-tap-highlight-color: transparent;
 }
 
-/* КРАСНЫЕ КНОПКИ */
+/* ===== КРАСНЫЕ КНОПКИ ===== */
 .card.red {
- background: #d32f2f;
- color: white;
+  background: #d32f2f;
+  color: #fff;
 }
 
-/* НАЖАТИЕ (эффект кнопки) */
+/* ===== ЭФФЕКТ НАЖАТИЯ ===== */
 .card:active {
- transform: scale(0.98);
- box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  transform: scale(0.98);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+
+/* ===== iOS SAFE AREA ===== */
+@supports (padding: max(0px)) {
+  body {
+    padding-bottom: max(env(safe-area-inset-bottom), 10px);
+  }
 }
