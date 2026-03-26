@@ -2,120 +2,44 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Шпаргалки СМП</title>
-  <link rel="stylesheet" href="style.css?v=3">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Медицинские калькуляторы</title>
   <style>
-    /* Встроенный стиль для полной автономности, можно удалить если используешь style.css */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      font-family: 'Segoe UI', 'Inter', 'Roboto', system-ui, -apple-system, sans-serif;
-      background-color: #f8f9fa;
-      color: #1e2a3e;
-      line-height: 1.5;
-      min-height: 100vh;
-    }
-    .header {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-      padding: 20px;
-      text-align: center;
-    }
-    .header .logo {
-      width: 120px;
-      height: auto;
-    }
-    .header h1 {
-      font-size: 1.8rem;
-      font-weight: 800;
-    }
-    .header p {
-      font-size: 1rem;
-      opacity: 0.8;
-    }
-    .grid {
-      display: flex;
-      flex-direction: column; /* одна колонка на всех устройствах */
-      gap: 12px;
-      padding: 16px;
-      max-width: 400px;
-      margin: 0 auto;
-    }
-    .card {
-      display: block;
-      text-align: center;
-      padding: 16px;
-      background-color: #e0e0e0; /* серый фон по умолчанию */
-      color: #1e2a3e;
-      text-decoration: none;
-      border-radius: 12px;
-      font-weight: 700; /* жирный шрифт */
-      font-size: 1rem;
-      transition: background 0.2s;
-      cursor: pointer;
-    }
-    .card:hover {
-      background-color: #d0d0d0;
-    }
-    .card.active {
-      background-color: #c62828; /* красный фон */
-      color: #ffffff;
-    }
-    @media (max-width: 600px) {
-      .header h1 {
-        font-size: 1.6rem;
-      }
-      .header p {
-        font-size: 0.9rem;
-      }
-      .card {
-        font-size: 0.95rem;
-        padding: 14px;
-      }
-    }
-    @media (min-width: 1200px) {
-      .grid {
-        max-width: 500px;
-      }
-    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family: 'Segoe UI', 'Roboto', sans-serif; background:#f2f4f8; min-height:100vh; display:flex; flex-direction:column; align-items:center; padding:20px; }
+    .header { display:flex; flex-direction:column; align-items:center; gap:8px; margin-bottom:20px; }
+    .logo { width:120px; height:auto; }
+    h1 { font-size:1.8rem; color:#1e2a3e; }
+    .buttons-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap:16px; width:100%; max-width:800px; }
+    .card { display:flex; align-items:center; justify-content:center; gap:8px; background:#e2e8f0; color:#1e2a3e; font-weight:600; font-size:1rem; padding:14px; border-radius:24px; text-decoration:none; text-align:center; transition: all 0.2s ease; cursor:pointer; }
+    .card:hover { background:#cbd5e1; transform:translateY(-2px); }
+    .card.active, .card.red { background:#c62828; color:white; }
   </style>
 </head>
 <body>
-
-  <!-- ШАПКА -->
   <div class="header">
-    <img src="logo.png" class="logo" alt="Логотип">
-    <h1>Шпаргалки СМП</h1>
-    <p>Проект EMHelp Group '2026</p>
+    <img src="logo.png" alt="Логотип" class="logo">
+    <h1>Медицинские калькуляторы</h1>
   </div>
-
-  <!-- КНОПКИ -->
-  <div class="grid">
-    <a href="#" class="card">ШАБЛОНЫ КАРТ</a>
-    <a href="#" class="card">АРХИВ КАРТ СМП</a>
-    <a href="#" class="card">STATUS LOCALIS</a>
-    <a href="#" class="card">КАЛЬКУЛЯТОРЫ</a>
-    <a href="#" class="card">КОНСИЛИУМЫ</a>
-    <a href="#" class="card">ПРИКАЗЫ</a>
-    <a href="#" class="card">ПОДСТАНЦИИ МСК</a>
+  <div class="buttons-grid">
+    <a href="calculator1.html" class="card">💉 Калькулятор 1</a>
+    <a href="calculator2.html" class="card">🩺 Калькулятор 2</a>
+    <a href="calculator3.html" class="card">⚕️ Калькулятор 3</a>
+    <a href="stations.html" class="card red">🛑 ПОДСТАНЦИИ МСК</a>
+    <a href="calculator4.html" class="card">🧪 Калькулятор 4</a>
+    <a href="calculator5.html" class="card">🏥 Калькулятор 5</a>
+    <!-- добавляй остальные кнопки здесь -->
   </div>
-
   <script>
-    // Скрипт для активной кнопки
-    const buttons = document.querySelectorAll('.card');
-    buttons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        buttons.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-      });
+    // Автоматическая установка активной кнопки на текущей странице
+    const cards = document.querySelectorAll('.card');
+    const currentPage = window.location.pathname.split('/').pop();
+    cards.forEach(card => {
+      const href = card.getAttribute('href');
+      if(href === currentPage) {
+        card.classList.add('active');
+      }
     });
   </script>
-
 </body>
 </html>
