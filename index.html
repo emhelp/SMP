@@ -15,29 +15,24 @@
       align-items: center;
       min-height: 100vh;
     }
-
     .header {
       text-align: center;
       padding: 20px;
     }
-
     .header .logo {
       max-width: 150px;
       width: 50%;
       height: auto;
       margin-bottom: 10px;
     }
-
     .header h1 {
       font-size: 2rem;
       margin: 5px 0;
     }
-
     .header p {
       font-size: 1rem;
       margin: 0;
     }
-
     .menu {
       display: flex;
       flex-direction: column;
@@ -47,8 +42,8 @@
       max-width: 300px;
       padding: 10px;
       box-sizing: border-box;
+      margin-bottom: 20px;
     }
-
     .menu-btn {
       text-decoration: none;
       color: white;
@@ -60,39 +55,10 @@
       width: 100%;
       transition: background 0.2s;
     }
-
-    .menu-btn.active {
-      background: #e53935; /* красный активной кнопки */
-    }
-
-    .menu-btn:hover {
-      background: #3949ab; /* светлее темно-синий при наведении */
-    }
-
-    .main-content {
-      max-width: 1000px;
-      width: 100%;
-      padding: 20px;
-      box-sizing: border-box;
-    }
-
-    @media (max-width: 600px) {
-      .header .logo {
-        width: 70%;
-      }
-      .header h1 {
-        font-size: 1.5rem;
-      }
-      .header p {
-        font-size: 0.9rem;
-      }
-      .menu {
-        max-width: 90%;
-      }
-      .menu-btn {
-        font-size: 0.9rem;
-      }
-    }
+    .menu-btn.active { background: #e53935; }
+    .menu-btn:hover { background: #3949ab; }
+    .main-content { max-width: 1000px; width: 100%; padding: 20px; box-sizing: border-box; }
+    @media (max-width: 600px) { .header .logo { width: 70%; } .header h1 { font-size: 1.5rem; } .header p { font-size: 0.9rem; } .menu { max-width: 90%; } .menu-btn { font-size: 0.9rem; } }
   </style>
 </head>
 <body>
@@ -115,17 +81,12 @@
   </nav>
 
   <div class="main-content">
-    <!-- Здесь будет контент конкретной страницы -->
+    <!-- Контент главной -->
   </div>
 
   <script>
-    // Подсветка активной кнопки по текущему URL
     const current = window.location.pathname.split("/").pop();
-    document.querySelectorAll('.menu-btn').forEach(btn => {
-      if(btn.getAttribute('href') === current) {
-        btn.classList.add('active');
-      }
-    });
+    document.querySelectorAll('.menu-btn').forEach(btn => { if(btn.getAttribute('href')===current) btn.classList.add('active'); });
   </script>
 
 </body>
