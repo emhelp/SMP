@@ -74,16 +74,17 @@
     // URL твоего Google Apps Script
     const url = 'https://script.google.com/macros/s/AKfycbx62bFc8liMhuFtdDITDGOSAiWMhwEtxTrN-uBG8QtlQ1a7uofJ7NfnMGzlIPTQvcwv/exec';
 
-    async function updateVisitCounter() {
-      try {
-        const response = await fetch(url);
-        const data = await response.json();
-        document.getElementById('visitCounter').textContent =
-          `Посещений в этом месяце: ${data.count}`;
-      } catch (err) {
-        console.error(err);
-        document.getElementById('visitCounter').textContent = 'Ошибка загрузки';
-      }
+    function updateVisitCounter() {
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById('visitCounter').textContent =
+            `Посещений в этом месяце: ${data.count}`;
+        })
+        .catch(err => {
+          console.error(err);
+          document.getElementById('visitCounter').textContent = 'Ошибка загрузки';
+        });
     }
 
     // Обновляем при загрузке страницы
