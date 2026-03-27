@@ -68,27 +68,38 @@
   </script>
 
   <!-- Глобальный счетчик посещений после кнопок -->
-  <div class="visit-counter" id="visitCounter">Загрузка...</div>
+<div class="visit-counter" id="visitCounter">Загрузка...</div>
 
-  <script>
-    // URL твоего нового Google Apps Script
-    const url = 'https://script.google.com/macros/s/AKfycbwOHmQbXHAAJ47-yXIK17Q0KKBbIMhE9A6j9Xjwc3TAtzwfNdqz6BgWZCO7Drt5Xfybww/exec';
-
-    async function updateVisitCounter() {
-      try {
-        const response = await fetch(url);
-        const data = await response.json();
-        document.getElementById('visitCounter').textContent =
-          `Посещений в этом месяце: ${data.count}`;
-      } catch (err) {
-        console.error(err);
-        document.getElementById('visitCounter').textContent = 'Ошибка загрузки';
+<script>
+  // URL вашего скрипта (ЗАМЕНИТЕ НА ВАШ!)
+  const url = 'ВАШ_URL_ОТ_GOOGLE_APPS_SCRIPT';
+  
+  async function updateVisitCounter() {
+    try {
+      console.log('Запрос к:', url);
+      const response = await fetch(url);
+      console.log('Статус ответа:', response.status);
+      
+      const data = await response.json();
+      console.log('Полученные данные:', data);
+      
+      if (data.error) {
+        document.getElementById('visitCounter').textContent = 
+          'Ошибка: ' + data.error;
+      } else {
+        document.getElementById('visitCounter').textContent = 
+          `Посещений в этом месяце: ${data.count} (${data.month})`;
       }
+    } catch (err) {
+      console.error('Ошибка запроса:', err);
+      document.getElementById('visitCounter').textContent = 
+        'Ошибка загрузки: ' + err.message;
     }
-
-    // Обновляем при загрузке страницы
-    updateVisitCounter();
-  </script>
+  }
+  
+  // Обновляем при загрузке страницы
+  updateVisitCounter();
+</script>
 
 </body>
 </html>
