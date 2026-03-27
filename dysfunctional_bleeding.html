@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Карта вызова СМП | Дисфункциональное маточное кровотечение (ДМК)</title>
+    <title>Карта вызова скорой медицинской помощи | Дисфункциональное маточное кровотечение</title>
     <style>
         * {
             margin: 0;
@@ -12,403 +12,359 @@
         }
 
         body {
-            background: #e2e8f0;
-            font-family: 'Segoe UI', 'Roboto', 'Inter', system-ui, sans-serif;
-            line-height: 1.5;
-            padding: 32px 24px;
-            color: #1a2c3e;
+            background-color: #e9ecef;
+            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+            padding: 40px 20px;
+            color: #212529;
+            line-height: 1.45;
         }
 
-        .container {
-            max-width: 1200px;
+        .card {
+            max-width: 1100px;
             margin: 0 auto;
-        }
-
-        .medical-card {
-            background: #ffffff;
-            border-radius: 28px;
-            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.2);
+            background-color: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.15);
             overflow: hidden;
+            border: 1px solid #dee2e6;
         }
 
-        .card-header {
-            background: linear-gradient(135deg, #c62828 0%, #8b0000 100%);
-            padding: 20px 32px;
+        .mkb-row {
+            background: linear-gradient(135deg, #0b3b5f 0%, #1a4d6f 100%);
             color: white;
-            border-bottom: 4px solid #ffb347;
+            padding: 20px 32px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border-bottom: 4px solid #ffc107;
         }
 
-        .card-header .mkb {
-            font-size: 14px;
-            opacity: 0.9;
-            font-family: monospace;
+        .mkb-row span {
+            font-weight: 700;
+            color: #ffc107;
         }
 
-        .card-header .warning {
-            font-size: 12px;
-            opacity: 0.85;
+        .diagnosis {
+            background: #fef9e6;
+            padding: 12px 32px;
+            border-left: 6px solid #ffc107;
+            font-weight: 500;
+            font-size: 0.98rem;
+            color: #2d3e50;
+            border-bottom: 1px solid #f0e2b6;
+        }
+
+        .content {
+            padding: 24px 32px 40px 32px;
+        }
+
+        .section {
+            margin-bottom: 32px;
+            break-inside: avoid;
+            page-break-inside: avoid;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #1a4d6f;
+            border-left: 6px solid #ffc107;
+            padding-left: 16px;
+            margin-bottom: 18px;
             margin-top: 8px;
-            background: rgba(255,255,255,0.15);
+            background: #f4f9ff;
+            border-radius: 0 12px 12px 0;
+            line-height: 1.3;
+        }
+
+        .field-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .field-item {
+            padding: 6px 0 4px 8px;
+            border-bottom: 1px dotted #e0e6ed;
+            font-size: 0.94rem;
+            line-height: 1.45;
+        }
+
+        .field-item strong {
+            font-weight: 700;
+            color: #1e4663;
             display: inline-block;
-            padding: 4px 12px;
-            border-radius: 20px;
+            min-width: 240px;
         }
 
-        .card-content {
-            padding: 28px 36px;
+        .field-item .value {
+            color: #2c3e4e;
+            font-weight: 500;
         }
 
-        .exam-block {
-            margin-bottom: 28px;
-            border: 1px solid #e2edf2;
-            border-radius: 20px;
-            overflow: hidden;
-            background: white;
+        .full-width-text {
+            padding: 8px 0 8px 8px;
+            border-bottom: 1px dotted #e0e6ed;
+            font-size: 0.94rem;
         }
 
-        .block-title {
-            background: #f1f6fb;
-            padding: 14px 24px;
-            font-weight: 800;
-            font-size: 18px;
-            color: #0b5e7c;
-            border-left: 5px solid #ffb347;
-            letter-spacing: -0.2px;
-        }
-
-        .block-content {
-            padding: 20px 28px;
-            background: #fefefe;
-            font-size: 15px;
-            line-height: 1.55;
-            color: #1e3a4f;
-            text-align: left;
-        }
-
-        .field-row {
-            margin-bottom: 12px;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: baseline;
-            gap: 8px;
-            text-align: left;
-        }
-
-        .field-label {
+        .full-width-text strong {
             font-weight: 700;
-            color: #1c6d8f;
-            min-width: 210px;
-            font-size: 14px;
-        }
-
-        .field-value {
-            flex: 1;
-            color: #1e2f3c;
-            text-align: left;
-        }
-
-        .inline-group {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 24px;
-            margin: 12px 0;
-            text-align: left;
-        }
-
-        .inline-item {
-            flex: 1;
-            min-width: 180px;
-            text-align: left;
-        }
-
-        .diagnosis-box {
-            background: #fefaf5;
-            border-left: 4px solid #ffb347;
-            padding: 16px 20px;
-            border-radius: 16px;
-            margin-bottom: 8px;
-            text-align: left;
-        }
-
-        .diagnosis-box div {
-            margin-bottom: 8px;
-            text-align: left;
-        }
-
-        .scales-box {
-            background: #f0f4fa;
-            padding: 16px 20px;
-            border-radius: 16px;
-            margin: 12px 0;
-        }
-
-        .scale-item {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            margin-bottom: 10px;
-        }
-
-        .scale-label {
-            font-weight: 700;
-            color: #1c6d8f;
-            min-width: 160px;
+            color: #1e4663;
+            display: inline-block;
+            min-width: 240px;
         }
 
         .status-local {
-            background: #f9fef7;
-            border-left: 4px solid #2c9c6e;
-            padding: 16px 20px;
-            border-radius: 16px;
-            margin-top: 8px;
-            text-align: left;
+            background: #fef7e0;
+            padding: 14px 18px;
+            border-radius: 18px;
+            margin-top: 6px;
+            border: 1px solid #ffe3a4;
+            font-size: 0.94rem;
         }
 
-        .status-local div {
-            margin-bottom: 8px;
-            text-align: left;
+        .scales-list {
+            background: #f1f4f9;
+            padding: 12px 20px;
+            border-radius: 20px;
+            margin-top: 10px;
         }
 
-        .alert-note {
-            background: #ffebee;
-            border-left: 4px solid #c62828;
+        .scales-list p {
+            margin: 8px 0;
+        }
+
+        .note {
+            background: #e7f1ff;
+            border-left: 4px solid #1a4d6f;
             padding: 12px 16px;
-            border-radius: 12px;
             margin-top: 16px;
-            font-size: 13px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            color: #1e4663;
         }
 
-        hr {
-            margin: 16px 0;
-            border: none;
-            height: 1px;
-            background: #e2ecf3;
+        .note-list {
+            margin-top: 8px;
+            margin-left: 20px;
+            list-style-type: none;
+            padding-left: 0;
         }
 
-        .footer-note {
-            font-size: 13px;
-            color: #6c8eaa;
-            text-align: right;
+        .note-list li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .note-list li:before {
+            content: "•";
+            position: absolute;
+            left: 4px;
+            color: #1a4d6f;
+            font-weight: bold;
         }
 
         @media (max-width: 700px) {
-            .card-content {
-                padding: 18px;
+            .field-item strong {
+                min-width: 170px;
             }
-            .block-content {
-                padding: 14px 18px;
+            .full-width-text strong {
+                min-width: 170px;
             }
-            .field-label {
-                min-width: 140px;
+            .content {
+                padding: 20px;
             }
         }
     </style>
 </head>
 <body>
-<div class="container">
-    <div class="medical-card">
-        <div class="card-header">
-            <div class="mkb">МКБ-10: N93.8 — Дисфункциональное маточное кровотечение без дополнительных уточнений (ДМК)</div>
-            <div class="warning">⚠️ НЕОТЛОЖНОЕ СОСТОЯНИЕ! Оценка гемодинамики, риск геморрагического шока!</div>
+<div class="card">
+    <div class="mkb-row">
+        📌 Код по МКБ-10: <span>N93.8</span> (Дисфункциональные маточные кровотечения без дополнительных уточнений)
+    </div>
+    <div class="diagnosis">
+        🧾 <strong>Диагноз:</strong> Основное заболевание: Дисфункциональное маточное кровотечение (ДМК). Ановуляторное / овуляторное ДМК. Маточное кровотечение в пубертатном периоде (ювенильное) / репродуктивном возрасте / перименопаузе.<br>
+        Осложнения: Острый болевой синдром (при ДМК овуляторного типа). Постгеморрагическая анемия легкой/средней степени тяжести. Геморрагический шок (при профузном кровотечении).<br>
+        Сопутствующие заболевания: Не выявлены / (указать при наличии).
+    </div>
+
+    <div class="content">
+        <!-- ЖАЛОБЫ -->
+        <div class="section">
+            <div class="section-title">📢 ЖАЛОБЫ</div>
+            <div class="full-width-text"><em>На обильные кровянистые выделения из половых путей:<br>
+            Сгустки (обильные, крупные, до 5-10 см).<br>
+            Длительность кровотечения – более 7 дней (указать конкретно: 10 дней, 2 недели и т.д.).<br>
+            Нарушение ритма менструаций – задержка менструации на 1,5–3 месяца с последующим обильным кровотечением / межменструальные кровянистые выделения / укорочение менструального цикла (&lt;21 дня).<br>
+            Интенсивность – необходимость смены гигиенической прокладки каждые 1–2 часа (тяжелое кровотечение) / каждые 3–4 часа (умеренное).<br>
+            На общую слабость, головокружение, потемнение в глазах, «мушки» перед глазами, одышку при физической нагрузке, сердцебиение (симптомы анемизации).<br>
+            На тянущие, схваткообразные боли внизу живота (при овуляторных ДМК – в дни, соответствующие менструации).</em></div>
         </div>
-        <div class="card-content">
 
-            <!-- ДИАГНОЗ -->
-            <div class="exam-block">
-                <div class="block-title">ДИАГНОЗ</div>
-                <div class="block-content">
-                    <div class="diagnosis-box">
-                        <div><strong>Основное заболевание:</strong> Дисфункциональное маточное кровотечение (ДМК). Ановуляторное / овуляторное ДМК. Маточное кровотечение в пубертатном периоде (ювенильное) / репродуктивном возрасте / перименопаузе.</div>
-                        <div><strong>Осложнения:</strong> Острый болевой синдром (при ДМК овуляторного типа). Постгеморрагическая анемия легкой/средней степени тяжести. Геморрагический шок (при профузном кровотечении).</div>
-                        <div><strong>Сопутствующие заболевания:</strong> Не выявлены / (указать при наличии).</div>
-                    </div>
-                </div>
-            </div>
+        <!-- АНАМНЕЗ -->
+        <div class="section">
+            <div class="section-title">📋 АНАМНЕЗ</div>
+            <div class="full-width-text"><strong>Эпидемиологический анамнез:</strong> Контакта с инфекционными больными нет. За пределы РФ в последние 3 недели не выезжала.</div>
+            <div class="full-width-text"><strong>Аллергологический анамнез:</strong> Не отягощен / отягощен (указать аллергию на лекарственные препараты, пищевые продукты).</div>
+            <div class="full-width-text"><strong>Гинекологический анамнез:</strong> Менструальная функция:<br>
+            Ювенильный период (до 18 лет): Менархе с __ лет. Цикл установился сразу / не установился. Продолжительность менструации __ дней, интервал __ дней, регулярный/нерегулярный, обильный/умеренный, безболезненный/болезненный. Наличие обильных менструаций с менархе (указать).<br>
+            Репродуктивный возраст (18–45 лет): Менструации с __ лет, по __ дней, через __ дней, регулярные/нерегулярные, обильные/умеренные, безболезненные/болезненные. Дисменорея (есть/нет). Последняя менструация: (дата) – в срок/задержка/необычно скудная/необычно обильная.<br>
+            Перименопаузальный период (45–55 лет): Менструальный цикл стал нерегулярным в течение последних __ месяцев/лет. Задержки менструации до __ недель/месяцев, чередующиеся с обильными/длительными кровотечениями. Последняя менструация: (дата) – задержка __ дней/месяцев. Приливы жара, потливость, лабильность АД (симптомы климактерического синдрома).<br>
+            Репродуктивная функция: Беременностей – __, родов – __, абортов – __, выкидышей – __. Осложнения беременности/родов (кровотечения, отслойка плаценты, ручное обследование полости матки). Бесплодие (первичное/вторичное).<br>
+            Гинекологические заболевания: Миома матки (размеры, локализация узлов, темп роста, состоит на учете/не состоит). Эндометриоз (аденомиоз) – боли, дисменорея, межменструальные мажущие выделения. Гиперплазия эндометрия, полип эндометрия (данные УЗИ/гистероскопии/раздельного диагностического выскабливания). Воспалительные заболевания органов малого таза (хронический эндометрит, сальпингоофорит). Синдром поликистозных яичников (СПКЯ) – нерегулярные менструации, гирсутизм, ожирение, бесплодие.<br>
+            Оперативные вмешательства: Раздельное диагностическое выскабливание (РДВ) – дата, результат гистологии. Гистероскопия, гистерорезектоскопия (удаление полипа, субмукозного узла, аблация эндометрия). Экстирпация матки (при рецидивирующих ДМК в перименопаузе, резистентных к терапии).<br>
+            Контрацепция: Гормональная (КОК, внутриматочная система с левоноргестрелом – «Мирена») – принимает/не принимает, регулярность/отмена. ВМС (негормональная) – наличие/отсутствие, срок использования (риск менометроррагии).<br>
+            Экстрагенитальная патология: Заболевания свертывающей системы крови (болезнь Виллебранда, тромбоцитопения, лейкоз, прием антикоагулянтов/антиагрегантов). Заболевания щитовидной железы (гипотиреоз, гипертиреоз). Заболевания печени (гепатит, цирроз – нарушение синтеза факторов свертывания). Сахарный диабет, ожирение (факторы риска гиперпластических процессов эндометрия).<br>
+            Выделения из половых путей на момент осмотра: Обильные/умеренные/скудные, кровянистые, темно-красные/алые, со сгустками/без сгустков. Патологических (гнойных, пенистых, творожистых) выделений нет.</div>
+            <div class="full-width-text"><strong>Анамнез заболевания:</strong> Кровотечение возникло после задержки менструации на ____ дней/недель (указать) / на фоне регулярного цикла / в середине цикла. Подобные эпизоды были ранее (указать: однократно, повторно, регулярно в течение последнего года, после стресса, после смены климата, после отмены гормональных контрацептивов). Самостоятельно принимала (этамзилат, транексам, викасол, НПВС, оральные контрацептивы) – с эффектом/без эффекта (уточнить).</div>
+        </div>
 
-            <!-- ЖАЛОБЫ -->
-            <div class="exam-block">
-                <div class="block-title">ЖАЛОБЫ</div>
-                <div class="block-content">
-                    <div class="field-row"><span class="field-label">Характер кровотечения:</span><span class="field-value">Обильные кровянистые выделения из половых путей со сгустками (обильные, крупные, до 5-10 см). Длительность кровотечения – более 7 дней (указать конкретно: 10 дней, 2 недели и т.д.).</span></div>
-                    <div class="field-row"><span class="field-label">Нарушение ритма:</span><span class="field-value">Задержка менструации на 1,5–3 месяца с последующим обильным кровотечением / межменструальные кровянистые выделения / укорочение менструального цикла (<21 дня). Интенсивность – необходимость смены гигиенической прокладки каждые 1–2 часа (тяжелое кровотечение) / каждые 3–4 часа (умеренное).</span></div>
-                    <div class="field-row"><span class="field-label">Анемические проявления:</span><span class="field-value">Общая слабость, головокружение, потемнение в глазах, «мушки» перед глазами, одышка при физической нагрузке, сердцебиение (симптомы анемизации).</span></div>
-                    <div class="field-row"><span class="field-label">Болевой синдром:</span><span class="field-value">Тянущие, схваткообразные боли внизу живота (при овуляторных ДМК – в дни, соответствующие менструации).</span></div>
-                </div>
+        <!-- ОБЪЕКТИВНО -->
+        <div class="section">
+            <div class="section-title">🩺 ОБЪЕКТИВНО</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Общее состояние:</strong> <span class="value">Удовлетворительное / Средней степени тяжести / Тяжелое (зависит от объема кровопотери и степени анемизации).</span></div>
+                <div class="field-item"><strong>Сознание:</strong> <span class="value">Ясное. При массивной кровопотере – оглушение, синкопальное состояние.</span></div>
+                <div class="field-item"><strong>Шкала комы Глазго (GCS):</strong> <span class="value">15 баллов / 14–13 баллов (при геморрагическом шоке).</span></div>
+                <div class="field-item"><strong>Положение:</strong> <span class="value">Активное / Вынужденное (лежачее, при выраженной слабости, головокружении, обмороке).</span></div>
+                <div class="field-item"><strong>Кожные покровы:</strong> <span class="value">Бледные, влажные. Акроцианоз (при нарастании кровопотери). Сухость, шелушение кожи (при гипотиреозе). Акне, гирсутизм (при СПКЯ). Экхимозы, петехии (при нарушениях свертываемости). Цианоза губ, желтушности нет.</span></div>
+                <div class="field-item"><strong>Сыпь:</strong> <span class="value">Нет (при отсутствии гематологической патологии).</span></div>
+                <div class="field-item"><strong>Зев:</strong> <span class="value">Спокойный, гиперемии нет.</span></div>
+                <div class="field-item"><strong>Миндалины:</strong> <span class="value">Не увеличены.</span></div>
+                <div class="field-item"><strong>Лимфоузлы:</strong> <span class="value">Периферические лимфоузлы не пальпируются.</span></div>
+                <div class="field-item"><strong>Пролежни:</strong> <span class="value">Нет.</span></div>
+                <div class="field-item"><strong>Отеки:</strong> <span class="value">Нет / Пастозность голеней (при гипотиреозе, ХСН).</span></div>
+                <div class="field-item"><strong>t°:</strong> <span class="value">36,6 °C (при отсутствии воспалительного процесса; при остром эндометрите – фебрильная лихорадка).</span></div>
             </div>
+        </div>
 
-            <!-- АНАМНЕЗ -->
-            <div class="exam-block">
-                <div class="block-title">АНАМНЕЗ</div>
-                <div class="block-content">
-                    <div class="field-row">
-                        <span class="field-label">Анамнез заболевания:</span>
-                        <span class="field-value">Кровотечение возникло после задержки менструации на ____ дней/недель (указать) / на фоне регулярного цикла / в середине цикла. Подобные эпизоды были ранее (указать: однократно, повторно, регулярно в течение последнего года, после стресса, после смены климата, после отмены гормональных контрацептивов). Самостоятельно принимала (этамзилат, транексам, викасол, НПВС, оральные контрацептивы) – с эффектом/без эффекта (уточнить).</span>
-                    </div>
-                    <div class="field-row">
-                        <span class="field-label">Эпидемиологический анамнез:</span>
-                        <span class="field-value">Контакта с инфекционными больными нет. За пределы РФ в последние 3 недели не выезжала.</span>
-                    </div>
-                    <div class="field-row">
-                        <span class="field-label">Аллергологический анамнез:</span>
-                        <span class="field-value">Не отягощен / отягощен (указать аллергию на лекарственные препараты, пищевые продукты).</span>
-                    </div>
-                    <div class="field-row">
-                        <span class="field-label">Гинекологический анамнез:</span>
-                        <span class="field-value">Менструальная функция: менархе с __ лет. Цикл установился сразу / не установился. Продолжительность менструации __ дней, интервал __ дней, регулярный/нерегулярный, обильный/умеренный, безболезненный/болезненный. Последняя менструация: (дата) – в срок/задержка/необычно скудная/необычно обильная. Репродуктивная функция: беременностей – __, родов – __, абортов – __, выкидышей – __. Гинекологические заболевания: миома матки, эндометриоз (аденомиоз), гиперплазия эндометрия, полип эндометрия, синдром поликистозных яичников (СПКЯ). Оперативные вмешательства: раздельное диагностическое выскабливание (РДВ), гистероскопия, экстирпация матки (указать). Контрацепция: гормональная (КОК, внутриматочная система с левоноргестрелом – «Мирена»), ВМС (негормональная). Экстрагенитальная патология: заболевания свертывающей системы крови, щитовидной железы, печени, сахарный диабет, ожирение.</span>
-                    </div>
-                    <div class="field-row">
-                        <span class="field-label">Выделения из половых путей:</span>
-                        <span class="field-value">На момент осмотра: обильные/умеренные/скудные, кровянистые, темно-красные/алые, со сгустками/без сгустков. Патологических (гнойных, пенистых, творожистых) выделений нет.</span>
-                    </div>
-                </div>
+        <!-- ОРГАНЫ ДЫХАНИЯ -->
+        <div class="section">
+            <div class="section-title">🌬️ ОРГАНЫ ДЫХАНИЯ</div>
+            <div class="field-list">
+                <div class="field-item"><strong>ЧДД:</strong> <span class="value">18–20–24 в мин (тахипноэ – компенсаторная реакция на анемию/гипоксию).</span></div>
+                <div class="field-item"><strong>Одышка:</strong> <span class="value">Нет или смешанная, при физической нагрузке (разговоре).</span></div>
+                <div class="field-item"><strong>Патологическое дыхание:</strong> <span class="value">Нет.</span></div>
+                <div class="field-item"><strong>Аускультативно:</strong> <span class="value">Дыхание везикулярное, проводится во все отделы, хрипов нет.</span></div>
+                <div class="field-item"><strong>Хрипы сухие:</strong> <span class="value">Нет.</span></div>
+                <div class="field-item"><strong>Влажные:</strong> <span class="value">Нет.</span></div>
+                <div class="field-item"><strong>Крепитация:</strong> <span class="value">Нет.</span></div>
+                <div class="field-item"><strong>Шум трения плевры:</strong> <span class="value">Нет.</span></div>
+                <div class="field-item"><strong>Перкуторный звук:</strong> <span class="value">Легочный над всеми отделами.</span></div>
+                <div class="field-item"><strong>Кашель:</strong> <span class="value">Нет.</span></div>
+                <div class="field-item"><strong>Мокрота:</strong> <span class="value">Нет.</span></div>
             </div>
+        </div>
 
-            <!-- ОБЪЕКТИВНО -->
-            <div class="exam-block">
-                <div class="block-title">ОБЪЕКТИВНО</div>
-                <div class="block-content">
-                    <div class="inline-group">
-                        <div class="inline-item"><strong>Состояние:</strong> удовлетворительное / средней степени тяжести / тяжелое</div>
-                        <div class="inline-item"><strong>Сознание:</strong> ясное / оглушение</div>
-                        <div class="inline-item"><strong>GCS:</strong> 15 / 14–13 баллов</div>
-                    </div>
-                    <div class="field-row">
-                        <span class="field-label">Положение:</span>
-                        <span class="field-value">Активное / вынужденное (лежачее, при выраженной слабости, головокружении, обмороке).</span>
-                    </div>
-                    <div class="field-row">
-                        <span class="field-label">Кожные покровы:</span>
-                        <span class="field-value">Бледные, влажные. Акроцианоз (при нарастании кровопотери). Сухость, шелушение кожи (при гипотиреозе). Акне, гирсутизм (при СПКЯ). Экхимозы, петехии (при нарушениях свертываемости).</span>
-                    </div>
-                    <div class="field-row">
-                        <span class="field-label">Лимфоузлы, пролежни, отеки, температура:</span>
-                        <span class="field-value">Периферические лимфоузлы не пальпируются. Пролежни: нет. Отеки: нет / пастозность голеней. t°: 36,6 °C (при отсутствии воспалительного процесса).</span>
-                    </div>
-                </div>
+        <!-- ОРГАНЫ КРОВООБРАЩЕНИЯ -->
+        <div class="section">
+            <div class="section-title">❤️ ОРГАНЫ КРОВООБРАЩЕНИЯ</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Пульс:</strong> <span class="value">90–100–120–140 в мин (тахикардия, соответствующая степени кровопотери).</span></div>
+                <div class="field-item"><strong>Ритмичный, аритмичный, наполнение пульса:</strong> <span class="value">Ритмичный, слабого наполнения и напряжения (при значительной кровопотере – нитевидный).</span></div>
+                <div class="field-item"><strong>ЧСС:</strong> <span class="value">90–100–120–140 в мин.</span></div>
+                <div class="field-item"><strong>Дефицит пульса:</strong> <span class="value">Нет.</span></div>
+                <div class="field-item"><strong>АД:</strong> <span class="value">100/60 – 90/60 – 80/50 – &lt;60/0 мм.рт.ст. (прогрессирующая гипотония). Привычное АД (указать), максимальное АД не известно.</span></div>
+                <div class="field-item"><strong>Тоны сердца:</strong> <span class="value">Приглушены, глухие, тахикардия. Систолический шум на верхушке (гемодинамический, анемический).</span></div>
+                <div class="field-item"><strong>Шум:</strong> <span class="value">Систолический шум на верхушке, не проводится.</span></div>
+                <div class="field-item"><strong>Шум трения перикарда:</strong> <span class="value">Нет.</span></div>
+                <div class="field-item"><strong>Акцент какого тона:</strong> <span class="value">Не выявлен.</span></div>
             </div>
+        </div>
 
-            <!-- ОРГАНЫ ДЫХАНИЯ -->
-            <div class="exam-block">
-                <div class="block-title">ОРГАНЫ ДЫХАНИЯ</div>
-                <div class="block-content">
-                    <div class="field-row"><span class="field-label">ЧДД:</span><span class="field-value">18–20–24 в мин (тахипноэ – компенсаторная реакция на анемию/гипоксию).</span></div>
-                    <div class="field-row"><span class="field-label">Одышка:</span><span class="field-value">Нет или смешанная, при физической нагрузке.</span></div>
-                    <div class="field-row"><span class="field-label">Аускультативно:</span><span class="field-value">Дыхание везикулярное, проводится во все отделы, хрипов нет.</span></div>
-                    <div class="field-row"><span class="field-label">Кашель, мокрота:</span><span class="field-value">Нет.</span></div>
-                </div>
+        <!-- ОРГАНЫ ПИЩЕВАРЕНИЯ -->
+        <div class="section">
+            <div class="section-title">🍽️ ОРГАНЫ ПИЩЕВАРЕНИЯ</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Язык:</strong> <span class="value">Влажный, бледный (при анемии). Чистый.</span></div>
+                <div class="field-item"><strong>Живот:</strong> <span class="value">Округлой формы, мягкий, не вздут, участвует в акте дыхания. Безболезненный при пальпации во всех отделах (при отсутствии острой хирургической патологии).</span></div>
+                <div class="field-item"><strong>Болезненный в:</strong> <span class="value">Безболезненный. При эндометриозе/аденомиозе – умеренная болезненность в гипогастрии накануне и во время менструации.</span></div>
+                <div class="field-item"><strong>Положительные симптомы:</strong> <span class="value">Симптомы раздражения брюшины — отрицательные.</span></div>
+                <div class="field-item"><strong>Перистальтика:</strong> <span class="value">Выслушивается, активная.</span></div>
+                <div class="field-item"><strong>Печень:</strong> <span class="value">Не пальпируется / по краю реберной дуги.</span></div>
+                <div class="field-item"><strong>Селезенка:</strong> <span class="value">Не пальпируется.</span></div>
+                <div class="field-item"><strong>Стул:</strong> <span class="value">Регулярный, оформленный (со слов). При нарушении свертываемости – мелена (уточнить!).</span></div>
             </div>
+        </div>
 
-            <!-- ОРГАНЫ КРОВООБРАЩЕНИЯ -->
-            <div class="exam-block">
-                <div class="block-title">ОРГАНЫ КРОВООБРАЩЕНИЯ</div>
-                <div class="block-content">
-                    <div class="field-row"><span class="field-label">Пульс:</span><span class="field-value">90–100–120–140 в мин (тахикардия), ритмичный, слабого наполнения и напряжения (при значительной кровопотере – нитевидный). ЧСС: 90–100–120–140 в мин.</span></div>
-                    <div class="field-row"><span class="field-label">АД:</span><span class="field-value">100/60 – 90/60 – 80/50 – <60/0 мм рт.ст. (прогрессирующая гипотония). Привычное АД (указать).</span></div>
-                    <div class="field-row"><span class="field-label">Тоны сердца:</span><span class="field-value">Приглушены, глухие, тахикардия. Систолический шум на верхушке (гемодинамический, анемический).</span></div>
-                </div>
+        <!-- НЕРВНАЯ СИСТЕМА -->
+        <div class="section">
+            <div class="section-title">🧠 НЕРВНАЯ СИСТЕМА</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Поведение:</strong> <span class="value">Спокойное, беспокойное / заторможенное, адинамичное (в зависимости от степени кровопотери).</span></div>
+                <div class="field-item"><strong>Контакт:</strong> <span class="value">Полный, сохранен / затруднен.</span></div>
+                <div class="field-item"><strong>Чувствительность:</strong> <span class="value">Не нарушена.</span></div>
+                <div class="field-item"><strong>Речь:</strong> <span class="value">Внятная / тихая, замедленная.</span></div>
+                <div class="field-item"><strong>Зрачки (OD, OS):</strong> <span class="value">OD = OS, обычные, средней величины / широкие (при гипоксии).</span></div>
+                <div class="field-item"><strong>Фотореакция:</strong> <span class="value">Живая, содружественная / снижена.</span></div>
+                <div class="field-item"><strong>Нистагм:</strong> <span class="value">Нет.</span></div>
+                <div class="field-item"><strong>Асимметрия лица:</strong> <span class="value">Нет.</span></div>
+                <div class="field-item"><strong>Менингеальные симптомы:</strong> <span class="value">Отрицательные.</span></div>
+                <div class="field-item"><strong>Очаговые симптомы:</strong> <span class="value">Нет.</span></div>
+                <div class="field-item"><strong>Координаторные пробы:</strong> <span class="value">Выполняет удовлетворительно / выполнить невозможно (из-за слабости).</span></div>
             </div>
+        </div>
 
-            <!-- ОРГАНЫ ПИЩЕВАРЕНИЯ -->
-            <div class="exam-block">
-                <div class="block-title">ОРГАНЫ ПИЩЕВАРЕНИЯ</div>
-                <div class="block-content">
-                    <div class="field-row"><span class="field-label">Язык:</span><span class="field-value">Влажный, бледный (при анемии). Чистый.</span></div>
-                    <div class="field-row"><span class="field-label">Живот:</span><span class="field-value">Округлой формы, мягкий, не вздут, участвует в акте дыхания. Безболезненный при пальпации во всех отделах. Симптомы раздражения брюшины — отрицательные.</span></div>
-                    <div class="field-row"><span class="field-label">Перистальтика:</span><span class="field-value">Выслушивается, активная.</span></div>
-                    <div class="field-row"><span class="field-label">Печень, селезенка:</span><span class="field-value">Не пальпируются.</span></div>
-                    <div class="field-row"><span class="field-label">Стул:</span><span class="field-value">Регулярный, оформленный (со слов). При нарушении свертываемости – мелена (уточнить!).</span></div>
-                </div>
+        <!-- МОЧЕПОЛОВАЯ СИСТЕМА -->
+        <div class="section">
+            <div class="section-title">🚽 МОЧЕПОЛОВАЯ СИСТЕМА</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Мочеиспускание:</strong> <span class="value">Свободное, безболезненное. Моча светлая, прозрачная / олигурия, анурия (при декомпенсации шока).</span></div>
+                <div class="field-item"><strong>Симптом поколачивания:</strong> <span class="value">Отрицательный с обеих сторон.</span></div>
             </div>
+        </div>
 
-            <!-- НЕРВНАЯ СИСТЕМА -->
-            <div class="exam-block">
-                <div class="block-title">НЕРВНАЯ СИСТЕМА</div>
-                <div class="block-content">
-                    <div class="field-row"><span class="field-label">Поведение, контакт:</span><span class="field-value">Спокойное / беспокойное / заторможенное, адинамичное (в зависимости от степени кровопотери). Контакт полный, сохранен / затруднен.</span></div>
-                    <div class="field-row"><span class="field-label">Чувствительность, речь:</span><span class="field-value">Не нарушена. Речь внятная / тихая, замедленная.</span></div>
-                    <div class="field-row"><span class="field-label">Зрачки:</span><span class="field-value">OD = OS, обычные, средней величины / широкие (при гипоксии). Фотореакция живая, содружественная / снижена.</span></div>
-                    <div class="field-row"><span class="field-label">Менингеальные симптомы, очаговая симптоматика:</span><span class="field-value">Отрицательные. Очаговых симптомов нет.</span></div>
-                </div>
+        <!-- STATUS LOCALIS -->
+        <div class="section">
+            <div class="section-title">🔍 STATUS LOCALIS</div>
+            <div class="status-local">
+                <strong>Гинекологический статус</strong> (осмотр на догоспитальном этапе – с соблюдением правил асептики, при профузном кровотечении – минимально, для исключения тампонады влагалища):<br><br>
+                <strong>Наружные половые органы:</strong> Развиты правильно, по женскому типу.<br>
+                <strong>Осмотр в зеркалах</strong> (при специализированной бригаде/в условиях стационара, на догоспитальном этапе – только при крайней необходимости):<br>
+                Шейка матки: Чистая, цианотичная (признак беременности – исключать!), зев закрыт (при ДМК) / открыт (при прерывании беременности, полипе). Из цервикального канала – обильное/умеренное кровотечение, кровь темная/алая, со сгустками.<br>
+                Стенки влагалища: Без патологии.<br>
+                <strong>Влагалищное исследование (бимануальное):</strong><br>
+                Матка: Нормальных размеров / несколько увеличена (при аденомиозе, миоме), безболезненная, подвижная. При беременности – размягчена, увеличена соответственно сроку (исключать!).<br>
+                Придатки: С обеих сторон без особенностей / могут быть увеличены (при СПКЯ, кистах). Безболезненные.<br>
+                Своды влагалища: Глубокие, безболезненные (при отсутствии гематометра, внематочной беременности).<br>
+                <strong>Выделения из половых путей:</strong><br>
+                На момент осмотра: Обильные/умеренные/скудные, кровянистые, темно-красные/алые, с крупными/мелкими сгустками/без сгустков. Патологических (гнойных, пенистых, творожистых) выделений нет.
             </div>
+        </div>
 
-            <!-- МОЧЕПОЛОВАЯ СИСТЕМА -->
-            <div class="exam-block">
-                <div class="block-title">МОЧЕПОЛОВАЯ СИСТЕМА</div>
-                <div class="block-content">
-                    <div class="field-row"><span class="field-label">Мочеиспускание:</span><span class="field-value">Свободное, безболезненное. Моча светлая, прозрачная / олигурия, анурия (при декомпенсации шока).</span></div>
-                    <div class="field-row"><span class="field-label">Симптом поколачивания:</span><span class="field-value">Отрицательный с обеих сторон.</span></div>
-                </div>
+        <!-- ОЦЕНКА ПО ШКАЛАМ -->
+        <div class="section">
+            <div class="section-title">📊 ОЦЕНКА ПО ШКАЛАМ</div>
+            <div class="scales-list">
+                <p>✔ <strong>Шкала NEWS2:</strong> 1–5–9 баллов и выше (в зависимости от гемодинамической значимости кровотечения). Легкая анемия/стабильная гемодинамика: 0–1 балл. Средняя тяжесть (тахикардия, гипотония): 3–5 баллов. Тяжелое кровотечение/геморрагический шок: 7–9 баллов и выше.</p>
+                <p>✔ <strong>Шкала боли ВАШ:</strong> 0–6 баллов (в зависимости от наличия/отсутствия болевого синдрома; при овуляторных ДМК – до 6 баллов).</p>
+                <p>✔ <strong>Индекс Альговера (шоковый индекс):</strong> &lt;0,8 – кровопотеря до 20% ОЦК (~1000 мл) – компенсирована. 0,8–1,0 – кровопотеря 20–30% ОЦК (~1000–1500 мл) – легкая степень. 1,0–1,5 – кровопотеря 30–40% ОЦК (~1500–2000 мл) – средняя степень. 1,5 – кровопотеря >40% ОЦК (>2000 мл) – тяжелая степень.</p>
+                <p>✔ <strong>Оценка степени анемии (ориентировочно, клинически):</strong> Легкая: бледность, слабость, ЧСС &lt;100, АД N. Средняя: бледность, головокружение, ЧСС 100–120, АД сист. 90–100 мм.рт.ст. Тяжелая: резкая бледность, холодный пот, синкопе, ЧСС >120, АД сист. &lt;90 мм.рт.ст.</p>
+                <p>✔ <strong>Шкала оценки кровопотери (J. G. H. Van der Weiden, 2005):</strong> 1 балл – смена прокладки реже чем 1 раз в час. 2 балла – смена прокладки каждый час. 3 балла – смена прокладки чаще чем 1 раз в час. 4 балла – смена прокладки каждые 15–20 мин.</p>
+                <p>✔ <strong>Пациент с острой дыхательной недостаточностью, шкала ОДН по Кассиль:</strong> не применимо.</p>
+                <p>✔ <strong>Пациент с травмой, шкала боли ВАШ:</strong> (указано выше).</p>
+                <p>✔ <strong>Пациент с ХСН, шкала ШОКС:</strong> не применимо.</p>
+                <p>✔ <strong>Пациент с ТЭЛА, шкала риска ТЭЛА:</strong> не применимо.</p>
+                <p>✔ <strong>Алкогольное опьянение:</strong> запах алкоголя изо рта не определяется. Поведение адекватное.</p>
+                <p>✔ <strong>Пациент с инсультом, шкала LAMS:</strong> не применимо.</p>
+                <p>✔ <strong>Пациент с ДЭП (симптомы, синдромы орального автоматизма):</strong> не применимо.</p>
             </div>
+        </div>
 
-            <!-- STATUS LOCALIS -->
-            <div class="exam-block">
-                <div class="block-title">STATUS LOCALIS</div>
-                <div class="block-content">
-                    <div class="status-local">
-                        <div><strong>Наружные половые органы:</strong> Развиты правильно, по женскому типу.</div>
-                        <div><strong>Осмотр в зеркалах (при специализированной бригаде/в стационаре):</strong> Шейка матки: чистая, цианотичная (признак беременности – исключать!), зев закрыт (при ДМК) / открыт (при прерывании беременности, полипе). Из цервикального канала – обильное/умеренное кровотечение, кровь темная/алая, со сгустками. Стенки влагалища: без патологии.</div>
-                        <div><strong>Влагалищное исследование (бимануальное):</strong> Матка: нормальных размеров / несколько увеличена (при аденомиозе, миоме), безболезненная, подвижная. При беременности – размягчена, увеличена соответственно сроку (исключать!). Придатки: с обеих сторон без особенностей / могут быть увеличены (при СПКЯ, кистах). Безболезненные. Своды влагалища: глубокие, безболезненные.</div>
-                        <div><strong>Выделения из половых путей:</strong> На момент осмотра: обильные/умеренные/скудные, кровянистые, темно-красные/алые, с крупными/мелкими сгустками/без сгустков. Патологических (гнойных, пенистых, творожистых) выделений нет.</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ОЦЕНКА ПО ШКАЛАМ -->
-            <div class="exam-block">
-                <div class="block-title">ОЦЕНКА ПО ШКАЛАМ</div>
-                <div class="block-content">
-                    <div class="scales-box">
-                        <div class="scale-item">
-                            <span class="scale-label">NEWS2:</span>
-                            <span>1–5–9 баллов и выше (в зависимости от гемодинамической значимости кровотечения). Легкая анемия/стабильная гемодинамика: 0–1 балл. Средняя тяжесть (тахикардия, гипотония): 3–5 баллов. Тяжелое кровотечение/геморрагический шок: 7–9 баллов и выше.</span>
-                        </div>
-                        <div class="scale-item">
-                            <span class="scale-label">Шкала боли ВАШ:</span>
-                            <span>0–6 баллов (при овуляторных ДМК – до 6 баллов).</span>
-                        </div>
-                        <div class="scale-item">
-                            <span class="scale-label">Индекс Альговера (шоковый индекс):</span>
-                            <span>&lt;0,8 – кровопотеря до 20% ОЦК (~1000 мл) – компенсирована.<br>
-                            0,8–1,0 – кровопотеря 20–30% ОЦК (~1000–1500 мл) – легкая степень.<br>
-                            1,0–1,5 – кровопотеря 30–40% ОЦК (~1500–2000 мл) – средняя степень.<br>
-                            &gt;1,5 – кровопотеря >40% ОЦК (>2000 мл) – тяжелая степень.</span>
-                        </div>
-                        <div class="scale-item">
-                            <span class="scale-label">Оценка степени анемии (клинически):</span>
-                            <span>Легкая: бледность, слабость, ЧСС &lt;100, АД N.<br>
-                            Средняя: бледность, головокружение, ЧСС 100–120, АД сист. 90–100 мм рт.ст.<br>
-                            Тяжелая: резкая бледность, холодный пот, синкопе, ЧСС >120, АД сист. &lt;90 мм рт.ст.</span>
-                        </div>
-                        <div class="scale-item">
-                            <span class="scale-label">Шкала оценки кровопотери (J. G. H. Van der Weiden):</span>
-                            <span>1 балл – смена прокладки реже чем 1 раз в час.<br>
-                            2 балла – смена прокладки каждый час.<br>
-                            3 балла – смена прокладки чаще чем 1 раз в час.<br>
-                            4 балла – смена прокладки каждые 15–20 мин.</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ТАКТИКА -->
-            <div class="exam-block">
-                <div class="block-title">ТАКТИКА ВЕДЕНИЯ</div>
-                <div class="block-content">
-                    <div class="alert-note">
-                        <strong>Примечание для бригады СМП:</strong><br>
-                        — Экстренная госпитализация в гинекологическое отделение стационара (при профузном кровотечении, нестабильной гемодинамике, выраженной анемии, подозрении на прерывание беременности, миоматозный узел, гиперплазию эндометрия, неэффективности гемостатической терапии).<br>
-                        — Транспортировка на носилках в положении лежа на спине.<br>
-                        — Инфузионная терапия на догоспитальном этапе по показаниям (кристаллоиды, гемостатики: транексамовая кислота 1,0-1,5 г внутривенно капельно, этамзилат 2,0-4,0 мл 12,5% раствора внутривенно).<br>
-                        — Контроль АД, ЧСС, ЧДД, уровня сознания каждые 10-15 минут.<br>
-                        — Исключить внематочную беременность (тест на беременность, задержка менструации, боли, иррадиация).
-                    </div>
-                </div>
-            </div>
-
-            <hr>
-            <div class="footer-note">
-                N93.8 — Дисфункциональное маточное кровотечение | Экстренная госпитализация в гинекологическое отделение | Гемостатическая терапия, инфузионная поддержка
-            </div>
+        <!-- Примечание для бригады СМП -->
+        <div class="note">
+            <strong>📌 Примечание для бригады СМП:</strong><br>
+            Дифференциальная диагностика проведена с:
+            <ul class="note-list">
+                <li><strong>прервавшейся внематочной беременностью</strong> (задержка менструации, положительный тест на беременность, боли, гемодинамическая нестабильность, при влагалищном исследовании – цианоз шейки матки, болезненность при смещении, симптом «крик Дугласа»);</li>
+                <li><strong>неполным самопроизвольным абортом</strong> (задержка менструации, открытый зев, части плодного яйца в канале шейки матки);</li>
+                <li><strong>миомой матки с субмукозной локализацией узла</strong> (обильные менструальные/межменструальные кровотечения, увеличенная матка, УЗИ в анамнезе);</li>
+                <li><strong>полипом эндометрия</strong> (межменструальные мажущие выделения, УЗИ);</li>
+                <li><strong>гиперплазией эндометрия</strong> (длительные обильные кровотечения после задержки менструации, УЗИ – утолщение эндометрия >15–20 мм);</li>
+                <li><strong>органической патологией (рак эндометрия, рак шейки матки)</strong> – у пациенток перименопаузального возраста, длительные кровотечения, контактные выделения, факторы риска (ожирение, сахарный диабет, гипертензия, поздняя менопауза).</li>
+            </ul>
+            Тест на беременность (моча): экспресс-метод – отрицательный (обязательно выполнить при подозрении!).
         </div>
     </div>
 </div>
