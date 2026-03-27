@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Карта вызова скорой медицинской помощи | Лихорадка неясной этиологии</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #e9ecef;
+            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+            padding: 40px 20px;
+            color: #212529;
+            line-height: 1.45;
+        }
+
+        .card {
+            max-width: 1100px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            border: 1px solid #dee2e6;
+        }
+
+        .mkb-row {
+            background: linear-gradient(135deg, #0b3b5f 0%, #1a4d6f 100%);
+            color: white;
+            padding: 20px 32px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border-bottom: 4px solid #ffc107;
+        }
+
+        .mkb-row span {
+            font-weight: 700;
+            color: #ffc107;
+        }
+
+        .diagnosis {
+            background: #fef9e6;
+            padding: 12px 32px;
+            border-left: 6px solid #ffc107;
+            font-weight: 500;
+            font-size: 0.98rem;
+            color: #2d3e50;
+            border-bottom: 1px solid #f0e2b6;
+        }
+
+        .content {
+            padding: 24px 32px 40px 32px;
+        }
+
+        .section {
+            margin-bottom: 32px;
+            break-inside: avoid;
+            page-break-inside: avoid;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #1a4d6f;
+            border-left: 6px solid #ffc107;
+            padding-left: 16px;
+            margin-bottom: 18px;
+            margin-top: 8px;
+            background: #f4f9ff;
+            border-radius: 0 12px 12px 0;
+            line-height: 1.3;
+        }
+
+        .field-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .field-item {
+            padding: 6px 0 4px 8px;
+            border-bottom: 1px dotted #e0e6ed;
+            font-size: 0.94rem;
+            line-height: 1.45;
+        }
+
+        .field-item strong {
+            font-weight: 700;
+            color: #1e4663;
+            display: inline-block;
+            min-width: 240px;
+        }
+
+        .field-item .value {
+            color: #2c3e4e;
+            font-weight: 500;
+        }
+
+        .full-width-text {
+            padding: 8px 0 8px 8px;
+            border-bottom: 1px dotted #e0e6ed;
+            font-size: 0.94rem;
+        }
+
+        .full-width-text strong {
+            font-weight: 700;
+            color: #1e4663;
+            display: inline-block;
+            min-width: 240px;
+        }
+
+        .status-local {
+            background: #fef7e0;
+            padding: 14px 18px;
+            border-radius: 18px;
+            margin-top: 6px;
+            border: 1px solid #ffe3a4;
+            font-size: 0.94rem;
+        }
+
+        .scales-list {
+            background: #f1f4f9;
+            padding: 12px 20px;
+            border-radius: 20px;
+            margin-top: 10px;
+        }
+
+        .scales-list p {
+            margin: 8px 0;
+        }
+
+        .note {
+            background: #e7f1ff;
+            border-left: 4px solid #1a4d6f;
+            padding: 12px 16px;
+            margin-top: 16px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            color: #1e4663;
+        }
+
+        .note-list {
+            margin-top: 8px;
+            margin-left: 20px;
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .note-list li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .note-list li:before {
+            content: "•";
+            position: absolute;
+            left: 4px;
+            color: #1a4d6f;
+            font-weight: bold;
+        }
+
+        @media (max-width: 700px) {
+            .field-item strong {
+                min-width: 170px;
+            }
+            .full-width-text strong {
+                min-width: 170px;
+            }
+            .content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="card">
+    <div class="mkb-row">
+        📌 Код по МКБ-10: <span>R50.9</span> (Лихорадка неуточненная)
+    </div>
+    <div class="diagnosis">
+        🧾 <strong>Диагноз:</strong> Лихорадка неясной этиологии (длительностью около 2 недель).
+    </div>
+
+    <div class="content">
+        <!-- ЖАЛОБЫ -->
+        <div class="section">
+            <div class="section-title">📢 ЖАЛОБЫ</div>
+            <div class="full-width-text"><em>На момент осмотра пациент предъявляет жалобы на повышение температуры тела до 38,5–39,0 °C (ежедневно, преимущественно в вечернее время), познабливание, выраженную общую слабость, потливость (особенно в ночное время), головную боль, ломоту в теле (миалгии, артралгии), снижение аппетита, периодическую сухость во рту.</em></div>
+        </div>
+
+        <!-- АНАМНЕЗ -->
+        <div class="section">
+            <div class="section-title">📋 АНАМНЕЗ</div>
+            <div class="full-width-text"><strong>Anamnesis morbi:</strong> Со слов пациента, заболел около 2 недель назад, когда появились познабливание, слабость, температура повысилась до 38,0 °C. Самостоятельно принимал противовирусные препараты (Ингавирин, Арбидол – название уточнить) и парацетамол симптоматически. Несмотря на прием противовирусных, температура сохраняется, держится на фебрильных цифрах (до 39,0 °C), без четкой тенденции к снижению. Антибиотики не принимал. Дополнительных симптомов (кашель, насморк, боль в горле, диарея, боль в животе, дизурия) не отмечает. Скорую вызвал в связи с длительной лихорадкой и отсутствием эффекта от проводимой терапии.</div>
+            <div class="full-width-text"><strong>Аллергологический анамнез:</strong> Не отягощен. Аллергии на лекарственные препараты, пищевые продукты не отмечает.</div>
+            <div class="full-width-text"><strong>Гинекологический анамнез:</strong> Не применимо (пациент мужского пола).</div>
+            <div class="full-width-text"><strong>Эпидемиологический анамнез:</strong> Контакт с инфекционными больными отрицает. За последние 3 месяца за пределы города не выезжал (в т.ч. в эндемичные по тропическим инфекциям регионы), укусы насекомых отрицает. Наличие профессиональных вредностей отрицает. Наличие туберкулеза, ВИЧ, онкологических заболеваний в анамнезе отрицает. Контакт с больными туберкулезом отрицает. Внутривенные наркотики отрицает. Гемотрансфузий не было. Половые контакты – с постоянной партнершей.</div>
+        </div>
+
+        <!-- ОБЪЕКТИВНО -->
+        <div class="section">
+            <div class="section-title">🩺 ОБЪЕКТИВНО</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Общее состояние:</strong> <span class="value">средней тяжести (за счет длительной лихорадки и интоксикации).</span></div>
+                <div class="field-item"><strong>Сознание:</strong> <span class="value">ясное.</span></div>
+                <div class="field-item"><strong>Шкала комы Глазго (GCS):</strong> <span class="value">15 баллов (E4,V5,M6).</span></div>
+                <div class="field-item"><strong>Положение:</strong> <span class="value">активное.</span></div>
+                <div class="field-item"><strong>Кожные покровы:</strong> <span class="value">бледные, чистые, умеренной влажности. Тургор сохранен. Сыпи нет. Видимые слизистые розовые, чистые.</span></div>
+                <div class="field-item"><strong>Сыпь:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Зев:</strong> <span class="value">спокойный, чистый, миндалины не увеличены, без налетов.</span></div>
+                <div class="field-item"><strong>Миндалины:</strong> <span class="value">без особенностей.</span></div>
+                <div class="field-item"><strong>Лимфоузлы:</strong> <span class="value">пальпируются подчелюстные, подмышечные, паховые – единичные (до 0,5–1,0 см), безболезненные, эластичные, не спаяны. Другие группы не увеличены.</span></div>
+                <div class="field-item"><strong>Пролежни:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Отеки:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>t°:</strong> <span class="value">38.8 °C (аксиллярно).</span></div>
+            </div>
+        </div>
+
+        <!-- ОРГАНЫ ДЫХАНИЯ -->
+        <div class="section">
+            <div class="section-title">🌬️ ОРГАНЫ ДЫХАНИЯ</div>
+            <div class="field-list">
+                <div class="field-item"><strong>ЧДД в мин:</strong> <span class="value">18</span></div>
+                <div class="field-item"><strong>Одышка:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Патологическое дыхание:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Аускультативно:</strong> <span class="value">везикулярное, проводится во все отделы, ослабления дыхания нет.</span></div>
+                <div class="field-item"><strong>Хрипы:</strong> <span class="value">отсутствуют.</span></div>
+                <div class="field-item"><strong>Крепитация:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Шум трения плевры:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Перкуторный звук:</strong> <span class="value">ясный легочный, симметричный.</span></div>
+                <div class="field-item"><strong>Кашель:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Мокрота:</strong> <span class="value">нет.</span></div>
+            </div>
+        </div>
+
+        <!-- ОРГАНЫ КРОВООБРАЩЕНИЯ -->
+        <div class="section">
+            <div class="section-title">❤️ ОРГАНЫ КРОВООБРАЩЕНИЯ</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Пульс в мин:</strong> <span class="value">92</span></div>
+                <div class="field-item"><strong>Ритмичный, аритмичный, наполнение пульса:</strong> <span class="value">ритмичный, удовлетворительного наполнения и напряжения.</span></div>
+                <div class="field-item"><strong>ЧСС:</strong> <span class="value">92</span></div>
+                <div class="field-item"><strong>Дефицит пульса:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>АД мм.рт.ст. на момент осмотра:</strong> <span class="value">120/75, привычное АД мм.рт.ст.: 120/80 (со слов), максимальное АД мм.рт.ст.: неизвестно.</span></div>
+                <div class="field-item"><strong>Тоны сердца:</strong> <span class="value">ясные, звучные, ритмичные, тахикардия. Шумов нет.</span></div>
+                <div class="field-item"><strong>Шум:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Шум трения перикарда:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Акцент какого тона на:</strong> <span class="value">нет.</span></div>
+            </div>
+        </div>
+
+        <!-- ОРГАНЫ ПИЩЕВАРЕНИЯ -->
+        <div class="section">
+            <div class="section-title">🍽️ ОРГАНЫ ПИЩЕВАРЕНИЯ</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Язык:</strong> <span class="value">влажный, обложен белым налетом.</span></div>
+                <div class="field-item"><strong>Живот:</strong> <span class="value">мягкий, не вздут, участвует в акте дыхания. При пальпации безболезненный во всех отделах.</span></div>
+                <div class="field-item"><strong>Болезненный в:</strong> <span class="value">безболезненный.</span></div>
+                <div class="field-item"><strong>Положительные симптомы:</strong> <span class="value">Симптомы раздражения брюшины (Образцова, Ровзинга, Ситковского, Ортнера, Мерфи, Мейо-Робсона, Щёткина-Блюмберга, Валя) — отрицательные.</span></div>
+                <div class="field-item"><strong>Перистальтика:</strong> <span class="value">выслушивается, обычная.</span></div>
+                <div class="field-item"><strong>Печень:</strong> <span class="value">не увеличена, край эластичный, безболезненный.</span></div>
+                <div class="field-item"><strong>Селезенка:</strong> <span class="value">не пальпируется.</span></div>
+                <div class="field-item"><strong>Стул:</strong> <span class="value">регулярный, оформленный (сегодня утром был).</span></div>
+            </div>
+        </div>
+
+        <!-- НЕРВНАЯ СИСТЕМА -->
+        <div class="section">
+            <div class="section-title">🧠 НЕРВНАЯ СИСТЕМА</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Поведение:</strong> <span class="value">спокойное, астенизирован.</span></div>
+                <div class="field-item"><strong>Контакт:</strong> <span class="value">доступен, продуктивный.</span></div>
+                <div class="field-item"><strong>Чувствительность:</strong> <span class="value">сохранена.</span></div>
+                <div class="field-item"><strong>Речь:</strong> <span class="value">внятная.</span></div>
+                <div class="field-item"><strong>Зрачки (OD, OS):</strong> <span class="value">D=S, обычные.</span></div>
+                <div class="field-item"><strong>Фотореакция:</strong> <span class="value">живая, содружественная.</span></div>
+                <div class="field-item"><strong>Нистагм:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Асимметрия лица:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Менингеальные симптомы:</strong> <span class="value">ригидность затылочных мышц, Кернига, Брудзинского — отрицательные.</span></div>
+                <div class="field-item"><strong>Очаговые симптомы:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Координаторные пробы:</strong> <span class="value">выполняет уверенно.</span></div>
+            </div>
+        </div>
+
+        <!-- МОЧЕПОЛОВАЯ СИСТЕМА -->
+        <div class="section">
+            <div class="section-title">🚽 МОЧЕПОЛОВАЯ СИСТЕМА</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Мочеиспускание:</strong> <span class="value">свободное, безболезненное. Цвет мочи — соломенно-желтый, прозрачная (со слов).</span></div>
+                <div class="field-item"><strong>Симптом поколачивания:</strong> <span class="value">отрицательный с обеих сторон.</span></div>
+            </div>
+        </div>
+
+        <!-- STATUS LOCALIS -->
+        <div class="section">
+            <div class="section-title">🔍 STATUS LOCALIS</div>
+            <div class="status-local">
+                При осмотре кожных покровов, видимых слизистых, зева, пальпации лимфоузлов, щитовидной железы, органов брюшной полости, костно-суставной системы – патологических изменений, указывающих на локализацию инфекционно-воспалительного процесса, не выявлено. Менингеальных и очаговых неврологических симптомов нет. Температура тела 38,8 °C. Видимых травм и повреждений не обнаружено.
+            </div>
+        </div>
+
+        <!-- ОЦЕНКА ПО ШКАЛАМ -->
+        <div class="section">
+            <div class="section-title">📊 ОЦЕНКА ПО ШКАЛАМ</div>
+            <div class="scales-list">
+                <p>✔ <strong>Шкала NEWS2:</strong> ЧДД 18 (0), SpO2 98% (0), температура 38.8 (2 балла), АД сист. 120 (0), ЧСС 92 (1 балл), сознание ясное (0). Сумма: 3 балла (средний риск, требует наблюдения и госпитализации для уточнения диагноза).</p>
+                <p>✔ <strong>Степень дыхательной недостаточности:</strong> ОДН 0 (SpO2 >95%, ЧДД &lt;20).</p>
+                <p>✔ <strong>Степень эксикоза:</strong> 0 (слизистые влажные, тургор сохранен, диурез в норме).</p>
+                <p>✔ <strong>Индекс Альговера:</strong> ЧСС/АДсист = 92/120 = 0.77 (норма).</p>
+                <p>✔ <strong>Шкала ОДН по Кассиль:</strong> не применима.</p>
+                <p>✔ <strong>Шкала боли ВАШ при травме:</strong> не применимо.</p>
+                <p>✔ <strong>Шкала ШОКС:</strong> не применимо.</p>
+                <p>✔ <strong>Шкала риска ТЭЛА:</strong> не применимо.</p>
+                <p>✔ <strong>Шкала LAMS:</strong> не применимо.</p>
+                <p>✔ <strong>Признаки ДЭП:</strong> не применимо.</p>
+                <p>✔ <strong>Состояние алкогольного опьянения:</strong> не употреблял, запаха алкоголя нет.</p>
+            </div>
+        </div>
+
+        <!-- Примечание для бригады СМП -->
+        <div class="note">
+            <strong>📌 Примечание для бригады СМП:</strong><br>
+            Дифференциальная диагностика длительной лихорадки (более 2 недель) проведена с:
+            <ul class="note-list">
+                <li><strong>туберкулезом (легочным и внелегочным)</strong> (длительная лихорадка, ночная потливость, похудание, слабость. Могут быть кашель, кровохарканье (при легочном), но может протекать и без легочных симптомов. Эпиданамнез (контакт с больными, группа риска). Диагностика: рентгенография, проба Манту/Диаскинтест, микроскопия и посев мокроты);</li>
+                <li><strong>ВИЧ-инфекцией (стадия вторичных заболеваний)</strong> (длительная лихорадка (более 1 месяца), ночная потливость, потеря веса, диарея, генерализованная лимфаденопатия. В анамнезе – рискованные половые контакты, внутривенное употребление наркотиков, гемотрансфузии. Диагностика: ИФА, иммуноблот);</li>
+                <li><strong>инфекционным эндокардитом</strong> (длительная лихорадка, ознобы, потливость, шум в сердце (может появляться позже), эмболические проявления, изменение концевых фаланг пальцев («барабанные палочки»), увеличение селезенки. В анамнезе – пороки сердца, внутривенные наркотики, кардиохирургические вмешательства. Диагностика: ЭхоКГ, посевы крови);</li>
+                <li><strong>системными заболеваниями соединительной ткани (СКВ, ревматоидный артрит, болезнь Стилла взрослых, узелковый полиартериит)</strong> (лихорадка, артралгии, миалгии, сыпь (может быть), серозиты, изменения в анализах крови (лейкоцитоз, повышение СОЭ, СРБ, ревматоидный фактор, АНФ). Чаще у молодых женщин, но болезнь Стилла бывает и у мужчин. Диагностика: ревмопробы, антинуклеарный фактор);</li>
+                <li><strong>онкологическими заболеваниями (лимфомы, лейкозы, солидные опухоли – гипернефрома, гепатома)</strong> (длительная лихорадка, ночная потливость, похудание, увеличение лимфоузлов (при лимфомах), гепатоспленомегалия. При лимфогранулематозе – волнообразная лихорадка. Требует онкопоиска (УЗИ, КТ, биопсия));</li>
+                <li><strong>хроническим пиелонефритом (обострение)</strong> (лихорадка, ознобы, интоксикация, боль в поясничной области (может отсутствовать), дизурия. Положительный симптом поколачивания, изменения в анализе мочи. У пациента – симптом поколачивания отрицательный, но требуется исключить);</li>
+                <li><strong>хроническими вирусными инфекциями (ВГС, ВГВ, ЦМВ, ВЭБ)</strong> (длительная субфебрильная или фебрильная лихорадка, слабость, артралгии, гепатоспленомегалия, лимфаденопатия. Диагностика: ПЦР, серология);</li>
+                <li><strong>абсцессами внутренних органов (печени, поддиафрагмальный, селезенки)</strong> (лихорадка, ознобы, локальная боль, напряжение мышц. Диагностика: УЗИ, КТ);</li>
+                <li><strong>малярией</strong> (приступообразная лихорадка (через 48 или 72 часа), озноб, пот, гепатоспленомегалия. Эпиданамнез (пребывание в эндемичных регионах, укусы комаров). У пациента – отрицает);</li>
+                <li><strong>бруцеллезом</strong> (волнообразная лихорадка, потливость, артралгии, гепатоспленомегалия, лимфаденопатия. Эпиданамнез (контакт с животными, употребление сырого молока));</li>
+                <li><strong>лихорадкой Ку</strong> (острое начало, лихорадка, головная боль, миалгии, возможна пневмония, гепатит. Эпиданамнез (контакт с животными));</li>
+                <li><strong>лекарственной лихорадкой</strong> (связь с приемом лекарств (антибиотики, НПВС и др.). Лихорадка может быть единственным симптомом, часто сопровождается сыпью, эозинофилией. У пациента – связь с противовирусными маловероятна, но исключить).</li>
+            </ul>
+            <strong>Ключевые признаки лихорадки неясной этиологии (затяжной):</strong><br>
+            – Длительность лихорадки более 2–3 недель.<br>
+            – Отсутствие четких локальных симптомов и органной патологии при первичном осмотре.<br>
+            – Неэффективность эмпирической терапии (противовирусные, антибиотики).<br>
+            – Наличие сопутствующих заболеваний (иммунодефицит, сахарный диабет, онкология) и факторов риска.<br>
+            – Связь с эпидемиологическим анамнезом (поездки, контакты, укусы, профессия).<br>
+            – Лабораторные данные: лейкоцитоз/лейкопения, анемия, тромбоцитопения, повышение СОЭ, СРБ, ферритина, изменения в биохимии, посевы крови, мочи, серологические маркеры.
+        </div>
+    </div>
+</div>
+</body>
+</html>
