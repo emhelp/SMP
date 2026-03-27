@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Карта вызова СМП | Инородное тело влагалища</title>
+    <title>Карта вызова скорой медицинской помощи | Инородное тело в вульве и влагалище</title>
     <style>
         * {
             margin: 0;
@@ -12,369 +12,371 @@
         }
 
         body {
-            background: #e2e8f0;
-            font-family: 'Segoe UI', 'Roboto', 'Inter', system-ui, sans-serif;
-            line-height: 1.5;
-            padding: 32px 24px;
-            color: #1a2c3e;
+            background-color: #e9ecef;
+            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+            padding: 40px 20px;
+            color: #212529;
+            line-height: 1.45;
         }
 
-        .container {
-            max-width: 1200px;
+        .card {
+            max-width: 1100px;
             margin: 0 auto;
-        }
-
-        .medical-card {
-            background: #ffffff;
-            border-radius: 28px;
-            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.2);
+            background-color: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.15);
             overflow: hidden;
+            border: 1px solid #dee2e6;
         }
 
-        .card-header {
-            background: linear-gradient(135deg, #0b5e7c 0%, #0a4b64 100%);
-            padding: 20px 32px;
+        .mkb-row {
+            background: linear-gradient(135deg, #0b3b5f 0%, #1a4d6f 100%);
             color: white;
-            border-bottom: 4px solid #ffb347;
+            padding: 20px 32px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border-bottom: 4px solid #ffc107;
         }
 
-        .card-header .mkb {
-            font-size: 14px;
-            opacity: 0.9;
-            font-family: monospace;
-        }
-
-        .card-header .warning {
-            font-size: 12px;
-            opacity: 0.85;
-            margin-top: 8px;
-            background: rgba(255,255,255,0.15);
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 20px;
-        }
-
-        .card-content {
-            padding: 28px 36px;
-        }
-
-        .exam-block {
-            margin-bottom: 28px;
-            border: 1px solid #e2edf2;
-            border-radius: 20px;
-            overflow: hidden;
-            background: white;
-        }
-
-        .block-title {
-            background: #f1f6fb;
-            padding: 14px 24px;
-            font-weight: 800;
-            font-size: 18px;
-            color: #0b5e7c;
-            border-left: 5px solid #ffb347;
-            letter-spacing: -0.2px;
-        }
-
-        .block-content {
-            padding: 20px 28px;
-            background: #fefefe;
-            font-size: 15px;
-            line-height: 1.55;
-            color: #1e3a4f;
-            text-align: left;
-        }
-
-        .field-row {
-            margin-bottom: 12px;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: baseline;
-            gap: 8px;
-            text-align: left;
-        }
-
-        .field-label {
+        .mkb-row span {
             font-weight: 700;
-            color: #1c6d8f;
-            min-width: 200px;
-            font-size: 14px;
+            color: #ffc107;
         }
 
-        .field-value {
-            flex: 1;
-            color: #1e2f3c;
-            text-align: left;
+        .diagnosis {
+            background: #fef9e6;
+            padding: 12px 32px;
+            border-left: 6px solid #ffc107;
+            font-weight: 500;
+            font-size: 0.98rem;
+            color: #2d3e50;
+            border-bottom: 1px solid #f0e2b6;
         }
 
-        .inline-group {
+        .content {
+            padding: 24px 32px 40px 32px;
+        }
+
+        .section {
+            margin-bottom: 32px;
+            break-inside: avoid;
+            page-break-inside: avoid;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #1a4d6f;
+            border-left: 6px solid #ffc107;
+            padding-left: 16px;
+            margin-bottom: 18px;
+            margin-top: 8px;
+            background: #f4f9ff;
+            border-radius: 0 12px 12px 0;
+            line-height: 1.3;
+        }
+
+        .field-list {
             display: flex;
-            flex-wrap: wrap;
-            gap: 24px;
-            margin: 12px 0;
-            text-align: left;
+            flex-direction: column;
+            gap: 10px;
         }
 
-        .inline-item {
-            flex: 1;
-            min-width: 180px;
-            text-align: left;
+        .field-item {
+            padding: 6px 0 4px 8px;
+            border-bottom: 1px dotted #e0e6ed;
+            font-size: 0.94rem;
+            line-height: 1.45;
         }
 
-        .diagnosis-box {
-            background: #fefaf5;
-            border-left: 4px solid #ffb347;
-            padding: 16px 20px;
-            border-radius: 16px;
-            margin-bottom: 8px;
-            text-align: left;
+        .field-item strong {
+            font-weight: 700;
+            color: #1e4663;
+            display: inline-block;
+            min-width: 240px;
         }
 
-        .diagnosis-box div {
-            margin-bottom: 8px;
-            text-align: left;
+        .field-item .value {
+            color: #2c3e4e;
+            font-weight: 500;
+        }
+
+        .full-width-text {
+            padding: 8px 0 8px 8px;
+            border-bottom: 1px dotted #e0e6ed;
+            font-size: 0.94rem;
+        }
+
+        .full-width-text strong {
+            font-weight: 700;
+            color: #1e4663;
+            display: inline-block;
+            min-width: 240px;
         }
 
         .status-local {
-            background: #f9fef7;
-            border-left: 4px solid #2c9c6e;
-            padding: 16px 20px;
-            border-radius: 16px;
-            margin-top: 8px;
-            text-align: left;
+            background: #fef7e0;
+            padding: 14px 18px;
+            border-radius: 18px;
+            margin-top: 6px;
+            border: 1px solid #ffe3a4;
+            font-size: 0.94rem;
         }
 
-        .status-local div {
-            margin-bottom: 8px;
-            text-align: left;
+        .scales-list {
+            background: #f1f4f9;
+            padding: 12px 20px;
+            border-radius: 20px;
+            margin-top: 10px;
         }
 
-        .foreign-body-types {
-            background: #f0f4fa;
-            padding: 16px 20px;
-            border-radius: 16px;
-            margin: 12px 0;
+        .scales-list p {
+            margin: 8px 0;
         }
 
-        .foreign-body-types p {
-            margin-bottom: 6px;
-        }
-
-        .alert-note {
-            background: #fff3e0;
-            border-left: 4px solid #ff9800;
+        .note {
+            background: #e7f1ff;
+            border-left: 4px solid #1a4d6f;
             padding: 12px 16px;
-            border-radius: 12px;
             margin-top: 16px;
-            font-size: 13px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            color: #1e4663;
         }
 
-        hr {
-            margin: 16px 0;
-            border: none;
-            height: 1px;
-            background: #e2ecf3;
+        .note-list {
+            margin-top: 8px;
+            margin-left: 20px;
+            list-style-type: none;
+            padding-left: 0;
         }
 
-        .footer-note {
-            font-size: 13px;
-            color: #6c8eaa;
-            text-align: right;
+        .note-list li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .note-list li:before {
+            content: "•";
+            position: absolute;
+            left: 4px;
+            color: #1a4d6f;
+            font-weight: bold;
         }
 
         @media (max-width: 700px) {
-            .card-content {
-                padding: 18px;
+            .field-item strong {
+                min-width: 170px;
             }
-            .block-content {
-                padding: 14px 18px;
+            .full-width-text strong {
+                min-width: 170px;
             }
-            .field-label {
-                min-width: 140px;
+            .content {
+                padding: 20px;
             }
         }
     </style>
 </head>
 <body>
-<div class="container">
-    <div class="medical-card">
-        <div class="card-header">
-            <div class="mkb">МКБ-10: T19.2 — Инородное тело в вульве и влагалище</div>
-            <div class="warning">⚠️ Характерный признак — гнилостный (ихорозный) запах выделений!</div>
+<div class="card">
+    <div class="mkb-row">
+        📌 Код по МКБ-10: <span>T19.2</span> (Инородное тело в вульве и влагалище)
+    </div>
+    <div class="diagnosis">
+        🧾 <strong>Диагноз:</strong> Основное заболевание: Инородное тело влагалища (предположительно: тампон / колпачок / презерватив / контрацептивное кольцо / предмет сексуального назначения / мелкий предмет бытового происхождения – уточнить при осмотре).<br>
+        Осложнения: Вторичный вагинит / гнойно-воспалительные выделения. Дурнотный запах. Дизурия. Острый болевой синдром (при вколоченном/травмирующем инородном теле). Кровянистые выделения (при травме слизистой).<br>
+        Сопутствующие заболевания: Не выявлены / (указать при наличии: бактериальный вагиноз, кольпит, ИППП, сахарный диабет).
+    </div>
+
+    <div class="content">
+        <!-- ЖАЛОБЫ -->
+        <div class="section">
+            <div class="section-title">📢 ЖАЛОБЫ</div>
+            <div class="full-width-text"><em>На ощущение инородного тела во влагалище, чувство давления, распирания, дискомфорта.<br><br>
+            На патологические выделения из половых путей:<br>
+            Гнойные – обильные, желто-зеленого цвета, с резким гнилостным («ихорозным») запахом.<br>
+            Сукровичные/кровянистые – мажущие, контактные (при травме).<br>
+            Длительность – от нескольких часов до нескольких недель (при забытом тампоне).<br><br>
+            На зуд, жжение в области вульвы и влагалища.<br><br>
+            На боли внизу живота – тянущие, ноющие, усиливающиеся при ходьбе, физической нагрузке, половом контакте.<br><br>
+            На дизурию – болезненное, затрудненное мочеиспускание, учащение.<br><br>
+            На повышение температуры тела (при присоединении воспалительного процесса).<br><br>
+            У детей (девочек):<br>
+            Со слов матери – беспокойство, плач, отказ от мочеиспускания, гнойные/сукровичные выделения на белье, следы крови, зуд, жжение. Возможно обнаружение инородного тела матерью при гигиенических процедурах.<br><br>
+            У пожилых женщин:<br>
+            На фоне атрофического вульвовагинита – забытый пессарий, контрацептивный колпачок, тампон.</em></div>
         </div>
-        <div class="card-content">
 
-            <!-- ДИАГНОЗ -->
-            <div class="exam-block">
-                <div class="block-title">ДИАГНОЗ</div>
-                <div class="block-content">
-                    <div class="diagnosis-box">
-                        <div><strong>Основное заболевание:</strong> Инородное тело влагалища (предположительно: тампон / колпачок / презерватив / контрацептивное кольцо / предмет сексуального назначения / мелкий предмет бытового происхождения – уточнить при осмотре).</div>
-                        <div><strong>Осложнения:</strong> Вторичный вагинит / гнойно-воспалительные выделения. Дурнотный запах. Дизурия. Острый болевой синдром (при вколоченном/травмирующем инородном теле). Кровянистые выделения (при травме слизистой).</div>
-                        <div><strong>Сопутствующие заболевания:</strong> Не выявлены / (указать при наличии: бактериальный вагиноз, кольпит, ИППП, сахарный диабет).</div>
-                    </div>
-                </div>
+        <!-- АНАМНЕЗ -->
+        <div class="section">
+            <div class="section-title">📋 АНАМНЕЗ</div>
+            <div class="full-width-text"><strong>Эпидемиологический анамнез:</strong> Контакта с инфекционными больными нет. За пределы РФ в последние 3 недели не выезжала.</div>
+            <div class="full-width-text"><strong>Аллергологический анамнез:</strong> Не отягощен / отягощен (указать аллергию на лекарственные препараты, пищевые продукты, латекс – важно!).</div>
+            <div class="full-width-text"><strong>Гинекологический анамнез:</strong><br>
+            Менструальная функция:<br>
+            У взрослых: Менархе с __ лет, цикл __ дней, по __ дней, регулярный/нерегулярный. Последняя менструация: (дата) – в срок/задержка.<br>
+            У детей: Не применимо.<br>
+            У пожилых: Менопауза с __ лет.<br>
+            Репродуктивная функция: Беременностей – __, родов – __, абортов – __, выкидышей – __.<br>
+            Гинекологические заболевания: Хронический кольпит, бактериальный вагиноз, цервицит, ИППП (в анамнезе). Опущение стенок влагалища, ношение пессария (уточнить тип, срок замены). Оперированная матка (культя влагалища).<br>
+            Контрацепция: ВМС (негормональная/гормональная) – наличие/отсутствие (дифференциальный диагноз с инородным телом). Барьерные методы: колпачок, диафрагма, презерватив. Гормональное кольцо («НоваРинг») – использование, забытое кольцо.<br>
+            Сексуальный анамнез: Использование сексуальных игрушек, предметов для стимуляции (уточнить деликатно, без осуждения). Сексуальное насилие (при подозрении – строгое соблюдение алгоритмов, вызов полиции, деликатность).<br>
+            Гигиенические привычки: Использование тампонов (регулярность, смена, забытые тампоны – частая причина!). Введение салфеток, туалетной бумаги (у детей, пациентов с психическими расстройствами).<br>
+            Выделения из половых путей на момент осмотра: Обильные/умеренные, гнойные, желто-зеленые/серозно-кровянистые, с резким гнилостным запахом/без запаха. Патологических (творожистых, пенистых) выделений нет / (указать характер).<br>
+            Психиатрический анамнез: Психические расстройства (шизофрения, деменция, олигофрения) – фактор риска введения инородных тел.</div>
+            <div class="full-width-text"><strong>Анамнез заболевания:</strong> Пациентка связывает состояние с введением инородного тела (указать: с какой целью – контрацепция, гигиена, сексуальные практики, диагностические манипуляции) / не связывает (забытый тампон/пессарий). Длительность нахождения инородного тела: от нескольких часов до нескольких дней/недель/месяцев (уточнить). Самостоятельные попытки удаления – были/не были (указать результат). Обращалась/не обращалась к врачу.</div>
+        </div>
+
+        <!-- ОБЪЕКТИВНО -->
+        <div class="section">
+            <div class="section-title">🩺 ОБЪЕКТИВНО</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Общее состояние:</strong> <span class="value">Удовлетворительное / Средней степени тяжести (при выраженном воспалении, лихорадке, болевом синдроме).</span></div>
+                <div class="field-item"><strong>Сознание:</strong> <span class="value">Ясное. У пациентов с психическими расстройствами – возможно измененное (уточнить).</span></div>
+                <div class="field-item"><strong>Шкала комы Глазго (GCS):</strong> <span class="value">15 баллов.</span></div>
+                <div class="field-item"><strong>Положение:</strong> <span class="value">Активное / Вынужденное (щадит промежность, широко расставляет ноги при ходьбе).</span></div>
+                <div class="field-item"><strong>Кожные покровы:</strong> <span class="value">Чистые, обычной окраски, сухие. При лихорадке – влажные, гиперемия лица. Бледности, цианоза, желтушности нет.</span></div>
+                <div class="field-item"><strong>Сыпь:</strong> <span class="value">Нет.</span></div>
+                <div class="field-item"><strong>Зев:</strong> <span class="value">Спокойный, гиперемии нет.</span></div>
+                <div class="field-item"><strong>Миндалины:</strong> <span class="value">Не увеличены.</span></div>
+                <div class="field-item"><strong>Лимфоузлы:</strong> <span class="value">Паховые лимфоузлы – могут быть увеличены, умеренно болезненны (реактивный лимфаденит при выраженном воспалении).</span></div>
+                <div class="field-item"><strong>Пролежни:</strong> <span class="value">Нет.</span></div>
+                <div class="field-item"><strong>Отеки:</strong> <span class="value">Нет.</span></div>
+                <div class="field-item"><strong>t°:</strong> <span class="value">36,6 °C / 37,5–38,0 °C (при присоединении воспалительного процесса).</span></div>
             </div>
+        </div>
 
-            <!-- ЖАЛОБЫ -->
-            <div class="exam-block">
-                <div class="block-title">ЖАЛОБЫ</div>
-                <div class="block-content">
-                    <div class="field-row"><span class="field-label">Локальные симптомы:</span><span class="field-value">Ощущение инородного тела во влагалище, чувство давления, распирания, дискомфорта.</span></div>
-                    <div class="field-row"><span class="field-label">Выделения:</span><span class="field-value">Гнойные – обильные, желто-зеленого цвета, с резким гнилостным («ихорозным») запахом. Сукровичные/кровянистые – мажущие, контактные (при травме). Длительность – от нескольких часов до нескольких недель (при забытом тампоне).</span></div>
-                    <div class="field-row"><span class="field-label">Сопутствующие симптомы:</span><span class="field-value">Зуд, жжение в области вульвы и влагалища. Боли внизу живота – тянущие, ноющие, усиливающиеся при ходьбе, физической нагрузке, половом контакте. Дизурия – болезненное, затрудненное мочеиспускание, учащение. Повышение температуры тела (при присоединении воспалительного процесса).</span></div>
-                    <div class="field-row"><span class="field-label">Особенности у детей:</span><span class="field-value">Со слов матери – беспокойство, плач, отказ от мочеиспускания, гнойные/сукровичные выделения на белье, следы крови, зуд, жжение. Возможно обнаружение инородного тела матерью при гигиенических процедурах.</span></div>
-                    <div class="field-row"><span class="field-label">Особенности у пожилых:</span><span class="field-value">На фоне атрофического вульвовагинита – забытый пессарий, контрацептивный колпачок, тампон.</span></div>
-                </div>
+        <!-- ОРГАНЫ ДЫХАНИЯ -->
+        <div class="section">
+            <div class="section-title">🌬️ ОРГАНЫ ДЫХАНИЯ</div>
+            <div class="field-list">
+                <div class="field-item"><strong>ЧДД:</strong> <span class="value">18 в мин.</span></div>
+                <div class="field-item"><strong>Одышка:</strong> <span class="value">Нет.</span></div>
+                <div class="field-item"><strong>Патологическое дыхание:</strong> <span class="value">Нет.</span></div>
+                <div class="field-item"><strong>Аускультативно:</strong> <span class="value">Дыхание везикулярное, проводится во все отделы, хрипов нет.</span></div>
+                <div class="field-item"><strong>Хрипы сухие:</strong> <span class="value">Нет.</span></div>
+                <div class="field-item"><strong>Влажные:</strong> <span class="value">Нет.</span></div>
+                <div class="field-item"><strong>Крепитация:</strong> <span class="value">Нет.</span></div>
+                <div class="field-item"><strong>Шум трения плевры:</strong> <span class="value">Нет.</span></div>
+                <div class="field-item"><strong>Перкуторный звук:</strong> <span class="value">Легочный над всеми отделами.</span></div>
+                <div class="field-item"><strong>Кашель:</strong> <span class="value">Нет.</span></div>
+                <div class="field-item"><strong>Мокрота:</strong> <span class="value">Нет.</span></div>
             </div>
+        </div>
 
-            <!-- АНАМНЕЗ -->
-            <div class="exam-block">
-                <div class="block-title">АНАМНЕЗ</div>
-                <div class="block-content">
-                    <div class="field-row">
-                        <span class="field-label">Анамнез заболевания:</span>
-                        <span class="field-value">Пациентка связывает состояние с введением инородного тела (указать: с какой целью – контрацепция, гигиена, сексуальные практики, диагностические манипуляции) / не связывает (забытый тампон/пессарий). Длительность нахождения инородного тела: от нескольких часов до нескольких дней/недель/месяцев (уточнить). Самостоятельные попытки удаления – были/не были (указать результат). Обращалась/не обращалась к врачу.</span>
-                    </div>
-                    <div class="field-row">
-                        <span class="field-label">Эпидемиологический анамнез:</span>
-                        <span class="field-value">Контакта с инфекционными больными нет. За пределы РФ в последние 3 недели не выезжала.</span>
-                    </div>
-                    <div class="field-row">
-                        <span class="field-label">Аллергологический анамнез:</span>
-                        <span class="field-value">Не отягощен / отягощен (указать аллергию на лекарственные препараты, пищевые продукты, латекс – важно!).</span>
-                    </div>
-                    <div class="field-row">
-                        <span class="field-label">Гинекологический анамнез:</span>
-                        <span class="field-value">Менструальная функция: менархе с __ лет, цикл __ дней, по __ дней, регулярный/нерегулярный. Последняя менструация: (дата) – в срок/задержка. Репродуктивная функция: беременностей – __, родов – __, абортов – __, выкидышей – __. Гинекологические заболевания: хронический кольпит, бактериальный вагиноз, цервицит, ИППП (в анамнезе). Опущение стенок влагалища, ношение пессария (уточнить тип, срок замены). Оперированная матка (культя влагалища). Контрацепция: ВМС (негормональная/гормональная), барьерные методы, гормональное кольцо («НоваРинг»).</span>
-                    </div>
-                    <div class="field-row">
-                        <span class="field-label">Гигиенические привычки:</span>
-                        <span class="field-value">Использование тампонов (регулярность, смена, забытые тампоны – частая причина!).</span>
-                    </div>
-                    <div class="field-row">
-                        <span class="field-label">Психиатрический анамнез:</span>
-                        <span class="field-value">Психические расстройства (шизофрения, деменция, олигофрения) – фактор риска введения инородных тел.</span>
-                    </div>
-                    <div class="field-row">
-                        <span class="field-label">Выделения из половых путей:</span>
-                        <span class="field-value">На момент осмотра: обильные/умеренные, гнойные, желто-зеленые/серозно-кровянистые, с резким гнилостным запахом/без запаха.</span>
-                    </div>
-                </div>
+        <!-- ОРГАНЫ КРОВООБРАЩЕНИЯ -->
+        <div class="section">
+            <div class="section-title">❤️ ОРГАНЫ КРОВООБРАЩЕНИЯ</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Пульс:</strong> <span class="value">76–88 в мин (нормокардия; при лихорадке, болевом синдроме – тахикардия до 100–110 в мин).</span></div>
+                <div class="field-item"><strong>Ритмичный, аритмичный, наполнение пульса:</strong> <span class="value">Ритмичный, удовлетворительного наполнения.</span></div>
+                <div class="field-item"><strong>ЧСС:</strong> <span class="value">76–88 в мин.</span></div>
+                <div class="field-item"><strong>Дефицит пульса:</strong> <span class="value">Нет.</span></div>
+                <div class="field-item"><strong>АД:</strong> <span class="value">120/70 – 125/80 мм.рт.ст. на момент осмотра (или привычное для пациентки), привычное АД ____ мм.рт.ст., максимальное АД не известно.</span></div>
+                <div class="field-item"><strong>Тоны сердца:</strong> <span class="value">Звучные, ритмичные.</span></div>
+                <div class="field-item"><strong>Шум:</strong> <span class="value">Нет.</span></div>
+                <div class="field-item"><strong>Шум трения перикарда:</strong> <span class="value">Нет.</span></div>
+                <div class="field-item"><strong>Акцент какого тона:</strong> <span class="value">Не выявлен.</span></div>
             </div>
+        </div>
 
-            <!-- ОБЪЕКТИВНО -->
-            <div class="exam-block">
-                <div class="block-title">ОБЪЕКТИВНО</div>
-                <div class="block-content">
-                    <div class="inline-group">
-                        <div class="inline-item"><strong>Состояние:</strong> удовлетворительное / средней степени тяжести</div>
-                        <div class="inline-item"><strong>Сознание:</strong> ясное (GCS 15 баллов)</div>
-                        <div class="inline-item"><strong>Положение:</strong> активное / вынужденное</div>
-                    </div>
-                    <div class="field-row">
-                        <span class="field-label">Кожные покровы:</span>
-                        <span class="field-value">Чистые, обычной окраски, сухие. При лихорадке – влажные, гиперемия лица.</span>
-                    </div>
-                    <div class="field-row">
-                        <span class="field-label">Лимфоузлы:</span>
-                        <span class="field-value">Паховые лимфоузлы – могут быть увеличены, умеренно болезненны (реактивный лимфаденит при выраженном воспалении).</span>
-                    </div>
-                    <div class="field-row">
-                        <span class="field-label">Температура:</span>
-                        <span class="field-value">36,6 °C / 37,5–38,0 °C (при присоединении воспалительного процесса).</span>
-                    </div>
-                </div>
+        <!-- ОРГАНЫ ПИЩЕВАРЕНИЯ -->
+        <div class="section">
+            <div class="section-title">🍽️ ОРГАНЫ ПИЩЕВАРЕНИЯ</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Язык:</strong> <span class="value">Влажный, чистый / обложен белым налетом (при интоксикации).</span></div>
+                <div class="field-item"><strong>Живот:</strong> <span class="value">Округлой формы, мягкий, не вздут, участвует в акте дыхания, безболезненный при пальпации во всех отделах (при отсутствии восходящей инфекции).</span></div>
+                <div class="field-item"><strong>Болезненный в:</strong> <span class="value">Безболезненный. При развитии эндометрита/сальпингоофорита – болезненность в гипогастрии, положительные симптомы раздражения брюшины (редко, при запущенном процессе).</span></div>
+                <div class="field-item"><strong>Положительные симптомы:</strong> <span class="value">Симптомы раздражения брюшины — отрицательные.</span></div>
+                <div class="field-item"><strong>Перистальтика:</strong> <span class="value">Выслушивается, активная.</span></div>
+                <div class="field-item"><strong>Печень:</strong> <span class="value">Не пальпируется.</span></div>
+                <div class="field-item"><strong>Селезенка:</strong> <span class="value">Не пальпируется.</span></div>
+                <div class="field-item"><strong>Стул:</strong> <span class="value">Регулярный, оформленный (со слов). Запоров нет.</span></div>
             </div>
+        </div>
 
-            <!-- ОРГАНЫ ДЫХАНИЯ -->
-            <div class="exam-block">
-                <div class="block-title">ОРГАНЫ ДЫХАНИЯ</div>
-                <div class="block-content">
-                    <div class="field-row"><span class="field-label">ЧДД:</span><span class="field-value">18 в мин.</span></div>
-                    <div class="field-row"><span class="field-label">Аускультативно:</span><span class="field-value">Дыхание везикулярное, проводится во все отделы, хрипов нет.</span></div>
-                </div>
+        <!-- НЕРВНАЯ СИСТЕМА -->
+        <div class="section">
+            <div class="section-title">🧠 НЕРВНАЯ СИСТЕМА</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Поведение:</strong> <span class="value">Спокойное / тревожное, смущенное, испуганное (в связи с интимностью ситуации). Адекватное.</span></div>
+                <div class="field-item"><strong>Контакт:</strong> <span class="value">Полный, сохранен.</span></div>
+                <div class="field-item"><strong>Чувствительность:</strong> <span class="value">Не нарушена.</span></div>
+                <div class="field-item"><strong>Речь:</strong> <span class="value">Внятная.</span></div>
+                <div class="field-item"><strong>Зрачки (OD, OS):</strong> <span class="value">OD = OS, обычные, средней величины, округлые.</span></div>
+                <div class="field-item"><strong>Фотореакция:</strong> <span class="value">Живая, содружественная.</span></div>
+                <div class="field-item"><strong>Нистагм:</strong> <span class="value">Нет.</span></div>
+                <div class="field-item"><strong>Асимметрия лица:</strong> <span class="value">Нет.</span></div>
+                <div class="field-item"><strong>Менингеальные симптомы:</strong> <span class="value">Отрицательные.</span></div>
+                <div class="field-item"><strong>Очаговые симптомы:</strong> <span class="value">Нет.</span></div>
+                <div class="field-item"><strong>Координаторные пробы:</strong> <span class="value">Выполняет удовлетворительно.</span></div>
             </div>
+        </div>
 
-            <!-- ОРГАНЫ КРОВООБРАЩЕНИЯ -->
-            <div class="exam-block">
-                <div class="block-title">ОРГАНЫ КРОВООБРАЩЕНИЯ</div>
-                <div class="block-content">
-                    <div class="field-row"><span class="field-label">Пульс:</span><span class="field-value">76–88 в мин (при лихорадке, болевом синдроме – тахикардия до 100–110 в мин).</span></div>
-                    <div class="field-row"><span class="field-label">АД:</span><span class="field-value">120/70 – 125/80 мм рт.ст. на момент осмотра (или привычное для пациентки).</span></div>
-                    <div class="field-row"><span class="field-label">Тоны сердца:</span><span class="field-value">Звучные, ритмичные.</span></div>
-                </div>
+        <!-- МОЧЕПОЛОВАЯ СИСТЕМА -->
+        <div class="section">
+            <div class="section-title">🚽 МОЧЕПОЛОВАЯ СИСТЕМА</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Мочеиспускание:</strong> <span class="value">Болезненное / затрудненное / учащенное (дизурия, странгурия). Моча мутная, с хлопьями (при сопутствующем уретрите/цистите). Кровь в моче (макрогематурия) – при травме мочевого пузыря/уретры (редко).</span></div>
+                <div class="field-item"><strong>Симптом поколачивания:</strong> <span class="value">Отрицательный с обеих сторон (при пиелонефрите – положительный).</span></div>
             </div>
+        </div>
 
-            <!-- ОРГАНЫ ПИЩЕВАРЕНИЯ -->
-            <div class="exam-block">
-                <div class="block-title">ОРГАНЫ ПИЩЕВАРЕНИЯ</div>
-                <div class="block-content">
-                    <div class="field-row"><span class="field-label">Язык:</span><span class="field-value">Влажный, чистый / обложен белым налетом (при интоксикации).</span></div>
-                    <div class="field-row"><span class="field-label">Живот:</span><span class="field-value">Округлой формы, мягкий, не вздут, участвует в акте дыхания, безболезненный при пальпации во всех отделах (при отсутствии восходящей инфекции). Симптомы раздражения брюшины — отрицательные.</span></div>
-                    <div class="field-row"><span class="field-label">Перистальтика:</span><span class="field-value">Выслушивается, активная.</span></div>
-                </div>
+        <!-- STATUS LOCALIS -->
+        <div class="section">
+            <div class="section-title">🔍 STATUS LOCALIS</div>
+            <div class="status-local">
+                <strong>Наружные половые органы:</strong><br>
+                Вульва: Может быть гиперемирована, отечна, следы мацерации, расчесов.<br>
+                Преддверие влагалища: Гиперемия, отечность. У входа – обильные патологические выделения, стекающие на промежность.<br>
+                <strong>Запах:</strong> При осмотре ощущается резкий, неприятный, гнилостный («ихорозный») запах – патогномоничный признак длительно находящегося инородного тела (особенно тампона).<br>
+                <strong>Инородное тело:</strong> Визуализируется / пальпируется в просвете влагалища / в заднем/переднем своде.<br>
+                <strong>Характер:</strong><br>
+                Тампон – разбухший, пропитанный гнойным отделяемым, серо-зеленого цвета, с резким запахом, часто с фрагментом нити.<br>
+                Презерватив – свернутый, в глубине влагалища.<br>
+                Контрацептивное кольцо – забытое, более 3–4 недель.<br>
+                Пессарий – смещенный, вколоченный.<br>
+                Мелкий предмет – колпачок, игрушка, бытовой предмет (пуговица, бусина, деталь конструктора – у детей).<br>
+                <strong>Выделения из половых путей:</strong><br>
+                На момент осмотра: Обильные/умеренные, гнойные, желто-зеленые, густые, с резким гнилостным запахом. Могут быть с примесью крови (сукровичные). Патологических (творожистых, пенистых) выделений нет.<br>
+                <strong>У детей (девочек):</strong><br>
+                Осмотр проводится максимально деликатно, часто только в стационаре под седацией. На догоспитальном этапе – констатация факта инородного тела, госпитализация. Возможно визуализировать нить тампона/инородное тело у входа во влагалище при осторожном разведении половых губ.
             </div>
+        </div>
 
-            <!-- НЕРВНАЯ СИСТЕМА -->
-            <div class="exam-block">
-                <div class="block-title">НЕРВНАЯ СИСТЕМА</div>
-                <div class="block-content">
-                    <div class="field-row"><span class="field-label">Поведение, контакт:</span><span class="field-value">Спокойное / тревожное, смущенное, испуганное. Контакт полный, сохранен.</span></div>
-                    <div class="field-row"><span class="field-label">Менингеальные симптомы, очаговая симптоматика:</span><span class="field-value">Отрицательные.</span></div>
-                </div>
+        <!-- ОЦЕНКА ПО ШКАЛАМ -->
+        <div class="section">
+            <div class="section-title">📊 ОЦЕНКА ПО ШКАЛАМ</div>
+            <div class="scales-list">
+                <p>✔ <strong>Шкала NEWS2:</strong> 0–2 балла (при отсутствии системной воспалительной реакции и стабильной гемодинамике). При лихорадке и тахикардии – до 3–4 баллов.</p>
+                <p>✔ <strong>Шкала боли ВАШ:</strong> 2–6 баллов (в зависимости от выраженности болевого синдрома; при вколоченном инородном теле – до 7–8 баллов).</p>
+                <p>✔ <strong>Пациент с острой дыхательной недостаточностью, шкала ОДН по Кассиль:</strong> не применимо.</p>
+                <p>✔ <strong>Пациент с шоком, индекс Альговера:</strong> Индекс Альговера = 80 / 120 = 0,67 (гемодинамика стабильна, шока нет).</p>
+                <p>✔ <strong>Пациент с травмой, шкала боли ВАШ:</strong> (указано выше).</p>
+                <p>✔ <strong>Пациент с ХСН, шкала ШОКС:</strong> не применимо.</p>
+                <p>✔ <strong>Пациент с ТЭЛА, шкала риска ТЭЛА:</strong> не применимо.</p>
+                <p>✔ <strong>Алкогольное опьянение:</strong> запах алкоголя изо рта не определяется. Поведение адекватное.</p>
+                <p>✔ <strong>Пациент с инсультом, шкала LAMS:</strong> не применимо.</p>
+                <p>✔ <strong>Пациент с ДЭП (симптомы, синдромы орального автоматизма):</strong> не применимо.</p>
             </div>
+        </div>
 
-            <!-- МОЧЕПОЛОВАЯ СИСТЕМА -->
-            <div class="exam-block">
-                <div class="block-title">МОЧЕПОЛОВАЯ СИСТЕМА</div>
-                <div class="block-content">
-                    <div class="field-row"><span class="field-label">Мочеиспускание:</span><span class="field-value">Болезненное / затрудненное / учащенное (дизурия, странгурия). Моча мутная, с хлопьями (при сопутствующем уретрите/цистите).</span></div>
-                    <div class="field-row"><span class="field-label">Симптом поколачивания:</span><span class="field-value">Отрицательный с обеих сторон.</span></div>
-                </div>
-            </div>
-
-            <!-- STATUS LOCALIS -->
-            <div class="exam-block">
-                <div class="block-title">STATUS LOCALIS</div>
-                <div class="block-content">
-                    <div class="status-local">
-                        <div><strong>Наружные половые органы:</strong> Вульва может быть гиперемирована, отечна, следы мацерации, расчесов. Преддверие влагалища: гиперемия, отечность. У входа – обильные патологические выделения, стекающие на промежность.</div>
-                        <div><strong>Запах:</strong> При осмотре ощущается резкий, неприятный, гнилостный («ихорозный») запах – <strong>патогномоничный признак длительно находящегося инородного тела</strong> (особенно тампона).</div>
-                    </div>
-
-                    <div class="foreign-body-types">
-                        <p><strong>Характер инородного тела (при визуализации/пальпации):</strong></p>
-                        <p>• <strong>Тампон</strong> – разбухший, пропитанный гнойным отделяемым, серо-зеленого цвета, с резким запахом, часто с фрагментом нити.</p>
-                        <p>• <strong>Презерватив</strong> – свернутый, в глубине влагалища.</p>
-                        <p>• <strong>Контрацептивное кольцо</strong> – забытое, более 3–4 недель.</p>
-                        <p>• <strong>Пессарий</strong> – смещенный, вколоченный.</p>
-                        <p>• <strong>Мелкий предмет</strong> – колпачок, игрушка, бытовой предмет (пуговица, бусина, деталь конструктора – у детей).</p>
-                    </div>
-
-                    <div class="field-row"><span class="field-label">Выделения из половых путей:</span><span class="field-value">Обильные/умеренные, гнойные, желто-зеленые, густые, с резким гнилостным запахом. Могут быть с примесью крови (сукровичные).</span></div>
-                    <div class="field-row"><span class="field-label">Особенности у детей:</span><span class="field-value">Осмотр проводится максимально деликатно, часто только в стационаре под седацией. На догоспитальном этапе – констатация факта инородного тела, госпитализация. Возможно визуализировать нить тампона/инородное тело у входа во влагалище при осторожном разведении половых губ.</span></div>
-                </div>
-            </div>
-
-            <!-- ДИФФЕРЕНЦИАЛЬНАЯ ДИАГНОСТИКА И ТАКТИКА -->
-            <div class="exam-block">
-                <div class="block-title">ТАКТИКА ВЕДЕНИЯ</div>
-                <div class="block-content">
-                    <div class="alert-note">
-                        <strong>Примечание для бригады СМП:</strong><br>
-                        — Удаление инородного тела на догоспитальном этапе возможно только при простом расположении (низкое, нить визуализируется, нет признаков травмы/кровотечения). При вколоченном инородном теле, выраженном воспалении, затруднении доступа, у детей – удаление в стационаре.<br>
-                        — Экстренная госпитализация в гинекологическое отделение показана при: невозможности удаления на месте, выраженном болевом синдроме, кровотечении, признаках восходящей инфекции (эндометрит, параметрит), подозрении на перфорацию, у детей, при психических расстройствах, подозрении на криминальное введение (сексуальное насилие).<br>
-                        — При подозрении на сексуальное насилие – строгое соблюдение алгоритмов: вызов полиции, запрет на гигиенические процедуры, максимальная деликатность, фиксация всех повреждений в карте вызова.<br>
-                        — Транспортировка на носилках в положении лежа на спине.
-                    </div>
-                </div>
-            </div>
-
-            <hr>
-            <div class="footer-note">
-                T19.2 — Инородное тело влагалища | Госпитализация в гинекологическое отделение | Удаление инородного тела, санация влагалища
-            </div>
+        <!-- Примечание для бригады СМП -->
+        <div class="note">
+            <strong>📌 Примечание для бригады СМП:</strong><br>
+            Дифференциальная диагностика проведена с:
+            <ul class="note-list">
+                <li><strong>выпадением внутриматочной спирали (ВМС)</strong> (визуализируются нити из цервикального канала, пациентка знает о наличии ВМС);</li>
+                <li><strong>полипом цервикального канала / эндометрия</strong> (кровянистые выделения, без гнилостного запаха, осмотр в зеркалах);</li>
+                <li><strong>опухолью влагалища</strong> (без связи с инородным телом, без запаха);</li>
+                <li><strong>пролапсом тазовых органов (выпадение стенок влагалища, матки)</strong> – при осмотре визуализируются складки слизистой, инородное тело отсутствует.</li>
+            </ul>
+            <strong>Тактика на догоспитальном этапе:</strong><br>
+            – При визуализации инородного тела у входа во влагалище и возможности его осторожного удаления (например, нити тампона) – удалить, оценить целостность.<br>
+            – При глубоком расположении, вколоченном инородном теле, подозрении на перфорацию, выраженном болевом синдроме, кровотечении – экстренная госпитализация в гинекологический стационар для удаления под контролем зрения/лапароскопии.<br>
+            – У детей – обязательная госпитализация в стационар (возможно проведение вагиноскопии под седацией).<br>
+            – При подозрении на сексуальное насилие – соблюдение юридических норм, вызов полиции, госпитализация.
         </div>
     </div>
 </div>
