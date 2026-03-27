@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Расширенная реанимация при работе вдвоем | Алгоритм двух фельдшеров СМП</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #e9ecef;
+            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+            padding: 40px 20px;
+            color: #212529;
+            line-height: 1.45;
+        }
+
+        .card {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            border: 1px solid #dee2e6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1a4d6f 0%, #0f3b56 100%);
+            color: white;
+            padding: 24px 32px;
+            border-bottom: 4px solid #ffc107;
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            letter-spacing: -0.3px;
+            margin-bottom: 8px;
+        }
+
+        .header .sub {
+            font-size: 0.95rem;
+            opacity: 0.9;
+            font-weight: 400;
+        }
+
+        .content {
+            padding: 28px 32px 40px 32px;
+        }
+
+        .section {
+            margin-bottom: 32px;
+            break-inside: avoid;
+            page-break-inside: avoid;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #1a4d6f;
+            border-left: 6px solid #ffc107;
+            padding-left: 16px;
+            margin-bottom: 18px;
+            margin-top: 8px;
+            background: #f4f9ff;
+            border-radius: 0 12px 12px 0;
+            line-height: 1.3;
+        }
+
+        .step-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .step-item {
+            padding: 10px 16px;
+            background: #fefef9;
+            border-left: 4px solid #1a4d6f;
+            border-radius: 12px;
+        }
+
+        .step-item strong {
+            color: #1a4d6f;
+            display: inline-block;
+            margin-right: 8px;
+        }
+
+        .role-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 16px;
+        }
+
+        .role-card {
+            background: #f8f9fc;
+            border-radius: 16px;
+            padding: 18px;
+            border-top: 4px solid;
+        }
+
+        .role-card.leader {
+            border-top-color: #c0392b;
+        }
+
+        .role-card.assistant {
+            border-top-color: #2c7da0;
+        }
+
+        .role-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .role-card ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .role-card li {
+            margin-bottom: 10px;
+            padding-left: 22px;
+            position: relative;
+            font-size: 0.92rem;
+        }
+
+        .role-card li:before {
+            content: "▶";
+            position: absolute;
+            left: 0;
+            color: #ffc107;
+            font-size: 0.8rem;
+        }
+
+        .priority-box {
+            background: #eef4fa;
+            border-radius: 16px;
+            padding: 18px 24px;
+            margin-top: 16px;
+            border-left: 5px solid #ffc107;
+        }
+
+        .priority-box h3 {
+            color: #1a4d6f;
+            margin-bottom: 12px;
+        }
+
+        .priority-box ul {
+            margin-left: 20px;
+            list-style-type: none;
+        }
+
+        .priority-box li {
+            margin-bottom: 10px;
+            padding-left: 24px;
+            position: relative;
+        }
+
+        .priority-box li:before {
+            content: "⚡";
+            position: absolute;
+            left: 0;
+            color: #e67e22;
+        }
+
+        .criteria-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 12px;
+        }
+
+        .criteria-card {
+            background: #f8f9fa;
+            border-radius: 14px;
+            padding: 16px 20px;
+            border-left: 4px solid #27ae60;
+        }
+
+        .criteria-card.stop-card {
+            border-left-color: #e74c3c;
+        }
+
+        .criteria-card h4 {
+            color: #2c3e50;
+            margin-bottom: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        .criteria-card ul {
+            margin-left: 20px;
+            list-style-type: none;
+        }
+
+        .criteria-card li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+            font-size: 0.9rem;
+        }
+
+        .criteria-card li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #27ae60;
+        }
+
+        .stop-card li:before {
+            content: "⛔";
+            color: #e74c3c;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #ffc107;
+            color: #1a4d6f;
+            font-size: 0.7rem;
+            font-weight: bold;
+            padding: 2px 8px;
+            border-radius: 20px;
+            margin-left: 8px;
+            vertical-align: middle;
+        }
+
+        @media (max-width: 780px) {
+            .role-grid {
+                grid-template-columns: 1fr;
+            }
+            .content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="card">
+    <div class="header">
+        <h1>🚑 Расширенная реанимация</h1>
+        <div class="sub">Краткий алгоритм расширенной реанимации при работе вдвоем (два фельдшера)</div>
+    </div>
+
+    <div class="content">
+        <!-- ОЦЕНКА БЕЗОПАСНОСТИ -->
+        <div class="section">
+            <div class="section-title">🛡️ 1. ОЦЕНКА БЕЗОПАСНОСТИ</div>
+            <div class="step-list">
+                <div class="step-item"><strong>Убедиться в отсутствии угрозы для бригады, пациента и окружающих.</strong></div>
+            </div>
+        </div>
+
+        <!-- ОЦЕНКА СОЗНАНИЯ -->
+        <div class="section">
+            <div class="section-title">🗣️ 2. ОЦЕНКА СОЗНАНИЯ</div>
+            <div class="step-list">
+                <div class="step-item"><strong>Громкий оклик, встряхивание за плечи.</strong> Реакция отсутствует → переход к оценке дыхания.</div>
+            </div>
+        </div>
+
+        <!-- ОЦЕНКА ДЫХАНИЯ -->
+        <div class="section">
+            <div class="section-title">🫁 3. ОЦЕНКА ДЫХАНИЯ (10 секунд)</div>
+            <div class="step-list">
+                <div class="step-item"><strong>Правило «вижу-слышу-ощущаю».</strong> Дыхание отсутствует / агональные вдохи → <strong>клиническая смерть</strong>.</div>
+            </div>
+        </div>
+
+        <!-- ПЕРЕМЕЩЕНИЕ ПАЦИЕНТА -->
+        <div class="section">
+            <div class="section-title">🛏️ 4. ПЕРЕМЕЩЕНИЕ ПАЦИЕНТА</div>
+            <div class="step-list">
+                <div class="step-item"><strong>Обеспечить твердую ровную поверхность (пол, носилки с щитом).</strong></div>
+            </div>
+        </div>
+
+        <!-- ФИКСАЦИЯ ВРЕМЕНИ -->
+        <div class="section">
+            <div class="section-title">⏱️ 5. ФИКСАЦИЯ ВРЕМЕНИ</div>
+            <div class="step-list">
+                <div class="step-item"><strong>Зафиксировать время остановки кровообращения.</strong></div>
+            </div>
+        </div>
+
+        <!-- АКТИВАЦИЯ ВЫЗОВА -->
+        <div class="section">
+            <div class="section-title">📡 6. АКТИВАЦИЯ ВЫЗОВА</div>
+            <div class="step-list">
+                <div class="step-item"><strong>Нажать кнопку «клиническая смерть» / «реанимация» (при наличии УАК).</strong> Активировать дополнительную врачебную/реанимационную бригаду.</div>
+            </div>
+        </div>
+
+        <!-- РАСПРЕДЕЛЕНИЕ РОЛЕЙ -->
+        <div class="section">
+            <div class="section-title">👥 7. РАСПРЕДЕЛЕНИЕ РОЛЕЙ</div>
+            <div class="role-grid">
+                <div class="role-card leader">
+                    <h3>🔴 ЛИДЕР (1-й номер)</h3>
+                    <ul>
+                        <li>Немедленно начать компрессии грудной клетки (глубина 5–6 см, частота 100–120/мин)</li>
+                        <li>Компрессии продолжаются до готовности дефибриллятора</li>
+                        <li>Команда на оценку ритма, контроль безопасности при разряде</li>
+                        <li>Выполнение ИВЛ (30:2) после сборки мешка</li>
+                        <li>Контроль времени, ритма, смена компрессирующего каждые 2 минуты</li>
+                        <li>Обеспечение проходимости дыхательных путей (ларингеальная трубка)</li>
+                    </ul>
+                </div>
+                <div class="role-card assistant">
+                    <h3>🟢 АДЪЮТАНТ (2-й номер)</h3>
+                    <ul>
+                        <li>Подготовка дефибриллятора, наложение электродов</li>
+                        <li>Оценка ритма (пауза &lt;10 сек), распечатка на пленку</li>
+                        <li>Нанесение разряда по команде лидера</li>
+                        <li>Сбор дыхательного мешка, подключение кислорода (10–12 л/мин)</li>
+                        <li>Катетеризация периферической вены (без остановки компрессий)</li>
+                        <li>Введение Амиодарона 300 мг (3-й разряд и далее), Адреналина 1 мг каждые 3–5 мин</li>
+                        <li>Подключение УАК, МИНДРЕЙ, капнографии</li>
+                        <li>Смена лидера на компрессиях через 2 минуты</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ОЦЕНКА РИТМА И ДЕФИБРИЛЛЯЦИЯ -->
+        <div class="section">
+            <div class="section-title">⚡ 8. ОЦЕНКА РИТМА И ДЕФИБРИЛЛЯЦИЯ</div>
+            <div class="step-list">
+                <div class="step-item"><strong>ЛИДЕР:</strong> команда на оценку ритма. Пауза компрессий не более 10 секунд.</div>
+                <div class="step-item"><strong>АДЪЮТАНТ:</strong> оценивает ритм, фиксирует распечатку на пленку.</div>
+                <div class="step-item"><strong>При Фибрилляции желудочков / ЖТ без пульса:</strong> первый разряд – 150 Дж. Команда «Всем отойти!». Нанесение разряда. <strong>НЕМЕДЛЕННОЕ ВОЗОБНОВЛЕНИЕ КОМПРЕССИЙ</strong> (без проверки пульса и ритма).</div>
+            </div>
+        </div>
+
+        <!-- ЦИКЛЫ РЕАНИМАЦИИ -->
+        <div class="section">
+            <div class="section-title">🔄 9. ЦИКЛЫ РЕАНИМАЦИИ (5 циклов / 2 минуты)</div>
+            <div class="step-list">
+                <div class="step-item"><strong>4 цикла:</strong> 30 компрессий + 2 вдоха (30:2).</div>
+                <div class="step-item"><strong>5-й цикл:</strong> 30 компрессий → пауза не более 10 сек → оценка ритма + распечатка. Распечатка ритма – каждую 4-ю минуту или каждую 2-ю оценку ритма.</div>
+                <div class="step-item">При сохраняющемся шокогенном ритме – повторный разряд (увеличение энергии по инструкции к дефибриллятору).</div>
+            </div>
+        </div>
+
+        <!-- В/В ДОСТУП И ПРЕПАРАТЫ -->
+        <div class="section">
+            <div class="section-title">💉 10. В/В ДОСТУП И ПРЕПАРАТЫ</div>
+            <div class="step-list">
+                <div class="step-item"><strong>ЛИДЕР:</strong> команда на в/в доступ. Адъютант выполняет катетеризацию периферической вены (компрессии не прекращаются).</div>
+                <div class="step-item"><strong>При 3-м разряде и последующих:</strong> Амиодарон 300 мг в/в болюсно, Адреналин 1 мг (1 мл) в/в болюсно одновременно. Адреналин повторять каждые 3–5 минут.</div>
+            </div>
+        </div>
+
+        <!-- ПРОТЕКЦИЯ ДЫХАТЕЛЬНЫХ ПУТЕЙ -->
+        <div class="section">
+            <div class="section-title">🫧 11. ПРОТЕКЦИЯ ДЫХАТЕЛЬНЫХ ПУТЕЙ</div>
+            <div class="step-list">
+                <div class="step-item"><strong>ЛИДЕР:</strong> команда на подготовку всего для обеспечения проходимости дыхательных путей. Приоритет: ларингеальная трубка (при недостаточном опыте интубации).</div>
+                <div class="step-item"><strong>АДЪЮТАНТ:</strong> готовится сменить лидера на компрессиях. Всё для протекции готово.</div>
+                <div class="step-item"><strong>ЛИДЕР:</strong> протекция ВДП. Адъютант непрерывно выполняет компрессии. При постановке ларингеальной трубки остановка компрессий НЕ ТРЕБУЕТСЯ (возможна установка на продолжающихся компрессиях).</div>
+                <div class="step-item">Дыхательный мешок подключен к ларингеальной трубке. Режим вентиляции: 30:2 (компрессии/вдохи). Лидер и адъютант меняются для поддержания качества компрессий.</div>
+            </div>
+        </div>
+
+        <!-- ПОДКЛЮЧЕНИЕ МОНИТОРИНГА -->
+        <div class="section">
+            <div class="section-title">📊 12. ПОДКЛЮЧЕНИЕ МОНИТОРИНГА (МИНДРЕЙ)</div>
+            <div class="step-list">
+                <div class="step-item">ЭКГ-мониторинг (3/5 отведения). Неинвазивное АД. Пульсоксиметрия (после восстановления кровообращения). Капнография (EtCO₂) – при наличии.</div>
+            </div>
+        </div>
+
+        <!-- КРИТЕРИИ ЭФФЕКТИВНОСТИ СЛР -->
+        <div class="section">
+            <div class="section-title">✅ КРИТЕРИИ ЭФФЕКТИВНОСТИ СЛР</div>
+            <div class="criteria-grid">
+                <div class="criteria-card">
+                    <ul>
+                        <li>Появление пульса на сонных/бедренных артериях</li>
+                        <li>Восстановление самостоятельного дыхания</li>
+                        <li>Появление движений, открывание глаз</li>
+                        <li>Повышение EtCO₂ > 10–20 мм рт.ст.</li>
+                        <li>Сужение зрачков, появление фотореакции</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- КРИТЕРИИ ПРЕКРАЩЕНИЯ СЛР -->
+        <div class="section">
+            <div class="section-title">⛔ КРИТЕРИИ ПРЕКРАЩЕНИЯ СЛР</div>
+            <div class="criteria-grid">
+                <div class="criteria-card stop-card">
+                    <ul>
+                        <li>Восстановление спонтанного кровообращения</li>
+                        <li>Отсутствие признаков восстановления кровообращения в течение 30 минут непрерывной квалифицированной реанимации</li>
+                        <li>Решение о прекращении принимается врачебной бригадой или старшим врачом СМП</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- КЛЮЧЕВЫЕ ПРИНЦИПЫ РАБОТЫ ВДВОЕМ (таблица) -->
+        <div class="section">
+            <div class="section-title">📋 КЛЮЧЕВЫЕ ПРИНЦИПЫ РАБОТЫ ВДВОЕМ</div>
+            <div class="role-grid" style="margin-top: 0;">
+                <div class="role-card leader">
+                    <h3>🔴 ЛИДЕР (1-й номер)</h3>
+                    <ul>
+                        <li>Начало: Компрессии</li>
+                        <li>Ритм/разряд: Команда, контроль безопасности</li>
+                        <li>Дыхание: Компрессии + ИВЛ (30:2)</li>
+                        <li>В/В доступ: Компрессии</li>
+                        <li>Препараты: Команда</li>
+                        <li>Протекция ВДП: Обеспечение проходимости</li>
+                        <li>Смена ролей: Переход на компрессии</li>
+                        <li>Мониторинг: Контроль времени, ритма</li>
+                    </ul>
+                </div>
+                <div class="role-card assistant">
+                    <h3>🟢 АДЪЮТАНТ (2-й номер)</h3>
+                    <ul>
+                        <li>Начало: Подготовка дефибриллятора</li>
+                        <li>Ритм/разряд: Оценка ритма, разряд, распечатка</li>
+                        <li>Дыхание: Сбор мешка, кислород</li>
+                        <li>В/В доступ: Катетеризация вены</li>
+                        <li>Препараты: Введение Амиодарона, Адреналина</li>
+                        <li>Протекция ВДП: Компрессии (без остановки)</li>
+                        <li>Смена ролей: Смена лидера на компрессиях</li>
+                        <li>Мониторинг: Подключение МИНДРЕЙ, фиксация</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ПРИОРИТЕТЫ РАСШИРЕННОЙ РЕАНИМАЦИИ -->
+        <div class="section">
+            <div class="section-title">🎯 ПРИОРИТЕТЫ РАСШИРЕННОЙ РЕАНИМАЦИИ</div>
+            <div class="priority-box">
+                <ul>
+                    <li>Минимальные паузы компрессий (&lt; 10 секунд)</li>
+                    <li>Ранняя дефибрилляция (первые 3 минуты)</li>
+                    <li>Раннее введение адреналина (при 3-м разряде)</li>
+                    <li>Обеспечение проходимости дыхательных путей без остановки компрессий</li>
+                    <li>Смена компрессирующего каждые 2 минуты для поддержания качества</li>
+                    <li>Фиксация ритмов и времени на пленку</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
