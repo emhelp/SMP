@@ -9,51 +9,69 @@
     body {
       font-family: 'Segoe UI', 'Roboto', sans-serif;
       margin: 0;
-      padding: 0;
+      padding: 20px;
       background: #f5f5f5;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #0f1446;
     }
 
     .container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
       width: 100%;
-      max-width: 400px;
-      padding: 15px;
+      max-width: 500px;
       box-sizing: border-box;
     }
 
-    .title {
-      text-align: center;
-      font-size: 1.4rem;
-      font-weight: 700;
-      margin-bottom: 15px;
-    }
-
     .btn {
-      display: block;
-      width: 100%;
-      background: #0f1446;
+      text-decoration: none;
       color: white;
-      padding: 12px;
-      margin-bottom: 10px;
-      border: none;
+      background: #0f1446;
+      padding: 12px 15px;
       border-radius: 8px;
       font-weight: 600;
       text-align: center;
+      width: 100%;
+      transition: background 0.2s;
+      border: none;
       cursor: pointer;
-      transition: 0.2s;
+      font-size: 1rem;
+      font-family: inherit;
+      box-sizing: border-box;
     }
 
     .btn:hover {
       background: #3949ab;
     }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        max-width: 90%;
+      }
+      .btn {
+        font-size: 0.9rem;
+      }
+    }
   </style>
 </head>
 <body>
 
-<div class="container">
-  <div class="title">Констатация</div>
+<h1>Констатация</h1>
 
+<div class="container">
   <button class="btn" onclick="window.location.href='head-amputation.html'">Ампутация головы</button>
   <button class="btn" onclick="window.location.href='body-amputation.html'">Ампутация туловища</button>
   <button class="btn" onclick="window.location.href='more-than-week.html'">Более недели (в лесу)</button>
@@ -63,7 +81,6 @@
   <button class="btn" onclick="window.location.href='fall-height.html'">Падение с высоты</button>
   <button class="btn" onclick="window.location.href='hanging.html'">Повешение</button>
   <button class="btn" onclick="window.location.href='train-injury.html'">Поездная (травма)</button>
-
 </div>
 
 </body>
