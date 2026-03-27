@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Карта вызова СМП | Угроза преждевременных родов</title>
+    <title>Карта вызова скорой медицинской помощи | Угроза преждевременных родов</title>
     <style>
         * {
             margin: 0;
@@ -12,415 +12,381 @@
         }
 
         body {
-            background: #e2e8f0;
-            font-family: 'Segoe UI', 'Roboto', 'Inter', system-ui, sans-serif;
-            line-height: 1.5;
-            padding: 32px 24px;
-            color: #1a2c3e;
+            background-color: #e9ecef;
+            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+            padding: 40px 20px;
+            color: #212529;
+            line-height: 1.45;
         }
 
-        .container {
-            max-width: 1200px;
+        .card {
+            max-width: 1100px;
             margin: 0 auto;
-        }
-
-        .medical-card {
-            background: #ffffff;
-            border-radius: 28px;
-            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.2);
+            background-color: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.15);
             overflow: hidden;
+            border: 1px solid #dee2e6;
         }
 
-        .card-header {
-            background: linear-gradient(135deg, #8b6b4d 0%, #6a4e36 100%);
-            padding: 20px 32px;
+        .mkb-row {
+            background: linear-gradient(135deg, #0b3b5f 0%, #1a4d6f 100%);
             color: white;
-            border-bottom: 4px solid #ffb347;
+            padding: 20px 32px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border-bottom: 4px solid #ffc107;
         }
 
-        .card-header .mkb {
-            font-size: 14px;
-            opacity: 0.9;
-            font-family: monospace;
-        }
-
-        .card-header .warning {
-            font-size: 12px;
-            opacity: 0.85;
-            margin-top: 8px;
-            background: rgba(255,255,255,0.15);
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 20px;
-        }
-
-        .card-content {
-            padding: 28px 36px;
-        }
-
-        .exam-block {
-            margin-bottom: 28px;
-            border: 1px solid #e2edf2;
-            border-radius: 20px;
-            overflow: hidden;
-            background: white;
-        }
-
-        .block-title {
-            background: #f1f6fb;
-            padding: 14px 24px;
-            font-weight: 800;
-            font-size: 18px;
-            color: #0b5e7c;
-            border-left: 5px solid #ffb347;
-            letter-spacing: -0.2px;
-        }
-
-        .block-content {
-            padding: 20px 28px;
-            background: #fefefe;
-            font-size: 15px;
-            line-height: 1.55;
-            color: #1e3a4f;
-            text-align: left;
-        }
-
-        .field-row {
-            margin-bottom: 12px;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: baseline;
-            gap: 8px;
-            text-align: left;
-        }
-
-        .field-label {
+        .mkb-row span {
             font-weight: 700;
-            color: #1c6d8f;
-            min-width: 220px;
-            font-size: 14px;
+            color: #ffc107;
         }
 
-        .field-value {
-            flex: 1;
-            color: #1e2f3c;
-            text-align: left;
+        .diagnosis {
+            background: #fef9e6;
+            padding: 12px 32px;
+            border-left: 6px solid #ffc107;
+            font-weight: 500;
+            font-size: 0.98rem;
+            color: #2d3e50;
+            border-bottom: 1px solid #f0e2b6;
         }
 
-        .inline-group {
+        .content {
+            padding: 24px 32px 40px 32px;
+        }
+
+        .section {
+            margin-bottom: 32px;
+            break-inside: avoid;
+            page-break-inside: avoid;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #1a4d6f;
+            border-left: 6px solid #ffc107;
+            padding-left: 16px;
+            margin-bottom: 18px;
+            margin-top: 8px;
+            background: #f4f9ff;
+            border-radius: 0 12px 12px 0;
+            line-height: 1.3;
+        }
+
+        .field-list {
             display: flex;
-            flex-wrap: wrap;
-            gap: 24px;
-            margin: 12px 0;
-            text-align: left;
+            flex-direction: column;
+            gap: 10px;
         }
 
-        .inline-item {
-            flex: 1;
-            min-width: 180px;
-            text-align: left;
+        .field-item {
+            padding: 6px 0 4px 8px;
+            border-bottom: 1px dotted #e0e6ed;
+            font-size: 0.94rem;
+            line-height: 1.45;
         }
 
-        .diagnosis-box {
-            background: #fefaf5;
-            border-left: 4px solid #ffb347;
-            padding: 16px 20px;
-            border-radius: 16px;
-            margin-bottom: 8px;
-            text-align: left;
+        .field-item strong {
+            font-weight: 700;
+            color: #1e4663;
+            display: inline-block;
+            min-width: 240px;
         }
 
-        .diagnosis-box div {
-            margin-bottom: 8px;
-            text-align: left;
+        .field-item .value {
+            color: #2c3e4e;
+            font-weight: 500;
+        }
+
+        .full-width-text {
+            padding: 8px 0 8px 8px;
+            border-bottom: 1px dotted #e0e6ed;
+            font-size: 0.94rem;
+        }
+
+        .full-width-text strong {
+            font-weight: 700;
+            color: #1e4663;
+            display: inline-block;
+            min-width: 240px;
         }
 
         .status-local {
-            background: #f9fef7;
-            border-left: 4px solid #2c9c6e;
-            padding: 16px 20px;
-            border-radius: 16px;
-            margin-top: 8px;
-            text-align: left;
+            background: #fef7e0;
+            padding: 14px 18px;
+            border-radius: 18px;
+            margin-top: 6px;
+            border: 1px solid #ffe3a4;
+            font-size: 0.94rem;
         }
 
-        .status-local div {
-            margin-bottom: 8px;
-            text-align: left;
+        .scales-list {
+            background: #f1f4f9;
+            padding: 12px 20px;
+            border-radius: 20px;
+            margin-top: 10px;
         }
 
-        .scales-box {
-            background: #f0f4fa;
-            padding: 16px 20px;
-            border-radius: 16px;
-            margin: 12px 0;
+        .scales-list p {
+            margin: 8px 0;
         }
 
-        .scale-item {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            margin-bottom: 10px;
-        }
-
-        .scale-label {
-            font-weight: 700;
-            color: #1c6d8f;
-            min-width: 180px;
-        }
-
-        .alert-note {
-            background: #fff3e0;
-            border-left: 4px solid #ff9800;
+        .note {
+            background: #e7f1ff;
+            border-left: 4px solid #1a4d6f;
             padding: 12px 16px;
-            border-radius: 12px;
             margin-top: 16px;
-            font-size: 13px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            color: #1e4663;
         }
 
-        hr {
-            margin: 16px 0;
-            border: none;
-            height: 1px;
-            background: #e2ecf3;
+        .note-list {
+            margin-top: 8px;
+            margin-left: 20px;
+            list-style-type: none;
+            padding-left: 0;
         }
 
-        .footer-note {
-            font-size: 13px;
-            color: #6c8eaa;
-            text-align: right;
+        .note-list li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .note-list li:before {
+            content: "•";
+            position: absolute;
+            left: 4px;
+            color: #1a4d6f;
+            font-weight: bold;
         }
 
         @media (max-width: 700px) {
-            .card-content {
-                padding: 18px;
+            .field-item strong {
+                min-width: 170px;
             }
-            .block-content {
-                padding: 14px 18px;
+            .full-width-text strong {
+                min-width: 170px;
             }
-            .field-label {
-                min-width: 140px;
+            .content {
+                padding: 20px;
             }
         }
     </style>
 </head>
 <body>
-<div class="container">
-    <div class="medical-card">
-        <div class="card-header">
-            <div class="mkb">МКБ-10: O47.0 — Ложные схватки до 37 полных недель беременности (угроза преждевременных родов)</div>
-            <div class="warning">⚠️ ТРЕБУЕТ ГОСПИТАЛИЗАЦИИ В АКУШЕРСКИЙ СТАЦИОНАР! Токолитическая терапия, профилактика РДС плода!</div>
+<div class="card">
+    <div class="mkb-row">
+        📌 Код по МКБ-10: <span>O47.0</span> (Ложные схватки до 37 полных недель беременности)
+    </div>
+    <div class="diagnosis">
+        🧾 <strong>Диагноз:</strong> Основное заболевание: Угрожающие преждевременные роды. Беременность ______ недель. Повышенная возбудимость матки. Истинные / ложные схватки (указать). Угроза прерывания беременности в сроке 22–36 недель.<br>
+        Осложнения: Угроза преждевременного излития околоплодных вод. Истмико-цервикальная недостаточность (при наличии). Хроническая плацентарная недостаточность (риск). Дистресс плода (риск).<br>
+        Сопутствующие заболевания: Не выявлены / (указать при наличии: истмико-цервикальная недостаточность, кольпит, бактериальный вагиноз, многоводие, многоплодная беременность, преэклампсия, анемия, пиелонефрит, ОРВИ).
+    </div>
+
+    <div class="content">
+        <!-- ЖАЛОБЫ -->
+        <div class="section">
+            <div class="section-title">📢 ЖАЛОБЫ</div>
+            <div class="full-width-text"><em>На регулярные / нерегулярные схваткообразные боли внизу живота и в поясничной области различной интенсивности (от незначительных до умеренных), с тенденцией к учащению и усилению / без динамики.<br><br>
+            На чувство «окаменения» живота, напряжение матки, периодическое или постоянное.<br><br>
+            На чувство давления на прямую кишку, учащенные позывы к мочеиспусканию (при низком расположении предлежащей части).<br><br>
+            На тянущие боли в пояснице, крестце, иррадиирующие в бедра.<br><br>
+            На слизистые / слизисто-сукровичные выделения из половых путей (при сопутствующей ИЦН, начале сглаживания шейки матки). Кровянистые выделения не характерны (при их наличии – исключать отслойку плаценты).<br><br>
+            На отсутствие излития околоплодных вод (воды целы) / подозрение на подтекание вод (дифференциальная диагностика!).<br><br>
+            Указывает на срок беременности 22–36 недель, наличие живого плода (шевеления ощущает, сердцебиение при аускультации).</em></div>
         </div>
-        <div class="card-content">
 
-            <!-- ДИАГНОЗ -->
-            <div class="exam-block">
-                <div class="block-title">ДИАГНОЗ</div>
-                <div class="block-content">
-                    <div class="diagnosis-box">
-                        <div><strong>Основное заболевание:</strong> Угрожающие преждевременные роды. Беременность ______ недель. Повышенная возбудимость матки. Истинные / ложные схватки (указать). Угроза прерывания беременности в сроке 22–36 недель.</div>
-                        <div><strong>Осложнения:</strong> Угроза преждевременного излития околоплодных вод. Истмико-цервикальная недостаточность (при наличии). Хроническая плацентарная недостаточность (риск). Дистресс плода (риск).</div>
-                        <div><strong>Сопутствующие заболевания:</strong> Не выявлены / (указать при наличии: истмико-цервикальная недостаточность, кольпит, бактериальный вагиноз, многоводие, многоплодная беременность, преэклампсия, анемия, пиелонефрит, ОРВИ).</div>
-                    </div>
-                </div>
-            </div>
+        <!-- АНАМНЕЗ -->
+        <div class="section">
+            <div class="section-title">📋 АНАМНЕЗ</div>
+            <div class="full-width-text"><strong>Эпидемиологический анамнез:</strong> Контакта с инфекционными больными нет. За пределы РФ в последние 3 недели не выезжала.</div>
+            <div class="full-width-text"><strong>Аллергологический анамнез:</strong> Не отягощен / отягощен (указать аллергию на лекарственные препараты, особенно на β-адреномиметики – гинипрал, партусистен; сульфат магния).</div>
+            <div class="full-width-text"><strong>Гинекологический и акушерский анамнез:</strong><br>
+            Менструальная функция: Менархе с __ лет, цикл установился сразу/не сразу, по __ дней, через __ дней, регулярный/нерегулярный. Последняя менструация: (дата) ______. Срок беременности настоящей: ______ недель (по менструации / УЗИ / первому шевелению).<br>
+            Репродуктивная функция: Беременностей – __, родов – __, абортов – __, выкидышей – __. Преждевременные роды в анамнезе: были / не были (срок, исход, масса плода, состояние ребенка). Крайне важный фактор риска!<br>
+            Настоящая беременность: по счету ______. Желанная. На учете в женской консультации состоит / не состоит. Течение беременности: без осложнений / осложнено (указать: ИЦН, угроза прерывания на сроке ______, ретрохориальная гематома, многоводие, маловодие, многоплодная беременность, преэклампсия, анемия, пиелонефрит, ОРВИ). Профилактика РДС плода проведена / не проведена (дексаметазон/бетаметазон – срок, курс).<br>
+            Истмико-цервикальная недостаточность (ИЦН): диагностирована / не диагностирована. Коррекция: акушерский пессарий (срок установки) / хирургическая коррекция (циркляж, срок). Состояние шейки матки по данным последнего УЗИ: длина ______ мм, внутренний зев (сомкнут/раскрыт, V-образное/ U-образное воронкообразование).<br>
+            Гинекологические заболевания: Миома матки (субмукозная, интерстициальная – деформация полости матки, размеры узлов, темп роста). Аномалии развития матки (двурогая, седловидная, перегородка, двойная матка). Хронический эндометрит, сальпингоофорит. Кольпит, бактериальный вагиноз, цервицит (лечение, контроль).<br>
+            Оперативные вмешательства: операции на матке (миомэктомия, метропластика, кесарево сечение), конизация шейки матки.<br>
+            Экстрагенитальная патология (факторы риска): Заболевания почек (пиелонефрит, гломерулонефрит). Сердечно-сосудистые заболевания (гипертензия, пороки сердца). Эндокринные нарушения (сахарный диабет, ожирение, гипотиреоз). Острые инфекционные заболевания (грипп, ОРВИ, пневмония) во время беременности.<br>
+            Выделения из половых путей на момент осмотра: Слизистые, светлые, в умеренном количестве, без запаха. Патологических (гнойных, пенистых, творожистых, кровянистых) выделений нет. При подтекании вод – жидкие, прозрачные/зеленоватые.</div>
+            <div class="full-width-text"><strong>Анамнез заболевания:</strong> Схваткообразные боли и/или напряжение матки появились (указать время, обстоятельства: после физической нагрузки, стресса, полового акта, травмы, на фоне инфекционного заболевания, многоводия, многоплодия, на фоне полного благополучия). Ранее подобные эпизоды в настоящую беременность были / не были (указать срок, госпитализации, терапию, эффект). Самостоятельно принимала (дротаверин, папаверин, магне B6, гинипрал – с осторожностью!) – с эффектом / без эффекта. К врачу обращалась / не обращалась. УЗИ проводилось / не проводилось (результат: срок беременности, состояние плода, длина шейки матки, состояние внутреннего зева, тонус миометрия). ИЦН диагностирована / не диагностирована (коррекция: швы/пессарий – сроки). Рекомендована госпитализация – согласна / отказалась.</div>
+        </div>
 
-            <!-- ЖАЛОБЫ -->
-            <div class="exam-block">
-                <div class="block-title">ЖАЛОБЫ</div>
-                <div class="block-content">
-                    <div class="field-row"><span class="field-label">Схваткообразные боли:</span><span class="field-value">Регулярные / нерегулярные схваткообразные боли внизу живота и в поясничной области различной интенсивности (от незначительных до умеренных), с тенденцией к учащению и усилению / без динамики.</span></div>
-                    <div class="field-row"><span class="field-label">Тонус матки:</span><span class="field-value">Чувство «окаменения» живота, напряжение матки, периодическое или постоянное.</span></div>
-                    <div class="field-row"><span class="field-label">Давление на прямую кишку:</span><span class="field-value">Чувство давления на прямую кишку, учащенные позывы к мочеиспусканию (при низком расположении предлежащей части).</span></div>
-                    <div class="field-row"><span class="field-label">Боли в пояснице:</span><span class="field-value">Тянущие боли в пояснице, крестце, иррадиирующие в бедра.</span></div>
-                    <div class="field-row"><span class="field-label">Выделения:</span><span class="field-value">Слизистые / слизисто-сукровичные выделения из половых путей (при сопутствующей ИЦН, начале сглаживания шейки матки). Кровянистые выделения не характерны (при их наличии – исключать отслойку плаценты).</span></div>
-                    <div class="field-row"><span class="field-label">Околоплодные воды:</span><span class="field-value">Отсутствие излития околоплодных вод (воды целы) / подозрение на подтекание вод (дифференциальная диагностика!).</span></div>
-                    <div class="field-row"><span class="field-label">Анамнез:</span><span class="field-value">Указывает на срок беременности 22–36 недель, наличие живого плода (шевеления ощущает, сердцебиение при аускультации).</span></div>
-                </div>
+        <!-- ОБЪЕКТИВНО -->
+        <div class="section">
+            <div class="section-title">🩺 ОБЪЕКТИВНО</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Общее состояние:</strong> <span class="value">Удовлетворительное / средней степени тяжести (зависит от интенсивности болевого синдрома, наличия сопутствующих осложнений).</span></div>
+                <div class="field-item"><strong>Сознание:</strong> <span class="value">Ясное.</span></div>
+                <div class="field-item"><strong>Шкала комы Глазго (GCS):</strong> <span class="value">15 баллов.</span></div>
+                <div class="field-item"><strong>Положение:</strong> <span class="value">Активное / предпочитает лежать (щадящий режим).</span></div>
+                <div class="field-item"><strong>Кожные покровы:</strong> <span class="value">Чистые, обычной окраски, влажность нормальная. Сыпи, цианоза, желтушности нет.</span></div>
+                <div class="field-item"><strong>Сыпь:</strong> <span class="value">Нет.</span></div>
+                <div class="field-item"><strong>Зев:</strong> <span class="value">Спокойный / гиперемирован (при ОРВИ).</span></div>
+                <div class="field-item"><strong>Миндалины:</strong> <span class="value">Не увеличены.</span></div>
+                <div class="field-item"><strong>Лимфоузлы:</strong> <span class="value">Периферические лимфоузлы не пальпируются.</span></div>
+                <div class="field-item"><strong>Пролежни:</strong> <span class="value">Нет.</span></div>
+                <div class="field-item"><strong>Отеки:</strong> <span class="value">Нет / пастозность голеней (физиологическая беременность) / отеки при гестозе (указать степень).</span></div>
+                <div class="field-item"><strong>t°:</strong> <span class="value">36,6 °C / 37,0–37,5 °C (при инфекционном процессе).</span></div>
             </div>
+        </div>
 
-            <!-- АНАМНЕЗ -->
-            <div class="exam-block">
-                <div class="block-title">АНАМНЕЗ</div>
-                <div class="block-content">
-                    <div class="field-row">
-                        <span class="field-label">Анамнез заболевания:</span>
-                        <span class="field-value">Схваткообразные боли и/или напряжение матки появились (указать время, обстоятельства: после физической нагрузки, стресса, полового акта, травмы, на фоне инфекционного заболевания, многоводия, многоплодия, на фоне полного благополучия). Ранее подобные эпизоды в настоящую беременность были / не были (указать срок, госпитализации, терапию, эффект). Самостоятельно принимала (дротаверин, папаверин, магне B6, гинипрал – с осторожностью!) – с эффектом / без эффекта. К врачу обращалась / не обращалась. УЗИ проводилось / не проводилось (результат: срок беременности, состояние плода, длина шейки матки, состояние внутреннего зева, тонус миометрия). ИЦН диагностирована / не диагностирована (коррекция: швы/пессарий – сроки). Рекомендована госпитализация – согласна / отказалась.</span>
-                    </div>
-                    <div class="field-row">
-                        <span class="field-label">Эпидемиологический анамнез:</span>
-                        <span class="field-value">Контакта с инфекционными больными нет. За пределы РФ в последние 3 недели не выезжала.</span>
-                    </div>
-                    <div class="field-row">
-                        <span class="field-label">Аллергологический анамнез:</span>
-                        <span class="field-value">Не отягощен / отягощен (указать аллергию на лекарственные препараты, особенно на β-адреномиметики – гинипрал, партусистен; сульфат магния).</span>
-                    </div>
-                    <div class="field-row">
-                        <span class="field-label">Гинекологический и акушерский анамнез:</span>
-                        <span class="field-value">Менструальная функция: менархе с __ лет, цикл __ дней, по __ дней, регулярный/нерегулярный. Последняя менструация: (дата) ______. Срок беременности настоящей: ______ недель (по менструации / УЗИ / первому шевелению). Репродуктивная функция: беременностей – __, родов – __, абортов – __, выкидышей – __. <strong>Преждевременные роды в анамнезе: были / не были (срок, исход, масса плода, состояние ребенка) – крайне важный фактор риска!</strong> Настоящая беременность: по счету ______. Желанная. На учете в женской консультации состоит / не состоит. Течение беременности: без осложнений / осложнено (указать: ИЦН, угроза прерывания на сроке ______, ретрохориальная гематома, многоводие, маловодие, многоплодная беременность, преэклампсия, анемия, пиелонефрит, ОРВИ). Профилактика РДС плода проведена / не проведена (дексаметазон/бетаметазон – срок, курс). Истмико-цервикальная недостаточность (ИЦН): диагностирована / не диагностирована. Коррекция: акушерский пессарий (срок установки) / хирургическая коррекция (циркляж, срок). Состояние шейки матки по данным последнего УЗИ: длина ______ мм, внутренний зев (сомкнут/раскрыт, V-образное/ U-образное воронкообразование).</span>
-                    </div>
-                    <div class="field-row">
-                        <span class="field-label">Гинекологические заболевания:</span>
-                        <span class="field-value">Миома матки (субмукозная, интерстициальная). Аномалии развития матки (двурогая, седловидная, перегородка, двойная матка). Хронический эндометрит, сальпингоофорит. Кольпит, бактериальный вагиноз, цервицит. Оперативные вмешательства: операции на матке (миомэктомия, метропластика, кесарево сечение), конизация шейки матки.</span>
-                    </div>
-                    <div class="field-row">
-                        <span class="field-label">Экстрагенитальная патология (факторы риска):</span>
-                        <span class="field-value">Заболевания почек (пиелонефрит, гломерулонефрит). Сердечно-сосудистые заболевания (гипертензия, пороки сердца). Эндокринные нарушения (сахарный диабет, ожирение, гипотиреоз). Острые инфекционные заболевания (грипп, ОРВИ, пневмония) во время беременности.</span>
-                    </div>
-                    <div class="field-row">
-                        <span class="field-label">Выделения из половых путей:</span>
-                        <span class="field-value">На момент осмотра: слизистые, светлые, в умеренном количестве, без запаха. Патологических (гнойных, пенистых, творожистых, кровянистых) выделений нет. При подтекании вод – жидкие, прозрачные/зеленоватые.</span>
-                    </div>
-                </div>
+        <!-- ОРГАНЫ ДЫХАНИЯ -->
+        <div class="section">
+            <div class="section-title">🌬️ ОРГАНЫ ДЫХАНИЯ</div>
+            <div class="field-list">
+                <div class="field-item"><strong>ЧДД:</strong> <span class="value">18–20 в мин.</span></div>
+                <div class="field-item"><strong>Одышка:</strong> <span class="value">Нет / инспираторная, на высоте схватки / при высоком стоянии дна матки.</span></div>
+                <div class="field-item"><strong>Патологическое дыхание:</strong> <span class="value">Нет.</span></div>
+                <div class="field-item"><strong>Аускультативно:</strong> <span class="value">Дыхание везикулярное, проводится во все отделы, хрипов нет.</span></div>
+                <div class="field-item"><strong>Хрипы сухие:</strong> <span class="value">Нет.</span></div>
+                <div class="field-item"><strong>Влажные:</strong> <span class="value">Нет.</span></div>
+                <div class="field-item"><strong>Крепитация:</strong> <span class="value">Нет.</span></div>
+                <div class="field-item"><strong>Шум трения плевры:</strong> <span class="value">Нет.</span></div>
+                <div class="field-item"><strong>Перкуторный звук:</strong> <span class="value">Легочный над всеми отделами.</span></div>
+                <div class="field-item"><strong>Кашель:</strong> <span class="value">Нет / при ОРВИ.</span></div>
+                <div class="field-item"><strong>Мокрота:</strong> <span class="value">Нет.</span></div>
             </div>
+        </div>
 
-            <!-- ОБЪЕКТИВНО -->
-            <div class="exam-block">
-                <div class="block-title">ОБЪЕКТИВНО</div>
-                <div class="block-content">
-                    <div class="inline-group">
-                        <div class="inline-item"><strong>Состояние:</strong> удовлетворительное / средней степени тяжести</div>
-                        <div class="inline-item"><strong>Сознание:</strong> ясное (GCS 15 баллов)</div>
-                        <div class="inline-item"><strong>Положение:</strong> активное / предпочитает лежать</div>
-                    </div>
-                    <div class="field-row">
-                        <span class="field-label">Кожные покровы:</span>
-                        <span class="field-value">Чистые, обычной окраски, влажность нормальная. Сыпи, цианоза, желтушности нет.</span>
-                    </div>
-                    <div class="field-row">
-                        <span class="field-label">Температура:</span>
-                        <span class="field-value">36,6 °C / 37,0–37,5 °C (при инфекционном процессе).</span>
-                    </div>
-                </div>
+        <!-- ОРГАНЫ КРОВООБРАЩЕНИЯ -->
+        <div class="section">
+            <div class="section-title">❤️ ОРГАНЫ КРОВООБРАЩЕНИЯ</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Пульс:</strong> <span class="value">80–90–100 в мин (тахикардия при болевом синдроме, возбуждении, лихорадке).</span></div>
+                <div class="field-item"><strong>Ритмичный, аритмичный, наполнение пульса:</strong> <span class="value">Ритмичный, удовлетворительного наполнения.</span></div>
+                <div class="field-item"><strong>ЧСС:</strong> <span class="value">80–90–100 в мин.</span></div>
+                <div class="field-item"><strong>Дефицит пульса:</strong> <span class="value">Нет.</span></div>
+                <div class="field-item"><strong>АД:</strong> <span class="value">110/70 – 120/80 мм.рт.ст. (привычное для пациентки; при преэклампсии – повышено).</span></div>
+                <div class="field-item"><strong>Тоны сердца:</strong> <span class="value">Звучные / умеренно приглушены, ритмичные.</span></div>
+                <div class="field-item"><strong>Шум:</strong> <span class="value">Нет / систолический шум на верхушке (функциональный, анемический).</span></div>
+                <div class="field-item"><strong>Шум трения перикарда:</strong> <span class="value">Нет.</span></div>
+                <div class="field-item"><strong>Акцент какого тона:</strong> <span class="value">Не выявлен.</span></div>
             </div>
+        </div>
 
-            <!-- ОРГАНЫ КРОВООБРАЩЕНИЯ -->
-            <div class="exam-block">
-                <div class="block-title">ОРГАНЫ КРОВООБРАЩЕНИЯ</div>
-                <div class="block-content">
-                    <div class="field-row"><span class="field-label">Пульс, ЧСС:</span><span class="field-value">80–90–100 в мин (тахикардия при болевом синдроме, возбуждении, лихорадке), ритмичный, удовлетворительного наполнения.</span></div>
-                    <div class="field-row"><span class="field-label">АД:</span><span class="field-value">110/70 – 120/80 мм рт.ст. (привычное для пациентки; при преэклампсии – повышено).</span></div>
-                </div>
+        <!-- ОРГАНЫ ПИЩЕВАРЕНИЯ -->
+        <div class="section">
+            <div class="section-title">🍽️ ОРГАНЫ ПИЩЕВАРЕНИЯ</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Язык:</strong> <span class="value">Влажный, чистый.</span></div>
+                <div class="field-item"><strong>Живот:</strong> <span class="value">Увеличен за счет беременной матки. Мягкий, не вздут, участвует в акте дыхания. При пальпации матка возбудима, периодически уплотняется (схватка). Вне схватки матка расслабляется.</span></div>
+                <div class="field-item"><strong>Болезненный в:</strong> <span class="value">При пальпации – умеренная болезненность в проекции нижнего сегмента матки, по ходу ребер матки. Болезненность усиливается во время схватки.</span></div>
+                <div class="field-item"><strong>Положительные симптомы:</strong> <span class="value">Симптомы раздражения брюшины — отрицательные.</span></div>
+                <div class="field-item"><strong>Перистальтика:</strong> <span class="value">Выслушивается, активная.</span></div>
+                <div class="field-item"><strong>Печень:</strong> <span class="value">Не пальпируется.</span></div>
+                <div class="field-item"><strong>Селезенка:</strong> <span class="value">Не пальпируется.</span></div>
+                <div class="field-item"><strong>Стул:</strong> <span class="value">Регулярный / склонность к запорам.</span></div>
             </div>
+        </div>
 
-            <!-- ОРГАНЫ ПИЩЕВАРЕНИЯ -->
-            <div class="exam-block">
-                <div class="block-title">ОРГАНЫ ПИЩЕВАРЕНИЯ</div>
-                <div class="block-content">
-                    <div class="field-row"><span class="field-label">Живот:</span><span class="field-value">Увеличен за счет беременной матки. Мягкий, не вздут, участвует в акте дыхания. При пальпации матка возбудима, периодически уплотняется (схватка). Вне схватки матка расслабляется полностью / не полностью. Умеренная болезненность в проекции нижнего сегмента матки, по ходу ребер матки. Болезненность усиливается во время схватки.</span></div>
-                    <div class="field-row"><span class="field-label">Симптомы раздражения брюшины:</span><span class="field-value">Отрицательные.</span></div>
-                </div>
+        <!-- НЕРВНАЯ СИСТЕМА -->
+        <div class="section">
+            <div class="section-title">🧠 НЕРВНАЯ СИСТЕМА</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Поведение:</strong> <span class="value">Спокойное / тревожное, беспокойное (в связи с угрозой преждевременных родов, страхом за исход беременности, болью).</span></div>
+                <div class="field-item"><strong>Контакт:</strong> <span class="value">Полный, сохранен.</span></div>
+                <div class="field-item"><strong>Чувствительность:</strong> <span class="value">Не нарушена.</span></div>
+                <div class="field-item"><strong>Речь:</strong> <span class="value">Внятная.</span></div>
+                <div class="field-item"><strong>Зрачки (OD, OS):</strong> <span class="value">OD = OS, обычные, средней величины.</span></div>
+                <div class="field-item"><strong>Фотореакция:</strong> <span class="value">Живая, содружественная.</span></div>
+                <div class="field-item"><strong>Нистагм:</strong> <span class="value">Нет.</span></div>
+                <div class="field-item"><strong>Асимметрия лица:</strong> <span class="value">Нет.</span></div>
+                <div class="field-item"><strong>Менингеальные симптомы:</strong> <span class="value">Отрицательные.</span></div>
+                <div class="field-item"><strong>Очаговые симптомы:</strong> <span class="value">Нет.</span></div>
+                <div class="field-item"><strong>Координаторные пробы:</strong> <span class="value">Выполняет удовлетворительно.</span></div>
             </div>
+        </div>
 
-            <!-- STATUS LOCALIS (акушерский статус) -->
-            <div class="exam-block">
-                <div class="block-title">STATUS LOCALIS (акушерский статус)</div>
-                <div class="block-content">
-                    <div class="status-local">
-                        <div><strong>Высота стояния дна матки (ВДМ):</strong> ______ см (соответствует сроку беременности ______ недель).</div>
-                        <div><strong>Окружность живота (ОЖ):</strong> ______ см.</div>
-                        <div><strong>Тонус матки:</strong> Повышен. Матка легко возбудима, периодически уплотняется (схватки). Вне схватки матка расслабляется полностью / не полностью.</div>
-                        <div><strong>Характер схваток:</strong> Регулярные / нерегулярные. Продолжительность: ______ секунд. Частота: через ______ минут. Сила: слабые / умеренные / сильные. Болезненность: умеренная / выраженная.</div>
-                        <div><strong>Положение плода:</strong> продольное / поперечное / косое.</div>
-                        <div><strong>Предлежание плода:</strong> головное / тазовое.</div>
-                        <div><strong>Вставление предлежащей части:</strong> прижата ко входу в малый таз / подвижна над входом.</div>
-                        <div><strong>Сердцебиение плода:</strong> ясное, ритмичное, ______ уд/мин (норма 120–160). Тахикардия >160, брадикардия <110 – признаки дистресса плода.</div>
-                        <div><strong>Околоплодные воды:</strong> целы / подозрение на подтекание (положительный симптом кашлевого толчка, визуализация жидкости на прокладке).</div>
-                        <div><strong>Наружные половые органы:</strong> Развиты правильно, по женскому типу. Выделения: слизистые, светлые, в умеренном количестве, без запаха. При подтекании вод – жидкие, прозрачные/зеленоватые/желтоватые.</div>
-                    </div>
-                </div>
+        <!-- МОЧЕПОЛОВАЯ СИСТЕМА -->
+        <div class="section">
+            <div class="section-title">🚽 МОЧЕПОЛОВАЯ СИСТЕМА</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Мочеиспускание:</strong> <span class="value">Свободное, безболезненное / учащенное (физиологическая полиурия, давление предлежащей части). Моча светлая, прозрачная.</span></div>
+                <div class="field-item"><strong>Симптом поколачивания:</strong> <span class="value">Отрицательный с обеих сторон / положительный (при пиелонефрите – дифференциальная диагностика с иррадиацией болей!).</span></div>
             </div>
+        </div>
 
-            <!-- ОЦЕНКА РИСКА ПРЕЖДЕВРЕМЕННЫХ РОДОВ -->
-            <div class="exam-block">
-                <div class="block-title">ОЦЕНКА РИСКА ПРЕЖДЕВРЕМЕННЫХ РОДОВ</div>
-                <div class="block-content">
-                    <div class="scales-box">
-                        <div class="scale-item">
-                            <span class="scale-label">Низкий риск:</span>
-                            <span>однократные эпизоды повышения тонуса, нет изменений шейки матки, нет факторов риска в анамнезе.</span>
-                        </div>
-                        <div class="scale-item">
-                            <span class="scale-label">Средний риск:</span>
-                            <span>регулярные схватки, укорочение шейки матки по данным УЗИ (<25 мм), наличие ИЦН, многоплодная беременность, многоводие.</span>
-                        </div>
-                        <div class="scale-item">
-                            <span class="scale-label">Высокий риск:</span>
-                            <span>преждевременные роды в анамнезе, регулярная родовая деятельность, открытие маточного зева (>2 см), сглаживание шейки матки (>50%), подтекание околоплодных вод.</span>
-                        </div>
-                    </div>
-                </div>
+        <!-- STATUS LOCALIS -->
+        <div class="section">
+            <div class="section-title">🔍 STATUS LOCALIS</div>
+            <div class="status-local">
+                <strong>Акушерский статус:</strong><br>
+                <strong>Наружное акушерское исследование:</strong><br>
+                Высота стояния дна матки (ВДМ): ______ см (соответствует сроку беременности ______ недель).<br>
+                Окружность живота (ОЖ): ______ см.<br>
+                Тонус матки: Повышен. Матка легко возбудима, периодически уплотняется (схватки). Вне схватки матка расслабляется полностью / не полностью.<br>
+                <strong>Характер схваток:</strong><br>
+                Регулярные / нерегулярные.<br>
+                Продолжительность: ______ секунд.<br>
+                Частота: через ______ минут.<br>
+                Сила: слабые / умеренные / сильные.<br>
+                Болезненность: умеренная / выраженная.<br>
+                Положение плода: продольное / поперечное / косое.<br>
+                Предлежание плода: головное / тазовое.<br>
+                Вставление предлежащей части: прижата ко входу в малый таз / подвижна над входом.<br>
+                Сердцебиение плода: ясное, ритмичное, ______ уд/мин (норма 120–160). Тахикардия >160, брадикардия <110 – признаки дистресса плода.<br>
+                Шевеление плода: активное / умеренное / снижено (по ощущениям пациентки).<br>
+                Околоплодные воды: целы / подозрение на подтекание (положительный симптом кашлевого толчка, визуализация жидкости на прокладке).<br><br>
+                <strong>Наружные половые органы:</strong><br>
+                Развиты правильно, по женскому типу. Выделения из половых путей: слизистые, светлые, в умеренном количестве, без запаха. Патологических (гнойных, пенистых, творожистых, кровянистых) выделений нет. При подтекании вод – жидкие, прозрачные/зеленоватые/желтоватые, без запаха/с запахом.
             </div>
+        </div>
 
-            <!-- ОЦЕНКА СОСТОЯНИЯ ШЕЙКИ МАТКИ -->
-            <div class="exam-block">
-                <div class="block-title">ОЦЕНКА СОСТОЯНИЯ ШЕЙКИ МАТКИ (по данным анамнеза/УЗИ)</div>
-                <div class="block-content">
-                    <div class="scales-box">
-                        <div class="scale-item">
-                            <span class="scale-label">Длина шейки матки:</span>
-                            <span>______ мм (норма для срока 22–34 недели >25–30 мм).</span>
-                        </div>
-                        <div class="scale-item">
-                            <span class="scale-label">Внутренний зев:</span>
-                            <span>сомкнут / воронкообразование / открыт.</span>
-                        </div>
-                    </div>
-                </div>
+        <!-- ОЦЕНКА ПО ШКАЛАМ -->
+        <div class="section">
+            <div class="section-title">📊 ОЦЕНКА ПО ШКАЛАМ</div>
+            <div class="scales-list">
+                <p>✔ <strong>Шкала оценки риска преждевременных родов (клиническая):</strong><br>
+                Низкий риск: однократные эпизоды повышения тонуса, нет изменений шейки матки, нет факторов риска в анамнезе.<br>
+                Средний риск: регулярные схватки, укорочение шейки матки по данным УЗИ (&lt;25 мм), наличие ИЦН, многоплодная беременность, многоводие.<br>
+                Высокий риск: преждевременные роды в анамнезе, регулярная родовая деятельность, открытие маточного зева (>2 см), сглаживание шейки матки (>50%), подтекание околоплодных вод.</p>
+                <p>✔ <strong>Оценка состояния шейки матки (по данным анамнеза/УЗИ):</strong><br>
+                Длина шейки матки: ______ мм (норма для срока 22–34 недели >25–30 мм).<br>
+                Внутренний зев: сомкнут / воронкообразование / открыт.</p>
+                <p>✔ <strong>Оценка состояния плода:</strong><br>
+                Сердцебиение: 120–160 уд/мин – норма.<br>
+                Тахикардия >160 уд/мин, брадикардия &lt;110 уд/мин – дистресс плода (требует срочного родоразрешения).</p>
+                <p>✔ <strong>Шкала NEWS2:</strong> 0–2 балла (при стабильной гемодинамике).</p>
+                <p>✔ <strong>Шкала боли ВАШ:</strong> 3–6 баллов (умеренная – сильная боль).</p>
+                <p>✔ <strong>Пациент с острой дыхательной недостаточностью, шкала ОДН по Кассиль:</strong> не применимо.</p>
+                <p>✔ <strong>Пациент с шоком, индекс Альговера:</strong> Индекс Альговера = 85 / 115 = 0,74 (гемодинамика стабильна, шока нет).</p>
+                <p>✔ <strong>Пациент с травмой, шкала боли ВАШ:</strong> (указано выше).</p>
+                <p>✔ <strong>Пациент с ХСН, шкала ШОКС:</strong> не применимо.</p>
+                <p>✔ <strong>Пациент с ТЭЛА, шкала риска ТЭЛА:</strong> не применимо.</p>
+                <p>✔ <strong>Алкогольное опьянение:</strong> запах алкоголя изо рта не определяется. Поведение адекватное.</p>
+                <p>✔ <strong>Пациент с инсультом, шкала LAMS:</strong> не применимо.</p>
+                <p>✔ <strong>Пациент с ДЭП (симптомы, синдромы орального автоматизма):</strong> не применимо.</p>
             </div>
+        </div>
 
-            <!-- ОЦЕНКА СОСТОЯНИЯ ПЛОДА -->
-            <div class="exam-block">
-                <div class="block-title">ОЦЕНКА СОСТОЯНИЯ ПЛОДА</div>
-                <div class="block-content">
-                    <div class="scales-box">
-                        <div class="scale-item">
-                            <span class="scale-label">Сердцебиение 120–160 уд/мин:</span>
-                            <span>норма.</span>
-                        </div>
-                        <div class="scale-item">
-                            <span class="scale-label">Тахикардия >160 уд/мин, брадикардия <110 уд/мин:</span>
-                            <span>дистресс плода (требует срочного родоразрешения).</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ДИФФЕРЕНЦИАЛЬНАЯ ДИАГНОСТИКА И ТАКТИКА -->
-            <div class="exam-block">
-                <div class="block-title">ДИФФЕРЕНЦИАЛЬНАЯ ДИАГНОСТИКА И ТАКТИКА</div>
-                <div class="block-content">
-                    <div class="alert-note">
-                        <strong>Дифференциальная диагностика проведена с:</strong><br>
-                        — <strong>Истинными преждевременными родами:</strong> регулярные схватки с динамикой (укорочение, учащение, усиление), структурные изменения шейки матки (сглаживание, раскрытие), прогрессирование родовой деятельности.<br>
-                        — <strong>Ложными схватками (схватки Брекстона-Гикса):</strong> нерегулярные, безболезненные или малоболезненные, нет динамики, проходят самостоятельно или после спазмолитиков, не приводят к изменению шейки матки.<br>
-                        — <strong>Преждевременным излитием околоплодных вод (О42):</strong> жидкие, водянистые выделения, усиливаются при кашле, движении, положительный симптом кашлевого толчка.<br>
-                        — <strong>Истмико-цервикальной недостаточностью:</strong> безболезненное укорочение и раскрытие шейки матки, схватки могут отсутствовать.<br>
-                        — <strong>Отслойкой плаценты (О45):</strong> кровянистые выделения, локальная болезненность матки, гипертонус, дистресс плода, возможна гибель, геморрагический шок.<br>
-                        — <strong>Почечной коликой:</strong> иррадиация боли в поясницу, пах, бедро, дизурия, гематурия, положительный симптом поколачивания, нет связи с тонусом матки и схватками.<br>
-                        — <strong>Острыми хирургическими заболеваниями:</strong> аппендицит, холецистит, панкреатит – характерная симптоматика, лихорадка, симптомы раздражения брюшины, лейкоцитоз.<br><br>
-                        <strong>Ключевые признаки угрожающих преждевременных родов:</strong>
-                        <p>• Срок беременности 22–36 недель.</p>
-                        <p>• Регулярные / нерегулярные схваткообразные боли и повышение тонуса матки.</p>
-                        <p>• Отсутствие структурных изменений шейки матки (шейка сохранена, закрыта, длина >25–30 мм).</p>
-                        <p>• Целостность плодного пузыря (воды не изливались).</p>
-                        <p>• Сохраненное сердцебиение плода (без признаков дистресса).</p>
-                        <p>• Отсутствие кровянистых выделений (дифференцировать с отслойкой плаценты!).</p><br>
-                        <strong>Примечание для бригады СМП:</strong><br>
-                        — Экстренная госпитализация в акушерский стационар (отделение патологии беременности, родильный зал).<br>
-                        — Транспортировка на носилках в положении лежа на спине, полный покой.<br>
-                        — Категорически запрещены влагалищное исследование, пальпация шейки матки на догоспитальном этапе!<br>
-                        — При подозрении на подтекание вод – укладка на носилки с приподнятым ножным концом, исключение ходьбы.<br>
-                        — Токолитическая терапия (при отсутствии противопоказаний) – по назначению врача стационара или по алгоритму (гинипрал, блокаторы кальциевых каналов).<br>
-                        — Профилактика РДС плода глюкокортикоидами (дексаметазон, бетаметазон) – в стационаре при сроке 24–34 недели.
-                    </div>
-                </div>
-            </div>
-
-            <hr>
-            <div class="footer-note">
-                O47.0 — Угроза преждевременных родов | Экстренная госпитализация в акушерский стационар | Токолитическая терапия, профилактика РДС плода
-            </div>
+        <!-- Примечание для бригады СМП -->
+        <div class="note">
+            <strong>📌 Примечание для бригады СМП:</strong><br>
+            Дифференциальная диагностика проведена с:
+            <ul class="note-list">
+                <li><strong>истинными преждевременными родами</strong> (регулярные схватки с динамикой (укорочение, учащение, усиление). Структурные изменения шейки матки (сглаживание, раскрытие). Прогрессирование родовой деятельности);</li>
+                <li><strong>ложными схватками (схватки Брекстона-Гикса)</strong> (нерегулярные, безболезненные или малоболезненные. Нет динамики, проходят самостоятельно или после спазмолитиков. Не приводят к изменению шейки матки);</li>
+                <li><strong>преждевременным излитием околоплодных вод (О42)</strong> (жидкие, водянистые выделения, усиливаются при кашле, движении. Положительный симптом кашлевого толчка. Диагноз подтверждается тестами (амниотест, ПАМГ-1) в стационаре);</li>
+                <li><strong>истмико-цервикальной недостаточностью</strong> (безболезненное укорочение и раскрытие шейки матки. Схватки могут отсутствовать. Диагноз – по УЗИ и влагалищному исследованию);</li>
+                <li><strong>отслойкой плаценты (О45)</strong> (кровянистые выделения (различной интенсивности). Локальная болезненность матки, гипертонус. Дистресс плода, возможна его гибель. Геморрагический шок);</li>
+                <li><strong>почечной коликой</strong> (иррадиация боли в поясницу, пах, бедро. Дизурия, гематурия. Положительный симптом поколачивания. Нет связи с тонусом матки и схватками);</li>
+                <li><strong>острыми хирургическими заболеваниями</strong> (аппендицит, холецистит, панкреатит – характерная симптоматика. Лихорадка, симптомы раздражения брюшины. Лейкоцитоз).</li>
+            </ul>
+            <strong>Ключевые признаки угрожающих преждевременных родов:</strong><br>
+            – Срок беременности 22–36 недель.<br>
+            – Регулярные / нерегулярные схваткообразные боли и повышение тонуса матки.<br>
+            – Отсутствие структурных изменений шейки матки (шейка сохранена, закрыта, длина >25–30 мм).<br>
+            – Целостность плодного пузыря (воды не изливались).<br>
+            – Сохраненное сердцебиение плода (без признаков дистресса).<br>
+            – Отсутствие кровянистых выделений (дифференцировать с отслойкой плаценты!).
         </div>
     </div>
 </div>
