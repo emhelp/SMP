@@ -6,6 +6,24 @@
   <title>Шпаргалки СМП</title>
   <link rel="icon" href="1712743647196.png" type="image/png">
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* Глобальный счетчик */
+    .visit-counter {
+      position: fixed;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(15,20,70,0.9);
+      color: #fff;
+      font-size: 14px;
+      padding: 5px 12px;
+      border-radius: 6px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+      z-index: 1000;
+      font-family: 'Segoe UI', 'Roboto', sans-serif;
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
 
@@ -23,7 +41,6 @@
     <a href="prikaz.html" class="menu-btn">ПРИКАЗЫ</a>
     <a href="stations.html" class="menu-btn">ПОДСТАНЦИИ МСК</a>
 
-    <!-- Разделённый блок кнопок -->
     <div class="main-actions">
       <button class="main-btn" id="max-btn">Наш канал в MAX</button>
       <button class="main-btn" id="contact-btn">Написать нам</button>
@@ -52,22 +69,28 @@
     });
   </script>
 
+  <!-- Глобальный счетчик посещений -->
   <div class="visit-counter" id="visitCounter">Загрузка...</div>
 
-<script>
-  const url = 'https://script.google.com/macros/s/AKfycbwU5kiupkWrYGoKNIiCGEtqjQoKS2Jl9GTM_v-BofFMx9UNZxUg-IUn-8h3tPgtRqEZ/exec'; // URL веб-приложения Google Script
+  <script>
+    const url = 'https://script.google.com/macros/s/AKfycbwU5kiupkWrYGoKNIiCGEtqjQoKS2Jl9GTM_v-BofFMx9UNZxUg-IUn-8h3tPgtRqEZ/exec'; // URL веб-приложения Google Script
 
-  fetch(url)
-    .then(response => response.json())
-    .then(data => {
-      document.getElementById('visitCounter').textContent =
-        `Посещений в этом месяце: ${data.count}`;
-    })
-    .catch(err => {
-      console.error(err);
-      document.getElementById('visitCounter').textContent = 'Ошибка загрузки';
-    });
-</script>
+    function updateVisitCounter() {
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById('visitCounter').textContent =
+            `Посещений в этом месяце: ${data.count}`;
+        })
+        .catch(err => {
+          console.error(err);
+          document.getElementById('visitCounter').textContent = 'Ошибка загрузки';
+        });
+    }
+
+    // Обновляем при загрузке страницы
+    updateVisitCounter();
+  </script>
 
 </body>
 </html>
