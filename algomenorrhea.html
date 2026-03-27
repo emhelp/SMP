@@ -29,32 +29,18 @@
             border: 1px solid #dee2e6;
         }
 
-        .header {
+        .mkb-row {
             background: linear-gradient(135deg, #0b3b5f 0%, #1a4d6f 100%);
             color: white;
-            padding: 24px 32px;
+            padding: 20px 32px;
+            font-weight: 600;
+            font-size: 1.1rem;
             border-bottom: 4px solid #ffc107;
-        }
-
-        .header h1 {
-            font-size: 1.7rem;
-            font-weight: 600;
-            letter-spacing: -0.3px;
-            margin-bottom: 6px;
-        }
-
-        .mkb-row {
-            background: #f8f9fc;
-            padding: 14px 32px;
-            border-bottom: 1px solid #e2e8f0;
-            font-weight: 600;
-            font-size: 1rem;
-            color: #0b3b5f;
         }
 
         .mkb-row span {
             font-weight: 700;
-            color: #c4450c;
+            color: #ffc107;
         }
 
         .diagnosis {
@@ -107,7 +93,7 @@
             font-weight: 700;
             color: #1e4663;
             display: inline-block;
-            min-width: 220px;
+            min-width: 240px;
         }
 
         .field-item .value {
@@ -125,7 +111,7 @@
             font-weight: 700;
             color: #1e4663;
             display: inline-block;
-            min-width: 220px;
+            min-width: 240px;
         }
 
         .status-local {
@@ -148,6 +134,37 @@
             margin: 8px 0;
         }
 
+        .note {
+            background: #e7f1ff;
+            border-left: 4px solid #1a4d6f;
+            padding: 12px 16px;
+            margin-top: 16px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            color: #1e4663;
+        }
+
+        .note-list {
+            margin-top: 8px;
+            margin-left: 20px;
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .note-list li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .note-list li:before {
+            content: "•";
+            position: absolute;
+            left: 4px;
+            color: #1a4d6f;
+            font-weight: bold;
+        }
+
         @media (max-width: 700px) {
             .field-item strong {
                 min-width: 170px;
@@ -163,9 +180,6 @@
 </head>
 <body>
 <div class="card">
-    <div class="header">
-        <h1>Карта вызова скорой медицинской помощи</h1>
-    </div>
     <div class="mkb-row">
         📌 Код по МКБ-10: <span>N94.6</span> (Дисменорея неуточненная / Альгодисменорея)
     </div>
@@ -185,8 +199,8 @@
         <!-- АНАМНЕЗ -->
         <div class="section">
             <div class="section-title">📋 АНАМНЕЗ</div>
-            <div class="full-width-text"><strong>Эпидемиологический анамнез:</strong> Контакт с инфекционными больными отрицает. За пределы города не выезжала. Пищевых отравлений не было.</div>
-            <div class="full-width-text"><strong>Аллергологический анамнез:</strong> Не отягощен. Лекарственной и пищевой непереносимости не выявлено.</div>
+            <div class="full-width-text"><strong>Эпидемиологический анамнез:</strong> Контакта с инфекционными больными нет. За пределы города не выезжала. Пищевых отравлений не было.</div>
+            <div class="full-width-text"><strong>Аллергологический анамнез:</strong> Не отягощен (лекарственная, пищевая аллергия отрицает).</div>
             <div class="full-width-text"><strong>Гинекологический анамнез:</strong> Менструальная функция с 12 лет (менархе с 12 лет). Цикл установился в течение 1 года. Продолжительность менструации 5-6 дней, интервал между циклами 28-30 дней, регулярный. Менструации болезненные с первого года, максимальная болезненность в 1-2 дни. Протекает не как обычно — сегодня боли значительно интенсивнее, чем обычно, присоединилась тошнота. Выделения из половых путей: В день осмотра — умеренные менструальные кровянистые выделения темно-красного цвета, с небольшими сгустками, обычного запаха. Патологических (гнойных, пенистых, творожистых) выделений нет. Беременностей не было. Контрацепцию не использует.</div>
             <div class="full-width-text"><strong>Анамнез заболевания:</strong> Заболела остро сегодня с началом менструального кровотечения. Подобные болезненные менструации беспокоят с менархе (с 12 лет), ежециклично, усиливаются в первый-второй день цикла. Наблюдается гинекологом, обследовалась: по данным УЗИ органов малого таза (6 мес. назад) — патологии не выявлено.</div>
         </div>
@@ -195,18 +209,18 @@
         <div class="section">
             <div class="section-title">🩺 ОБЪЕКТИВНО</div>
             <div class="field-list">
-                <div class="field-item"><strong>Общее состояние:</strong> <span class="value">удовлетворительное</span></div>
-                <div class="field-item"><strong>Сознание:</strong> <span class="value">ясное</span></div>
-                <div class="field-item"><strong>Шкала комы Глазго (GCS):</strong> <span class="value">15 баллов (E4, V5, M6)</span></div>
-                <div class="field-item"><strong>Положение:</strong> <span class="value">вынужденное (лежит на боку с подтянутыми к животу коленями, щадит низ живота)</span></div>
-                <div class="field-item"><strong>Кожные покровы:</strong> <span class="value">влажные, бледные. Акроцианоз. Аллергии, желтушности нет.</span></div>
-                <div class="field-item"><strong>Сыпь:</strong> <span class="value">нет</span></div>
-                <div class="field-item"><strong>Зев:</strong> <span class="value">спокойный, гиперемии нет</span></div>
-                <div class="field-item"><strong>Миндалины:</strong> <span class="value">не увеличены</span></div>
-                <div class="field-item"><strong>Лимфоузлы:</strong> <span class="value">периферические лимфоузлы не пальпируются</span></div>
-                <div class="field-item"><strong>Пролежни:</strong> <span class="value">нет</span></div>
-                <div class="field-item"><strong>Отеки:</strong> <span class="value">нет</span></div>
-                <div class="field-item"><strong>t°:</strong> <span class="value">36,5 °C (аксиллярно)</span></div>
+                <div class="field-item"><strong>Общее состояние:</strong> <span class="value">Удовлетворительное.</span></div>
+                <div class="field-item"><strong>Сознание:</strong> <span class="value">Ясное.</span></div>
+                <div class="field-item"><strong>Шкала комы Глазго (GCS):</strong> <span class="value">15 баллов (E4, V5, M6).</span></div>
+                <div class="field-item"><strong>Положение:</strong> <span class="value">Вынужденное (лежит на боку с подтянутыми к животу коленями, щадит низ живота).</span></div>
+                <div class="field-item"><strong>Кожные покровы:</strong> <span class="value">Влажные, бледные. Акроцианоз. Аллергии, желтушности нет.</span></div>
+                <div class="field-item"><strong>Сыпь:</strong> <span class="value">Нет.</span></div>
+                <div class="field-item"><strong>Зев:</strong> <span class="value">Спокойный, гиперемии нет.</span></div>
+                <div class="field-item"><strong>Миндалины:</strong> <span class="value">Не увеличены.</span></div>
+                <div class="field-item"><strong>Лимфоузлы:</strong> <span class="value">Периферические лимфоузлы не пальпируются.</span></div>
+                <div class="field-item"><strong>Пролежни:</strong> <span class="value">Нет.</span></div>
+                <div class="field-item"><strong>Отеки:</strong> <span class="value">Нет.</span></div>
+                <div class="field-item"><strong>t°:</strong> <span class="value">36,5 °C (аксиллярно).</span></div>
             </div>
         </div>
 
@@ -214,17 +228,17 @@
         <div class="section">
             <div class="section-title">🌬️ ОРГАНЫ ДЫХАНИЯ</div>
             <div class="field-list">
-                <div class="field-item"><strong>ЧДД в мин:</strong> <span class="value">18</span></div>
-                <div class="field-item"><strong>Одышка:</strong> <span class="value">нет</span></div>
-                <div class="field-item"><strong>Патологическое дыхание:</strong> <span class="value">нет</span></div>
-                <div class="field-item"><strong>Аускультативно:</strong> <span class="value">везикулярное, проводится во все отделы, хрипов нет</span></div>
-                <div class="field-item"><strong>Хрипы сухие:</strong> <span class="value">нет</span></div>
-                <div class="field-item"><strong>Влажные:</strong> <span class="value">нет</span></div>
-                <div class="field-item"><strong>Крепитация:</strong> <span class="value">нет</span></div>
-                <div class="field-item"><strong>Шум трения плевры:</strong> <span class="value">нет</span></div>
-                <div class="field-item"><strong>Перкуторный звук:</strong> <span class="value">легочный над всеми отделами</span></div>
-                <div class="field-item"><strong>Кашель:</strong> <span class="value">нет</span></div>
-                <div class="field-item"><strong>Мокрота:</strong> <span class="value">нет</span></div>
+                <div class="field-item"><strong>ЧДД:</strong> <span class="value">18 в мин.</span></div>
+                <div class="field-item"><strong>Одышка:</strong> <span class="value">Нет.</span></div>
+                <div class="field-item"><strong>Патологическое дыхание:</strong> <span class="value">Нет.</span></div>
+                <div class="field-item"><strong>Аускультативно:</strong> <span class="value">Дыхание везикулярное, проводится во все отделы, хрипов нет.</span></div>
+                <div class="field-item"><strong>Хрипы сухие:</strong> <span class="value">Нет.</span></div>
+                <div class="field-item"><strong>Влажные:</strong> <span class="value">Нет.</span></div>
+                <div class="field-item"><strong>Крепитация:</strong> <span class="value">Нет.</span></div>
+                <div class="field-item"><strong>Шум трения плевры:</strong> <span class="value">Нет.</span></div>
+                <div class="field-item"><strong>Перкуторный звук:</strong> <span class="value">Легочный над всеми отделами.</span></div>
+                <div class="field-item"><strong>Кашель:</strong> <span class="value">Нет.</span></div>
+                <div class="field-item"><strong>Мокрота:</strong> <span class="value">Нет.</span></div>
             </div>
         </div>
 
@@ -232,17 +246,15 @@
         <div class="section">
             <div class="section-title">❤️ ОРГАНЫ КРОВООБРАЩЕНИЯ</div>
             <div class="field-list">
-                <div class="field-item"><strong>Пульс в мин:</strong> <span class="value">82</span></div>
-                <div class="field-item"><strong>Ритмичный, аритмичный, наполнение пульса:</strong> <span class="value">ритмичный, удовлетворительного наполнения</span></div>
-                <div class="field-item"><strong>ЧСС:</strong> <span class="value">82 в мин</span></div>
-                <div class="field-item"><strong>Дефицит пульса:</strong> <span class="value">нет</span></div>
-                <div class="field-item"><strong>АД мм.рт.ст. на момент осмотра:</strong> <span class="value">100/60 мм.рт.ст.</span></div>
-                <div class="field-item"><strong>Привычное АД мм.рт.ст.:</strong> <span class="value">110/70 мм.рт.ст.</span></div>
-                <div class="field-item"><strong>Максимальное АД мм.рт.ст.:</strong> <span class="value">не известно</span></div>
-                <div class="field-item"><strong>Тоны сердца:</strong> <span class="value">звучные, ритмичные</span></div>
-                <div class="field-item"><strong>Шум (систолический, диастолический):</strong> <span class="value">нет</span></div>
-                <div class="field-item"><strong>Шум трения перикарда:</strong> <span class="value">нет</span></div>
-                <div class="field-item"><strong>Акцент какого тона на (где?):</strong> <span class="value">не выявлен</span></div>
+                <div class="field-item"><strong>Пульс:</strong> <span class="value">82 в мин.</span></div>
+                <div class="field-item"><strong>Ритмичный, аритмичный, наполнение пульса:</strong> <span class="value">Ритмичный, удовлетворительного наполнения.</span></div>
+                <div class="field-item"><strong>ЧСС:</strong> <span class="value">82 в мин.</span></div>
+                <div class="field-item"><strong>Дефицит пульса:</strong> <span class="value">Нет.</span></div>
+                <div class="field-item"><strong>АД:</strong> <span class="value">100/60 мм.рт.ст. на момент осмотра, привычное АД 110/70 мм.рт.ст., максимальное АД не известно.</span></div>
+                <div class="field-item"><strong>Тоны сердца:</strong> <span class="value">Звучные, ритмичные.</span></div>
+                <div class="field-item"><strong>Шум:</strong> <span class="value">Нет.</span></div>
+                <div class="field-item"><strong>Шум трения перикарда:</strong> <span class="value">Нет.</span></div>
+                <div class="field-item"><strong>Акцент какого тона:</strong> <span class="value">Не выявлен.</span></div>
             </div>
         </div>
 
@@ -250,14 +262,14 @@
         <div class="section">
             <div class="section-title">🍽️ ОРГАНЫ ПИЩЕВАРЕНИЯ</div>
             <div class="field-list">
-                <div class="field-item"><strong>Язык:</strong> <span class="value">влажный, чистый</span></div>
-                <div class="field-item"><strong>Живот:</strong> <span class="value">округлой формы, мягкий, не напряжен, участвует в акте дыхания</span></div>
-                <div class="field-item"><strong>Болезненный в:</strong> <span class="value">гипогастрии, по средней линии, пальпация умеренно болезненна. Перитонеальных симптомов нет.</span></div>
+                <div class="field-item"><strong>Язык:</strong> <span class="value">Влажный, чистый.</span></div>
+                <div class="field-item"><strong>Живот:</strong> <span class="value">Округлой формы, мягкий, не напряжен, участвует в акте дыхания.</span></div>
+                <div class="field-item"><strong>Болезненный в:</strong> <span class="value">Гипогастрии, по средней линии, пальпация умеренно болезненна. Перитонеальных симптомов нет.</span></div>
                 <div class="field-item"><strong>Положительные симптомы:</strong> <span class="value">Симптомы Образцова, Ровзинга, Ситковского, Ортнера, Мерфи, Мейо-Робсона, Щёткина-Блюмберга, Валя — отрицательные.</span></div>
-                <div class="field-item"><strong>Перистальтика:</strong> <span class="value">выслушивается, активная</span></div>
-                <div class="field-item"><strong>Печень:</strong> <span class="value">не пальпируется, край не выступает из-под реберной дуги</span></div>
-                <div class="field-item"><strong>Селезенка:</strong> <span class="value">не пальпируется</span></div>
-                <div class="field-item"><strong>Стул (частота, консистенция):</strong> <span class="value">регулярный, в норме (со слов)</span></div>
+                <div class="field-item"><strong>Перистальтика:</strong> <span class="value">Выслушивается, активная.</span></div>
+                <div class="field-item"><strong>Печень:</strong> <span class="value">Не пальпируется, край не выступает из-под реберной дуги.</span></div>
+                <div class="field-item"><strong>Селезенка:</strong> <span class="value">Не пальпируется.</span></div>
+                <div class="field-item"><strong>Стул:</strong> <span class="value">Регулярный, в норме (со слов).</span></div>
             </div>
         </div>
 
@@ -265,17 +277,17 @@
         <div class="section">
             <div class="section-title">🧠 НЕРВНАЯ СИСТЕМА</div>
             <div class="field-list">
-                <div class="field-item"><strong>Поведение:</strong> <span class="value">спокойное, адекватное</span></div>
-                <div class="field-item"><strong>Контакт:</strong> <span class="value">полный, сохранен</span></div>
-                <div class="field-item"><strong>Чувствительность:</strong> <span class="value">не нарушена</span></div>
-                <div class="field-item"><strong>Речь:</strong> <span class="value">внятная</span></div>
-                <div class="field-item"><strong>Зрачки (OD, OS):</strong> <span class="value">OD = OS, обычные, средней величины</span></div>
-                <div class="field-item"><strong>Фотореакция:</strong> <span class="value">живая, содружественная</span></div>
-                <div class="field-item"><strong>Нистагм:</strong> <span class="value">нет</span></div>
-                <div class="field-item"><strong>Асимметрия лица:</strong> <span class="value">нет</span></div>
-                <div class="field-item"><strong>Менингеальные симптомы:</strong> <span class="value">отрицательные (ригидность затылочных мышц, Кернига, Брудзинского — отрицательные)</span></div>
-                <div class="field-item"><strong>Очаговые симптомы:</strong> <span class="value">нет</span></div>
-                <div class="field-item"><strong>Координаторные пробы:</strong> <span class="value">выполняет удовлетворительно</span></div>
+                <div class="field-item"><strong>Поведение:</strong> <span class="value">Спокойное, адекватное.</span></div>
+                <div class="field-item"><strong>Контакт:</strong> <span class="value">Полный, сохранен.</span></div>
+                <div class="field-item"><strong>Чувствительность:</strong> <span class="value">Не нарушена.</span></div>
+                <div class="field-item"><strong>Речь:</strong> <span class="value">Внятная.</span></div>
+                <div class="field-item"><strong>Зрачки (OD, OS):</strong> <span class="value">OD = OS, обычные, средней величины.</span></div>
+                <div class="field-item"><strong>Фотореакция:</strong> <span class="value">Живая, содружественная.</span></div>
+                <div class="field-item"><strong>Нистагм:</strong> <span class="value">Нет.</span></div>
+                <div class="field-item"><strong>Асимметрия лица:</strong> <span class="value">Нет.</span></div>
+                <div class="field-item"><strong>Менингеальные симптомы:</strong> <span class="value">Отрицательные.</span></div>
+                <div class="field-item"><strong>Очаговые симптомы:</strong> <span class="value">Нет.</span></div>
+                <div class="field-item"><strong>Координаторные пробы:</strong> <span class="value">Выполняет удовлетворительно.</span></div>
             </div>
         </div>
 
@@ -283,17 +295,16 @@
         <div class="section">
             <div class="section-title">🚽 МОЧЕПОЛОВАЯ СИСТЕМА</div>
             <div class="field-list">
-                <div class="field-item"><strong>Мочеиспускание:</strong> <span class="value">свободное, безболезненное. Цвет мочи соломенно-желтый, прозрачная, без видимых примесей (со слов).</span></div>
-                <div class="field-item"><strong>Симптом поколачивания:</strong> <span class="value">отрицательный с обеих сторон</span></div>
+                <div class="field-item"><strong>Мочеиспускание:</strong> <span class="value">Свободное, безболезненное. Цвет мочи соломенно-желтый, прозрачная, без видимых примесей (со слов).</span></div>
+                <div class="field-item"><strong>Симптом поколачивания:</strong> <span class="value">Отрицательный с обеих сторон.</span></div>
             </div>
         </div>
 
-        <!-- STATUS LOCALIS (подробно) -->
+        <!-- STATUS LOCALIS -->
         <div class="section">
-            <div class="section-title">🔍 STATUS LOCALIS (подробно!)</div>
+            <div class="section-title">🔍 STATUS LOCALIS</div>
             <div class="status-local">
-                Живот мягкий, при пальпации в гипогастральной области отмечается незначительная диффузная болезненность без четкой локализации, симптомы раздражения брюшины отрицательные. Наружные половые органы развиты правильно, по женскому типу. Осмотр на кресле не проводился (показаний для экстренного осмотра нет).<br>
-                <strong>Выделения из половых путей:</strong> В день осмотра — умеренные менструальные кровянистые выделения темно-красного цвета, с небольшими сгустками, обычного запаха. Патологических (гнойных, пенистых, творожистых) выделений нет.
+                Живот мягкий, при пальпации в гипогастральной области отмечается незначительная диффузная болезненность без четкой локализации, симптомы раздражения брюшины отрицательные. Наружные половые органы развиты правильно, по женскому типу. Осмотр на кресле не проводился (показаний для экстренного осмотра нет). Выделения из половых путей: В день осмотра — умеренные менструальные кровянистые выделения темно-красного цвета, с небольшими сгустками, обычного запаха. Патологических (гнойных, пенистых, творожистых) выделений нет.
             </div>
         </div>
 
@@ -311,6 +322,19 @@
                 <p>✔ <strong>Пациент с инсультом, шкала LAMS:</strong> не применимо.</p>
                 <p>✔ <strong>Пациент с ДЭП (симптомы, синдромы орального автоматизма):</strong> не применимо.</p>
             </div>
+        </div>
+
+        <!-- Примечание для бригады СМП -->
+        <div class="note">
+            <strong>📌 Примечание для бригады СМП:</strong><br>
+            Дифференциальный диагноз проведен с:
+            <ul class="note-list">
+                <li><strong>острым аппендицитом</strong> (миграция боли отсутствует, симптомы раздражения брюшины отрицательные, локальная болезненность в гипогастрии по средней линии, а не в правой подвздошной области);</li>
+                <li><strong>внематочной беременностью</strong> (тест на беременность отрицательный, задержки менструации нет, менструальное кровотечение в срок);</li>
+                <li><strong>апоплексией яичника</strong> (внезапное начало на фоне полного здоровья отсутствует, признаков внутрибрюшного кровотечения нет: гемодинамика стабильна, симптомов раздражения брюшины нет);</li>
+                <li><strong>острым циститом</strong> (дизурии, болей при мочеиспускании нет, симптом поколачивания отрицательный).</li>
+            </ul>
+            Окончательный диагноз подтверждается динамическим наблюдением, данных УЗИ органов малого таза.
         </div>
     </div>
 </div>
