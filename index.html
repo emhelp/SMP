@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Шпаргалки СМП</title>
+  <title>Скорая помощь</title>
   <link rel="icon" href="1712743647196.png" type="image/png">
   <link rel="stylesheet" href="style.css">
   <style>
@@ -27,7 +27,7 @@
 
   <div class="header">
     <img src="1712743647196.png" alt="Логотип" class="logo">
-    <h1>Шпаргалки СМП</h1>
+    <h1>Скорая помощь</h1>
     <p>Проект EMHelp Group '2026</p>
   </div>
 
@@ -71,20 +71,19 @@
   <div class="visit-counter" id="visitCounter">Загрузка...</div>
 
   <script>
-    // Вставь сюда URL твоего Google Apps Script
+    // URL твоего Google Apps Script
     const url = 'https://script.google.com/macros/s/AKfycbx62bFc8liMhuFtdDITDGOSAiWMhwEtxTrN-uBG8QtlQ1a7uofJ7NfnMGzlIPTQvcwv/exec';
 
-    function updateVisitCounter() {
-      fetch(url)
-        .then(response => response.json())
-        .then(data => {
-          document.getElementById('visitCounter').textContent =
-            `Посещений в этом месяце: ${data.count}`;
-        })
-        .catch(err => {
-          console.error(err);
-          document.getElementById('visitCounter').textContent = 'Ошибка загрузки';
-        });
+    async function updateVisitCounter() {
+      try {
+        const response = await fetch(url);
+        const data = await response.json();
+        document.getElementById('visitCounter').textContent =
+          `Посещений в этом месяце: ${data.count}`;
+      } catch (err) {
+        console.error(err);
+        document.getElementById('visitCounter').textContent = 'Ошибка загрузки';
+      }
     }
 
     // Обновляем при загрузке страницы
