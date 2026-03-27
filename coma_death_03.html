@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Карта вызова скорой медицинской помощи | Кома неясной этиологии, клиническая смерть, смерть при бригаде СМП</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #e9ecef;
+            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+            padding: 40px 20px;
+            color: #212529;
+            line-height: 1.45;
+        }
+
+        .card {
+            max-width: 1100px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            border: 1px solid #dee2e6;
+        }
+
+        .mkb-row {
+            background: linear-gradient(135deg, #0b3b5f 0%, #1a4d6f 100%);
+            color: white;
+            padding: 20px 32px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border-bottom: 4px solid #ffc107;
+        }
+
+        .mkb-row span {
+            font-weight: 700;
+            color: #ffc107;
+        }
+
+        .diagnosis {
+            background: #fef9e6;
+            padding: 12px 32px;
+            border-left: 6px solid #ffc107;
+            font-weight: 500;
+            font-size: 0.98rem;
+            color: #2d3e50;
+            border-bottom: 1px solid #f0e2b6;
+        }
+
+        .content {
+            padding: 24px 32px 40px 32px;
+        }
+
+        .section {
+            margin-bottom: 32px;
+            break-inside: avoid;
+            page-break-inside: avoid;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #1a4d6f;
+            border-left: 6px solid #ffc107;
+            padding-left: 16px;
+            margin-bottom: 18px;
+            margin-top: 8px;
+            background: #f4f9ff;
+            border-radius: 0 12px 12px 0;
+            line-height: 1.3;
+        }
+
+        .field-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .field-item {
+            padding: 6px 0 4px 8px;
+            border-bottom: 1px dotted #e0e6ed;
+            font-size: 0.94rem;
+            line-height: 1.45;
+        }
+
+        .field-item strong {
+            font-weight: 700;
+            color: #1e4663;
+            display: inline-block;
+            min-width: 240px;
+        }
+
+        .field-item .value {
+            color: #2c3e4e;
+            font-weight: 500;
+        }
+
+        .full-width-text {
+            padding: 8px 0 8px 8px;
+            border-bottom: 1px dotted #e0e6ed;
+            font-size: 0.94rem;
+        }
+
+        .full-width-text strong {
+            font-weight: 700;
+            color: #1e4663;
+            display: inline-block;
+            min-width: 240px;
+        }
+
+        .status-local {
+            background: #fef7e0;
+            padding: 14px 18px;
+            border-radius: 18px;
+            margin-top: 6px;
+            border: 1px solid #ffe3a4;
+            font-size: 0.94rem;
+        }
+
+        .scales-list {
+            background: #f1f4f9;
+            padding: 12px 20px;
+            border-radius: 20px;
+            margin-top: 10px;
+        }
+
+        .scales-list p {
+            margin: 8px 0;
+        }
+
+        .note {
+            background: #e7f1ff;
+            border-left: 4px solid #1a4d6f;
+            padding: 12px 16px;
+            margin-top: 16px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            color: #1e4663;
+        }
+
+        .note-list {
+            margin-top: 8px;
+            margin-left: 20px;
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .note-list li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .note-list li:before {
+            content: "•";
+            position: absolute;
+            left: 4px;
+            color: #1a4d6f;
+            font-weight: bold;
+        }
+
+        @media (max-width: 700px) {
+            .field-item strong {
+                min-width: 170px;
+            }
+            .full-width-text strong {
+                min-width: 170px;
+            }
+            .content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="card">
+    <div class="mkb-row">
+        📌 Код по МКБ-10: <span>R40.2</span> (Кома неуточненная). Осложнение 01 (Клиническая смерть при бригаде 03)
+    </div>
+    <div class="diagnosis">
+        🧾 <strong>Диагноз:</strong> Основное заболевание: Кома неясной этиологии неуточненная. Внезапная остановка кровообращения. Реанимационные мероприятия.
+    </div>
+
+    <div class="content">
+        <!-- ЖАЛОБЫ -->
+        <div class="section">
+            <div class="section-title">📢 ЖАЛОБЫ</div>
+            <div class="full-width-text"><em>На момент первичного осмотра пациентка без сознания, жалоб не предъявляет в связи с тяжестью состояния (кома). В динамике – клиническая смерть.</em></div>
+        </div>
+
+        <!-- АНАМНЕЗ -->
+        <div class="section">
+            <div class="section-title">📋 АНАМНЕЗ</div>
+            <div class="full-width-text"><strong>Anamnesis morbi:</strong> Со слов родственников, бригада СМП вызвана в ______ (время), когда они обнаружили пациентку без сознания. Обстоятельства и время утраты сознания неизвестны. Последний раз контактировали с пациенткой около 1,5–2 часов назад (время неточное). Со слов родственников, пациентка страдала гипертонической болезнью (лечение нерегулярное), других хронических заболеваний не отмечали. Принимаемые препараты неизвестны. До настоящего момента была активна, самостоятельна. Суицидальные мысли/попытки отрицают.</div>
+            <div class="full-width-text"><strong>Аллергологический анамнез:</strong> неизвестен.</div>
+            <div class="full-width-text"><strong>Гинекологический анамнез:</strong> Менопауза (возраст наступления не известен). Выделения из половых путей отсутствуют (менопауза).</div>
+            <div class="full-width-text"><strong>Эпидемиологический анамнез:</strong> Контакт с инфекционными больными отрицают. За последние 3 недели за пределы города не выезжала, укусы насекомых отрицают. Прививочный анамнез неизвестен.</div>
+        </div>
+
+        <!-- ОБЪЕКТИВНО (на момент первичного осмотра) -->
+        <div class="section">
+            <div class="section-title">🩺 ОБЪЕКТИВНО (на момент первичного осмотра)</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Общее состояние:</strong> <span class="value">тяжелое (кома).</span></div>
+                <div class="field-item"><strong>Сознание:</strong> <span class="value">кома (глубокое угнетение сознания).</span></div>
+                <div class="field-item"><strong>Шкала комы Глазго (GCS):</strong> <span class="value">4 балла (E1, V1, M2 – на боль разгибательная реакция).</span></div>
+                <div class="field-item"><strong>Положение:</strong> <span class="value">пассивное.</span></div>
+                <div class="field-item"><strong>Кожные покровы:</strong> <span class="value">бледные, с цианотичным оттенком (цианоз губ, носогубного треугольника), умеренно влажные, чистые.</span></div>
+                <div class="field-item"><strong>Сыпь:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Зев:</strong> <span class="value">осмотр не проводился (тризм жевательной мускулатуры).</span></div>
+                <div class="field-item"><strong>Миндалины:</strong> <span class="value">не видны.</span></div>
+                <div class="field-item"><strong>Лимфоузлы:</strong> <span class="value">не пальпируются.</span></div>
+                <div class="field-item"><strong>Пролежни:</strong> <span class="value">нет (пациентка находилась дома).</span></div>
+                <div class="field-item"><strong>Отеки:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>t°:</strong> <span class="value">термометрия не проводилась (гипотермия кожных покровов).</span></div>
+            </div>
+        </div>
+
+        <!-- ОРГАНЫ ДЫХАНИЯ (на момент первичного осмотра) -->
+        <div class="section">
+            <div class="section-title">🌬️ ОРГАНЫ ДЫХАНИЯ (на момент первичного осмотра)</div>
+            <div class="field-list">
+                <div class="field-item"><strong>ЧДД в мин:</strong> <span class="value">6–8 (редкие, нерегулярные, агональные вдохи).</span></div>
+                <div class="field-item"><strong>Одышка:</strong> <span class="value">смешанная, терминальная.</span></div>
+                <div class="field-item"><strong>Патологическое дыхание:</strong> <span class="value">дыхание типа Чейна-Стокса / агональное.</span></div>
+                <div class="field-item"><strong>Аускультативно:</strong> <span class="value">резко ослаблено, единичные проводные хрипы.</span></div>
+                <div class="field-item"><strong>Хрипы:</strong> <span class="value">не выслушиваются.</span></div>
+                <div class="field-item"><strong>Крепитация:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Шум трения плевры:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Перкуторный звук:</strong> <span class="value">определить не представляется возможным.</span></div>
+                <div class="field-item"><strong>Кашель:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Мокрота:</strong> <span class="value">нет.</span></div>
+            </div>
+        </div>
+
+        <!-- ОРГАНЫ КРОВООБРАЩЕНИЯ (на момент первичного осмотра) -->
+        <div class="section">
+            <div class="section-title">❤️ ОРГАНЫ КРОВООБРАЩЕНИЯ (на момент первичного осмотра)</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Пульс в мин:</strong> <span class="value">на сонных артериях нитевидный, слабого наполнения, 40 в мин.</span></div>
+                <div class="field-item"><strong>Ритмичный, аритмичный, наполнение пульса:</strong> <span class="value">аритмичный, слабый.</span></div>
+                <div class="field-item"><strong>ЧСС:</strong> <span class="value">40 (по данным монитора – брадикардия, сменяющаяся асистолией).</span></div>
+                <div class="field-item"><strong>Дефицит пульса:</strong> <span class="value">полный.</span></div>
+                <div class="field-item"><strong>АД мм.рт.ст. на момент осмотра:</strong> <span class="value">40/20 (не определяется на периферических артериях), привычное АД мм.рт.ст.: неизвестно, максимальное АД мм.рт.ст.: неизвестно.</span></div>
+                <div class="field-item"><strong>Тоны сердца:</strong> <span class="value">глухие, едва слышны.</span></div>
+                <div class="field-item"><strong>Шум:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Шум трения перикарда:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Акцент какого тона на:</strong> <span class="value">нет.</span></div>
+            </div>
+        </div>
+
+        <!-- ДИНАМИКА СОСТОЯНИЯ -->
+        <div class="section">
+            <div class="section-title">📈 ДИНАМИКА СОСТОЯНИЯ</div>
+            <div class="status-local">
+                Через 1–2 минуты после первичного осмотра, на фоне угнетения дыхания, зафиксирована асистолия на мониторе дефибриллятора. Пульс на сонных артериях отсутствует, тоны сердца не выслушиваются, дыхание отсутствует. Констатирована клиническая смерть. Незамедлительно начаты реанимационные мероприятия в полном объеме (алгоритм ACLS).
+            </div>
+        </div>
+
+        <!-- ОРГАНЫ ПИЩЕВАРЕНИЯ (на момент первичного осмотра) -->
+        <div class="section">
+            <div class="section-title">🍽️ ОРГАНЫ ПИЩЕВАРЕНИЯ (на момент первичного осмотра)</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Язык:</strong> <span class="value">осмотреть не удается.</span></div>
+                <div class="field-item"><strong>Живот:</strong> <span class="value">мягкий, не вздут.</span></div>
+                <div class="field-item"><strong>Болезненный в:</strong> <span class="value">безболезненный (реакция отсутствует).</span></div>
+                <div class="field-item"><strong>Положительные симптомы:</strong> <span class="value">Симптомы раздражения брюшины (Образцова, Ровзинга, Ситковского, Ортнера, Мерфи, Мейо-Робсона, Щёткина-Блюмберга, Валя) — не определяются.</span></div>
+                <div class="field-item"><strong>Перистальтика:</strong> <span class="value">не выслушивается.</span></div>
+                <div class="field-item"><strong>Печень:</strong> <span class="value">не пальпируется.</span></div>
+                <div class="field-item"><strong>Селезенка:</strong> <span class="value">не пальпируется.</span></div>
+                <div class="field-item"><strong>Стул:</strong> <span class="value">непроизвольного мочеиспускания/дефекации нет.</span></div>
+            </div>
+        </div>
+
+        <!-- НЕРВНАЯ СИСТЕМА (на момент первичного осмотра) -->
+        <div class="section">
+            <div class="section-title">🧠 НЕРВНАЯ СИСТЕМА (на момент первичного осмотра)</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Поведение:</strong> <span class="value">возбуждение отсутствует.</span></div>
+                <div class="field-item"><strong>Контакт:</strong> <span class="value">отсутствует.</span></div>
+                <div class="field-item"><strong>Чувствительность:</strong> <span class="value">на болевые раздражители – разгибательная реакция (M2).</span></div>
+                <div class="field-item"><strong>Речь:</strong> <span class="value">отсутствует.</span></div>
+                <div class="field-item"><strong>Зрачки (OD, OS):</strong> <span class="value">D=S, широкие.</span></div>
+                <div class="field-item"><strong>Фотореакция:</strong> <span class="value">резко снижена.</span></div>
+                <div class="field-item"><strong>Нистагм:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Асимметрия лица:</strong> <span class="value">не определяется.</span></div>
+                <div class="field-item"><strong>Менингеальные симптомы:</strong> <span class="value">ригидность затылочных мышц, Кернига, Брудзинского — не определяются (мышечная атония).</span></div>
+                <div class="field-item"><strong>Очаговые симптомы:</strong> <span class="value">отсутствуют.</span></div>
+                <div class="field-item"><strong>Координаторные пробы:</strong> <span class="value">не выполняются.</span></div>
+            </div>
+        </div>
+
+        <!-- МОЧЕПОЛОВАЯ СИСТЕМА (на момент первичного осмотра) -->
+        <div class="section">
+            <div class="section-title">🚽 МОЧЕПОЛОВАЯ СИСТЕМА (на момент первичного осмотра)</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Мочеиспускание:</strong> <span class="value">непроизвольного мочеиспускания нет. Мочевой пузырь не пальпируется.</span></div>
+                <div class="field-item"><strong>Симптом поколачивания:</strong> <span class="value">не определяется.</span></div>
+            </div>
+        </div>
+
+        <!-- ПРОВЕДЕННЫЕ РЕАНИМАЦИОННЫЕ МЕРОПРИЯТИЯ (в хронологическом порядке) -->
+        <div class="section">
+            <div class="section-title">🚑 ПРОВЕДЕННЫЕ РЕАНИМАЦИОННЫЕ МЕРОПРИЯТИЯ (в хронологическом порядке)</div>
+            <div class="status-local">
+                Начало СЛР: компрессии грудной клетки (30:2) с переходом на непрерывные компрессии после интубации.<br>
+                Интубация трахеи (орофарингеальным путем, трубка № 8,0, фиксация на 22 см у резцов), ИВЛ мешком Амбу с 100% кислородом.<br>
+                Внутривенный доступ (кубитальная вена) – катетер 16G.<br>
+                Эпинефрин 1 мг в/в каждые 3–5 минут (всего введено 5 мг).<br>
+                Атропин 1 мг в/в (однократно, по показаниям).<br>
+                Амиодарон 300 мг в/в (после 3-го разряда дефибрилляции).<br>
+                Дефибрилляция: проведены разряды 200 Дж, 300 Дж, 360 Дж (без эффекта, сохранялась асистолия).<br>
+                Продолжение СЛР в течение 30 минут.
+            </div>
+        </div>
+
+        <!-- ОЦЕНКА ЭФФЕКТИВНОСТИ РЕАНИМАЦИИ -->
+        <div class="section">
+            <div class="section-title">📊 ОЦЕНКА ЭФФЕКТИВНОСТИ РЕАНИМАЦИИ</div>
+            <div class="status-local">
+                Спонтанное кровообращение не восстановлено. Сохраняется асистолия на мониторе. Признаки биологической смерти отсутствуют (ранние сроки).
+            </div>
+        </div>
+
+        <!-- STATUS LOCALIS (после окончания реанимации) -->
+        <div class="section">
+            <div class="section-title">🔍 STATUS LOCALIS (после окончания реанимации)</div>
+            <div class="status-local">
+                Пациентка лежит на спине. Кожные покровы бледные, цианотичные. Зрачки широкие, фотореакции нет. Дыхание и сердечная деятельность отсутствуют. Мышечная атония. На грудной клетке следы компрессий (гиперемия). На коже передней поверхности шеи и верхней половины груди – петехиальные кровоизлияния (вероятно, следствие агонального периода). Видимых травм, повреждений, следов инъекций не обнаружено. Прикуса языка нет.<br><br>
+                Время констатации смерти: ______ (время).
+            </div>
+        </div>
+
+        <!-- ВТОРОЙ ВАРИАНТ РАЗВИТИЯ СОБЫТИЙ -->
+        <div class="section">
+            <div class="section-title">📋 ВТОРОЙ ВАРИАНТ РАЗВИТИЯ СОБЫТИЙ</div>
+            <div class="status-local">
+                <strong>ОКАЗАННАЯ ПОМОЩЬ И ЕЁ ЭФФЕКТ</strong><br><br>
+                <strong>Первичный осмотр и решение о медицинской эвакуации:</strong><br>
+                В соответствии с разделом алгоритмов «анестезиология и реаниматология» принято решение о медицинской эвакуации пациентки в ГКБ им. «______».<br><br>
+                <strong>Ухудшение состояния во время транспортировки:</strong><br>
+                В ______ (время) во время транспортировки произошло внезапное ухудшение состояния.<br>
+                В ______ (время) на мониторе дефибриллятора зарегистрирована асистолия. Пульсации на магистральных артериях (сонных, бедренных) нет. Самостоятельного дыхания нет. Состояние расценено как клиническая смерть.<br><br>
+                <strong>Начало реанимационных мероприятий:</strong><br>
+                В ______ (время) незамедлительно начаты сердечно-легочная реанимация в полном объеме в соответствии с действующими клиническими рекомендациями (смотри прилагаемый протокол сердечно-легочной реанимации).<br>
+                На себя вызвана врачебная (реанимационная) бригада.<br>
+                Время вызова: ______, бригада 000, подстанция 00, наряд 000000000.<br><br>
+                <strong>Передача пациента:</strong><br>
+                В ______ (время) больная в состоянии клинической смерти передана бригаде 000, подстанции 00, наряд 000000000.<br><br>
+                <strong>ИЛИ</strong><br><br>
+                <strong>Прекращение реанимационных мероприятий и констатация смерти:</strong><br>
+                В ______ (время) реанимационные мероприятия прекращены.<br>
+                На мониторе дефибриллятора: стойкая асистолия.<br>
+                Кожные покровы: холодные, бледные.<br>
+                Дыхание: спонтанного дыхания нет.<br>
+                Пульсация: на магистральных артериях (сонных, бедренных) отсутствует.<br>
+                Зрачки: OD = OS, широкие, тусклые. Фотореакции нет.<br>
+                Корнеальные и ресничные рефлексы: отсутствуют.<br>
+                Симптом Белоглазова (феномен «кошачьего глаза»): положительный.<br>
+                В ______ (время) констатирована биологическая смерть «ФИО», ______ лет.<br>
+                Протокол установления смерти человека № ______.<br><br>
+                <strong>Оповещение:</strong><br>
+                Время звонка в ГБУ «Ритуал»: ______, диспетчер № ______.<br>
+                ОМВД по району «______», диспетчер 02 «Фамилия»: ______.
+            </div>
+        </div>
+
+        <!-- ОЦЕНКА ПО ШКАЛАМ -->
+        <div class="section">
+            <div class="section-title">📊 ОЦЕНКА ПО ШКАЛАМ</div>
+            <div class="scales-list">
+                <p>✔ <strong>Шкала комы Глазго (GCS):</strong> 4 балла (глубокая кома).</p>
+                <p>✔ <strong>Шкала NEWS2:</strong> не применимо (терминальное состояние, оценка по шкале не проводится).</p>
+                <p>✔ <strong>Индекс Альговера:</strong> не определяется (отсутствие гемодинамики).</p>
+                <p>✔ <strong>Шкала ОДН по Кассиль:</strong> не применима.</p>
+                <p>✔ <strong>Шкала боли ВАШ при травме:</strong> не применимо.</p>
+                <p>✔ <strong>Шкала ШОКС:</strong> не применимо.</p>
+                <p>✔ <strong>Шкала риска ТЭЛА:</strong> не применимо.</p>
+                <p>✔ <strong>Шкала LAMS:</strong> не применимо.</p>
+                <p>✔ <strong>Признаки ДЭП:</strong> не применимо.</p>
+                <p>✔ <strong>Состояние алкогольного опьянения:</strong> запах алкоголя не определяется. Экспресс-тест на алкоголь в выдыхаемом воздухе не проводился.</p>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
