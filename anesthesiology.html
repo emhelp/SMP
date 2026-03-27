@@ -7,6 +7,7 @@
 <style>
   body {
     font-family: 'Segoe UI', 'Roboto', sans-serif;
+    margin: 0;
     padding: 20px;
     background: #f5f5f5;
     display: flex;
@@ -14,40 +15,72 @@
     align-items: center;
     min-height: 100vh;
   }
+
   h1 {
+    text-align: center;
     margin-bottom: 20px;
+    color: #0f1446;
   }
-  .an-btn {
-    display: block;
+
+  .an-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
     width: 100%;
     max-width: 500px;
-    margin: 6px 0;
-    padding: 12px 15px;
-    background: #0f1446;
+    box-sizing: border-box;
+  }
+
+  .an-btn {
+    text-decoration: none;
     color: white;
-    border: none;
+    background: #0f1446;
+    padding: 12px 15px;
     border-radius: 8px;
     font-weight: 600;
-    cursor: pointer;
-    text-align: left;
+    text-align: center;
+    width: 100%;
     transition: background 0.2s;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    font-family: inherit;
+    box-sizing: border-box;
   }
-  .an-btn:hover { background: #3949ab; }
+
+  .an-btn:hover {
+    background: #3949ab;
+  }
+
+  .an-btn:active {
+    transform: scale(0.98);
+  }
+
+  @media (max-width: 600px) {
+    .an-menu {
+      max-width: 90%;
+    }
+    .an-btn {
+      font-size: 0.9rem;
+    }
+  }
 </style>
 </head>
 <body>
 
 <h1>Анестезиология и реанимация</h1>
 
-<button class="an-btn" onclick="window.location.href='anaphylactic_shock.html'">Анафилактический шок</button>
-<button class="an-btn" onclick="window.location.href='clinical_death_before_ems.html'">Клиническая смерть до СМП</button>
-<button class="an-btn" onclick="window.location.href='clinical_death_hanging.html'">Клиническая смерть. Повешение</button>
-<button class="an-btn" onclick="window.location.href='coma.html'">Кома</button>
-<button class="an-btn" onclick="window.location.href='hypoglycemic_coma_type1.html'">Гипогликемическая кома I типа</button>
-<button class="an-btn" onclick="window.location.href='hyperglycemic_coma_type1.html'">Гипергликемическая кома I типа</button>
-<button class="an-btn" onclick="window.location.href='coma_death_03.html'">Кома, смерть при 03</button>
-<button class="an-btn" onclick="window.location.href='basic_resuscitation_single.html'">Стартовая реанимация (если на вызове один)</button>
-<button class="an-btn" onclick="window.location.href='advanced_resuscitation_team.html'">Расширенная реанимация (если на вызове вдвоем)</button>
+<div class="an-menu">
+  <button class="an-btn" onclick="window.location.href='anaphylactic_shock.html'">Анафилактический шок</button>
+  <button class="an-btn" onclick="window.location.href='clinical_death_before_ems.html'">Клиническая смерть до СМП</button>
+  <button class="an-btn" onclick="window.location.href='clinical_death_hanging.html'">Клиническая смерть. Повешение</button>
+  <button class="an-btn" onclick="window.location.href='coma.html'">Кома</button>
+  <button class="an-btn" onclick="window.location.href='hypoglycemic_coma_type1.html'">Гипогликемическая кома I типа</button>
+  <button class="an-btn" onclick="window.location.href='hyperglycemic_coma_type1.html'">Гипергликемическая кома I типа</button>
+  <button class="an-btn" onclick="window.location.href='coma_death_03.html'">Кома, смерть при 03</button>
+  <button class="an-btn" onclick="window.location.href='basic_resuscitation_single.html'">Стартовая реанимация (если на вызове один)</button>
+  <button class="an-btn" onclick="window.location.href='advanced_resuscitation_team.html'">Расширенная реанимация (если на вызове вдвоем)</button>
+</div>
 
 </body>
 </html>
