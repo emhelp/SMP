@@ -7,6 +7,7 @@
 <style>
   body {
     font-family: 'Segoe UI', 'Roboto', sans-serif;
+    margin: 0;
     padding: 20px;
     background: #f5f5f5;
     display: flex;
@@ -14,61 +15,93 @@
     align-items: center;
     min-height: 100vh;
   }
+
   h1 {
+    text-align: center;
     margin-bottom: 20px;
+    color: #0f1446;
   }
-  .obstetrics-btn {
-    display: block;
+
+  .obstetrics-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
     width: 100%;
     max-width: 500px;
-    margin: 6px 0;
-    padding: 12px 15px;
-    background: #0f1446;
+    box-sizing: border-box;
+  }
+
+  .obstetrics-btn {
+    text-decoration: none;
     color: white;
-    border: none;
+    background: #0f1446;
+    padding: 12px 15px;
     border-radius: 8px;
     font-weight: 600;
-    cursor: pointer;
-    text-align: left;
+    text-align: center;
+    width: 100%;
     transition: background 0.2s;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    font-family: inherit;
+    box-sizing: border-box;
   }
-  .obstetrics-btn:hover { background: #3949ab; }
+
+  .obstetrics-btn:hover {
+    background: #3949ab;
+  }
+
+  .obstetrics-btn:active {
+    transform: scale(0.98);
+  }
+
+  @media (max-width: 600px) {
+    .obstetrics-menu {
+      max-width: 90%;
+    }
+    .obstetrics-btn {
+      font-size: 0.9rem;
+    }
+  }
 </style>
 </head>
 <body>
 
 <h1>Акушерство и гинекология</h1>
 
-<button class="obstetrics-btn" onclick="window.location.href='1_period.html'">1 период родов</button>
-<button class="obstetrics-btn" onclick="window.location.href='bartholin_abscess.html'">Абсцесс бартолиновой железы</button>
-<button class="obstetrics-btn" onclick="window.location.href='algomenorrhea.html'">Альгоменорея</button>
-<button class="obstetrics-btn" onclick="window.location.href='ovarian_apoplexy.html'">Апоплексия яичника</button>
-<button class="obstetrics-btn" onclick="window.location.href='bartholinitis.html'">Бартолинит</button>
-<button class="obstetrics-btn" onclick="window.location.href='vaginitis.html'">Вагинит</button>
-<button class="obstetrics-btn" onclick="window.location.href='ectopic_pregnancy.html'">Внематочная беременность</button>
-<button class="obstetrics-btn" onclick="window.location.href='uterine_prolapse.html'">Выпадение матки</button>
-<button class="obstetrics-btn" onclick="window.location.href='dysfunctional_bleeding.html'">Дисфункциональные маточное кровотечение (ДМК)</button>
-<button class="obstetrics-btn" onclick="window.location.href='foreign_body_vagina.html'">Инородное тело влагалища</button>
-<button class="obstetrics-btn" onclick="window.location.href='postmenopausal_bleeding.html'">Кровотечение в постменопаузе</button>
-<button class="obstetrics-btn" onclick="window.location.href='lactostasis.html'">Лактостаз</button>
-<button class="obstetrics-btn" onclick="window.location.href='mastitis_purulent.html'">Мастит гнойный</button>
-<button class="obstetrics-btn" onclick="window.location.href='mastitis_nonpurulent.html'">Мастит негнойный</button>
-<button class="obstetrics-btn" onclick="window.location.href='incomplete_abortion.html'">Неполный медицинский аборт</button>
-<button class="obstetrics-btn" onclick="window.location.href='non_developing_pregnancy.html'">Неразвивающаяся беременность</button>
-<button class="obstetrics-btn" onclick="window.location.href='uterine_scar_failure.html'">Несостоятельность рубца на матке</button>
-<button class="obstetrics-btn" onclick="window.location.href='placenta_detachment.html'">Отслойка плаценты</button>
-<button class="obstetrics-btn" onclick="window.location.href='ovarian_torsion.html'">Перекрут кисты яичника</button>
-<button class="obstetrics-btn" onclick="window.location.href='preeclampsia.html'">Преэклампсия</button>
-<button class="obstetrics-btn" onclick="window.location.href='membrane_rupture.html'">Разрыв околоплодных оболочек</button>
-<button class="obstetrics-btn" onclick="window.location.href='childbirth_in_car_child.html'">Роды в машине (ребёнок)</button>
-<button class="obstetrics-btn" onclick="window.location.href='childbirth_in_car_mother.html'">Роды в машине (роженица)</button>
-<button class="obstetrics-btn" onclick="window.location.href='salpingoophoritis.html'">Сальпингоофорит</button>
-<button class="obstetrics-btn" onclick="window.location.href='spontaneous_abortion.html'">Самопроизвольный аборт</button>
-<button class="obstetrics-btn" onclick="window.location.href='threatened_abortion.html'">Угрожающий аборт</button>
-<button class="obstetrics-btn" onclick="window.location.href='threatened_premature_labor.html'">Угроза преждевременных родов</button>
-<button class="obstetrics-btn" onclick="window.location.href='excessive_vomiting.html'">Чрезмерная рвота</button>
-<button class="obstetrics-btn" onclick="window.location.href='endometritis.html'">Эндометрит</button>
-<button class="obstetrics-btn" onclick="window.location.href='endometriosis.html'">Эндометриоз</button>
+<div class="obstetrics-menu">
+  <button class="obstetrics-btn" onclick="window.location.href='1_period.html'">1 период родов</button>
+  <button class="obstetrics-btn" onclick="window.location.href='bartholin_abscess.html'">Абсцесс бартолиновой железы</button>
+  <button class="obstetrics-btn" onclick="window.location.href='algomenorrhea.html'">Альгоменорея</button>
+  <button class="obstetrics-btn" onclick="window.location.href='ovarian_apoplexy.html'">Апоплексия яичника</button>
+  <button class="obstetrics-btn" onclick="window.location.href='bartholinitis.html'">Бартолинит</button>
+  <button class="obstetrics-btn" onclick="window.location.href='vaginitis.html'">Вагинит</button>
+  <button class="obstetrics-btn" onclick="window.location.href='ectopic_pregnancy.html'">Внематочная беременность</button>
+  <button class="obstetrics-btn" onclick="window.location.href='uterine_prolapse.html'">Выпадение матки</button>
+  <button class="obstetrics-btn" onclick="window.location.href='dysfunctional_bleeding.html'">Дисфункциональные маточное кровотечение (ДМК)</button>
+  <button class="obstetrics-btn" onclick="window.location.href='foreign_body_vagina.html'">Инородное тело влагалища</button>
+  <button class="obstetrics-btn" onclick="window.location.href='postmenopausal_bleeding.html'">Кровотечение в постменопаузе</button>
+  <button class="obstetrics-btn" onclick="window.location.href='lactostasis.html'">Лактостаз</button>
+  <button class="obstetrics-btn" onclick="window.location.href='mastitis_purulent.html'">Мастит гнойный</button>
+  <button class="obstetrics-btn" onclick="window.location.href='mastitis_nonpurulent.html'">Мастит негнойный</button>
+  <button class="obstetrics-btn" onclick="window.location.href='incomplete_abortion.html'">Неполный медицинский аборт</button>
+  <button class="obstetrics-btn" onclick="window.location.href='non_developing_pregnancy.html'">Неразвивающаяся беременность</button>
+  <button class="obstetrics-btn" onclick="window.location.href='uterine_scar_failure.html'">Несостоятельность рубца на матке</button>
+  <button class="obstetrics-btn" onclick="window.location.href='placenta_detachment.html'">Отслойка плаценты</button>
+  <button class="obstetrics-btn" onclick="window.location.href='ovarian_torsion.html'">Перекрут кисты яичника</button>
+  <button class="obstetrics-btn" onclick="window.location.href='preeclampsia.html'">Преэклампсия</button>
+  <button class="obstetrics-btn" onclick="window.location.href='membrane_rupture.html'">Разрыв околоплодных оболочек</button>
+  <button class="obstetrics-btn" onclick="window.location.href='childbirth_in_car_child.html'">Роды в машине (ребёнок)</button>
+  <button class="obstetrics-btn" onclick="window.location.href='childbirth_in_car_mother.html'">Роды в машине (роженица)</button>
+  <button class="obstetrics-btn" onclick="window.location.href='salpingoophoritis.html'">Сальпингоофорит</button>
+  <button class="obstetrics-btn" onclick="window.location.href='spontaneous_abortion.html'">Самопроизвольный аборт</button>
+  <button class="obstetrics-btn" onclick="window.location.href='threatened_abortion.html'">Угрожающий аборт</button>
+  <button class="obstetrics-btn" onclick="window.location.href='threatened_premature_labor.html'">Угроза преждевременных родов</button>
+  <button class="obstetrics-btn" onclick="window.location.href='excessive_vomiting.html'">Чрезмерная рвота</button>
+  <button class="obstetrics-btn" onclick="window.location.href='endometritis.html'">Эндометрит</button>
+  <button class="obstetrics-btn" onclick="window.location.href='endometriosis.html'">Эндометриоз</button>
+</div>
 
 </body>
 </html>
