@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Карта вызова СМП | Выпадение матки (генитальный пролапс)</title>
+    <title>Карта вызова скорой медицинской помощи | Выпадение матки</title>
     <style>
         * {
             margin: 0;
@@ -12,349 +12,353 @@
         }
 
         body {
-            background: #e2e8f0;
-            font-family: 'Segoe UI', 'Roboto', 'Inter', system-ui, sans-serif;
-            line-height: 1.5;
-            padding: 32px 24px;
-            color: #1a2c3e;
+            background-color: #e9ecef;
+            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+            padding: 40px 20px;
+            color: #212529;
+            line-height: 1.45;
         }
 
-        .container {
-            max-width: 1200px;
+        .card {
+            max-width: 1100px;
             margin: 0 auto;
-        }
-
-        .medical-card {
-            background: #ffffff;
-            border-radius: 28px;
-            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.2);
-            overflow: hidden;
-        }
-
-        .card-header {
-            background: linear-gradient(135deg, #0b5e7c 0%, #0a4b64 100%);
-            padding: 20px 32px;
-            color: white;
-            border-bottom: 4px solid #ffb347;
-        }
-
-        .card-header .mkb {
-            font-size: 14px;
-            opacity: 0.9;
-            font-family: monospace;
-        }
-
-        .card-content {
-            padding: 28px 36px;
-        }
-
-        .exam-block {
-            margin-bottom: 28px;
-            border: 1px solid #e2edf2;
+            background-color: #ffffff;
             border-radius: 20px;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.15);
             overflow: hidden;
-            background: white;
+            border: 1px solid #dee2e6;
         }
 
-        .block-title {
-            background: #f1f6fb;
-            padding: 14px 24px;
-            font-weight: 800;
-            font-size: 18px;
-            color: #0b5e7c;
-            border-left: 5px solid #ffb347;
-            letter-spacing: -0.2px;
+        .mkb-row {
+            background: linear-gradient(135deg, #0b3b5f 0%, #1a4d6f 100%);
+            color: white;
+            padding: 20px 32px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border-bottom: 4px solid #ffc107;
         }
 
-        .block-content {
-            padding: 20px 28px;
-            background: #fefefe;
-            font-size: 15px;
-            line-height: 1.55;
-            color: #1e3a4f;
-            text-align: left;
-        }
-
-        .field-row {
-            margin-bottom: 12px;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: baseline;
-            gap: 8px;
-            text-align: left;
-        }
-
-        .field-label {
+        .mkb-row span {
             font-weight: 700;
-            color: #1c6d8f;
-            min-width: 200px;
-            font-size: 14px;
+            color: #ffc107;
         }
 
-        .field-value {
-            flex: 1;
-            color: #1e2f3c;
-            text-align: left;
+        .diagnosis {
+            background: #fef9e6;
+            padding: 12px 32px;
+            border-left: 6px solid #ffc107;
+            font-weight: 500;
+            font-size: 0.98rem;
+            color: #2d3e50;
+            border-bottom: 1px solid #f0e2b6;
         }
 
-        .inline-group {
+        .content {
+            padding: 24px 32px 40px 32px;
+        }
+
+        .section {
+            margin-bottom: 32px;
+            break-inside: avoid;
+            page-break-inside: avoid;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #1a4d6f;
+            border-left: 6px solid #ffc107;
+            padding-left: 16px;
+            margin-bottom: 18px;
+            margin-top: 8px;
+            background: #f4f9ff;
+            border-radius: 0 12px 12px 0;
+            line-height: 1.3;
+        }
+
+        .field-list {
             display: flex;
-            flex-wrap: wrap;
-            gap: 24px;
-            margin: 12px 0;
-            text-align: left;
+            flex-direction: column;
+            gap: 10px;
         }
 
-        .inline-item {
-            flex: 1;
-            min-width: 180px;
-            text-align: left;
+        .field-item {
+            padding: 6px 0 4px 8px;
+            border-bottom: 1px dotted #e0e6ed;
+            font-size: 0.94rem;
+            line-height: 1.45;
         }
 
-        .diagnosis-box {
-            background: #fefaf5;
-            border-left: 4px solid #ffb347;
-            padding: 16px 20px;
-            border-radius: 16px;
-            margin-bottom: 8px;
-            text-align: left;
+        .field-item strong {
+            font-weight: 700;
+            color: #1e4663;
+            display: inline-block;
+            min-width: 240px;
         }
 
-        .diagnosis-box div {
-            margin-bottom: 8px;
-            text-align: left;
+        .field-item .value {
+            color: #2c3e4e;
+            font-weight: 500;
+        }
+
+        .full-width-text {
+            padding: 8px 0 8px 8px;
+            border-bottom: 1px dotted #e0e6ed;
+            font-size: 0.94rem;
+        }
+
+        .full-width-text strong {
+            font-weight: 700;
+            color: #1e4663;
+            display: inline-block;
+            min-width: 240px;
         }
 
         .status-local {
-            background: #f9fef7;
-            border-left: 4px solid #2c9c6e;
-            padding: 16px 20px;
-            border-radius: 16px;
-            margin-top: 8px;
-            text-align: left;
+            background: #fef7e0;
+            padding: 14px 18px;
+            border-radius: 18px;
+            margin-top: 6px;
+            border: 1px solid #ffe3a4;
+            font-size: 0.94rem;
         }
 
-        .status-local div {
-            margin-bottom: 8px;
-            text-align: left;
+        .scales-list {
+            background: #f1f4f9;
+            padding: 12px 20px;
+            border-radius: 20px;
+            margin-top: 10px;
         }
 
-        .prolapse-stages {
-            background: #f0f4fa;
-            padding: 16px 20px;
-            border-radius: 16px;
-            margin: 12px 0;
+        .scales-list p {
+            margin: 8px 0;
         }
 
-        .prolapse-stages p {
-            margin-bottom: 6px;
-        }
-
-        .alert-note {
-            background: #fff3e0;
-            border-left: 4px solid #ff9800;
+        .note {
+            background: #e7f1ff;
+            border-left: 4px solid #1a4d6f;
             padding: 12px 16px;
-            border-radius: 12px;
             margin-top: 16px;
-            font-size: 13px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            color: #1e4663;
         }
 
-        hr {
-            margin: 16px 0;
-            border: none;
-            height: 1px;
-            background: #e2ecf3;
+        .note-list {
+            margin-top: 8px;
+            margin-left: 20px;
+            list-style-type: none;
+            padding-left: 0;
         }
 
-        .footer-note {
-            font-size: 13px;
-            color: #6c8eaa;
-            text-align: right;
+        .note-list li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .note-list li:before {
+            content: "•";
+            position: absolute;
+            left: 4px;
+            color: #1a4d6f;
+            font-weight: bold;
         }
 
         @media (max-width: 700px) {
-            .card-content {
-                padding: 18px;
+            .field-item strong {
+                min-width: 170px;
             }
-            .block-content {
-                padding: 14px 18px;
+            .full-width-text strong {
+                min-width: 170px;
             }
-            .field-label {
-                min-width: 140px;
+            .content {
+                padding: 20px;
             }
         }
     </style>
 </head>
 <body>
-<div class="container">
-    <div class="medical-card">
-        <div class="card-header">
-            <div class="mkb">МКБ-10: N81.9 — Выпадение женских половых органов неуточненное (генитальный пролапс)</div>
+<div class="card">
+    <div class="mkb-row">
+        📌 Код по МКБ-10: <span>N81.9</span> (Выпадение женских половых органов неуточненное)
+    </div>
+    <div class="diagnosis">
+        🧾 <strong>Диагноз:</strong> Основное заболевание: Генитальный пролапс (пролапс тазовых органов). Полное/неполное выпадение матки и стенок влагалища (III–IV степень по классификации М.С. Малиновского / стадия 3–4 по POP-Q). Цистоцеле, ректоцеле (при наличии).<br>
+        Осложнения: Нарушение мочеиспускания (стрессовое недержание мочи / хроническая задержка мочи). Дизурия. Хронические запоры. Трофические язвы шейки матки/стенок влагалища (при наличии). Острый болевой синдром (при ущемлении).<br>
+        Сопутствующие заболевания: (указать при наличии: артериальная гипертензия, сахарный диабет, варикозная болезнь, дисплазия соединительной ткани и др.).
+    </div>
+
+    <div class="content">
+        <!-- ЖАЛОБЫ -->
+        <div class="section">
+            <div class="section-title">📢 ЖАЛОБЫ</div>
+            <div class="full-width-text"><em>На ощущение инородного тела («выпадение», «грыжа») в области промежности и входа во влагалище, усиливающееся при ходьбе, физической нагрузке, натуживании, подъеме тяжестей, кашле, чихании .<br><br>
+            На тянущие, распирающие боли внизу живота, в крестце и пояснице, усиливающиеся к концу дня и в вертикальном положении, уменьшающиеся в положении лежа .<br><br>
+            На затрудненное мочеиспускание, чувство неполного опорожнения мочевого пузыря, слабую струю мочи, разбрызгивание, необходимость напрягаться или вправлять выпадающие органы для начала мочеиспускания .<br><br>
+            На недержание мочи при кашле, чихании, смехе, физическом напряжении (стрессовое недержание) ИЛИ на парадоксальную ишурию (задержка мочи с недержанием переполнения) .<br><br>
+            На затруднение дефекации, хронические запоры, чувство давления на прямую кишку, необходимость пальцевого пособия (надавливание на промежность или заднюю стенку влагалища) для опорожнения кишечника .<br><br>
+            На дискомфорт и боль при половых контактах (диспареуния), попадание воздуха во влагалище с характерными звуками («хлюпанье») .<br><br>
+            При длительном течении и наличии выпадающих тканей – на кровянистые выделения, сухость, мацерацию, появление язв на шейке матки или стенках влагалища (признаки трофических нарушений) .</em></div>
         </div>
-        <div class="card-content">
 
-            <!-- ДИАГНОЗ -->
-            <div class="exam-block">
-                <div class="block-title">ДИАГНОЗ</div>
-                <div class="block-content">
-                    <div class="diagnosis-box">
-                        <div><strong>Основное заболевание:</strong> Генитальный пролапс (пролапс тазовых органов). Полное/неполное выпадение матки и стенок влагалища (III–IV степень по классификации М.С. Малиновского / стадия 3–4 по POP-Q). Цистоцеле, ректоцеле (при наличии).</div>
-                        <div><strong>Осложнения:</strong> Нарушение мочеиспускания (стрессовое недержание мочи / хроническая задержка мочи). Дизурия. Хронические запоры. Трофические язвы шейки матки/стенок влагалища (при наличии). Острый болевой синдром (при ущемлении).</div>
-                        <div><strong>Сопутствующие заболевания:</strong> (указать при наличии: артериальная гипертензия, сахарный диабет, варикозная болезнь, дисплазия соединительной ткани и др.).</div>
-                    </div>
-                </div>
+        <!-- АНАМНЕЗ -->
+        <div class="section">
+            <div class="section-title">📋 АНАМНЕЗ</div>
+            <div class="full-width-text"><strong>Эпидемиологический анамнез:</strong> Контакт с инфекционными больными отрицает. За пределы РФ в последние 3 недели не выезжала.</div>
+            <div class="full-width-text"><strong>Аллергологический анамнез:</strong> Не отягощен / отягощен (указать аллергию на лекарственные препараты, пищевые продукты). Аллергические реакции на латекс, антисептики – уточнить (важно для выбора пессария/операции).</div>
+            <div class="full-width-text"><strong>Гинекологический анамнез:</strong> Менструальная функция: Менструации с __ лет, установились сразу/в течение __, по __ дней, через __ дней, регулярные/нерегулярные, обильные/умеренные, безболезненные/болезненные. Последняя менструация: (дата) – в срок/задержка/менопауза __ лет назад .<br>
+            Репродуктивная функция: Беременностей – __, родов – __ (из них через естественные родовые пути – __, кесарево сечение – __). Роды: срочные/преждевременные, стремительные, затяжные, крупный плод (масса >4000 г), акушерские пособия (щипцы, вакуум-экстракция), разрывы промежности, эпизиотомия (указать) . Аборты – __, выкидыши – __.<br>
+            Перенесенные гинекологические заболевания: Хронические воспалительные заболевания органов малого таза, эндометриоз, миома матки, кисты яичников.<br>
+            Гинекологические операции: Экстирпация матки (в анамнезе – риск выпадения культи влагалища, код N99.3) , пластика влагалища, операции по поводу недержания мочи.<br>
+            Анамнез пролапса: Наследственность по пролапсу тазовых органов (мать, бабушка, сестры) – отягощена/не отягощена. В 26% случаев заболевание имеет наследственный характер .<br>
+            Сопутствующая патология: Хронические запоры, бронхиальная астма/ХОБЛ с хроническим кашлем, ожирение, тяжелый физический труд, дисплазия соединительной ткани (грыжи, варикоз, пролапс митрального клапана) .<br>
+            Выделения из половых путей на момент осмотра: Слизистые/сукровичные/кровянистые (при наличии трофических язв). Патологических (гнойных, пенистых, творожистых) выделений нет.</div>
+            <div class="full-width-text"><strong>Анамнез заболевания:</strong> Заболевание развивалось постепенно, в течение нескольких лет. Первые симптомы (чувство инородного тела, дискомфорт в промежности) появились несколько лет назад, прогрессировали после (указать: роды, наступление менопаузы, подъем тяжестей, запоры). Ухудшение состояния отмечает в последние (месяцы/годы). Самостоятельно использовала (вправление органов, пессарий – если носила). К врачу обращалась/не обращалась.</div>
+        </div>
+
+        <!-- ОБЪЕКТИВНО -->
+        <div class="section">
+            <div class="section-title">🩺 ОБЪЕКТИВНО</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Общее состояние:</strong> <span class="value">Удовлетворительное / средней степени тяжести (при выраженном болевом синдроме, ущемлении, острой задержке мочи).</span></div>
+                <div class="field-item"><strong>Сознание:</strong> <span class="value">Ясное.</span></div>
+                <div class="field-item"><strong>Шкала комы Глазго (GCS):</strong> <span class="value">15 баллов (E4, V5, M6).</span></div>
+                <div class="field-item"><strong>Положение:</strong> <span class="value">Активное / Вынужденное (лежачее, при ущемлении и болях).</span></div>
+                <div class="field-item"><strong>Кожные покровы:</strong> <span class="value">Чистые, обычной окраски, сухие. Бледности, цианоза, желтушности, сыпи нет.</span></div>
+                <div class="field-item"><strong>Сыпь:</strong> <span class="value">Нет.</span></div>
+                <div class="field-item"><strong>Зев:</strong> <span class="value">Слизистая розовая, чистая.</span></div>
+                <div class="field-item"><strong>Миндалины:</strong> <span class="value">Не увеличены.</span></div>
+                <div class="field-item"><strong>Лимфоузлы:</strong> <span class="value">Периферические лимфоузлы не увеличены, паховые лимфоузлы без патологии (при отсутствии воспаления).</span></div>
+                <div class="field-item"><strong>Пролежни:</strong> <span class="value">Нет (при длительном лежании – уточнить).</span></div>
+                <div class="field-item"><strong>Отеки:</strong> <span class="value">Нет / Пастозность голеней (при варикозе, ХСН).</span></div>
+                <div class="field-item"><strong>t°:</strong> <span class="value">36,6 °C (при отсутствии воспаления; при ущемлении, трофических язвах с инфекцией – возможен субфебрилитет).</span></div>
             </div>
+        </div>
 
-            <!-- ЖАЛОБЫ -->
-            <div class="exam-block">
-                <div class="block-title">ЖАЛОБЫ</div>
-                <div class="block-content">
-                    <div class="field-row"><span class="field-label">Основные жалобы:</span><span class="field-value">На ощущение инородного тела («выпадение», «грыжа») в области промежности и входа во влагалище, усиливающееся при ходьбе, физической нагрузке, натуживании, подъеме тяжестей, кашле, чихании. На тянущие, распирающие боли внизу живота, в крестце и пояснице, усиливающиеся к концу дня и в вертикальном положении, уменьшающиеся в положении лежа.</span></div>
-                    <div class="field-row"><span class="field-label">Нарушение мочеиспускания:</span><span class="field-value">Затрудненное мочеиспускание, чувство неполного опорожнения мочевого пузыря, слабая струя мочи, разбрызгивание, необходимость напрягаться или вправлять выпадающие органы для начала мочеиспускания. Недержание мочи при кашле, чихании, смехе, физическом напряжении (стрессовое недержание) ИЛИ парадоксальная ишурия (задержка мочи с недержанием переполнения).</span></div>
-                    <div class="field-row"><span class="field-label">Нарушение дефекации:</span><span class="field-value">Затруднение дефекации, хронические запоры, чувство давления на прямую кишку, необходимость пальцевого пособия (надавливание на промежность или заднюю стенку влагалища) для опорожнения кишечника.</span></div>
-                    <div class="field-row"><span class="field-label">Другие жалобы:</span><span class="field-value">Дискомфорт и боль при половых контактах (диспареуния), попадание воздуха во влагалище с характерными звуками («хлюпанье»). При длительном течении и наличии выпадающих тканей – кровянистые выделения, сухость, мацерация, появление язв на шейке матки или стенках влагалища (признаки трофических нарушений).</span></div>
-                </div>
+        <!-- ОРГАНЫ ДЫХАНИЯ -->
+        <div class="section">
+            <div class="section-title">🌬️ ОРГАНЫ ДЫХАНИЯ</div>
+            <div class="field-list">
+                <div class="field-item"><strong>ЧДД:</strong> <span class="value">18 в мин.</span></div>
+                <div class="field-item"><strong>Одышка:</strong> <span class="value">Нет.</span></div>
+                <div class="field-item"><strong>Патологическое дыхание:</strong> <span class="value">Нет.</span></div>
+                <div class="field-item"><strong>Аускультативно:</strong> <span class="value">Дыхание везикулярное, проводится во все отделы, хрипов нет.</span></div>
+                <div class="field-item"><strong>Хрипы сухие:</strong> <span class="value">Нет (при ХОБЛ/бронхиальной астме – указать наличие).</span></div>
+                <div class="field-item"><strong>Влажные:</strong> <span class="value">Нет.</span></div>
+                <div class="field-item"><strong>Крепитация:</strong> <span class="value">Нет.</span></div>
+                <div class="field-item"><strong>Шум трения плевры:</strong> <span class="value">Нет.</span></div>
+                <div class="field-item"><strong>Перкуторный звук:</strong> <span class="value">Легочный над всеми отделами.</span></div>
+                <div class="field-item"><strong>Кашель:</strong> <span class="value">Нет / указать наличие (как фактор риска пролапса).</span></div>
+                <div class="field-item"><strong>Мокрота:</strong> <span class="value">Нет.</span></div>
             </div>
+        </div>
 
-            <!-- АНАМНЕЗ -->
-            <div class="exam-block">
-                <div class="block-title">АНАМНЕЗ</div>
-                <div class="block-content">
-                    <div class="field-row">
-                        <span class="field-label">Анамнез заболевания:</span>
-                        <span class="field-value">Заболевание развивалось постепенно, в течение нескольких лет. Первые симптомы (чувство инородного тела, дискомфорт в промежности) появились несколько лет назад, прогрессировали после (указать: роды, наступление менопаузы, подъем тяжестей, запоры). Ухудшение состояния отмечает в последние (месяцы/годы). Самостоятельно использовала (вправление органов, пессарий – если носила). К врачу обращалась/не обращалась.</span>
-                    </div>
-                    <div class="field-row">
-                        <span class="field-label">Эпидемиологический анамнез:</span>
-                        <span class="field-value">Контакт с инфекционными больными отрицает. За пределы РФ в последние 3 недели не выезжала.</span>
-                    </div>
-                    <div class="field-row">
-                        <span class="field-label">Аллергологический анамнез:</span>
-                        <span class="field-value">Не отягощен / отягощен (указать аллергию на лекарственные препараты, пищевые продукты). Аллергические реакции на латекс, антисептики – уточнить.</span>
-                    </div>
-                    <div class="field-row">
-                        <span class="field-label">Гинекологический анамнез:</span>
-                        <span class="field-value">Менструальная функция: менструации с __ лет, установились сразу/в течение __, по __ дней, через __ дней, регулярные/нерегулярные, обильные/умеренные, безболезненные/болезненные. Последняя менструация: (дата) – в срок/задержка/менопауза __ лет назад. Репродуктивная функция: беременностей – __, родов – __ (из них через естественные родовые пути – __, кесарево сечение – __). Роды: срочные/преждевременные, стремительные, затяжные, крупный плод (масса >4000 г), акушерские пособия (щипцы, вакуум-экстракция), разрывы промежности, эпизиотомия (указать). Аборты – __, выкидыши – __. Перенесенные гинекологические заболевания: хронические воспалительные заболевания органов малого таза, эндометриоз, миома матки, кисты яичников. Гинекологические операции: экстирпация матки (в анамнезе – риск выпадения культи влагалища), пластика влагалища, операции по поводу недержания мочи. Анамнез пролапса: наследственность по пролапсу тазовых органов (мать, бабушка, сестры) – отягощена/не отягощена. Сопутствующая патология: хронические запоры, бронхиальная астма/ХОБЛ с хроническим кашлем, ожирение, тяжелый физический труд, дисплазия соединительной ткани (грыжи, варикоз, пролапс митрального клапана).</span>
-                    </div>
-                    <div class="field-row">
-                        <span class="field-label">Выделения из половых путей:</span>
-                        <span class="field-value">На момент осмотра: слизистые/сукровичные/кровянистые (при наличии трофических язв). Патологических (гнойных, пенистых, творожистых) выделений нет.</span>
-                    </div>
-                </div>
+        <!-- ОРГАНЫ КРОВООБРАЩЕНИЯ -->
+        <div class="section">
+            <div class="section-title">❤️ ОРГАНЫ КРОВООБРАЩЕНИЯ</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Пульс:</strong> <span class="value">76 в мин (нормокардия / возможна тахикардия при болевом синдроме).</span></div>
+                <div class="field-item"><strong>Ритмичный, аритмичный, наполнение пульса:</strong> <span class="value">Ритмичный, удовлетворительного наполнения.</span></div>
+                <div class="field-item"><strong>ЧСС:</strong> <span class="value">76 в мин.</span></div>
+                <div class="field-item"><strong>Дефицит пульса:</strong> <span class="value">Нет.</span></div>
+                <div class="field-item"><strong>АД:</strong> <span class="value">125/80 мм.рт.ст. на момент осмотра (или привычное для пациентки), привычное АД ____ мм.рт.ст., максимальное АД не известно.</span></div>
+                <div class="field-item"><strong>Тоны сердца:</strong> <span class="value">Звучные, ритмичные (могут быть приглушены при сопутствующей патологии).</span></div>
+                <div class="field-item"><strong>Шум:</strong> <span class="value">Нет.</span></div>
+                <div class="field-item"><strong>Шум трения перикарда:</strong> <span class="value">Нет.</span></div>
+                <div class="field-item"><strong>Акцент какого тона:</strong> <span class="value">Не выявлен.</span></div>
             </div>
+        </div>
 
-            <!-- ОБЪЕКТИВНО -->
-            <div class="exam-block">
-                <div class="block-title">ОБЪЕКТИВНО</div>
-                <div class="block-content">
-                    <div class="inline-group">
-                        <div class="inline-item"><strong>Состояние:</strong> удовлетворительное / средней степени тяжести</div>
-                        <div class="inline-item"><strong>Сознание:</strong> ясное (GCS 15 баллов)</div>
-                        <div class="inline-item"><strong>Положение:</strong> активное / вынужденное</div>
-                    </div>
-                    <div class="field-row"><span class="field-label">Кожные покровы:</span><span class="field-value">Чистые, обычной окраски, сухие. Бледности, цианоза, желтушности, сыпи нет.</span></div>
-                    <div class="field-row"><span class="field-label">Зев, миндалины:</span><span class="field-value">Слизистая розовая, чистая. Миндалины не увеличены.</span></div>
-                    <div class="field-row"><span class="field-label">Лимфоузлы, пролежни, отеки:</span><span class="field-value">Периферические лимфоузлы не увеличены, паховые лимфоузлы без патологии. Пролежни: нет. Отеки: нет / пастозность голеней (при варикозе, ХСН). t°: 36,6 °C.</span></div>
-                </div>
+        <!-- ОРГАНЫ ПИЩЕВАРЕНИЯ -->
+        <div class="section">
+            <div class="section-title">🍽️ ОРГАНЫ ПИЩЕВАРЕНИЯ</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Язык:</strong> <span class="value">Влажный, чистый.</span></div>
+                <div class="field-item"><strong>Живот:</strong> <span class="value">Округлой формы, мягкий, не вздут, участвует в акте дыхания, безболезненный при пальпации во всех отделах. При хронических запорах – возможна пальпация плотных каловых масс по ходу толстой кишки.</span></div>
+                <div class="field-item"><strong>Болезненный в:</strong> <span class="value">Безболезненный.</span></div>
+                <div class="field-item"><strong>Положительные симптомы:</strong> <span class="value">Симптомы раздражения брюшины — отрицательные.</span></div>
+                <div class="field-item"><strong>Перистальтика:</strong> <span class="value">Выслушивается, активная.</span></div>
+                <div class="field-item"><strong>Печень:</strong> <span class="value">Не пальпируется / по краю реберной дуги.</span></div>
+                <div class="field-item"><strong>Селезенка:</strong> <span class="value">Не пальпируется.</span></div>
+                <div class="field-item"><strong>Стул:</strong> <span class="value">Регулярный/склонность к запорам (указать частоту, консистенцию, необходимость пальцевого пособия) .</span></div>
             </div>
+        </div>
 
-            <!-- ОРГАНЫ ДЫХАНИЯ -->
-            <div class="exam-block">
-                <div class="block-title">ОРГАНЫ ДЫХАНИЯ</div>
-                <div class="block-content">
-                    <div class="field-row"><span class="field-label">ЧДД:</span><span class="field-value">18 в мин.</span></div>
-                    <div class="field-row"><span class="field-label">Одышка:</span><span class="field-value">Нет.</span></div>
-                    <div class="field-row"><span class="field-label">Аускультативно:</span><span class="field-value">Дыхание везикулярное, проводится во все отделы, хрипов нет.</span></div>
-                    <div class="field-row"><span class="field-label">Кашель:</span><span class="field-value">Нет / указать наличие (как фактор риска пролапса).</span></div>
-                </div>
+        <!-- НЕРВНАЯ СИСТЕМА -->
+        <div class="section">
+            <div class="section-title">🧠 НЕРВНАЯ СИСТЕМА</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Поведение:</strong> <span class="value">Спокойное, адекватное.</span></div>
+                <div class="field-item"><strong>Контакт:</strong> <span class="value">Полный, сохранен.</span></div>
+                <div class="field-item"><strong>Чувствительность:</strong> <span class="value">Не нарушена.</span></div>
+                <div class="field-item"><strong>Речь:</strong> <span class="value">Внятная.</span></div>
+                <div class="field-item"><strong>Зрачки (OD, OS):</strong> <span class="value">OD = OS, обычные, средней величины, округлые.</span></div>
+                <div class="field-item"><strong>Фотореакция:</strong> <span class="value">Живая, содружественная.</span></div>
+                <div class="field-item"><strong>Нистагм:</strong> <span class="value">Нет.</span></div>
+                <div class="field-item"><strong>Асимметрия лица:</strong> <span class="value">Нет.</span></div>
+                <div class="field-item"><strong>Менингеальные симптомы:</strong> <span class="value">Отрицательные.</span></div>
+                <div class="field-item"><strong>Очаговые симптомы:</strong> <span class="value">Нет.</span></div>
+                <div class="field-item"><strong>Координаторные пробы:</strong> <span class="value">Выполняет удовлетворительно.</span></div>
             </div>
+        </div>
 
-            <!-- ОРГАНЫ КРОВООБРАЩЕНИЯ -->
-            <div class="exam-block">
-                <div class="block-title">ОРГАНЫ КРОВООБРАЩЕНИЯ</div>
-                <div class="block-content">
-                    <div class="field-row"><span class="field-label">Пульс:</span><span class="field-value">76 в мин, ритмичный, удовлетворительного наполнения. ЧСС: 76 в мин.</span></div>
-                    <div class="field-row"><span class="field-label">АД:</span><span class="field-value">125/80 мм рт.ст. на момент осмотра (или привычное для пациентки).</span></div>
-                    <div class="field-row"><span class="field-label">Тоны сердца:</span><span class="field-value">Звучные, ритмичные. Шумы не выслушиваются.</span></div>
-                </div>
+        <!-- МОЧЕПОЛОВАЯ СИСТЕМА -->
+        <div class="section">
+            <div class="section-title">🚽 МОЧЕПОЛОВАЯ СИСТЕМА</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Мочеиспускание:</strong> <span class="value">Затруднено / учащено. Струя мочи слабая, разбрызгивается. Недержание мочи при кашле, чихании, смехе, физической нагрузке (стрессовое). Ощущение неполного опорожнения мочевого пузыря. При острой задержке мочи – мочевой пузырь переполнен, пальпируется над лоном, резко болезненный .</span></div>
+                <div class="field-item"><strong>Симптом поколачивания:</strong> <span class="value">Отрицательный с обеих сторон (положительный – при пиелонефрите).</span></div>
             </div>
+        </div>
 
-            <!-- ОРГАНЫ ПИЩЕВАРЕНИЯ -->
-            <div class="exam-block">
-                <div class="block-title">ОРГАНЫ ПИЩЕВАРЕНИЯ</div>
-                <div class="block-content">
-                    <div class="field-row"><span class="field-label">Язык:</span><span class="field-value">Влажный, чистый.</span></div>
-                    <div class="field-row"><span class="field-label">Живот:</span><span class="field-value">Округлой формы, мягкий, не вздут, участвует в акте дыхания, безболезненный при пальпации во всех отделах. При хронических запорах – возможна пальпация плотных каловых масс по ходу толстой кишки.</span></div>
-                    <div class="field-row"><span class="field-label">Перистальтика:</span><span class="field-value">Выслушивается, активная.</span></div>
-                    <div class="field-row"><span class="field-label">Стул:</span><span class="field-value">Регулярный / склонность к запорам (указать частоту, консистенцию, необходимость пальцевого пособия).</span></div>
-                </div>
+        <!-- STATUS LOCALIS -->
+        <div class="section">
+            <div class="section-title">🔍 STATUS LOCALIS</div>
+            <div class="status-local">
+                <strong>Гинекологический статус</strong> (осмотр на догоспитальном этапе – максимально информативно, с соблюдением правил асептики и щажения):<br><br>
+                <strong>Наружные половые органы:</strong> Развиты правильно, по женскому типу.<br>
+                <strong>Осмотр в покое:</strong> Половая щель зияет (признак несостоятельности мышц тазового дна) . Кожа промежности может быть мацерирована (при недержании мочи/кала).<br>
+                <strong>Осмотр при натуживании (проба Вальсальвы):</strong> Отмечается опущение/выпадение матки и стенок влагалища за пределы половой щели .<br>
+                <strong>Степень выпадения:</strong> (указать):<br>
+                I степень: шейка матки опускается не ниже половины влагалища.<br>
+                II степень (неполное выпадение): шейка матки выходит за пределы половой щели, тело матки остается выше .<br>
+                III степень (полное выпадение): вся матка находится ниже половой щели, полностью выпадает наружу .<br>
+                <strong>Передняя стенка влагалища:</strong> Опущена, выбухает – формирует цистоцеле (грыжа мочевого пузыря). При кашлевой пробе – подтекание мочи (стрессовое недержание). Пальпация через переднюю стенку – определяется мягкое образование, уменьшающееся при катетеризации мочевого пузыря .<br>
+                <strong>Задняя стенка влагалища:</strong> Опущена, выбухает – формирует ректоцеле (грыжа прямой кишки). Пальцевое ректальное исследование: пальпация выпячивания в сторону влагалища, накопление каловых масс .<br>
+                <strong>Своды влагалища:</strong> Уплощены. При наличии в анамнезе экстирпации матки – выпадение купола влагалища (апикальный пролапс) .<br>
+                <strong>Шейка матки:</strong> Визуализируется/пальпируется. При длительном выпадении – гипертрофирована, удлинена (элонгация), слизистая сухая, с участками лейкоплакии. Могут быть трофические язвы (decubital ulcers) – округлые дефекты слизистой с четкими краями, скудным серозно-кровянистым отделяемым, безболезненные или слабо болезненные .<br>
+                <strong>Вправляемость:</strong> Выпавшие органы свободно/с трудом вправляются в полость таза ручным пособием в положении лежа.<br>
+                <strong>Выделения из половых путей:</strong> Слизистые / сукровичные / кровянистые (при наличии трофических язв). Патологических (гнойных, пенистых, творожистых) выделений нет.
             </div>
+        </div>
 
-            <!-- НЕРВНАЯ СИСТЕМА -->
-            <div class="exam-block">
-                <div class="block-title">НЕРВНАЯ СИСТЕМА</div>
-                <div class="block-content">
-                    <div class="field-row"><span class="field-label">Поведение, контакт:</span><span class="field-value">Спокойное, адекватное. Контакт полный, сохранен.</span></div>
-                    <div class="field-row"><span class="field-label">Чувствительность, речь:</span><span class="field-value">Не нарушена. Речь внятная.</span></div>
-                    <div class="field-row"><span class="field-label">Менингеальные симптомы, очаговая симптоматика:</span><span class="field-value">Отрицательные. Очаговых симптомов нет.</span></div>
-                </div>
+        <!-- ОЦЕНКА ПО ШКАЛАМ -->
+        <div class="section">
+            <div class="section-title">📊 ОЦЕНКА ПО ШКАЛАМ</div>
+            <div class="scales-list">
+                <p>✔ <strong>Шкала NEWS2:</strong> не применимо.</p>
+                <p>✔ <strong>Пациент с острой дыхательной недостаточностью, шкала ОДН по Кассиль:</strong> не применимо.</p>
+                <p>✔ <strong>Пациент с шоком, индекс Альговера:</strong> Индекс Альговера = 76 / 125 = 0,61 (гемодинамика стабильна, шока нет).</p>
+                <p>✔ <strong>Пациент с травмой, шкала боли ВАШ:</strong> 3-5 баллов из 10 (умеренная боль) / при ущемлении – 7-8 баллов.</p>
+                <p>✔ <strong>Пациент с ХСН, шкала ШОКС:</strong> не применимо.</p>
+                <p>✔ <strong>Пациент с ТЭЛА, шкала риска ТЭЛА:</strong> не применимо.</p>
+                <p>✔ <strong>Алкогольное опьянение:</strong> запах алкоголя изо рта не определяется. Поведение адекватное.</p>
+                <p>✔ <strong>Пациент с инсультом, шкала LAMS:</strong> не применимо.</p>
+                <p>✔ <strong>Пациент с ДЭП (симптомы, синдромы орального автоматизма):</strong> не применимо.</p>
             </div>
+        </div>
 
-            <!-- МОЧЕПОЛОВАЯ СИСТЕМА -->
-            <div class="exam-block">
-                <div class="block-title">МОЧЕПОЛОВАЯ СИСТЕМА</div>
-                <div class="block-content">
-                    <div class="field-row"><span class="field-label">Мочеиспускание:</span><span class="field-value">Затруднено / учащено. Струя мочи слабая, разбрызгивается. Недержание мочи при кашле, чихании, смехе, физической нагрузке (стрессовое). Ощущение неполного опорожнения мочевого пузыря. При острой задержке мочи – мочевой пузырь переполнен, пальпируется над лоном, резко болезненный.</span></div>
-                    <div class="field-row"><span class="field-label">Симптом поколачивания:</span><span class="field-value">Отрицательный с обеих сторон.</span></div>
-                </div>
-            </div>
-
-            <!-- STATUS LOCALIS -->
-            <div class="exam-block">
-                <div class="block-title">STATUS LOCALIS</div>
-                <div class="block-content">
-                    <div class="status-local">
-                        <div><strong>Наружные половые органы:</strong> Развиты правильно, по женскому типу.</div>
-                        <div><strong>Осмотр в покое:</strong> Половая щель зияет (признак несостоятельности мышц тазового дна). Кожа промежности может быть мацерирована (при недержании мочи/кала).</div>
-                        <div><strong>Осмотр при натуживании (проба Вальсальвы):</strong> Отмечается опущение/выпадение матки и стенок влагалища за пределы половой щели.</div>
-                    </div>
-
-                    <div class="prolapse-stages">
-                        <p><strong>Степень выпадения (указать):</strong></p>
-                        <p>• I степень: шейка матки опускается не ниже половины влагалища.</p>
-                        <p>• II степень (неполное выпадение): шейка матки выходит за пределы половой щели, тело матки остается выше.</p>
-                        <p>• III степень (полное выпадение): вся матка находится ниже половой щели, полностью выпадает наружу.</p>
-                    </div>
-
-                    <div class="field-row"><span class="field-label">Передняя стенка влагалища:</span><span class="field-value">Опущена, выбухает – формирует цистоцеле (грыжа мочевого пузыря). При кашлевой пробе – подтекание мочи (стрессовое недержание).</span></div>
-                    <div class="field-row"><span class="field-label">Задняя стенка влагалища:</span><span class="field-value">Опущена, выбухает – формирует ректоцеле (грыжа прямой кишки).</span></div>
-                    <div class="field-row"><span class="field-label">Своды влагалища:</span><span class="field-value">Уплощены. При наличии в анамнезе экстирпации матки – выпадение купола влагалища (апикальный пролапс).</span></div>
-                    <div class="field-row"><span class="field-label">Шейка матки:</span><span class="field-value">Визуализируется/пальпируется. При длительном выпадении – гипертрофирована, удлинена (элонгация), слизистая сухая, с участками лейкоплакии. Могут быть трофические язвы (decubital ulcers) – округлые дефекты слизистой с четкими краями, скудным серозно-кровянистым отделяемым, безболезненные или слабо болезненные.</span></div>
-                    <div class="field-row"><span class="field-label">Вправляемость:</span><span class="field-value">Выпавшие органы свободно/с трудом вправляются в полость таза ручным пособием в положении лежа.</span></div>
-                    <div class="field-row"><span class="field-label">Выделения из половых путей:</span><span class="field-value">Слизистые / сукровичные / кровянистые (при наличии трофических язв). Патологических (гнойных, пенистых, творожистых) выделений нет.</span></div>
-                </div>
-            </div>
-
-            <!-- ДИФФЕРЕНЦИАЛЬНАЯ ДИАГНОСТИКА -->
-            <div class="exam-block">
-                <div class="block-title">ДИФФЕРЕНЦИАЛЬНАЯ ДИАГНОСТИКА</div>
-                <div class="block-content">
-                    <div class="alert-note">
-                        <strong>Примечание для бригады СМП:</strong><br>
-                        Дифференциальная диагностика проведена с:<br>
-                        — кистой влагалища (опухолевидное образование без связи с маткой, не вправляется, шейка матки в нормальном положении),<br>
-                        — миомой матки (рождающийся узел) – плотное образование в половой щели, матка увеличена, кровотечение, осмотр в зеркалах в стационаре,<br>
-                        — выворотом матки (крайне редкое, послеродовое состояние, слизистая матки снаружи, кровотечение),<br>
-                        — элонгацией шейки матки (удлиненная шейка, тело матки на обычном месте).<br><br>
-                        <strong>Тактика:</strong> Госпитализация в гинекологическое отделение стационара (при ущемлении – экстренная). Транспортировка на носилках в положении лежа на спине с согнутыми ногами.
-                    </div>
-                </div>
-            </div>
-
-            <hr>
-            <div class="footer-note">
-                N81.9 — Генитальный пролапс | Рекомендована консультация гинеколога, хирургическое лечение по показаниям
-            </div>
+        <!-- Примечание для бригады СМП -->
+        <div class="note">
+            <strong>📌 Примечание для бригады СМП:</strong><br>
+            Дифференциальная диагностика проведена с:
+            <ul class="note-list">
+                <li><strong>кистой влагалища</strong> (опухолевидное образование без связи с маткой, не вправляется, шейка матки в нормальном положении);</li>
+                <li><strong>миомой матки (рождающийся узел)</strong> – плотное образование в половой щели, матка увеличена, кровотечение, осмотр в зеркалах в стационаре;</li>
+                <li><strong>выворотом матки</strong> (крайне редкое, послеродовое состояние, слизистая матки снаружи, кровотечение);</li>
+                <li><strong>элонгацией шейки матки</strong> (удлиненная шейка, тело матки на обычном месте).</li>
+            </ul>
         </div>
     </div>
 </div>
