@@ -52,5 +52,22 @@
     });
   </script>
 
+  <div class="visit-counter" id="visitCounter">Загрузка...</div>
+
+<script>
+  const url = 'https://script.google.com/macros/s/AKfycbwU5kiupkWrYGoKNIiCGEtqjQoKS2Jl9GTM_v-BofFMx9UNZxUg-IUn-8h3tPgtRqEZ/exec'; // URL веб-приложения Google Script
+
+  fetch(url)
+    .then(response => response.json())
+    .then(data => {
+      document.getElementById('visitCounter').textContent =
+        `Посещений в этом месяце: ${data.count}`;
+    })
+    .catch(err => {
+      console.error(err);
+      document.getElementById('visitCounter').textContent = 'Ошибка загрузки';
+    });
+</script>
+
 </body>
 </html>
