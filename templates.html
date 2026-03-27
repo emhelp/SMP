@@ -7,6 +7,7 @@
 <style>
   body {
     font-family: 'Segoe UI', 'Roboto', sans-serif;
+    margin: 0;
     padding: 20px;
     background: #f5f5f5;
     display: flex;
@@ -14,46 +15,78 @@
     align-items: center;
     min-height: 100vh;
   }
+
   h1 {
+    text-align: center;
     margin-bottom: 20px;
+    color: #0f1446;
   }
-  .template-btn {
-    display: block;
+
+  .template-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
     width: 100%;
     max-width: 500px;
-    margin: 8px 0;
-    padding: 12px 15px;
-    background: #0f1446;
+    box-sizing: border-box;
+  }
+
+  .template-btn {
+    text-decoration: none;
     color: white;
-    border: none;
+    background: #0f1446;
+    padding: 12px 15px;
     border-radius: 8px;
     font-weight: 600;
-    cursor: pointer;
     text-align: center;
+    width: 100%;
     transition: background 0.2s;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    font-family: inherit;
+    box-sizing: border-box;
   }
-  .template-btn:hover { background: #3949ab; }
+
+  .template-btn:hover {
+    background: #3949ab;
+  }
+
+  .template-btn:active {
+    transform: scale(0.98);
+  }
+
+  @media (max-width: 600px) {
+    .template-menu {
+      max-width: 90%;
+    }
+    .template-btn {
+      font-size: 0.9rem;
+    }
+  }
 </style>
 </head>
 <body>
 
 <h1>Шаблоны карт вызовов</h1>
 
-<button class="template-btn" onclick="window.location.href='obstetrics.html'">Акушерство и гинекология</button>
-<button class="template-btn" onclick="window.location.href='anesthesiology.html'">Анестезиология и реанимация</button>
-<button class="template-btn" onclick="window.location.href='infectious.html'">Инфекционные заболевания</button>
-<button class="template-btn" onclick="window.location.href='cardiology.html'">Кардиология</button>
-<button class="template-btn" onclick="window.location.href='constatation.html'">Констатация</button>
-<button class="template-btn" onclick="window.location.href='neurology.html'">Неврология</button>
-<button class="template-btn" onclick="window.location.href='otolaryngology.html'">Оториноларингология</button>
-<button class="template-btn" onclick="window.location.href='ophthalmology.html'">Офтальмология</button>
-<button class="template-btn" onclick="window.location.href='pediatrics.html'">Педиатрия</button>
-<button class="template-btn" onclick="window.location.href='dentistry.html'">Стоматология</button>
-<button class="template-btn" onclick="window.location.href='therapy.html'">Терапия</button>
-<button class="template-btn" onclick="window.location.href='toxicology.html'">Токсикология</button>
-<button class="template-btn" onclick="window.location.href='traumatology.html'">Травматология</button>
-<button class="template-btn" onclick="window.location.href='urology.html'">Урология</button>
-<button class="template-btn" onclick="window.location.href='surgery.html'">Хирургия</button>
+<div class="template-menu">
+  <button class="template-btn" onclick="window.location.href='obstetrics.html'">Акушерство и гинекология</button>
+  <button class="template-btn" onclick="window.location.href='anesthesiology.html'">Анестезиология и реанимация</button>
+  <button class="template-btn" onclick="window.location.href='infectious.html'">Инфекционные заболевания</button>
+  <button class="template-btn" onclick="window.location.href='cardiology.html'">Кардиология</button>
+  <button class="template-btn" onclick="window.location.href='constatation.html'">Констатация</button>
+  <button class="template-btn" onclick="window.location.href='neurology.html'">Неврология</button>
+  <button class="template-btn" onclick="window.location.href='otolaryngology.html'">Оториноларингология</button>
+  <button class="template-btn" onclick="window.location.href='ophthalmology.html'">Офтальмология</button>
+  <button class="template-btn" onclick="window.location.href='pediatrics.html'">Педиатрия</button>
+  <button class="template-btn" onclick="window.location.href='dentistry.html'">Стоматология</button>
+  <button class="template-btn" onclick="window.location.href='therapy.html'">Терапия</button>
+  <button class="template-btn" onclick="window.location.href='toxicology.html'">Токсикология</button>
+  <button class="template-btn" onclick="window.location.href='traumatology.html'">Травматология</button>
+  <button class="template-btn" onclick="window.location.href='urology.html'">Урология</button>
+  <button class="template-btn" onclick="window.location.href='surgery.html'">Хирургия</button>
+</div>
 
 </body>
 </html>
