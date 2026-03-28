@@ -22,20 +22,36 @@
       color: #0f1446;
     }
 
+    .calc-section {
+      width: 100%;
+      max-width: 400px;
+      margin-bottom: 20px;
+      background: white;
+      border-radius: 8px;
+      padding: 15px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: bold;
+      color: #e53935;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #e53935;
+    }
+
     .calc-menu {
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      width: 100%;
-      max-width: 400px;
-      box-sizing: border-box;
+      gap: 8px;
     }
 
     .calc-btn {
       text-decoration: none;
       color: white;
       background: #0f1446;
-      padding: 12px 15px;
+      padding: 10px 15px;
       border-radius: 8px;
       font-weight: 600;
       text-align: center;
@@ -43,7 +59,7 @@
       transition: background 0.2s;
       border: none;
       cursor: pointer;
-      font-size: 1rem;
+      font-size: 0.95rem;
       font-family: inherit;
       box-sizing: border-box;
     }
@@ -57,11 +73,15 @@
     }
 
     @media (max-width: 600px) {
-      .calc-menu {
+      .calc-section {
         max-width: 90%;
       }
       .calc-btn {
-        font-size: 0.9rem;
+        font-size: 0.85rem;
+        padding: 10px 12px;
+      }
+      .section-title {
+        font-size: 16px;
       }
     }
   </style>
@@ -70,34 +90,74 @@
 
   <h1>Калькуляторы СМП</h1>
 
-  <div class="calc-menu">
-    <button class="calc-btn" data-url="algovera-shock.html">Альговера шоковый индекс</button>
-    <button class="calc-btn" data-url="fundal-height.html">Высота стояния дна матки</button>
-    <button class="calc-btn" data-url="glasgow-scale.html">Глазго шкала комы</button>
-    <button class="calc-btn" data-url="pediatric-norms.html">Детские возрастные нормы</button>
-    <button class="calc-btn" data-url="dental-formula.html">Зубная формула</button>
-    <button class="calc-btn" data-url="ventilation-modes.html">ИВЛ режимы</button>
-    <button class="calc-btn" data-url="intubation.html">Интубации описание</button>
-    <button class="calc-btn" data-url="dobutamine-adult.html">Инфузия Добутамина взрослым</button>
-    <button class="calc-btn" data-url="dobutamine-child.html">Инфузия Добутамина детям</button>
-    <button class="calc-btn" data-url="dopamine-adult.html">Инфузия Допамина взрослым</button>
-    <button class="calc-btn" data-url="dopamine-child.html">Инфузия Допамина детям</button>
-    <button class="calc-btn" data-url="norepinephrine-adult.html">Инфузия Норэпинефрина взрослым</button>
-    <button class="calc-btn" data-url="norepinephrine-child.html">Инфузия Норэпинефрина детям</button>
-    <button class="calc-btn" data-url="itls-trauma.html">ITLS протокол травм-осмотра</button>
-    <button class="calc-btn" data-url="due-date.html">Калькулятор даты родов</button>
-    <button class="calc-btn" data-url="lams-scale.html">LAMS шкала</button>
-    <button class="calc-btn" data-url="news2-scale.html">NEWS 2 шкала</button>
-    <button class="calc-btn" data-url="odn-kassil.html">ОДН по Кассиль</button>
-    <button class="calc-btn" data-url="fontanelle.html">Описание родничков у детей</button>
-    <button class="calc-btn" data-url="pain-vas.html">Оценка по шкале боли ВАШ</button>
-    <button class="calc-btn" data-url="mg-conversion.html">Пересчёт % в mg</button>
-    <button class="calc-btn" data-url="burn-area.html">Площадь ожога</button>
-    <button class="calc-btn" data-url="gastric-lavage-adult.html">Промывание желудка взрослым</button>
-    <button class="calc-btn" data-url="gastric-lavage-child.html">Промывание желудка детям</button>
-    <button class="calc-btn" data-url="rass-scale.html">RASS шкала</button>
-    <button class="calc-btn" data-url="iv-infusion-rate.html">Расчет скорости в/в введения</button>
-    <button class="calc-btn" data-url="shocks-scale.html">ШОКС шкала</button>
+  <!-- Шкалы, индексы, манипуляции -->
+  <div class="calc-section">
+    <div class="section-title">📊 Шкалы, индексы, манипуляции</div>
+    <div class="calc-menu">
+      <button class="calc-btn" data-url="algovera-shock.html">Альговера шоковый индекс</button>
+      <button class="calc-btn" data-url="glasgow-scale.html">Глазго шкала комы</button>
+      <button class="calc-btn" data-url="itls-trauma.html">ITLS протокол травм-осмотра</button>
+      <button class="calc-btn" data-url="lams-scale.html">LAMS шкала</button>
+      <button class="calc-btn" data-url="news2-scale.html">NEWS 2 шкала</button>
+      <button class="calc-btn" data-url="odn-kassil.html">ОДН по Кассиль</button>
+      <button class="calc-btn" data-url="pain-vas.html">Оценка по шкале боли ВАШ</button>
+      <button class="calc-btn" data-url="burn-area.html">Площадь ожога</button>
+      <button class="calc-btn" data-url="gastric-lavage-adult.html">Промывание желудка взрослым</button>
+      <button class="calc-btn" data-url="rass-scale.html">RASS шкала</button>
+      <button class="calc-btn" data-url="shocks-scale.html">ШОКС шкала</button>
+    </div>
+  </div>
+
+  <!-- Детские параметры -->
+  <div class="calc-section">
+    <div class="section-title">👶 Детские параметры</div>
+    <div class="calc-menu">
+      <button class="calc-btn" data-url="pediatric-norms.html">Детские возрастные нормы</button>
+      <button class="calc-btn" data-url="fontanelle.html">Описание родничков у детей</button>
+      <button class="calc-btn" data-url="gastric-lavage-child.html">Промывание желудка детям</button>
+    </div>
+  </div>
+
+  <!-- Инфузионная терапия -->
+  <div class="calc-section">
+    <div class="section-title">💉 Инфузионная терапия</div>
+    <div class="calc-menu">
+      <button class="calc-btn" data-url="dobutamine-adult.html">Инфузия Добутамина взрослым</button>
+      <button class="calc-btn" data-url="dobutamine-child.html">Инфузия Добутамина детям</button>
+      <button class="calc-btn" data-url="dopamine-adult.html">Инфузия Допамина взрослым</button>
+      <button class="calc-btn" data-url="dopamine-child.html">Инфузия Допамина детям</button>
+      <button class="calc-btn" data-url="norepinephrine-adult.html">Инфузия Норэпинефрина взрослым</button>
+      <button class="calc-btn" data-url="norepinephrine-child.html">Инфузия Норэпинефрина детям</button>
+      <button class="calc-btn" data-url="mg-conversion.html">Пересчёт % в mg</button>
+      <button class="calc-btn" data-url="iv-infusion-rate.html">Расчет скорости в/в введения</button>
+    </div>
+  </div>
+
+  <!-- Респираторная поддержка -->
+  <div class="calc-section">
+    <div class="section-title">🫁 Респираторная поддержка</div>
+    <div class="calc-menu">
+      <button class="calc-btn" data-url="ventilation-modes.html">ИВЛ режимы</button>
+      <button class="calc-btn" data-url="intubation.html">Описание интубации</button>
+      <button class="calc-btn" data-url="oxylog-modes.html">Режимы аппарата OXYLOG</button>
+    </div>
+  </div>
+
+  <!-- Акушерство и гинекология -->
+  <div class="calc-section">
+    <div class="section-title">🤰 Акушерство и гинекология</div>
+    <div class="calc-menu">
+      <button class="calc-btn" data-url="due-date.html">Калькулятор даты родов</button>
+      <button class="calc-btn" data-url="fundal-height.html">Высота стояния дна матки</button>
+    </div>
+  </div>
+
+  <!-- Стоматология -->
+  <div class="calc-section">
+    <div class="section-title">🦷 Стоматология</div>
+    <div class="calc-menu">
+      <button class="calc-btn" data-url="dental-formula.html">Зубная формула</button>
+    </div>
   </div>
 
   <script>
