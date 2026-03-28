@@ -467,7 +467,7 @@
     };
 
     // Функция обновления панели информации
-    function updateModeInfo(modeKey) {
+    function updateModeInfo(modeKey, shouldScroll = false) {
         const mode = modesData[modeKey];
         if (!mode) return;
 
@@ -484,6 +484,11 @@
         panel.style.transition = "background 0.2s ease";
         panel.style.backgroundColor = "#fff9e8";
         setTimeout(() => { panel.style.backgroundColor = ""; }, 200);
+        
+        // Прокручиваем только если явно указано (при клике пользователя)
+        if (shouldScroll) {
+            document.getElementById('dynamicInfo').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
     }
 
     // Получаем все кнопки
@@ -501,19 +506,25 @@
         btn.addEventListener('click', () => {
             const modeValue = btn.getAttribute('data-mode');
             if (modeValue && modesData[modeValue]) {
-                updateModeInfo(modeValue);
+                updateModeInfo(modeValue, true); // при клике прокручиваем
                 setActiveButton(btn);
-                // плавный скролл к панели информации
-                document.getElementById('dynamicInfo').scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         });
     });
 
-    // При загрузке активируем VC CMV по умолчанию
+    // При загрузке активируем VC CMV по умолчанию, НО без прокрутки!
     const defaultButton = document.querySelector('.mode-btn[data-mode="VC CMV"]');
     if (defaultButton) {
         setTimeout(() => {
-            defaultButton.click();
+            defaultButton.click(); // click вызовет updateModeInfo с shouldScroll = true, но мы его переопределили
+            // Нужно отдельно установить активную кнопку и обновить информацию без скролла
+            // Чтобы избежать скролла при загрузке, вызовем updateModeInfo напрямую с shouldScroll = false
+            // и установим активный класс
+            const modeValue = defaultButton.getAttribute('data-mode');
+            if (modeValue && modesData[modeValue]) {
+                updateModeInfo(modeValue, false);
+                setActiveButton(defaultButton);
+            }
         }, 30);
     }
 </script>
