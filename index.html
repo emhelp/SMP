@@ -40,49 +40,11 @@
       display: block;
     }
 
-    .news-content {
+    .news-text {
       font-size: 14px;
       line-height: 1.5;
       color: #333;
       word-wrap: break-word;
-      white-space: pre-wrap;
-    }
-
-    .news-content[contenteditable="true"] {
-      outline: none;
-      cursor: text;
-      min-height: 24px;
-      max-height: none;
-      padding: 4px;
-      background: #fafafa;
-      border-radius: 4px;
-      transition: background 0.2s ease;
-    }
-
-    .news-content[contenteditable="true"]:hover {
-      background: #fff;
-    }
-
-    .news-content[contenteditable="true"]:focus {
-      background: white;
-      box-shadow: 0 0 0 2px rgba(229, 57, 53, 0.1);
-    }
-
-    .news-empty {
-      color: #999;
-      font-style: italic;
-    }
-
-    .news-edit-hint {
-      font-size: 11px;
-      color: #888;
-      margin-top: 6px;
-      text-align: right;
-      display: none;
-    }
-
-    .news-block:hover .news-edit-hint {
-      display: block;
     }
   </style>
 </head>
@@ -97,9 +59,8 @@
   <nav class="menu">
     <!-- Блок "Что нового" перед кнопками -->
     <div class="news-block">
-      <div class="news-label">✨ ЧТО НОВОГО:</div>
-      <div class="news-content" id="newsContent" contenteditable="true" data-placeholder="Введите новости здесь..."></div>
-      <div class="news-edit-hint">✏️ Нажмите для редактирования</div>
+      <div class="news-label">ЧТО НОВОГО:</div>
+      <div class="news-text">Здесь будет текст новостей</div>
     </div>
 
     <a href="templates.html" class="menu-btn">ШАБЛОНЫ КАРТ (готовы 3 раздела)</a>
@@ -135,58 +96,6 @@
     document.getElementById('contact-btn').addEventListener('click', () => {
       window.open('https://vk.com/emhelp', '_blank');
     });
-
-    // Функционал для блока "Что нового"
-    const newsContent = document.getElementById('newsContent');
-    
-    // Загрузка сохраненных новостей из localStorage
-    function loadNews() {
-      const savedNews = localStorage.getItem('emergencyNews');
-      if (savedNews && savedNews.trim() !== '') {
-        newsContent.innerHTML = savedNews;
-      } else {
-        newsContent.innerHTML = '<span class="news-empty">Добавьте новость...</span>';
-      }
-    }
-    
-    // Сохранение новостей в localStorage
-    function saveNews() {
-      let content = newsContent.innerHTML;
-      // Удаляем пустой span если он есть
-      if (content.includes('news-empty')) {
-        content = '';
-      }
-      localStorage.setItem('emergencyNews', content);
-    }
-    
-    // Обработка ввода
-    newsContent.addEventListener('blur', () => {
-      let content = newsContent.innerHTML;
-      // Если контент пустой или содержит только пустой span
-      if (!content.trim() || content === '<span class="news-empty">Добавьте новость...</span>') {
-        newsContent.innerHTML = '<span class="news-empty">Добавьте новость...</span>';
-        saveNews();
-      } else {
-        saveNews();
-      }
-    });
-    
-    newsContent.addEventListener('focus', () => {
-      if (newsContent.innerHTML.includes('news-empty')) {
-        newsContent.innerHTML = '';
-      }
-    });
-    
-    newsContent.addEventListener('input', () => {
-      // Автоматическое расширение (обрабатывается CSS)
-      let content = newsContent.innerHTML;
-      if (content === '<br>') {
-        newsContent.innerHTML = '';
-      }
-    });
-    
-    // Инициализация
-    loadNews();
   </script>
 
   <!-- Глобальный счетчик посещений после кнопок -->
