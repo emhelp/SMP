@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Карта вызова скорой медицинской помощи | Носовое кровотечение</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #e9ecef;
+            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+            padding: 40px 20px;
+            color: #212529;
+            line-height: 1.45;
+        }
+
+        .card {
+            max-width: 1100px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            border: 1px solid #dee2e6;
+        }
+
+        .mkb-row {
+            background: linear-gradient(135deg, #0b3b5f 0%, #1a4d6f 100%);
+            color: white;
+            padding: 20px 32px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border-bottom: 4px solid #ffc107;
+        }
+
+        .mkb-row span {
+            font-weight: 700;
+            color: #ffc107;
+        }
+
+        .diagnosis {
+            background: #fef9e6;
+            padding: 12px 32px;
+            border-left: 6px solid #ffc107;
+            font-weight: 500;
+            font-size: 0.98rem;
+            color: #2d3e50;
+            border-bottom: 1px solid #f0e2b6;
+        }
+
+        .content {
+            padding: 24px 32px 40px 32px;
+        }
+
+        .section {
+            margin-bottom: 32px;
+            break-inside: avoid;
+            page-break-inside: avoid;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #1a4d6f;
+            border-left: 6px solid #ffc107;
+            padding-left: 16px;
+            margin-bottom: 18px;
+            margin-top: 8px;
+            background: #f4f9ff;
+            border-radius: 0 12px 12px 0;
+            line-height: 1.3;
+        }
+
+        .field-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .field-item {
+            padding: 6px 0 4px 8px;
+            border-bottom: 1px dotted #e0e6ed;
+            font-size: 0.94rem;
+            line-height: 1.45;
+        }
+
+        .field-item strong {
+            font-weight: 700;
+            color: #1e4663;
+            display: inline-block;
+            min-width: 240px;
+        }
+
+        .field-item .value {
+            color: #2c3e4e;
+            font-weight: 500;
+        }
+
+        .full-width-text {
+            padding: 8px 0 8px 8px;
+            border-bottom: 1px dotted #e0e6ed;
+            font-size: 0.94rem;
+        }
+
+        .full-width-text strong {
+            font-weight: 700;
+            color: #1e4663;
+            display: inline-block;
+            min-width: 240px;
+        }
+
+        .status-local {
+            background: #fef7e0;
+            padding: 14px 18px;
+            border-radius: 18px;
+            margin-top: 6px;
+            border: 1px solid #ffe3a4;
+            font-size: 0.94rem;
+        }
+
+        .scales-list {
+            background: #f1f4f9;
+            padding: 12px 20px;
+            border-radius: 20px;
+            margin-top: 10px;
+        }
+
+        .scales-list p {
+            margin: 8px 0;
+        }
+
+        .note {
+            background: #e7f1ff;
+            border-left: 4px solid #1a4d6f;
+            padding: 12px 16px;
+            margin-top: 16px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            color: #1e4663;
+        }
+
+        .note-list {
+            margin-top: 8px;
+            margin-left: 20px;
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .note-list li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .note-list li:before {
+            content: "•";
+            position: absolute;
+            left: 4px;
+            color: #1a4d6f;
+            font-weight: bold;
+        }
+
+        @media (max-width: 700px) {
+            .field-item strong {
+                min-width: 170px;
+            }
+            .full-width-text strong {
+                min-width: 170px;
+            }
+            .content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="card">
+    <div class="mkb-row">
+        📌 Код по МКБ-10: <span>R04.0</span> (Носовое кровотечение)
+    </div>
+    <div class="diagnosis">
+        🧾 <strong>Диагноз:</strong> Рецидивирующее носовое кровотечение (левостороннее), активная фаза.
+    </div>
+
+    <div class="content">
+        <!-- ЖАЛОБЫ -->
+        <div class="section">
+            <div class="section-title">📢 ЖАЛОБЫ</div>
+            <div class="full-width-text"><em>На момент осмотра пациент предъявляет жалобы на обильное истечение крови из левой половины носа, наличие сгустков, стекание крови по задней стенке глотки.</em></div>
+        </div>
+
+        <!-- АНАМНЕЗ -->
+        <div class="section">
+            <div class="section-title">📋 АНАМНЕЗ</div>
+            <div class="full-width-text"><strong>Anamnesis morbi:</strong> Со слов пациента, кровотечение началось около 20 минут назад спонтанно (травму отрицает). Самостоятельно вводил в носовой ход ватно-марлевый тампон, смоченный 3% перекисью водорода, прикладывал холод на область носа. Подобные эпизоды возникали ранее, останавливались самостоятельно. В связи с продолжающимся кровотечением вызвал бригаду СМП. Не обследован, по поводу носовых кровотечений к врачу не обращался.</div>
+            <div class="full-width-text"><strong>Аллергологический анамнез:</strong> Не отягощен (аллергии на лекарства, пищевые продукты не отмечает).</div>
+            <div class="full-width-text"><strong>Гинекологический анамнез:</strong> Не применимо (пациент мужского пола).</div>
+            <div class="full-width-text"><strong>Эпидемиологический анамнез:</strong> Контакт с инфекционными больными отрицает. За пределы РФ, в эндемические зоны не выезжал. Укусы насекомых отрицает. Прививочный анамнез неизвестен.</div>
+        </div>
+
+        <!-- ОБЪЕКТИВНО -->
+        <div class="section">
+            <div class="section-title">🩺 ОБЪЕКТИВНО</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Общее состояние:</strong> <span class="value">средней тяжести (за счет продолжающегося кровотечения).</span></div>
+                <div class="field-item"><strong>Сознание:</strong> <span class="value">ясное.</span></div>
+                <div class="field-item"><strong>Шкала комы Глазго (GCS):</strong> <span class="value">15 баллов (E4,V5,M6).</span></div>
+                <div class="field-item"><strong>Положение:</strong> <span class="value">активное.</span></div>
+                <div class="field-item"><strong>Кожные покровы:</strong> <span class="value">чистые, обычной окраски, умеренной влажности. Акроцианоза нет.</span></div>
+                <div class="field-item"><strong>Сыпь:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Зев:</strong> <span class="value">розовый, чистый.</span></div>
+                <div class="field-item"><strong>Миндалины:</strong> <span class="value">не увеличены, без налетов.</span></div>
+                <div class="field-item"><strong>Лимфоузлы:</strong> <span class="value">не увеличены.</span></div>
+                <div class="field-item"><strong>Пролежни:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Отеки:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>t°:</strong> <span class="value">36.6 °C (аксиллярно).</span></div>
+            </div>
+        </div>
+
+        <!-- ОРГАНЫ ДЫХАНИЯ -->
+        <div class="section">
+            <div class="section-title">🌬️ ОРГАНЫ ДЫХАНИЯ</div>
+            <div class="field-list">
+                <div class="field-item"><strong>ЧДД в мин:</strong> <span class="value">16</span></div>
+                <div class="field-item"><strong>Одышка:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Патологическое дыхание:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Аускультативно:</strong> <span class="value">везикулярное дыхание, проводится во все отделы, хрипов нет.</span></div>
+                <div class="field-item"><strong>Хрипы:</strong> <span class="value">отсутствуют.</span></div>
+                <div class="field-item"><strong>Крепитация:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Шум трения плевры:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Перкуторный звук:</strong> <span class="value">ясный легочный над всеми отделами.</span></div>
+                <div class="field-item"><strong>Кашель:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Мокрота:</strong> <span class="value">нет.</span></div>
+            </div>
+        </div>
+
+        <!-- ОРГАНЫ КРОВООБРАЩЕНИЯ -->
+        <div class="section">
+            <div class="section-title">❤️ ОРГАНЫ КРОВООБРАЩЕНИЯ</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Пульс в мин:</strong> <span class="value">76 (ритмичный, удовлетворительного наполнения).</span></div>
+                <div class="field-item"><strong>Ритмичный, аритмичный, наполнение пульса:</strong> <span class="value">ритмичный, удовлетворительный.</span></div>
+                <div class="field-item"><strong>ЧСС:</strong> <span class="value">76 (по аускультации сердца).</span></div>
+                <div class="field-item"><strong>Дефицит пульса:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>АД мм.рт.ст. на момент осмотра:</strong> <span class="value">120/80, привычное АД мм.рт.ст.: 120/80, максимальное АД мм.рт.ст.: не отмечалось.</span></div>
+                <div class="field-item"><strong>Тоны сердца:</strong> <span class="value">звучные, ритмичные.</span></div>
+                <div class="field-item"><strong>Шум:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Шум трения перикарда:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Акцент какого тона на:</strong> <span class="value">нет.</span></div>
+            </div>
+        </div>
+
+        <!-- ОРГАНЫ ПИЩЕВАРЕНИЯ -->
+        <div class="section">
+            <div class="section-title">🍽️ ОРГАНЫ ПИЩЕВАРЕНИЯ</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Язык:</strong> <span class="value">чистый.</span></div>
+                <div class="field-item"><strong>Живот:</strong> <span class="value">правильной формы, мягкий, не вздут, участвует в акте дыхания, безболезненный при пальпации во всех отделах.</span></div>
+                <div class="field-item"><strong>Болезненный в:</strong> <span class="value">безболезненный.</span></div>
+                <div class="field-item"><strong>Положительные симптомы:</strong> <span class="value">Симптомы раздражения брюшины (Образцова, Ровзинга, Ситковского, Ортнера, Мерфи, Мейо-Робсона, Щёткина-Блюмберга, Валя) — отрицательные.</span></div>
+                <div class="field-item"><strong>Перистальтика:</strong> <span class="value">выслушивается.</span></div>
+                <div class="field-item"><strong>Печень:</strong> <span class="value">не увеличена, край эластичный, безболезненный.</span></div>
+                <div class="field-item"><strong>Селезенка:</strong> <span class="value">не пальпируется.</span></div>
+                <div class="field-item"><strong>Стул:</strong> <span class="value">оформленный, регулярный, 1 раз в сутки.</span></div>
+            </div>
+        </div>
+
+        <!-- НЕРВНАЯ СИСТЕМА -->
+        <div class="section">
+            <div class="section-title">🧠 НЕРВНАЯ СИСТЕМА</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Поведение:</strong> <span class="value">спокойное.</span></div>
+                <div class="field-item"><strong>Контакт:</strong> <span class="value">сохранен.</span></div>
+                <div class="field-item"><strong>Чувствительность:</strong> <span class="value">сохранена.</span></div>
+                <div class="field-item"><strong>Речь:</strong> <span class="value">не нарушена.</span></div>
+                <div class="field-item"><strong>Зрачки (OD, OS):</strong> <span class="value">D=S, обычные.</span></div>
+                <div class="field-item"><strong>Фотореакция:</strong> <span class="value">живая.</span></div>
+                <div class="field-item"><strong>Нистагм:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Асимметрия лица:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Менингеальные симптомы:</strong> <span class="value">ригидность затылочных мышц, Кернига, Брудзинского — отрицательные.</span></div>
+                <div class="field-item"><strong>Очаговые симптомы:</strong> <span class="value">не выявлены.</span></div>
+                <div class="field-item"><strong>Координаторные пробы:</strong> <span class="value">выполняет четко.</span></div>
+            </div>
+        </div>
+
+        <!-- МОЧЕПОЛОВАЯ СИСТЕМА -->
+        <div class="section">
+            <div class="section-title">🚽 МОЧЕПОЛОВАЯ СИСТЕМА</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Мочеиспускание:</strong> <span class="value">свободное, регулярное, безболезненное, моча светло-желтая, без примесей.</span></div>
+                <div class="field-item"><strong>Симптом поколачивания:</strong> <span class="value">отрицательный.</span></div>
+            </div>
+        </div>
+
+        <!-- STATUS LOCALIS -->
+        <div class="section">
+            <div class="section-title">🔍 STATUS LOCALIS</div>
+            <div class="status-local">
+                Нос и носоглотка:<br><br>
+                Из левого носового хода отмечается обильное истечение непенящейся крови темно-вишневого цвета, струей, со сгустками.<br>
+                Из правого носового хода выделений нет.<br>
+                При осмотре носоглотки визуализируется стекание крови по задней стенке глотки.<br>
+                Пальпация спинки носа безболезненна.<br>
+                Видимых телесных повреждений, деформаций носа не обнаружено.
+            </div>
+        </div>
+
+        <!-- ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ -->
+        <div class="section">
+            <div class="section-title">📊 ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ</div>
+            <div class="scales-list">
+                <p>✔ <strong>Пульсоксиметрия:</strong> SpO2 – 97%.</p>
+                <p>✔ <strong>Глюкометрия:</strong> не проводилась (нет показаний).</p>
+            </div>
+        </div>
+
+        <!-- ОКАЗАННАЯ МЕДИЦИНСКАЯ ПОМОЩЬ И ЕЕ ЭФФЕКТ -->
+        <div class="section">
+            <div class="section-title">💉 ОКАЗАННАЯ МЕДИЦИНСКАЯ ПОМОЩЬ И ЕЕ ЭФФЕКТ</div>
+            <div class="scales-list">
+                <p>После обработки полости носа гелем «Катеджель» в левый носовой ход установлен интраназальный гидротампон БИ-1 (параллельно дну). Баллон заполнен 7,0 мл 0,9% раствора натрия хлорида, трубка перекрыта зажимом и фиксирована лейкопластырем к левой щеке.</p>
+                <p>Визуально: наружного кровотечения из носа нет, но по задней стенке глотки сохраняется стекание крови.</p>
+                <p>Внутривенно болюсно введен Sol. Etamsylati 500 mg в разведении 10 мл 0,9% натрия хлорида.</p>
+                <p>Местно – холод (криопакет) на область носа.</p>
+                <p>После проведенных мероприятий состояние средней тяжести, АД 130/80 мм рт. ст., ЧСС 80 в мин, ЧДД 16 в мин. Кровотечение по задней стенке глотки сохраняется, но менее интенсивное.</p>
+            </div>
+        </div>
+
+        <!-- ТАКТИКА -->
+        <div class="section">
+            <div class="section-title">📌 ТАКТИКА</div>
+            <div class="scales-list">
+                <p>В соответствии с алгоритмами (раздел «Оториноларингология», код МКБ R04.0) принято решение о медицинской эвакуации пациента в стационар (ЛОР-отделение). Во время транспортировки состояние стабильное, средней тяжести, АД 130/80 мм рт. ст., ЧСС 76 в мин, ЧДД 16 в мин.</p>
+            </div>
+        </div>
+
+        <!-- ОЦЕНКА ПО ШКАЛАМ -->
+        <div class="section">
+            <div class="section-title">📊 ОЦЕНКА ПО ШКАЛАМ</div>
+            <div class="scales-list">
+                <p>✔ <strong>Шкала NEWS2:</strong> ЧДД 16 (0), SpO2 97% (0), температура 36.6 (0), АД сист. 120 (0), ЧСС 76 (0), сознание ясное (0). Сумма: 0 баллов (низкий риск).</p>
+                <p>✔ <strong>Шкала инсульта LAMS:</strong> не применима.</p>
+                <p>✔ <strong>Индекс Альговера:</strong> ЧСС/АДсист = 76/120 = 0.63 (в пределах нормы).</p>
+                <p>✔ <strong>Степень дыхательной недостаточности:</strong> ОДН 0 (SpO2 >95%, ЧДД <20).</p>
+                <p>✔ <strong>Шкала боли ВАШ при травме:</strong> не применимо.</p>
+                <p>✔ <strong>Шкала риска ТЭЛА:</strong> не применимо.</p>
+                <p>✔ <strong>Шкала ШОКС:</strong> не применимо.</p>
+                <p>✔ <strong>Признаки ДЭП:</strong> не применимо.</p>
+                <p>✔ <strong>Состояние алкогольного опьянения:</strong> запах алкоголя не определяется. Поведение адекватное.</p>
+            </div>
+        </div>
+
+        <!-- Примечание для бригады СМП -->
+        <div class="note">
+            <strong>📌 Примечание для бригады СМП:</strong><br>
+            Дифференциальная диагностика носового кровотечения проведена с:
+            <ul class="note-list">
+                <li><strong>травмой носа</strong> (в анамнезе удар, падение. При осмотре – ссадины, гематома, болезненность при пальпации, возможна деформация. У пациента травма отрицается);</li>
+                <li><strong>опухолью полости носа или околоносовых пазух</strong> (может проявляться рецидивирующими кровотечениями, заложенностью носа, гнусавостью. Требует эндоскопического осмотра. У пациента впервые? Но указано, что подобное ранее было);</li>
+                <li><strong>артериальной гипертензией</strong> (частая причина кровотечений у пожилых, обычно на фоне высокого АД. У пациента АД в норме);</li>
+                <li><strong>коагулопатией (гемофилия, болезнь Виллебранда, тромбоцитопения)</strong> (в анамнезе могут быть другие кровотечения (десневые, кожные гематомы). У пациента данных нет);</li>
+                <li><strong>приемом антикоагулянтов или антиагрегантов</strong> (может провоцировать кровотечения. Пациент отрицает прием каких-либо препаратов);</li>
+                <li><strong>задним носовым кровотечением (из клиновидно-небной артерии)</strong> (характерно обильное кровотечение, стекание крови по задней стенке глотки, часто требует тампонады. У пациента именно такая картина).</li>
+            </ul>
+            <strong>Ключевые признаки переднего носового кровотечения:</strong><br>
+            – Кровь вытекает из передних отделов носа.<br>
+            – Часто останавливается самостоятельно или после прижатия крыла носа.<br><br>
+            <strong>Ключевые признаки заднего носового кровотечения:</strong><br>
+            – Преимущественное стекание крови по задней стенке глотки.<br>
+            – Кровь может не выделяться из ноздрей.<br>
+            – Требует задней тампонады или баллонной окклюзии.
+        </div>
+    </div>
+</div>
+</body>
+</html>
