@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Карта вызова скорой медицинской помощи | Рассеянный склероз</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #e9ecef;
+            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+            padding: 40px 20px;
+            color: #212529;
+            line-height: 1.45;
+        }
+
+        .card {
+            max-width: 1100px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            border: 1px solid #dee2e6;
+        }
+
+        .mkb-row {
+            background: linear-gradient(135deg, #0b3b5f 0%, #1a4d6f 100%);
+            color: white;
+            padding: 20px 32px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border-bottom: 4px solid #ffc107;
+        }
+
+        .mkb-row span {
+            font-weight: 700;
+            color: #ffc107;
+        }
+
+        .diagnosis {
+            background: #fef9e6;
+            padding: 12px 32px;
+            border-left: 6px solid #ffc107;
+            font-weight: 500;
+            font-size: 0.98rem;
+            color: #2d3e50;
+            border-bottom: 1px solid #f0e2b6;
+        }
+
+        .content {
+            padding: 24px 32px 40px 32px;
+        }
+
+        .section {
+            margin-bottom: 32px;
+            break-inside: avoid;
+            page-break-inside: avoid;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #1a4d6f;
+            border-left: 6px solid #ffc107;
+            padding-left: 16px;
+            margin-bottom: 18px;
+            margin-top: 8px;
+            background: #f4f9ff;
+            border-radius: 0 12px 12px 0;
+            line-height: 1.3;
+        }
+
+        .field-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .field-item {
+            padding: 6px 0 4px 8px;
+            border-bottom: 1px dotted #e0e6ed;
+            font-size: 0.94rem;
+            line-height: 1.45;
+        }
+
+        .field-item strong {
+            font-weight: 700;
+            color: #1e4663;
+            display: inline-block;
+            min-width: 240px;
+        }
+
+        .field-item .value {
+            color: #2c3e4e;
+            font-weight: 500;
+        }
+
+        .full-width-text {
+            padding: 8px 0 8px 8px;
+            border-bottom: 1px dotted #e0e6ed;
+            font-size: 0.94rem;
+        }
+
+        .full-width-text strong {
+            font-weight: 700;
+            color: #1e4663;
+            display: inline-block;
+            min-width: 240px;
+        }
+
+        .status-local {
+            background: #fef7e0;
+            padding: 14px 18px;
+            border-radius: 18px;
+            margin-top: 6px;
+            border: 1px solid #ffe3a4;
+            font-size: 0.94rem;
+        }
+
+        .scales-list {
+            background: #f1f4f9;
+            padding: 12px 20px;
+            border-radius: 20px;
+            margin-top: 10px;
+        }
+
+        .scales-list p {
+            margin: 8px 0;
+        }
+
+        .note {
+            background: #e7f1ff;
+            border-left: 4px solid #1a4d6f;
+            padding: 12px 16px;
+            margin-top: 16px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            color: #1e4663;
+        }
+
+        .note-list {
+            margin-top: 8px;
+            margin-left: 20px;
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .note-list li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .note-list li:before {
+            content: "•";
+            position: absolute;
+            left: 4px;
+            color: #1a4d6f;
+            font-weight: bold;
+        }
+
+        @media (max-width: 700px) {
+            .field-item strong {
+                min-width: 170px;
+            }
+            .full-width-text strong {
+                min-width: 170px;
+            }
+            .content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="card">
+    <div class="mkb-row">
+        📌 Код по МКБ-10: <span>G35</span> (Рассеянный склероз)
+    </div>
+    <div class="diagnosis">
+        🧾 <strong>Диагноз:</strong> Рассеянный склероз, вторично-прогрессирующее течение, обострение. Пирамидный синдром (нижний парапарез). Мозжечковый синдром (атаксия, интенционное дрожание). Сенсорные нарушения.
+    </div>
+
+    <div class="content">
+        <!-- ЖАЛОБЫ -->
+        <div class="section">
+            <div class="section-title">📢 ЖАЛОБЫ</div>
+            <div class="full-width-text"><em>На момент осмотра пациентка предъявляет жалобы на нарастающую слабость в ногах (больше в правой) в течение последних 3 дней, неустойчивость при ходьбе, шаткость, невозможность выполнить тонкие движения пальцами правой руки. Также отмечает онемение и чувство «ползания мурашек» в правой стопе и голени, нарушение мочеиспускания (затрудненное начало, учащенные позывы). Головной боли, головокружения нет.</em></div>
+        </div>
+
+        <!-- АНАМНЕЗ -->
+        <div class="section">
+            <div class="section-title">📋 АНАМНЕЗ</div>
+            <div class="full-width-text"><strong>Anamnesis morbi:</strong> Со слов пациентки, страдает рассеянным склерозом в течение 8 лет. Диагноз установлен в 2016 году на основании клинической картины и МРТ-критериев. Ранее получала терапию первой линии (интерферон-бета), в последние 2 года – окрелизумаб (ежемесячно). Последнее обострение было 6 месяцев назад, протекало с симптомами оптического неврита. Текущее ухудшение началось около 3 дней назад после перенесенной ОРВИ. Слабость в ногах нарастает. СМП вызвана мужем.</div>
+            <div class="full-width-text"><strong>Анамнез жизни:</strong> Хронические заболевания: рассеянный склероз. Вредные привычки отрицает. Травмы, операции: холецистэктомия 10 лет назад. Аллергический анамнез не отягощен.</div>
+            <div class="full-width-text"><strong>Аллергологический анамнез:</strong> Не отягощен (аллергии на лекарства, пищевые продукты не отмечает).</div>
+            <div class="full-width-text"><strong>Гинекологический анамнез:</strong> Менструации с 13 лет, регулярные. Менопауза с 47 лет. Выделения из половых путей отсутствуют. Беременностей – 2, родов – 2.</div>
+            <div class="full-width-text"><strong>Эпидемиологический анамнез:</strong> Контакт с инфекционными больными отрицает. За пределы РФ не выезжала. Прививочный анамнез неизвестен.</div>
+        </div>
+
+        <!-- ОБЪЕКТИВНО -->
+        <div class="section">
+            <div class="section-title">🩺 ОБЪЕКТИВНО</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Общее состояние:</strong> <span class="value">средней тяжести.</span></div>
+                <div class="field-item"><strong>Сознание:</strong> <span class="value">ясное.</span></div>
+                <div class="field-item"><strong>Шкала комы Глазго (GCS):</strong> <span class="value">15 баллов (E4,V5,M6).</span></div>
+                <div class="field-item"><strong>Положение:</strong> <span class="value">активное (сидит, с трудом удерживает равновесие).</span></div>
+                <div class="field-item"><strong>Кожные покровы:</strong> <span class="value">обычной окраски, чистые, умеренно влажные. Акроцианоза нет.</span></div>
+                <div class="field-item"><strong>Сыпь:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Зев:</strong> <span class="value">спокойный, слизистая бледно-розовая, чистая.</span></div>
+                <div class="field-item"><strong>Миндалины:</strong> <span class="value">без особенностей, не увеличены, налетов нет.</span></div>
+                <div class="field-item"><strong>Лимфоузлы:</strong> <span class="value">не пальпируются.</span></div>
+                <div class="field-item"><strong>Пролежни:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Отеки:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>t°:</strong> <span class="value">36,7 °C.</span></div>
+            </div>
+        </div>
+
+        <!-- ОРГАНЫ ДЫХАНИЯ -->
+        <div class="section">
+            <div class="section-title">🌬️ ОРГАНЫ ДЫХАНИЯ</div>
+            <div class="field-list">
+                <div class="field-item"><strong>ЧДД в мин:</strong> <span class="value">16</span></div>
+                <div class="field-item"><strong>Одышка:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Патологическое дыхание:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Аускультативно:</strong> <span class="value">везикулярное дыхание, хрипов нет.</span></div>
+                <div class="field-item"><strong>Хрипы:</strong> <span class="value">отсутствуют.</span></div>
+                <div class="field-item"><strong>Крепитация:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Шум трения плевры:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Перкуторный звук:</strong> <span class="value">ясный легочный, симметричный.</span></div>
+                <div class="field-item"><strong>Кашель:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Мокрота:</strong> <span class="value">нет.</span></div>
+            </div>
+        </div>
+
+        <!-- ОРГАНЫ КРОВООБРАЩЕНИЯ -->
+        <div class="section">
+            <div class="section-title">❤️ ОРГАНЫ КРОВООБРАЩЕНИЯ</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Пульс в мин:</strong> <span class="value">78 (ритмичный, удовлетворительного наполнения).</span></div>
+                <div class="field-item"><strong>Ритмичный, аритмичный, наполнение пульса:</strong> <span class="value">ритмичный, удовлетворительный.</span></div>
+                <div class="field-item"><strong>ЧСС:</strong> <span class="value">78 (по аускультации сердца).</span></div>
+                <div class="field-item"><strong>Дефицит пульса:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>АД мм.рт.ст. на момент осмотра:</strong> <span class="value">120/80, привычное АД: 115/75, максимальное: 125/85.</span></div>
+                <div class="field-item"><strong>Тоны сердца:</strong> <span class="value">ясные, ритмичные.</span></div>
+                <div class="field-item"><strong>Шум:</strong> <span class="value">не выслушивается.</span></div>
+                <div class="field-item"><strong>Шум трения перикарда:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Акцент какого тона на:</strong> <span class="value">нет.</span></div>
+            </div>
+        </div>
+
+        <!-- ОРГАНЫ ПИЩЕВАРЕНИЯ -->
+        <div class="section">
+            <div class="section-title">🍽️ ОРГАНЫ ПИЩЕВАРЕНИЯ</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Язык:</strong> <span class="value">влажный, чистый.</span></div>
+                <div class="field-item"><strong>Живот:</strong> <span class="value">правильной формы, мягкий, не вздут, участвует в акте дыхания, безболезненный при пальпации во всех отделах.</span></div>
+                <div class="field-item"><strong>Болезненный в:</strong> <span class="value">безболезненный.</span></div>
+                <div class="field-item"><strong>Положительные симптомы:</strong> <span class="value">Симптомы раздражения брюшины (Образцова, Ровзинга, Ситковского, Ортнера, Мерфи, Мейо-Робсона, Щёткина-Блюмберга, Валя) — отрицательные.</span></div>
+                <div class="field-item"><strong>Перистальтика:</strong> <span class="value">активная, выслушивается.</span></div>
+                <div class="field-item"><strong>Печень:</strong> <span class="value">не увеличена, край эластичный, безболезненный.</span></div>
+                <div class="field-item"><strong>Селезенка:</strong> <span class="value">не пальпируется.</span></div>
+                <div class="field-item"><strong>Стул:</strong> <span class="value">регулярный.</span></div>
+            </div>
+        </div>
+
+        <!-- НЕРВНАЯ СИСТЕМА -->
+        <div class="section">
+            <div class="section-title">🧠 НЕРВНАЯ СИСТЕМА</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Поведение:</strong> <span class="value">адекватное, несколько тревожна.</span></div>
+                <div class="field-item"><strong>Контакт:</strong> <span class="value">доступен, ориентирована полностью.</span></div>
+                <div class="field-item"><strong>Чувствительность:</strong> <span class="value">снижение болевой и тактильной чувствительности в правой голени и стопе (гипестезия). Легкая гипестезия в дистальных отделах левой стопы. Парестезии в правой стопе.</span></div>
+                <div class="field-item"><strong>Речь:</strong> <span class="value">внятная, скандированная (легкая дизартрия).</span></div>
+                <div class="field-item"><strong>Зрачки (OD, OS):</strong> <span class="value">D=S, обычные. Фотореакция живая.</span></div>
+                <div class="field-item"><strong>Фотореакция:</strong> <span class="value">живая, содружественная.</span></div>
+                <div class="field-item"><strong>Нистагм:</strong> <span class="value">горизонтальный, крупноразмашистый при отведении глаз.</span></div>
+                <div class="field-item"><strong>Асимметрия лица:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Менингеальные симптомы:</strong> <span class="value">ригидность затылочных мышц, Кернига, Брудзинского — отрицательные.</span></div>
+                <div class="field-item"><strong>Очаговые симптомы:</strong> <span class="value">пирамидная система: мышечная сила в правой ноге снижена до 4 баллов, в левой – до 4+ баллов. В руках – сила сохранена (5 баллов). Мышечный тонус в ногах повышен по спастическому типу (больше справа). Сухожильные рефлексы с ног высокие, клонус стоп с двух сторон. Симптом Бабинского положительный с обеих сторон.<br>
+                Мозжечковая система: интенционное дрожание при выполнении пальце-носовой и пяточно-коленной проб (больше справа). Атаксия (неустойчивость) в позе Ромберга, при ходьбе (походка атактическая, с широко расставленными ногами). Диадохокинез нарушен справа.<br>
+                Тазовые нарушения: затрудненное начало мочеиспускания, учащенные позывы (недержания нет).</span></div>
+                <div class="field-item"><strong>Координаторные пробы:</strong> <span class="value">выполняет с интенцией, промахивается при выполнении пальце-носовой пробы справа.</span></div>
+            </div>
+        </div>
+
+        <!-- МОЧЕПОЛОВАЯ СИСТЕМА -->
+        <div class="section">
+            <div class="section-title">🚽 МОЧЕПОЛОВАЯ СИСТЕМА</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Мочеиспускание:</strong> <span class="value">затруднено, учащенные позывы. Моча светлая, прозрачная.</span></div>
+                <div class="field-item"><strong>Симптом поколачивания:</strong> <span class="value">отрицательный.</span></div>
+            </div>
+        </div>
+
+        <!-- STATUS LOCALIS -->
+        <div class="section">
+            <div class="section-title">🔍 STATUS LOCALIS</div>
+            <div class="status-local">
+                При осмотре видимых повреждений нет. Пациентка самостоятельно передвигается с трудом, требуется поддержка. Отмечается атактическая походка.
+            </div>
+        </div>
+
+        <!-- ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ -->
+        <div class="section">
+            <div class="section-title">📊 ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ</div>
+            <div class="scales-list">
+                <p>✔ <strong>ЭКГ:</strong> не проводилась (нет показаний).</p>
+                <p>✔ <strong>Пульсоксиметрия:</strong> SpO2 – 98%.</p>
+                <p>✔ <strong>Глюкометрия:</strong> не проводилась (нет показаний).</p>
+            </div>
+        </div>
+
+        <!-- ОЦЕНКА ПО ШКАЛАМ -->
+        <div class="section">
+            <div class="section-title">📊 ОЦЕНКА ПО ШКАЛАМ</div>
+            <div class="scales-list">
+                <p>✔ <strong>Шкала NEWS2:</strong> ЧДД 16 (0), SpO2 98% (0), температура 36.7 (0), АД сист. 120 (0), ЧСС 78 (0), сознание ясное (0). Сумма: 0 баллов (низкий риск).</p>
+                <p>✔ <strong>Шкала инсульта LAMS:</strong> не применима (нет асимметрии лица).</p>
+                <p>✔ <strong>Индекс Альговера:</strong> ЧСС/АДсист = 78/120 = 0.65 (в пределах нормы).</p>
+                <p>✔ <strong>Степень дыхательной недостаточности:</strong> ОДН 0 (SpO2 >95%, ЧДД <20).</p>
+                <p>✔ <strong>Шкала боли ВАШ при травме:</strong> не применимо.</p>
+                <p>✔ <strong>Шкала риска ТЭЛА:</strong> не применимо.</p>
+                <p>✔ <strong>Шкала ШОКС:</strong> не применимо.</p>
+                <p>✔ <strong>Признаки ДЭП:</strong> не применимо.</p>
+                <p>✔ <strong>Состояние алкогольного опьянения:</strong> запах алкоголя не определяется. Поведение адекватное.</p>
+            </div>
+        </div>
+
+        <!-- Примечание для бригады СМП -->
+        <div class="note">
+            <strong>📌 Примечание для бригады СМП:</strong><br>
+            Дифференциальная диагностика проведена с:
+            <ul class="note-list">
+                <li><strong>обострением рассеянного склероза (наиболее вероятно)</strong> (острое или подострое нарастание неврологической симптоматики, наличие в анамнезе подтвержденного РС, связь с инфекцией, полиморфность симптомов (пирамидные, мозжечковые, сенсорные, тазовые). Соответствует клинической картине);</li>
+                <li><strong>острым нарушением мозгового кровообращения (ишемический инсульт)</strong> (внезапное начало, обычно моносимптомное или с четким очаговым дефицитом, наличие сосудистых факторов риска. У пациентки подострое нарастание, полиморфные симптомы, молодой возраст, отсутствие сосудистых факторов риска);</li>
+                <li><strong>трансверзным миелитом</strong> (преимущественно спинальная симптоматика (парапарез, тазовые нарушения, уровень чувствительных нарушений). У пациентки есть также мозжечковые и стволовые симптомы (нистагм, дизартрия), что указывает на диссеминацию очагов);</li>
+                <li><strong>оптикомиелитом (болезнь Девика)</strong> (характерно поражение зрительного нерва и спинного мозга. У пациентки в анамнезе был оптический неврит, но есть также мозжечковые симптомы, что более характерно для РС);</li>
+                <li><strong>нейросаркоидозом</strong> (редкая патология, может имитировать РС. У пациентки нет системных проявлений (увеличение лимфоузлов, поражение легких));</li>
+                <li><strong>миелитом (инфекционный, постинфекционный)</strong> (часто сопровождается лихорадкой, интоксикацией. У пациентки нет).</li>
+            </ul>
+            <strong>Ключевые признаки обострения рассеянного склероза</strong><br>
+            – Наличие верифицированного диагноза рассеянного склероза (8 лет)<br>
+            – Подострое (в течение нескольких дней) нарастание неврологической симптоматики после перенесенной ОРВИ<br>
+            – Полисимптомность поражения:<br>
+            &nbsp;&nbsp;&nbsp;Пирамидный синдром: нижний спастический парапарез, гиперрефлексия, патологические стопные знаки<br>
+            &nbsp;&nbsp;&nbsp;Мозжечковый синдром: атаксия, интенционное дрожание, скандированная речь, нистагм<br>
+            &nbsp;&nbsp;&nbsp;Сенсорные нарушения: гипестезия, парестезии по типу «ползания мурашек»<br>
+            &nbsp;&nbsp;&nbsp;Тазовые нарушения: задержка мочеиспускания, учащенные позывы<br>
+            – Отсутствие лихорадки, менингеальных знаков<br>
+            – Стабильные витальные функции, нормальная гемодинамика<br>
+            – Оценка по шкале EDSS ориентировочно 4,5–5,0 баллов (средняя тяжесть)
+        </div>
+    </div>
+</div>
+</body>
+</html>
