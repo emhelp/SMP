@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Карта вызова скорой медицинской помощи | Рак сигмовидной кишки</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #e9ecef;
+            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+            padding: 40px 20px;
+            color: #212529;
+            line-height: 1.45;
+        }
+
+        .card {
+            max-width: 1100px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            border: 1px solid #dee2e6;
+        }
+
+        .mkb-row {
+            background: linear-gradient(135deg, #0b3b5f 0%, #1a4d6f 100%);
+            color: white;
+            padding: 20px 32px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border-bottom: 4px solid #ffc107;
+        }
+
+        .mkb-row span {
+            font-weight: 700;
+            color: #ffc107;
+        }
+
+        .diagnosis {
+            background: #fef9e6;
+            padding: 12px 32px;
+            border-left: 6px solid #ffc107;
+            font-weight: 500;
+            font-size: 0.98rem;
+            color: #2d3e50;
+            border-bottom: 1px solid #f0e2b6;
+        }
+
+        .content {
+            padding: 24px 32px 40px 32px;
+        }
+
+        .section {
+            margin-bottom: 32px;
+            break-inside: avoid;
+            page-break-inside: avoid;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #1a4d6f;
+            border-left: 6px solid #ffc107;
+            padding-left: 16px;
+            margin-bottom: 18px;
+            margin-top: 8px;
+            background: #f4f9ff;
+            border-radius: 0 12px 12px 0;
+            line-height: 1.3;
+        }
+
+        .field-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .field-item {
+            padding: 6px 0 4px 8px;
+            border-bottom: 1px dotted #e0e6ed;
+            font-size: 0.94rem;
+            line-height: 1.45;
+        }
+
+        .field-item strong {
+            font-weight: 700;
+            color: #1e4663;
+            display: inline-block;
+            min-width: 240px;
+        }
+
+        .field-item .value {
+            color: #2c3e4e;
+            font-weight: 500;
+        }
+
+        .full-width-text {
+            padding: 8px 0 8px 8px;
+            border-bottom: 1px dotted #e0e6ed;
+            font-size: 0.94rem;
+        }
+
+        .full-width-text strong {
+            font-weight: 700;
+            color: #1e4663;
+            display: inline-block;
+            min-width: 240px;
+        }
+
+        .status-local {
+            background: #fef7e0;
+            padding: 14px 18px;
+            border-radius: 18px;
+            margin-top: 6px;
+            border: 1px solid #ffe3a4;
+            font-size: 0.94rem;
+        }
+
+        .scales-list {
+            background: #f1f4f9;
+            padding: 12px 20px;
+            border-radius: 20px;
+            margin-top: 10px;
+        }
+
+        .scales-list p {
+            margin: 8px 0;
+        }
+
+        .note {
+            background: #e7f1ff;
+            border-left: 4px solid #1a4d6f;
+            padding: 12px 16px;
+            margin-top: 16px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            color: #1e4663;
+        }
+
+        .tactics {
+            background: #f0f4e8;
+            border-left: 4px solid #28a745;
+            padding: 14px 18px;
+            margin-top: 24px;
+            border-radius: 16px;
+            font-size: 0.94rem;
+            color: #1e4620;
+            font-weight: 500;
+        }
+
+        .assistance {
+            background: #e7f5e8;
+            border-left: 4px solid #28a745;
+            padding: 12px 16px;
+            margin-top: 16px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            color: #1e4663;
+        }
+
+        .assistance p {
+            margin: 4px 0;
+        }
+
+        .note-list {
+            margin-top: 8px;
+            margin-left: 20px;
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .note-list li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .note-list li:before {
+            content: "•";
+            position: absolute;
+            left: 4px;
+            color: #1a4d6f;
+            font-weight: bold;
+        }
+
+        @media (max-width: 700px) {
+            .field-item strong {
+                min-width: 170px;
+            }
+            .full-width-text strong {
+                min-width: 170px;
+            }
+            .content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="card">
+    <div class="mkb-row">
+        📌 Код по МКБ-10: <span>C18.7</span> (Злокачественное новообразование сигмовидной кишки)
+    </div>
+    <div class="diagnosis">
+        🧾 <strong>Диагноз:</strong> Рак сигмовидной кишки с метастазами (pT3N1M1).
+    </div>
+
+    <div class="content">
+        <!-- ЖАЛОБЫ -->
+        <div class="section">
+            <div class="section-title">📢 ЖАЛОБЫ</div>
+            <div class="full-width-text"><em>На момент осмотра пациентка предъявляет жалобы на тошноту, умеренные боли в эпигастральной области, продолжающиеся около 4 часов, общую слабость.</em></div>
+        </div>
+
+        <!-- АНАМНЕЗ -->
+        <div class="section">
+            <div class="section-title">📋 АНАМНЕЗ</div>
+            <div class="full-width-text"><strong>Anamnesis morbi:</strong> Со слов пациентки, страдает раком сигмовидной кишки с метастазами (pT3N1M1), гипертонической болезнью II стадии. Постоянно принимает омез, найз, кеторол (при болях), которые купируют болевой синдром на 4–5 часов. Сегодня лекарства не принимала. Ухудшение самочувствия отмечает в течение 4 часов, когда появились тошнота и боли в эпигастрии. Ангинозных болей не было. Вызвала бригаду СМП.</div>
+            <div class="full-width-text"><strong>Анамнез жизни:</strong> Рак сигмовидной кишки с метастазами (pT3N1M1), гипертоническая болезнь II стадии.</div>
+            <div class="full-width-text"><strong>Аллергологический анамнез:</strong> Не отягощен. Аллергии на лекарственные препараты, пищевые продукты, бытовую химию отрицает.</div>
+            <div class="full-width-text"><strong>Гинекологический анамнез:</strong> Менопауза с 50 лет. Выделения из половых путей отсутствуют.</div>
+            <div class="full-width-text"><strong>Эпидемиологический анамнез:</strong> Контакт с инфекционными больными отрицает. За последние 3 недели за пределы РФ не выезжала, укусы насекомых отрицает. Последние 2 недели температура не повышалась.</div>
+        </div>
+
+        <!-- ОБЪЕКТИВНО -->
+        <div class="section">
+            <div class="section-title">🩺 ОБЪЕКТИВНО</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Общее состояние:</strong> <span class="value">средней тяжести.</span></div>
+                <div class="field-item"><strong>Сознание:</strong> <span class="value">ясное.</span></div>
+                <div class="field-item"><strong>Шкала комы Глазго (GCS):</strong> <span class="value">15 баллов (E4,V5,M6).</span></div>
+                <div class="field-item"><strong>Положение:</strong> <span class="value">активное.</span></div>
+                <div class="field-item"><strong>Кожные покровы:</strong> <span class="value">чистые, бледно-розовые, тургор сохранен. Сыпи нет.</span></div>
+                <div class="field-item"><strong>Сыпь:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Зев:</strong> <span class="value">чистый, бледно-розовый.</span></div>
+                <div class="field-item"><strong>Миндалины:</strong> <span class="value">не увеличены, налетов нет.</span></div>
+                <div class="field-item"><strong>Лимфоузлы:</strong> <span class="value">не увеличены.</span></div>
+                <div class="field-item"><strong>Пролежни:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Отеки:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>t°:</strong> <span class="value">36.5 °C.</span></div>
+            </div>
+        </div>
+
+        <!-- ОРГАНЫ ДЫХАНИЯ -->
+        <div class="section">
+            <div class="section-title">🌬️ ОРГАНЫ ДЫХАНИЯ</div>
+            <div class="field-list">
+                <div class="field-item"><strong>ЧДД в мин:</strong> <span class="value">16</span></div>
+                <div class="field-item"><strong>Одышка:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Патологическое дыхание:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Аускультативно:</strong> <span class="value">везикулярное дыхание, проводится во все отделы, хрипов нет.</span></div>
+                <div class="field-item"><strong>Хрипы:</strong> <span class="value">отсутствуют.</span></div>
+                <div class="field-item"><strong>Крепитация:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Шум трения плевры:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Перкуторный звук:</strong> <span class="value">ясный легочный, симметричный.</span></div>
+                <div class="field-item"><strong>Кашель:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Мокрота:</strong> <span class="value">нет.</span></div>
+            </div>
+        </div>
+
+        <!-- ОРГАНЫ КРОВООБРАЩЕНИЯ -->
+        <div class="section">
+            <div class="section-title">❤️ ОРГАНЫ КРОВООБРАЩЕНИЯ</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Пульс в мин:</strong> <span class="value">68</span></div>
+                <div class="field-item"><strong>Ритмичный, аритмичный, наполнение пульса:</strong> <span class="value">ритмичный, удовлетворительного наполнения.</span></div>
+                <div class="field-item"><strong>ЧСС:</strong> <span class="value">68</span></div>
+                <div class="field-item"><strong>Дефицит пульса:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>АД мм.рт.ст. на момент осмотра:</strong> <span class="value">120/70, привычное АД 120/75.</span></div>
+                <div class="field-item"><strong>Тоны сердца:</strong> <span class="value">ясные, звучные, ритмичные.</span></div>
+                <div class="field-item"><strong>Шум:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Шум трения перикарда:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Акцент какого тона на:</strong> <span class="value">нет.</span></div>
+            </div>
+        </div>
+
+        <!-- ОРГАНЫ ПИЩЕВАРЕНИЯ -->
+        <div class="section">
+            <div class="section-title">🍽️ ОРГАНЫ ПИЩЕВАРЕНИЯ</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Язык:</strong> <span class="value">обложен белым налетом у корня, влажный.</span></div>
+                <div class="field-item"><strong>Живот:</strong> <span class="value">правильной формы, не напряжен, участвует в акте дыхания. При пальпации умеренная болезненность в мезогастрии. Симптомы раздражения брюшины отрицательные.</span></div>
+                <div class="field-item"><strong>Болезненный в:</strong> <span class="value">мезогастрии.</span></div>
+                <div class="field-item"><strong>Положительные симптомы:</strong> <span class="value">Симптомы раздражения брюшины — отрицательные.</span></div>
+                <div class="field-item"><strong>Перистальтика:</strong> <span class="value">активная, выслушивается во всех отделах.</span></div>
+                <div class="field-item"><strong>Печень:</strong> <span class="value">у края реберной дуги, безболезненная.</span></div>
+                <div class="field-item"><strong>Селезенка:</strong> <span class="value">не увеличена.</span></div>
+                <div class="field-item"><strong>Стул:</strong> <span class="value">оформленный, коричневый, 1 раз в день, газы отходят.</span></div>
+            </div>
+        </div>
+
+        <!-- НЕРВНАЯ СИСТЕМА -->
+        <div class="section">
+            <div class="section-title">🧠 НЕРВНАЯ СИСТЕМА</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Поведение:</strong> <span class="value">спокойное, адекватное.</span></div>
+                <div class="field-item"><strong>Контакт:</strong> <span class="value">доступен, продуктивный.</span></div>
+                <div class="field-item"><strong>Чувствительность:</strong> <span class="value">сохранена, без патологии.</span></div>
+                <div class="field-item"><strong>Речь:</strong> <span class="value">не нарушена.</span></div>
+                <div class="field-item"><strong>Зрачки (OD, OS):</strong> <span class="value">D=S, обычные.</span></div>
+                <div class="field-item"><strong>Фотореакция:</strong> <span class="value">живая, содружественная.</span></div>
+                <div class="field-item"><strong>Нистагм:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Асимметрия лица:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Менингеальные симптомы:</strong> <span class="value">ригидность затылочных мышц, Кернига, Брудзинского — отрицательные.</span></div>
+                <div class="field-item"><strong>Очаговые симптомы:</strong> <span class="value">не выявлены.</span></div>
+                <div class="field-item"><strong>Координаторные пробы:</strong> <span class="value">пальце-носовая и пяточно-коленная пробы выполняет с двух сторон, в позе Ромберга устойчива.</span></div>
+                <div class="field-item"><strong>Неврологический статус:</strong> <span class="value">Очаговой неврологической симптоматики нет. Глазные щели D=S, движения глазных яблок в полном объеме. Корешковых, сегментарных чувствительных расстройств нет. Патологических рефлексов не выявлено.</span></div>
+            </div>
+        </div>
+
+        <!-- МОЧЕПОЛОВАЯ СИСТЕМА -->
+        <div class="section">
+            <div class="section-title">🚽 МОЧЕПОЛОВАЯ СИСТЕМА</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Мочеиспускание:</strong> <span class="value">свободное, безболезненное. Цвет мочи — желтая, прозрачная, без примесей.</span></div>
+                <div class="field-item"><strong>Симптом поколачивания:</strong> <span class="value">отрицательный с обеих сторон.</span></div>
+            </div>
+        </div>
+
+        <!-- STATUS LOCALIS -->
+        <div class="section">
+            <div class="section-title">🔍 STATUS LOCALIS</div>
+            <div class="status-local">
+                Живот мягкий, безболезненный (после терапии). Видимых травм и повреждений не обнаружено.
+            </div>
+        </div>
+
+        <!-- ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ -->
+        <div class="section">
+            <div class="section-title">📈 ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ</div>
+            <div class="scales-list">
+                <p>✔ <strong>Пульсоксиметрия:</strong> SpO₂ – 97%.</p>
+                <p>✔ <strong>Глюкометрия:</strong> не проводилась.</p>
+                <p>✔ <strong>ЭКГ:</strong> не проводилась.</p>
+            </div>
+        </div>
+
+        <!-- ОЦЕНКА ПО ШКАЛАМ -->
+        <div class="section">
+            <div class="section-title">📊 ОЦЕНКА ПО ШКАЛАМ</div>
+            <div class="scales-list">
+                <p>✔ <strong>Шкала NEWS2 (взрослая):</strong> ЧДД 16 (0), SpO2 97% (0), температура 36.5 (0), АД сист. 120 (0), ЧСС 68 (0), сознание ясное (0). Сумма: 0 баллов (низкий риск).</p>
+                <p>✔ <strong>Индекс Альговера:</strong> ЧСС/АДсист = 68/120 ≈ 0.57 (норма).</p>
+                <p>✔ <strong>Шкала комы Глазго (GCS):</strong> 15 баллов.</p>
+                <p>✔ <strong>Шкала боли ВАШ:</strong> 2 ступень (50% от максимальной) – умеренная боль (до лечения).</p>
+                <p>✔ <strong>Шкала ОДН по Кассиль:</strong> не применима.</p>
+                <p>✔ <strong>Шкала ШОКС:</strong> не применимо.</p>
+                <p>✔ <strong>Шкала риска ТЭЛА:</strong> не применимо.</p>
+                <p>✔ <strong>Шкала LAMS:</strong> 0 баллов (нет очаговой неврологической симптоматики).</p>
+                <p>✔ <strong>Признаки ДЭП:</strong> не применимо.</p>
+                <p>✔ <strong>Состояние алкогольного опьянения:</strong> не употребляла, запаха алкоголя нет.</p>
+            </div>
+        </div>
+
+        <!-- ОКАЗАННАЯ МЕДИЦИНСКАЯ ПОМОЩЬ -->
+        <div class="assistance">
+            <strong>💊 ОКАЗАННАЯ МЕДИЦИНСКАЯ ПОМОЩЬ:</strong>
+            <p>✔ Tab. Paracetamoli 500 mg внутрь.</p>
+            <p>✔ Sol. Tramadoli 100 mg в/в в разведении Sol. Natrii chloridi 0,9% – 10 мл медленно.</p>
+            <p>✔ Sol. Metoclopramidi 2,0 мл в/в в разведении Sol. Natrii chloridi 0,9% – 10 мл медленно.</p>
+        </div>
+
+        <!-- ЭФФЕКТ ОТ ПРОВЕДЕННОЙ ТЕРАПИИ -->
+        <div class="assistance">
+            <strong>📈 ЭФФЕКТ ОТ ПРОВЕДЕННОЙ ТЕРАПИИ:</strong>
+            <p>✔ После проведенной терапии болевой синдром полностью купирован, тошнота купирована, жалоб не предъявляет. Состояние удовлетворительное. АД 120/70, пульс/ЧСС 68 в мин, ЧД 16 в мин.</p>
+        </div>
+
+        <!-- ТАКТИКА -->
+        <div class="tactics">
+            🚑 <strong>ТАКТИКА:</strong> Пациентка оставлена на месте. Рекомендовано наблюдение участкового терапевта и онколога по месту жительства. При повторном усилении болевого синдрома, появлении новых симптомов – повторный вызов СМП.
+        </div>
+
+        <!-- Дифференциальная диагностика -->
+        <div class="note">
+            <strong>📌 Примечание для бригады СМП (дифференциальная диагностика):</strong><br>
+            Дифференциальная диагностика болей в животе у пациентки с онкологическим заболеванием проведена с:
+            <ul class="note-list">
+                <li><strong>Острым панкреатитом:</strong> опоясывающие боли, многократная рвота, вздутие живота, положительные симптомы панкреатита. У пациентки боли умеренные, локализованы в эпигастрии, без иррадиации, рвоты нет.</li>
+                <li><strong>Острым холециститом:</strong> боли в правом подреберье с иррадиацией, положительные симптомы Ортнера, Мерфи, Кера. У пациентки болезненность в мезогастрии, желтухи нет.</li>
+                <li><strong>Кишечной непроходимостью (обтурационной на фоне опухоли):</strong> схваткообразные боли, вздутие, задержка стула и газов, рвота. У пациентки стул и газы отходят, живот мягкий.</li>
+                <li><strong>Инфарктом миокарда (гастралгическая форма):</strong> боли в эпигастрии, тошнота, но на ЭКГ – изменения, ангинозные боли могут отсутствовать. У пациентки нет изменений на ЭКГ (не проводилась), но ангинозного анамнеза нет, боли купированы анальгетиками.</li>
+                <li><strong>Метастатическим поражением брюшины (карциноматоз):</strong> боли могут быть постоянными, но обычно сочетаются с асцитом, симптомами интоксикации. У пациентки асцита нет.</li>
+                <li><strong>Пептической язвой (гастрит):</strong> возможна связь с приемом НПВС (кеторол). У пациентки постоянный прием НПВС, что может вызвать гастропатию. Однако боль купирована трамадолом, что характерно для висцеральной боли, связанной с опухолью.</li>
+            </ul>
+            <strong>🔑 Ключевые признаки болевого синдрома при онкологическом процессе:</strong><br>
+            – Известный диагноз рака с метастазами.<br>
+            – Боли, требующие наркотических анальгетиков (трамадол).<br>
+            – Отсутствие признаков острой хирургической патологии.<br>
+            – Сохранение перистальтики, отхождение газов и стула.<br>
+            – Положительный эффект от опиоидных анальгетиков.
+        </div>
+    </div>
+</div>
+</body>
+</html>
