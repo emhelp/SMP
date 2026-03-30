@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Карта вызова скорой медицинской помощи | Химический ожог газом</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #e9ecef;
+            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+            padding: 40px 20px;
+            color: #212529;
+            line-height: 1.45;
+        }
+
+        .card {
+            max-width: 1100px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            border: 1px solid #dee2e6;
+        }
+
+        .mkb-row {
+            background: linear-gradient(135deg, #0b3b5f 0%, #1a4d6f 100%);
+            color: white;
+            padding: 20px 32px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border-bottom: 4px solid #ffc107;
+        }
+
+        .mkb-row span {
+            font-weight: 700;
+            color: #ffc107;
+        }
+
+        .diagnosis {
+            background: #fef9e6;
+            padding: 12px 32px;
+            border-left: 6px solid #ffc107;
+            font-weight: 500;
+            font-size: 0.98rem;
+            color: #2d3e50;
+            border-bottom: 1px solid #f0e2b6;
+        }
+
+        .content {
+            padding: 24px 32px 40px 32px;
+        }
+
+        .section {
+            margin-bottom: 32px;
+            break-inside: avoid;
+            page-break-inside: avoid;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #1a4d6f;
+            border-left: 6px solid #ffc107;
+            padding-left: 16px;
+            margin-bottom: 18px;
+            margin-top: 8px;
+            background: #f4f9ff;
+            border-radius: 0 12px 12px 0;
+            line-height: 1.3;
+        }
+
+        .field-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .field-item {
+            padding: 6px 0 4px 8px;
+            border-bottom: 1px dotted #e0e6ed;
+            font-size: 0.94rem;
+            line-height: 1.45;
+        }
+
+        .field-item strong {
+            font-weight: 700;
+            color: #1e4663;
+            display: inline-block;
+            min-width: 240px;
+        }
+
+        .field-item .value {
+            color: #2c3e4e;
+            font-weight: 500;
+        }
+
+        .full-width-text {
+            padding: 8px 0 8px 8px;
+            border-bottom: 1px dotted #e0e6ed;
+            font-size: 0.94rem;
+        }
+
+        .full-width-text strong {
+            font-weight: 700;
+            color: #1e4663;
+            display: inline-block;
+            min-width: 240px;
+        }
+
+        .status-local {
+            background: #fef7e0;
+            padding: 14px 18px;
+            border-radius: 18px;
+            margin-top: 6px;
+            border: 1px solid #ffe3a4;
+            font-size: 0.94rem;
+        }
+
+        .scales-list {
+            background: #f1f4f9;
+            padding: 12px 20px;
+            border-radius: 20px;
+            margin-top: 10px;
+        }
+
+        .scales-list p {
+            margin: 8px 0;
+        }
+
+        .note {
+            background: #e7f1ff;
+            border-left: 4px solid #1a4d6f;
+            padding: 12px 16px;
+            margin-top: 16px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            color: #1e4663;
+        }
+
+        .note-list {
+            margin-top: 8px;
+            margin-left: 20px;
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .note-list li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .note-list li:before {
+            content: "•";
+            position: absolute;
+            left: 4px;
+            color: #1a4d6f;
+            font-weight: bold;
+        }
+
+        @media (max-width: 700px) {
+            .field-item strong {
+                min-width: 170px;
+            }
+            .full-width-text strong {
+                min-width: 170px;
+            }
+            .content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="card">
+    <div class="mkb-row">
+        📌 Код по МКБ-10: <span>T26.6</span> (Коррозия глаза и его придаточного аппарата, вызванная химическим веществом)
+    </div>
+    <div class="diagnosis">
+        🧾 <strong>Диагноз:</strong> Химический ожог конъюнктивы и роговицы обоих глаз, верхних дыхательных путей слезоточивым газом (CS/CN) средней степени тяжести. Ирритативное поражение респираторного тракта. Острая реакция на химический агент.
+    </div>
+
+    <div class="content">
+        <!-- ЖАЛОБЫ -->
+        <div class="section">
+            <div class="section-title">📢 ЖАЛОБЫ</div>
+            <div class="full-width-text"><em>На момент осмотра пациент предъявляет жалобы на интенсивную резь и жжение в обоих глазах, обильное слезотечение, светобоязнь, невозможность открыть глаза (блефароспазм), чувство «песка» и инородного тела. Также беспокоят жжение в носу и горле, сухой приступообразный кашель, затруднение дыхания (чувство нехватки воздуха), познабливание, общую слабость.</em></div>
+        </div>
+
+        <!-- АНАМНЕЗ -->
+        <div class="section">
+            <div class="section-title">📋 АНАМНЕЗ</div>
+            <div class="full-width-text"><strong>Anamnesis morbi:</strong> Со слов пациента, около 30 минут назад неизвестные брызнули ему в лицо из газового баллончика (предположительно слезоточивый газ). Ощутил резкое жжение в глазах и носу, появилось обильное слезотечение, кашель. Самостоятельно пытался промыть глаза водой из бутылки – без существенного эффекта. Вызвал бригаду СМП. Подобных состояний ранее не было. Травм головы, глаз не получал.</div>
+            <div class="full-width-text"><strong>Анамнез жизни:</strong> Хронические заболевания отрицает. Травм глаз, ожогов в анамнезе не было. Курение отрицает.</div>
+            <div class="full-width-text"><strong>Аллергологический анамнез:</strong> Не отягощен. Аллергии на лекарственные препараты, пищевые продукты, бытовую химию отрицает.</div>
+            <div class="full-width-text"><strong>Гинекологический анамнез:</strong> Не применимо (пациент мужского пола).</div>
+            <div class="full-width-text"><strong>Эпидемиологический анамнез:</strong> Контакт с инфекционными больными отрицает. За пределы РФ не выезжал, укусы насекомых отрицает.</div>
+        </div>
+
+        <!-- ОБЪЕКТИВНО -->
+        <div class="section">
+            <div class="section-title">🩺 ОБЪЕКТИВНО</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Общее состояние:</strong> <span class="value">средней тяжести.</span></div>
+                <div class="field-item"><strong>Сознание:</strong> <span class="value">ясное.</span></div>
+                <div class="field-item"><strong>Шкала комы Глазго (GCS):</strong> <span class="value">15 баллов (E4,V5,M6).</span></div>
+                <div class="field-item"><strong>Положение:</strong> <span class="value">вынужденное (сидит, щурится, избегает яркого света).</span></div>
+                <div class="field-item"><strong>Кожные покровы:</strong> <span class="value">обычной окраски, чистые, умеренно влажные. На коже лица, век следов химического вещества нет.</span></div>
+                <div class="field-item"><strong>Сыпь:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Зев:</strong> <span class="value">слизистая ротоглотки гиперемирована, отечна. Миндалины без налетов.</span></div>
+                <div class="field-item"><strong>Миндалины:</strong> <span class="value">не увеличены, без налетов.</span></div>
+                <div class="field-item"><strong>Лимфоузлы:</strong> <span class="value">не пальпируются.</span></div>
+                <div class="field-item"><strong>Пролежни:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Отеки:</strong> <span class="value">нет (кроме местного отека век).</span></div>
+                <div class="field-item"><strong>t°:</strong> <span class="value">36.7 °C.</span></div>
+            </div>
+        </div>
+
+        <!-- ОРГАНЫ ДЫХАНИЯ -->
+        <div class="section">
+            <div class="section-title">🌬️ ОРГАНЫ ДЫХАНИЯ</div>
+            <div class="field-list">
+                <div class="field-item"><strong>ЧДД в мин:</strong> <span class="value">20</span></div>
+                <div class="field-item"><strong>Одышка:</strong> <span class="value">смешанная, незначительная, слышен сухой кашель.</span></div>
+                <div class="field-item"><strong>Патологическое дыхание:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Аускультативно:</strong> <span class="value">везикулярное во всех отделах, хрипов нет.</span></div>
+                <div class="field-item"><strong>Хрипы:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Крепитация:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Шум трения плевры:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Перкуторный звук:</strong> <span class="value">ясный легочный.</span></div>
+                <div class="field-item"><strong>Кашель:</strong> <span class="value">сухой, приступообразный.</span></div>
+                <div class="field-item"><strong>Мокрота:</strong> <span class="value">нет.</span></div>
+            </div>
+        </div>
+
+        <!-- ОРГАНЫ КРОВООБРАЩЕНИЯ -->
+        <div class="section">
+            <div class="section-title">❤️ ОРГАНЫ КРОВООБРАЩЕНИЯ</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Пульс в мин:</strong> <span class="value">88</span></div>
+                <div class="field-item"><strong>Ритмичный, аритмичный, наполнение пульса:</strong> <span class="value">ритмичный, удовлетворительного наполнения.</span></div>
+                <div class="field-item"><strong>ЧСС:</strong> <span class="value">88</span></div>
+                <div class="field-item"><strong>Дефицит пульса:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>АД мм.рт.ст. на момент осмотра:</strong> <span class="value">125/80, привычное АД 120/80 (со слов), максимальное АД: не знает.</span></div>
+                <div class="field-item"><strong>Тоны сердца:</strong> <span class="value">ясные, звучные, ритмичные.</span></div>
+                <div class="field-item"><strong>Шум:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Шум трения перикарда:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Акцент какого тона на:</strong> <span class="value">нет.</span></div>
+            </div>
+        </div>
+
+        <!-- ОРГАНЫ ПИЩЕВАРЕНИЯ -->
+        <div class="section">
+            <div class="section-title">🍽️ ОРГАНЫ ПИЩЕВАРЕНИЯ</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Язык:</strong> <span class="value">влажный, чистый.</span></div>
+                <div class="field-item"><strong>Живот:</strong> <span class="value">мягкий, безболезненный.</span></div>
+                <div class="field-item"><strong>Болезненный в:</strong> <span class="value">безболезненный.</span></div>
+                <div class="field-item"><strong>Положительные симптомы:</strong> <span class="value">отрицательные.</span></div>
+                <div class="field-item"><strong>Перистальтика:</strong> <span class="value">активная.</span></div>
+                <div class="field-item"><strong>Печень:</strong> <span class="value">не увеличена.</span></div>
+                <div class="field-item"><strong>Селезенка:</strong> <span class="value">не пальпируется.</span></div>
+                <div class="field-item"><strong>Стул:</strong> <span class="value">регулярный.</span></div>
+            </div>
+        </div>
+
+        <!-- НЕРВНАЯ СИСТЕМА -->
+        <div class="section">
+            <div class="section-title">🧠 НЕРВНАЯ СИСТЕМА</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Поведение:</strong> <span class="value">спокойное, адекватное.</span></div>
+                <div class="field-item"><strong>Контакт:</strong> <span class="value">доступен.</span></div>
+                <div class="field-item"><strong>Чувствительность:</strong> <span class="value">сохранена.</span></div>
+                <div class="field-item"><strong>Речь:</strong> <span class="value">внятная.</span></div>
+                <div class="field-item"><strong>Зрачки (OD, OS):</strong> <span class="value">D=S, обычные.</span></div>
+                <div class="field-item"><strong>Фотореакция:</strong> <span class="value">живая, содружественная (оценивается с трудом из-за блефароспазма).</span></div>
+                <div class="field-item"><strong>Нистагм:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Асимметрия лица:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Менингеальные симптомы:</strong> <span class="value">отрицательные.</span></div>
+                <div class="field-item"><strong>Очаговые симптомы:</strong> <span class="value">не выявлены.</span></div>
+                <div class="field-item"><strong>Неврологический статус:</strong> <span class="value">Глазные щели сужены из-за блефароспазма. Движения глазных яблок в полном объеме. Патологических рефлексов не выявлено. Очаговой неврологической симптоматики не выявлено.</span></div>
+            </div>
+        </div>
+
+        <!-- МОЧЕПОЛОВАЯ СИСТЕМА -->
+        <div class="section">
+            <div class="section-title">🚽 МОЧЕПОЛОВАЯ СИСТЕМА</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Мочеиспускание:</strong> <span class="value">свободное, безболезненное, моча светлая.</span></div>
+                <div class="field-item"><strong>Симптом поколачивания:</strong> <span class="value">отрицательный.</span></div>
+            </div>
+        </div>
+
+        <!-- STATUS LOCALIS -->
+        <div class="section">
+            <div class="section-title">🔍 STATUS LOCALIS</div>
+            <div class="status-local">
+                <strong>Оба глаза:</strong><br>
+                <strong>Веки:</strong> умеренный отек, гиперемия кожи век, выраженный блефароспазм. Ресницы влажные от слез.<br>
+                <strong>Конъюнктива:</strong> резкая диффузная гиперемия, отек (хемоз) конъюнктивы век и глазного яблока. Отделяемого нет, слезотечение обильное. Инородных частиц не видно.<br>
+                <strong>Роговица:</strong> прозрачная, гладкая. При окрашивании флюоресцеином – множественные точечные эрозии, окрашивающиеся в зеленый цвет. Глубокие слои не повреждены. Чувствительность роговицы сохранена.<br>
+                <strong>Радужка:</strong> не изменена, рисунок четкий.<br>
+                <strong>Зрачок:</strong> округлый, равный, фотореакция живая.<br>
+                <strong>Пальпаторно (через веки):</strong> глазные яблоки обычной плотности, резко болезненны при пальпации.<br>
+                <strong>Острота зрения (ориентировочно):</strong> Vis OU = 0,1-0,2 (счет пальцев у лица из-за слезотечения и блефароспазма).<br>
+                <strong>Нос и ротоглотка:</strong> слизистая носа и ротоглотки гиперемирована, отечна. Отделяемое из носа обильное, слизистое. Голос не изменен.<br>
+                <strong>Заключение:</strong> Химический ожог конъюнктивы и роговицы обоих глаз слезоточивым газом, средней степени тяжести. Точечные эрозии роговицы. Ирритативное поражение верхних дыхательных путей.
+            </div>
+        </div>
+
+        <!-- ОЦЕНКА ПО ШКАЛАМ -->
+        <div class="section">
+            <div class="section-title">📊 ОЦЕНКА ПО ШКАЛАМ</div>
+            <div class="scales-list">
+                <p>✔ <strong>Шкала NEWS2:</strong> ЧДД 20 (1 балл), SpO2 96% (1 балл), температура 36.7 (0), АД сист. 125 (0), ЧСС 88 (1 балл), сознание ясное (0). Сумма: 3 балла (средний риск – требуется наблюдение).</p>
+                <p>✔ <strong>Индекс Альговера:</strong> ЧСС/АДсист = 88/125 ≈ 0.70 (норма).</p>
+                <p>✔ <strong>Шкала комы Глазго (GCS):</strong> 15 баллов.</p>
+                <p>✔ <strong>Шкала боли ВАШ:</strong> 7 баллов (интенсивная боль).</p>
+                <p>✔ <strong>Шкала ОДН по Кассиль:</strong> I степень (легкая дыхательная недостаточность – ЧДД 20, SpO2 96%).</p>
+                <p>✔ <strong>Шкала ШОКС:</strong> не применимо.</p>
+                <p>✔ <strong>Шкала риска ТЭЛА:</strong> не применимо.</p>
+                <p>✔ <strong>Шкала LAMS:</strong> 0 баллов (нет очаговой неврологической симптоматики).</p>
+                <p>✔ <strong>Признаки ДЭП:</strong> не применимо.</p>
+                <p>✔ <strong>Состояние алкогольного опьянения:</strong> не употреблял, запаха алкоголя нет.</p>
+            </div>
+        </div>
+
+        <!-- Примечание для бригады СМП (дифференциальная диагностика) -->
+        <div class="note">
+            <strong>📌 Примечание для бригады СМП (дифференциальная диагностика):</strong><br>
+            Дифференциальная диагностика химического ожога слезоточивым газом проведена с:
+            <ul class="note-list">
+                <li><strong>Аллергической реакцией (отек Квинке):</strong> может проявляться отеком век, слезотечением, ринитом, но нет четкой связи с ирритантом, часто есть другие аллергические проявления (крапивница, зуд), отсутствуют точечные эрозии роговицы.</li>
+                <li><strong>Термическим ожогом:</strong> в анамнезе – воздействие высокой температуры, пламени, пара. При осмотре – ожоги кожи лица, ресниц, век, возможны ожоги дыхательных путей. У пациента нет следов термического воздействия.</li>
+                <li><strong>Инородным телом роговицы или конъюнктивы:</strong> резкая боль, слезотечение, но при осмотре видно инородное тело, нет диффузного поражения обоих глаз и признаков воздействия химического агента.</li>
+                <li><strong>Острым конъюнктивитом:</strong> покраснение, слезотечение, но обычно процесс развивается постепенно, нет столь острого начала и связи с газом.</li>
+                <li><strong>Рефлекторным бронхоспазмом на фоне ингаляционной травмы:</strong> может быть при вдыхании раздражающих веществ. У пациента есть и глазные, и респираторные симптомы, что характерно для сочетанного поражения.</li>
+                <li><strong>Отравлением угарным газом:</strong> головная боль, головокружение, тошнота, нарушение сознания, но нет выраженного поражения глаз и слизистых.</li>
+            </ul>
+            <strong>🔑 Ключевые признаки химического ожога слезоточивым газом (CS, CN, CR):</strong><br>
+            – Острое начало после воздействия ирританта (газовый баллончик, распылитель).<br>
+            – Жгучая боль в глазах, обильное слезотечение, блефароспазм, светобоязнь.<br>
+            – Диффузная гиперемия и отек конъюнктивы (хемоз).<br>
+            – Точечные эрозии роговицы (выявляются при окрашивании флюоресцеином).<br>
+            – Сопутствующие симптомы раздражения дыхательных путей: кашель, жжение в носу и горле, ринорея, осиплость голоса.<br>
+            – Возможна легкая дыхательная недостаточность (тахипноэ, снижение SpO2).<br>
+            – Отсутствие признаков другой патологии (травмы, термического ожога).<br>
+            – <strong>Неотложная помощь:</strong> обильное промывание глаз изотоническим раствором или водой (не менее 15-20 минут). Обеспечение притока свежего воздуха. При выраженном болевом синдроме – инстилляция местных анестетиков (лидокаин, прокаин) после консультации врача. Экстренная транспортировка в офтальмологический или токсикологический стационар. При нарастании дыхательной недостаточности – оксигенотерапия.
+        </div>
+    </div>
+</div>
+</body>
+</html>
