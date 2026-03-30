@@ -32,6 +32,7 @@ body {
 .menu {
   display: flex;
   flex-direction: column;
+  align-items: center;
   width: 100%;
   margin: 0;
   padding: 0;
@@ -40,7 +41,8 @@ body {
 /* ==== КНОПКИ МЕНЮ ==== */
 .menu-btn {
   display: block;
-  width: calc(100% - 20px); /* чуть уже */
+  width: 100%;
+  max-width: 500px;
   text-align: center;
   padding: 16px 0;
   font-size: 18px;
@@ -53,7 +55,7 @@ body {
   transition: all 0.3s ease;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  margin: 6px 10px;
+  margin: 6px 0;
 }
 
 .menu-btn:hover {
@@ -85,6 +87,7 @@ body {
 .main-actions {
   display: flex;
   flex-direction: column;
+  align-items: center;
   width: 100%;
   border-top: 1px solid #d0d0d0;
   margin-top: 8px;
@@ -94,7 +97,8 @@ body {
 /* ==== КНОПКИ НАШ КАНАЛ / НАПИСАТЬ НАМ ==== */
 .main-btn {
   display: block;
-  width: calc(100% - 20px);
+  width: 100%;
+  max-width: 500px;
   text-align: center;
   padding: 16px 0;
   font-size: 18px;
@@ -106,13 +110,50 @@ body {
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  margin: 6px 10px;
+  margin: 6px 0;
 }
 
 .main-btn:hover {
   background-color: #660000;
   transform: translateY(-2px);
   box-shadow: 0 6px 8px rgba(0,0,0,0.15);
+}
+
+/* ==== БЛОК "ЧТО НОВОГО" ==== */
+.news-block {
+  max-width: 500px;
+  width: 100%;
+  margin: 6px 0;
+  background: white;
+  border: 1px solid #d0d0d0;
+  border-radius: 8px;
+  padding: 8px 12px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  box-sizing: border-box;
+}
+
+.news-label {
+  color: #e53935;
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 4px;
+  display: block;
+}
+
+.news-text {
+  font-size: 12px;
+  line-height: 1.3;
+  color: #000;
+  font-weight: bold;
+  word-wrap: break-word;
+}
+
+.news-text p {
+  margin: 0 0 1px 0;
+}
+
+.news-text p:last-child {
+  margin-bottom: 0;
 }
 
 /* ==== ГЛАВНЫЙ КОНТЕНТ ==== */
@@ -147,8 +188,13 @@ body {
   .main-btn {
     font-size: 16px;
     padding: 14px 0;
-    margin: 4px 5px;
-    width: calc(100% - 10px);
+    margin: 4px 0;
+    max-width: 90%;
+  }
+  
+  .news-block {
+    max-width: 90%;
+    margin: 4px 0;
   }
   
   .header h1 {
