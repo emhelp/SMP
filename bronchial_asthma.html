@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Карта вызова скорой медицинской помощи | Смешанная бронхиальная астма</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #e9ecef;
+            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+            padding: 40px 20px;
+            color: #212529;
+            line-height: 1.45;
+        }
+
+        .card {
+            max-width: 1100px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            border: 1px solid #dee2e6;
+        }
+
+        .mkb-row {
+            background: linear-gradient(135deg, #0b3b5f 0%, #1a4d6f 100%);
+            color: white;
+            padding: 20px 32px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border-bottom: 4px solid #ffc107;
+        }
+
+        .mkb-row span {
+            font-weight: 700;
+            color: #ffc107;
+        }
+
+        .diagnosis {
+            background: #fef9e6;
+            padding: 12px 32px;
+            border-left: 6px solid #ffc107;
+            font-weight: 500;
+            font-size: 0.98rem;
+            color: #2d3e50;
+            border-bottom: 1px solid #f0e2b6;
+        }
+
+        .content {
+            padding: 24px 32px 40px 32px;
+        }
+
+        .section {
+            margin-bottom: 32px;
+            break-inside: avoid;
+            page-break-inside: avoid;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #1a4d6f;
+            border-left: 6px solid #ffc107;
+            padding-left: 16px;
+            margin-bottom: 18px;
+            margin-top: 8px;
+            background: #f4f9ff;
+            border-radius: 0 12px 12px 0;
+            line-height: 1.3;
+        }
+
+        .field-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .field-item {
+            padding: 6px 0 4px 8px;
+            border-bottom: 1px dotted #e0e6ed;
+            font-size: 0.94rem;
+            line-height: 1.45;
+        }
+
+        .field-item strong {
+            font-weight: 700;
+            color: #1e4663;
+            display: inline-block;
+            min-width: 240px;
+        }
+
+        .field-item .value {
+            color: #2c3e4e;
+            font-weight: 500;
+        }
+
+        .full-width-text {
+            padding: 8px 0 8px 8px;
+            border-bottom: 1px dotted #e0e6ed;
+            font-size: 0.94rem;
+        }
+
+        .full-width-text strong {
+            font-weight: 700;
+            color: #1e4663;
+            display: inline-block;
+            min-width: 240px;
+        }
+
+        .status-local {
+            background: #fef7e0;
+            padding: 14px 18px;
+            border-radius: 18px;
+            margin-top: 6px;
+            border: 1px solid #ffe3a4;
+            font-size: 0.94rem;
+        }
+
+        .scales-list {
+            background: #f1f4f9;
+            padding: 12px 20px;
+            border-radius: 20px;
+            margin-top: 10px;
+        }
+
+        .scales-list p {
+            margin: 8px 0;
+        }
+
+        .note {
+            background: #e7f1ff;
+            border-left: 4px solid #1a4d6f;
+            padding: 12px 16px;
+            margin-top: 16px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            color: #1e4663;
+        }
+
+        .note-list {
+            margin-top: 8px;
+            margin-left: 20px;
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .note-list li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .note-list li:before {
+            content: "•";
+            position: absolute;
+            left: 4px;
+            color: #1a4d6f;
+            font-weight: bold;
+        }
+
+        @media (max-width: 700px) {
+            .field-item strong {
+                min-width: 170px;
+            }
+            .full-width-text strong {
+                min-width: 170px;
+            }
+            .content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="card">
+    <div class="mkb-row">
+        📌 Код по МКБ-10: <span>J45.8</span> (Смешанная бронхиальная астма)
+    </div>
+    <div class="diagnosis">
+        🧾 <strong>Диагноз:</strong> Бронхиальная астма, смешанная форма, средней степени тяжести, обострение. Дыхательная недостаточность I степени.
+    </div>
+
+    <div class="content">
+        <!-- ЖАЛОБЫ -->
+        <div class="section">
+            <div class="section-title">📢 ЖАЛОБЫ</div>
+            <div class="full-width-text"><em>На момент осмотра пациентка предъявляет жалобы на экспираторную одышку (затрудненный выдох), приступообразный кашель с трудноотделяемой вязкой мокротой, свистящие хрипы, слышимые на расстоянии, чувство заложенности в груди. Отмечает, что приступ купируется ингалятором не полностью, сохраняется ощущение нехватки воздуха. Также беспокоят общая слабость, познабливание.</em></div>
+        </div>
+
+        <!-- АНАМНЕЗ -->
+        <div class="section">
+            <div class="section-title">📋 АНАМНЕЗ</div>
+            <div class="full-width-text"><strong>Anamnesis morbi:</strong> Со слов пациентки, бронхиальной астмой страдает около 10 лет, постоянно принимает базисную терапию (ингаляционные глюкокортикостероиды + длительно действующие бета-2-агонисты). Ухудшение состояния отмечает в течение последних 2–3 дней на фоне контакта с аллергеном (домашняя пыль, цветение растений) и ОРВИ. Самостоятельно увеличила кратность ингаляций сальбутамола до 6–8 раз в сутки, однако эффект недостаточный. Вызвала бригаду СМП в связи с нарастанием одышки.</div>
+            <div class="full-width-text"><strong>Анамнез жизни:</strong> Бронхиальная астма в течение 10 лет, смешанная форма. В анамнезе госпитализации по поводу обострений. Аллергологический анамнез отягощен. Привита по календарю.</div>
+            <div class="full-width-text"><strong>Аллергологический анамнез:</strong> Отягощен (непереносимость пыльцы, домашней пыли, некоторых лекарств).</div>
+            <div class="full-width-text"><strong>Гинекологический анамнез:</strong> Менопауза с 50 лет. Выделения из половых путей отсутствуют.</div>
+            <div class="full-width-text"><strong>Эпидемиологический анамнез:</strong> Контакт с инфекционными больными отрицает. За последние 3 недели за пределы города не выезжала, укусы насекомых отрицает.</div>
+        </div>
+
+        <!-- ОБЪЕКТИВНО -->
+        <div class="section">
+            <div class="section-title">🩺 ОБЪЕКТИВНО</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Общее состояние:</strong> <span class="value">средней тяжести (за счет дыхательных нарушений).</span></div>
+                <div class="field-item"><strong>Сознание:</strong> <span class="value">ясное.</span></div>
+                <div class="field-item"><strong>Шкала комы Глазго (GCS):</strong> <span class="value">15 баллов (E4,V5,M6).</span></div>
+                <div class="field-item"><strong>Положение:</strong> <span class="value">вынужденное (ортопноэ – сидит, опираясь руками о колени, облегчает выдох).</span></div>
+                <div class="field-item"><strong>Кожные покровы:</strong> <span class="value">бледные, чистые, умеренной влажности. Акроцианоз губ. Сыпи нет.</span></div>
+                <div class="field-item"><strong>Сыпь:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Зев:</strong> <span class="value">спокойный, чистый.</span></div>
+                <div class="field-item"><strong>Миндалины:</strong> <span class="value">без особенностей, не увеличены, налетов нет.</span></div>
+                <div class="field-item"><strong>Лимфоузлы:</strong> <span class="value">не пальпируются.</span></div>
+                <div class="field-item"><strong>Пролежни:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Отеки:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>t°:</strong> <span class="value">36.8 °C.</span></div>
+            </div>
+        </div>
+
+        <!-- ОРГАНЫ ДЫХАНИЯ -->
+        <div class="section">
+            <div class="section-title">🌬️ ОРГАНЫ ДЫХАНИЯ</div>
+            <div class="field-list">
+                <div class="field-item"><strong>ЧДД в мин:</strong> <span class="value">22</span></div>
+                <div class="field-item"><strong>Одышка:</strong> <span class="value">экспираторная, с участием вспомогательной мускулатуры (незначительное втяжение межреберий).</span></div>
+                <div class="field-item"><strong>Патологическое дыхание:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Аускультативно:</strong> <span class="value">жесткое дыхание, проводится во все отделы. Над всей поверхностью легких выслушиваются рассеянные сухие свистящие хрипы, преимущественно на выдохе. Влажных хрипов нет.</span></div>
+                <div class="field-item"><strong>Хрипы:</strong> <span class="value">сухие, свистящие, рассеянные.</span></div>
+                <div class="field-item"><strong>Крепитация:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Шум трения плевры:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Перкуторный звук:</strong> <span class="value">ясный легочный, симметричный, с коробочным оттенком.</span></div>
+                <div class="field-item"><strong>Кашель:</strong> <span class="value">приступообразный, сухой, надсадный.</span></div>
+                <div class="field-item"><strong>Мокрота:</strong> <span class="value">вязкая, светлая, отходит с трудом.</span></div>
+            </div>
+        </div>
+
+        <!-- ОРГАНЫ КРОВООБРАЩЕНИЯ -->
+        <div class="section">
+            <div class="section-title">❤️ ОРГАНЫ КРОВООБРАЩЕНИЯ</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Пульс в мин:</strong> <span class="value">94</span></div>
+                <div class="field-item"><strong>Ритмичный, аритмичный, наполнение пульса:</strong> <span class="value">ритмичный, удовлетворительного наполнения.</span></div>
+                <div class="field-item"><strong>ЧСС:</strong> <span class="value">94</span></div>
+                <div class="field-item"><strong>Дефицит пульса:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>АД мм.рт.ст. на момент осмотра:</strong> <span class="value">135/85, привычное АД 125/80 (со слов).</span></div>
+                <div class="field-item"><strong>Тоны сердца:</strong> <span class="value">ясные, звучные, ритмичные, тахикардия.</span></div>
+                <div class="field-item"><strong>Шум:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Шум трения перикарда:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Акцент какого тона на:</strong> <span class="value">нет.</span></div>
+            </div>
+        </div>
+
+        <!-- ОРГАНЫ ПИЩЕВАРЕНИЯ -->
+        <div class="section">
+            <div class="section-title">🍽️ ОРГАНЫ ПИЩЕВАРЕНИЯ</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Язык:</strong> <span class="value">влажный, чистый.</span></div>
+                <div class="field-item"><strong>Живот:</strong> <span class="value">правильной формы, мягкий, не вздут, участвует в акте дыхания, безболезненный при пальпации во всех отделах.</span></div>
+                <div class="field-item"><strong>Болезненный в:</strong> <span class="value">безболезненный.</span></div>
+                <div class="field-item"><strong>Положительные симптомы:</strong> <span class="value">Симптомы раздражения брюшины — отрицательные.</span></div>
+                <div class="field-item"><strong>Перистальтика:</strong> <span class="value">активная, выслушивается.</span></div>
+                <div class="field-item"><strong>Печень:</strong> <span class="value">не увеличена, край эластичный, безболезненный.</span></div>
+                <div class="field-item"><strong>Селезенка:</strong> <span class="value">не пальпируется.</span></div>
+                <div class="field-item"><strong>Стул:</strong> <span class="value">регулярный, оформленный (сегодня утром был).</span></div>
+            </div>
+        </div>
+
+        <!-- НЕРВНАЯ СИСТЕМА -->
+        <div class="section">
+            <div class="section-title">🧠 НЕРВНАЯ СИСТЕМА</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Поведение:</strong> <span class="value">спокойное, адекватное, несколько тревожна.</span></div>
+                <div class="field-item"><strong>Контакт:</strong> <span class="value">доступен, продуктивный.</span></div>
+                <div class="field-item"><strong>Чувствительность:</strong> <span class="value">сохранена.</span></div>
+                <div class="field-item"><strong>Речь:</strong> <span class="value">внятная, говорит с короткими фразами из-за одышки.</span></div>
+                <div class="field-item"><strong>Зрачки (OD, OS):</strong> <span class="value">D=S, обычные.</span></div>
+                <div class="field-item"><strong>Фотореакция:</strong> <span class="value">живая, содружественная.</span></div>
+                <div class="field-item"><strong>Нистагм:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Асимметрия лица:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Менингеальные симптомы:</strong> <span class="value">ригидность затылочных мышц, Кернига, Брудзинского — отрицательные.</span></div>
+                <div class="field-item"><strong>Очаговые симптомы:</strong> <span class="value">не выявлены.</span></div>
+                <div class="field-item"><strong>Координаторные пробы:</strong> <span class="value">пальце-носовую пробу выполняет уверенно (с учетом состояния).</span></div>
+                <div class="field-item"><strong>Неврологический статус:</strong> <span class="value">Очаговой неврологической симптоматики нет. Глазные щели D=S, движения глазных яблок в полном объеме. Корешковых, сегментарных чувствительных расстройств нет. Патологических рефлексов не выявлено.</span></div>
+            </div>
+        </div>
+
+        <!-- МОЧЕПОЛОВАЯ СИСТЕМА -->
+        <div class="section">
+            <div class="section-title">🚽 МОЧЕПОЛОВАЯ СИСТЕМА</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Мочеиспускание:</strong> <span class="value">свободное, безболезненное. Цвет мочи — соломенно-желтый, прозрачная (со слов).</span></div>
+                <div class="field-item"><strong>Симптом поколачивания:</strong> <span class="value">отрицательный с обеих сторон.</span></div>
+            </div>
+        </div>
+
+        <!-- STATUS LOCALIS -->
+        <div class="section">
+            <div class="section-title">🔍 STATUS LOCALIS</div>
+            <div class="status-local">
+                <strong>Дыхательная система:</strong> грудная клетка эмфизематозно вздута, участие вспомогательной мускулатуры. Перкуторно – коробочный звук. Аускультативно – жесткое дыхание, сухие свистящие хрипы над всей поверхностью легких. ЧДД 22 в мин. Пульсоксиметрия: SpO₂ — 94% (при дыхании атмосферным воздухом). Пикфлоуметрия (при возможности): ПСВ 55% от должного.
+            </div>
+        </div>
+
+        <!-- ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ -->
+        <div class="section">
+            <div class="section-title">📈 ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ</div>
+            <div class="scales-list">
+                <p>✔ <strong>Пульсоксиметрия:</strong> SpO₂ – 94% (на атмосферном воздухе).</p>
+                <p>✔ <strong>Глюкометрия:</strong> не проводилась.</p>
+                <p>✔ <strong>Пикфлоуметрия:</strong> ПСВ 55% от должного.</p>
+                <p>✔ <strong>ЭКГ:</strong> не проводилась.</p>
+            </div>
+        </div>
+
+        <!-- ОЦЕНКА ПО ШКАЛАМ -->
+        <div class="section">
+            <div class="section-title">📊 ОЦЕНКА ПО ШКАЛАМ</div>
+            <div class="scales-list">
+                <p>✔ <strong>Шкала NEWS2 (взрослая):</strong> ЧДД 22 (1 балл), SpO2 94% (1 балл), температура 36.8 (0), АД сист. 135 (0), ЧСС 94 (0), сознание ясное (0). Сумма: 2 балла (низкий риск).</p>
+                <p>✔ <strong>Индекс Альговера:</strong> ЧСС/АДсист = 94/135 ≈ 0.70 (норма).</p>
+                <p>✔ <strong>Шкала комы Глазго (GCS):</strong> 15 баллов.</p>
+                <p>✔ <strong>Степень дыхательной недостаточности (по Кассиль):</strong> I степень (компенсированная) – SpO2 90–94%, ЧДД 20–24, одышка при нагрузке.</p>
+                <p>✔ <strong>Шкала контроля астмы (ACT):</strong> (ориентировочно) 16–19 баллов – частично контролируемая астма, обострение средней степени.</p>
+                <p>✔ <strong>Шкала боли ВАШ:</strong> 0 баллов (жалоб на боль нет).</p>
+                <p>✔ <strong>Шкала ОДН по Кассиль:</strong> I степень.</p>
+                <p>✔ <strong>Шкала ШОКС:</strong> не применимо.</p>
+                <p>✔ <strong>Шкала риска ТЭЛА:</strong> не применимо.</p>
+                <p>✔ <strong>Шкала LAMS:</strong> 0 баллов (нет очаговой неврологической симптоматики).</p>
+                <p>✔ <strong>Состояние алкогольного опьянения:</strong> не употребляла, запаха алкоголя нет.</p>
+            </div>
+        </div>
+
+        <!-- Дифференциальная диагностика -->
+        <div class="note">
+            <strong>📌 Примечание для бригады СМП (дифференциальная диагностика):</strong><br>
+            Дифференциальная диагностика обострения бронхиальной астмы проведена с:
+            <ul class="note-list">
+                <li><strong>ХОБЛ (хронической обструктивной болезнью легких):</strong> характерен длительный анамнез курения, постоянный кашель с мокротой, неполная обратимость обструкции. При обострении ХОБЛ также может быть одышка, но хрипы чаще жужжащие, менее звучные. У пациентки есть четкий аллергоанамнез и обратимость обструкции на фоне терапии.</li>
+                <li><strong>Кардиогенной астмой (острой левожелудочковой недостаточностью):</strong> одышка смешанная, положение ортопноэ, влажные хрипы в нижних отделах легких (могут быть и сухие, но не преобладают). В анамнезе – ИБС, гипертония, пороки сердца. На ЭКГ – признаки гипертрофии левых отделов, ишемии. У пациентки нет влажных хрипов и сердечной патологии.</li>
+                <li><strong>ТЭЛА (тромбоэмболией легочной артерии):</strong> внезапная одышка, боль в груди, тахикардия, гипотония, набухание шейных вен. На ЭКГ – синдром S1Q3T3, перегрузка правых отделов. Аускультативно – ослабление дыхания, может быть шум трения плевры. У пациентки нет внезапности и характерных признаков.</li>
+                <li><strong>Спонтанным пневмотораксом:</strong> внезапная острая боль в груди, одышка, тимпанит, ослабление дыхания на стороне поражения. Аускультативно – нет хрипов. У пациентки нет боли и тимпанита.</li>
+                <li><strong>Инородным телом бронха:</strong> приступообразный кашель, удушье после аспирации. Аускультативно – локальное ослабление дыхания. В анамнезе – эпизод аспирации. У пациентки нет этого фактора.</li>
+                <li><strong>Аспирационной пневмонией:</strong> лихорадка, кашель с гнойной мокротой, локальные изменения (притупление, влажные хрипы). У пациентки нет лихорадки и локальных изменений.</li>
+                <li><strong>Психогенной одышкой (гипервентиляционный синдром):</strong> часто на фоне стресса, одышка с чувством нехватки воздуха, но нет объективных признаков бронхообструкции (хрипов, удлинения выдоха), SpO₂ в норме. У пациентки есть хрипы и снижение SpO₂.</li>
+                <li><strong>Анафилактической реакцией:</strong> одышка, бронхоспазм, но также есть гипотония, крапивница, отек Квинке, зуд. У пациентки нет этих симптомов.</li>
+            </ul>
+            <strong>🔑 Ключевые признаки обострения бронхиальной астмы:</strong><br>
+            – Наличие астмы в анамнезе.<br>
+            – Экспираторная одышка, свистящие хрипы.<br>
+            – Обратимость обструкции под влиянием бронходилататоров.<br>
+            – Связь с триггером (аллерген, инфекция).<br>
+            – Отсутствие признаков сердечной недостаточности, ТЭЛА, пневмоторакса.
+        </div>
+    </div>
+</div>
+</body>
+</html>
