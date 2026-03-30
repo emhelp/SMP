@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Карта вызова скорой медицинской помощи | Кровохарканье</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #e9ecef;
+            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+            padding: 40px 20px;
+            color: #212529;
+            line-height: 1.45;
+        }
+
+        .card {
+            max-width: 1100px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            border: 1px solid #dee2e6;
+        }
+
+        .mkb-row {
+            background: linear-gradient(135deg, #0b3b5f 0%, #1a4d6f 100%);
+            color: white;
+            padding: 20px 32px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border-bottom: 4px solid #ffc107;
+        }
+
+        .mkb-row span {
+            font-weight: 700;
+            color: #ffc107;
+        }
+
+        .diagnosis {
+            background: #fef9e6;
+            padding: 12px 32px;
+            border-left: 6px solid #ffc107;
+            font-weight: 500;
+            font-size: 0.98rem;
+            color: #2d3e50;
+            border-bottom: 1px solid #f0e2b6;
+        }
+
+        .content {
+            padding: 24px 32px 40px 32px;
+        }
+
+        .section {
+            margin-bottom: 32px;
+            break-inside: avoid;
+            page-break-inside: avoid;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #1a4d6f;
+            border-left: 6px solid #ffc107;
+            padding-left: 16px;
+            margin-bottom: 18px;
+            margin-top: 8px;
+            background: #f4f9ff;
+            border-radius: 0 12px 12px 0;
+            line-height: 1.3;
+        }
+
+        .field-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .field-item {
+            padding: 6px 0 4px 8px;
+            border-bottom: 1px dotted #e0e6ed;
+            font-size: 0.94rem;
+            line-height: 1.45;
+        }
+
+        .field-item strong {
+            font-weight: 700;
+            color: #1e4663;
+            display: inline-block;
+            min-width: 240px;
+        }
+
+        .field-item .value {
+            color: #2c3e4e;
+            font-weight: 500;
+        }
+
+        .full-width-text {
+            padding: 8px 0 8px 8px;
+            border-bottom: 1px dotted #e0e6ed;
+            font-size: 0.94rem;
+        }
+
+        .full-width-text strong {
+            font-weight: 700;
+            color: #1e4663;
+            display: inline-block;
+            min-width: 240px;
+        }
+
+        .status-local {
+            background: #fef7e0;
+            padding: 14px 18px;
+            border-radius: 18px;
+            margin-top: 6px;
+            border: 1px solid #ffe3a4;
+            font-size: 0.94rem;
+        }
+
+        .scales-list {
+            background: #f1f4f9;
+            padding: 12px 20px;
+            border-radius: 20px;
+            margin-top: 10px;
+        }
+
+        .scales-list p {
+            margin: 8px 0;
+        }
+
+        .note {
+            background: #e7f1ff;
+            border-left: 4px solid #1a4d6f;
+            padding: 12px 16px;
+            margin-top: 16px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            color: #1e4663;
+        }
+
+        .note-list {
+            margin-top: 8px;
+            margin-left: 20px;
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .note-list li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .note-list li:before {
+            content: "•";
+            position: absolute;
+            left: 4px;
+            color: #1a4d6f;
+            font-weight: bold;
+        }
+
+        @media (max-width: 700px) {
+            .field-item strong {
+                min-width: 170px;
+            }
+            .full-width-text strong {
+                min-width: 170px;
+            }
+            .content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="card">
+    <div class="mkb-row">
+        📌 Код по МКБ-10: <span>R04.2</span> (Кровохарканье)
+    </div>
+    <div class="diagnosis">
+        🧾 <strong>Диагноз:</strong> Кровохарканье неуточненное.
+    </div>
+
+    <div class="content">
+        <!-- ЖАЛОБЫ -->
+        <div class="section">
+            <div class="section-title">📢 ЖАЛОБЫ</div>
+            <div class="full-width-text"><em>На момент осмотра пациент предъявляет жалобы на выделение крови при кашле (прожилки алой крови в мокроте), кашель с небольшим количеством слизисто-гнойной мокроты, умеренную боль в грудной клетке справа, общую слабость, познабливание.</em></div>
+        </div>
+
+        <!-- АНАМНЕЗ -->
+        <div class="section">
+            <div class="section-title">📋 АНАМНЕЗ</div>
+            <div class="full-width-text"><strong>Anamnesis morbi:</strong> Со слов пациента, кровохарканье появилось около 2 часов назад, когда во время приступа кашля отметил выделение мокроты с прожилками алой крови. Подобное наблюдается впервые. В течение последних 2 недель беспокоил кашель, субфебрильная температура, слабость, потливость (особенно по ночам). Связывает с переохлаждением на работе. Самостоятельно не лечился. Вызвал бригаду СМП в связи с появлением крови.</div>
+            <div class="full-width-text"><strong>Анамнез жизни:</strong> Курит около 15 лет (пачка в день). Работает на стройке (возможна ингаляционная травма). Хронические заболевания отрицает. Туберкулез, онкологию у себя и родственников отрицает. Контакт с больными туберкулезом отрицает.</div>
+            <div class="full-width-text"><strong>Аллергологический анамнез:</strong> Не отягощен. Аллергии на лекарственные препараты, пищевые продукты, бытовую химию отрицает.</div>
+            <div class="full-width-text"><strong>Гинекологический анамнез:</strong> Не применимо (пациент мужского пола).</div>
+            <div class="full-width-text"><strong>Эпидемиологический анамнез:</strong> Контакт с инфекционными больными отрицает. За последние 3 недели за пределы города не выезжал, укусы насекомых отрицает.</div>
+        </div>
+
+        <!-- ОБЪЕКТИВНО -->
+        <div class="section">
+            <div class="section-title">🩺 ОБЪЕКТИВНО</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Общее состояние:</strong> <span class="value">средней тяжести.</span></div>
+                <div class="field-item"><strong>Сознание:</strong> <span class="value">ясное.</span></div>
+                <div class="field-item"><strong>Шкала комы Глазго (GCS):</strong> <span class="value">15 баллов (E4,V5,M6).</span></div>
+                <div class="field-item"><strong>Положение:</strong> <span class="value">активное.</span></div>
+                <div class="field-item"><strong>Кожные покровы:</strong> <span class="value">бледные, чистые, влажные, тургор сохранен. Акроцианоза нет.</span></div>
+                <div class="field-item"><strong>Сыпь:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Зев:</strong> <span class="value">спокойный, чистый.</span></div>
+                <div class="field-item"><strong>Миндалины:</strong> <span class="value">без особенностей, не увеличены, налетов нет.</span></div>
+                <div class="field-item"><strong>Лимфоузлы:</strong> <span class="value">пальпируются подмышечные, единичные, безболезненные, эластичные.</span></div>
+                <div class="field-item"><strong>Пролежни:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Отеки:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>t°:</strong> <span class="value">37.2 °C.</span></div>
+            </div>
+        </div>
+
+        <!-- ОРГАНЫ ДЫХАНИЯ -->
+        <div class="section">
+            <div class="section-title">🌬️ ОРГАНЫ ДЫХАНИЯ</div>
+            <div class="field-list">
+                <div class="field-item"><strong>ЧДД в мин:</strong> <span class="value">20</span></div>
+                <div class="field-item"><strong>Одышка:</strong> <span class="value">нет (субъективно чувство нехватки воздуха на фоне страха).</span></div>
+                <div class="field-item"><strong>Патологическое дыхание:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Аускультативно:</strong> <span class="value">жесткое дыхание, ослаблено в нижних отделах. В нижних отделах справа выслушиваются единичные влажные мелкопузырчатые хрипы. Над остальными отделами дыхание везикулярное.</span></div>
+                <div class="field-item"><strong>Хрипы:</strong> <span class="value">сухие: единичные жужжащие хрипы на выдохе; влажные: мелкопузырчатые, локальные в нижних отделах.</span></div>
+                <div class="field-item"><strong>Крепитация:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Шум трения плевры:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Перкуторный звук:</strong> <span class="value">ясный легочный, симметричный.</span></div>
+                <div class="field-item"><strong>Кашель:</strong> <span class="value">влажный, умеренный, с выделением мокроты.</span></div>
+                <div class="field-item"><strong>Мокрота:</strong> <span class="value">слизисто-гнойная, с прожилками алой крови.</span></div>
+            </div>
+        </div>
+
+        <!-- ОРГАНЫ КРОВООБРАЩЕНИЯ -->
+        <div class="section">
+            <div class="section-title">❤️ ОРГАНЫ КРОВООБРАЩЕНИЯ</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Пульс в мин:</strong> <span class="value">84</span></div>
+                <div class="field-item"><strong>Ритмичный, аритмичный, наполнение пульса:</strong> <span class="value">ритмичный, удовлетворительного наполнения и напряжения.</span></div>
+                <div class="field-item"><strong>ЧСС:</strong> <span class="value">84</span></div>
+                <div class="field-item"><strong>Дефицит пульса:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>АД мм.рт.ст. на момент осмотра:</strong> <span class="value">125/80, привычное АД 120/80 (со слов).</span></div>
+                <div class="field-item"><strong>Тоны сердца:</strong> <span class="value">ясные, звучные, ритмичные.</span></div>
+                <div class="field-item"><strong>Шум:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Шум трения перикарда:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Акцент какого тона на:</strong> <span class="value">нет.</span></div>
+            </div>
+        </div>
+
+        <!-- ОРГАНЫ ПИЩЕВАРЕНИЯ -->
+        <div class="section">
+            <div class="section-title">🍽️ ОРГАНЫ ПИЩЕВАРЕНИЯ</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Язык:</strong> <span class="value">влажный, чистый.</span></div>
+                <div class="field-item"><strong>Живот:</strong> <span class="value">правильной формы, мягкий, не вздут, участвует в акте дыхания.</span></div>
+                <div class="field-item"><strong>Болезненный в:</strong> <span class="value">безболезненный при пальпации во всех отделах.</span></div>
+                <div class="field-item"><strong>Положительные симптомы:</strong> <span class="value">Симптомы раздражения брюшины — отрицательные.</span></div>
+                <div class="field-item"><strong>Перистальтика:</strong> <span class="value">активная, выслушивается.</span></div>
+                <div class="field-item"><strong>Печень:</strong> <span class="value">не увеличена, край эластичный, безболезненный.</span></div>
+                <div class="field-item"><strong>Селезенка:</strong> <span class="value">не пальпируется.</span></div>
+                <div class="field-item"><strong>Стул:</strong> <span class="value">регулярный, оформленный (сегодня утром был).</span></div>
+            </div>
+        </div>
+
+        <!-- НЕРВНАЯ СИСТЕМА -->
+        <div class="section">
+            <div class="section-title">🧠 НЕРВНАЯ СИСТЕМА</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Поведение:</strong> <span class="value">спокойное, адекватное, несколько тревожен.</span></div>
+                <div class="field-item"><strong>Контакт:</strong> <span class="value">доступен, продуктивный.</span></div>
+                <div class="field-item"><strong>Чувствительность:</strong> <span class="value">сохранена.</span></div>
+                <div class="field-item"><strong>Речь:</strong> <span class="value">внятная.</span></div>
+                <div class="field-item"><strong>Зрачки (OD, OS):</strong> <span class="value">D=S, обычные.</span></div>
+                <div class="field-item"><strong>Фотореакция:</strong> <span class="value">живая, содружественная.</span></div>
+                <div class="field-item"><strong>Нистагм:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Асимметрия лица:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Менингеальные симптомы:</strong> <span class="value">ригидность затылочных мышц, Кернига, Брудзинского — отрицательные.</span></div>
+                <div class="field-item"><strong>Очаговые симптомы:</strong> <span class="value">не выявлены.</span></div>
+                <div class="field-item"><strong>Координаторные пробы:</strong> <span class="value">пальце-носовую и пяточно-коленную пробы выполняет уверенно.</span></div>
+                <div class="field-item"><strong>Неврологический статус:</strong> <span class="value">Очаговой неврологической симптоматики нет. Глазные щели D=S, движения глазных яблок в полном объеме. Корешковых, сегментарных чувствительных расстройств нет. Патологических рефлексов не выявлено.</span></div>
+            </div>
+        </div>
+
+        <!-- МОЧЕПОЛОВАЯ СИСТЕМА -->
+        <div class="section">
+            <div class="section-title">🚽 МОЧЕПОЛОВАЯ СИСТЕМА</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Мочеиспускание:</strong> <span class="value">свободное, безболезненное. Цвет мочи — соломенно-желтый, прозрачная (со слов).</span></div>
+                <div class="field-item"><strong>Симптом поколачивания:</strong> <span class="value">отрицательный с обеих сторон.</span></div>
+            </div>
+        </div>
+
+        <!-- STATUS LOCALIS -->
+        <div class="section">
+            <div class="section-title">🔍 STATUS LOCALIS</div>
+            <div class="status-local">
+                Грудная клетка симметричная, участвует в акте дыхания. Перкуторно – ясный легочный звук. Аускультативно – жесткое дыхание, локальные влажные хрипы в нижних отделах справа. Мокрота слизисто-гнойная с прожилками алой крови. SpO₂ 96%.
+            </div>
+        </div>
+
+        <!-- ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ -->
+        <div class="section">
+            <div class="section-title">📈 ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ</div>
+            <div class="scales-list">
+                <p>✔ <strong>Пульсоксиметрия:</strong> SpO₂ – 96%.</p>
+                <p>✔ <strong>Глюкометрия:</strong> не проводилась.</p>
+                <p>✔ <strong>ЭКГ:</strong> не проводилась.</p>
+            </div>
+        </div>
+
+        <!-- ОЦЕНКА ПО ШКАЛАМ -->
+        <div class="section">
+            <div class="section-title">📊 ОЦЕНКА ПО ШКАЛАМ</div>
+            <div class="scales-list">
+                <p>✔ <strong>Шкала NEWS2 (взрослая):</strong> ЧДД 20 (0), SpO2 96% (0), температура 37.2 (0), АД сист. 125 (0), ЧСС 84 (0), сознание ясное (0). Сумма: 0 баллов (низкий риск).</p>
+                <p>✔ <strong>Индекс Альговера:</strong> ЧСС/АДсист = 84/125 ≈ 0.67 (норма).</p>
+                <p>✔ <strong>Шкала комы Глазго (GCS):</strong> 15 баллов.</p>
+                <p>✔ <strong>Шкала боли ВАШ:</strong> 4-5 баллов (умеренная боль в грудной клетке).</p>
+                <p>✔ <strong>Шкала ОДН по Кассиль:</strong> не применима.</p>
+                <p>✔ <strong>Шкала ШОКС:</strong> не применимо.</p>
+                <p>✔ <strong>Шкала риска ТЭЛА:</strong> не применимо.</p>
+                <p>✔ <strong>Шкала LAMS:</strong> 0 баллов (нет очаговой неврологической симптоматики).</p>
+                <p>✔ <strong>Признаки ДЭП:</strong> не применимо.</p>
+                <p>✔ <strong>Состояние алкогольного опьянения:</strong> не употреблял, запаха алкоголя нет.</p>
+            </div>
+        </div>
+
+        <!-- Дифференциальная диагностика -->
+        <div class="note">
+            <strong>📌 Примечание для бригады СМП (дифференциальная диагностика):</strong><br>
+            Дифференциальная диагностика кровохарканья проведена с:
+            <ul class="note-list">
+                <li><strong>Туберкулезом легких:</strong> длительный кашель (более 3 недель), субфебрилитет, ночная потливость, потеря веса, кровохарканье (от прожилок до легочного кровотечения). Контакт с больными туберкулезом, положительные туберкулиновые пробы. На рентгенограмме – инфильтрация, очаги, каверны, чаще в верхних долях.</li>
+                <li><strong>Раком легкого (центральным или периферическим):</strong> кровохарканье, кашель, боль в груди, одышка, потеря веса, слабость. Факторы риска – курение, профессиональные вредности. На рентгенограмме – тень с неровными контурами, ателектаз, увеличение лимфоузлов.</li>
+                <li><strong>Тромбоэмболией легочной артерии (ТЭЛА):</strong> внезапная одышка, боль в груди, кровохарканье, тахикардия, цианоз, набухание шейных вен, гипотония. На ЭКГ – синдром S1Q3T3, перегрузка правых отделов. Факторы риска – тромбозы, иммобилизация, операции.</li>
+                <li><strong>Бронхоэктатической болезнью:</strong> хронический кашель с обильной гнойной мокротой, кровохарканье, одышка, пальцы в виде «барабанных палочек». На рентгенограмме – деформация легочного рисунка, на КТ – бронхоэктазы.</li>
+                <li><strong>Пневмонией (особенно стафилококковой, вызванной клебсиеллой):</strong> острое начало, лихорадка, озноб, боль в груди, кашель с гнойной мокротой, возможно кровохарканье. Локальные физикальные и рентгенологические изменения.</li>
+                <li><strong>Абсцессом легкого:</strong> кашель с обильной гнойной мокротой (иногда с кровью), лихорадка, боль в груди. После прорыва абсцесса – резкое увеличение количества мокроты. На рентгенограмме – полость с уровнем жидкости.</li>
+                <li><strong>Инородным телом бронха:</strong> приступообразный кашель, удушье, локальное ослабление дыхания, ателектаз. В анамнезе – аспирация. Кровохарканье возможно при длительном стоянии и травме слизистой.</li>
+                <li><strong>Заболеваниями сердечно-сосудистой системы (митральный стеноз, левожелудочковая недостаточность):</strong> одышка, сердцебиение, отеки, влажные хрипы в легких. При митральном стенозе – хлопающий I тон, диастолический шум, открытие митрального клапана. Кровохарканье обусловлено венозным застоем.</li>
+                <li><strong>Травмой грудной клетки (ушиб легкого):</strong> в анамнезе – удар, падение. Боль в месте травмы, кровохарканье, подкожная эмфизема, переломы ребер. У пациента травмы не было.</li>
+                <li><strong>Лекарственным поражением легких (амиодарон, цитостатики):</strong> в анамнезе – прием указанных препаратов. Кровохарканье не характерно, чаще фиброз, пневмонит.</li>
+                <li><strong>Коагулопатиями (гемофилия, болезнь Виллебранда, прием антикоагулянтов):</strong> кровохарканье как часть геморрагического синдрома. В анамнезе – другие кровотечения, прием антикоагулянтов. У пациента нет указаний.</li>
+                <li><strong>Васкулитами (гранулематоз Вегенера, синдром Гудпасчера):</strong> системные проявления, поражение почек, ЛОР-органов, геморрагический альвеолит. Кровохарканье характерно.</li>
+            </ul>
+            <strong>🔑 Ключевые признаки кровохарканья, требующего срочного обследования:</strong><br>
+            – Выделение алой крови или прожилок крови в мокроте.<br>
+            – Связь с кашлем.<br>
+            – Наличие факторов риска (курение, возраст, профессиональные вредности, контакт с больными туберкулезом).<br>
+            – Отсутствие явных причин (травма, передозировка антикоагулянтов).<br>
+            – Необходимость исключения жизнеугрожающих заболеваний (туберкулез, рак, ТЭЛА).
+        </div>
+    </div>
+</div>
+</body>
+</html>
