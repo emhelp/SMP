@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Карта вызова скорой медицинской помощи | Отравление керосином</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #e9ecef;
+            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+            padding: 40px 20px;
+            color: #212529;
+            line-height: 1.45;
+        }
+
+        .card {
+            max-width: 1100px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            border: 1px solid #dee2e6;
+        }
+
+        .mkb-row {
+            background: linear-gradient(135deg, #0b3b5f 0%, #1a4d6f 100%);
+            color: white;
+            padding: 20px 32px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border-bottom: 4px solid #ffc107;
+        }
+
+        .mkb-row span {
+            font-weight: 700;
+            color: #ffc107;
+        }
+
+        .diagnosis {
+            background: #fef9e6;
+            padding: 12px 32px;
+            border-left: 6px solid #ffc107;
+            font-weight: 500;
+            font-size: 0.98rem;
+            color: #2d3e50;
+            border-bottom: 1px solid #f0e2b6;
+        }
+
+        .content {
+            padding: 24px 32px 40px 32px;
+        }
+
+        .section {
+            margin-bottom: 32px;
+            break-inside: avoid;
+            page-break-inside: avoid;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #1a4d6f;
+            border-left: 6px solid #ffc107;
+            padding-left: 16px;
+            margin-bottom: 18px;
+            margin-top: 8px;
+            background: #f4f9ff;
+            border-radius: 0 12px 12px 0;
+            line-height: 1.3;
+        }
+
+        .field-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .field-item {
+            padding: 6px 0 4px 8px;
+            border-bottom: 1px dotted #e0e6ed;
+            font-size: 0.94rem;
+            line-height: 1.45;
+        }
+
+        .field-item strong {
+            font-weight: 700;
+            color: #1e4663;
+            display: inline-block;
+            min-width: 240px;
+        }
+
+        .field-item .value {
+            color: #2c3e4e;
+            font-weight: 500;
+        }
+
+        .full-width-text {
+            padding: 8px 0 8px 8px;
+            border-bottom: 1px dotted #e0e6ed;
+            font-size: 0.94rem;
+        }
+
+        .full-width-text strong {
+            font-weight: 700;
+            color: #1e4663;
+            display: inline-block;
+            min-width: 240px;
+        }
+
+        .status-local {
+            background: #fef7e0;
+            padding: 14px 18px;
+            border-radius: 18px;
+            margin-top: 6px;
+            border: 1px solid #ffe3a4;
+            font-size: 0.94rem;
+        }
+
+        .scales-list {
+            background: #f1f4f9;
+            padding: 12px 20px;
+            border-radius: 20px;
+            margin-top: 10px;
+        }
+
+        .scales-list p {
+            margin: 8px 0;
+        }
+
+        .note {
+            background: #e7f1ff;
+            border-left: 4px solid #1a4d6f;
+            padding: 12px 16px;
+            margin-top: 16px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            color: #1e4663;
+        }
+
+        .assistance {
+            background: #e7f5e8;
+            border-left: 4px solid #28a745;
+            padding: 12px 16px;
+            margin-top: 16px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            color: #1e4663;
+        }
+
+        .assistance p {
+            margin: 4px 0;
+        }
+
+        .tactics {
+            background: #f0f4e8;
+            border-left: 4px solid #28a745;
+            padding: 14px 18px;
+            margin-top: 24px;
+            border-radius: 16px;
+            font-size: 0.94rem;
+            color: #1e4620;
+            font-weight: 500;
+        }
+
+        .note-list {
+            margin-top: 8px;
+            margin-left: 20px;
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .note-list li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .note-list li:before {
+            content: "•";
+            position: absolute;
+            left: 4px;
+            color: #1a4d6f;
+            font-weight: bold;
+        }
+
+        @media (max-width: 700px) {
+            .field-item strong {
+                min-width: 170px;
+            }
+            .full-width-text strong {
+                min-width: 170px;
+            }
+            .content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="card">
+    <div class="mkb-row">
+        📌 Код по МКБ-10: <span>T52.9</span> (Токсическое действие органических растворителей неуточненное)
+    </div>
+    <div class="diagnosis">
+        🧾 <strong>Диагноз:</strong> Острое пероральное отравление керосином (органический растворитель) средней степени тяжести.
+    </div>
+
+    <div class="content">
+        <!-- ЖАЛОБЫ -->
+        <div class="section">
+            <div class="section-title">📢 ЖАЛОБЫ</div>
+            <div class="full-width-text"><em>На момент осмотра пациент предъявляет жалобы на общую слабость, чувство жжения по ходу пищевода, тошноту, головную боль, легкое головокружение. Отмечает специфический привкус и запах изо рта.</em></div>
+        </div>
+
+        <!-- АНАМНЕЗ -->
+        <div class="section">
+            <div class="section-title">📋 АНАМНЕЗ</div>
+            <div class="full-width-text"><strong>Anamnesis morbi:</strong> Со слов пациента, около 1,5–2 часов назад на спор с другом выпил приблизительно 500 мл керосина (точное количество уточняется). Суицидальных мыслей не было. Сразу после приема самостоятельно вызвал рвоту («ресторанным способом») для промывания желудка. Бригада СМП вызвана другом. На догоспитальном этапе бригадой выполнено зондовое промывание желудка (до чистых вод).</div>
+            <div class="full-width-text"><strong>Анамнез жизни:</strong> Хронические заболевания отрицает. Аллергологический анамнез не отягощен. Вредные привычки: курение, алкоголь (эпизодически).</div>
+            <div class="full-width-text"><strong>Аллергологический анамнез:</strong> Не отягощен. Аллергии на лекарственные препараты, пищевые продукты, бытовую химию отрицает.</div>
+            <div class="full-width-text"><strong>Гинекологический анамнез:</strong> Не применимо (пациент мужского пола).</div>
+            <div class="full-width-text"><strong>Эпидемиологический анамнез:</strong> Контакт с инфекционными больными отрицает. За последние 3 недели за пределы города не выезжал, укусы насекомых отрицает.</div>
+        </div>
+
+        <!-- ОБЪЕКТИВНО -->
+        <div class="section">
+            <div class="section-title">🩺 ОБЪЕКТИВНО</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Общее состояние:</strong> <span class="value">средней тяжести.</span></div>
+                <div class="field-item"><strong>Сознание:</strong> <span class="value">ясное.</span></div>
+                <div class="field-item"><strong>Шкала комы Глазго (GCS):</strong> <span class="value">15 баллов (E4,V5,M6).</span></div>
+                <div class="field-item"><strong>Положение:</strong> <span class="value">активное (сидит, предпочитает полусидячее положение).</span></div>
+                <div class="field-item"><strong>Кожные покровы:</strong> <span class="value">бледные, чистые, умеренно влажные, теплые. Акроцианоза нет.</span></div>
+                <div class="field-item"><strong>Сыпь:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Зев:</strong> <span class="value">слизистая ротоглотки бледно-розовая, без ожогов и гиперемии.</span></div>
+                <div class="field-item"><strong>Миндалины:</strong> <span class="value">без особенностей, не увеличены, налетов нет.</span></div>
+                <div class="field-item"><strong>Лимфоузлы:</strong> <span class="value">не пальпируются.</span></div>
+                <div class="field-item"><strong>Пролежни:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Отеки:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>t°:</strong> <span class="value">36.7 °C.</span></div>
+            </div>
+        </div>
+
+        <!-- ОРГАНЫ ДЫХАНИЯ -->
+        <div class="section">
+            <div class="section-title">🌬️ ОРГАНЫ ДЫХАНИЯ</div>
+            <div class="field-list">
+                <div class="field-item"><strong>ЧДД в мин:</strong> <span class="value">20</span></div>
+                <div class="field-item"><strong>Одышка:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Патологическое дыхание:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Аускультативно:</strong> <span class="value">везикулярное дыхание, незначительно ослаблено в нижних отделах, хрипов нет.</span></div>
+                <div class="field-item"><strong>Хрипы:</strong> <span class="value">не выслушиваются (признаки аспирации отсутствуют на момент осмотра).</span></div>
+                <div class="field-item"><strong>Крепитация:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Шум трения плевры:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Перкуторный звук:</strong> <span class="value">ясный легочный, симметричный.</span></div>
+                <div class="field-item"><strong>Кашель:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Мокрота:</strong> <span class="value">нет.</span></div>
+            </div>
+        </div>
+
+        <!-- ОРГАНЫ КРОВООБРАЩЕНИЯ -->
+        <div class="section">
+            <div class="section-title">❤️ ОРГАНЫ КРОВООБРАЩЕНИЯ</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Пульс в мин:</strong> <span class="value">88</span></div>
+                <div class="field-item"><strong>Ритмичный, аритмичный, наполнение пульса:</strong> <span class="value">ритмичный, удовлетворительного наполнения и напряжения.</span></div>
+                <div class="field-item"><strong>ЧСС:</strong> <span class="value">88</span></div>
+                <div class="field-item"><strong>Дефицит пульса:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>АД мм.рт.ст. на момент осмотра:</strong> <span class="value">125/80, привычное АД 120/80 (со слов).</span></div>
+                <div class="field-item"><strong>Тоны сердца:</strong> <span class="value">ясные, звучные, ритмичные.</span></div>
+                <div class="field-item"><strong>Шум:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Шум трения перикарда:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Акцент какого тона на:</strong> <span class="value">нет.</span></div>
+            </div>
+        </div>
+
+        <!-- ОРГАНЫ ПИЩЕВАРЕНИЯ -->
+        <div class="section">
+            <div class="section-title">🍽️ ОРГАНЫ ПИЩЕВАРЕНИЯ</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Язык:</strong> <span class="value">влажный, обложен белым налетом у корня.</span></div>
+                <div class="field-item"><strong>Живот:</strong> <span class="value">правильной формы, мягкий, не вздут, участвует в акте дыхания. При пальпации безболезненный во всех отделах, за исключением легкой чувствительности в эпигастрии. Печень и селезенка не увеличены.</span></div>
+                <div class="field-item"><strong>Болезненный в:</strong> <span class="value">безболезненный.</span></div>
+                <div class="field-item"><strong>Положительные симптомы:</strong> <span class="value">Симптомы раздражения брюшины — отрицательные.</span></div>
+                <div class="field-item"><strong>Перистальтика:</strong> <span class="value">активная, выслушивается.</span></div>
+                <div class="field-item"><strong>Печень:</strong> <span class="value">не увеличена, край эластичный, безболезненный.</span></div>
+                <div class="field-item"><strong>Селезенка:</strong> <span class="value">не пальпируется.</span></div>
+                <div class="field-item"><strong>Стул:</strong> <span class="value">регулярный, оформленный (вчера был). Рвота была до осмотра, после зондового промывания рвоты нет.</span></div>
+            </div>
+        </div>
+
+        <!-- НЕРВНАЯ СИСТЕМА -->
+        <div class="section">
+            <div class="section-title">🧠 НЕРВНАЯ СИСТЕМА</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Поведение:</strong> <span class="value">спокойное, адекватное.</span></div>
+                <div class="field-item"><strong>Контакт:</strong> <span class="value">доступен, продуктивный.</span></div>
+                <div class="field-item"><strong>Чувствительность:</strong> <span class="value">сохранена.</span></div>
+                <div class="field-item"><strong>Речь:</strong> <span class="value">внятная.</span></div>
+                <div class="field-item"><strong>Зрачки (OD, OS):</strong> <span class="value">D=S, обычные.</span></div>
+                <div class="field-item"><strong>Фотореакция:</strong> <span class="value">живая, содружественная.</span></div>
+                <div class="field-item"><strong>Нистагм:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Асимметрия лица:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Менингеальные симптомы:</strong> <span class="value">ригидность затылочных мышц, Кернига, Брудзинского — отрицательные.</span></div>
+                <div class="field-item"><strong>Очаговые симптомы:</strong> <span class="value">не выявлены.</span></div>
+                <div class="field-item"><strong>Координаторные пробы:</strong> <span class="value">пальце-носовую пробу выполняет уверенно, в позе Ромберга устойчив.</span></div>
+                <div class="field-item"><strong>Неврологический статус:</strong> <span class="value">Очаговой неврологической симптоматики нет. Глазные щели D=S, движения глазных яблок в полном объеме. Корешковых, сегментарных чувствительных расстройств нет. Патологических рефлексов не выявлено.</span></div>
+            </div>
+        </div>
+
+        <!-- МОЧЕПОЛОВАЯ СИСТЕМА -->
+        <div class="section">
+            <div class="section-title">🚽 МОЧЕПОЛОВАЯ СИСТЕМА</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Мочеиспускание:</strong> <span class="value">свободное, безболезненное. Цвет мочи — соломенно-желтый, прозрачная (со слов).</span></div>
+                <div class="field-item"><strong>Симптом поколачивания:</strong> <span class="value">отрицательный с обеих сторон.</span></div>
+            </div>
+        </div>
+
+        <!-- STATUS LOCALIS -->
+        <div class="section">
+            <div class="section-title">🔍 STATUS LOCALIS</div>
+            <div class="status-local">
+                При осмотре обращает на себя внимание запах керосина изо рта. Слизистая ротоглотки без признаков ожога. Живот мягкий, безболезненный. Аускультативно легкие чистые. Видимых травм и повреждений нет.
+            </div>
+        </div>
+
+        <!-- ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ -->
+        <div class="section">
+            <div class="section-title">📈 ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ</div>
+            <div class="scales-list">
+                <p>✔ <strong>Пульсоксиметрия:</strong> SpO₂ – 96%.</p>
+                <p>✔ <strong>Глюкометрия:</strong> 5,3 ммоль/л.</p>
+                <p>✔ <strong>ЭКГ:</strong> синусовый ритм с ЧСС 88 в мин, без очаговых изменений.</p>
+            </div>
+        </div>
+
+        <!-- ОЦЕНКА ПО ШКАЛАМ -->
+        <div class="section">
+            <div class="section-title">📊 ОЦЕНКА ПО ШКАЛАМ</div>
+            <div class="scales-list">
+                <p>✔ <strong>Шкала NEWS2 (взрослая):</strong> ЧДД 20 (0), SpO2 96% (0), температура 36.7 (0), АД сист. 125 (0), ЧСС 88 (0), сознание ясное (0). Сумма: 0 баллов (низкий риск).</p>
+                <p>✔ <strong>Индекс Альговера:</strong> ЧСС/АДсист = 88/125 ≈ 0.70 (норма).</p>
+                <p>✔ <strong>Шкала комы Глазго (GCS):</strong> 15 баллов.</p>
+                <p>✔ <strong>Шкала боли ВАШ:</strong> 2-3 балла (легкое жжение).</p>
+                <p>✔ <strong>Шкала ОДН по Кассиль:</strong> не применима.</p>
+                <p>✔ <strong>Шкала ШОКС:</strong> не применимо.</p>
+                <p>✔ <strong>Шкала риска ТЭЛА:</strong> не применимо.</p>
+                <p>✔ <strong>Шкала LAMS:</strong> 0 баллов (нет очаговой неврологической симптоматики).</p>
+                <p>✔ <strong>Признаки ДЭП:</strong> не применимо.</p>
+                <p>✔ <strong>Состояние алкогольного опьянения:</strong> не употреблял, запаха алкоголя нет.</p>
+            </div>
+        </div>
+
+        <!-- ОКАЗАННАЯ МЕДИЦИНСКАЯ ПОМОЩЬ -->
+        <div class="assistance">
+            <strong>💊 ОКАЗАННАЯ МЕДИЦИНСКАЯ ПОМОЩЬ:</strong>
+            <p>✔ До прибытия СМП: самостоятельное промывание желудка «ресторанным способом».</p>
+            <p>✔ Бригадой СМП: зондовое промывание желудка (до чистых вод) с осторожностью, для предотвращения аспирации.</p>
+            <p>✔ Инфузионная терапия: Sol. Natrii chloridi 0,9% – 500 мл в/в капельно.</p>
+            <p>✔ При тошноте: Sol. Metoclopramidi 2 мл в/в медленно.</p>
+            <p>✔ Энтеросорбция: активированный уголь (если не был принят ранее) – per os.</p>
+        </div>
+
+        <!-- ЭФФЕКТ ОТ ПРОВЕДЕННОЙ ТЕРАПИИ -->
+        <div class="assistance">
+            <strong>📈 ЭФФЕКТ ОТ ПРОВЕДЕННОЙ ТЕРАПИИ:</strong>
+            <p>✔ Состояние стабильное, средней тяжести. Тошнота купирована. АД 125/80, ЧСС 88, ЧДД 20, SpO₂ 96%.</p>
+        </div>
+
+        <!-- ТАКТИКА ПО АЛГОРИТМАМ ССиНМП -->
+        <div class="tactics">
+            🚑 <strong>ТАКТИКА ПО АЛГОРИТМАМ ССиНМП:</strong><br>
+            Учитывая объем принятого токсического вещества (500 мл), риск развития аспирационной пневмонии и гепатотоксического эффекта, пациент подлежит экстренной госпитализации в токсикологическое отделение стационара для дальнейшего наблюдения, контроля лабораторных показателей (функция печени, почек, газы крови) и профилактики осложнений.<br><br>
+            • Пульсоксиметрия<br>
+            • Глюкометрия<br>
+            • ЭКГ (ЭКП)<br>
+            • ЭКГ-мониторинг<br>
+            • Промывание желудка через зонд (При отравлении метанолом — активированный уголь не вводить)<br>
+            • Катетеризация вены или внутрикостный доступ<br>
+            – Натрия гидрокарбонат 5% — 200–400 мл (60 капель в минуту, для бригад АиР)<br>
+            Одновременно:<br>
+            – Натрия хлорид 0,9% — 500–1000 мл в/венно капельно<br>
+            – Аскорбиновая кислота 250 мг (5 мл) в/венно<br>
+            – Меглюмина натрия сукцинат 500 мл в/венно капельно, 60–80 капель в минуту (после восстановления адекватного дыхания)<br>
+            – при отравлении этиленгликолем: Кальция глюконат 1000 мг (10 мл) в/венно<br>
+            – при боли в эпигастрии: Дротаверин 40 мг (2 мл) в/венно<br>
+            – при психомоторном возбуждении и/или судорогах: Диазепам 10–20 мг (2–4 мл) в/венно<br>
+            – при SpO₂ ≤ 93%: Ингаляция кислорода<br>
+            – при САД < 90 мм рт. ст.: Допамин 5–15 мкг/кг/мин в разведении Натрия хлорида 0,9% в/венно капельно или через шприцевой дозатор (см. Приложение 31)<br>
+            – при коме: См. раздел «Анестезиология и реаниматология» (Кома, в том числе неустановленного генеза) стр. 19<br><br>
+            <strong>Медицинская эвакуация в больницу</strong><br>
+            При отказе от медицинской эвакуации:<br>
+            – при случайных отравлениях — рекомендовать обратиться в поликлинику<br>
+            – при суицидальных отравлениях — консультация психиатра
+        </div>
+
+        <!-- Дифференциальная диагностика -->
+        <div class="note">
+            <strong>📌 Примечание для бригады СМП (дифференциальная диагностика):</strong><br>
+            Дифференциальная диагностика отравления керосином проведена с:
+            <ul class="note-list">
+                <li><strong>Отравлением другими углеводородами (бензин, уайт-спирит, сольвент):</strong> сходные симптомы: запах изо рта, тошнота, рвота, головная боль, головокружение. Риск аспирации и гепатотоксичности одинаков. Лечение симптоматическое, промывание желудка – с осторожностью.</li>
+                <li><strong>Отравлением алкоголем и его суррогатами:</strong> запах алкоголя, нарушение координации, эйфория или угнетение сознания. У пациента запах керосина, координация не нарушена.</li>
+                <li><strong>Отравлением прижигающими жидкостями (кислоты, щелочи):</strong> характерны ожоги слизистой рта, глотки, пищевода, боль при глотании, жжение. У пациента слизистая интактна, жжения нет.</li>
+                <li><strong>Черепно-мозговой травмой:</strong> если была рвота и потеря сознания, но у пациента сознание ясное, травмы нет.</li>
+                <li><strong>Гастроэнтеритом, пищевой токсикоинфекцией:</strong> тошнота, рвота, слабость, но нет запаха керосина и четкой связи с его приемом.</li>
+                <li><strong>Аспирационной пневмонией (на момент осмотра может быть скрыто):</strong> при аспирации углеводородов может развиться химический пневмонит, проявляющийся кашлем, одышкой, лихорадкой через несколько часов. У пациента пока нет этих симптомов, но риск высок.</li>
+            </ul>
+            <strong>🔑 Ключевые признаки отравления керосином:</strong><br>
+            – Четкий анамнез: прием большого объема керосина на спор.<br>
+            – Запах керосина изо рта.<br>
+            – Отсутствие ожогов слизистой (в отличие от кислот и щелочей).<br>
+            – Риск аспирации и развития пневмонита (даже при отсутствии симптомов на момент осмотра).<br>
+            – Риск гепато- и нефротоксичности (отсроченный эффект).<br>
+            – Относительно стабильное состояние в первые часы, что может быть обманчивым.<br>
+            – Необходимость госпитализации для наблюдения и профилактики осложнений.
+        </div>
+    </div>
+</div>
+</body>
+</html>
