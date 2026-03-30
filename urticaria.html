@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Карта вызова скорой медицинской помощи | Аллергическая крапивница</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #e9ecef;
+            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+            padding: 40px 20px;
+            color: #212529;
+            line-height: 1.45;
+        }
+
+        .card {
+            max-width: 1100px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            border: 1px solid #dee2e6;
+        }
+
+        .mkb-row {
+            background: linear-gradient(135deg, #0b3b5f 0%, #1a4d6f 100%);
+            color: white;
+            padding: 20px 32px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border-bottom: 4px solid #ffc107;
+        }
+
+        .mkb-row span {
+            font-weight: 700;
+            color: #ffc107;
+        }
+
+        .diagnosis {
+            background: #fef9e6;
+            padding: 12px 32px;
+            border-left: 6px solid #ffc107;
+            font-weight: 500;
+            font-size: 0.98rem;
+            color: #2d3e50;
+            border-bottom: 1px solid #f0e2b6;
+        }
+
+        .content {
+            padding: 24px 32px 40px 32px;
+        }
+
+        .section {
+            margin-bottom: 32px;
+            break-inside: avoid;
+            page-break-inside: avoid;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #1a4d6f;
+            border-left: 6px solid #ffc107;
+            padding-left: 16px;
+            margin-bottom: 18px;
+            margin-top: 8px;
+            background: #f4f9ff;
+            border-radius: 0 12px 12px 0;
+            line-height: 1.3;
+        }
+
+        .field-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .field-item {
+            padding: 6px 0 4px 8px;
+            border-bottom: 1px dotted #e0e6ed;
+            font-size: 0.94rem;
+            line-height: 1.45;
+        }
+
+        .field-item strong {
+            font-weight: 700;
+            color: #1e4663;
+            display: inline-block;
+            min-width: 240px;
+        }
+
+        .field-item .value {
+            color: #2c3e4e;
+            font-weight: 500;
+        }
+
+        .full-width-text {
+            padding: 8px 0 8px 8px;
+            border-bottom: 1px dotted #e0e6ed;
+            font-size: 0.94rem;
+        }
+
+        .full-width-text strong {
+            font-weight: 700;
+            color: #1e4663;
+            display: inline-block;
+            min-width: 240px;
+        }
+
+        .status-local {
+            background: #fef7e0;
+            padding: 14px 18px;
+            border-radius: 18px;
+            margin-top: 6px;
+            border: 1px solid #ffe3a4;
+            font-size: 0.94rem;
+        }
+
+        .scales-list {
+            background: #f1f4f9;
+            padding: 12px 20px;
+            border-radius: 20px;
+            margin-top: 10px;
+        }
+
+        .scales-list p {
+            margin: 8px 0;
+        }
+
+        .note {
+            background: #e7f1ff;
+            border-left: 4px solid #1a4d6f;
+            padding: 12px 16px;
+            margin-top: 16px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            color: #1e4663;
+        }
+
+        .note-list {
+            margin-top: 8px;
+            margin-left: 20px;
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .note-list li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .note-list li:before {
+            content: "•";
+            position: absolute;
+            left: 4px;
+            color: #1a4d6f;
+            font-weight: bold;
+        }
+
+        @media (max-width: 700px) {
+            .field-item strong {
+                min-width: 170px;
+            }
+            .full-width-text strong {
+                min-width: 170px;
+            }
+            .content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="card">
+    <div class="mkb-row">
+        📌 Код по МКБ-10: <span>L50.0</span> (Аллергическая крапивница)
+    </div>
+    <div class="diagnosis">
+        🧾 <strong>Диагноз:</strong> Аллергическая крапивница.
+    </div>
+
+    <div class="content">
+        <!-- ЖАЛОБЫ -->
+        <div class="section">
+            <div class="section-title">📢 ЖАЛОБЫ</div>
+            <div class="full-width-text"><em>На момент осмотра пациентка предъявляет жалобы на интенсивный зуд кожи, гиперемию и появление множественных зудящих волдырей (уртикарий) на коже рук (предплечья, кисти) и шеи (передне-боковая поверхность). Высыпания появились внезапно около 30–40 минут назад.</em></div>
+        </div>
+
+        <!-- АНАМНЕЗ -->
+        <div class="section">
+            <div class="section-title">📋 АНАМНЕЗ</div>
+            <div class="full-width-text"><strong>Anamnesis morbi:</strong> Со слов пациентки, заболела остро около часа назад, когда после употребления в пищу клубники (предполагаемый аллерген) появились зуд, покраснение и волдыри на руках и шее. Подобные реакции отмечала и ранее на цитрусовые, шоколад, но в легкой форме. Самостоятельно приняла таблетку супрастина (25 мг) – без эффекта. Вызвала бригаду СМП в связи с распространением высыпаний и усилением зуда.</div>
+            <div class="full-width-text"><strong>Анамнез жизни:</strong> Хронические заболевания отрицает. Травм, операций не было.</div>
+            <div class="full-width-text"><strong>Аллергологический анамнез:</strong> Отягощен. Отмечает пищевую аллергию на цитрусовые, клубнику, шоколад (проявления в виде крапивницы). Лекарственную аллергию отрицает. Поллиноз, атопический дерматит отрицает.</div>
+            <div class="full-width-text"><strong>Гинекологический анамнез:</strong> Менструации с 13 лет, установились в течение первого года, цикл регулярный (28–30 дней), по 5 дней, умеренные, безболезненные. Последняя менструация была 2 недели назад, протекала обычно. Выделения из половых путей в настоящее время отсутствуют. Беременность отрицает.</div>
+            <div class="full-width-text"><strong>Эпидемиологический анамнез:</strong> Контакт с инфекционными больными отрицает. За пределы РФ не выезжала, укусы насекомых отрицает.</div>
+        </div>
+
+        <!-- ОБЪЕКТИВНО -->
+        <div class="section">
+            <div class="section-title">🩺 ОБЪЕКТИВНО</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Общее состояние:</strong> <span class="value">удовлетворительное.</span></div>
+                <div class="field-item"><strong>Сознание:</strong> <span class="value">ясное.</span></div>
+                <div class="field-item"><strong>Шкала комы Глазго (GCS):</strong> <span class="value">15 баллов (E4,V5,M6).</span></div>
+                <div class="field-item"><strong>Положение:</strong> <span class="value">активное.</span></div>
+                <div class="field-item"><strong>Кожные покровы:</strong> <span class="value">на коже рук (разгибательные поверхности предплечий, тыл кистей) и передне-боковой поверхности шеи – множественные уртикарные элементы (волдыри) различных размеров (от 0,5 до 3 см), бледно-розового цвета, возвышающиеся над поверхностью кожи, с тенденцией к слиянию. Кожа вокруг элементов гиперемирована. Волдыри плотные, при надавливании бледнеют. На остальных участках кожи высыпаний нет. Дермографизм красный. Кожные покровы чистые, умеренной влажности.</span></div>
+                <div class="field-item"><strong>Сыпь:</strong> <span class="value">уртикарная, полиморфная, местами сливная.</span></div>
+                <div class="field-item"><strong>Зев:</strong> <span class="value">спокойный, чистый.</span></div>
+                <div class="field-item"><strong>Миндалины:</strong> <span class="value">без особенностей, не увеличены, налетов нет.</span></div>
+                <div class="field-item"><strong>Лимфоузлы:</strong> <span class="value">не пальпируются.</span></div>
+                <div class="field-item"><strong>Пролежни:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Отеки:</strong> <span class="value">нет. Признаков ангионевротического отека (отек губ, век, гортани) не выявлено.</span></div>
+                <div class="field-item"><strong>t°:</strong> <span class="value">36.6 °C.</span></div>
+            </div>
+        </div>
+
+        <!-- ОРГАНЫ ДЫХАНИЯ -->
+        <div class="section">
+            <div class="section-title">🌬️ ОРГАНЫ ДЫХАНИЯ</div>
+            <div class="field-list">
+                <div class="field-item"><strong>ЧДД в мин:</strong> <span class="value">16</span></div>
+                <div class="field-item"><strong>Одышка:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Патологическое дыхание:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Аускультативно:</strong> <span class="value">везикулярное дыхание, проводится во все отделы, хрипов нет.</span></div>
+                <div class="field-item"><strong>Хрипы:</strong> <span class="value">отсутствуют.</span></div>
+                <div class="field-item"><strong>Крепитация:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Шум трения плевры:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Перкуторный звук:</strong> <span class="value">ясный легочный, симметричный.</span></div>
+                <div class="field-item"><strong>Кашель:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Мокрота:</strong> <span class="value">нет.</span></div>
+            </div>
+        </div>
+
+        <!-- ОРГАНЫ КРОВООБРАЩЕНИЯ -->
+        <div class="section">
+            <div class="section-title">❤️ ОРГАНЫ КРОВООБРАЩЕНИЯ</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Пульс в мин:</strong> <span class="value">72</span></div>
+                <div class="field-item"><strong>Ритмичный, аритмичный, наполнение пульса:</strong> <span class="value">ритмичный, удовлетворительного наполнения и напряжения.</span></div>
+                <div class="field-item"><strong>ЧСС:</strong> <span class="value">72</span></div>
+                <div class="field-item"><strong>Дефицит пульса:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>АД мм.рт.ст. на момент осмотра:</strong> <span class="value">115/70, привычное АД 110/70 (со слов).</span></div>
+                <div class="field-item"><strong>Тоны сердца:</strong> <span class="value">ясные, звучные, ритмичные.</span></div>
+                <div class="field-item"><strong>Шум:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Шум трения перикарда:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Акцент какого тона на:</strong> <span class="value">нет.</span></div>
+            </div>
+        </div>
+
+        <!-- ОРГАНЫ ПИЩЕВАРЕНИЯ -->
+        <div class="section">
+            <div class="section-title">🍽️ ОРГАНЫ ПИЩЕВАРЕНИЯ</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Язык:</strong> <span class="value">влажный, чистый.</span></div>
+                <div class="field-item"><strong>Живот:</strong> <span class="value">правильной формы, мягкий, не вздут, участвует в акте дыхания.</span></div>
+                <div class="field-item"><strong>Болезненный в:</strong> <span class="value">безболезненный при пальпации во всех отделах.</span></div>
+                <div class="field-item"><strong>Положительные симптомы:</strong> <span class="value">Симптомы раздражения брюшины — отрицательные.</span></div>
+                <div class="field-item"><strong>Перистальтика:</strong> <span class="value">активная, выслушивается.</span></div>
+                <div class="field-item"><strong>Печень:</strong> <span class="value">не увеличена, край эластичный, безболезненный.</span></div>
+                <div class="field-item"><strong>Селезенка:</strong> <span class="value">не пальпируется.</span></div>
+                <div class="field-item"><strong>Стул:</strong> <span class="value">регулярный, оформленный (сегодня утром был).</span></div>
+            </div>
+        </div>
+
+        <!-- НЕРВНАЯ СИСТЕМА -->
+        <div class="section">
+            <div class="section-title">🧠 НЕРВНАЯ СИСТЕМА</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Поведение:</strong> <span class="value">спокойное, адекватное.</span></div>
+                <div class="field-item"><strong>Контакт:</strong> <span class="value">доступен, продуктивный.</span></div>
+                <div class="field-item"><strong>Чувствительность:</strong> <span class="value">сохранена.</span></div>
+                <div class="field-item"><strong>Речь:</strong> <span class="value">внятная.</span></div>
+                <div class="field-item"><strong>Зрачки (OD, OS):</strong> <span class="value">D=S, обычные.</span></div>
+                <div class="field-item"><strong>Фотореакция:</strong> <span class="value">живая, содружественная.</span></div>
+                <div class="field-item"><strong>Нистагм:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Асимметрия лица:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Менингеальные симптомы:</strong> <span class="value">ригидность затылочных мышц, Кернига, Брудзинского — отрицательные.</span></div>
+                <div class="field-item"><strong>Очаговые симптомы:</strong> <span class="value">не выявлены.</span></div>
+                <div class="field-item"><strong>Координаторные пробы:</strong> <span class="value">пальце-носовую и пяточно-коленную пробы выполняет уверенно.</span></div>
+                <div class="field-item"><strong>Неврологический статус:</strong> <span class="value">Очаговой неврологической симптоматики нет. Глазные щели D=S, движения глазных яблок в полном объеме. Корешковых, сегментарных чувствительных расстройств нет. Патологических рефлексов не выявлено.</span></div>
+            </div>
+        </div>
+
+        <!-- МОЧЕПОЛОВАЯ СИСТЕМА -->
+        <div class="section">
+            <div class="section-title">🚽 МОЧЕПОЛОВАЯ СИСТЕМА</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Мочеиспускание:</strong> <span class="value">свободное, безболезненное. Цвет мочи — соломенно-желтый, прозрачная (со слов).</span></div>
+                <div class="field-item"><strong>Симптом поколачивания:</strong> <span class="value">отрицательный с обеих сторон.</span></div>
+            </div>
+        </div>
+
+        <!-- STATUS LOCALIS -->
+        <div class="section">
+            <div class="section-title">🔍 STATUS LOCALIS</div>
+            <div class="status-local">
+                На коже передней поверхности шеи (область декольте) и разгибательных поверхностей предплечий, тыла кистей – множественные уртикарные элементы различных размеров, бледно-розового цвета, возвышающиеся над поверхностью кожи, с четкими границами, местами сливающиеся в крупные очаги неправильной формы. Кожа вокруг элементов гиперемирована. Волдыри плотные, при надавливании бледнеют. Выражен кожный зуд. Слизистые оболочки без изменений. Отека Квинке нет.
+            </div>
+        </div>
+
+        <!-- ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ -->
+        <div class="section">
+            <div class="section-title">📈 ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ</div>
+            <div class="scales-list">
+                <p>✔ <strong>Пульсоксиметрия:</strong> SpO₂ – 98%.</p>
+                <p>✔ <strong>Глюкометрия:</strong> не проводилась (нет показаний).</p>
+                <p>✔ <strong>ЭКГ:</strong> не проводилась (нет показаний).</p>
+            </div>
+        </div>
+
+        <!-- ОЦЕНКА ПО ШКАЛАМ -->
+        <div class="section">
+            <div class="section-title">📊 ОЦЕНКА ПО ШКАЛАМ</div>
+            <div class="scales-list">
+                <p>✔ <strong>Шкала NEWS2 (взрослая):</strong> ЧДД 16 (0), SpO2 98% (0), температура 36.6 (0), АД сист. 115 (0), ЧСС 72 (0), сознание ясное (0). Сумма: 0 баллов (низкий риск).</p>
+                <p>✔ <strong>Индекс Альговера:</strong> ЧСС/АДсист = 72/115 ≈ 0.63 (норма).</p>
+                <p>✔ <strong>Шкала комы Глазго (GCS):</strong> 15 баллов.</p>
+                <p>✔ <strong>Шкала зуда (вербальная):</strong> 6-7 баллов (интенсивный зуд).</p>
+                <p>✔ <strong>Шкала боли ВАШ:</strong> 0 баллов (жалоб на боль нет).</p>
+                <p>✔ <strong>Шкала ОДН по Кассиль:</strong> не применима.</p>
+                <p>✔ <strong>Шкала ШОКС:</strong> не применимо.</p>
+                <p>✔ <strong>Шкала риска ТЭЛА:</strong> не применимо.</p>
+                <p>✔ <strong>Шкала LAMS:</strong> 0 баллов (нет очаговой неврологической симптоматики).</p>
+                <p>✔ <strong>Признаки ДЭП:</strong> не применимо.</p>
+                <p>✔ <strong>Состояние алкогольного опьянения:</strong> не употребляла, запаха алкоголя нет.</p>
+            </div>
+        </div>
+
+        <!-- Дифференциальная диагностика -->
+        <div class="note">
+            <strong>📌 Примечание для бригады СМП (дифференциальная диагностика):</strong><br>
+            Дифференциальная диагностика острой крапивницы проведена с:
+            <ul class="note-list">
+                <li><strong>Ангионевротическим отеком Квинке:</strong> отек глубоких слоев дермы, подкожной клетчатки, часто в области губ, век, щек, половых органов, гортани. Может сочетаться с крапивницей. У пациентки отека нет.</li>
+                <li><strong>Токсикодермией (лекарственной сыпью):</strong> связь с приемом лекарств, сыпь более полиморфная (пятна, папулы, пузыри), может быть эритродермия. У пациентки четкая связь с пищевым продуктом, уртикарные элементы типичны для крапивницы.</li>
+                <li><strong>Многоформной экссудативной эритемой:</strong> пятна, папулы, пузыри, мишеневидные элементы, часто на слизистых, с вовлечением ладоней и подошв. Сыпь более разнообразная, не только волдыри.</li>
+                <li><strong>Инфекционными экзантемами (корь, краснуха, скарлатина):</strong> лихорадка, интоксикация, катаральные явления, характерная этапность и локализация сыпи. У пациентки нет лихорадки, сыпь уртикарная, быстро появилась.</li>
+                <li><strong>Укусами насекомых:</strong> папулы, волдыри, часто единичные, с точечным геморрагическим корочкой в центре, локализация на открытых участках. У пациентки множественные элементы на руках и шее, что не исключает укусы, но более характерна пищевая аллергия.</li>
+                <li><strong>Контактным дерматитом:</strong> связь с контактом с аллергеном (косметика, металл, растения), сыпь ограничена местом контакта. У пациентки распространенные высыпания.</li>
+                <li><strong>Крапивницей, вызванной физическими факторами (холодовая, солнечная, холинергическая):</strong> провоцируется холодом, солнцем, теплом, физической нагрузкой. У пациентки связь с пищей.</li>
+                <li><strong>Анафилаксией (системной аллергической реакцией):</strong> крапивница + респираторные (бронхоспазм, отек гортани) и/или гемодинамические нарушения (гипотония, тахикардия). У пациентки нет нарушений дыхания и гемодинамики.</li>
+            </ul>
+            <strong>🔑 Ключевые признаки острой аллергической крапивницы:</strong><br>
+            – Внезапное появление волдырей (уртикарий) на коже.<br>
+            – Выраженный зуд.<br>
+            – Связь с аллергеном (пищевым, лекарственным, др.).<br>
+            – Отсутствие системных проявлений (лихорадка, нарушение дыхания, гипотония).<br>
+            – Быстрый эффект от антигистаминных препаратов.<br>
+            – Отсутствие ангионевротического отека.
+        </div>
+    </div>
+</div>
+</body>
+</html>
