@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Карта вызова скорой медицинской помощи | Инвагинация</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #e9ecef;
+            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+            padding: 40px 20px;
+            color: #212529;
+            line-height: 1.45;
+        }
+
+        .card {
+            max-width: 1100px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            border: 1px solid #dee2e6;
+        }
+
+        .mkb-row {
+            background: linear-gradient(135deg, #0b3b5f 0%, #1a4d6f 100%);
+            color: white;
+            padding: 20px 32px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border-bottom: 4px solid #ffc107;
+        }
+
+        .mkb-row span {
+            font-weight: 700;
+            color: #ffc107;
+        }
+
+        .diagnosis {
+            background: #fef9e6;
+            padding: 12px 32px;
+            border-left: 6px solid #ffc107;
+            font-weight: 500;
+            font-size: 0.98rem;
+            color: #2d3e50;
+            border-bottom: 1px solid #f0e2b6;
+        }
+
+        .content {
+            padding: 24px 32px 40px 32px;
+        }
+
+        .section {
+            margin-bottom: 32px;
+            break-inside: avoid;
+            page-break-inside: avoid;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #1a4d6f;
+            border-left: 6px solid #ffc107;
+            padding-left: 16px;
+            margin-bottom: 18px;
+            margin-top: 8px;
+            background: #f4f9ff;
+            border-radius: 0 12px 12px 0;
+            line-height: 1.3;
+        }
+
+        .field-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .field-item {
+            padding: 6px 0 4px 8px;
+            border-bottom: 1px dotted #e0e6ed;
+            font-size: 0.94rem;
+            line-height: 1.45;
+        }
+
+        .field-item strong {
+            font-weight: 700;
+            color: #1e4663;
+            display: inline-block;
+            min-width: 240px;
+        }
+
+        .field-item .value {
+            color: #2c3e4e;
+            font-weight: 500;
+        }
+
+        .full-width-text {
+            padding: 8px 0 8px 8px;
+            border-bottom: 1px dotted #e0e6ed;
+            font-size: 0.94rem;
+        }
+
+        .full-width-text strong {
+            font-weight: 700;
+            color: #1e4663;
+            display: inline-block;
+            min-width: 240px;
+        }
+
+        .status-local {
+            background: #fef7e0;
+            padding: 14px 18px;
+            border-radius: 18px;
+            margin-top: 6px;
+            border: 1px solid #ffe3a4;
+            font-size: 0.94rem;
+        }
+
+        .scales-list {
+            background: #f1f4f9;
+            padding: 12px 20px;
+            border-radius: 20px;
+            margin-top: 10px;
+        }
+
+        .scales-list p {
+            margin: 8px 0;
+        }
+
+        .note {
+            background: #e7f1ff;
+            border-left: 4px solid #1a4d6f;
+            padding: 12px 16px;
+            margin-top: 16px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            color: #1e4663;
+        }
+
+        .note-list {
+            margin-top: 8px;
+            margin-left: 20px;
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .note-list li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .note-list li:before {
+            content: "•";
+            position: absolute;
+            left: 4px;
+            color: #1a4d6f;
+            font-weight: bold;
+        }
+
+        @media (max-width: 700px) {
+            .field-item strong {
+                min-width: 170px;
+            }
+            .full-width-text strong {
+                min-width: 170px;
+            }
+            .content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="card">
+    <div class="mkb-row">
+        📌 Код по МКБ-10: <span>K56.1</span> (Инвагинация)
+    </div>
+    <div class="diagnosis">
+        🧾 <strong>Диагноз:</strong> Острая кишечная непроходимость (инвагинация), предположительно илеоцекальная. Стадия компенсации (начальная).
+    </div>
+
+    <div class="content">
+        <!-- ЖАЛОБЫ -->
+        <div class="section">
+            <div class="section-title">📢 ЖАЛОБЫ</div>
+            <div class="full-width-text"><em>Со слов матери, у ребенка внезапно появилось резкое беспокойство, пронзительный плач («ногами сучит»), отказ от еды, срыгивания, повторная рвота. Мать также отмечает, что ребенок побледнел, а стул отсутствует, газы не отходят.</em></div>
+        </div>
+
+        <!-- АНАМНЕЗ -->
+        <div class="section">
+            <div class="section-title">📋 АНАМНЕЗ</div>
+            <div class="full-width-text"><strong>Anamnesis morbi:</strong> Со слов матери, ребенок заболел остро около 2 часов назад. Ребенок проснулся от резкого плача, был очень беспокоен, поджимал ножки к животу. После приступа плача наступило кратковременное затишье (10-15 минут), затем приступ повторился. Отмечалась двукратная рвота съеденным молоком. Стула сегодня не было. Ребенок на грудном вскармливании. За медицинской помощью ранее не обращались. Вызвана бригада СМП.</div>
+            <div class="full-width-text"><strong>Анамнез жизни:</strong> Ребенок от первой беременности, протекавшей без осложнений, срочных родов. Родился с массой 3400 г, ростом 52 см. Находится на грудном вскармливании. Привит по календарю (БЦЖ, гепатит В). Ранее рос и развивался соответственно возрасту, не болел. Наследственность не отягощена.</div>
+            <div class="full-width-text"><strong>Аллергологический анамнез:</strong> Не отягощен. Аллергии на лекарственные препараты, пищевые продукты не отмечают.</div>
+            <div class="full-width-text"><strong>Эпидемиологический анамнез:</strong> Контакт с инфекционными больными отрицает. За пределы города не выезжали. Прививочный анамнез соответствует возрасту.</div>
+        </div>
+
+        <!-- ОБЪЕКТИВНО -->
+        <div class="section">
+            <div class="section-title">🩺 ОБЪЕКТИВНО</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Общее состояние:</strong> <span class="value">средней тяжести.</span></div>
+                <div class="field-item"><strong>Сознание:</strong> <span class="value">ясное (ребенок вялый в межприступный период, беспокойный во время приступа).</span></div>
+                <div class="field-item"><strong>Шкала комы Глазго (GCS) для детей:</strong> <span class="value">15 баллов (E4, V5, M6).</span></div>
+                <div class="field-item"><strong>Положение:</strong> <span class="value">вынужденное (во время приступа – лежит с поджатыми ногами).</span></div>
+                <div class="field-item"><strong>Кожные покровы:</strong> <span class="value">бледные, чистые, умеренной влажности. Акроцианоза нет.</span></div>
+                <div class="field-item"><strong>Сыпь:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Зев:</strong> <span class="value">спокойный, чистый.</span></div>
+                <div class="field-item"><strong>Миндалины:</strong> <span class="value">без особенностей.</span></div>
+                <div class="field-item"><strong>Лимфоузлы:</strong> <span class="value">не пальпируются.</span></div>
+                <div class="field-item"><strong>Пролежни:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Отеки:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>t°:</strong> <span class="value">36.5 °C.</span></div>
+            </div>
+        </div>
+
+        <!-- ОРГАНЫ ДЫХАНИЯ -->
+        <div class="section">
+            <div class="section-title">🌬️ ОРГАНЫ ДЫХАНИЯ</div>
+            <div class="field-list">
+                <div class="field-item"><strong>ЧДД в мин:</strong> <span class="value">32 (для 4 месяцев в пределах нормы).</span></div>
+                <div class="field-item"><strong>Одышка:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Патологическое дыхание:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Аускультативно:</strong> <span class="value">везикулярное дыхание, проводится во все отделы, хрипов нет.</span></div>
+                <div class="field-item"><strong>Хрипы:</strong> <span class="value">отсутствуют.</span></div>
+                <div class="field-item"><strong>Крепитация:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Шум трения плевры:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Перкуторный звук:</strong> <span class="value">ясный легочный, симметричный.</span></div>
+                <div class="field-item"><strong>Кашель:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Мокрота:</strong> <span class="value">нет.</span></div>
+            </div>
+        </div>
+
+        <!-- ОРГАНЫ КРОВООБРАЩЕНИЯ -->
+        <div class="section">
+            <div class="section-title">❤️ ОРГАНЫ КРОВООБРАЩЕНИЯ</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Пульс в мин:</strong> <span class="value">130 (тахикардия во время приступа).</span></div>
+                <div class="field-item"><strong>Ритмичный, аритмичный, наполнение пульса:</strong> <span class="value">ритмичный, удовлетворительного наполнения.</span></div>
+                <div class="field-item"><strong>ЧСС:</strong> <span class="value">130</span></div>
+                <div class="field-item"><strong>Дефицит пульса:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>АД мм.рт.ст. на момент осмотра:</strong> <span class="value">85/50 (ориентировочно для 4 месяцев), привычное АД: не известно.</span></div>
+                <div class="field-item"><strong>Тоны сердца:</strong> <span class="value">ясные, звучные, ритмичные, тахикардия.</span></div>
+                <div class="field-item"><strong>Шум:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Шум трения перикарда:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Акцент какого тона на:</strong> <span class="value">нет.</span></div>
+            </div>
+        </div>
+
+        <!-- ОРГАНЫ ПИЩЕВАРЕНИЯ -->
+        <div class="section">
+            <div class="section-title">🍽️ ОРГАНЫ ПИЩЕВАРЕНИЯ</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Язык:</strong> <span class="value">влажный, чистый.</span></div>
+                <div class="field-item"><strong>Живот:</strong> <span class="value">при осмотре в межприступный период – мягкий, доступен пальпации, не вздут. При глубокой пальпации в правой подвздошной области определяется болезненность и некоторое сопротивление. Во время приступа – живот напряжен, ребенок беспокоен.</span></div>
+                <div class="field-item"><strong>Болезненный в:</strong> <span class="value">правой подвздошной области.</span></div>
+                <div class="field-item"><strong>Положительные симптомы:</strong> <span class="value">Симптомы раздражения брюшины (Щёткина-Блюмберга) отрицательные. Остальные симптомы отрицательные.</span></div>
+                <div class="field-item"><strong>Перистальтика:</strong> <span class="value">выслушивается, в начале усилена.</span></div>
+                <div class="field-item"><strong>Печень:</strong> <span class="value">не увеличена.</span></div>
+                <div class="field-item"><strong>Селезенка:</strong> <span class="value">не пальпируется.</span></div>
+                <div class="field-item"><strong>Стул:</strong> <span class="value">отсутствует, газы не отходят.</span></div>
+            </div>
+        </div>
+
+        <!-- НЕРВНАЯ СИСТЕМА -->
+        <div class="section">
+            <div class="section-title">🧠 НЕРВНАЯ СИСТЕМА</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Поведение:</strong> <span class="value">беспокойное во время приступа, вялое в межприступный период.</span></div>
+                <div class="field-item"><strong>Контакт:</strong> <span class="value">ограничен (ребенок грудного возраста).</span></div>
+                <div class="field-item"><strong>Чувствительность:</strong> <span class="value">не нарушена.</span></div>
+                <div class="field-item"><strong>Зрачки (OD, OS):</strong> <span class="value">D=S, обычные.</span></div>
+                <div class="field-item"><strong>Фотореакция:</strong> <span class="value">живая, содружественная.</span></div>
+                <div class="field-item"><strong>Нистагм:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Асимметрия лица:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Менингеальные симптомы:</strong> <span class="value">отрицательные.</span></div>
+                <div class="field-item"><strong>Очаговые симптомы:</strong> <span class="value">не выявлены.</span></div>
+            </div>
+        </div>
+
+        <!-- МОЧЕПОЛОВАЯ СИСТЕМА -->
+        <div class="section">
+            <div class="section-title">🚽 МОЧЕПОЛОВАЯ СИСТЕМА</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Мочеиспускание:</strong> <span class="value">свободное, безболезненное (со слов матери).</span></div>
+                <div class="field-item"><strong>Симптом поколачивания:</strong> <span class="value">не определяется.</span></div>
+            </div>
+        </div>
+
+        <!-- STATUS LOCALIS -->
+        <div class="section">
+            <div class="section-title">🔍 STATUS LOCALIS</div>
+            <div class="status-local">
+                Живот при пальпации в правой подвздошной области определяется болезненное колбасовидное образование (инвагинат) размером примерно 3-4 см, умеренно подвижное. При пальпации левой подвздошной области – без особенностей. Перитонеальных симптомов нет. При ректальном исследовании (при необходимости) – на перчатке слизь с примесью крови (стул типа «малиновое желе»).
+            </div>
+        </div>
+
+        <!-- ОЦЕНКА ПО ШКАЛАМ -->
+        <div class="section">
+            <div class="section-title">📊 ОЦЕНКА ПО ШКАЛАМ</div>
+            <div class="scales-list">
+                <p>✔ <strong>Шкала NEWS2 (педиатрическая):</strong> ЧДД 32 (1 балл для возраста 4 мес. – тахипноэ), SpO2 98% (0), температура 36.5 (0), АД сист. 85 (0), ЧСС 130 (2 балла), сознание ясное (0). Сумма: 3 балла (средний риск).</p>
+                <p>✔ <strong>Индекс Альговера:</strong> ЧСС/АДсист = 130/85 ≈ 1.53 (повышен, риск гиповолемии).</p>
+                <p>✔ <strong>Шкала комы Глазго (GCS):</strong> 15 баллов.</p>
+                <p>✔ <strong>Шкала боли (модифицированная для грудных детей):</strong> 6-7 баллов (сильный болевой синдром во время приступа).</p>
+                <p>✔ <strong>Шкала ОДН по Кассиль:</strong> не применима.</p>
+                <p>✔ <strong>Шкала ШОКС:</strong> не применимо.</p>
+                <p>✔ <strong>Шкала риска ТЭЛА:</strong> не применимо.</p>
+                <p>✔ <strong>Шкала LAMS:</strong> 0 баллов (нет очаговой неврологической симптоматики).</p>
+                <p>✔ <strong>Признаки ДЭП:</strong> не применимо.</p>
+                <p>✔ <strong>Состояние алкогольного опьянения:</strong> не применимо.</p>
+            </div>
+        </div>
+
+        <!-- ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ -->
+        <div class="section">
+            <div class="section-title">📈 ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ</div>
+            <div class="scales-list">
+                <p>✔ <strong>Пульсоксиметрия:</strong> SpO₂ – 98%.</p>
+                <p>✔ <strong>ЭКГ:</strong> не проводилась (нет показаний).</p>
+                <p>✔ <strong>Глюкометрия:</strong> не проводилась.</p>
+            </div>
+        </div>
+
+        <!-- Дифференциальная диагностика -->
+        <div class="note">
+            <strong>📌 Примечание для бригады СМП (дифференциальная диагностика):</strong><br>
+            Дифференциальная диагностика инвагинации проведена с:
+            <ul class="note-list">
+                <li><strong>Дизентерией:</strong> стул типа «ректального плевка» с кровью и слизью, тенезмы, лихорадка, интоксикация. При инвагинации стул типа «малиновое желе», приступообразные боли, отсутствие лихорадки.</li>
+                <li><strong>Полипом прямой кишки:</strong> кровотечение без болей, стул без изменений. Инвагинация встречается крайне редко.</li>
+                <li><strong>Острым энтероколитом:</strong> диарея, рвота, лихорадка, обезвоживание. Боли менее интенсивные, носят постоянный характер. При инвагинации боли схваткообразные.</li>
+                <li><strong>Аппендицитом:</strong> боли постоянные, локальные в правой подвздошной области, симптомы раздражения брюшины. У детей раннего возраста аппендицит встречается редко и протекает атипично. При инвагинации боли приступообразные.</li>
+                <li><strong>Инвагинацией у детей старшего возраста:</strong> встречается реже, чем у грудных, протекает с менее выраженной клиникой.</li>
+                <li><strong>Пилороспазмом или стенозом привратника:</strong> рвота фонтаном после кормления, отсутствие схваткообразных болей, стул и газы отходят.</li>
+            </ul>
+            <strong>🔑 Ключевые признаки инвагинации у ребенка 4 месяцев:</strong><br>
+            – Внезапное начало приступов беспокойства и пронзительного плача.<br>
+            – Схваткообразный характер болей (периоды покоя между приступами).<br>
+            – Рвота (сначала рефлекторная, затем застойная).<br>
+            – Пальпируемое «колбасовидное» образование в правой подвздошной области.<br>
+            – Стул типа «малиновое желе» (слизь с кровью) – поздний признак.<br>
+            – Отсутствие стула и газов (при развитии непроходимости).<br>
+            – Относительно удовлетворительное состояние в межприступный период на ранних стадиях.<br>
+            – Возрастной пик – от 4 до 9 месяцев.
+        </div>
+    </div>
+</div>
+</body>
+</html>
