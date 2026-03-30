@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Карта вызова скорой медицинской помощи | Железодефицитная анемия</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #e9ecef;
+            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+            padding: 40px 20px;
+            color: #212529;
+            line-height: 1.45;
+        }
+
+        .card {
+            max-width: 1100px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            border: 1px solid #dee2e6;
+        }
+
+        .mkb-row {
+            background: linear-gradient(135deg, #0b3b5f 0%, #1a4d6f 100%);
+            color: white;
+            padding: 20px 32px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border-bottom: 4px solid #ffc107;
+        }
+
+        .mkb-row span {
+            font-weight: 700;
+            color: #ffc107;
+        }
+
+        .diagnosis {
+            background: #fef9e6;
+            padding: 12px 32px;
+            border-left: 6px solid #ffc107;
+            font-weight: 500;
+            font-size: 0.98rem;
+            color: #2d3e50;
+            border-bottom: 1px solid #f0e2b6;
+        }
+
+        .content {
+            padding: 24px 32px 40px 32px;
+        }
+
+        .section {
+            margin-bottom: 32px;
+            break-inside: avoid;
+            page-break-inside: avoid;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #1a4d6f;
+            border-left: 6px solid #ffc107;
+            padding-left: 16px;
+            margin-bottom: 18px;
+            margin-top: 8px;
+            background: #f4f9ff;
+            border-radius: 0 12px 12px 0;
+            line-height: 1.3;
+        }
+
+        .field-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .field-item {
+            padding: 6px 0 4px 8px;
+            border-bottom: 1px dotted #e0e6ed;
+            font-size: 0.94rem;
+            line-height: 1.45;
+        }
+
+        .field-item strong {
+            font-weight: 700;
+            color: #1e4663;
+            display: inline-block;
+            min-width: 240px;
+        }
+
+        .field-item .value {
+            color: #2c3e4e;
+            font-weight: 500;
+        }
+
+        .full-width-text {
+            padding: 8px 0 8px 8px;
+            border-bottom: 1px dotted #e0e6ed;
+            font-size: 0.94rem;
+        }
+
+        .full-width-text strong {
+            font-weight: 700;
+            color: #1e4663;
+            display: inline-block;
+            min-width: 240px;
+        }
+
+        .status-local {
+            background: #fef7e0;
+            padding: 14px 18px;
+            border-radius: 18px;
+            margin-top: 6px;
+            border: 1px solid #ffe3a4;
+            font-size: 0.94rem;
+        }
+
+        .scales-list {
+            background: #f1f4f9;
+            padding: 12px 20px;
+            border-radius: 20px;
+            margin-top: 10px;
+        }
+
+        .scales-list p {
+            margin: 8px 0;
+        }
+
+        .note {
+            background: #e7f1ff;
+            border-left: 4px solid #1a4d6f;
+            padding: 12px 16px;
+            margin-top: 16px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            color: #1e4663;
+        }
+
+        .note-list {
+            margin-top: 8px;
+            margin-left: 20px;
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .note-list li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .note-list li:before {
+            content: "•";
+            position: absolute;
+            left: 4px;
+            color: #1a4d6f;
+            font-weight: bold;
+        }
+
+        @media (max-width: 700px) {
+            .field-item strong {
+                min-width: 170px;
+            }
+            .full-width-text strong {
+                min-width: 170px;
+            }
+            .content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="card">
+    <div class="mkb-row">
+        📌 Код по МКБ-10: <span>D50.9</span> (Железодефицитная анемия неуточненная)
+    </div>
+    <div class="diagnosis">
+        🧾 <strong>Диагноз:</strong> Железодефицитная анемия тяжелой степени (гемоглобин 62 г/л). Хроническая постгеморрагическая анемия?
+    </div>
+
+    <div class="content">
+        <!-- ЖАЛОБЫ -->
+        <div class="section">
+            <div class="section-title">📢 ЖАЛОБЫ</div>
+            <div class="full-width-text"><em>На момент осмотра пациентка предъявляет жалобы на общую слабость, повышенную утомляемость, головокружение, шум в ушах, мелькание «мушек» перед глазами, одышку при привычной физической нагрузке (ходьба, подъем по лестнице), сердцебиение, бледность кожных покровов. Также отмечает ломкость ногтей, сухость кожи, выпадение волос, извращение вкуса (желание есть мел, глину). Аппетит снижен.</em></div>
+        </div>
+
+        <!-- АНАМНЕЗ -->
+        <div class="section">
+            <div class="section-title">📋 АНАМНЕЗ</div>
+            <div class="full-width-text"><strong>Anamnesis morbi:</strong> Со слов пациентки, слабость нарастала постепенно в течение нескольких месяцев. Последние 2 недели отметила значительное ухудшение: усилилась одышка, появилось сердцебиение, головокружение. За медицинской помощью не обращалась, самостоятельно не лечилась. В анамнезе – обильные и длительные менструации (подозрение на миому матки), возможно, наличие хронического геморроя с периодическими кровотечениями. Вызвала бригаду СМП в связи с ухудшением самочувствия.</div>
+            <div class="full-width-text"><strong>Анамнез жизни:</strong> Хронические заболевания отрицает. Травм, операций не было. В анамнезе – обильные и длительные менструации.</div>
+            <div class="full-width-text"><strong>Аллергологический анамнез:</strong> Не отягощен. Аллергии на лекарственные препараты, пищевые продукты, бытовую химию отрицает.</div>
+            <div class="full-width-text"><strong>Гинекологический анамнез:</strong> Менструации с 13 лет, обильные, болезненные, нерегулярные. Последние менструации обильные, длительные (до 7-8 дней). Последняя менструация была 2 недели назад. В настоящее время выделений из половых путей нет. Возраст – предположительно 45-50 лет (перименопауза).</div>
+            <div class="full-width-text"><strong>Эпидемиологический анамнез:</strong> Контакт с инфекционными больными отрицает. За пределы РФ не выезжала, укусы насекомых отрицает. Прививочный анамнез неизвестен.</div>
+        </div>
+
+        <!-- ОБЪЕКТИВНО -->
+        <div class="section">
+            <div class="section-title">🩺 ОБЪЕКТИВНО</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Общее состояние:</strong> <span class="value">средней тяжести.</span></div>
+                <div class="field-item"><strong>Сознание:</strong> <span class="value">ясное.</span></div>
+                <div class="field-item"><strong>Шкала комы Глазго (GCS):</strong> <span class="value">15 баллов (E4,V5,M6).</span></div>
+                <div class="field-item"><strong>Положение:</strong> <span class="value">активное (пациентка передвигается, но предпочитает сидеть/лежать).</span></div>
+                <div class="field-item"><strong>Кожные покровы:</strong> <span class="value">бледные, с восковидным оттенком, сухие. Акроцианоз не выражен. Ногти тусклые, ломкие, с поперечной исчерченностью (койлонихия). Волосы сухие, тусклые.</span></div>
+                <div class="field-item"><strong>Сыпь:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Зев:</strong> <span class="value">спокойный, чистый.</span></div>
+                <div class="field-item"><strong>Миндалины:</strong> <span class="value">без особенностей, не увеличены, налетов нет.</span></div>
+                <div class="field-item"><strong>Лимфоузлы:</strong> <span class="value">не пальпируются.</span></div>
+                <div class="field-item"><strong>Пролежни:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Отеки:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>t°:</strong> <span class="value">36.4 °C.</span></div>
+            </div>
+        </div>
+
+        <!-- ОРГАНЫ ДЫХАНИЯ -->
+        <div class="section">
+            <div class="section-title">🌬️ ОРГАНЫ ДЫХАНИЯ</div>
+            <div class="field-list">
+                <div class="field-item"><strong>ЧДД в мин:</strong> <span class="value">20</span></div>
+                <div class="field-item"><strong>Одышка:</strong> <span class="value">смешанная, незначительная в покое, усиливается при нагрузке.</span></div>
+                <div class="field-item"><strong>Патологическое дыхание:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Аускультативно:</strong> <span class="value">везикулярное дыхание, проводится во все отделы, хрипов нет.</span></div>
+                <div class="field-item"><strong>Хрипы:</strong> <span class="value">отсутствуют.</span></div>
+                <div class="field-item"><strong>Крепитация:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Шум трения плевры:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Перкуторный звук:</strong> <span class="value">ясный легочный, симметричный.</span></div>
+                <div class="field-item"><strong>Кашель:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Мокрота:</strong> <span class="value">нет.</span></div>
+            </div>
+        </div>
+
+        <!-- ОРГАНЫ КРОВООБРАЩЕНИЯ -->
+        <div class="section">
+            <div class="section-title">❤️ ОРГАНЫ КРОВООБРАЩЕНИЯ</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Пульс в мин:</strong> <span class="value">92 (тахикардия, удовлетворительного наполнения).</span></div>
+                <div class="field-item"><strong>Ритмичный, аритмичный, наполнение пульса:</strong> <span class="value">ритмичный, удовлетворительный.</span></div>
+                <div class="field-item"><strong>ЧСС:</strong> <span class="value">92</span></div>
+                <div class="field-item"><strong>Дефицит пульса:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>АД мм.рт.ст. на момент осмотра:</strong> <span class="value">105/65, привычное АД 120/80 (со слов).</span></div>
+                <div class="field-item"><strong>Тоны сердца:</strong> <span class="value">приглушены, тахикардия, систолический шум на верхушке и в точке Боткина (функциональный анемический шум).</span></div>
+                <div class="field-item"><strong>Шум:</strong> <span class="value">систолический, мягкий.</span></div>
+                <div class="field-item"><strong>Шум трения перикарда:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Акцент какого тона на:</strong> <span class="value">нет.</span></div>
+            </div>
+        </div>
+
+        <!-- ОРГАНЫ ПИЩЕВАРЕНИЯ -->
+        <div class="section">
+            <div class="section-title">🍽️ ОРГАНЫ ПИЩЕВАРЕНИЯ</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Язык:</strong> <span class="value">гладкий, блестящий (атрофия сосочков), «лакированный».</span></div>
+                <div class="field-item"><strong>Живот:</strong> <span class="value">мягкий, не вздут, участвует в акте дыхания, безболезненный при пальпации во всех отделах. Печень и селезенка не увеличены.</span></div>
+                <div class="field-item"><strong>Болезненный в:</strong> <span class="value">безболезненный.</span></div>
+                <div class="field-item"><strong>Положительные симптомы:</strong> <span class="value">Симптомы раздражения брюшины — отрицательные.</span></div>
+                <div class="field-item"><strong>Перистальтика:</strong> <span class="value">активная, выслушивается.</span></div>
+                <div class="field-item"><strong>Печень:</strong> <span class="value">не увеличена, край эластичный.</span></div>
+                <div class="field-item"><strong>Селезенка:</strong> <span class="value">не пальпируется.</span></div>
+                <div class="field-item"><strong>Стул:</strong> <span class="value">регулярный, оформленный (со слов). Геморроидальных кровотечений в последние дни не было.</span></div>
+            </div>
+        </div>
+
+        <!-- НЕРВНАЯ СИСТЕМА -->
+        <div class="section">
+            <div class="section-title">🧠 НЕРВНАЯ СИСТЕМА</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Поведение:</strong> <span class="value">спокойное, адекватное.</span></div>
+                <div class="field-item"><strong>Контакт:</strong> <span class="value">доступен, продуктивный.</span></div>
+                <div class="field-item"><strong>Чувствительность:</strong> <span class="value">сохранена.</span></div>
+                <div class="field-item"><strong>Речь:</strong> <span class="value">внятная.</span></div>
+                <div class="field-item"><strong>Зрачки (OD, OS):</strong> <span class="value">D=S, обычные.</span></div>
+                <div class="field-item"><strong>Фотореакция:</strong> <span class="value">живая, содружественная.</span></div>
+                <div class="field-item"><strong>Нистагм:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Асимметрия лица:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Менингеальные симптомы:</strong> <span class="value">ригидность затылочных мышц, Кернига, Брудзинского — отрицательные.</span></div>
+                <div class="field-item"><strong>Очаговые симптомы:</strong> <span class="value">не выявлены.</span></div>
+                <div class="field-item"><strong>Координаторные пробы:</strong> <span class="value">пальце-носовую пробу выполняет уверенно (легкая слабость не влияет).</span></div>
+                <div class="field-item"><strong>Неврологический статус:</strong> <span class="value">Очаговой неврологической симптоматики нет. Глазные щели D=S, движения глазных яблок в полном объеме. Корешковых, сегментарных чувствительных расстройств нет. Патологических рефлексов не выявлено.</span></div>
+            </div>
+        </div>
+
+        <!-- МОЧЕПОЛОВАЯ СИСТЕМА -->
+        <div class="section">
+            <div class="section-title">🚽 МОЧЕПОЛОВАЯ СИСТЕМА</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Мочеиспускание:</strong> <span class="value">свободное, безболезненное, моча светлая, прозрачная.</span></div>
+                <div class="field-item"><strong>Симптом поколачивания:</strong> <span class="value">отрицательный с обеих сторон.</span></div>
+            </div>
+        </div>
+
+        <!-- STATUS LOCALIS -->
+        <div class="section">
+            <div class="section-title">🔍 STATUS LOCALIS</div>
+            <div class="status-local">
+                Кожные покровы и видимые слизистые бледные, трофические изменения ногтей и волос. Видимых травм и повреждений нет. Периферические лимфоузлы не увеличены. Живот мягкий, безболезненный. Гемодинамика стабильная с тенденцией к тахикардии и гипотонии.
+            </div>
+        </div>
+
+        <!-- ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ -->
+        <div class="section">
+            <div class="section-title">📈 ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ</div>
+            <div class="scales-list">
+                <p>✔ <strong>Пульсоксиметрия:</strong> SpO₂ – 95%.</p>
+                <p>✔ <strong>Глюкометрия:</strong> 4,8 ммоль/л.</p>
+                <p>✔ <strong>ЭКГ:</strong> синусовая тахикардия с ЧСС 92 в мин, диффузные изменения миокарда (возможно, гипоксические). Признаков острой коронарной патологии нет.</p>
+            </div>
+        </div>
+
+        <!-- ОЦЕНКА ПО ШКАЛАМ -->
+        <div class="section">
+            <div class="section-title">📊 ОЦЕНКА ПО ШКАЛАМ</div>
+            <div class="scales-list">
+                <p>✔ <strong>Шкала NEWS2 (взрослая):</strong> ЧДД 20 (0), SpO2 95% (1 балл), температура 36.4 (0), АД сист. 105 (0), ЧСС 92 (0), сознание ясное (0). Сумма: 1 балл (низкий риск).</p>
+                <p>✔ <strong>Индекс Альговера:</strong> ЧСС/АДсист = 92/105 ≈ 0.88 (норма).</p>
+                <p>✔ <strong>Шкала комы Глазго (GCS):</strong> 15 баллов.</p>
+                <p>✔ <strong>Степень тяжести анемии по гемоглобину:</strong> тяжелая (70–90 г/л – средняя, 60–69 г/л – тяжелая, у пациентки 62 г/л).</p>
+                <p>✔ <strong>Шкала боли ВАШ:</strong> 0 баллов (жалоб на боль нет).</p>
+                <p>✔ <strong>Шкала ОДН по Кассиль:</strong> не применима.</p>
+                <p>✔ <strong>Шкала ШОКС:</strong> не применимо.</p>
+                <p>✔ <strong>Шкала риска ТЭЛА:</strong> не применимо.</p>
+                <p>✔ <strong>Шкала LAMS:</strong> 0 баллов (нет очаговой неврологической симптоматики).</p>
+                <p>✔ <strong>Признаки ДЭП:</strong> не применимо.</p>
+                <p>✔ <strong>Состояние алкогольного опьянения:</strong> не употребляла, запаха алкоголя нет.</p>
+            </div>
+        </div>
+
+        <!-- Дифференциальная диагностика -->
+        <div class="note">
+            <strong>📌 Примечание для бригады СМП (дифференциальная диагностика):</strong><br>
+            Дифференциальная диагностика железодефицитной анемии проведена с:
+            <ul class="note-list">
+                <li><strong>Острой постгеморрагической анемией:</strong> возникает после массивного кровотечения (травма, желудочно-кишечное, маточное). Клиника развивается быстро, есть признаки гиповолемического шока (холодный пот, бледность, нитевидный пульс, резкое падение АД). У пациентки симптомы нарастали постепенно, что характерно для хронической кровопотери.</li>
+                <li><strong>В12-дефицитной (мегалобластной) анемией:</strong> характерны неврологические симптомы (парестезии, нарушение чувствительности, атаксия, фуникулярный миелоз), ярко-красный «лакированный» язык, желтушность кожи. В анализе крови – макроцитоз, гиперхромия. У пациентки нет неврологических нарушений.</li>
+                <li><strong>Апластической анемией:</strong> проявляется панцитопенией: кроме анемии, есть лейкопения (инфекции) и тромбоцитопения (геморрагический синдром). У пациентки нет лихорадки, геморрагий.</li>
+                <li><strong>Гемолитической анемией:</strong> характерны желтуха, увеличение селезенки, повышение непрямого билирубина, ретикулоцитоз. У пациентки нет желтухи и спленомегалии.</li>
+                <li><strong>Анемией хронических заболеваний (при ревматоидном артрите, туберкулезе, онкологии):</strong> анемия обычно умеренная, нормо- или гипохромная, есть симптомы основного заболевания. У пациентки анемия тяжелая, что больше характерно для хронической кровопотери.</li>
+                <li><strong>Миелодиспластическим синдромом, лейкозом:</strong> могут проявляться анемией, но часто сопровождаются лимфаденопатией, гепатоспленомегалией, геморрагиями. В анализе крови – бластные клетки, изменения лейкоцитов и тромбоцитов.</li>
+            </ul>
+            <strong>🔑 Ключевые признаки железодефицитной анемии тяжелой степени:</strong><br>
+            – Снижение гемоглобина (62 г/л).<br>
+            – Клинические симптомы: слабость, одышка, тахикардия, бледность кожи и слизистых.<br>
+            – Трофические изменения (сухость кожи, ломкость ногтей, выпадение волос, извращение вкуса).<br>
+            – Наличие хронического источника кровопотери (меноррагии, геморрой и др.).<br>
+            – Отсутствие желтухи, спленомегалии, геморрагического синдрома.
+        </div>
+    </div>
+</div>
+</body>
+</html>
