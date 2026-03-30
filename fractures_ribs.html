@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ПЕРЕЛОМЫ гр/клетка</title>
+<title>ПЕРЕЛОМЫ РЕБЕР И ГРУДИНЫ</title>
 <style>
   body {
     font-family: 'Segoe UI', 'Roboto', sans-serif;
@@ -22,13 +22,30 @@
     color: #0f1446;
   }
 
+  .fracture-section {
+    width: 100%;
+    max-width: 500px;
+    margin-bottom: 20px;
+    background: white;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-sizing: border-box;
+  }
+
+  .section-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #e53935;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #e53935;
+  }
+
   .fracture-menu {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    width: 100%;
-    max-width: 500px;
-    box-sizing: border-box;
   }
 
   .fracture-btn {
@@ -57,44 +74,37 @@
   }
 
   @media (max-width: 600px) {
-    .fracture-menu {
+    .fracture-section {
       max-width: 90%;
     }
     .fracture-btn {
       font-size: 0.9rem;
+      padding: 10px 12px;
     }
-  }
-
-  .section-header {
-    color: #0f1446;
-    font-weight: 700;
-    margin: 15px 0 5px 0;
-    padding-left: 5px;
-    border-left: 4px solid #0f1446;
-    font-size: 0.9rem;
-    letter-spacing: 0.5px;
-  }
-
-  .section-header:first-of-type {
-    margin-top: 0;
+    .section-title {
+      font-size: 16px;
+    }
   }
 </style>
 </head>
 <body>
 
-<h1>ПЕРЕЛОМЫ гр/клетка</h1>
+<h1>ПЕРЕЛОМЫ РЕБЕР И ГРУДИНЫ</h1>
 
-<div class="fracture-menu">
-  <div class="section-header">📌 ПЕРЕЛОМЫ РЁБЕР</div>
-  <button class="fracture-btn" onclick="window.location.href='rib_4_right.html'">4 ребра справа</button>
-  <button class="fracture-btn" onclick="window.location.href='rib_5_right_rib_6_left.html'">5 ребра справа и 6 ребра слева</button>
-  <button class="fracture-btn" onclick="window.location.href='rib_5_right_lung_injury_tension_pneumothorax_hemothorax_subcutaneous_emphysema.html'">5 ребра справа. Ранение правого легкого. Напряженный клапанный пневмоторакс. Гемоторакс. Подкожная эмфизема</button>
-  <button class="fracture-btn" onclick="window.location.href='rib_8_left.html'">8 ребра слева</button>
-  <button class="fracture-btn" onclick="window.location.href='rib_8_left_complicated_hemopneumothorax_subcutaneous_emphysema.html'">8 ребра слева, осложнённый гемопневмотораксом и подкожной эмфиземой</button>
+<!-- РЕБРА -->
+<div class="fracture-section">
+  <div class="section-title">📌 РЕБРА</div>
+  <div class="fracture-menu">
+    <button class="fracture-btn" onclick="window.location.href='fracture_rib.html'">Перелом ребра/ребер</button>
+  </div>
+</div>
 
-  <div class="section-header">📌 ПЕРЕЛОМЫ ГРУДИНЫ</div>
-  <button class="fracture-btn" onclick="window.location.href='sternum.html'">Грудины</button>
-  <button class="fracture-btn" onclick="window.location.href='sternum_displaced.html'">Грудины со смещением</button>
+<!-- ГРУДИНА -->
+<div class="fracture-section">
+  <div class="section-title">📌 ГРУДИНА</div>
+  <div class="fracture-menu">
+    <button class="fracture-btn" onclick="window.location.href='fracture_sternum.html'">Перелом грудины</button>
+  </div>
 </div>
 
 </body>
