@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Карта вызова скорой медицинской помощи | Артрит неуточненный</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #e9ecef;
+            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+            padding: 40px 20px;
+            color: #212529;
+            line-height: 1.45;
+        }
+
+        .card {
+            max-width: 1100px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            border: 1px solid #dee2e6;
+        }
+
+        .mkb-row {
+            background: linear-gradient(135deg, #0b3b5f 0%, #1a4d6f 100%);
+            color: white;
+            padding: 20px 32px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border-bottom: 4px solid #ffc107;
+        }
+
+        .mkb-row span {
+            font-weight: 700;
+            color: #ffc107;
+        }
+
+        .diagnosis {
+            background: #fef9e6;
+            padding: 12px 32px;
+            border-left: 6px solid #ffc107;
+            font-weight: 500;
+            font-size: 0.98rem;
+            color: #2d3e50;
+            border-bottom: 1px solid #f0e2b6;
+        }
+
+        .content {
+            padding: 24px 32px 40px 32px;
+        }
+
+        .section {
+            margin-bottom: 32px;
+            break-inside: avoid;
+            page-break-inside: avoid;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #1a4d6f;
+            border-left: 6px solid #ffc107;
+            padding-left: 16px;
+            margin-bottom: 18px;
+            margin-top: 8px;
+            background: #f4f9ff;
+            border-radius: 0 12px 12px 0;
+            line-height: 1.3;
+        }
+
+        .field-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .field-item {
+            padding: 6px 0 4px 8px;
+            border-bottom: 1px dotted #e0e6ed;
+            font-size: 0.94rem;
+            line-height: 1.45;
+        }
+
+        .field-item strong {
+            font-weight: 700;
+            color: #1e4663;
+            display: inline-block;
+            min-width: 240px;
+        }
+
+        .field-item .value {
+            color: #2c3e4e;
+            font-weight: 500;
+        }
+
+        .full-width-text {
+            padding: 8px 0 8px 8px;
+            border-bottom: 1px dotted #e0e6ed;
+            font-size: 0.94rem;
+        }
+
+        .full-width-text strong {
+            font-weight: 700;
+            color: #1e4663;
+            display: inline-block;
+            min-width: 240px;
+        }
+
+        .status-local {
+            background: #fef7e0;
+            padding: 14px 18px;
+            border-radius: 18px;
+            margin-top: 6px;
+            border: 1px solid #ffe3a4;
+            font-size: 0.94rem;
+        }
+
+        .scales-list {
+            background: #f1f4f9;
+            padding: 12px 20px;
+            border-radius: 20px;
+            margin-top: 10px;
+        }
+
+        .scales-list p {
+            margin: 8px 0;
+        }
+
+        .note {
+            background: #e7f1ff;
+            border-left: 4px solid #1a4d6f;
+            padding: 12px 16px;
+            margin-top: 16px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            color: #1e4663;
+        }
+
+        .note-list {
+            margin-top: 8px;
+            margin-left: 20px;
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .note-list li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .note-list li:before {
+            content: "•";
+            position: absolute;
+            left: 4px;
+            color: #1a4d6f;
+            font-weight: bold;
+        }
+
+        @media (max-width: 700px) {
+            .field-item strong {
+                min-width: 170px;
+            }
+            .full-width-text strong {
+                min-width: 170px;
+            }
+            .content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="card">
+    <div class="mkb-row">
+        📌 Код по МКБ-10: <span>M13.9</span> (Артрит неуточненный)
+    </div>
+    <div class="diagnosis">
+        🧾 <strong>Диагноз:</strong> Острый артрит правого коленного сустава (вероятно, кристаллический/подагрический).
+    </div>
+
+    <div class="content">
+        <!-- ЖАЛОБЫ -->
+        <div class="section">
+            <div class="section-title">📢 ЖАЛОБЫ</div>
+            <div class="full-width-text"><em>На момент осмотра пациент предъявляет жалобы на интенсивные боли в правом коленном суставе ноющего, распирающего характера, усиливающиеся при малейших движениях (сгибание, разгибание) и в ночное время. Сустав отечен, кожа над ним горячая на ощупь, отмечает покраснение. Из-за боли не может наступить на правую ногу, передвигается с трудом, с посторонней помощью. Также беспокоит общая слабость, познабливание, повышение температуры тела до 37,8 °C.</em></div>
+        </div>
+
+        <!-- АНАМНЕЗ -->
+        <div class="section">
+            <div class="section-title">📋 АНАМНЕЗ</div>
+            <div class="full-width-text"><strong>Anamnesis morbi:</strong> Со слов пациента, заболел остро около суток назад, когда после погрешности в диете (употребление красного вина, жирного мяса) появились боли в правом колене, которые быстро нарастали. К утру сустав распух, покраснел, температура тела повысилась. Подобные приступы возникали ранее (около 3-4 раз за последние 2 года), поражали обычно первый плюснефаланговый сустав стопы, проходили самостоятельно. За медицинской помощью не обращался, не обследован. Самостоятельно принимал диклофенак (таблетки) с незначительным эффектом. Вызвал бригаду СМП в связи с выраженным болевым синдромом и невозможностью самостоятельно передвигаться.</div>
+            <div class="full-width-text"><strong>Анамнез жизни:</strong> Хронические заболевания отрицает. Травм, операций не было.</div>
+            <div class="full-width-text"><strong>Аллергологический анамнез:</strong> Не отягощен. Аллергии на лекарственные препараты, пищевые продукты, бытовую химию отрицает.</div>
+            <div class="full-width-text"><strong>Гинекологический анамнез:</strong> Не применимо (пациент мужского пола).</div>
+            <div class="full-width-text"><strong>Эпидемиологический анамнез:</strong> Контакт с инфекционными больными отрицает. За последние 3 недели за пределы города не выезжал, укусы насекомых отрицает. Травму колена отрицает.</div>
+        </div>
+
+        <!-- ОБЪЕКТИВНО -->
+        <div class="section">
+            <div class="section-title">🩺 ОБЪЕКТИВНО</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Общее состояние:</strong> <span class="value">средней тяжести (за счет болевого синдрома и лихорадки).</span></div>
+                <div class="field-item"><strong>Сознание:</strong> <span class="value">ясное.</span></div>
+                <div class="field-item"><strong>Шкала комы Глазго (GCS):</strong> <span class="value">15 баллов (E4,V5,M6).</span></div>
+                <div class="field-item"><strong>Положение:</strong> <span class="value">вынужденное (лежит на спине, правая нога несколько согнута в колене и ротирована кнаружи, щадит конечность).</span></div>
+                <div class="field-item"><strong>Кожные покровы:</strong> <span class="value">обычной окраски, чистые, горячие на ощупь, умеренно влажные. В области правого коленного сустава – выраженная гиперемия (см. Status localis).</span></div>
+                <div class="field-item"><strong>Сыпь:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Зев:</strong> <span class="value">спокойный, чистый.</span></div>
+                <div class="field-item"><strong>Миндалины:</strong> <span class="value">без особенностей, не увеличены, налетов нет.</span></div>
+                <div class="field-item"><strong>Лимфоузлы:</strong> <span class="value">не пальпируются.</span></div>
+                <div class="field-item"><strong>Пролежни:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Отеки:</strong> <span class="value">не выявлены (за исключением локального отека правого коленного сустава).</span></div>
+                <div class="field-item"><strong>t°:</strong> <span class="value">37.8 °C.</span></div>
+            </div>
+        </div>
+
+        <!-- ОРГАНЫ ДЫХАНИЯ -->
+        <div class="section">
+            <div class="section-title">🌬️ ОРГАНЫ ДЫХАНИЯ</div>
+            <div class="field-list">
+                <div class="field-item"><strong>ЧДД в мин:</strong> <span class="value">18</span></div>
+                <div class="field-item"><strong>Одышка:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Патологическое дыхание:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Аускультативно:</strong> <span class="value">везикулярное дыхание, проводится во все отделы, хрипов нет.</span></div>
+                <div class="field-item"><strong>Хрипы:</strong> <span class="value">не выслушиваются.</span></div>
+                <div class="field-item"><strong>Крепитация:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Шум трения плевры:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Перкуторный звук:</strong> <span class="value">ясный легочный, симметричный.</span></div>
+                <div class="field-item"><strong>Кашель:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Мокрота:</strong> <span class="value">нет.</span></div>
+            </div>
+        </div>
+
+        <!-- ОРГАНЫ КРОВООБРАЩЕНИЯ -->
+        <div class="section">
+            <div class="section-title">❤️ ОРГАНЫ КРОВООБРАЩЕНИЯ</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Пульс в мин:</strong> <span class="value">88</span></div>
+                <div class="field-item"><strong>Ритмичный, аритмичный, наполнение пульса:</strong> <span class="value">ритмичный, удовлетворительного наполнения.</span></div>
+                <div class="field-item"><strong>ЧСС:</strong> <span class="value">88</span></div>
+                <div class="field-item"><strong>Дефицит пульса:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>АД мм.рт.ст. на момент осмотра:</strong> <span class="value">140/85, привычное АД 130/80 (со слов).</span></div>
+                <div class="field-item"><strong>Тоны сердца:</strong> <span class="value">ясные, звучные, ритмичные, акцент II тона на аорте.</span></div>
+                <div class="field-item"><strong>Шум:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Шум трения перикарда:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Акцент какого тона на:</strong> <span class="value">акцент II тона на аорте.</span></div>
+            </div>
+        </div>
+
+        <!-- ОРГАНЫ ПИЩЕВАРЕНИЯ -->
+        <div class="section">
+            <div class="section-title">🍽️ ОРГАНЫ ПИЩЕВАРЕНИЯ</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Язык:</strong> <span class="value">влажный, обложен белым налетом у корня.</span></div>
+                <div class="field-item"><strong>Живот:</strong> <span class="value">правильной формы, мягкий, не вздут, участвует в акте дыхания, безболезненный при пальпации во всех отделах.</span></div>
+                <div class="field-item"><strong>Болезненный в:</strong> <span class="value">безболезненный.</span></div>
+                <div class="field-item"><strong>Положительные симптомы:</strong> <span class="value">Симптомы раздражения брюшины — отрицательные.</span></div>
+                <div class="field-item"><strong>Перистальтика:</strong> <span class="value">активная, выслушивается.</span></div>
+                <div class="field-item"><strong>Печень:</strong> <span class="value">у края реберной дуги, безболезненная.</span></div>
+                <div class="field-item"><strong>Селезенка:</strong> <span class="value">не пальпируется.</span></div>
+                <div class="field-item"><strong>Стул:</strong> <span class="value">регулярный, оформленный (вчера был).</span></div>
+            </div>
+        </div>
+
+        <!-- НЕРВНАЯ СИСТЕМА -->
+        <div class="section">
+            <div class="section-title">🧠 НЕРВНАЯ СИСТЕМА</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Поведение:</strong> <span class="value">спокойное, адекватное.</span></div>
+                <div class="field-item"><strong>Контакт:</strong> <span class="value">доступен, продуктивный.</span></div>
+                <div class="field-item"><strong>Чувствительность:</strong> <span class="value">сохранена.</span></div>
+                <div class="field-item"><strong>Речь:</strong> <span class="value">внятная.</span></div>
+                <div class="field-item"><strong>Зрачки (OD, OS):</strong> <span class="value">D=S, обычные.</span></div>
+                <div class="field-item"><strong>Фотореакция:</strong> <span class="value">живая, содружественная.</span></div>
+                <div class="field-item"><strong>Нистагм:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Асимметрия лица:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Менингеальные симптомы:</strong> <span class="value">ригидность затылочных мышц, Кернига, Брудзинского — отрицательные.</span></div>
+                <div class="field-item"><strong>Очаговые симптомы:</strong> <span class="value">не выявлены.</span></div>
+                <div class="field-item"><strong>Координаторные пробы:</strong> <span class="value">пальце-носовую и пяточно-коленную пробы выполняет с трудом из-за боли в ноге, но интенционного тремора нет, в позе Ромберга пошатывания нет.</span></div>
+                <div class="field-item"><strong>Неврологический статус:</strong> <span class="value">Очаговой неврологической симптоматики нет. Глазные щели D=S, движения глазных яблок в полном объеме. Корешковых, сегментарных чувствительных расстройств нет. Патологических рефлексов не выявлено.</span></div>
+            </div>
+        </div>
+
+        <!-- МОЧЕПОЛОВАЯ СИСТЕМА -->
+        <div class="section">
+            <div class="section-title">🚽 МОЧЕПОЛОВАЯ СИСТЕМА</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Мочеиспускание:</strong> <span class="value">свободное, безболезненное. Цвет мочи — соломенно-желтый, прозрачная (со слов).</span></div>
+                <div class="field-item"><strong>Симптом поколачивания:</strong> <span class="value">отрицательный с обеих сторон.</span></div>
+            </div>
+        </div>
+
+        <!-- STATUS LOCALIS -->
+        <div class="section">
+            <div class="section-title">🔍 STATUS LOCALIS</div>
+            <div class="status-local">
+                <strong>Правый коленный сустав:</strong> контуры сустава сглажены за счет выраженного отека. Кожа над суставом гиперемирована, напряжена, лоснится, горячая на ощупь. При пальпации определяется резкая болезненность по всей окружности сустава, более выраженная в области медиального и латерального зазоров. Определяется флюктуация (наличие жидкости в полости сустава — синовит). Активные движения в суставе (сгибание, разгибание) невозможны из-за боли. Пассивные движения резко ограничены и болезненны. Опора на правую ногу невозможна. Пульсация на артериях стопы сохранена, удовлетворительного наполнения. Левый коленный сустав без патологии.
+            </div>
+        </div>
+
+        <!-- ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ -->
+        <div class="section">
+            <div class="section-title">📈 ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ</div>
+            <div class="scales-list">
+                <p>✔ <strong>Пульсоксиметрия:</strong> SpO₂ – 97%.</p>
+                <p>✔ <strong>Глюкометрия:</strong> не проводилась.</p>
+                <p>✔ <strong>ЭКГ:</strong> не проводилась.</p>
+            </div>
+        </div>
+
+        <!-- ОЦЕНКА ПО ШКАЛАМ -->
+        <div class="section">
+            <div class="section-title">📊 ОЦЕНКА ПО ШКАЛАМ</div>
+            <div class="scales-list">
+                <p>✔ <strong>Шкала NEWS2 (взрослая):</strong> ЧДД 18 (0), SpO2 97% (0), температура 37.8 (1 балл), АД сист. 140 (0), ЧСС 88 (0), сознание ясное (0). Сумма: 1 балл (низкий риск).</p>
+                <p>✔ <strong>Индекс Альговера:</strong> ЧСС/АДсист = 88/140 ≈ 0.63 (норма).</p>
+                <p>✔ <strong>Шкала комы Глазго (GCS):</strong> 15 баллов.</p>
+                <p>✔ <strong>Шкала боли ВАШ:</strong> 8-9 баллов (интенсивная боль).</p>
+                <p>✔ <strong>Шкала ОДН по Кассиль:</strong> не применима.</p>
+                <p>✔ <strong>Шкала ШОКС:</strong> не применимо.</p>
+                <p>✔ <strong>Шкала риска ТЭЛА:</strong> не применимо.</p>
+                <p>✔ <strong>Шкала LAMS:</strong> 0 баллов (нет очаговой неврологической симптоматики).</p>
+                <p>✔ <strong>Признаки ДЭП:</strong> не применимо.</p>
+                <p>✔ <strong>Состояние алкогольного опьянения:</strong> не употреблял, запаха алкоголя нет.</p>
+            </div>
+        </div>
+
+        <!-- Дифференциальная диагностика -->
+        <div class="note">
+            <strong>📌 Примечание для бригады СМП (дифференциальная диагностика):</strong><br>
+            Дифференциальная диагностика острого артрита коленного сустава проведена с:
+            <ul class="note-list">
+                <li><strong>Подагрическим артритом (кристаллическим):</strong> внезапное начало, часто ночью, нестерпимая боль, гиперемия, отек. В анамнезе – подобные приступы (часто в первом плюснефаланговом суставе), связь с приемом алкоголя, мясной пищи. Повышение мочевой кислоты в крови. У пациента в анамнезе есть указания на похожие приступы в других суставах, что делает подагру наиболее вероятной.</li>
+                <li><strong>Реактивным артритом (синдром Рейтера):</strong> развивается через 1-4 недели после мочеполовой или кишечной инфекции. Часто асимметричное поражение суставов ног, могут быть конъюнктивит, уретрит. У пациента нет указаний на инфекцию в анамнезе и других симптомов.</li>
+                <li><strong>Септическим (гнойным) артритом:</strong> тяжелое состояние, высокая лихорадка (39-40°С), ознобы, выраженная интоксикация. Сустав резко отечен, гиперемирован, движения невозможны, пальпация резко болезненна. В анамнезе – возможны гнойные очаги, травмы с повреждением кожи. У пациента состояние средней тяжести, лихорадка невысокая, но септический артрит исключать нельзя, так как это угрожающее состояние. Требует срочной диагностики (пункция сустава).</li>
+                <li><strong>Обострением остеоартроза (гонартрозом):</strong> обычно боль связана с нагрузкой, стихает в покое. Отек и гиперемия не характерны или выражены минимально. В анамнезе – длительное течение артроза, утренняя скованность кратковременная. У пациента острое начало, выраженные признаки воспаления.</li>
+                <li><strong>Ревматоидным артритом (дебют или обострение):</strong> чаще симметричное поражение мелких суставов кистей и стоп, утренняя скованность более 30 минут. В анализах – ревматоидный фактор, анти-ЦЦП. Для дебюта с колена не характерно.</li>
+                <li><strong>Травматическим артритом (гемартрозом):</strong> в анамнезе – четкая травма (удар, падение). При осмотре – гемартроз, возможны ссадины, гематомы. Движения болезненны, но могут быть сохранены. У пациента травмы не было.</li>
+                <li><strong>Псевдоподагрой (пирофосфатной артропатией):</strong> клинически очень похожа на подагру, но поражаются чаще коленные суставы. Внутрисуставные кристаллы пирофосфата кальция. Диагноз подтверждается рентгенологически (хондрокальциноз) и исследованием синовиальной жидкости.</li>
+                <li><strong>Болезнью Лайма (лайм-артрит):</strong> моно- или олигоартрит крупных суставов (часто коленного) через несколько недель/месяцев после укуса клеща. В анамнезе – мигрирующая эритема, другие симптомы. У пациента нет указаний на укус.</li>
+            </ul>
+            <strong>🔑 Ключевые признаки острого артрита:</strong><br>
+            – Внезапное начало с интенсивной боли, отека, гиперемии, гипертермии в области сустава.<br>
+            – Нарушение функции сустава (невозможность движений, опоры).<br>
+            – Общие симптомы: лихорадка, слабость.<br>
+            – Отсутствие травмы в анамнезе.<br>
+            – Возможная связь с предшествующей инфекцией или диетическими погрешностями.<br>
+            – Необходимость исключения септического артрита как жизнеугрожающего состояния.
+        </div>
+    </div>
+</div>
+</body>
+</html>
