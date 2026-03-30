@@ -16,12 +16,11 @@
   </div>
 
   <nav class="menu">
-    <!-- Блок "Что нового" перед кнопками -->
     <div class="news-block">
       <div class="news-label">ЧТО НОВОГО:</div>
       <div class="news-text">
-        <p>⚠️ В "Шаблонах" карты доступны до ТЕРАПИИ включительно</p>
-        <p>❗️ Начали ворочить "Status Localis", пока можете ознакомиться со структурой раздела</p>
+        <p>⚠️ В "Шаблонах" карты доступны до ПЕДИАТРИИ включительно;</p>
+        <p>❗️ "Status Localis" займемся по окончании работ с "Шаблонами";</p>
       </div>
     </div>
 
@@ -41,56 +40,35 @@
   <div class="main-content"></div>
 
   <script>
-    // Подсветка активной страницы
-    const current = window.location.pathname.split("/").pop();
-    document.querySelectorAll('.menu-btn').forEach(btn => { 
-      if(btn.getAttribute('href') === current) {
-        btn.classList.add('active');
-      }
-    });
-
-    // MAX
     document.getElementById('max-btn').addEventListener('click', () => {
       window.open('https://max.ru/EMHelp_Channel', '_blank');
     });
 
-    // VK
     document.getElementById('contact-btn').addEventListener('click', () => {
       window.open('https://vk.com/emhelp', '_blank');
     });
   </script>
 
-  <!-- Глобальный счетчик посещений после кнопок -->
   <div class="visit-counter" id="visitCounter">Загрузка...</div>
 
   <script>
-    // URL вашего скрипта (ЗАМЕНИТЕ НА ВАШ!)
     const url = 'https://script.google.com/macros/s/AKfycbzhRi96QOhpFJq0lY72IPmLwICXPCg0Mhb0twuF5R_ZZOUn0vUB6SUk54VUlyTMIQYw/exec';
     
     async function updateVisitCounter() {
       try {
-        console.log('Запрос к:', url);
         const response = await fetch(url);
-        console.log('Статус ответа:', response.status);
-        
         const data = await response.json();
-        console.log('Полученные данные:', data);
         
         if (data.error) {
-          document.getElementById('visitCounter').textContent = 
-            'Ошибка: ' + data.error;
+          document.getElementById('visitCounter').textContent = 'Ошибка: ' + data.error;
         } else {
-          document.getElementById('visitCounter').textContent = 
-            `Посещений в этом месяце: ${data.count} (${data.month})`;
+          document.getElementById('visitCounter').textContent = `Посещений в этом месяце: ${data.count} (${data.month})`;
         }
       } catch (err) {
-        console.error('Ошибка запроса:', err);
-        document.getElementById('visitCounter').textContent = 
-          'Ошибка загрузки: ' + err.message;
+        document.getElementById('visitCounter').textContent = 'Ошибка загрузки: ' + err.message;
       }
     }
     
-    // Обновляем при загрузке страницы
     updateVisitCounter();
   </script>
 
