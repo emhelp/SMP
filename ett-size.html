@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Эндотрахеальная трубка (ЭТТ) — с учётом веса</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: linear-gradient(145deg, #eef2f9 0%, #d4e0f0 100%);
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            padding: 24px 16px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .calculator-container {
+            max-width: 950px;
+            width: 100%;
+            background: rgba(255,255,255,0.96);
+            border-radius: 48px;
+            box-shadow: 0 20px 40px -12px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: #0b2b3f;
+            padding: 28px 24px 20px;
+            color: white;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 1.9rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .header h1 span {
+            background: #2c7da0;
+            padding: 4px 12px;
+            border-radius: 60px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .header p {
+            margin-top: 12px;
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        .content {
+            padding: 28px 28px 36px;
+        }
+
+        .mode-switch {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 32px;
+            background: #eef2f7;
+            border-radius: 60px;
+            padding: 6px;
+        }
+
+        .mode-btn {
+            flex: 1;
+            text-align: center;
+            padding: 12px 8px;
+            border: none;
+            background: transparent;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: inherit;
+            color: #1f4662;
+        }
+
+        .mode-btn.active {
+            background: #ffffff;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            color: #0f3b4f;
+        }
+
+        .input-panel {
+            background: #f9fbfe;
+            border-radius: 36px;
+            padding: 20px 24px;
+            margin-bottom: 28px;
+            box-shadow: inset 0 1px 2px #0001, 0 6px 12px -8px rgba(0,0,0,0.1);
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            font-weight: 600;
+            color: #1a4c6e;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 14px 18px;
+            font-size: 1rem;
+            border: 2px solid #cfdfed;
+            border-radius: 32px;
+            background: white;
+            transition: 0.2s;
+            font-family: inherit;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #2c7da0;
+            box-shadow: 0 0 0 3px rgba(44,125,160,0.2);
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 24px;
+            margin-top: 8px;
+            flex-wrap: wrap;
+        }
+
+        .radio-group label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .calc-btn {
+            background: #1f6392;
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 16px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            border-radius: 44px;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 8px;
+            font-family: inherit;
+            box-shadow: 0 8px 16px -6px rgba(0,0,0,0.2);
+        }
+
+        .calc-btn:hover {
+            background: #0f4b6e;
+            transform: translateY(-2px);
+        }
+
+        .calc-btn:active {
+            transform: translateY(1px);
+        }
+
+        .result-card {
+            background: linear-gradient(120deg, #ffffff, #f5faff);
+            border-radius: 36px;
+            padding: 20px 24px;
+            margin-top: 24px;
+            border: 1px solid rgba(70,130,200,0.2);
+            box-shadow: 0 12px 24px -12px rgba(0,0,0,0.2);
+        }
+
+        .result-title {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #2c7da0;
+            font-weight: 700;
+            margin-bottom: 16px;
+            border-left: 4px solid #2c7da0;
+            padding-left: 14px;
+        }
+
+        .result-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 18px;
+            margin-bottom: 16px;
+        }
+
+        .result-item {
+            background: #ffffffcc;
+            border-radius: 28px;
+            padding: 12px 16px;
+            text-align: center;
+            backdrop-filter: blur(2px);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .result-item-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #5f7f9e;
+            text-transform: uppercase;
+        }
+
+        .result-item-value {
+            font-size: 1.7rem;
+            font-weight: 800;
+            color: #0a2f44;
+            line-height: 1.2;
+            margin-top: 6px;
+        }
+
+        .note {
+            font-size: 0.75rem;
+            color: #4e6e8a;
+            background: #eef3fc;
+            padding: 12px 16px;
+            border-radius: 24px;
+            margin-top: 16px;
+            border-left: 3px solid #2c7da0;
+        }
+
+        .footnote {
+            text-align: center;
+            font-size: 0.7rem;
+            color: #5f7f9e;
+            margin-top: 28px;
+            border-top: 1px solid #cde0ef;
+            padding-top: 18px;
+        }
+
+        @media (max-width: 550px) {
+            .content {
+                padding: 20px;
+            }
+            .result-item-value {
+                font-size: 1.4rem;
+            }
+            .header h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="calculator-container">
+    <div class="header">
+        <h1>📏 Эндотрахеальная трубка <span>ЭТТ + вес</span></h1>
+        <p>Калькулятор размера, глубины, манжеты и катетера с учётом веса пациента</p>
+    </div>
+    <div class="content">
+        <div class="mode-switch">
+            <button class="mode-btn active" data-mode="adult">🧑 Взрослые</button>
+            <button class="mode-btn" data-mode="pediatric">👶 Дети (0–14 лет)</button>
+        </div>
+
+        <!-- Панель для взрослых (добавлен вес) -->
+        <div id="adultPanel" class="input-panel">
+            <div class="input-group">
+                <label>Пол пациента</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="gender" value="male" checked> Мужчина</label>
+                    <label><input type="radio" name="gender" value="female"> Женщина</label>
+                </div>
+            </div>
+            <div class="input-group">
+                <label>Вес (кг) — влияет на точный диаметр трубки</label>
+                <input type="number" id="adultWeight" step="1" min="30" max="200" value="70" placeholder="например: 70 кг">
+            </div>
+            <div class="input-group">
+                <label>Тип интубации (для глубины)</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="adultRoute" value="oral" checked> Оральная</label>
+                    <label><input type="radio" name="adultRoute" value="nasal"> Назальная</label>
+                </div>
+            </div>
+            <div class="note">
+                💡 Вес используется для коррекции диаметра: при низком весе (<55 кг у женщин, <65 кг у мужчин) выбирается нижняя граница, при высоком весе (>95 кг) — верхняя граница. При ожирении возможно увеличение диаметра на 0.5 мм.
+            </div>
+        </div>
+
+        <!-- Панель для детей (вес уже был, добавили подсказку) -->
+        <div id="pediatricPanel" class="input-panel" style="display: none;">
+            <div class="input-group">
+                <label>Возраст (лет) — можно дробное, например 0.5 для 6 мес</label>
+                <input type="number" id="ageYears" step="0.1" min="0" max="14" value="4" placeholder="например: 4 (года)">
+            </div>
+            <div class="input-group">
+                <label>Вес (кг) — критически важен для новорождённых и коррекции</label>
+                <input type="number" id="weightKg" step="0.1" min="0.5" max="70" value="16" placeholder="вес в кг">
+            </div>
+            <div class="input-group">
+                <label>Тип интубации (глубина)</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="pedRoute" value="oral" checked> Оральная</label>
+                    <label><input type="radio" name="pedRoute" value="nasal"> Назальная</label>
+                </div>
+            </div>
+            <div class="note">
+                ℹ️ Детям до 8 лет рекомендованы трубки <strong>без манжеты</strong>. Вес влияет на подбор диаметра по таблице + дополнительная коррекция при несоответствии веса возрасту (например, при ожирении диаметр может быть увеличен на 0.5 мм).
+            </div>
+        </div>
+
+        <button class="calc-btn" id="calcBtn">🔍 Рассчитать параметры ЭТТ (с учётом веса)</button>
+
+        <div class="result-card" id="resultCard">
+            <div class="result-title">📌 Рекомендация</div>
+            <div class="result-grid" id="resultGrid">
+                <div class="result-item">
+                    <div class="result-item-label">Внутренний диаметр (мм)</div>
+                    <div class="result-item-value" id="diamValue">—</div>
+                </div>
+                <div class="result-item">
+                    <div class="result-item-label">Глубина введения (см)</div>
+                    <div class="result-item-value" id="depthValue">—</div>
+                </div>
+                <div class="result-item">
+                    <div class="result-item-label">Манжета</div>
+                    <div class="result-item-value" id="cuffValue">—</div>
+                </div>
+                <div class="result-item">
+                    <div class="result-item-label">Катетер для аспирации (Fr)</div>
+                    <div class="result-item-value" id="catheterValue">—</div>
+                </div>
+            </div>
+            <div class="note" id="extraNote">
+                * Вес учтён в расчёте.
+            </div>
+        </div>
+        <div class="footnote">
+            ⚕️ Калькулятор даёт ориентировочные значения. Окончательное решение принимает анестезиолог/реаниматолог.<br>
+            Данные основаны на предоставленном PDF + коррекция по весу.
+        </div>
+    </div>
+</div>
+
+<script>
+    // -------------------- ДЕТСКАЯ ТАБЛИЦА (возраст, вес, диаметр, глубина оральная, катетер, манжета) --------------------
+    const pediatricTable = [
+        { ageMin: 0, ageMax: 0.1, weightMin: 0, weightMax: 0.7, diam: 2.0, depthOral: 5, catheter: 6, cuff: false },
+        { ageMin: 0, ageMax: 0.2, weightMin: 0.7, weightMax: 1.0, diam: 2.5, depthOral: 5.5, catheter: 6, cuff: false },
+        { ageMin: 0, ageMax: 0.3, weightMin: 1.5, weightMax: 2.5, diam: 3.0, depthOral: 6, catheter: 7, cuff: false },
+        { ageMin: 0, ageMax: 0.4, weightMin: 2.5, weightMax: 3.2, diam: 3.0, depthOral: 8.5, catheter: 7, cuff: false },
+        { ageMin: 0, ageMax: 0.5, weightMin: 3.2, weightMax: 4.0, diam: 3.5, depthOral: 9, catheter: 8, cuff: false },
+        { ageMin: 0.4, ageMax: 0.8, weightMin: 5, weightMax: 7, diam: 3.5, depthOral: 10, catheter: 8, cuff: false },
+        { ageMin: 0.9, ageMax: 1.3, weightMin: 9, weightMax: 11, diam: 4.0, depthOral: 11, catheter: 8, cuff: false },
+        { ageMin: 1.8, ageMax: 2.3, weightMin: 11, weightMax: 13, diam: 4.5, depthOral: 12, catheter: 10, cuff: false },
+        { ageMin: 2.8, ageMax: 3.3, weightMin: 13, weightMax: 15, diam: 4.5, depthOral: 13, catheter: 10, cuff: false },
+        { ageMin: 3.8, ageMax: 4.3, weightMin: 15, weightMax: 17, diam: 5.0, depthOral: 14, catheter: 10, cuff: false },
+        { ageMin: 5.5, ageMax: 6.5, weightMin: 18, weightMax: 22, diam: 5.5, depthOral: 15, catheter: 10, cuff: false },
+        { ageMin: 7.5, ageMax: 8.5, weightMin: 22, weightMax: 26, diam: 6.0, depthOral: 16, catheter: 10, cuff: false },
+        { ageMin: 9.5, ageMax: 10.5, weightMin: 28, weightMax: 33, diam: 6.5, depthOral: 17, catheter: 12, cuff: true },
+        { ageMin: 11.5, ageMax: 12.5, weightMin: 35, weightMax: 41, diam: 7.0, depthOral: 18, catheter: 12, cuff: true },
+        { ageMin: 12.8, ageMax: 14.2, weightMin: 45, weightMax: 55, diam: 7.5, depthOral: 19, catheter: 12, cuff: true }
+    ];
+
+    function getPediatricMatch(ageYears, weightKg) {
+        // поиск по весу и возрасту
+        for (let row of pediatricTable) {
+            const ageOk = (ageYears >= row.ageMin && ageYears <= row.ageMax);
+            const weightOk = (weightKg >= row.weightMin && weightKg <= row.weightMax);
+            if (ageOk && weightOk) return { ...row };
+        }
+        // fallback по возрасту (среднее)
+        for (let row of pediatricTable) {
+            if (ageYears <= row.ageMax + 0.5 && weightKg <= row.weightMax + 3) {
+                return { ...row };
+            }
+        }
+        // резервная формула
+        let diamFormula = (ageYears / 4) + 4;
+        diamFormula = Math.min(8.0, Math.max(2.5, diamFormula));
+        let depthFormula = (ageYears / 2) + 12;
+        let cuffRec = (ageYears >= 8);
+        let cath = 10;
+        if (diamFormula <= 3.0) cath = 6;
+        else if (diamFormula <= 4.0) cath = 8;
+        else if (diamFormula <= 6.0) cath = 10;
+        else cath = 12;
+        return { diam: diamFormula, depthOral: depthFormula, catheter: cath, cuff: cuffRec, ageMin: 0, ageMax: 14, weightMin: 0, weightMax: 200 };
+    }
+
+    // Коррекция диаметра у детей на основе веса (если вес сильно выше нормы для возраста)
+    function adjustPediatricDiameterByWeight(baseDiam, ageYears, weightKg) {
+        let expectedWeight = 0;
+        if (ageYears <= 1) expectedWeight = 3.5 + ageYears * 6; // примерная оценка
+        else if (ageYears <= 10) expectedWeight = 10 + (ageYears-1)*2.5;
+        else expectedWeight = 30 + (ageYears-10)*4;
+        if (expectedWeight < 0.5) expectedWeight = 3;
+        let ratio = weightKg / expectedWeight;
+        if (ratio > 1.3 && weightKg > 15) {
+            // значительный избыток веса -> увеличиваем диаметр на 0.5 мм, но не более 8.5
+            return Math.min(8.5, baseDiam + 0.5);
+        }
+        if (ratio < 0.7 && weightKg < 10 && ageYears > 0.5) {
+            // дефицит веса -> возможно уменьшить на 0.5, но не менее 2.5
+            return Math.max(2.5, baseDiam - 0.5);
+        }
+        return baseDiam;
+    }
+
+    function calculatePediatric(ageYears, weightKg, route) {
+        if (isNaN(ageYears) || ageYears < 0) ageYears = 0;
+        if (isNaN(weightKg) || weightKg <= 0) weightKg = 3.0;
+        let match = getPediatricMatch(ageYears, weightKg);
+        let diameter = match.diam;
+        let oralDepth = match.depthOral;
+        let cuff = match.cuff;
+        let catheter = match.catheter;
+
+        // коррекция диаметра по весу (избыток/дефицит)
+        diameter = adjustPediatricDiameterByWeight(diameter, ageYears, weightKg);
+        // Детям до 8 лет — без манжеты
+        if (ageYears < 8) cuff = false;
+        // Очень маленький вес для новорождённых
+        if (weightKg < 1.0) diameter = 2.5;
+        if (weightKg < 2.0 && diameter > 3.0) diameter = 3.0;
+
+        let depth;
+        if (route === 'oral') {
+            depth = oralDepth;
+        } else {
+            // назальная глубина: формула возраст/2 + 15
+            depth = (ageYears / 2) + 15;
+            if (depth < 8) depth = 8;
+        }
+        depth = Math.round(depth * 10) / 10;
+        diameter = Math.round(diameter * 10) / 10;
+        let cuffText = cuff ? "С манжетой" : "Без манжеты";
+        let catheterText = catheter ? `${catheter} Fr` : "—";
+        return { diameter, depth, cuffText, catheterText };
+    }
+
+    // -------------------- ВЗРОСЛЫЕ С УЧЁТОМ ВЕСА --------------------
+    function calculateAdult(gender, weightKg, route) {
+        // базовые диапазоны (min-max)
+        let minDiam, maxDiam;
+        if (gender === 'male') {
+            minDiam = 7.5;
+            maxDiam = 8.5;
+        } else {
+            minDiam = 7.0;
+            maxDiam = 8.0;
+        }
+        // коррекция по весу
+        let selectedDiam;
+        let lowWeightThreshold = (gender === 'female') ? 55 : 65;
+        let highWeightThreshold = 95;
+        if (weightKg < lowWeightThreshold) {
+            // низкий вес: берём нижнюю границу, но если очень низкий (<45) можно даже уменьшить на 0.5
+            selectedDiam = minDiam;
+            if (weightKg < 45) selectedDiam = Math.max(6.5, minDiam - 0.5);
+        } else if (weightKg > highWeightThreshold) {
+            // высокий вес: верхняя граница, при ожирении >120 добавим +0.5
+            selectedDiam = maxDiam;
+            if (weightKg > 120) selectedDiam = Math.min(9.0, maxDiam + 0.5);
+        } else {
+            // нормальный вес: среднее значение диапазона
+            selectedDiam = (minDiam + maxDiam) / 2;
+            // округление до 0.5
+            selectedDiam = Math.round(selectedDiam * 2) / 2;
+        }
+        // дополнительно: для очень низкого роста не меняем, но вес учтён
+        selectedDiam = Math.round(selectedDiam * 10) / 10;
+        
+        // глубина
+        let depth;
+        if (route === 'oral') {
+            depth = (gender === 'male') ? 23 : 21;
+        } else {
+            depth = (gender === 'male') ? 25 : 23; // назальная глубже на 2 см
+        }
+        // коррекция глубины по весу? для очень высокого веса можно увеличить на 1 см, но оставим стандарт
+        if (weightKg > 110) depth += 1;
+        
+        let cuffText = "С манжетой (стандарт)";
+        let catheterText = "12–14 Fr";
+        // подбор катетера в зависимости от диаметра
+        if (selectedDiam <= 7.0) catheterText = "10–12 Fr";
+        else if (selectedDiam >= 8.0) catheterText = "14 Fr";
+        else catheterText = "12 Fr";
+        
+        let diameterDisplay = selectedDiam.toFixed(1);
+        return { diameter: diameterDisplay, depth: depth, cuffText, catheterText };
+    }
+
+    // ---------- Управление интерфейсом ----------
+    let currentMode = "adult";
+    const adultPanel = document.getElementById('adultPanel');
+    const pediatricPanel = document.getElementById('pediatricPanel');
+    const modeBtns = document.querySelectorAll('.mode-btn');
+
+    function switchMode(mode) {
+        currentMode = mode;
+        if (mode === 'adult') {
+            adultPanel.style.display = 'block';
+            pediatricPanel.style.display = 'none';
+        } else {
+            adultPanel.style.display = 'none';
+            pediatricPanel.style.display = 'block';
+        }
+        modeBtns.forEach(btn => {
+            if (btn.getAttribute('data-mode') === mode) btn.classList.add('active');
+            else btn.classList.remove('active');
+        });
+        clearResult();
+    }
+
+    function clearResult() {
+        document.getElementById('diamValue').innerHTML = '—';
+        document.getElementById('depthValue').innerHTML = '—';
+        document.getElementById('cuffValue').innerHTML = '—';
+        document.getElementById('catheterValue').innerHTML = '—';
+        document.getElementById('extraNote').innerHTML = '* Нажмите «Рассчитать» для получения рекомендации с учётом веса.';
+    }
+
+    function computeAndDisplay() {
+        if (currentMode === 'adult') {
+            const genderRadio = document.querySelector('input[name="gender"]:checked');
+            const gender = genderRadio ? genderRadio.value : 'male';
+            const weightInput = document.getElementById('adultWeight');
+            let weight = parseFloat(weightInput.value);
+            if (isNaN(weight) || weight < 30) weight = 70;
+            const routeRadio = document.querySelector('input[name="adultRoute"]:checked');
+            const route = routeRadio ? routeRadio.value : 'oral';
+            const res = calculateAdult(gender, weight, route);
+            document.getElementById('diamValue').innerHTML = res.diameter + ' мм';
+            document.getElementById('depthValue').innerHTML = res.depth + ' см';
+            document.getElementById('cuffValue').innerHTML = res.cuffText;
+            document.getElementById('catheterValue').innerHTML = res.catheterText;
+            let noteMsg = `🧑 Взрослый, ${gender === 'male' ? 'мужчина' : 'женщина'}, вес ${weight} кг. `;
+            noteMsg += `Диаметр скорректирован с учётом веса. `;
+            if (route === 'nasal') noteMsg += 'Глубина для назальной интубации (+2 см).';
+            else noteMsg += 'Глубина для оральной интубации.';
+            document.getElementById('extraNote').innerHTML = noteMsg;
+        } 
+        else {
+            let age = parseFloat(document.getElementById('ageYears').value);
+            let weight = parseFloat(document.getElementById('weightKg').value);
+            if (isNaN(age)) age = 0;
+            if (isNaN(weight) || weight <= 0) weight = 3;
+            const routeRadio = document.querySelector('input[name="pedRoute"]:checked');
+            const route = routeRadio ? routeRadio.value : 'oral';
+            const res = calculatePediatric(age, weight, route);
+            document.getElementById('diamValue').innerHTML = res.diameter + ' мм';
+            document.getElementById('depthValue').innerHTML = res.depth + ' см';
+            document.getElementById('cuffValue').innerHTML = res.cuffText;
+            document.getElementById('catheterValue').innerHTML = res.catheterText;
+            let noteMsg = `👶 Ребёнок: возраст ${age.toFixed(1)} лет, вес ${weight.toFixed(1)} кг. `;
+            if (age < 8) noteMsg += 'По возрасту до 8 лет — трубка без манжеты. ';
+            noteMsg += 'Диаметр подобран по таблице с коррекцией на массу тела.';
+            document.getElementById('extraNote').innerHTML = noteMsg;
+        }
+    }
+
+    modeBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const mode = btn.getAttribute('data-mode');
+            if (mode === 'adult') switchMode('adult');
+            else if (mode === 'pediatric') switchMode('pediatric');
+            clearResult();
+        });
+    });
+
+    document.getElementById('calcBtn').addEventListener('click', () => {
+        computeAndDisplay();
+    });
+
+    // Стартовый расчёт для взрослых
+    switchMode('adult');
+    setTimeout(() => {
+        computeAndDisplay();
+    }, 50);
+</script>
+</body>
+</html>
