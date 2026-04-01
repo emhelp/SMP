@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Выпадение прямой кишки | Описание локального статуса</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #eef2f7 0%, #e0e8f0 100%);
+            font-family: 'Inter', sans-serif;
+            padding: 1rem;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .medical-card {
+            max-width: 800px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 2rem;
+            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.12);
+            overflow: hidden;
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #4a2e1e 0%, #2e2218 100%);
+            padding: 1.25rem 1.5rem;
+            color: white;
+            border-bottom: 3px solid #e08e3a;
+        }
+
+        .title-section h1 {
+            font-weight: 700;
+            font-size: 1.5rem;
+            letter-spacing: -0.3px;
+            color: #fff5ea;
+            margin-bottom: 0.25rem;
+            line-height: 1.3;
+        }
+
+        .sub {
+            font-size: 0.85rem;
+            color: #e6cfb5;
+            font-weight: 400;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .sub i {
+            font-size: 0.9rem;
+            color: #e08e3a;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .diagnosis-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #fef3e6;
+            color: #b45a1c;
+            padding: 0.4rem 1.1rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.75rem;
+            margin-bottom: 1.5rem;
+            border-left: 3px solid #e67e22;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+        }
+
+        .exam-section {
+            display: flex;
+            flex-direction: column;
+            gap: 1.35rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-row {
+            background: #ffffff;
+            border-radius: 1.25rem;
+            border: 1.5px solid #e5d5c2;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+
+        .row-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 700;
+            font-size: 1rem;
+            color: #2f5342;
+            padding: 1rem 1.2rem 0.5rem 1.2rem;
+            background: #fefcf9;
+            border-bottom: 2px solid #f0e3d4;
+        }
+
+        .row-header i {
+            font-size: 1.4rem;
+            width: 34px;
+            color: #c96f1e;
+            background: #fff2e6;
+            padding: 6px;
+            border-radius: 14px;
+            text-align: center;
+        }
+
+        .row-content {
+            font-size: 0.95rem;
+            line-height: 1.55;
+            color: #2c3e3a;
+            padding: 0 1.2rem 1rem 1.2rem;
+            background: #ffffff;
+        }
+
+        .highlight {
+            font-weight: 600;
+            color: #bf6019;
+            background: #fff2e6;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .mucosa-normal {
+            font-weight: 600;
+            color: #2c7a4a;
+            background: #e0f5e8;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .warning-normal {
+            color: #2c7a4a;
+            background: #e0f5e8;
+            padding: 0 8px;
+            border-radius: 20px;
+            display: inline-block;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        /* Акцентные рамки для блоков */
+        .inspection-card {
+            border-left: 4px solid #b87c4a;
+            background: #fffdf9;
+        }
+        
+        .inspection-card .row-header {
+            background: #fffaf3;
+        }
+        
+        .form-card {
+            border-left: 4px solid #6f9e7c;
+        }
+        
+        .discharge-card {
+            border-left: 4px solid #c97e3a;
+        }
+        
+        .tonus-card {
+            border-left: 4px solid #5d8fae;
+        }
+        
+        .reduction-card {
+            border-left: 4px solid #a07c5a;
+        }
+
+        /* Новый стиль для клинического комментария */
+        .clinical-new {
+            background: #f6f3ef;
+            border-radius: 1.5rem;
+            padding: 0;
+            margin: 1.5rem 0 1.25rem;
+            overflow: hidden;
+            border: 1px solid #e6daca;
+        }
+        
+        .clinical-new-header {
+            background: #d9c8b6;
+            padding: 0.7rem 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 2px solid #c8b496;
+        }
+        
+        .clinical-new-header i {
+            font-size: 1.2rem;
+            color: #4a2e1e;
+            background: #fff2e2;
+            padding: 6px;
+            border-radius: 40px;
+        }
+        
+        .clinical-new-header span {
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            color: #2c241a;
+            text-transform: uppercase;
+        }
+        
+        .clinical-new-content {
+            padding: 1.2rem 1.3rem;
+            background: #fefcf8;
+        }
+        
+        .clinical-new-content p {
+            line-height: 1.55;
+            font-size: 0.92rem;
+            color: #2e4a3c;
+            margin-bottom: 0.75rem;
+        }
+        
+        .clinical-quote {
+            margin-top: 0.8rem;
+            padding-top: 0.6rem;
+            border-top: 1px solid #ecdfd0;
+            font-size: 0.85rem;
+            color: #7f6a53;
+            display: flex;
+            gap: 8px;
+        }
+        
+        .clinical-quote i {
+            color: #c97e3a;
+        }
+
+        /* Заключение */
+        .impressio-box {
+            background: #fffaf0;
+            border-radius: 1.25rem;
+            padding: 1.2rem 1.3rem;
+            border: 1px solid #ffdfb3;
+            margin: 0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+        }
+
+        .impressio-box h4 {
+            font-weight: 700;
+            color: #b4682d;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .impressio-box h4 i {
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 0.75rem;
+            }
+            
+            .card-header {
+                padding: 1rem 1.2rem;
+            }
+            
+            .title-section h1 {
+                font-size: 1.25rem;
+            }
+            
+            .sub {
+                font-size: 0.75rem;
+            }
+            
+            .card-body {
+                padding: 1.2rem;
+            }
+            
+            .row-header {
+                padding: 0.8rem 1rem 0.3rem 1rem;
+            }
+            
+            .row-header i {
+                font-size: 1.2rem;
+                width: 30px;
+            }
+            
+            .row-content {
+                padding: 0 1rem 0.8rem 1rem;
+                font-size: 0.88rem;
+            }
+            
+            .clinical-new-content {
+                padding: 1rem;
+            }
+            
+            .diagnosis-tag {
+                font-size: 0.7rem;
+                margin-bottom: 1rem;
+            }
+        }
+
+        .icon-accent {
+            color: #d97a2b;
+            margin-right: 6px;
+        }
+        
+        .flex-between {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        
+        .bullet-list {
+            margin: 0.5rem 0 0 0;
+            padding-left: 1.2rem;
+        }
+        
+        .bullet-list li {
+            margin-bottom: 0.4rem;
+        }
+    </style>
+</head>
+<body>
+<div class="medical-card">
+    <div class="card-header">
+        <div class="title-section">
+            <h1>Выпадение прямой кишки</h1>
+            <div class="sub">
+                <i class="fas fa-ambulance"></i> Ректальный пролапс · Полное выпадение
+            </div>
+        </div>
+    </div>
+    
+    <div class="card-body">
+        <div class="diagnosis-tag">
+            <i class="fas fa-vein"></i> Выпадение прямой кишки · K62.3 (пролапс прямой кишки)
+        </div>
+
+        <div class="exam-section">
+            <!-- Осмотр аноректальной области -->
+            <div class="info-row inspection-card">
+                <div class="row-header">
+                    <i class="fas fa-stethoscope"></i>
+                    <span>🔬 Осмотр аноректальной области</span>
+                </div>
+                <div class="row-content">
+                    Осмотр проводился в положении пациента на боку с приведенными к животу коленями. В области заднего прохода визуализируется <span class="highlight">выпавший участок прямой кишки</span> длиной до <strong>7 см</strong> от анального кольца.
+                </div>
+            </div>
+            
+            <!-- Характеристика выпавшего участка -->
+            <div class="info-row form-card">
+                <div class="row-header">
+                    <i class="fas fa-shape"></i>
+                    <span>🚽 Характеристика выпавшего участка</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li><strong>Форма:</strong> выпавший сегмент имеет <strong>цилиндрическую форму</strong>.</li>
+                        <li><strong>Слизистая оболочка:</strong> <span class="mucosa-normal">бледно-розового цвета</span>, блестящая, умеренно влажная. Отмечается <span class="highlight">умеренный отек слизистой</span>.</li>
+                        <li><strong>Отверстие:</strong> в центре выпавшего участка визуализируется <strong>щелевидное отверстие</strong> (просвет кишки).</li>
+                        <li><strong>Окраска:</strong> цианотичного или ярко-красного оттенка <strong>не наблюдается</strong> (признаков острой ишемии нет).</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Раневая поверхность и отделяемое -->
+            <div class="info-row discharge-card">
+                <div class="row-header">
+                    <i class="fas fa-droplet"></i>
+                    <span>🩸 Раневая поверхность и отделяемое</span>
+                </div>
+                <div class="row-content">
+                    Имеется <strong>умеренное кровянистое отделяемое</strong> на поверхности слизистой. Отмечается <span class="highlight">легкая контактная кровоточивость</span> (при прикосновении тампоном).<br>
+                    Видимых телесных повреждений (ссадин, надрывов, ран) в области выпавшего участка и промежности <strong>нет</strong>.
+                </div>
+            </div>
+            
+            <!-- Тонус сфинктера и состояние устья -->
+            <div class="info-row tonus-card">
+                <div class="row-header">
+                    <i class="fas fa-circle-notch"></i>
+                    <span>🔬 Тонус сфинктера и состояние устья</span>
+                </div>
+                <div class="row-content">
+                    Анальное кольцо не напряжено, <span class="highlight">тонус сфинктера умеренно снижен</span> (зияние). Пальцевое введение возможно.<br>
+                    Признаков <strong>ущемления выпавшей кишки нет</strong> — кишка свободно вправима в анальный канал, легко смещается. Отек умеренный, пальцевое вправление не затруднено.
+                </div>
+            </div>
+            
+            <!-- После вправления -->
+            <div class="info-row reduction-card">
+                <div class="row-header">
+                    <i class="fas fa-hand-peace"></i>
+                    <span>📌 После вправления</span>
+                </div>
+                <div class="row-content">
+                    Сфинктерный рефлекс <strong>сохранен, но ослаблен</strong>. Кровянистые выделения после вправления <strong>прекратились</strong>.
+                </div>
+            </div>
+        </div>
+        
+        <!-- Новый стиль клинического комментария -->
+        <div class="clinical-new">
+            <div class="clinical-new-header">
+                <i class="fas fa-stethoscope"></i>
+                <span>Клинический разбор</span>
+            </div>
+            <div class="clinical-new-content">
+                <p>Представленная картина соответствует <strong>полному выпадению прямой кишки (III степень)</strong> с пролапсом сегмента длиной до 7 см. Выпавший участок имеет характерные признаки: цилиндрическая форма, слизистая бледно-розового цвета с умеренным отеком, центральное щелевидное отверстие, отсутствие цианоза и признаков ишемии.</p>
+                <p>Отсутствие признаков ущемления (свободное вправление, отсутствие выраженного отека, некротических изменений) позволяет квалифицировать состояние как <strong>неосложненное выпадение</strong>. Умеренная контактная кровоточивость характерна для трофических изменений слизистой при хроническом ректальном пролапсе. Тонус анального сфинктера снижен, что является как предрасполагающим фактором, так и следствием длительного существования выпадения.</p>
+                <div class="clinical-quote">
+                    <i class="fas fa-chart-line"></i>
+                    <span><strong>Клиническое заключение:</strong> полное выпадение прямой кишки III степени, неосложненное (без ущемления, без некроза). Признаков острой хирургической патологии (тромбоза геморроидальных узлов, перитонита) на момент осмотра не выявлено. Хроническая недостаточность анального сфинктера.</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Заключение -->
+        <div class="impressio-box">
+            <h4><i class="fas fa-notes-medical"></i> Предварительное заключение</h4>
+            <p><strong>Выпадение прямой кишки III степени (полное выпадение)</strong> длиной до 7 см, неосложненное (без ущемления). Признаков острой хирургической патологии (тромбоза, некроза, перитонита) на момент осмотра не выявлено. Отмечается умеренная контактная кровоточивость, характерная для трофических изменений слизистой при хроническом выпадении. Тонус анального сфинктера умеренно снижен. Выпавший участок свободно вправим, признаков ишемии нет.</p>
+        </div>
+    </div>
+</div>
+</body>
+</html>
