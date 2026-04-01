@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Варикозная болезнь | Хроническая венозная недостаточность</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #eef2f7 0%, #e0e8f0 100%);
+            font-family: 'Inter', sans-serif;
+            padding: 1rem;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .medical-card {
+            max-width: 800px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 2rem;
+            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.12);
+            overflow: hidden;
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #4a2e1e 0%, #2e2218 100%);
+            padding: 1.25rem 1.5rem;
+            color: white;
+            border-bottom: 3px solid #e08e3a;
+        }
+
+        .title-section h1 {
+            font-weight: 700;
+            font-size: 1.5rem;
+            letter-spacing: -0.3px;
+            color: #fff5ea;
+            margin-bottom: 0.25rem;
+            line-height: 1.3;
+        }
+
+        .sub {
+            font-size: 0.85rem;
+            color: #e6cfb5;
+            font-weight: 400;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .sub i {
+            font-size: 0.9rem;
+            color: #e08e3a;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .diagnosis-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #fef3e6;
+            color: #b45a1c;
+            padding: 0.4rem 1.1rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.75rem;
+            margin-bottom: 1.5rem;
+            border-left: 3px solid #e67e22;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+        }
+
+        .exam-section {
+            display: flex;
+            flex-direction: column;
+            gap: 1.35rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-row {
+            background: #ffffff;
+            border-radius: 1.25rem;
+            border: 1.5px solid #e5d5c2;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+
+        .row-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 700;
+            font-size: 1rem;
+            color: #2f5342;
+            padding: 1rem 1.2rem 0.5rem 1.2rem;
+            background: #fefcf9;
+            border-bottom: 2px solid #f0e3d4;
+        }
+
+        .row-header i {
+            font-size: 1.4rem;
+            width: 34px;
+            color: #c96f1e;
+            background: #fff2e6;
+            padding: 6px;
+            border-radius: 14px;
+            text-align: center;
+        }
+
+        .row-content {
+            font-size: 0.95rem;
+            line-height: 1.55;
+            color: #2c3e3a;
+            padding: 0 1.2rem 1rem 1.2rem;
+            background: #ffffff;
+        }
+
+        .highlight {
+            font-weight: 600;
+            color: #bf6019;
+            background: #fff2e6;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .vein-highlight {
+            font-weight: 600;
+            color: #6f4e2e;
+            background: #f4e8dc;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .test-negative {
+            color: #2c7a4a;
+            background: #e0f5e8;
+            padding: 0 6px;
+            border-radius: 20px;
+            display: inline-block;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        /* Акцентные рамки для блоков */
+        .skin-card {
+            border-left: 4px solid #b87c4a;
+            background: #fffdf9;
+        }
+        
+        .skin-card .row-header {
+            background: #fffaf3;
+        }
+        
+        .veins-card {
+            border-left: 4px solid #6f9e7c;
+        }
+        
+        .edema-card {
+            border-left: 4px solid #5d8fae;
+        }
+        
+        .arterial-card {
+            border-left: 4px solid #c97e3a;
+        }
+        
+        .muscle-card {
+            border-left: 4px solid #a07c5a;
+        }
+        
+        .tests-card {
+            border-left: 4px solid #2c7a4a;
+        }
+
+        /* Новый стиль для клинического комментария */
+        .clinical-new {
+            background: #f6f3ef;
+            border-radius: 1.5rem;
+            padding: 0;
+            margin: 1.5rem 0 1.25rem;
+            overflow: hidden;
+            border: 1px solid #e6daca;
+        }
+        
+        .clinical-new-header {
+            background: #d9c8b6;
+            padding: 0.7rem 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 2px solid #c8b496;
+        }
+        
+        .clinical-new-header i {
+            font-size: 1.2rem;
+            color: #4a2e1e;
+            background: #fff2e2;
+            padding: 6px;
+            border-radius: 40px;
+        }
+        
+        .clinical-new-header span {
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            color: #2c241a;
+            text-transform: uppercase;
+        }
+        
+        .clinical-new-content {
+            padding: 1.2rem 1.3rem;
+            background: #fefcf8;
+        }
+        
+        .clinical-new-content p {
+            line-height: 1.55;
+            font-size: 0.92rem;
+            color: #2e4a3c;
+            margin-bottom: 0.75rem;
+        }
+        
+        .clinical-quote {
+            margin-top: 0.8rem;
+            padding-top: 0.6rem;
+            border-top: 1px solid #ecdfd0;
+            font-size: 0.85rem;
+            color: #7f6a53;
+            display: flex;
+            gap: 8px;
+        }
+        
+        .clinical-quote i {
+            color: #c97e3a;
+        }
+
+        /* Предварительное заключение */
+        .impressio-box {
+            background: #fffaf0;
+            border-radius: 1.25rem;
+            padding: 1.2rem 1.3rem;
+            border: 1px solid #ffdfb3;
+            margin: 0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+        }
+
+        .impressio-box h4 {
+            font-weight: 700;
+            color: #b4682d;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .impressio-box h4 i {
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 0.75rem;
+            }
+            
+            .card-header {
+                padding: 1rem 1.2rem;
+            }
+            
+            .title-section h1 {
+                font-size: 1.3rem;
+            }
+            
+            .sub {
+                font-size: 0.75rem;
+            }
+            
+            .card-body {
+                padding: 1.2rem;
+            }
+            
+            .row-header {
+                padding: 0.8rem 1rem 0.3rem 1rem;
+            }
+            
+            .row-header i {
+                font-size: 1.2rem;
+                width: 30px;
+            }
+            
+            .row-content {
+                padding: 0 1rem 0.8rem 1rem;
+                font-size: 0.88rem;
+            }
+            
+            .clinical-new-content {
+                padding: 1rem;
+            }
+            
+            .diagnosis-tag {
+                font-size: 0.7rem;
+                margin-bottom: 1rem;
+            }
+        }
+
+        .icon-accent {
+            color: #d97a2b;
+            margin-right: 6px;
+        }
+        
+        .flex-between {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+    </style>
+</head>
+<body>
+<div class="medical-card">
+    <div class="card-header">
+        <div class="title-section">
+            <h1>Варикозная болезнь нижних конечностей</h1>
+            <div class="sub">
+                <i class="fas fa-ambulance"></i> Хроническая венозная недостаточность
+            </div>
+        </div>
+    </div>
+    
+    <div class="card-body">
+        <div class="diagnosis-tag">
+            <i class="fas fa-vein"></i> Варикозная болезнь · I83.9 · ХВН (CVI)
+        </div>
+
+        <div class="exam-section">
+            <!-- Осмотр кожных покровов -->
+            <div class="info-row skin-card">
+                <div class="row-header">
+                    <i class="fas fa-eye"></i>
+                    <span>🔍 Осмотр кожных покровов</span>
+                </div>
+                <div class="row-content">
+                    Нижние конечности физиологической окраски. На коже нижней трети обеих голеней определяются участки <span class="highlight">гиперпигментации</span> (пигментные пятна), характерные для хронической венозной недостаточности. 
+                    Стопы теплые на ощупь.
+                </div>
+            </div>
+            
+            <!-- Венозная система -->
+            <div class="info-row veins-card">
+                <div class="row-header">
+                    <i class="fas fa-vein"></i>
+                    <span>🩸 Венозная система</span>
+                </div>
+                <div class="row-content">
+                    На обеих нижних конечностях визуализируются <span class="vein-highlight">варикозно измененные подкожные вены</span>. 
+                    По медиальной (внутренней) поверхности левой и правой голени пальпируются и визуально определяются <strong>конгломераты варикозных узлов</strong>.
+                </div>
+            </div>
+            
+            <!-- Отеки -->
+            <div class="info-row edema-card">
+                <div class="row-header">
+                    <i class="fas fa-water"></i>
+                    <span>💧 Отеки</span>
+                </div>
+                <div class="row-content">
+                    <strong>Отеков нижних конечностей нет.</strong> Правая голень в объеме равна левой (асимметрии нет).
+                </div>
+            </div>
+            
+            <!-- Артериальное кровоснабжение -->
+            <div class="info-row arterial-card">
+                <div class="row-header">
+                    <i class="fas fa-heartbeat"></i>
+                    <span>❤️ Артериальное кровоснабжение</span>
+                </div>
+                <div class="row-content">
+                    Пульсация артерий стоп (тыла стопы, задней большеберцовой) <strong>отчетливо определяется</strong> во всех типичных точках с обеих сторон.
+                </div>
+            </div>
+            
+            <!-- Мышечная система -->
+            <div class="info-row muscle-card">
+                <div class="row-header">
+                    <i class="fas fa-dumbbell"></i>
+                    <span>🦵 Мышечная система</span>
+                </div>
+                <div class="row-content">
+                    Мышцы голеней мягкие, при пальпации безболезненные.
+                </div>
+            </div>
+            
+            <!-- Тесты на тромбоз глубоких вен -->
+            <div class="info-row tests-card">
+                <div class="row-header">
+                    <i class="fas fa-flask"></i>
+                    <span>⚠️ Тесты на тромбоз глубоких вен</span>
+                </div>
+                <div class="row-content">
+                    <p><strong>Симптом Хоманса</strong> (боль в икроножной мышце при тыльном сгибании стопы) — <span class="test-negative">отрицателен с обеих сторон</span>.</p>
+                    <p><strong>Симптом Мозеса</strong> (болезненность при сдавлении голени в передне-заднем направлении при отсутствии боли при сдавлении с боков) — <span class="test-negative">отрицателен с обеих сторон</span>.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Новый стиль клинического комментария -->
+        <div class="clinical-new">
+            <div class="clinical-new-header">
+                <i class="fas fa-stethoscope"></i>
+                <span>Клинический разбор</span>
+            </div>
+            <div class="clinical-new-content">
+                <p>Представленная картина соответствует <strong>варикозной болезни нижних конечностей</strong> с явлениями <strong>хронической венозной недостаточности (ХВН)</strong>. Отсутствие отеков, отрицательные симптомы Хоманса и Мозеса, а также сохранная пульсация артерий позволяют предположить наличие варикозной болезни <strong>без признаков острого тромбоза глубоких вен</strong> на момент осмотра.</p>
+                <p>Характерные изменения: варикозно расширенные подкожные вены, формирование конгломератов узлов по медиальной поверхности голеней, а также участки гиперпигментации в нижней трети голеней — классические проявления длительно текущей венозной недостаточности. Пигментация кожи свидетельствует о хроническом нарушении венозного оттока, что приводит к гемосидерозу тканей.</p>
+                <div class="clinical-quote">
+                    <i class="fas fa-chart-line"></i>
+                    <span><strong>Клиническая картина:</strong> варикозная болезнь, стадия компенсации (без отеков, без трофических нарушений). Отсутствие симптомов острого венозного тромбоза. Требуется плановое наблюдение и компрессионная терапия.</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Предварительное заключение -->
+        <div class="impressio-box">
+            <h4><i class="fas fa-notes-medical"></i> Предварительное заключение</h4>
+            <p><strong>Варикозная болезнь нижних конечностей, хроническая венозная недостаточность (ХВН).</strong> Двустороннее варикозное расширение подкожных вен с формированием узлов по медиальной поверхности голеней. Гиперпигментация кожи нижней трети голеней как проявление длительно существующей венозной недостаточности. Данных за острый тромбоз глубоких вен на момент осмотра не выявлено (отрицательные симптомы Хоманса и Мозеса, отсутствие отеков). Артериальное кровоснабжение сохранено.</p>
+        </div>
+    </div>
+</div>
+</body>
+</html>
