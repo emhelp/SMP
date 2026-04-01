@@ -6,6 +6,10 @@
   <title>Скорая помощь</title>
   <link rel="icon" href="1712743647196.png" type="image/png">
   <link rel="stylesheet" href="style.css">
+  <!-- Отключаем кэширование для главной страницы -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
 </head>
 <body>
 
@@ -70,6 +74,15 @@
     }
     
     updateVisitCounter();
+  </script>
+
+  <script>
+    // Принудительное обновление страницы, если она загружена из кэша
+    window.addEventListener('pageshow', function(event) {
+      if (event.persisted) {
+        window.location.reload();
+      }
+    });
   </script>
 
 </body>
