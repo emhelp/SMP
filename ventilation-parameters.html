@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Калькулятор параметров ИВЛ — коричневая тема</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(145deg, #e8dccc 0%, #cbbf9a 100%);
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card {
+            max-width: 950px;
+            width: 100%;
+            background: #fef7e8;
+            border-radius: 48px;
+            box-shadow: 0 25px 40px -12px rgba(60, 40, 20, 0.45);
+            overflow: hidden;
+            backdrop-filter: blur(2px);
+            border: 1px solid #e0c8a8;
+        }
+
+        .header {
+            background: #5c3e2b;
+            padding: 28px 24px 20px;
+            color: #fff2e0;
+            text-align: center;
+            border-bottom: 4px solid #b97f52;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .header h1 span {
+            background: #b97f52;
+            padding: 5px 14px;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #2d1e12;
+        }
+
+        .header p {
+            margin-top: 12px;
+            opacity: 0.9;
+            font-size: 0.9rem;
+            color: #f3e1cd;
+        }
+
+        .content {
+            padding: 28px 28px 36px;
+        }
+
+        .mode-switch {
+            display: flex;
+            gap: 14px;
+            margin-bottom: 32px;
+            background: #e9dfcd;
+            border-radius: 60px;
+            padding: 6px;
+        }
+
+        .mode-btn {
+            flex: 1;
+            text-align: center;
+            padding: 12px 8px;
+            border: none;
+            background: transparent;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: inherit;
+            color: #5c3e2b;
+        }
+
+        .mode-btn.active {
+            background: #fef3e0;
+            box-shadow: 0 4px 12px rgba(80, 50, 25, 0.15);
+            color: #3e2a1c;
+            border: 1px solid #ddb582;
+        }
+
+        .input-panel {
+            background: #fff8ed;
+            border-radius: 36px;
+            padding: 22px 26px;
+            margin-bottom: 28px;
+            box-shadow: inset 0 1px 2px rgba(0,0,0,0.02), 0 8px 16px -10px rgba(60, 40, 20, 0.15);
+            border: 1px solid #ecdbba;
+        }
+
+        .input-group {
+            margin-bottom: 22px;
+        }
+
+        .input-group label {
+            display: block;
+            font-weight: 600;
+            color: #6b4c32;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 14px 18px;
+            font-size: 1rem;
+            border: 2px solid #e1cfb0;
+            border-radius: 40px;
+            background: #ffffff;
+            transition: 0.2s;
+            font-family: inherit;
+            color: #2e241a;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #b87a4b;
+            box-shadow: 0 0 0 3px rgba(184, 122, 75, 0.2);
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 28px;
+            flex-wrap: wrap;
+            margin-top: 6px;
+        }
+
+        .radio-group label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            color: #5c3e2b;
+        }
+
+        .calc-btn {
+            background: #8b5a34;
+            color: #fff7e8;
+            border: none;
+            width: 100%;
+            padding: 16px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            border-radius: 44px;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 6px;
+            font-family: inherit;
+            box-shadow: 0 8px 18px -8px rgba(80, 50, 25, 0.4);
+        }
+
+        .calc-btn:hover {
+            background: #6e451f;
+            transform: translateY(-2px);
+        }
+
+        .calc-btn:active {
+            transform: translateY(1px);
+        }
+
+        .result-card {
+            background: #fffaf0;
+            border-radius: 36px;
+            padding: 20px 24px;
+            margin-top: 24px;
+            border: 1px solid #e2cdac;
+            box-shadow: 0 12px 24px -12px rgba(80, 50, 30, 0.2);
+        }
+
+        .result-title {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #8b5a34;
+            font-weight: 700;
+            margin-bottom: 18px;
+            border-left: 4px solid #b87a4b;
+            padding-left: 14px;
+        }
+
+        .result-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+            margin-bottom: 16px;
+        }
+
+        .result-item {
+            background: #fef4e4;
+            border-radius: 28px;
+            padding: 14px 12px;
+            text-align: center;
+            backdrop-filter: blur(2px);
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+            border: 1px solid #ebdbbc;
+        }
+
+        .result-item-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #9b7657;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .result-item-value {
+            font-size: 1.9rem;
+            font-weight: 800;
+            color: #4f321c;
+            line-height: 1.2;
+            margin-top: 8px;
+        }
+
+        .note {
+            font-size: 0.75rem;
+            color: #7a5a3e;
+            background: #f4eadb;
+            padding: 12px 16px;
+            border-radius: 24px;
+            margin-top: 18px;
+            border-left: 3px solid #c28a56;
+        }
+
+        .footnote {
+            text-align: center;
+            font-size: 0.7rem;
+            color: #9b7c60;
+            margin-top: 28px;
+            border-top: 1px solid #e3cfb4;
+            padding-top: 18px;
+        }
+
+        @media (max-width: 550px) {
+            .content {
+                padding: 20px;
+            }
+            .result-item-value {
+                font-size: 1.5rem;
+            }
+            .header h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="card">
+    <div class="header">
+        <h1>🫁 Параметры ИВЛ <span>протективная вентиляция</span></h1>
+        <p>Дыхательный объём (Vt), частота (f), минутная вентиляция (МОВ)</p>
+    </div>
+    <div class="content">
+        <div class="mode-switch">
+            <button class="mode-btn active" data-mode="adult">🧑 Взрослые (≥18 лет)</button>
+            <button class="mode-btn" data-mode="pediatric">👶 Дети (0–17 лет)</button>
+        </div>
+
+        <!-- Панель взрослых -->
+        <div id="adultPanel" class="input-panel">
+            <div class="input-group">
+                <label>Пол</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="adultGender" value="male" checked> Мужчина</label>
+                    <label><input type="radio" name="adultGender" value="female"> Женщина</label>
+                </div>
+            </div>
+            <div class="input-group">
+                <label>Рост (см)</label>
+                <input type="number" id="adultHeight" step="1" value="170" placeholder="например: 170 см">
+            </div>
+            <div class="input-group">
+                <label>Фактический вес (кг)</label>
+                <input type="number" id="adultWeight" step="1" value="70" placeholder="например: 70 кг">
+            </div>
+            <div class="note">
+                💡 Идеальная масса тела (ИМТ) рассчитывается по формуле Devine. Vt = 6–8 мл/кг ИМТ.<br>
+                Частота дыхания: 12–16 в мин (стартовая). Минутный объём = Vt × f.
+            </div>
+        </div>
+
+        <!-- Панель детей -->
+        <div id="pediatricPanel" class="input-panel" style="display: none;">
+            <div class="input-group">
+                <label>Возраст (лет / месяцев)</label>
+                <input type="number" id="pedAgeYears" step="0.1" min="0" max="17" value="5" placeholder="годы (дробно: 0.5 = 6 мес)">
+            </div>
+            <div class="input-group">
+                <label>Вес (кг)</label>
+                <input type="number" id="pedWeight" step="0.1" min="0.5" max="80" value="18" placeholder="кг">
+            </div>
+            <div class="note">
+                ℹ️ Для детей Vt = 6–8 мл/кг (должный вес/фактический, но не более 8 мл/кг). Частота дыхания по возрасту (таблица).<br>
+                Минутная вентиляция рассчитывается как Vt × f.
+            </div>
+        </div>
+
+        <button class="calc-btn" id="calcBtn">📊 Рассчитать параметры ИВЛ</button>
+
+        <div class="result-card">
+            <div class="result-title">📋 Рекомендуемые настройки</div>
+            <div class="result-grid">
+                <div class="result-item">
+                    <div class="result-item-label">Дыхательный объём (Vt)</div>
+                    <div class="result-item-value" id="vtValue">—</div>
+                </div>
+                <div class="result-item">
+                    <div class="result-item-label">Частота дыхания (f)</div>
+                    <div class="result-item-value" id="freqValue">—</div>
+                </div>
+                <div class="result-item">
+                    <div class="result-item-label">Минутный объём (МОВ)</div>
+                    <div class="result-item-value" id="movValue">—</div>
+                </div>
+            </div>
+            <div class="note" id="extraNote">
+                * Основано на рекомендациях протективной вентиляции легких.
+            </div>
+        </div>
+        <div class="footnote">
+            ⚕️ Параметры подбираются индивидуально. Калькулятор даёт стартовые значения.<br>
+            Vt — объём вдоха (мл), f — частота в минуту, МОВ = Vt × f / 1000 (л/мин).
+        </div>
+    </div>
+</div>
+
+<script>
+    // --- Вспомогательные функции ---
+    // Идеальная масса тела (Devine) для взрослых
+    function idealBodyWeight(heightCm, gender) {
+        let heightInches = heightCm * 0.393701;
+        if (gender === 'male') {
+            return 50 + 0.91 * (heightInches - 60);
+        } else {
+            return 45.5 + 0.91 * (heightInches - 60);
+        }
+    }
+
+    // Расчёт для взрослых (возвращает Vt (мл), f (в мин), МОВ (л/мин))
+    function calculateAdult(heightCm, actualWeightKg, gender) {
+        let ibw = idealBodyWeight(heightCm, gender);
+        let targetWeight = ibw;
+        if (actualWeightKg > ibw * 1.2) {
+            targetWeight = ibw;
+        } else if (actualWeightKg < ibw * 0.8) {
+            targetWeight = Math.max(actualWeightKg, 40);
+        } else {
+            targetWeight = actualWeightKg;
+        }
+        let vtPerKg = 7;
+        let vt = Math.round(targetWeight * vtPerKg);
+        let freq = 14;
+        if (actualWeightKg > 100) freq = 16;
+        if (actualWeightKg < 50) freq = 12;
+        let mov = (vt * freq) / 1000;
+        return { vt, freq, mov: mov.toFixed(1) };
+    }
+
+    // Таблица частоты дыхания у детей в зависимости от возраста (лет)
+    function getPediatricRate(ageYears) {
+        if (ageYears < 0.5) return 40;
+        if (ageYears < 1) return 35;
+        if (ageYears < 2) return 30;
+        if (ageYears < 4) return 26;
+        if (ageYears < 6) return 24;
+        if (ageYears < 8) return 22;
+        if (ageYears < 12) return 20;
+        if (ageYears < 16) return 18;
+        return 16;
+    }
+
+    function calculatePediatric(ageYears, weightKg) {
+        let vtPerKg = 7;
+        let vt = Math.round(weightKg * vtPerKg);
+        vt = Math.min(550, Math.max(20, vt));
+        let freq = getPediatricRate(ageYears);
+        if (ageYears < 0.25) freq = 45;
+        else if (ageYears < 0.5) freq = 40;
+        let mov = (vt * freq) / 1000;
+        return { vt, freq, mov: mov.toFixed(1) };
+    }
+
+    // Обновление UI
+    let currentMode = "adult";
+    const adultPanel = document.getElementById('adultPanel');
+    const pediatricPanel = document.getElementById('pediatricPanel');
+    const modeBtns = document.querySelectorAll('.mode-btn');
+    const vtSpan = document.getElementById('vtValue');
+    const freqSpan = document.getElementById('freqValue');
+    const movSpan = document.getElementById('movValue');
+    const extraNote = document.getElementById('extraNote');
+
+    function switchMode(mode) {
+        currentMode = mode;
+        if (mode === 'adult') {
+            adultPanel.style.display = 'block';
+            pediatricPanel.style.display = 'none';
+        } else {
+            adultPanel.style.display = 'none';
+            pediatricPanel.style.display = 'block';
+        }
+        modeBtns.forEach(btn => {
+            if (btn.getAttribute('data-mode') === mode) btn.classList.add('active');
+            else btn.classList.remove('active');
+        });
+        clearResult();
+    }
+
+    function clearResult() {
+        vtSpan.innerHTML = '—';
+        freqSpan.innerHTML = '—';
+        movSpan.innerHTML = '—';
+        extraNote.innerHTML = '* Нажмите «Рассчитать» для получения параметров ИВЛ.';
+    }
+
+    function computeAndDisplay() {
+        if (currentMode === 'adult') {
+            const genderRadio = document.querySelector('input[name="adultGender"]:checked');
+            const gender = genderRadio ? genderRadio.value : 'male';
+            let height = parseFloat(document.getElementById('adultHeight').value);
+            let weight = parseFloat(document.getElementById('adultWeight').value);
+            if (isNaN(height) || height < 100) height = 160;
+            if (isNaN(weight) || weight < 30) weight = 60;
+            const res = calculateAdult(height, weight, gender);
+            vtSpan.innerHTML = `${res.vt} мл`;
+            freqSpan.innerHTML = `${res.freq} / мин`;
+            movSpan.innerHTML = `${res.mov} л/мин`;
+            extraNote.innerHTML = `🧑 Взрослый, ${gender === 'male' ? 'мужчина' : 'женщина'}, рост ${height} см, вес ${weight} кг. Идеальная масса ~${Math.round(idealBodyWeight(height, gender))} кг. Vt = 7 мл/кг (протективная вентиляция). Частота дыхания подобрана стандартно.`;
+        } 
+        else {
+            let age = parseFloat(document.getElementById('pedAgeYears').value);
+            let weight = parseFloat(document.getElementById('pedWeight').value);
+            if (isNaN(age) || age < 0) age = 1;
+            if (isNaN(weight) || weight <= 0) weight = 5;
+            const res = calculatePediatric(age, weight);
+            vtSpan.innerHTML = `${res.vt} мл`;
+            freqSpan.innerHTML = `${res.freq} / мин`;
+            movSpan.innerHTML = `${res.mov} л/мин`;
+            let ageText = age < 1 ? `${Math.round(age*12)} мес` : `${age.toFixed(1)} лет`;
+            extraNote.innerHTML = `👶 Ребёнок: возраст ${ageText}, вес ${weight.toFixed(1)} кг. Vt = 7 мл/кг, частота по возрасту (${res.freq} в мин). Протективный режим.`;
+        }
+    }
+
+    // Обработчики
+    modeBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const mode = btn.getAttribute('data-mode');
+            if (mode === 'adult') switchMode('adult');
+            else if (mode === 'pediatric') switchMode('pediatric');
+            clearResult();
+        });
+    });
+
+    document.getElementById('calcBtn').addEventListener('click', () => {
+        computeAndDisplay();
+    });
+
+    // Инициализация: взрослый режим, показываем пример
+    switchMode('adult');
+    setTimeout(() => {
+        computeAndDisplay();
+    }, 50);
+</script>
+</body>
+</html>
