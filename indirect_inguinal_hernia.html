@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Косая паховая грыжа | Описание локального статуса (СМП)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #eef2f7 0%, #e0e8f0 100%);
+            font-family: 'Inter', sans-serif;
+            padding: 1rem;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .medical-card {
+            max-width: 800px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 2rem;
+            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.12);
+            overflow: hidden;
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #4a2e1e 0%, #2e2218 100%);
+            padding: 1.25rem 1.5rem;
+            color: white;
+            border-bottom: 3px solid #e08e3a;
+        }
+
+        .title-section h1 {
+            font-weight: 700;
+            font-size: 1.5rem;
+            letter-spacing: -0.3px;
+            color: #fff5ea;
+            margin-bottom: 0.25rem;
+            line-height: 1.3;
+        }
+
+        .sub {
+            font-size: 0.85rem;
+            color: #e6cfb5;
+            font-weight: 400;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .sub i {
+            font-size: 0.9rem;
+            color: #e08e3a;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .diagnosis-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #fef3e6;
+            color: #b45a1c;
+            padding: 0.4rem 1.1rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.75rem;
+            margin-bottom: 1.5rem;
+            border-left: 3px solid #e67e22;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+        }
+
+        .exam-section {
+            display: flex;
+            flex-direction: column;
+            gap: 1.35rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-row {
+            background: #ffffff;
+            border-radius: 1.25rem;
+            border: 1.5px solid #e5d5c2;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+
+        .row-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 700;
+            font-size: 1rem;
+            color: #2f5342;
+            padding: 1rem 1.2rem 0.5rem 1.2rem;
+            background: #fefcf9;
+            border-bottom: 2px solid #f0e3d4;
+        }
+
+        .row-header i {
+            font-size: 1.4rem;
+            width: 34px;
+            color: #c96f1e;
+            background: #fff2e6;
+            padding: 6px;
+            border-radius: 14px;
+            text-align: center;
+        }
+
+        .row-content {
+            font-size: 0.95rem;
+            line-height: 1.55;
+            color: #2c3e3a;
+            padding: 0 1.2rem 1rem 1.2rem;
+            background: #ffffff;
+        }
+
+        .highlight {
+            font-weight: 600;
+            color: #bf6019;
+            background: #fff2e6;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .anatomy-sign {
+            font-weight: 600;
+            color: #2c7a4a;
+            background: #e0f5e8;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .normal-sign {
+            font-weight: 600;
+            color: #2c7a4a;
+            background: #e0f5e8;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .pain-sign {
+            font-weight: 600;
+            color: #c96f1e;
+            background: #fff0e2;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        /* Акцентные рамки для блоков */
+        .localization-card {
+            border-left: 4px solid #b87c4a;
+            background: #fffdf9;
+        }
+        
+        .localization-card .row-header {
+            background: #fffaf3;
+        }
+        
+        .inspection-card {
+            border-left: 4px solid #6f9e7c;
+        }
+        
+        .palpation-card {
+            border-left: 4px solid #c97e3a;
+        }
+        
+        .ring-card {
+            border-left: 4px solid #5d8fae;
+        }
+        
+        .stages-card {
+            border-left: 4px solid #e08e3a;
+        }
+
+        /* Новый стиль для клинического комментария */
+        .clinical-new {
+            background: #f6f3ef;
+            border-radius: 1.5rem;
+            padding: 0;
+            margin: 1.5rem 0 1.25rem;
+            overflow: hidden;
+            border: 1px solid #e6daca;
+        }
+        
+        .clinical-new-header {
+            background: #d9c8b6;
+            padding: 0.7rem 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 2px solid #c8b496;
+        }
+        
+        .clinical-new-header i {
+            font-size: 1.2rem;
+            color: #4a2e1e;
+            background: #fff2e2;
+            padding: 6px;
+            border-radius: 40px;
+        }
+        
+        .clinical-new-header span {
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            color: #2c241a;
+            text-transform: uppercase;
+        }
+        
+        .clinical-new-content {
+            padding: 1.2rem 1.3rem;
+            background: #fefcf8;
+        }
+        
+        .clinical-new-content p {
+            line-height: 1.55;
+            font-size: 0.92rem;
+            color: #2e4a3c;
+            margin-bottom: 0.75rem;
+        }
+        
+        .clinical-quote {
+            margin-top: 0.8rem;
+            padding-top: 0.6rem;
+            border-top: 1px solid #ecdfd0;
+            font-size: 0.85rem;
+            color: #7f6a53;
+            display: flex;
+            gap: 8px;
+        }
+        
+        .clinical-quote i {
+            color: #c97e3a;
+        }
+
+        /* Заключение */
+        .impressio-box {
+            background: #fffaf0;
+            border-radius: 1.25rem;
+            padding: 1.2rem 1.3rem;
+            border: 1px solid #ffdfb3;
+            margin: 0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+        }
+
+        .impressio-box h4 {
+            font-weight: 700;
+            color: #b4682d;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .impressio-box h4 i {
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 0.75rem;
+            }
+            
+            .card-header {
+                padding: 1rem 1.2rem;
+            }
+            
+            .title-section h1 {
+                font-size: 1.25rem;
+            }
+            
+            .sub {
+                font-size: 0.75rem;
+            }
+            
+            .card-body {
+                padding: 1.2rem;
+            }
+            
+            .row-header {
+                padding: 0.8rem 1rem 0.3rem 1rem;
+            }
+            
+            .row-header i {
+                font-size: 1.2rem;
+                width: 30px;
+            }
+            
+            .row-content {
+                padding: 0 1rem 0.8rem 1rem;
+                font-size: 0.88rem;
+            }
+            
+            .clinical-new-content {
+                padding: 1rem;
+            }
+            
+            .diagnosis-tag {
+                font-size: 0.7rem;
+                margin-bottom: 1rem;
+            }
+        }
+
+        .icon-accent {
+            color: #d97a2b;
+            margin-right: 6px;
+        }
+        
+        .bullet-list {
+            margin: 0.25rem 0 0 0;
+            padding-left: 1.2rem;
+        }
+        
+        .bullet-list li {
+            margin-bottom: 0.3rem;
+        }
+        
+        .anatomy-note {
+            background: #f9efe4;
+            border-radius: 12px;
+            padding: 0.5rem 1rem;
+            margin-bottom: 1.25rem;
+            font-size: 0.8rem;
+            color: #7a5a3a;
+            display: flex;
+            gap: 8px;
+        }
+        
+        .warning-note {
+            background: #fff0e0;
+            border-left: 3px solid #e08e3a;
+            border-radius: 12px;
+            padding: 0.6rem 1rem;
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            color: #b45a1c;
+            display: flex;
+            gap: 8px;
+        }
+        
+        .stage-badge {
+            display: inline-block;
+            background: #e8e0d5;
+            border-radius: 20px;
+            padding: 0.2rem 0.7rem;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #5e4b34;
+            margin-left: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+<div class="medical-card">
+    <div class="card-header">
+        <div class="title-section">
+            <h1>Косая паховая грыжа</h1>
+            <div class="sub">
+                <i class="fas fa-ambulance"></i> Косая паховая грыжа (справа) · K40.3
+            </div>
+        </div>
+    </div>
+    
+    <div class="card-body">
+        <div class="diagnosis-tag">
+            <i class="fas fa-hernia"></i> Косая паховая грыжа · Полная (канатиковая) стадия · Вправимая · Неосложненная
+        </div>
+
+        <div class="anatomy-note">
+            <i class="fas fa-venus-mars"></i>
+            <span><strong>Анатомическая особенность:</strong> семенной канатик у мужчин занимает больше места, чем круглая связка матки у женщин, поэтому паховый канал у мужчин значительно шире. Это объясняет более высокую частоту паховых грыж у мужчин. Косая паховая грыжа является наиболее распространенным видом наружных грыж живота.</span>
+        </div>
+
+        <div class="exam-section">
+            <!-- Локализация и данные осмотра -->
+            <div class="info-row localization-card">
+                <div class="row-header">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>📍 Локализация и осмотр</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>В <strong>паховой области справа</strong> определяется грыжевое выпячивание размерами <span class="highlight">~2,5 см</span>.</li>
+                        <li>В <strong>вертикальном положении</strong> выпячивание увеличивается в размере.</li>
+                        <li>В <strong>горизонтальном положении</strong> <span class="normal-sign">самостоятельно вправляется</span>.</li>
+                        <li>Кожа над грыжей <span class="normal-sign">не изменена</span>, обычной окраски, без гиперемии, отека и трофических нарушений.</li>
+                        <li>Выпячивание имеет характерную <span class="anatomy-sign">косонаправленность</span> (из глубокого пахового кольца косо через паховый канал к поверхностному кольцу).</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Пальпаторные данные -->
+            <div class="info-row palpation-card">
+                <div class="row-header">
+                    <i class="fas fa-hand-peace"></i>
+                    <span>🖐 Пальпаторные данные</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li><strong>Консистенция:</strong> выпячивание мягко-эластической консистенции.</li>
+                        <li><strong>Болезненность:</strong> пальпация <span class="pain-sign">чувствительна</span>, пациент отмечает тянущие боли в паховой области при физической нагрузке и длительной ходьбе.</li>
+                        <li><strong>Вправимость:</strong> грыжа полностью вправимая; при вправлении возможно урчание (при содержимом — кишечник).</li>
+                        <li><strong>Симптом кашлевого толчка:</strong> <span class="anatomy-sign">положительный</span> — при кашле определяется четкое толчкообразное давление.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Исследование грыжевых ворот -->
+            <div class="info-row ring-card">
+                <div class="row-header">
+                    <i class="fas fa-hand-peace"></i>
+                    <span>📌 Грыжевые ворота</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>Наружное паховое кольцо <span class="highlight">расширено</span>, при пальпации пропускает <span class="highlight">2 пальца</span> (диаметр > 1,5–2 см, в норме до 1 см).</li>
+                        <li>После вправления грыжевого содержимого пальпируется дефект в паховом канале, края грыжевых ворот четкие.</li>
+                        <li>Ощущение <span class="anatomy-sign">«проваливания» пальца</span> в паховый канал.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Стадии развития косой паховой грыжи -->
+            <div class="info-row stages-card">
+                <div class="row-header">
+                    <i class="fas fa-chart-line"></i>
+                    <span>📊 Стадии развития косой паховой грыжи</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li><strong>Начальная стадия:</strong> грыжа начинает выходить через внутреннее отверстие пахового канала. Жалобы на тянущие боли в паховой области при нагрузке. Объективно — небольшое расширение наружного пахового кольца.</li>
+                        <li><strong>Канальная стадия:</strong> грыжа проходит весь паховый канал, но не выходит за его пределы. Визуализируется продолговатое выпячивание при натуживании, выраженное расширение наружного кольца, положительный симптом кашлевого толчка.</li>
+                        <li><strong>Полная (канатиковая) стадия:</strong> грыжа выходит за пределы пахового канала. Выпячивание имеет округло-вытянутую форму и косое направление — <span class="highlight">клиническая картина соответствует данной стадии</span>.</li>
+                        <li><strong>Пахово-мошоночная стадия:</strong> грыжевое содержимое опускается в мошонку, растягивая ее. Грыжа может достигать больших размеров (гигантские грыжи).</li>
+                    </ul>
+                    <div class="warning-note" style="margin-top: 0.5rem;">
+                        <i class="fas fa-ruler"></i>
+                        <span>По данным осмотра: выпячивание ~2,5 см, выходит за пределы пахового канала, имеет косое направление — соответствует <strong>полной (канатиковой) стадии</strong>. Признаков опущения в мошонку не выявлено.</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Жалобы пациента -->
+            <div class="info-row complaints-card">
+                <div class="row-header">
+                    <i class="fas fa-comment-medical"></i>
+                    <span>😷 Жалобы пациента</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>Наличие <span class="highlight">выпячивания в паховой области справа</span>, появляющегося при физической нагрузке, кашле, натуживании и исчезающего в покое.</li>
+                        <li><span class="pain-sign">Тянущие боли в паху умеренной интенсивности</span>, усиливающиеся при ходьбе, физической работе и длительном стоянии.</li>
+                        <li>Чувство <span class="highlight">дискомфорта, инородного тела</span> в паховой области.</li>
+                        <li>При длительном существовании грыжи — чувство тяжести в паху к концу дня.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Дополнительный блок: анамнез и факторы риска -->
+        <div class="info-row" style="margin-top: 0;">
+            <div class="row-header">
+                <i class="fas fa-history"></i>
+                <span>📋 Анамнез и факторы риска</span>
+            </div>
+            <div class="row-content">
+                <ul class="bullet-list">
+                    <li><strong>Длительность существования грыжи:</strong> несколько месяцев/лет (уточнить).</li>
+                    <li><strong>Факторы риска:</strong> мужской пол (анатомическая предрасположенность), повышенное внутрибрюшное давление (хронические запоры, подъем тяжестей, ожирение, хронический кашель, заболевания предстательной железы).</li>
+                    <li><strong>Тип грыжи:</strong> приобретенная (врожденная форма встречается у детей, связана с незаращением влагалищного отростка брюшины).</li>
+                    <li><strong>Признаков ущемления</strong> (невыводимость, резкая болезненность, отсутствие кашлевого толчка, изменение цвета кожи, тошнота, рвота, задержка стула и газов) <span class="normal-sign">не выявлено</span>.</li>
+                </ul>
+                <div class="warning-note">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span><strong>Риск ущемления:</strong> косые паховые грыжи имеют высокий риск ущемления из-за анатомических особенностей пахового канала. При появлении симптомов ущемления — экстренная госпитализация.</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Новый стиль клинического комментария -->
+        <div class="clinical-new">
+            <div class="clinical-new-header">
+                <i class="fas fa-stethoscope"></i>
+                <span>Клинический разбор (догоспитальный этап)</span>
+            </div>
+            <div class="clinical-new-content">
+                <p>Клиническая картина соответствует <strong>косой паховой грыже справа, полная (канатиковая) стадия</strong>. Характерные признаки: локализация выпячивания в паховой области, увеличение в вертикальном положении и при натуживании, самостоятельное вправление в горизонтальном положении, положительный симптом кашлевого толчка.</p>
+                <p>Грыжевое содержимое, вероятно, представлено <strong>петлями тонкой кишки</strong> (мягкая эластическая консистенция, урчание при вправлении) или большим сальником. Расширение наружного пахового кольца до 2 пальцев, чувствительность при пальпации, тянущие боли при нагрузке характерны для полной стадии, когда грыжа выходит за пределы пахового канала, но еще не опускается в мошонку.</p>
+                <p>Отсутствие признаков ущемления (напряжение выпячивания, резкая болезненность, отсутствие вправимости, симптомы кишечной непроходимости) позволяет квалифицировать состояние как <strong>неосложненную косую паховую грыжу</strong>. Кожа над грыжей не изменена, признаков воспаления нет.</p>
+                <div class="clinical-quote">
+                    <i class="fas fa-chart-line"></i>
+                    <span><strong>Клиническое заключение:</strong> косая паховая грыжа справа, полная (канатиковая) стадия, вправимая, неосложненная. Грыжевые ворота расширены (пропускают 2 пальца). Симптом кашлевого толчка положительный. Признаков ущемления на момент осмотра не выявлено.</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Заключение -->
+        <div class="impressio-box">
+            <h4><i class="fas fa-notes-medical"></i> Предварительное заключение (СМП)</h4>
+            <p><strong>Косая паховая грыжа справа, полная (канатиковая) стадия, вправимая, неосложненная.</strong> В паховой области справа определяется грыжевое выпячивание размерами ~2,5 см, мягко-эластической консистенции, чувствительное при пальпации. В вертикальном положении увеличивается, в горизонтальном — самостоятельно вправляется. Симптом кашлевого толчка положительный. Наружное паховое кольцо расширено, пропускает 2 пальца. Кожа над грыжей не изменена, признаков воспаления нет. Признаков ущемления (невыводимость, резкая болезненность, отсутствие кашлевого толчка, изменение цвета кожи, симптомы кишечной непроходимости) <strong>не выявлено</strong>. Грыжа имеет характерную косонаправленность, что подтверждает косой тип.</p>
+        </div>
+    </div>
+</div>
+</body>
+</html>
