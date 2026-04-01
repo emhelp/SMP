@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Гидроторакс | Описание клинического статуса (СМП)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #eef2f7 0%, #e0e8f0 100%);
+            font-family: 'Inter', sans-serif;
+            padding: 1rem;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .medical-card {
+            max-width: 800px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 2rem;
+            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.12);
+            overflow: hidden;
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #4a2e1e 0%, #2e2218 100%);
+            padding: 1.25rem 1.5rem;
+            color: white;
+            border-bottom: 3px solid #e08e3a;
+        }
+
+        .title-section h1 {
+            font-weight: 700;
+            font-size: 1.5rem;
+            letter-spacing: -0.3px;
+            color: #fff5ea;
+            margin-bottom: 0.25rem;
+            line-height: 1.3;
+        }
+
+        .sub {
+            font-size: 0.85rem;
+            color: #e6cfb5;
+            font-weight: 400;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .sub i {
+            font-size: 0.9rem;
+            color: #e08e3a;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .diagnosis-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #fef3e6;
+            color: #b45a1c;
+            padding: 0.4rem 1.1rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.75rem;
+            margin-bottom: 1.5rem;
+            border-left: 3px solid #e67e22;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+        }
+
+        .exam-section {
+            display: flex;
+            flex-direction: column;
+            gap: 1.35rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-row {
+            background: #ffffff;
+            border-radius: 1.25rem;
+            border: 1.5px solid #e5d5c2;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+
+        .row-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 700;
+            font-size: 1rem;
+            color: #2f5342;
+            padding: 1rem 1.2rem 0.5rem 1.2rem;
+            background: #fefcf9;
+            border-bottom: 2px solid #f0e3d4;
+        }
+
+        .row-header i {
+            font-size: 1.4rem;
+            width: 34px;
+            color: #c96f1e;
+            background: #fff2e6;
+            padding: 6px;
+            border-radius: 14px;
+            text-align: center;
+        }
+
+        .row-content {
+            font-size: 0.95rem;
+            line-height: 1.55;
+            color: #2c3e3a;
+            padding: 0 1.2rem 1rem 1.2rem;
+            background: #ffffff;
+        }
+
+        .highlight {
+            font-weight: 600;
+            color: #bf6019;
+            background: #fff2e6;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .danger-sign {
+            font-weight: 600;
+            color: #c0392b;
+            background: #ffe6e0;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .normal-sign {
+            font-weight: 600;
+            color: #2c7a4a;
+            background: #e0f5e8;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        /* Акцентные рамки для блоков */
+        .general-card {
+            border-left: 4px solid #b87c4a;
+            background: #fffdf9;
+        }
+        
+        .general-card .row-header {
+            background: #fffaf3;
+        }
+        
+        .edema-card {
+            border-left: 4px solid #6f9e7c;
+        }
+        
+        .chest-card {
+            border-left: 4px solid #c97e3a;
+        }
+        
+        .percussion-card {
+            border-left: 4px solid #5d8fae;
+        }
+        
+        .auscultation-card {
+            border-left: 4px solid #a07c5a;
+        }
+        
+        .heart-card {
+            border-left: 4px solid #e08e3a;
+        }
+        
+        .complaints-card {
+            border-left: 4px solid #2c7a4a;
+        }
+
+        /* Новый стиль для клинического комментария */
+        .clinical-new {
+            background: #f6f3ef;
+            border-radius: 1.5rem;
+            padding: 0;
+            margin: 1.5rem 0 1.25rem;
+            overflow: hidden;
+            border: 1px solid #e6daca;
+        }
+        
+        .clinical-new-header {
+            background: #d9c8b6;
+            padding: 0.7rem 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 2px solid #c8b496;
+        }
+        
+        .clinical-new-header i {
+            font-size: 1.2rem;
+            color: #4a2e1e;
+            background: #fff2e2;
+            padding: 6px;
+            border-radius: 40px;
+        }
+        
+        .clinical-new-header span {
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            color: #2c241a;
+            text-transform: uppercase;
+        }
+        
+        .clinical-new-content {
+            padding: 1.2rem 1.3rem;
+            background: #fefcf8;
+        }
+        
+        .clinical-new-content p {
+            line-height: 1.55;
+            font-size: 0.92rem;
+            color: #2e4a3c;
+            margin-bottom: 0.75rem;
+        }
+        
+        .clinical-quote {
+            margin-top: 0.8rem;
+            padding-top: 0.6rem;
+            border-top: 1px solid #ecdfd0;
+            font-size: 0.85rem;
+            color: #7f6a53;
+            display: flex;
+            gap: 8px;
+        }
+        
+        .clinical-quote i {
+            color: #c97e3a;
+        }
+
+        /* Заключение */
+        .impressio-box {
+            background: #fffaf0;
+            border-radius: 1.25rem;
+            padding: 1.2rem 1.3rem;
+            border: 1px solid #ffdfb3;
+            margin: 0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+        }
+
+        .impressio-box h4 {
+            font-weight: 700;
+            color: #b4682d;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .impressio-box h4 i {
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 0.75rem;
+            }
+            
+            .card-header {
+                padding: 1rem 1.2rem;
+            }
+            
+            .title-section h1 {
+                font-size: 1.25rem;
+            }
+            
+            .sub {
+                font-size: 0.75rem;
+            }
+            
+            .card-body {
+                padding: 1.2rem;
+            }
+            
+            .row-header {
+                padding: 0.8rem 1rem 0.3rem 1rem;
+            }
+            
+            .row-header i {
+                font-size: 1.2rem;
+                width: 30px;
+            }
+            
+            .row-content {
+                padding: 0 1rem 0.8rem 1rem;
+                font-size: 0.88rem;
+            }
+            
+            .clinical-new-content {
+                padding: 1rem;
+            }
+            
+            .diagnosis-tag {
+                font-size: 0.7rem;
+                margin-bottom: 1rem;
+            }
+        }
+
+        .icon-accent {
+            color: #d97a2b;
+            margin-right: 6px;
+        }
+        
+        .bullet-list {
+            margin: 0.25rem 0 0 0;
+            padding-left: 1.2rem;
+        }
+        
+        .bullet-list li {
+            margin-bottom: 0.3rem;
+        }
+        
+        .damoiseau {
+            background: #f9efe4;
+            border-radius: 8px;
+            padding: 0.2rem 0.5rem;
+            font-family: monospace;
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+<div class="medical-card">
+    <div class="card-header">
+        <div class="title-section">
+            <h1>Гидроторакс</h1>
+            <div class="sub">
+                <i class="fas fa-ambulance"></i> Клинический статус (догоспитальный этап) · J94.8
+            </div>
+        </div>
+    </div>
+    
+    <div class="card-body">
+        <div class="diagnosis-tag">
+            <i class="fas fa-lungs"></i> Гидроторакс (правосторонний/левосторонний) на фоне застойной сердечной недостаточности
+        </div>
+
+        <div class="exam-section">
+            <!-- Общее состояние -->
+            <div class="info-row general-card">
+                <div class="row-header">
+                    <i class="fas fa-hospital-user"></i>
+                    <span>🏥 Общее состояние</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li><strong>Положение пациента:</strong> <span class="highlight">вынужденное — ортопноэ (полусидячее)</span>, предпочитает лежать на больном боку.</li>
+                        <li><strong>Кожные покровы:</strong> <span class="danger-sign">диффузный цианоз</span>, акроцианоз.</li>
+                        <li><strong>Видимые слизистые:</strong> <span class="danger-sign">цианотичны</span>.</li>
+                        <li><strong>Шейные вены:</strong> <span class="danger-sign">набухшие</span>, положительный венный пульс.</li>
+                        <li><strong>Сознание:</strong> ясное, возможна заторможенность при нарастающей гипоксии.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Периферические отеки и полостные синдромы -->
+            <div class="info-row edema-card">
+                <div class="row-header">
+                    <i class="fas fa-water"></i>
+                    <span>💧 Периферические отеки и полостные синдромы</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li><strong>Периферические отеки:</strong> определяются. Локализация: <span class="highlight">нижние конечности</span> (стопы, голени), поясничная область. Выраженность: <span class="highlight">умеренные</span> (пастозность голеней, при надавливании остается ямка).</li>
+                        <li><strong>Асцит:</strong> <span class="normal-sign">не определяется</span> (притупления в отлогих местах живота нет, симптом флюктуации отрицательный).</li>
+                        <li><strong>Анасарка:</strong> <span class="normal-sign">отсутствует</span>.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Данные осмотра грудной клетки -->
+            <div class="info-row chest-card">
+                <div class="row-header">
+                    <i class="fas fa-lungs"></i>
+                    <span>🫁 Данные осмотра грудной клетки</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li><strong>Форма:</strong> отмечается <span class="highlight">сглаженность межреберных промежутков</span> на стороне поражения.</li>
+                        <li><strong>Дыхательная экскурсия:</strong> <span class="danger-sign">ограничение подвижности грудной клетки</span> при дыхании на стороне скопления жидкости. Отставание пораженной половины в акте дыхания.</li>
+                        <li><strong>Визуально:</strong> возможно выбухание межреберий при массивном выпоте.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Перкуссия легких -->
+            <div class="info-row percussion-card">
+                <div class="row-header">
+                    <i class="fas fa-hand-peace"></i>
+                    <span>🥁 Перкуссия легких</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>Над областью скопления жидкости определяется <span class="danger-sign">тупой перкуторный звук</span>.</li>
+                        <li>Верхняя граница тупости имеет характерную <span class="highlight">дугообразную линию (линия Дамуазо)</span> <span class="damoiseau">(S-образная кривая)</span>.</li>
+                        <li>Над верхней границей тупости выслушивается перкуторный звук с <span class="highlight">тимпаническим оттенком</span> (зона сжатой легочной ткани — компрессионный ателектаз).</li>
+                        <li>Треугольник Гарлянда (зона тимпанита) и треугольник Грокко-Раухфуса (зона притупления на здоровой стороне) не определяются.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Аускультация легких -->
+            <div class="info-row auscultation-card">
+                <div class="row-header">
+                    <i class="fas fa-ear-listen"></i>
+                    <span>🎧 Аускультация легких</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>В зоне тупости дыхание <span class="danger-sign">резко ослаблено или полностью не проводится</span>.</li>
+                        <li>Над верхней границей жидкости выслушивается дыхание с <span class="highlight">бронхиальным оттенком</span> (компрессионный ателектаз).</li>
+                        <li>На здоровой стороне — везикулярное дыхание, может быть ослаблено при смещении средостения.</li>
+                        <li>Побочных дыхательных шумов (хрипов, крепитации) не определяется.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Сердечно-сосудистая система -->
+            <div class="info-row heart-card">
+                <div class="row-header">
+                    <i class="fas fa-heartbeat"></i>
+                    <span>❤️ Сердечно-сосудистая система</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>При одностороннем гидротораксе определяется <span class="highlight">смещение границ относительной сердечной тупости</span> в здоровую сторону (противоположную скоплению жидкости).</li>
+                        <li>Тоны сердца <span class="danger-sign">приглушены</span>, ритм правильный, тахикардия — <span class="highlight">ЧСС ___ уд/мин</span>.</li>
+                        <li>Артериальное давление: <span class="danger-sign">тенденция к артериальной гипотензии</span> (при напряженном гидротораксе). АД ___/___ мм рт. ст.</li>
+                        <li>Пульс: слабого наполнения, может быть парадоксальным (ослабление на вдохе).</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Дыхательная система (функциональные признаки) -->
+            <div class="info-row complaints-card">
+                <div class="row-header">
+                    <i class="fas fa-lungs"></i>
+                    <span>🌬️ Дыхательная система (функциональные признаки)</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li><strong>Одышка:</strong> <span class="danger-sign">нарастающая, смешанного характера</span>. Появляется при физической нагрузке, затем беспокоит в покое.</li>
+                        <li><strong>ЧДД:</strong> <span class="highlight">___ в минуту</span>, дыхание поверхностное, учащенное.</li>
+                        <li><strong>Кашель:</strong> <span class="highlight">сухой, рефлекторный</span>, не приносящий облегчения, может усиливаться в положении лежа.</li>
+                        <li><strong>Вспомогательная мускулатура:</strong> участие в дыхании (крылья носа, межреберные мышцы).</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Жалобы пациента -->
+            <div class="info-row complaints-card">
+                <div class="row-header">
+                    <i class="fas fa-comment-medical"></i>
+                    <span>😷 Жалобы пациента</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li><strong>Чувство нехватки воздуха</strong>, усиливающееся в положении лежа.</li>
+                        <li><strong>Тяжесть и распирание</strong> в соответствующей половине грудной клетки.</li>
+                        <li><strong>Боль в груди</strong> на стороне поражения: <span class="normal-sign">отсутствует</span> (при быстром накоплении жидкости или в стадии рассасывания — ноющего характера).</li>
+                        <li><strong>Температура тела:</strong> <span class="normal-sign">нормальная</span> (лихорадка для неосложненного гидроторакса не характерна).</li>
+                        <li><strong>Общая слабость</strong>, снижение толерантности к физической нагрузке.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Новый стиль клинического комментария (без тактики и инструментальных рекомендаций) -->
+        <div class="clinical-new">
+            <div class="clinical-new-header">
+                <i class="fas fa-stethoscope"></i>
+                <span>Клинический разбор (догоспитальный этап)</span>
+            </div>
+            <div class="clinical-new-content">
+                <p>Клиническая картина соответствует <strong>гидротораксу (правостороннему/левостороннему)</strong>, развившемуся на фоне синдрома <strong>застойной сердечной недостаточности</strong> (проявляющейся также периферическими отеками, набуханием шейных вен, ортопноэ).</p>
+                <p>Наличие <strong>одышки в покое, диффузного цианоза, смещения средостения</strong> (смещение границ сердца в здоровую сторону, ослабление дыхания на стороне поражения) свидетельствует о <span class="danger-sign">значительном объеме транссудата</span> (вероятно, более 500–1000 мл) и <strong>начинающейся дыхательной недостаточности</strong>. Перкуторная картина с типичной дугообразной линией Дамуазо подтверждает наличие свободной жидкости в плевральной полости.</p>
+                <p>Отсутствие лихорадки, болей в грудной клетке и признаков воспаления позволяет дифференцировать гидроторакс от <strong>экссудативного плеврита</strong> и <strong>пневмонии</strong>.</p>
+                <div class="clinical-quote">
+                    <i class="fas fa-chart-line"></i>
+                    <span><strong>Клиническое заключение:</strong> гидроторакс на фоне декомпенсации хронической сердечной недостаточности. Выраженный респираторный дистресс, смещение средостения, признаки значительного объема плеврального выпота.</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Заключение (без рекомендаций) -->
+        <div class="impressio-box">
+            <h4><i class="fas fa-notes-medical"></i> Предварительное заключение (СМП)</h4>
+            <p><strong>Гидроторакс (правосторонний/левосторонний), развившийся на фоне застойной сердечной недостаточности.</strong> Клинические признаки: ортопноэ, диффузный цианоз, набухание шейных вен, периферические отеки нижних конечностей. При осмотре грудной клетки — сглаженность межреберий на стороне поражения, отставание в дыхании. Перкуторно — тупой звук с дугообразной верхней границей (линия Дамуазо). Аускультативно — резкое ослабление дыхания в зоне тупости, бронхиальное дыхание над верхней границей жидкости. Смещение границ сердца в здоровую сторону, приглушение тонов, тахикардия. Одышка смешанного характера в покое, ЧДД увеличена. Данных за лихорадку, острый болевой синдром, признаки экссудативного плеврита не получено. Состояние расценено как гидроторакс значительного объема с явлениями дыхательной недостаточности.</p>
+        </div>
+    </div>
+</div>
+</body>
+</html>
