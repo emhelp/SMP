@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Подстанции СМП им. А.С. Пучкова - интерактивный справочник</title>
     <style>
         * {
@@ -48,14 +48,14 @@
         .content {
             padding: 2rem;
         }
+        /* Сетка кнопок — только номера подстанций на главном экране */
         .stations-grid {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             gap: 0.75rem;
-            margin-bottom: 2rem;
-            padding-bottom: 1rem;
-            border-bottom: 2px solid #e2e8f0;
+            margin-bottom: 0;
+            padding-bottom: 0;
         }
         .station-btn {
             background: #e2e8f0;
@@ -68,74 +68,136 @@
             transition: all 0.2s ease;
             color: #2c3e66;
             min-width: 70px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
         }
         .station-btn:hover {
             background: #cbd5e1;
             transform: translateY(-2px);
         }
-        .station-btn.active {
-            background: #c62828;
-            color: white;
-            box-shadow: 0 4px 12px rgba(198, 40, 40, 0.3);
+        .station-btn:active {
+            transform: translateY(1px);
         }
-        .info-card {
-            background: #f8fafc;
-            border-radius: 28px;
-            padding: 1.8rem;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
-            border: 1px solid #e2e8f0;
+        /* Модальное окно (всплывающая карточка) */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
             transition: all 0.2s ease;
         }
-        .info-card:hover {
-            box-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.1);
+        .modal.active {
+            display: flex;
         }
-        .station-number {
+        .modal-card {
+            background: #ffffff;
+            max-width: 550px;
+            width: 100%;
+            border-radius: 36px;
+            box-shadow: 0 30px 50px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            animation: fadeSlideUp 0.25s ease-out;
+            position: relative;
+        }
+        @keyframes fadeSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .modal-header {
+            background: linear-gradient(135deg, #c62828 0%, #9b2c2c 100%);
+            padding: 1.2rem 1.5rem;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .modal-header h3 {
             font-size: 1.4rem;
-            font-weight: 800;
-            color: #c62828;
-            margin-bottom: 1rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid #ffc107;
-            display: inline-block;
+            font-weight: 700;
+            margin: 0;
         }
-        .info-row {
+        .close-modal {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            font-size: 1.6rem;
+            line-height: 1;
+            cursor: pointer;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+        .close-modal:hover {
+            background: rgba(255,255,255,0.35);
+        }
+        .modal-body {
+            padding: 1.5rem 1.8rem;
+            background: #fefefe;
+        }
+        .info-row-modal {
             margin: 1rem 0;
             display: flex;
             flex-wrap: wrap;
+            gap: 0.6rem;
             align-items: flex-start;
-            gap: 0.5rem;
         }
-        .info-label {
-            font-weight: 700;
-            min-width: 100px;
-            color: #2c3e66;
+        .info-label-modal {
+            font-weight: 800;
+            min-width: 95px;
+            color: #b91c1c;
+            font-size: 0.95rem;
         }
-        .info-value {
+        .info-value-modal {
             flex: 1;
-            color: #1e2a3e;
+            color: #1f2937;
+            word-break: break-word;
         }
-        .phone-list {
+        .phone-list-modal {
             list-style: none;
             padding-left: 0;
+            margin: 0;
         }
-        .phone-list li {
-            margin-bottom: 0.3rem;
+        .phone-list-modal li {
+            margin-bottom: 0.4rem;
         }
-        .phone-list a {
+        .phone-list-modal a {
             color: #c62828;
             text-decoration: none;
             font-weight: 500;
+            font-size: 1rem;
         }
-        .phone-list a:hover {
+        .phone-list-modal a:hover {
             text-decoration: underline;
         }
-        .map-links {
+        .divider-modal {
+            height: 1px;
+            background: #e5e7eb;
+            margin: 1rem 0;
+        }
+        .map-links-modal {
             display: flex;
             flex-wrap: wrap;
             gap: 0.75rem;
             margin-top: 0.25rem;
         }
-        .map-link {
+        .map-link-modal {
             display: inline-flex;
             align-items: center;
             gap: 8px;
@@ -145,39 +207,74 @@
             color: #ea580c;
             text-decoration: none;
             font-weight: 500;
-            transition: background 0.2s;
+            transition: all 0.2s;
             border: 1px solid #fed7aa;
+            font-size: 0.9rem;
         }
-        .map-link.app-link {
+        .map-link-modal.app-link-modal {
             background: #e8f0fe;
             border-color: #b9d6fe;
             color: #1e5f7a;
         }
-        .map-link:hover {
+        .map-link-modal:hover {
             background: #ffe6cc;
+            transform: translateY(-1px);
         }
-        .map-link.app-link:hover {
+        .map-link-modal.app-link-modal:hover {
             background: #d9e9ff;
         }
-        .divider {
-            height: 1px;
-            background: linear-gradient(90deg, #e2e8f0, transparent);
-            margin: 1rem 0;
+        /* подсказка на главном экране (лаконичная) */
+        .hint-text {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1rem;
+            background: #f1f5f9;
+            border-radius: 60px;
+            color: #2d3e6e;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border: 1px solid #e2e8f0;
+        }
+        .hint-text span {
+            display: inline-block;
+            background: #c62828;
+            color: white;
+            border-radius: 30px;
+            padding: 0.1rem 0.7rem;
+            margin: 0 0.2rem;
+            font-size: 0.75rem;
         }
         @media (max-width: 700px) {
             .content {
-                padding: 1rem;
-            }
-            .station-btn {
-                padding: 0.5rem 0.9rem;
-                font-size: 0.8rem;
-            }
-            .info-card {
                 padding: 1.2rem;
             }
-            .info-label {
-                min-width: 80px;
+            .station-btn {
+                padding: 0.55rem 0.9rem;
+                font-size: 0.8rem;
+                min-width: 58px;
             }
+            .modal-body {
+                padding: 1.2rem;
+            }
+            .info-label-modal {
+                min-width: 80px;
+                font-size: 0.85rem;
+            }
+            .modal-header h3 {
+                font-size: 1.2rem;
+            }
+        }
+        /* плавный скролл */
+        html {
+            scroll-behavior: smooth;
+        }
+        footer {
+            font-size: 0.7rem;
+            text-align: center;
+            padding: 1rem;
+            color: #6c757d;
+            border-top: 1px solid #e9ecef;
+            background: #fff;
         }
     </style>
 </head>
@@ -188,18 +285,33 @@
         <p>ГБУ «Станция скорой и неотложной медицинской помощи им. А.С. Пучкова»</p>
     </div>
     <div class="content">
+        <!-- Только номера подстанций (кнопки) -->
         <div class="stations-grid" id="stations-buttons"></div>
-        <div id="info-display" class="info-card">
-            <div class="station-number">Выберите подстанцию</div>
-            <div class="info-row">
-                <div class="info-label">📍 Адрес:</div>
-                <div class="info-value">Нажмите на номер подстанции, чтобы увидеть данные</div>
-            </div>
+        <div class="hint-text">
+            💡 Нажмите на <span>номер</span> подстанции — откроется карточка с полной информацией (адрес, телефоны, карта)
+        </div>
+    </div>
+    <footer>
+        Данные актуальны на 2025 год • Для вызова скорой помощи звоните 103 или 112
+    </footer>
+</div>
+
+<!-- Модальное окно (всплывающая карточка) -->
+<div id="stationModal" class="modal">
+    <div class="modal-card">
+        <div class="modal-header">
+            <h3 id="modalTitle">Подстанция</h3>
+            <button class="close-modal" id="closeModalBtn">&times;</button>
+        </div>
+        <div class="modal-body" id="modalBody">
+            <!-- Динамическое содержимое будет вставлено сюда -->
+            <div style="text-align: center; padding: 20px;">Загрузка...</div>
         </div>
     </div>
 </div>
 
 <script>
+    // ====================== ВСЕ ДАННЫЕ ПОДСТАНЦИЙ И ПОСТА ======================
     // Функция для извлечения geoId из ссылки 2gis.ru (последний числовой сегмент)
     function extractGeoId(url) {
         if (!url || !url.includes('2gis.ru')) return null;
@@ -209,9 +321,8 @@
         return match ? match[1] : null;
     }
 
-    // Список всех объектов (подстанции и пост 31)
+    // Полный список всех объектов (подстанции и пост 31)
     const stationsList = [
-        // 1-15 уже были
         { id: "1", name: "Подстанция №1", address: "ГКБ №1 им. Н.И. Пирогова, Ленинский проспект, 8 к15, 119049, Москва, Якиманка", phones: ["+7(495)9592730", "+7(495)6204140"], mapLink: "https://2gis.ru/moscow/geo/70000001025062716" },
         { id: "2", name: "Подстанция №2", address: "улица Поликарпова, 4, 125284, Москва, Беговой", phones: ["+7(495)9459130"], mapLink: "https://2gis.ru/moscow/geo/70000001020810259" },
         { id: "3", name: "Подстанция №3", address: "улица Ленинская Слобода, 5 к3, 115280, Москва, Даниловский", phones: ["+7(495)6204060"], mapLink: "https://2gis.ru/moscow/geo/70000001063421655" },
@@ -278,44 +389,51 @@
         { id: "63", name: "Подстанция №63", address: "улица Маршала Савицкого, 19, 117148, Москва, Щербинка", phones: [], mapLink: "https://2gis.ru/moscow/geo/70000001079644346/37.596070,55.506334" }
     ];
 
-    // Добавляем для каждой станции geoId, если это возможно (для 2ГИС)
+    // Обогащаем каждую станцию geoId
     stationsList.forEach(station => {
         station.geoId = extractGeoId(station.mapLink);
-        // Если ссылка не 2ГИС, geoId останется null
     });
 
-    // Генерируем кнопки
+    // Генерируем кнопки (только номера / пометка для поста)
     const buttonsContainer = document.getElementById('stations-buttons');
     stationsList.forEach(station => {
         const btn = document.createElement('button');
         btn.className = 'station-btn';
-        // Отображаем номер/название: для подстанций – цифра, для поста – "31п"
+        // Отображаем номер: для подстанции просто id, для поста "31п"
         if (station.id === '31post') {
             btn.textContent = '31п';
         } else {
             btn.textContent = station.id;
         }
         btn.dataset.id = station.id;
-        btn.addEventListener('click', () => {
-            document.querySelectorAll('.station-btn').forEach(btn => btn.classList.remove('active'));
-            btn.classList.add('active');
-            showStation(station.id);
+        btn.setAttribute('aria-label', `Подстанция номер ${station.id === '31post' ? 'пост 31' : station.id}`);
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            openModal(station.id);
         });
         buttonsContainer.appendChild(btn);
     });
 
-    function showStation(id) {
-        const station = stationsList.find(s => s.id === id);
+    // Функция открытия модального окна с детальной информацией
+    function openModal(stationId) {
+        const station = stationsList.find(s => s.id === stationId);
         if (!station) return;
 
-        const displayDiv = document.getElementById('info-display');
-        // Формируем список телефонов
+        const modal = document.getElementById('stationModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalBody = document.getElementById('modalBody');
+
+        // Устанавливаем заголовок
+        modalTitle.textContent = station.name;
+
+        // Формируем блок телефонов
         let phonesHtml = '';
         if (station.phones && station.phones.length > 0) {
             if (station.phones.length === 1) {
-                phonesHtml = `<a href="tel:${station.phones[0].replace(/[^0-9+]/g, '')}">${station.phones[0]}</a>`;
+                const cleanPhone = station.phones[0].replace(/[^0-9+]/g, '');
+                phonesHtml = `<a href="tel:${cleanPhone}" style="color:#c62828; font-weight:600; text-decoration:none;">${station.phones[0]}</a>`;
             } else {
-                phonesHtml = '<ul class="phone-list">';
+                phonesHtml = '<ul class="phone-list-modal">';
                 station.phones.forEach(phone => {
                     const cleanPhone = phone.replace(/[^0-9+]/g, '');
                     phonesHtml += `<li><a href="tel:${cleanPhone}">${phone}</a></li>`;
@@ -323,7 +441,7 @@
                 phonesHtml += '</ul>';
             }
         } else {
-            phonesHtml = '<span style="color: #8a99b0;">не указан</span>';
+            phonesHtml = '<span style="color:#8a99b0;">телефон не указан</span>';
         }
 
         // Ссылки на карту
@@ -332,44 +450,65 @@
             const webLink = station.mapLink;
             const appLink = `dgis://2gis.ru/geo/${station.geoId}`;
             mapLinksHtml = `
-                <div class="map-links">
-                    <a href="${webLink}" target="_blank" rel="noopener noreferrer" class="map-link">🌍 Открыть в браузере</a>
-                    <a href="${appLink}" class="map-link app-link">📱 Открыть в приложении 2ГИС</a>
+                <div class="map-links-modal">
+                    <a href="${webLink}" target="_blank" rel="noopener noreferrer" class="map-link-modal">🌍 Открыть в браузере</a>
+                    <a href="${appLink}" class="map-link-modal app-link-modal">📱 Открыть в приложении 2ГИС</a>
                 </div>
             `;
         } else {
-            // Для ссылок не 2ГИС (Google Maps, возможно другие)
+            // если ссылка не 2ГИС (Google Maps или иная)
             mapLinksHtml = `
-                <div class="map-links">
-                    <a href="${station.mapLink}" target="_blank" rel="noopener noreferrer" class="map-link">🌍 Открыть на карте</a>
+                <div class="map-links-modal">
+                    <a href="${station.mapLink}" target="_blank" rel="noopener noreferrer" class="map-link-modal">🗺️ Открыть на карте</a>
                 </div>
             `;
         }
 
-        displayDiv.innerHTML = `
-            <div class="station-number">${station.name}</div>
-            <div class="info-row">
-                <div class="info-label">📍 Адрес:</div>
-                <div class="info-value">${station.address}</div>
+        // Наполняем контент модалки
+        modalBody.innerHTML = `
+            <div class="info-row-modal">
+                <div class="info-label-modal">📍 Адрес:</div>
+                <div class="info-value-modal">${station.address}</div>
             </div>
-            <div class="info-row">
-                <div class="info-label">📞 Телефон${station.phones && station.phones.length > 1 ? 'ы' : ''}:</div>
-                <div class="info-value">${phonesHtml}</div>
+            <div class="info-row-modal">
+                <div class="info-label-modal">📞 Телефон${station.phones && station.phones.length > 1 ? 'ы' : ''}:</div>
+                <div class="info-value-modal">${phonesHtml}</div>
             </div>
-            <div class="divider"></div>
-            <div class="info-row">
-                <div class="info-label">🗺️ Карта:</div>
-                <div class="info-value">${mapLinksHtml}</div>
+            <div class="divider-modal"></div>
+            <div class="info-row-modal">
+                <div class="info-label-modal">🗺️ Как добраться:</div>
+                <div class="info-value-modal">${mapLinksHtml}</div>
             </div>
+            ${station.id === '31post' ? '<div style="margin-top:12px; font-size:0.8rem; color:#6c757d;">ℹ️ Пост является дополнительной точкой базирования бригад.</div>' : ''}
         `;
+
+        // Показываем модальное окно
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden'; // предотвращаем скролл фона
     }
 
-    // По умолчанию показываем подстанцию 1 и делаем первую кнопку активной
-    const firstBtn = document.querySelector('.station-btn');
-    if (firstBtn) {
-        firstBtn.classList.add('active');
-        showStation('1');
+    // Закрытие модального окна
+    function closeModal() {
+        const modal = document.getElementById('stationModal');
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
     }
+
+    // Обработчики закрытия
+    document.getElementById('closeModalBtn').addEventListener('click', closeModal);
+    // Закрытие по клику на фон (оверлей)
+    const modalOverlay = document.getElementById('stationModal');
+    modalOverlay.addEventListener('click', (e) => {
+        if (e.target === modalOverlay) {
+            closeModal();
+        }
+    });
+    // Закрытие по Escape
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modalOverlay.classList.contains('active')) {
+            closeModal();
+        }
+    });
 </script>
 </body>
 </html>
