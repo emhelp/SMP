@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Лакунарная ангина | Описание локального статуса</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(145deg, #e0eaf4 0%, #cfddee 100%);
+            font-family: 'Inter', sans-serif;
+            padding: 2rem;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .medical-card {
+            max-width: 1000px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 2rem;
+            box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.35), 0 2px 8px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            transition: transform 0.2s ease;
+        }
+
+        .medical-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .card-header {
+            background: #4a2a1a;
+            padding: 1.5rem 2rem;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            border-bottom: 4px solid #d97a2b;
+        }
+
+        .title-section h1 {
+            font-weight: 600;
+            font-size: 1.7rem;
+            letter-spacing: -0.3px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #fff2e6;
+        }
+
+        .title-section h1 i {
+            display: none;
+        }
+
+        .sub {
+            font-size: 0.9rem;
+            color: #f0dbc8;
+            margin-top: 6px;
+            font-weight: 400;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .sub i {
+            font-size: 1rem;
+            color: #ffb366;
+        }
+
+        .badge-date {
+            display: none;
+        }
+
+        .card-body {
+            padding: 2rem 2rem 2rem 2rem;
+        }
+
+        .diagnosis-tag {
+            display: inline-block;
+            background: #fef3e2;
+            color: #b45f1b;
+            padding: 0.3rem 1rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-bottom: 1.5rem;
+            border-left: 3px solid #e67e22;
+        }
+
+        .exam-section {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .info-row {
+            background: #f9fafc;
+            border-radius: 1.25rem;
+            padding: 1rem 1.4rem;
+            transition: all 0.2s;
+            border: 1px solid #eef2f8;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+        }
+
+        .info-row:hover {
+            background: #ffffff;
+            border-color: #cbdde9;
+            box-shadow: 0 6px 14px rgba(0, 20, 30, 0.05);
+        }
+
+        .row-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #1a4c5e;
+            margin-bottom: 0.6rem;
+            border-left: 4px solid #d97a2b;
+            padding-left: 12px;
+        }
+
+        .row-header i {
+            font-size: 1.3rem;
+            width: 28px;
+            color: #d97a2b;
+        }
+
+        .row-content {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #1e2f3a;
+            margin-left: 44px;
+            word-break: break-word;
+        }
+
+        .highlight {
+            font-weight: 600;
+            color: #bc6f2c;
+            background: #fff0e0;
+            padding: 0 4px;
+            border-radius: 8px;
+        }
+
+        .inline-text {
+            margin: 0;
+            line-height: 1.6;
+        }
+        
+        .inline-text strong {
+            color: #1a4c5e;
+        }
+
+        /* Стиль для жалоб в строчку */
+        .complaints-inline {
+            line-height: 1.7;
+        }
+        
+        .complaints-inline strong {
+            color: #1a4c5e;
+        }
+
+        /* Стили для дифференциальной диагностики */
+        .diff-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+            margin-top: 0.5rem;
+        }
+
+        .diff-item {
+            background: #ffffff;
+            border-radius: 1rem;
+            padding: 0.8rem 1.2rem;
+            border-left: 4px solid;
+            transition: all 0.2s;
+        }
+
+        .diff-item.catarrhal {
+            border-left-color: #6c757d;
+            background: #fefefe;
+        }
+        
+        .diff-item.follicular {
+            border-left-color: #e67e22;
+            background: #fefefe;
+        }
+        
+        .diff-item.lacunar {
+            border-left-color: #c0392b;
+            background: #fff5f3;
+        }
+
+        .diff-title {
+            font-weight: 700;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 0.5rem;
+        }
+
+        .diff-title i {
+            font-size: 1.1rem;
+        }
+
+        .catarrhal .diff-title { color: #495057; }
+        .follicular .diff-title { color: #e67e22; }
+        .lacunar .diff-title { color: #c0392b; }
+
+        .diff-content {
+            padding-left: 1.8rem;
+            font-size: 0.92rem;
+            line-height: 1.5;
+            color: #2c3e50;
+        }
+
+        .diff-content p {
+            margin-bottom: 0.4rem;
+        }
+
+        .diff-content strong {
+            color: #1a4c5e;
+        }
+
+        .clinical-note {
+            background: #eef3fa;
+            border-left: 5px solid #d97a2b;
+            border-radius: 1rem;
+            padding: 1.2rem 1.5rem;
+            margin: 1.8rem 0 1.5rem;
+        }
+
+        .clinical-note h3 {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #b45f1b;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+        }
+
+        .clinical-note p {
+            color: #1e3a47;
+            line-height: 1.5;
+            font-size: 0.95rem;
+        }
+
+        .impressio-box {
+            background: #fef9e6;
+            border-radius: 1rem;
+            padding: 1.2rem 1.5rem;
+            border: 1px solid #ffe0a3;
+            margin: 1rem 0 0;
+        }
+
+        .impressio-box h4 {
+            font-weight: 700;
+            color: #aa6f20;
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+
+        @media (max-width: 650px) {
+            body {
+                padding: 1rem;
+            }
+            .card-body {
+                padding: 1.5rem;
+            }
+            .row-content {
+                margin-left: 20px;
+            }
+            .row-header {
+                font-size: 1rem;
+            }
+            .diff-content {
+                padding-left: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="medical-card">
+    <div class="card-header">
+        <div class="title-section">
+            <h1>
+                Лакунарная ангина
+            </h1>
+            <div class="sub">
+                <i class="fas fa-ambulance"></i> Описание локального статуса
+            </div>
+        </div>
+        <div class="badge-date" style="display: none;"></div>
+    </div>
+    
+    <div class="card-body">
+        <div class="diagnosis-tag">
+            <i class="fas fa-exclamation-triangle"></i> Лакунарная ангина · J03.0 (острый тонзиллит)
+        </div>
+
+        <div class="exam-section">
+            <!-- Жалобы пациента в строчку -->
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-comment-dots"></i> 
+                    <span>😷 Жалобы пациента</span>
+                </div>
+                <div class="row-content complaints-inline">
+                    <strong>Интенсивная боль в горле</strong>, усиливающаяся при глотании. 
+                    <strong>Выраженная слабость и головная боль</strong>. 
+                    <strong>Повышение температуры тела до фебрильных цифр</strong> (38,5–39,5°C), сопровождающееся ознобом. 
+                    <strong>Снижение аппетита</strong> на фоне интоксикации и боли при глотании.
+                </div>
+            </div>
+            
+            <!-- Статус локальный (ротоглотка) -->
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-stethoscope"></i>
+                    <span>🔬 Статус локальный (ротоглотка)</span>
+                </div>
+                <div class="row-content">
+                    <p><strong>Миндалины:</strong> Гипертрофированы (увеличены в размерах), резко отечны, инфильтрированы.</p>
+                    <p><strong>Лакуны:</strong> Визуально определяются как <span class="highlight">расширенные</span>, устья зияют.</p>
+                    <p><strong>Налет:</strong> В просветах лакун визуализируется желтовато-белое гнойное содержимое. Это содержимое, выходя из лакун, формирует на поверхности миндалин рыхлый налет в виде <strong>мелких очагов (островков) слева</strong> и <strong>сплошной пленки справа</strong>.</p>
+                    <p><strong>Дифференциально-диагностический признак:</strong> Налет легко снимается шпателем, растирается между предметными стеклами, <strong>не выходит за пределы миндалин</strong>, и после его удаления не образуется кровоточащий дефект (поверхность миндалины не кровоточит), что исключает дифтерию.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Дифференциальная диагностика клинических форм ангины -->
+        <div class="info-row" style="margin-bottom: 0;">
+            <div class="row-header">
+                <i class="fas fa-chart-line"></i>
+                <span>📋 Дифференциальная диагностика клинических форм ангины</span>
+            </div>
+            <div class="row-content" style="margin-left: 0;">
+                <div class="diff-grid">
+                    <!-- Катаральная ангина -->
+                    <div class="diff-item catarrhal">
+                        <div class="diff-title">
+                            <i class="fas fa-thermometer-quarter"></i> 🌡️ Катаральная ангина
+                        </div>
+                        <div class="diff-content">
+                            <p><strong>Субъективно:</strong> Жжение, сухость, першение, умеренная боль, усиливающаяся при глотании.</p>
+                            <p><strong>Общее состояние:</strong> Субфебрильная температура (37,1–37,9°C), недомогание, разбитость, головная боль.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Фолликулярная ангина -->
+                    <div class="diff-item follicular">
+                        <div class="diff-title">
+                            <i class="fas fa-thermometer-three-quarters"></i> 🤒 Фолликулярная ангина
+                        </div>
+                        <div class="diff-content">
+                            <p><strong>Субъективно:</strong> Выраженная боль в горле с иррадиацией в ухо, резкое усиление боли при глотании, затруднение глотания.</p>
+                            <p><strong>Общее состояние:</strong> Фебрильная температура (38–40°C), озноб, сильная головная боль, слабость, возможны миалгии и люмбалгия (боль в пояснице и суставах).</p>
+                            <p><strong>Объективно:</strong> На миндалинах видны множественные желтовато-белые точки (нагноившиеся фолликулы), не выходящие за пределы миндалин.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Лакунарная ангина (текущая) -->
+                    <div class="diff-item lacunar">
+                        <div class="diff-title">
+                            <i class="fas fa-fire"></i> 🔥 Лакунарная ангина (текущая форма)
+                        </div>
+                        <div class="diff-content">
+                            <p><strong>Субъективно и объективно протекает тяжелее, чем фолликулярная.</strong> Интоксикация более выражена, температура часто выше 39°C.</p>
+                            <p><strong>Характерно:</strong> Наличие гнойного содержимого непосредственно <strong>в лакунах</strong> и формирование налетов, которые могут сливаться, но <strong>не выходят за пределы миндалин</strong>. Налет легко снимается, не оставляя кровоточащей поверхности.</p>
+                            <p><strong>Особенности:</strong> Гнойные массы в расширенных устьях лакун создают картину «извитых желтоватых полос» или островковых/сливных налетов.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Профессиональный клинический комментарий -->
+        <div class="clinical-note">
+            <h3><i class="fas fa-stethoscope"></i> Клинический комментарий</h3>
+            <p>Представленная клиническая картина соответствует <strong>лакунарной ангине</strong> — тяжелой форме острого тонзиллита с преимущественным поражением лакунарного аппарата миндалин. 
+            Характерные признаки: выраженный интоксикационный синдром (фебрильная лихорадка с ознобом, интенсивная головная боль, слабость), 
+            локальный статус с гипертрофией, отеком миндалин, наличием гнойного содержимого в расширенных лакунах и образованием рыхлых налетов 
+            (островковых слева, сливных справа). Важный дифференциально-диагностический признак — <strong>легкое снятие налета без кровоточивости</strong>, 
+            что позволяет исключить дифтерию зева. В отличие от фолликулярной формы, при лакунарной ангине гнойное содержимое локализуется непосредственно 
+            в лакунах, а не в фолликулах, что обусловливает более массивное образование налетов и более тяжелое течение.</p>
+        </div>
+        
+        <!-- Impressio / Предварительное заключение -->
+        <div class="impressio-box">
+            <h4><i class="fas fa-notes-medical"></i> Impressio / Предварительное заключение</h4>
+            <p><strong>Основной диагноз:</strong> Лакунарная ангина (острый тонзиллит, лакунарная форма). Тяжелое течение: выраженный интоксикационный синдром, 
+            фебрильная лихорадка, двустороннее поражение небных миндалин с гнойным содержимым в лакунах и формированием сливных/островковых налетов. 
+            Дифтерия зева исключена на основании клинико-диагностических критериев (налет не выходит за пределы миндалин, легко снимается, поверхность не кровоточит). 
+            <strong>Риск развития паратонзиллярного абсцесса.</strong></p>
+        </div>
+    </div>
+</div>
+</body>
+</html>
