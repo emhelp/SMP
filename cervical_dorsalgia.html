@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Дорсалгия шейного отдела | Описание клинического статуса (СМП)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #eef2f7 0%, #e0e8f0 100%);
+            font-family: 'Inter', sans-serif;
+            padding: 1rem;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .medical-card {
+            max-width: 800px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 2rem;
+            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.12);
+            overflow: hidden;
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #4a2e1e 0%, #2e2218 100%);
+            padding: 1.25rem 1.5rem;
+            color: white;
+            border-bottom: 3px solid #e08e3a;
+        }
+
+        .title-section h1 {
+            font-weight: 700;
+            font-size: 1.5rem;
+            letter-spacing: -0.3px;
+            color: #fff5ea;
+            margin-bottom: 0.25rem;
+            line-height: 1.3;
+        }
+
+        .sub {
+            font-size: 0.85rem;
+            color: #e6cfb5;
+            font-weight: 400;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .sub i {
+            font-size: 0.9rem;
+            color: #e08e3a;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .diagnosis-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #fef3e6;
+            color: #b45a1c;
+            padding: 0.4rem 1.1rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.75rem;
+            margin-bottom: 1.5rem;
+            border-left: 3px solid #e67e22;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+        }
+
+        .exam-section {
+            display: flex;
+            flex-direction: column;
+            gap: 1.35rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-row {
+            background: #ffffff;
+            border-radius: 1.25rem;
+            border: 1.5px solid #e5d5c2;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+
+        .row-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 700;
+            font-size: 1rem;
+            color: #2f5342;
+            padding: 1rem 1.2rem 0.5rem 1.2rem;
+            background: #fefcf9;
+            border-bottom: 2px solid #f0e3d4;
+        }
+
+        .row-header i {
+            font-size: 1.4rem;
+            width: 34px;
+            color: #c96f1e;
+            background: #fff2e6;
+            padding: 6px;
+            border-radius: 14px;
+            text-align: center;
+        }
+
+        .row-content {
+            font-size: 0.95rem;
+            line-height: 1.55;
+            color: #2c3e3a;
+            padding: 0 1.2rem 1rem 1.2rem;
+            background: #ffffff;
+        }
+
+        .highlight {
+            font-weight: 600;
+            color: #bf6019;
+            background: #fff2e6;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .neurology-sign {
+            font-weight: 600;
+            color: #2c7a4a;
+            background: #e0f5e8;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .pain-sign {
+            font-weight: 600;
+            color: #c96f1e;
+            background: #fff0e2;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .muscle-tonus {
+            font-weight: 600;
+            color: #b45a1c;
+            background: #fef0e0;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        /* Акцентные рамки для блоков */
+        .inspection-card {
+            border-left: 4px solid #b87c4a;
+            background: #fffdf9;
+        }
+        
+        .inspection-card .row-header {
+            background: #fffaf3;
+        }
+        
+        .palpation-card {
+            border-left: 4px solid #6f9e7c;
+        }
+        
+        .function-card {
+            border-left: 4px solid #5d8fae;
+        }
+        
+        .percussion-card {
+            border-left: 4px solid #e08e3a;
+        }
+        
+        .complaints-card {
+            border-left: 4px solid #c97e3a;
+        }
+
+        /* Новый стиль для клинического комментария */
+        .clinical-new {
+            background: #f6f3ef;
+            border-radius: 1.5rem;
+            padding: 0;
+            margin: 1.5rem 0 1.25rem;
+            overflow: hidden;
+            border: 1px solid #e6daca;
+        }
+        
+        .clinical-new-header {
+            background: #d9c8b6;
+            padding: 0.7rem 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 2px solid #c8b496;
+        }
+        
+        .clinical-new-header i {
+            font-size: 1.2rem;
+            color: #4a2e1e;
+            background: #fff2e2;
+            padding: 6px;
+            border-radius: 40px;
+        }
+        
+        .clinical-new-header span {
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            color: #2c241a;
+            text-transform: uppercase;
+        }
+        
+        .clinical-new-content {
+            padding: 1.2rem 1.3rem;
+            background: #fefcf8;
+        }
+        
+        .clinical-new-content p {
+            line-height: 1.55;
+            font-size: 0.92rem;
+            color: #2e4a3c;
+            margin-bottom: 0.75rem;
+        }
+        
+        .clinical-quote {
+            margin-top: 0.8rem;
+            padding-top: 0.6rem;
+            border-top: 1px solid #ecdfd0;
+            font-size: 0.85rem;
+            color: #7f6a53;
+            display: flex;
+            gap: 8px;
+        }
+        
+        .clinical-quote i {
+            color: #c97e3a;
+        }
+
+        /* Заключение */
+        .impressio-box {
+            background: #fffaf0;
+            border-radius: 1.25rem;
+            padding: 1.2rem 1.3rem;
+            border: 1px solid #ffdfb3;
+            margin: 0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+        }
+
+        .impressio-box h4 {
+            font-weight: 700;
+            color: #b4682d;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .impressio-box h4 i {
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 0.75rem;
+            }
+            
+            .card-header {
+                padding: 1rem 1.2rem;
+            }
+            
+            .title-section h1 {
+                font-size: 1.25rem;
+            }
+            
+            .sub {
+                font-size: 0.75rem;
+            }
+            
+            .card-body {
+                padding: 1.2rem;
+            }
+            
+            .row-header {
+                padding: 0.8rem 1rem 0.3rem 1rem;
+            }
+            
+            .row-header i {
+                font-size: 1.2rem;
+                width: 30px;
+            }
+            
+            .row-content {
+                padding: 0 1rem 0.8rem 1rem;
+                font-size: 0.88rem;
+            }
+            
+            .clinical-new-content {
+                padding: 1rem;
+            }
+            
+            .diagnosis-tag {
+                font-size: 0.7rem;
+                margin-bottom: 1rem;
+            }
+        }
+
+        .icon-accent {
+            color: #d97a2b;
+            margin-right: 6px;
+        }
+        
+        .bullet-list {
+            margin: 0.25rem 0 0 0;
+            padding-left: 1.2rem;
+        }
+        
+        .bullet-list li {
+            margin-bottom: 0.3rem;
+        }
+        
+        .anatomy-note {
+            background: #f9efe4;
+            border-radius: 12px;
+            padding: 0.5rem 1rem;
+            margin-bottom: 1.25rem;
+            font-size: 0.8rem;
+            color: #7a5a3a;
+            display: flex;
+            gap: 8px;
+        }
+        
+        .level-badge {
+            display: inline-block;
+            background: #e8e0d5;
+            border-radius: 20px;
+            padding: 0.2rem 0.7rem;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #5e4b34;
+            margin-left: 0.3rem;
+        }
+    </style>
+</head>
+<body>
+<div class="medical-card">
+    <div class="card-header">
+        <div class="title-section">
+            <h1>Дорсалгия шейного отдела позвоночника</h1>
+            <div class="sub">
+                <i class="fas fa-ambulance"></i> Цервикалгия · Мышечно-тонический синдром · M54.2
+            </div>
+        </div>
+    </div>
+    
+    <div class="card-body">
+        <div class="diagnosis-tag">
+            <i class="fas fa-spine"></i> Вертеброгенная цервикалгия · Мышечно-тонический синдром · Сглаженность шейного лордоза
+        </div>
+
+        <div class="anatomy-note">
+            <i class="fas fa-info-circle"></i>
+            <span><strong>Клиническая характеристика:</strong> дорсалгия шейного отдела позвоночника (цервикалгия) — болевой синдром, обусловленный дегенеративно-дистрофическими изменениями шейного отдела (остеохондроз, спондилоартроз), мышечно-тоническими нарушениями, часто ассоциирован с длительным статическим напряжением (работа за компьютером, неудобная поза во время сна).</span>
+        </div>
+
+        <div class="exam-section">
+            <!-- Осмотр -->
+            <div class="info-row inspection-card">
+                <div class="row-header">
+                    <i class="fas fa-eye"></i>
+                    <span>🔍 Осмотр</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li><strong>Положение головы:</strong> <span class="highlight">вынужденное</span> — легкое сгибание (анталгическая поза).</li>
+                        <li>Визуально определяется <span class="pain-sign">сглаженность шейного лордоза</span> (уплощение физиологического изгиба).</li>
+                        <li>Контуры шеи <span class="neurology-sign">не изменены</span>, видимых деформаций, припухлостей, гиперемии кожи нет.</li>
+                        <li><strong>Мышечный корсет:</strong> визуально определяется <span class="muscle-tonus">тоническое напряжение паравертебральных мышц шейного отдела</span> с обеих сторон.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Пальпаторные данные -->
+            <div class="info-row palpation-card">
+                <div class="row-header">
+                    <i class="fas fa-hand-peace"></i>
+                    <span>🖐 Пальпаторные данные</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li><strong>Пальпация остистых отростков:</strong> отмечается <span class="pain-sign">локальная болезненность</span> при пальпации остистых отростков <span class="highlight">C4–C6 позвонков</span>. Пальпация остальных остистых отростков безболезненна.</li>
+                        <li><strong>Пальпация паравертебральных точек:</strong> выявляется <span class="pain-sign">резкая болезненность</span> в паравертебральных точках на уровне <span class="highlight">C4–C6 с обеих сторон</span>.</li>
+                        <li><strong>Состояние мышц:</strong> пальпаторно определяется <span class="muscle-tonus">выраженное тоническое напряжение (гипертонус)</span> паравертебральных мышц шейного отдела, мышц, поднимающих лопатку, верхней порции трапециевидной мышцы.</li>
+                        <li><strong>Болезненность при пальпации остистых связок:</strong> <span class="neurology-sign">не выражена</span>.</li>
+                        <li>Локальная температура и цвет кожи над областью поражения <span class="neurology-sign">не изменены</span>.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Функциональное состояние -->
+            <div class="info-row function-card">
+                <div class="row-header">
+                    <i class="fas fa-person-walking-arrow-right"></i>
+                    <span>💪 Функциональное состояние</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>Объем активных движений в шейном отделе позвоночника <span class="pain-sign">ограничен</span> из-за болевого синдрома.</li>
+                        <li><strong>Сгибание:</strong> подбородок <span class="pain-sign">не достигает грудины</span> — болезненно.</li>
+                        <li><strong>Разгибание:</strong> <span class="pain-sign">болезненно</span> в конце движения.</li>
+                        <li><strong>Наклоны в стороны:</strong> <span class="pain-sign">болезненны</span> при максимальном наклоне.</li>
+                        <li><strong>Ротации (повороты головы):</strong> <span class="pain-sign">ограничены, болезненны</span> при повороте в сторону напряжения.</li>
+                        <li>Пассивные движения также <span class="pain-sign">ограничены</span> из-за мышечного напряжения и боли.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Перкуссия -->
+            <div class="info-row percussion-card">
+                <div class="row-header">
+                    <i class="fas fa-hand-peace"></i>
+                    <span>🥁 Перкуссия</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>Поколачивание по остистым отросткам <span class="highlight">C4–C6</span> может вызывать <span class="pain-sign">локальную болезненность</span> без иррадиации.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Неврологический статус -->
+            <div class="info-row function-card">
+                <div class="row-header">
+                    <i class="fas fa-brain"></i>
+                    <span>🧠 Неврологический статус</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li><strong>Симптомы натяжения:</strong> симптом Спурлинга <span class="neurology-sign">отрицательный</span>, симптом натяжения плечевого сплетения <span class="neurology-sign">отрицательный</span>.</li>
+                        <li><strong>Чувствительность:</strong> тактильная и болевая чувствительность в верхних конечностях <span class="neurology-sign">сохранена</span>.</li>
+                        <li><strong>Двигательная сфера:</strong> мышечная сила в верхних конечностях <span class="neurology-sign">сохранена</span> в полном объеме (5 баллов), симметрична.</li>
+                        <li><strong>Рефлексы:</strong> сухожильные рефлексы с верхних конечностей <span class="neurology-sign">живые, симметричные</span>.</li>
+                        <li>Признаков корешкового синдрома (парестезии, гипестезии, снижение рефлексов) <span class="neurology-sign">не выявлено</span>.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Жалобы пациента (анамнестически) -->
+            <div class="info-row complaints-card">
+                <div class="row-header">
+                    <i class="fas fa-comment-medical"></i>
+                    <span>😷 Жалобы пациента</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li><strong>Боль в шейном отделе позвоночника</strong>, усиливающаяся при движениях головы, длительном статическом напряжении (работа за компьютером, сон в неудобной позе).</li>
+                        <li>Чувство <span class="highlight">скованности в шее по утрам</span>, мышечное напряжение.</li>
+                        <li>Возможна <span class="pain-sign">головная боль напряжения</span> (затылочная локализация).</li>
+                        <li>Боль иррадиирует в затылок, межлопаточную область (при наличии — уточнить).</li>
+                        <li>Затруднение при попытке повернуть голову или наклонить ее из-за боли.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Дифференциальная диагностика -->
+        <div class="info-row" style="margin-top: 0;">
+            <div class="row-header">
+                <i class="fas fa-chart-line"></i>
+                <span>📋 Дифференциальная диагностика</span>
+            </div>
+            <div class="row-content">
+                <ul class="bullet-list">
+                    <li><strong>Цервикогенная головная боль:</strong> головная боль, возникающая при движениях в шейном отделе, иррадиация из шеи в затылок и лобно-височную область.</li>
+                    <li><strong>Синдром позвоночной артерии:</strong> головокружение, зрительные нарушения, вегетативные проявления при поворотах головы.</li>
+                    <li><strong>Плечелопаточный периартрит:</strong> ограничение движений в плечевом суставе, боль в области плеча, усиливающаяся при отведении руки.</li>
+                    <li><strong>Менингит (оболочечные симптомы):</strong> ригидность затылочных мышц, симптомы Кернига, Брудзинского, лихорадка.</li>
+                </ul>
+                <div class="warning-note" style="margin-top: 0.5rem; background: #f9efe4; border-left-color: #e08e3a;">
+                    <i class="fas fa-heartbeat"></i>
+                    <span>На момент осмотра данных за острую сосудистую патологию (вертебробазилярная недостаточность, ТИА), менингит, острую хирургическую патологию не получено.</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Новый стиль клинического комментария -->
+        <div class="clinical-new">
+            <div class="clinical-new-header">
+                <i class="fas fa-stethoscope"></i>
+                <span>Клинический разбор (догоспитальный этап)</span>
+            </div>
+            <div class="clinical-new-content">
+                <p>Клиническая картина соответствует <strong>вертеброгенной дорсалгии шейного отдела позвоночника (цервикалгии)</strong> с мышечно-тоническим синдромом, сглаженностью шейного лордоза, локальной болезненностью на уровне C4–C6. Выраженный гипертонус паравертебральных мышц, напряжение верхней порции трапециевидной мышцы и мышц, поднимающих лопатку, указывают на рефлекторный мышечно-тонический синдром.</p>
+                <p>Ограничение объема активных движений в шейном отделе (сгибание, разгибание, наклоны, ротации) обусловлено болевым синдромом и рефлекторным мышечным напряжением. Отсутствие неврологической симптоматики (чувствительных и двигательных нарушений, корешковых симптомов) позволяет исключить острую компрессию корешков и спинного мозга на момент осмотра.</p>
+                <div class="clinical-quote">
+                    <i class="fas fa-chart-line"></i>
+                    <span><strong>Клиническое заключение:</strong> вертеброгенная цервикалгия, мышечно-тонический синдром, сглаженность шейного лордоза, локальная болезненность на уровне C4–C6. Данных за острую компрессию корешков, спинного мозга, сосудистые нарушения (вертебробазилярная недостаточность) на момент осмотра не получено.</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Заключение -->
+        <div class="impressio-box">
+            <h4><i class="fas fa-notes-medical"></i> Предварительное заключение (СМП)</h4>
+            <p><strong>Вертеброгенная дорсалгия шейного отдела позвоночника (цервикалгия), мышечно-тонический синдром.</strong> При осмотре: вынужденное положение головы (легкое сгибание), сглаженность шейного лордоза, визуальное напряжение паравертебральных мышц. Пальпаторно: локальная болезненность остистых отростков C4–C6 и паравертебральных точек на этом уровне с обеих сторон, выраженный гипертонус паравертебральных мышц, мышц, поднимающих лопатку, верхней порции трапециевидной мышцы. Объем активных движений в шейном отделе ограничен из-за боли (сгибание, разгибание, наклоны, ротации). Поколачивание по остистым отросткам C4–C6 вызывает локальную болезненность без иррадиации. Неврологический статус: чувствительных и двигательных нарушений в верхних конечностях не выявлено, сухожильные рефлексы сохранены, симметричны. Данных за острую компрессию корешков, спинного мозга, сосудистые нарушения (вертебробазилярная недостаточность) на момент осмотра не получено.</p>
+        </div>
+    </div>
+</div>
+</body>
+</html>
