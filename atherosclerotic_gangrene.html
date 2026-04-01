@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Атеросклеротическая гангрена | Описание локального статуса</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #eef2f7 0%, #e0e8f0 100%);
+            font-family: 'Inter', sans-serif;
+            padding: 1rem;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .medical-card {
+            max-width: 800px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 2rem;
+            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.12);
+            overflow: hidden;
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #4a2e1e 0%, #2e2218 100%);
+            padding: 1.25rem 1.5rem;
+            color: white;
+            border-bottom: 3px solid #e08e3a;
+        }
+
+        .title-section h1 {
+            font-weight: 700;
+            font-size: 1.6rem;
+            letter-spacing: -0.3px;
+            color: #fff5ea;
+            margin-bottom: 0.25rem;
+        }
+
+        .sub {
+            font-size: 0.85rem;
+            color: #e6cfb5;
+            font-weight: 400;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .sub i {
+            font-size: 0.9rem;
+            color: #e08e3a;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .diagnosis-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #fef3e6;
+            color: #b45a1c;
+            padding: 0.4rem 1.1rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.75rem;
+            margin-bottom: 1.5rem;
+            border-left: 3px solid #e67e22;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+        }
+
+        .exam-section {
+            display: flex;
+            flex-direction: column;
+            gap: 1.35rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-row {
+            background: #ffffff;
+            border-radius: 1.25rem;
+            border: 1.5px solid #e5d5c2;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+
+        .row-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 700;
+            font-size: 1rem;
+            color: #2f5342;
+            padding: 1rem 1.2rem 0.5rem 1.2rem;
+            background: #fefcf9;
+            border-bottom: 2px solid #f0e3d4;
+        }
+
+        .row-header i {
+            font-size: 1.4rem;
+            width: 34px;
+            color: #c96f1e;
+            background: #fff2e6;
+            padding: 6px;
+            border-radius: 14px;
+            text-align: center;
+        }
+
+        .row-content {
+            font-size: 0.95rem;
+            line-height: 1.55;
+            color: #2c3e3a;
+            padding: 0 1.2rem 1rem 1.2rem;
+            background: #ffffff;
+        }
+
+        .highlight {
+            font-weight: 600;
+            color: #bf6019;
+            background: #fff2e6;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .danger {
+            font-weight: 700;
+            color: #b34e3a;
+            background: #ffe6e0;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        /* Акцентные рамки для блоков */
+        .inspection-card {
+            border-left: 4px solid #b87c4a;
+            background: #fffdf9;
+        }
+        
+        .inspection-card .row-header {
+            background: #fffaf3;
+        }
+        
+        .vascular-card {
+            border-left: 4px solid #6f9e7c;
+        }
+        
+        .gangrene-card {
+            border-left: 4px solid #c0392b;
+            background: #fffbf8;
+        }
+        
+        .border-card {
+            border-left: 4px solid #e08e3a;
+        }
+
+        /* Новый стиль для клинического комментария */
+        .clinical-new {
+            background: #f6f3ef;
+            border-radius: 1.5rem;
+            padding: 0;
+            margin: 1.5rem 0 1.25rem;
+            overflow: hidden;
+            border: 1px solid #e6daca;
+        }
+        
+        .clinical-new-header {
+            background: #d9c8b6;
+            padding: 0.7rem 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 2px solid #c8b496;
+        }
+        
+        .clinical-new-header i {
+            font-size: 1.2rem;
+            color: #4a2e1e;
+            background: #fff2e2;
+            padding: 6px;
+            border-radius: 40px;
+        }
+        
+        .clinical-new-header span {
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            color: #2c241a;
+            text-transform: uppercase;
+        }
+        
+        .clinical-new-content {
+            padding: 1.2rem 1.3rem;
+            background: #fefcf8;
+        }
+        
+        .clinical-new-content p {
+            line-height: 1.55;
+            font-size: 0.92rem;
+            color: #2e4a3c;
+            margin-bottom: 0.75rem;
+        }
+        
+        .clinical-quote {
+            margin-top: 0.8rem;
+            padding-top: 0.6rem;
+            border-top: 1px solid #ecdfd0;
+            font-size: 0.85rem;
+            color: #7f6a53;
+            display: flex;
+            gap: 8px;
+        }
+        
+        .clinical-quote i {
+            color: #c97e3a;
+        }
+
+        /* Предварительное заключение */
+        .impressio-box {
+            background: #fffaf0;
+            border-radius: 1.25rem;
+            padding: 1.2rem 1.3rem;
+            border: 1px solid #ffdfb3;
+            margin: 0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+        }
+
+        .impressio-box h4 {
+            font-weight: 700;
+            color: #b4682d;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .impressio-box h4 i {
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 0.75rem;
+            }
+            
+            .card-header {
+                padding: 1rem 1.2rem;
+            }
+            
+            .title-section h1 {
+                font-size: 1.35rem;
+            }
+            
+            .sub {
+                font-size: 0.75rem;
+            }
+            
+            .card-body {
+                padding: 1.2rem;
+            }
+            
+            .row-header {
+                padding: 0.8rem 1rem 0.3rem 1rem;
+            }
+            
+            .row-header i {
+                font-size: 1.2rem;
+                width: 30px;
+            }
+            
+            .row-content {
+                padding: 0 1rem 0.8rem 1rem;
+                font-size: 0.88rem;
+            }
+            
+            .clinical-new-content {
+                padding: 1rem;
+            }
+            
+            .diagnosis-tag {
+                font-size: 0.7rem;
+                margin-bottom: 1rem;
+            }
+        }
+
+        .icon-accent {
+            color: #d97a2b;
+            margin-right: 6px;
+        }
+    </style>
+</head>
+<body>
+<div class="medical-card">
+    <div class="card-header">
+        <div class="title-section">
+            <h1>Атеросклеротическая гангрена</h1>
+            <div class="sub">
+                <i class="fas fa-ambulance"></i> Описание локального статуса
+                <span style="margin-left: auto; font-size: 0.7rem; background: rgba(255,255,255,0.18); padding: 0.2rem 0.6rem; border-radius: 30px;">левая нижняя конечность</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card-body">
+        <div class="diagnosis-tag">
+            <i class="fas fa-exclamation-triangle"></i> Атеросклеротическая гангрена · I70.2 (атеросклероз артерий конечностей с гангреной)
+        </div>
+
+        <div class="exam-section">
+            <!-- Общий осмотр конечности -->
+            <div class="info-row inspection-card">
+                <div class="row-header">
+                    <i class="fas fa-eye"></i>
+                    <span>🔍 Осмотр / Визуальная оценка</span>
+                </div>
+                <div class="row-content">
+                    Левая нижняя конечность. Кожные покровы стопы и голени <span class="danger">бледные с мраморным оттенком</span>, участки цианоза в дистальных отделах. 
+                    Отмечается <span class="highlight">выраженное похолодание</span> конечности. Волосяной покров на голени отсутствует (трофические изменения), 
+                    ногтевые пластины деформированы, утолщены, тусклые, с признаками онихогрибоза. В области I пальца стопы — <span class="danger">зона сухой гангрены</span> 
+                    с четкой демаркационной линией.
+                </div>
+            </div>
+            
+            <!-- Локальный статус гангрены -->
+            <div class="info-row gangrene-card">
+                <div class="row-header">
+                    <i class="fas fa-skull"></i>
+                    <span>⚠️ Очаг гангрены</span>
+                </div>
+                <div class="row-content">
+                    В области дистальной фаланги I пальца левой стопы определяется <strong>мумифицированный участок</strong> черного цвета, размерами 3×2 см. 
+                    Ткани сухие, плотные, без признаков экссудации. <strong>Демаркационная линия</strong> четкая, проходит по уровню основания проксимальной фаланги, 
+                    отделяя зону некроза от жизнеспособных тканей. Перифокального воспаления (гиперемии, отека) в зоне демаркации не отмечается. 
+                    Кожа в области плюсны истончена, сухая, шелушится.
+                </div>
+            </div>
+            
+            <!-- Сосудистый статус -->
+            <div class="info-row vascular-card">
+                <div class="row-header">
+                    <i class="fas fa-heartbeat"></i>
+                    <span>🩸 Сосудистый статус</span>
+                </div>
+                <div class="row-content">
+                    <strong>Пальпация артерий:</strong> Пульсация на <strong>a. dorsalis pedis</strong> и <strong>a. tibialis posterior</strong> слева <strong>не определяется</strong>. 
+                    Пульсация на a. poplitea резко ослаблена, на a. femoralis — сохранена, но ослаблена по сравнению с контралатеральной конечностью.
+                    <strong>Цветовая проба:</strong> При поднятии конечности появляется резкая бледность, при опускании — замедленное восстановление цвета (более 30 секунд). 
+                    Капиллярное наполнение ногтевых лож <strong>замедлено</strong> (> 5 секунд). Субъективно пациентка отмечает боли в покое, усиливающиеся в ночное время.
+                </div>
+            </div>
+            
+            <!-- Дополнительные трофические изменения -->
+            <div class="info-row border-card">
+                <div class="row-header">
+                    <i class="fas fa-band-aid"></i>
+                    <span>📌 Трофические изменения</span>
+                </div>
+                <div class="row-content">
+                    На задней поверхности левой голени — участок <strong>гиперпигментации</strong> и истончения кожи. Мышцы голени гипотрофичны, 
+                    окружность левой голени на 2 см меньше правой. Подкожно-жировая клетчатка истончена. Признаков венозной недостаточности 
+                    (отеков, варикозного расширения вен) не выявлено. Температура кожи стопы снижена (холодная на ощупь) в сравнении с проксимальными отделами и здоровой конечностью.
+                </div>
+            </div>
+        </div>
+        
+        <!-- Новый стиль клинического комментария -->
+        <div class="clinical-new">
+            <div class="clinical-new-header">
+                <i class="fas fa-stethoscope"></i>
+                <span>Клинический разбор</span>
+            </div>
+            <div class="clinical-new-content">
+                <p>Представленная картина соответствует <strong>атеросклеротической гангрене левой нижней конечности</strong> на стадии сухой гангрены дистального отдела. Патогномоничные признаки: отсутствие пульсации на артериях стопы, выраженное похолодание конечности, трофические изменения кожи и придатков, четкая демаркационная линия без признаков гнойно-воспалительного процесса.</p>
+                <p>Клиническая форма — сухая гангрена, что является относительно благоприятным признаком, указывающим на медленно прогрессирующую окклюзию магистральных артерий при сохраненном коллатеральном кровотоке. Однако наличие болей в покое свидетельствует о <strong>критической ишемии</strong> конечности (стадия III–IV по Фонтейну-Покровскому). Высок риск перехода сухой гангрены во влажную при присоединении инфекции.</p>
+                <div class="clinical-quote">
+                    <i class="fas fa-chart-line"></i>
+                    <span><strong>Ключевые риски:</strong> прогрессирование ишемии, распространение зоны некроза, инфицирование с переходом во влажную гангрену.</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Предварительное заключение -->
+        <div class="impressio-box">
+            <h4><i class="fas fa-notes-medical"></i> Предварительное заключение</h4>
+            <p><strong>Атеросклеротическая гангрена левой нижней конечности:</strong> сухая гангрена I пальца левой стопы на фоне хронической критической ишемии (отсутствие пульсации на артериях стопы, боли покоя, трофические изменения). Стадия IV по Фонтейну-Покровскому. <strong>Высок риск распространения некроза и инфицирования с переходом во влажную гангрену.</strong></p>
+        </div>
+    </div>
+</div>
+</body>
+</html>
