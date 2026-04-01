@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>QT в норме – фиолетовая тема</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(145deg, #e9def0 0%, #d1c4e9 100%);
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card {
+            max-width: 850px;
+            width: 100%;
+            background: #fcf9ff;
+            border-radius: 48px;
+            box-shadow: 0 25px 40px -12px rgba(80, 50, 120, 0.4);
+            overflow: hidden;
+            border: 1px solid #d9c8f0;
+        }
+
+        .header {
+            background: #6a4e9b;
+            padding: 28px 24px 20px;
+            color: #f5edff;
+            text-align: center;
+            border-bottom: 4px solid #b77ee0;
+        }
+
+        .header h1 {
+            font-size: 1.9rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .header h1 span {
+            background: #b77ee0;
+            padding: 5px 14px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #2e1a4a;
+        }
+
+        .header p {
+            margin-top: 12px;
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+
+        .content {
+            padding: 28px 28px 36px;
+        }
+
+        .input-panel {
+            background: #faf5ff;
+            border-radius: 36px;
+            padding: 22px 26px;
+            margin-bottom: 28px;
+            border: 1px solid #e4d5fc;
+        }
+
+        .input-group {
+            margin-bottom: 22px;
+        }
+
+        .input-group label {
+            display: block;
+            font-weight: 600;
+            color: #6a4e9b;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 28px;
+            flex-wrap: wrap;
+            margin-top: 6px;
+        }
+
+        .radio-group label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            color: #5a3c7c;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 14px 18px;
+            font-size: 1rem;
+            border: 2px solid #ddcef5;
+            border-radius: 40px;
+            background: white;
+            transition: 0.2s;
+            font-family: inherit;
+            color: #2e1a4a;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #b77ee0;
+            box-shadow: 0 0 0 3px rgba(183, 126, 224, 0.2);
+        }
+
+        .speed-select {
+            background: white;
+            cursor: pointer;
+        }
+
+        .calc-btn {
+            background: #8a6cbb;
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 16px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            border-radius: 44px;
+            cursor: pointer;
+            transition: 0.2s;
+            margin: 12px 0 8px;
+            font-family: inherit;
+            box-shadow: 0 8px 18px -8px rgba(80, 50, 120, 0.4);
+        }
+
+        .calc-btn:hover {
+            background: #6a4e9b;
+            transform: translateY(-2px);
+        }
+
+        .result-card {
+            background: #fefbff;
+            border-radius: 36px;
+            padding: 20px 24px;
+            margin-top: 24px;
+            border: 1px solid #e2d5f7;
+            box-shadow: 0 12px 24px -12px rgba(80, 50, 120, 0.2);
+        }
+
+        .result-title {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #8a6cbb;
+            font-weight: 700;
+            margin-bottom: 18px;
+            border-left: 4px solid #b77ee0;
+            padding-left: 14px;
+        }
+
+        .result-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 18px;
+            margin-bottom: 20px;
+        }
+
+        .result-item {
+            background: #f9f3ff;
+            border-radius: 28px;
+            padding: 14px 12px;
+            text-align: center;
+            border: 1px solid #ede1fe;
+        }
+
+        .result-item-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #9a7bcc;
+            text-transform: uppercase;
+        }
+
+        .result-item-value {
+            font-size: 1.7rem;
+            font-weight: 800;
+            color: #4a2c6e;
+            line-height: 1.2;
+            margin-top: 6px;
+        }
+
+        .info-box {
+            background: #f3ebfe;
+            border-left: 5px solid #b77ee0;
+            padding: 14px 18px;
+            border-radius: 28px;
+            margin-top: 18px;
+            font-size: 0.85rem;
+            color: #5a3c7c;
+        }
+
+        .cell-info {
+            background: #f5edfe;
+            padding: 12px 16px;
+            border-radius: 28px;
+            margin-top: 16px;
+            font-size: 0.8rem;
+            text-align: center;
+        }
+
+        .error-message {
+            color: #c05a9e;
+            background: #fce4f4;
+            padding: 8px 15px;
+            border-radius: 28px;
+            margin-top: 10px;
+            font-size: 0.8rem;
+            text-align: center;
+        }
+
+        .footnote {
+            text-align: center;
+            font-size: 0.7rem;
+            color: #9a7bcc;
+            margin-top: 28px;
+            border-top: 1px solid #e4d5fc;
+            padding-top: 18px;
+        }
+
+        @media (max-width: 550px) {
+            .content {
+                padding: 20px;
+            }
+            .result-item-value {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="card">
+    <div class="header">
+        <h1>📐 QT в норме <span>по RR</span></h1>
+        <p>Должный диапазон QT для вашей частоты ритма</p>
+    </div>
+    <div class="content">
+        <div class="input-panel">
+            <div class="input-group">
+                <label>Категория пациента</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="category" value="male" checked> Мужчина (взрослый)</label>
+                    <label><input type="radio" name="category" value="female"> Женщина (взрослая)</label>
+                    <label><input type="radio" name="category" value="child"> Ребёнок (до 18 лет)</label>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label>Интервал RR (мс) – любое положительное число</label>
+                <input type="text" id="rrInput" value="1000" placeholder="например: 820, 1000.5" inputmode="decimal">
+            </div>
+
+            <div class="input-group">
+                <label>Скорость движения ленты ЭКГ</label>
+                <select id="speedSelect" class="speed-select">
+                    <option value="25">25 мм/с (стандартная)</option>
+                    <option value="50">50 мм/с</option>
+                </select>
+            </div>
+
+            <div class="info-box">
+                💡 <strong>Как измерить RR на ЭКГ?</strong><br>
+                • <strong>При 25 мм/с:</strong> 1 маленькая клеточка = 0.04 с (40 мс), 1 большая клеточка (5 мм) = 0.2 с (200 мс).<br>
+                • <strong>При 50 мм/с:</strong> 1 маленькая клеточка = 0.02 с (20 мс), 1 большая клеточка = 0.1 с (100 мс).<br>
+                • Измерьте расстояние между двумя соседними зубцами R (в мм) и умножьте на цену деления.
+            </div>
+        </div>
+
+        <button class="calc-btn" id="calcBtn">📊 Рассчитать норму QT</button>
+
+        <div class="result-card">
+            <div class="result-title">📋 Нормальный интервал QT (должный диапазон)</div>
+            <div class="result-grid">
+                <div class="result-item">
+                    <div class="result-item-label">QT минимум (норма)</div>
+                    <div class="result-item-value" id="qtMin">—</div>
+                </div>
+                <div class="result-item">
+                    <div class="result-item-label">QT максимум (норма)</div>
+                    <div class="result-item-value" id="qtMax">—</div>
+                </div>
+            </div>
+            <div id="cellConvert" class="cell-info"></div>
+            <div id="qtcInfo" class="info-box" style="margin-top: 12px;"></div>
+            <div id="errorMsg" class="error-message" style="display: none;"></div>
+        </div>
+        <div class="footnote">
+            ⚕️ Расчёт основан на формуле Базетта. Нормальный QTc: мужчины 350–440 мс, женщины и дети 350–460 мс.<br>
+            QT<sub>норма</sub> = QTc × √(RR/1000). Диапазон QT изменяется с частотой ритма.
+        </div>
+    </div>
+</div>
+
+<script>
+    function getQTcNormRange(category) {
+        if (category === 'male') {
+            return { min: 350, max: 440 };
+        } else {
+            return { min: 350, max: 460 };
+        }
+    }
+
+    function calculateQtRange(rrMs, category) {
+        const qtcRange = getQTcNormRange(category);
+        const sqrtRR = Math.sqrt(rrMs / 1000.0);
+        const qtMin = Math.round(qtcRange.min * sqrtRR);
+        const qtMax = Math.round(qtcRange.max * sqrtRR);
+        return { qtMin, qtMax, qtcMin: qtcRange.min, qtcMax: qtcRange.max };
+    }
+
+    function msToCells(ms, speed) {
+        if (speed === 25) {
+            const mm = ms / 40;
+            const smallCells = mm;
+            const bigCells = mm / 5;
+            return { mm: mm.toFixed(1), small: smallCells.toFixed(1), big: bigCells.toFixed(1) };
+        } else {
+            const mm = ms / 20;
+            const smallCells = mm;
+            const bigCells = mm / 5;
+            return { mm: mm.toFixed(1), small: smallCells.toFixed(1), big: bigCells.toFixed(1) };
+        }
+    }
+
+    function formatCells(ms, speed, label) {
+        const cells = msToCells(ms, speed);
+        const speedText = speed === 25 ? "25 мм/с" : "50 мм/с";
+        return `${label} = ${ms} мс → ${cells.mm} мм (${cells.small} маленьких клеток, ${cells.big} больших клеток) при скорости ${speedText}`;
+    }
+
+    function updateAll() {
+        const rrField = document.getElementById('rrInput');
+        let rawValue = rrField.value.trim();
+        let rr = parseFloat(rawValue);
+        const errorDiv = document.getElementById('errorMsg');
+        
+        if (rawValue === "" || isNaN(rr) || rr <= 0) {
+            errorDiv.style.display = 'block';
+            if (rawValue === "") {
+                errorDiv.innerHTML = '⚠️ Введите интервал RR (положительное число, например 820 или 1000.5)';
+            } else if (isNaN(rr)) {
+                errorDiv.innerHTML = '⚠️ Некорректное значение. Введите число (например 750).';
+            } else if (rr <= 0) {
+                errorDiv.innerHTML = '⚠️ RR должен быть больше 0 (например 400–1500 мс).';
+            }
+            document.getElementById('qtMin').innerHTML = '—';
+            document.getElementById('qtMax').innerHTML = '—';
+            document.getElementById('cellConvert').innerHTML = '';
+            document.getElementById('qtcInfo').innerHTML = '';
+            return;
+        }
+        
+        errorDiv.style.display = 'none';
+        
+        const category = document.querySelector('input[name="category"]:checked').value;
+        const speed = parseInt(document.getElementById('speedSelect').value);
+        
+        const { qtMin, qtMax, qtcMin, qtcMax } = calculateQtRange(rr, category);
+        document.getElementById('qtMin').innerHTML = `${qtMin} мс`;
+        document.getElementById('qtMax').innerHTML = `${qtMax} мс`;
+        
+        const hr = Math.round(60000 / rr);
+        const qtcInfoDiv = document.getElementById('qtcInfo');
+        qtcInfoDiv.innerHTML = `📊 Нормальный скорректированный интервал QTc для данной категории: ${qtcMin}–${qtcMax} мс.<br> При вашем RR = ${rr} мс (ЧСС ≈ ${hr} уд/мин), QT должен быть в диапазоне ${qtMin}–${qtMax} мс.`;
+        
+        const rrCells = formatCells(rr, speed, "Интервал RR");
+        const qtMinCells = formatCells(qtMin, speed, "Нижняя граница QT");
+        const qtMaxCells = formatCells(qtMax, speed, "Верхняя граница QT");
+        
+        const cellDiv = document.getElementById('cellConvert');
+        cellDiv.innerHTML = `
+            <strong>📏 Перевод в миллиметры и клетки (скорость ${speed} мм/с):</strong><br>
+            ${rrCells}<br>
+            ${qtMinCells}<br>
+            ${qtMaxCells}<br>
+            <span style="font-size:0.7rem;">* 1 маленькая клетка = 1 мм. При 25 мм/с: 1 мм = 40 мс; при 50 мм/с: 1 мм = 20 мс.</span>
+        `;
+    }
+    
+    const rrField = document.getElementById('rrInput');
+    const speedSelect = document.getElementById('speedSelect');
+    const categoryRadios = document.querySelectorAll('input[name="category"]');
+    const calcBtn = document.getElementById('calcBtn');
+    
+    function handleInput() {
+        updateAll();
+    }
+    
+    rrField.addEventListener('input', handleInput);
+    speedSelect.addEventListener('change', handleInput);
+    categoryRadios.forEach(radio => radio.addEventListener('change', handleInput));
+    calcBtn.addEventListener('click', handleInput);
+    
+    updateAll();
+</script>
+</body>
+</html>
