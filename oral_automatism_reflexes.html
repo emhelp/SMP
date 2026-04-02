@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Рефлексы орального автоматизма | Неврологическое исследование</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #eef2f7 0%, #e0e8f0 100%);
+            font-family: 'Inter', sans-serif;
+            padding: 1rem;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .medical-card {
+            max-width: 800px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 2rem;
+            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.12);
+            overflow: hidden;
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #4a2e1e 0%, #2e2218 100%);
+            padding: 1.25rem 1.5rem;
+            color: white;
+            border-bottom: 3px solid #e08e3a;
+        }
+
+        .title-section h1 {
+            font-weight: 700;
+            font-size: 1.5rem;
+            letter-spacing: -0.3px;
+            color: #fff5ea;
+            margin-bottom: 0.25rem;
+            line-height: 1.3;
+        }
+
+        .sub {
+            font-size: 0.85rem;
+            color: #e6cfb5;
+            font-weight: 400;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .sub i {
+            font-size: 0.9rem;
+            color: #e08e3a;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .diagnosis-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #fef3e6;
+            color: #b45a1c;
+            padding: 0.4rem 1.1rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.75rem;
+            margin-bottom: 1.5rem;
+            border-left: 3px solid #e67e22;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+        }
+
+        .exam-section {
+            display: flex;
+            flex-direction: column;
+            gap: 1.35rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-row {
+            background: #ffffff;
+            border-radius: 1.25rem;
+            border: 1.5px solid #e5d5c2;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+
+        .row-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 700;
+            font-size: 1rem;
+            color: #2f5342;
+            padding: 1rem 1.2rem 0.5rem 1.2rem;
+            background: #fefcf9;
+            border-bottom: 2px solid #f0e3d4;
+        }
+
+        .row-header i {
+            font-size: 1.4rem;
+            width: 34px;
+            color: #c96f1e;
+            background: #fff2e6;
+            padding: 6px;
+            border-radius: 14px;
+            text-align: center;
+        }
+
+        .row-content {
+            font-size: 0.95rem;
+            line-height: 1.55;
+            color: #2c3e3a;
+            padding: 0 1.2rem 1rem 1.2rem;
+            background: #ffffff;
+        }
+
+        .highlight {
+            font-weight: 600;
+            color: #bf6019;
+            background: #fff2e6;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .normal-sign {
+            font-weight: 600;
+            color: #2c7a4a;
+            background: #e0f5e8;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .warning-sign {
+            font-weight: 600;
+            color: #c96f1e;
+            background: #fff0e2;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .danger-sign {
+            font-weight: 600;
+            color: #c0392b;
+            background: #ffe6e0;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .bullet-list {
+            margin: 0.25rem 0 0 0;
+            padding-left: 1.2rem;
+        }
+        
+        .bullet-list li {
+            margin-bottom: 0.3rem;
+        }
+
+        .grid-2col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+            margin-top: 0.5rem;
+        }
+
+        .info-card {
+            background: #fefcf9;
+            border-radius: 12px;
+            padding: 0.6rem 0.8rem;
+            border: 1px solid #f0e3d4;
+        }
+
+        .info-label {
+            font-size: 0.7rem;
+            color: #8b6b4a;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.2rem;
+        }
+
+        .info-value {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #2f5342;
+        }
+
+        .reflex-card {
+            background: #f9efe4;
+            border-radius: 12px;
+            padding: 0.6rem 0.8rem;
+            border-left: 3px solid #e08e3a;
+            margin-bottom: 0.75rem;
+        }
+
+        .reflex-name {
+            font-weight: 700;
+            font-size: 1rem;
+            color: #4a2e1e;
+            margin-bottom: 0.25rem;
+        }
+
+        .reflex-method {
+            font-size: 0.85rem;
+            color: #7a5a3a;
+            margin-bottom: 0.25rem;
+        }
+
+        .reflex-response {
+            font-size: 0.9rem;
+            color: #2f5342;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 0.75rem;
+            }
+            
+            .card-header {
+                padding: 1rem 1.2rem;
+            }
+            
+            .title-section h1 {
+                font-size: 1.25rem;
+            }
+            
+            .sub {
+                font-size: 0.75rem;
+            }
+            
+            .card-body {
+                padding: 1.2rem;
+            }
+            
+            .row-header {
+                padding: 0.8rem 1rem 0.3rem 1rem;
+            }
+            
+            .row-header i {
+                font-size: 1.2rem;
+                width: 30px;
+            }
+            
+            .row-content {
+                padding: 0 1rem 0.8rem 1rem;
+                font-size: 0.88rem;
+            }
+            
+            .diagnosis-tag {
+                font-size: 0.7rem;
+                margin-bottom: 1rem;
+            }
+            
+            .grid-2col {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="medical-card">
+    <div class="card-header">
+        <div class="title-section">
+            <h1>Рефлексы орального автоматизма</h1>
+            <div class="sub">
+                <i class="fas fa-ambulance"></i> Неврологическое исследование · Патологические рефлексы
+            </div>
+        </div>
+    </div>
+    
+    <div class="card-body">
+        <div class="diagnosis-tag">
+            <i class="fas fa-brain"></i> Рефлексы орального автоматизма · Псевдобульбарный синдром · Центральный паралич
+        </div>
+
+        <div class="exam-section">
+            <!-- Введение -->
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-info-circle"></i>
+                    <span>📖 Определение</span>
+                </div>
+                <div class="row-content">
+                    Рефлексы орального автоматизма — это <span class="warning-sign">патологические рефлексы в области лица</span>, характерные для спастического (центрального) паралича, пареза иннервируемой черепными нервами лицевой мускулатуры.
+                </div>
+            </div>
+            
+            <!-- Назолабиальный рефлекс -->
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-nose"></i>
+                    <span>👃 Назолабиальный рефлекс (рефлекс Аствацатурова)</span>
+                </div>
+                <div class="row-content">
+                    <div class="reflex-card">
+                        <div class="reflex-name">Методика вызова</div>
+                        <div class="reflex-method">Вызывается лёгким постукиванием молоточка по спинке носа.</div>
+                        <div class="reflex-name">Ответная реакция</div>
+                        <div class="reflex-method">Сокращение круговой мышцы рта, вытягивание губ вперёд.</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Сосательный рефлекс -->
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-lips"></i>
+                    <span>👄 Сосательный рефлекс (рефлекс Оппенгейма)</span>
+                </div>
+                <div class="row-content">
+                    <div class="reflex-card">
+                        <div class="reflex-name">Методика вызова</div>
+                        <div class="reflex-method">Вызывается прикосновением неврологического молоточка к губам или штриховым раздражением.</div>
+                        <div class="reflex-name">Ответная реакция</div>
+                        <div class="reflex-method">Сосательные движения.</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Хоботковый рефлекс -->
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-elephant"></i>
+                    <span>🐘 Хоботковый рефлекс (рефлекс Бехтерева)</span>
+                </div>
+                <div class="row-content">
+                    <div class="reflex-card">
+                        <div class="reflex-name">Методика вызова</div>
+                        <div class="reflex-method">Вызывается ударом молоточка по верхней или нижней губе.</div>
+                        <div class="reflex-name">Ответная реакция</div>
+                        <div class="reflex-method">Вытягивание губ вперёд (сокращение круговой мышцы рта).</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Дистанс-оральный рефлекс -->
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-magic"></i>
+                    <span>✨ Дистанс-оральный рефлекс (рефлекс Карчикяна)</span>
+                </div>
+                <div class="row-content">
+                    <div class="reflex-card">
+                        <div class="reflex-name">Методика вызова</div>
+                        <div class="reflex-method">Вызывается имитацией удара молоточком по губам (без непосредственного раздражения). При приближении молоточка к губам.</div>
+                        <div class="reflex-name">Ответная реакция</div>
+                        <div class="reflex-method">«Хоботковое» вытягивание губ.</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Ладонно-подбородочный рефлекс -->
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-hand-peace"></i>
+                    <span>🤲 Ладонно-подбородочный рефлекс (рефлекс Маринеску — Радовича)</span>
+                </div>
+                <div class="row-content">
+                    <div class="reflex-card">
+                        <div class="reflex-name">Методика вызова</div>
+                        <div class="reflex-method">Вызывается штриховым раздражением кожи в области тенара.</div>
+                        <div class="reflex-name">Ответная реакция</div>
+                        <div class="reflex-method">Сокращение подбородочной мышцы на стороне раздражения, смещение кожи подбородка кверху.</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Бульдожий рефлекс -->
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-dog"></i>
+                    <span>🐶 «Бульдожий» рефлекс</span>
+                </div>
+                <div class="row-content">
+                    <div class="reflex-card">
+                        <div class="reflex-name">Методика вызова</div>
+                        <div class="reflex-method">Вызывается ударом по остистым отросткам в верхнешейном отделе позвоночника.</div>
+                        <div class="reflex-name">Ответная реакция</div>
+                        <div class="reflex-method">Сжатие челюстей.</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Возрастная норма -->
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-baby-carriage"></i>
+                    <span>👶 Возрастная норма</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>В норме рефлексы орального автоматизма присутствуют у <span class="normal-sign">новорождённых и младенцев примерно до пятимесячного возраста</span>.</li>
+                        <li>Встречающиеся у взрослых сопровождают <span class="danger-sign">патологические состояния (например, псевдобульбарный паралич)</span>.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Клиническое значение -->
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-stethoscope"></i>
+                    <span>📋 Клиническое значение</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>Появление рефлексов орального автоматизма у взрослых свидетельствует о <span class="danger-sign">поражении корково-ядерных путей</span> (двустороннее поражение).</li>
+                        <li>Являются характерным признаком <span class="warning-sign">псевдобульбарного синдрома</span>.</li>
+                        <li>Могут наблюдаться при:
+                            <ul style="margin-left: 1.5rem; margin-top: 0.2rem;">
+                                <li>Дисциркуляторной энцефалопатии</li>
+                                <li>Боковом амиотрофическом склерозе (БАС)</li>
+                                <li>Рассеянном склерозе</li>
+                                <li>Черепно-мозговой травме</li>
+                                <li>Опухолях головного мозга</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Заключение -->
+        <div class="info-row" style="margin-top: 0;">
+            <div class="row-header">
+                <i class="fas fa-stethoscope"></i>
+                <span>📋 Заключение</span>
+            </div>
+            <div class="row-content">
+                Рефлексы орального автоматизма — патологические рефлексы, выявляемые при поражении корково-ядерных путей и характерные для псевдобульбарного синдрома. В норме присутствуют только у новорождённых и младенцев до 5 месяцев. У взрослых их появление требует неврологического обследования для выявления причины (дисциркуляторная энцефалопатия, БАС, рассеянный склероз, опухоли головного мозга и др.).
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
