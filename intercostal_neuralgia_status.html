@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Межреберная невралгия | Описание клинического статуса (СМП)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #eef2f7 0%, #e0e8f0 100%);
+            font-family: 'Inter', sans-serif;
+            padding: 1rem;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .medical-card {
+            max-width: 800px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 2rem;
+            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.12);
+            overflow: hidden;
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #4a2e1e 0%, #2e2218 100%);
+            padding: 1.25rem 1.5rem;
+            color: white;
+            border-bottom: 3px solid #e08e3a;
+        }
+
+        .title-section h1 {
+            font-weight: 700;
+            font-size: 1.5rem;
+            letter-spacing: -0.3px;
+            color: #fff5ea;
+            margin-bottom: 0.25rem;
+            line-height: 1.3;
+        }
+
+        .sub {
+            font-size: 0.85rem;
+            color: #e6cfb5;
+            font-weight: 400;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .sub i {
+            font-size: 0.9rem;
+            color: #e08e3a;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .diagnosis-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #fef3e6;
+            color: #b45a1c;
+            padding: 0.4rem 1.1rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.75rem;
+            margin-bottom: 1.5rem;
+            border-left: 3px solid #e67e22;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+        }
+
+        .exam-section {
+            display: flex;
+            flex-direction: column;
+            gap: 1.35rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-row {
+            background: #ffffff;
+            border-radius: 1.25rem;
+            border: 1.5px solid #e5d5c2;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+
+        .row-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 700;
+            font-size: 1rem;
+            color: #2f5342;
+            padding: 1rem 1.2rem 0.5rem 1.2rem;
+            background: #fefcf9;
+            border-bottom: 2px solid #f0e3d4;
+        }
+
+        .row-header i {
+            font-size: 1.4rem;
+            width: 34px;
+            color: #c96f1e;
+            background: #fff2e6;
+            padding: 6px;
+            border-radius: 14px;
+            text-align: center;
+        }
+
+        .row-content {
+            font-size: 0.95rem;
+            line-height: 1.55;
+            color: #2c3e3a;
+            padding: 0 1.2rem 1rem 1.2rem;
+            background: #ffffff;
+        }
+
+        .highlight {
+            font-weight: 600;
+            color: #bf6019;
+            background: #fff2e6;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .pain-sign {
+            font-weight: 600;
+            color: #c96f1e;
+            background: #fff0e2;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .normal-sign {
+            font-weight: 600;
+            color: #2c7a4a;
+            background: #e0f5e8;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .neurology-sign {
+            font-weight: 600;
+            color: #1976d2;
+            background: #e3f2fd;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .bullet-list {
+            margin: 0.25rem 0 0 0;
+            padding-left: 1.2rem;
+        }
+        
+        .bullet-list li {
+            margin-bottom: 0.3rem;
+        }
+
+        .grid-2col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 0.75rem;
+            }
+            
+            .card-header {
+                padding: 1rem 1.2rem;
+            }
+            
+            .title-section h1 {
+                font-size: 1.25rem;
+            }
+            
+            .sub {
+                font-size: 0.75rem;
+            }
+            
+            .card-body {
+                padding: 1.2rem;
+            }
+            
+            .row-header {
+                padding: 0.8rem 1rem 0.3rem 1rem;
+            }
+            
+            .row-header i {
+                font-size: 1.2rem;
+                width: 30px;
+            }
+            
+            .row-content {
+                padding: 0 1rem 0.8rem 1rem;
+                font-size: 0.88rem;
+            }
+            
+            .diagnosis-tag {
+                font-size: 0.7rem;
+                margin-bottom: 1rem;
+            }
+            
+            .grid-2col {
+                grid-template-columns: 1fr;
+                gap: 0.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="medical-card">
+    <div class="card-header">
+        <div class="title-section">
+            <h1>Межреберная невралгия</h1>
+            <div class="sub">
+                <i class="fas fa-ambulance"></i> Межреберная невралгия справа · M79.2
+            </div>
+        </div>
+    </div>
+    
+    <div class="card-body">
+        <div class="diagnosis-tag">
+            <i class="fas fa-spine"></i> Межреберная невралгия справа · Нейропатический болевой синдром
+        </div>
+
+        <div class="exam-section">
+            <!-- Локализация -->
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>📍 Локализация болевого синдрома</span>
+                </div>
+                <div class="row-content">
+                    Болевой синдром локализуется <span class="highlight">справа в проекции 4–6 ребер</span> по задней, средней и передней подмышечным линиям.
+                </div>
+            </div>
+            
+            <!-- Пальпаторные данные -->
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-hand-peace"></i>
+                    <span>🖐 Пальпаторные данные</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>При пальпации межреберных промежутков на указанном уровне определяется <span class="pain-sign">резкая болезненность (гипералгезия)</span> по ходу межреберных нервов.</li>
+                        <li>Пальпация <span class="highlight">паравертебральных точек на уровне Th4–Th6 справа</span> также может быть болезненна (зона выхода корешков).</li>
+                        <li>Пальпация <span class="highlight">остистых отростков на уровне Th4–Th6</span> — умеренно болезненна.</li>
+                        <li>Мышечно-тонических изменений (напряжения мышц) в области грудной клетки <span class="normal-sign">не выявляется</span>.</li>
+                        <li>Пульсация межреберных артерий <span class="normal-sign">сохранена</span>, безболезненна.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Провоцирующие факторы и симптомы натяжения -->
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-arrow-up"></i>
+                    <span>⚠️ Провоцирующие факторы и симптомы натяжения</span>
+                </div>
+                <div class="row-content">
+                    Боль <span class="pain-sign">значительно усиливается</span> при:
+                    <ul class="bullet-list">
+                        <li>наклонах и поворотах туловища,</li>
+                        <li>глубоком вдохе (глубина вдоха ограничена на ___% из-за боли),</li>
+                        <li>кашле, чихании, натуживании.</li>
+                    </ul>
+                    <div class="grid-2col">
+                        <div><strong>Симптом Тренажа (Ситковского):</strong> <span class="neurology-sign">положительный справа</span> (усиление боли при наклоне в здоровую сторону).</div>
+                        <div><strong>Симптом Лассега (перекрестный):</strong> <span class="normal-sign">отрицательный</span> (усиления боли при поднятии выпрямленной ноги нет).</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Данные осмотра -->
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-eye"></i>
+                    <span>🔍 Данные осмотра</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>Видимых повреждений (гематом, ссадин, припухлостей, гиперемии кожи, герпетических высыпаний) в области грудной клетки <span class="normal-sign">не обнаружено</span>.</li>
+                        <li>Кожные покровы <span class="normal-sign">обычной окраски</span>, локальная температура <span class="normal-sign">не повышена</span>.</li>
+                        <li>Пациент <span class="warning-sign">щадит правую сторону</span> грудной клетки при дыхании и движениях.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Неврологический статус -->
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-brain"></i>
+                    <span>🧠 Неврологический статус</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li><strong>Симптомы натяжения:</strong> <span class="neurology-sign">положительные справа</span> (усиление боли при движениях, наклонах в здоровую сторону, глубоком вдохе).</li>
+                        <li><strong>Чувствительность</strong> в зоне иннервации межреберных нервов справа: <span class="warning-sign">гиперестезия / гипестезия</span> в проекции Th4–Th6.</li>
+                        <li><strong>Парестезии:</strong> онемение, покалывание по ходу межреберных промежутков справа — <span class="normal-sign">отсутствуют / присутствуют</span>.</li>
+                        <li><strong>Дермографизм:</strong> розовый, стойкий, не изменен.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Дыхательная система -->
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-lungs"></i>
+                    <span>🫁 Дыхательная система</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>Дыхание через нос <span class="normal-sign">свободное</span>.</li>
+                        <li>Грудная клетка при дыхании участвует асимметрично — <span class="warning-sign">правая половина отстает</span> из-за болевого синдрома.</li>
+                        <li>Дыхание <span class="warning-sign">поверхностное</span> (пациент ограничивает глубину вдоха для уменьшения боли).</li>
+                        <li><strong>Аускультативно:</strong> дыхание <span class="normal-sign">везикулярное</span>, хрипов нет.</li>
+                        <li><strong>Перкуторно:</strong> <span class="normal-sign">ясный легочной звук</span>.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Сердечно-сосудистая система -->
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-heartbeat"></i>
+                    <span>❤️ Сердечно-сосудистая система</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>Тоны сердца <span class="normal-sign">ясные, ритмичные</span>.</li>
+                        <li>Пульсация на периферических артериях <span class="normal-sign">сохранена</span>.</li>
+                        <li>Отеков <span class="normal-sign">нет</span>.</li>
+                        <li>Признаков сердечной патологии (стенокардия, инфаркт) <span class="normal-sign">не выявлено</span>.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Зона иррадиации боли -->
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-arrows-alt"></i>
+                    <span>📍 Зона иррадиации боли</span>
+                </div>
+                <div class="row-content">
+                    Боль может иррадиировать:
+                    <ul class="bullet-list">
+                        <li>В <span class="highlight">лопатку</span> (при поражении Th4–Th5).</li>
+                        <li>В <span class="highlight">плечо</span> (при распространении процесса).</li>
+                        <li>В <span class="highlight">эпигастральную область</span> (при поражении нижних межреберных нервов).</li>
+                        <li>По <span class="highlight">ходу межреберья</span> от позвоночника до грудины.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Жалобы пациента -->
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-comment-medical"></i>
+                    <span>😷 Жалобы пациента (анамнестически)</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li><span class="pain-sign">Острая, стреляющая, жгучая или ноющая боль</span> в правой половине грудной клетки, усиливающаяся при малейших движениях, дыхании, кашле.</li>
+                        <li>Ощущение <span class="warning-sign">«прострела»</span> или <span class="warning-sign">«электрического разряда»</span> по ходу межреберья.</li>
+                        <li>Боль может иррадиировать в лопатку, плечо, эпигастральную область.</li>
+                        <li>Одышки, кашля, сердцебиения <span class="normal-sign">нет</span>.</li>
+                        <li>Пациент отмечает <span class="highlight">вынужденное положение</span> — сидит с наклоном в здоровую сторону для уменьшения боли.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Заключение -->
+        <div class="info-row" style="margin-top: 0;">
+            <div class="row-header">
+                <i class="fas fa-stethoscope"></i>
+                <span>📋 Заключение</span>
+            </div>
+            <div class="row-content">
+                Клиническая картина соответствует <span class="highlight">межреберной невралгии справа на уровне Th4–Th6</span>. Болевой синдром имеет <span class="neurology-sign">нейропатический характер</span> (связь с движениями, дыханием, положительные симптомы натяжения — симптом Тренажа). Отсутствие герпетических высыпаний позволяет исключить <span class="normal-sign">опоясывающий лишай в активной стадии</span>. Данных за острую сердечно-сосудистую патологию (стенокардия, инфаркт миокарда), плеврит, пневмонию <span class="normal-sign">не получено</span>.
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
