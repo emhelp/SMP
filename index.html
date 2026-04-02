@@ -21,20 +21,29 @@
 
     .search-input {
       width: 100%;
-      padding: 16px 15px;
-      font-size: 16px;
+      padding: 16px 0;
+      font-size: 18px;
+      font-weight: bold;
+      text-align: center;
       border: 1px solid #d0d0d0;
       border-radius: 8px;
       box-sizing: border-box;
       font-family: 'Segoe UI', 'Roboto', sans-serif;
       transition: all 0.3s ease;
       background: white;
+      color: #0f1446;
     }
 
     .search-input:focus {
       outline: none;
       border-color: #0f1446;
       box-shadow: 0 0 0 2px rgba(15, 20, 70, 0.2);
+    }
+
+    .search-input::placeholder {
+      color: #999;
+      font-weight: normal;
+      font-size: 16px;
     }
 
     .search-results {
@@ -92,9 +101,15 @@
     }
 
     @media (max-width: 600px) {
+      .search-container {
+        max-width: 90%;
+      }
       .search-input {
+        font-size: 16px;
+        padding: 14px 0;
+      }
+      .search-input::placeholder {
         font-size: 14px;
-        padding: 14px 12px;
       }
       .search-results {
         max-height: 300px;
@@ -115,8 +130,8 @@
       <div class="news-label">ЧТО НОВОГО:</div>
       <div class="news-text">
         <p>⚠️ Начали заполнять "Status Localis"</p>
-        <p>🔍 Теперь есть умный поиск по всем разделам</p>
-        <p>Если файл найден, но страница не загружается - значит мы пока не заполнили её</p>
+        <p>🔍 Теперь есть умный поиск по всем 500+ разделам</p>
+        <p>✅ Главная страница всегда показывает актуальную версию</p>
       </div>
     </div>
 
@@ -143,6 +158,18 @@
   <div class="visit-counter" id="visitCounter">Загрузка...</div>
 
   <script>
+    // ПРИНУДИТЕЛЬНОЕ ОБНОВЛЕНИЕ ПРИ КАЖДОМ ОТКРЫТИИ
+    (function() {
+      // Проверяем, есть ли параметр forceReload в URL
+      const urlParams = new URLSearchParams(window.location.search);
+      if (!urlParams.has('_t')) {
+        // Добавляем временную метку в URL и перезагружаем
+        const newUrl = window.location.href + (window.location.href.indexOf('?') === -1 ? '?' : '&') + '_t=' + Date.now();
+        window.location.replace(newUrl);
+        return;
+      }
+    })();
+
     document.getElementById('max-btn').addEventListener('click', () => {
       window.open('https://max.ru/EMHelp_Channel', '_blank');
     });
@@ -173,15 +200,6 @@
     updateVisitCounter();
   </script>
 
-  <script>
-    // Принудительное обновление страницы, если она загружена из кэша
-    window.addEventListener('pageshow', function(event) {
-      if (event.persisted) {
-        window.location.reload();
-      }
-    });
-  </script>
-
   <!-- СКРИПТ ПОИСКА С ПОЛНОЙ БАЗОЙ ДАННЫХ (ВСЕ 500+ ФАЙЛОВ) -->
   <script>
     // Медицинские сокращения для поиска
@@ -208,60 +226,16 @@
       "ЦВБ": "Цереброваскулярная болезнь"
     };
 
-    // Функция для вычисления расстояния Левенштейна (нечеткое сравнение строк)
-    function levenshteinDistance(a, b) {
-      if (a.length === 0) return b.length;
-      if (b.length === 0) return a.length;
-      
-      const matrix = [];
-      for (let i = 0; i <= b.length; i++) {
-        matrix[i] = [i];
-      }
-      for (let j = 0; j <= a.length; j++) {
-        matrix[0][j] = j;
-      }
-      
-      for (let i = 1; i <= b.length; i++) {
-        for (let j = 1; j <= a.length; j++) {
-          const cost = a[j - 1] === b[i - 1] ? 0 : 1;
-          matrix[i][j] = Math.min(
-            matrix[i - 1][j] + 1,
-            matrix[i][j - 1] + 1,
-            matrix[i - 1][j - 1] + cost
-          );
-        }
-      }
-      return matrix[b.length][a.length];
-    }
-
-    // Функция для нечеткого поиска
-    function fuzzyMatch(query, text, maxDistance = 2) {
-      if (!query || !text) return false;
-      
-      const queryLower = query.toLowerCase();
-      const textLower = text.toLowerCase();
-      
-      if (textLower.includes(queryLower)) return true;
-      
-      const queryWords = queryLower.split(/[\s,]+/);
-      const textWords = textLower.split(/[\s,]+/);
-      
-      for (const qWord of queryWords) {
-        if (qWord.length < 2) continue;
-        
-        let found = false;
-        for (const tWord of textWords) {
-          if (tWord.length >= Math.max(2, qWord.length - 1)) {
-            const distance = levenshteinDistance(qWord, tWord);
-            if (distance <= maxDistance && distance <= Math.floor(qWord.length / 3) + 1) {
-              found = true;
-              break;
-            }
-          }
-        }
-        if (!found) return false;
-      }
-      return true;
+    // Функция для транслитерации (поиск по латинице)
+    function transliterate(word) {
+      const map = {
+        'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd', 'е': 'e', 'ё': 'e',
+        'ж': 'zh', 'з': 'z', 'и': 'i', 'й': 'y', 'к': 'k', 'л': 'l', 'м': 'm',
+        'н': 'n', 'о': 'o', 'п': 'p', 'р': 'r', 'с': 's', 'т': 't', 'у': 'u',
+        'ф': 'f', 'х': 'h', 'ц': 'ts', 'ч': 'ch', 'ш': 'sh', 'щ': 'sch', 'ъ': '',
+        'ы': 'y', 'ь': '', 'э': 'e', 'ю': 'yu', 'я': 'ya'
+      };
+      return word.toLowerCase().split('').map(c => map[c] || c).join('');
     }
 
     // ПОЛНАЯ БАЗА ДАННЫХ ВСЕХ 500+ СТРАНИЦ
@@ -749,10 +723,11 @@
       { file: "wounds_including_infected.html", title: "Раны, в т.ч. инфицированные" }
     ];
 
-    // Добавляем сокращения в ключевые слова
+    // Создаем базу для поиска
     const searchDatabase = allPages.map(page => {
       const keywords = [page.title.toLowerCase()];
       
+      // Добавляем сокращения
       for (const [abbr, full] of Object.entries(medicalAbbreviations)) {
         if (page.title.includes(full) || page.title.includes(abbr)) {
           keywords.push(abbr.toLowerCase());
@@ -767,54 +742,44 @@
       };
     });
 
-    // Функция поиска с нечетким сопоставлением
+    // Функция поиска (только точные совпадения)
     function searchPages(query) {
-      if (!query || query.length < 2) return [];
+      if (!query || query.length < 1) return [];
       
       const lowerQuery = query.toLowerCase();
       const results = [];
       
       for (const page of searchDatabase) {
-        let maxScore = 0;
+        let matched = false;
         
-        // Точное совпадение в заголовке
+        // Проверяем заголовок
         if (page.title.toLowerCase().includes(lowerQuery)) {
-          maxScore = 10;
-        }
-        // Нечеткое совпадение в заголовке
-        else if (fuzzyMatch(query, page.title, 2)) {
-          maxScore = Math.max(maxScore, 7);
+          matched = true;
         }
         
-        // Поиск по ключевым словам
-        for (const keyword of page.keywords) {
-          if (keyword.includes(lowerQuery)) {
-            maxScore = Math.max(maxScore, 8);
-          } else if (fuzzyMatch(query, keyword, 2)) {
-            maxScore = Math.max(maxScore, 5);
+        // Проверяем ключевые слова
+        if (!matched) {
+          for (const keyword of page.keywords) {
+            if (keyword.includes(lowerQuery)) {
+              matched = true;
+              break;
+            }
           }
         }
         
-        if (maxScore > 0) {
-          results.push({ ...page, score: maxScore });
+        if (matched) {
+          results.push(page);
         }
       }
       
-      results.sort((a, b) => b.score - a.score);
       return results.slice(0, 15);
     }
 
-    // Функция для подсветки найденного текста
+    // Подсветка найденного текста
     function highlightText(text, query) {
       if (!query) return text;
-      const queryLower = query.toLowerCase();
-      const textLower = text.toLowerCase();
-      
-      if (textLower.includes(queryLower)) {
-        const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
-        return text.replace(regex, '<mark>$1</mark>');
-      }
-      return text;
+      const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+      return text.replace(regex, '<mark>$1</mark>');
     }
 
     // Отображение результатов
@@ -837,14 +802,14 @@
       resultsContainer.classList.add('show');
     }
 
-    // Обработчик ввода
+    // Обработчики
     const searchInput = document.getElementById('searchInput');
     const searchResults = document.getElementById('searchResults');
     
     if (searchInput) {
       searchInput.addEventListener('input', (e) => {
         const query = e.target.value.trim();
-        if (query.length >= 2) {
+        if (query.length >= 1) {
           const results = searchPages(query);
           displayResults(results, query);
         } else {
@@ -859,7 +824,7 @@
       });
       
       searchInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter' && searchInput.value.trim().length >= 2) {
+        if (e.key === 'Enter' && searchInput.value.trim().length >= 1) {
           const results = searchPages(searchInput.value.trim());
           if (results.length > 0) {
             window.location.href = results[0].path;
