@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Укус клеща | Описание локального статуса</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #eef2f7 0%, #e0e8f0 100%);
+            font-family: 'Inter', sans-serif;
+            padding: 1rem;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .medical-card {
+            max-width: 800px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 2rem;
+            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.12);
+            overflow: hidden;
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #4a2e1e 0%, #2e2218 100%);
+            padding: 1.25rem 1.5rem;
+            color: white;
+            border-bottom: 3px solid #e08e3a;
+        }
+
+        .title-section h1 {
+            font-weight: 700;
+            font-size: 1.5rem;
+            letter-spacing: -0.3px;
+            color: #fff5ea;
+            margin-bottom: 0.25rem;
+            line-height: 1.3;
+        }
+
+        .sub {
+            font-size: 0.85rem;
+            color: #e6cfb5;
+            font-weight: 400;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .sub i {
+            font-size: 0.9rem;
+            color: #e08e3a;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .diagnosis-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #fef3e6;
+            color: #b45a1c;
+            padding: 0.4rem 1.1rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.75rem;
+            margin-bottom: 1.5rem;
+            border-left: 3px solid #e67e22;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+        }
+
+        .exam-section {
+            display: flex;
+            flex-direction: column;
+            gap: 1.35rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-row {
+            background: #ffffff;
+            border-radius: 1.25rem;
+            border: 1.5px solid #e5d5c2;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+
+        .row-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 700;
+            font-size: 1rem;
+            color: #2f5342;
+            padding: 1rem 1.2rem 0.5rem 1.2rem;
+            background: #fefcf9;
+            border-bottom: 2px solid #f0e3d4;
+        }
+
+        .row-header i {
+            font-size: 1.4rem;
+            width: 34px;
+            color: #c96f1e;
+            background: #fff2e6;
+            padding: 6px;
+            border-radius: 14px;
+            text-align: center;
+        }
+
+        .row-content {
+            font-size: 0.95rem;
+            line-height: 1.55;
+            color: #2c3e3a;
+            padding: 0 1.2rem 1rem 1.2rem;
+            background: #ffffff;
+        }
+
+        .highlight {
+            font-weight: 600;
+            color: #bf6019;
+            background: #fff2e6;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .danger-sign {
+            font-weight: 600;
+            color: #c0392b;
+            background: #ffe6e0;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .normal-sign {
+            font-weight: 600;
+            color: #2c7a4a;
+            background: #e0f5e8;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .warning-sign {
+            font-weight: 600;
+            color: #c96f1e;
+            background: #fff0e2;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .bullet-list {
+            margin: 0.25rem 0 0 0;
+            padding-left: 1.2rem;
+        }
+        
+        .bullet-list li {
+            margin-bottom: 0.3rem;
+        }
+
+        .grid-2col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+            margin-top: 0.5rem;
+        }
+
+        .info-card {
+            background: #fefcf9;
+            border-radius: 12px;
+            padding: 0.6rem 0.8rem;
+            border: 1px solid #f0e3d4;
+        }
+
+        .info-label {
+            font-size: 0.7rem;
+            color: #8b6b4a;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.2rem;
+        }
+
+        .info-value {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #2f5342;
+        }
+
+        .danger-note {
+            background: #fff0e0;
+            border-left: 3px solid #e08e3a;
+            border-radius: 12px;
+            padding: 0.6rem 1rem;
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            color: #b45a1c;
+            display: flex;
+            gap: 8px;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 0.75rem;
+            }
+            
+            .card-header {
+                padding: 1rem 1.2rem;
+            }
+            
+            .title-section h1 {
+                font-size: 1.25rem;
+            }
+            
+            .sub {
+                font-size: 0.75rem;
+            }
+            
+            .card-body {
+                padding: 1.2rem;
+            }
+            
+            .row-header {
+                padding: 0.8rem 1rem 0.3rem 1rem;
+            }
+            
+            .row-header i {
+                font-size: 1.2rem;
+                width: 30px;
+            }
+            
+            .row-content {
+                padding: 0 1rem 0.8rem 1rem;
+                font-size: 0.88rem;
+            }
+            
+            .diagnosis-tag {
+                font-size: 0.7rem;
+                margin-bottom: 1rem;
+            }
+            
+            .grid-2col {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="medical-card">
+    <div class="card-header">
+        <div class="title-section">
+            <h1>Укус клеща</h1>
+            <div class="sub">
+                <i class="fas fa-ambulance"></i> Присасывание клеща · W57 (укус или ужаливание неядовитым насекомым)
+            </div>
+        </div>
+    </div>
+    
+    <div class="card-body">
+        <div class="diagnosis-tag">
+            <i class="fas fa-bug"></i> Присасывание клеща (Ixodes sp.) · Правое предплечье · Неосложнённое течение
+        </div>
+
+        <div class="exam-section">
+            <!-- Локализация -->
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>📍 Локализация</span>
+                </div>
+                <div class="row-content">
+                    На <span class="highlight">передней поверхности средней трети правого предплечья</span> определяется внедрившийся в кожу клещ.
+                </div>
+            </div>
+            
+            <!-- Характеристика клеща -->
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-eye"></i>
+                    <span>🔍 Характеристика клеща</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>Клещ (вероятно, <span class="highlight">Ixodes sp.</span>) <span class="danger-sign">плотно фиксирован</span>.</li>
+                        <li>Головка и грудь полностью погружены в кожу.</li>
+                        <li>Брюшко наполнено кровью (<span class="warning-sign">гиперемировано, увеличено в размерах</span>), <span class="highlight">увеличено в 2–3 раза</span> по сравнению с голодным клещом, выступает над поверхностью кожи.</li>
+                        <li>Хоботок <span class="normal-sign">не визуализируется</span> (полностью погружен).</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Окружающие ткани -->
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-hand-peace"></i>
+                    <span>🖐 Окружающие ткани</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>Вокруг места внедрения отмечается <span class="warning-sign">небольшая гиперемия кожи</span> (диаметром до <span class="highlight">0,5–1 см</span>), равномерная, без ободка.</li>
+                        <li><strong>Отек:</strong> <span class="normal-sign">отсутствует</span> (или минимальный, пастозность).</li>
+                        <li>Пальпация области укуса вызывает <span class="warning-sign">слабую болезненность</span>.</li>
+                        <li><strong>Местная температура:</strong> кожа в зоне укуса <span class="normal-sign">не отличается от температуры симметричного участка</span>.</li>
+                        <li>Признаков воспалительной инфильтрации, гнойного отделяемого, местной гипертермии <span class="normal-sign">нет</span>.</li>
+                        <li><strong>Дермографизм:</strong> розовый, стойкий, не изменен.</li>
+                        <li><strong>Следы расчёсов:</strong> <span class="normal-sign">отсутствуют</span>.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Регионарные лимфатические узлы -->
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-disease"></i>
+                    <span>🩸 Регионарные лимфатические узлы</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li><strong>Подмышечные лимфатические узлы:</strong> <span class="normal-sign">не пальпируются</span> (или безболезненны, не увеличены).</li>
+                        <li><strong>Локтевые лимфатические узлы:</strong> <span class="normal-sign">не пальпируются</span>.</li>
+                        <li>Признаков регионарного лимфаденита <span class="normal-sign">не выявлено</span>.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Дополнительные данные -->
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-info-circle"></i>
+                    <span>📌 Дополнительные данные</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>Клещ удалению <span class="normal-sign">не подвергался</span>, целостность его <span class="normal-sign">не нарушена</span>.</li>
+                        <li>Видимых повреждений кожных покровов (кроме места укуса) <span class="normal-sign">не выявлено</span>.</li>
+                        <li><strong>Парестезий</strong> (онемения, покалывания) в области укуса <span class="normal-sign">нет</span>.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Функциональный статус -->
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-dumbbell"></i>
+                    <span>💪 Функциональный статус</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>Активные движения в правом лучезапястном и локтевом суставах <span class="normal-sign">сохранены в полном объёме</span>.</li>
+                        <li>Болезненности при движении <span class="normal-sign">нет</span>.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Субъективные ощущения -->
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-comment-medical"></i>
+                    <span>😷 Субъективные ощущения</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>Пациент отмечает чувство <span class="warning-sign">инородного тела</span>, <span class="warning-sign">незначительный зуд или дискомфорт</span> в области укуса.</li>
+                        <li>Общее самочувствие <span class="normal-sign">не нарушено</span> (при отсутствии системных проявлений).</li>
+                        <li><strong>Аллергические реакции на предыдущие укусы:</strong> <span class="normal-sign">отрицает / были</span> (указать).</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Признаки, требующие настороженности -->
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span>⚠️ Признаки, требующие настороженности</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li><strong>Местные:</strong> появление мигрирующей эритемы (кольцевидное покраснение) — признак <span class="danger-sign">боррелиоза (болезни Лайма)</span>.</li>
+                        <li><strong>Системные:</strong> лихорадка, головная боль, мышечные боли, тошнота — возможные проявления <span class="danger-sign">клещевого энцефалита</span> или <span class="danger-sign">боррелиоза</span>.</li>
+                        <li><strong>Нарастание местных симптомов:</strong> увеличение гиперемии, отёка, появление гнойного отделяемого.</li>
+                        <li>На момент осмотра — <span class="normal-sign">отсутствуют</span>.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Эпидемиологический анамнез -->
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-history"></i>
+                    <span>📋 Эпидемиологический анамнез</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li><strong>Время присасывания:</strong> около ___ часов/дней назад.</li>
+                        <li><strong>Место присасывания:</strong> лес/парк/дача (указать).</li>
+                        <li><strong>Эндемичность региона:</strong> по клещевому энцефалиту и/или боррелиозу — <span class="warning-sign">да / нет</span>.</li>
+                        <li><strong>Вакцинация против клещевого энцефалита:</strong> проведена / не проведена.</li>
+                        <li><strong>Проводилась ли экстренная профилактика:</strong> нет.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Заключение -->
+        <div class="info-row" style="margin-top: 0;">
+            <div class="row-header">
+                <i class="fas fa-stethoscope"></i>
+                <span>📋 Заключение</span>
+            </div>
+            <div class="row-content">
+                Клиническая картина соответствует <span class="highlight">присасыванию клеща (Ixodes sp.) в области правого предплечья</span>. Клещ плотно фиксирован, брюшко наполнено кровью (увеличено в 2–3 раза). Местные реакции минимальны: незначительная гиперемия (до 1 см в диаметре), слабая болезненность, отёк отсутствует. Регионарные лимфатические узлы не увеличены, парестезий нет, функция конечности сохранена. Системных проявлений (лихорадка, интоксикация) на момент осмотра нет. Эпидемиологический анамнез уточняется.
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
