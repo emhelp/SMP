@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Опоясывающий герпес | Herpes zoster · Описание статуса</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #eef2f7 0%, #e0e8f0 100%);
+            font-family: 'Inter', sans-serif;
+            padding: 1rem;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .medical-card {
+            max-width: 800px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 2rem;
+            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.12);
+            overflow: hidden;
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #4a2e1e 0%, #2e2218 100%);
+            padding: 1.25rem 1.5rem;
+            color: white;
+            border-bottom: 3px solid #e08e3a;
+        }
+
+        .title-section h1 {
+            font-weight: 700;
+            font-size: 1.5rem;
+            letter-spacing: -0.3px;
+            color: #fff5ea;
+            margin-bottom: 0.25rem;
+            line-height: 1.3;
+        }
+
+        .sub {
+            font-size: 0.85rem;
+            color: #e6cfb5;
+            font-weight: 400;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .sub i {
+            font-size: 0.9rem;
+            color: #e08e3a;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .diagnosis-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #fef3e6;
+            color: #b45a1c;
+            padding: 0.4rem 1.1rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.75rem;
+            margin-bottom: 1.5rem;
+            border-left: 3px solid #e67e22;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+        }
+
+        .exam-section {
+            display: flex;
+            flex-direction: column;
+            gap: 1.35rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-row {
+            background: #ffffff;
+            border-radius: 1.25rem;
+            border: 1.5px solid #e5d5c2;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+
+        .row-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 700;
+            font-size: 1rem;
+            color: #2f5342;
+            padding: 1rem 1.2rem 0.5rem 1.2rem;
+            background: #fefcf9;
+            border-bottom: 2px solid #f0e3d4;
+        }
+
+        .row-header i {
+            font-size: 1.4rem;
+            width: 34px;
+            color: #c96f1e;
+            background: #fff2e6;
+            padding: 6px;
+            border-radius: 14px;
+            text-align: center;
+        }
+
+        .row-content {
+            font-size: 0.95rem;
+            line-height: 1.55;
+            color: #2c3e3a;
+            padding: 0 1.2rem 1rem 1.2rem;
+            background: #ffffff;
+        }
+
+        .highlight {
+            font-weight: 600;
+            color: #bf6019;
+            background: #fff2e6;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .rash-normal {
+            font-weight: 600;
+            color: #1976d2;
+            background: #e3f2fd;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .rash-severe {
+            font-weight: 600;
+            color: #c62828;
+            background: #ffebee;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .normal-sign {
+            font-weight: 600;
+            color: #2c7a4a;
+            background: #e0f5e8;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .warning-sign {
+            font-weight: 600;
+            color: #c96f1e;
+            background: #fff0e2;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .pain-sign {
+            font-weight: 600;
+            color: #c0392b;
+            background: #ffe6e0;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .bullet-list {
+            margin: 0.25rem 0 0 0;
+            padding-left: 1.2rem;
+        }
+        
+        .bullet-list li {
+            margin-bottom: 0.3rem;
+        }
+
+        .grid-2col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+            margin-top: 0.5rem;
+        }
+
+        .info-card {
+            background: #fefcf9;
+            border-radius: 12px;
+            padding: 0.6rem 0.8rem;
+            border: 1px solid #f0e3d4;
+        }
+
+        .info-label {
+            font-size: 0.7rem;
+            color: #8b6b4a;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.2rem;
+        }
+
+        .info-value {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #2f5342;
+        }
+
+        .dermatome {
+            background: #f9efe4;
+            border-radius: 12px;
+            padding: 0.4rem 0.8rem;
+            font-size: 0.8rem;
+            color: #7a5a3a;
+            display: inline-block;
+            margin-top: 0.5rem;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 0.75rem;
+            }
+            
+            .card-header {
+                padding: 1rem 1.2rem;
+            }
+            
+            .title-section h1 {
+                font-size: 1.25rem;
+            }
+            
+            .sub {
+                font-size: 0.75rem;
+            }
+            
+            .card-body {
+                padding: 1.2rem;
+            }
+            
+            .row-header {
+                padding: 0.8rem 1rem 0.3rem 1rem;
+            }
+            
+            .row-header i {
+                font-size: 1.2rem;
+                width: 30px;
+            }
+            
+            .row-content {
+                padding: 0 1rem 0.8rem 1rem;
+                font-size: 0.88rem;
+            }
+            
+            .diagnosis-tag {
+                font-size: 0.7rem;
+                margin-bottom: 1rem;
+            }
+            
+            .grid-2col {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="medical-card">
+    <div class="card-header">
+        <div class="title-section">
+            <h1>Опоясывающий герпес</h1>
+            <div class="sub">
+                <i class="fas fa-ambulance"></i> Herpes zoster · B02.9 (опоясывающий лишай без осложнений)
+            </div>
+        </div>
+    </div>
+    
+    <div class="card-body">
+        <div class="diagnosis-tag">
+            <i class="fas fa-virus"></i> Herpes zoster · Острая стадия · Поражение дерматомов Th3–Th7 слева
+        </div>
+
+        <div class="exam-section">
+            <!-- Локализация -->
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>📍 Локализация</span>
+                </div>
+                <div class="row-content">
+                    Патологический процесс локализуется на коже <span class="highlight">левой боковой поверхности грудной клетки</span>, строго в зоне иннервации корешков <span class="rash-normal">Th3–Th7 слева</span> (односторонний характер, соответствующий дерматомам).
+                    <div class="dermatome">
+                        <i class="fas fa-info-circle"></i> Дерматомы Th3–Th7 соответствуют проекции на кожу левой половины грудной клетки от уровня соска (Th4) до нижних ребер (Th7).
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Характер высыпаний -->
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-eye"></i>
+                    <span>🔍 Характер высыпаний</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>Высыпания <span class="rash-normal">множественные, сгруппированные, асимметричные</span> (расположены только слева).</li>
+                        <li><strong>Морфологические элементы:</strong> представлены <span class="warning-sign">эволюционным полиморфизмом</span> — на фоне гиперемии наблюдаются:</li>
+                    </ul>
+                    <div class="grid-2col">
+                        <div class="info-card">
+                            <div class="info-label"><i class="fas fa-circle"></i> Везикулы</div>
+                            <div class="info-value">Полушаровидной формы, 0,2–0,3 мм, с округлыми очертаниями, выступающие над поверхностью кожи</div>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-label"><i class="fas fa-hand-peace"></i> Эрозии</div>
+                            <div class="info-value">На месте вскрывшихся пузырьков</div>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-label"><i class="fas fa-layer-group"></i> Корки</div>
+                            <div class="info-value">Сливные, мокнущие, с незначительным гнойным отделяемым (вторичное инфицирование)</div>
+                        </div>
+                    </div>
+                    <ul class="bullet-list">
+                        <li>Элементы имеют тенденцию к <span class="warning-sign">слиянию</span>, образуя обширные очаги поражения в пределах пораженных дерматомов.</li>
+                        <li><strong>Окружающая кожа:</strong> в зоне высыпаний кожа <span class="rash-severe">гиперемирована (ярко-розового цвета), отечна</span>. Вне очагов поражения кожные покровы <span class="normal-sign">не изменены</span>.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Пальпаторные данные -->
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-hand-peace"></i>
+                    <span>🖐 Пальпаторные данные</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>Пальпация в области высыпаний <span class="pain-sign">резко болезненна</span> (характерный болевой синдром — постгерпетическая невралгия в острой стадии).</li>
+                        <li>Инфильтрации подлежащих тканей <span class="normal-sign">не определяется</span>.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Регионарные лимфатические узлы -->
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-disease"></i>
+                    <span>🩸 Регионарные лимфатические узлы</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>Подмышечные лимфатические узлы слева могут быть <span class="warning-sign">увеличены, слабо болезненны</span>, эластической консистенции (реактивный лимфаденит).</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Субъективные ощущения -->
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-comment-medical"></i>
+                    <span>😷 Субъективные ощущения</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>Пациент предъявляет жалобы на <span class="pain-sign">интенсивные жгучие боли</span>, парестезии (чувство покалывания, жжения) в зоне высыпаний, усиливающиеся при прикосновении, движении, перепадах температуры.</li>
+                        <li>Возможен <span class="warning-sign">зуд</span> (в стадии эпителизации).</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Заключение -->
+        <div class="info-row" style="margin-top: 0;">
+            <div class="row-header">
+                <i class="fas fa-stethoscope"></i>
+                <span>📋 Заключение</span>
+            </div>
+            <div class="row-content">
+                Клиническая картина соответствует <span class="highlight">острому опоясывающему герпесу (Herpes zoster)</span> с локализацией в дерматомах Th3–Th7 слева, стадия разрешения (наличие корок и эрозий) с признаками вторичного инфицирования (скудное гнойное отделяемое). Выражен болевой синдром (острая постгерпетическая невралгия).
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
