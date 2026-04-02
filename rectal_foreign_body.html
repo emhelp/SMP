@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Инородное тело в прямой кишке | Описание статуса (СМП)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #eef2f7 0%, #e0e8f0 100%);
+            font-family: 'Inter', sans-serif;
+            padding: 1rem;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .medical-card {
+            max-width: 800px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 2rem;
+            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.12);
+            overflow: hidden;
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #4a2e1e 0%, #2e2218 100%);
+            padding: 1.25rem 1.5rem;
+            color: white;
+            border-bottom: 3px solid #e08e3a;
+        }
+
+        .title-section h1 {
+            font-weight: 700;
+            font-size: 1.5rem;
+            letter-spacing: -0.3px;
+            color: #fff5ea;
+            margin-bottom: 0.25rem;
+            line-height: 1.3;
+        }
+
+        .sub {
+            font-size: 0.85rem;
+            color: #e6cfb5;
+            font-weight: 400;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .sub i {
+            font-size: 0.9rem;
+            color: #e08e3a;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .diagnosis-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #fef3e6;
+            color: #b45a1c;
+            padding: 0.4rem 1.1rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.75rem;
+            margin-bottom: 1.5rem;
+            border-left: 3px solid #e67e22;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+        }
+
+        .exam-section {
+            display: flex;
+            flex-direction: column;
+            gap: 1.35rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-row {
+            background: #ffffff;
+            border-radius: 1.25rem;
+            border: 1.5px solid #e5d5c2;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+
+        .row-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 700;
+            font-size: 1rem;
+            color: #2f5342;
+            padding: 1rem 1.2rem 0.5rem 1.2rem;
+            background: #fefcf9;
+            border-bottom: 2px solid #f0e3d4;
+        }
+
+        .row-header i {
+            font-size: 1.4rem;
+            width: 34px;
+            color: #c96f1e;
+            background: #fff2e6;
+            padding: 6px;
+            border-radius: 14px;
+            text-align: center;
+        }
+
+        .row-content {
+            font-size: 0.95rem;
+            line-height: 1.55;
+            color: #2c3e3a;
+            padding: 0 1.2rem 1rem 1.2rem;
+            background: #ffffff;
+        }
+
+        .highlight {
+            font-weight: 600;
+            color: #bf6019;
+            background: #fff2e6;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .normal-sign {
+            font-weight: 600;
+            color: #2c7a4a;
+            background: #e0f5e8;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .warning-sign {
+            font-weight: 600;
+            color: #c96f1e;
+            background: #fff0e2;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .danger-sign {
+            font-weight: 600;
+            color: #c0392b;
+            background: #ffe6e0;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        /* Акцентные рамки для блоков */
+        .inspection-card {
+            border-left: 4px solid #b87c4a;
+            background: #fffdf9;
+        }
+        
+        .inspection-card .row-header {
+            background: #fffaf3;
+        }
+        
+        .palpation-card {
+            border-left: 4px solid #6f9e7c;
+        }
+        
+        .complaints-card {
+            border-left: 4px solid #5d8fae;
+        }
+        
+        .additional-card {
+            border-left: 4px solid #e08e3a;
+        }
+
+        /* Новый стиль для клинического комментария */
+        .clinical-new {
+            background: #f6f3ef;
+            border-radius: 1.5rem;
+            padding: 0;
+            margin: 1.5rem 0 1.25rem;
+            overflow: hidden;
+            border: 1px solid #e6daca;
+        }
+        
+        .clinical-new-header {
+            background: #d9c8b6;
+            padding: 0.7rem 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 2px solid #c8b496;
+        }
+        
+        .clinical-new-header i {
+            font-size: 1.2rem;
+            color: #4a2e1e;
+            background: #fff2e2;
+            padding: 6px;
+            border-radius: 40px;
+        }
+        
+        .clinical-new-header span {
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            color: #2c241a;
+            text-transform: uppercase;
+        }
+        
+        .clinical-new-content {
+            padding: 1.2rem 1.3rem;
+            background: #fefcf8;
+        }
+        
+        .clinical-new-content p {
+            line-height: 1.55;
+            font-size: 0.92rem;
+            color: #2e4a3c;
+            margin-bottom: 0.75rem;
+        }
+        
+        .clinical-quote {
+            margin-top: 0.8rem;
+            padding-top: 0.6rem;
+            border-top: 1px solid #ecdfd0;
+            font-size: 0.85rem;
+            color: #7f6a53;
+            display: flex;
+            gap: 8px;
+        }
+        
+        .clinical-quote i {
+            color: #c97e3a;
+        }
+
+        /* Заключение */
+        .impressio-box {
+            background: #fffaf0;
+            border-radius: 1.25rem;
+            padding: 1.2rem 1.3rem;
+            border: 1px solid #ffdfb3;
+            margin: 0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+        }
+
+        .impressio-box h4 {
+            font-weight: 700;
+            color: #b4682d;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .impressio-box h4 i {
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 0.75rem;
+            }
+            
+            .card-header {
+                padding: 1rem 1.2rem;
+            }
+            
+            .title-section h1 {
+                font-size: 1.25rem;
+            }
+            
+            .sub {
+                font-size: 0.75rem;
+            }
+            
+            .card-body {
+                padding: 1.2rem;
+            }
+            
+            .row-header {
+                padding: 0.8rem 1rem 0.3rem 1rem;
+            }
+            
+            .row-header i {
+                font-size: 1.2rem;
+                width: 30px;
+            }
+            
+            .row-content {
+                padding: 0 1rem 0.8rem 1rem;
+                font-size: 0.88rem;
+            }
+            
+            .clinical-new-content {
+                padding: 1rem;
+            }
+            
+            .diagnosis-tag {
+                font-size: 0.7rem;
+                margin-bottom: 1rem;
+            }
+        }
+
+        .icon-accent {
+            color: #d97a2b;
+            margin-right: 6px;
+        }
+        
+        .bullet-list {
+            margin: 0.25rem 0 0 0;
+            padding-left: 1.2rem;
+        }
+        
+        .bullet-list li {
+            margin-bottom: 0.3rem;
+        }
+        
+        .anatomy-note {
+            background: #f9efe4;
+            border-radius: 12px;
+            padding: 0.5rem 1rem;
+            margin-bottom: 1.25rem;
+            font-size: 0.8rem;
+            color: #7a5a3a;
+            display: flex;
+            gap: 8px;
+        }
+        
+        .warning-note {
+            background: #fff0e0;
+            border-left: 3px solid #e08e3a;
+            border-radius: 12px;
+            padding: 0.6rem 1rem;
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            color: #b45a1c;
+            display: flex;
+            gap: 8px;
+        }
+    </style>
+</head>
+<body>
+<div class="medical-card">
+    <div class="card-header">
+        <div class="title-section">
+            <h1>Инородное тело в прямой кишке</h1>
+            <div class="sub">
+                <i class="fas fa-ambulance"></i> Инородное тело в ампулярной части прямой кишки · T18.5
+            </div>
+        </div>
+    </div>
+    
+    <div class="card-body">
+        <div class="diagnosis-tag">
+            <i class="fas fa-foreign-object"></i> Инородное тело в прямой кишке · Осложнений не выявлено
+        </div>
+
+        <div class="anatomy-note">
+            <i class="fas fa-info-circle"></i>
+            <span><strong>Особенности диагностики:</strong> инородные тела прямой кишки могут быть различной природы (бытовые предметы, медицинские инструменты, пищевые инородные тела). Наиболее опасны острые, хрупкие и крупные предметы в связи с риском перфорации стенки кишки, развития перитонита и сепсиса. Обстоятельства попадания требуют деликатного уточнения.</span>
+        </div>
+
+        <div class="exam-section">
+            <!-- Осмотр перианальной области -->
+            <div class="info-row inspection-card">
+                <div class="row-header">
+                    <i class="fas fa-eye"></i>
+                    <span>🔍 Осмотр перианальной области</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>Отмечается <span class="warning-sign">отечность и гиперемия</span> кожи вокруг анального отверстия (реактивные изменения на наличие инородного тела и возможные манипуляции).</li>
+                        <li>Видимых повреждений (ран, ссадин, гематом, кровотечения) в перианальной области <span class="normal-sign">не обнаружено</span>.</li>
+                        <li>Наружное отверстие анального канала <span class="normal-sign">сомкнуто</span>, зияния нет.</li>
+                        <li>Кожные покровы промежности обычной окраски, признаков воспалительной инфильтрации нет.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Пальцевое исследование прямой кишки -->
+            <div class="info-row palpation-card">
+                <div class="row-header">
+                    <i class="fas fa-hand-peace"></i>
+                    <span>🖐 Пальцевое исследование прямой кишки (per rectum)</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li><strong>Тонус сфинктера:</strong> <span class="warning-sign">умеренно повышен</span> (рефлекторный спазм), при введении пальца отмечается <span class="warning-sign">умеренная болезненность</span>.</li>
+                        <li><strong>Локализация инородного тела:</strong> в <span class="highlight">ампулярной части прямой кишки</span> (на глубине ___ см от ануса) пальпаторно определяется <span class="danger-sign">плотное инородное тело</span>.</li>
+                        <li><strong>Характеристика предмета:</strong>
+                            <ul style="margin-left: 1.5rem; margin-top: 0.2rem;">
+                                <li>Форма: <span class="highlight">продолговатая/округлая</span>.</li>
+                                <li>Размеры: ориентировочно ___ × ___ см.</li>
+                                <li>Поверхность: <span class="highlight">гладкая/шероховатая</span>.</li>
+                                <li>Подвижность: <span class="warning-sign">умеренно смещается</span> при пальпации.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Состояние слизистой:</strong> слизистая оболочка над предметом и в доступных зонах <span class="normal-sign">без видимых повреждений</span>, затеков крови нет. Кровотечение отсутствует (на перчатке следов крови нет, либо минимальное количество сукровичного отделяемого).</li>
+                        <li><strong>Бимануальная пальпация:</strong> при пальпации через переднюю брюшную стенку инородное тело <span class="normal-sign">не определяется</span> (если оно не гигантских размеров).</li>
+                        <li>Признаков повреждения стенки кишки (крепитация, свободная жидкость) <span class="normal-sign">не выявлено</span>.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Жалобы пациента -->
+            <div class="info-row complaints-card">
+                <div class="row-header">
+                    <i class="fas fa-comment-medical"></i>
+                    <span>😷 Жалобы пациента (анамнестически)</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li><span class="warning-sign">Чувство инородного тела, распирания, давления</span> в прямой кишке.</li>
+                        <li><span class="warning-sign">Боли в области ануса и в глубине</span>, усиливающиеся при попытке дефекации, ходьбе, сидении.</li>
+                        <li>Возможны <span class="highlight">тенезмы</span> (ложные позывы на дефекацию).</li>
+                        <li>Обстоятельства попадания инородного тела (случайное, медицинское, намеренное) уточняются.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Дополнительные данные (если доступны) -->
+            <div class="info-row additional-card">
+                <div class="row-header">
+                    <i class="fas fa-x-ray"></i>
+                    <span>📋 Дополнительные данные (при наличии)</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li><strong>Обзорная рентгенография брюшной полости:</strong>
+                            <ul style="margin-left: 1.5rem; margin-top: 0.2rem;">
+                                <li>Наличие <span class="highlight">рентгеноконтрастного инородного тела</span> в проекции малого таза.</li>
+                                <li>Свободного газа под диафрагмой (признак перфорации) <span class="normal-sign">не выявлено</span>.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Аноскопия/ректороманоскопия:</strong> (при возможности) — визуализация инородного тела, оценка состояния слизистой, исключение повреждений.</li>
+                    </ul>
+                    <div class="warning-note" style="margin-top: 0.5rem;">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <span><strong>Важно:</strong> при подозрении на перфорацию кишечника (симптомы перитонита, свободный газ под диафрагмой, ухудшение общего состояния) — экстренная госпитализация в хирургический стационар.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Дифференциальная диагностика -->
+        <div class="info-row" style="margin-top: 0;">
+            <div class="row-header">
+                <i class="fas fa-chart-line"></i>
+                <span>📋 Дифференциальная диагностика</span>
+            </div>
+            <div class="row-content">
+                <ul class="bullet-list">
+                    <li><strong>Ущемление геморроидальных узлов:</strong> наличие узлов в анальном канале, болезненность, цианоз.</li>
+                    <li><strong>Острый парапроктит:</strong> гиперемия, отек, инфильтрация перианальной области, лихорадка, интоксикация.</li>
+                    <li><strong>Острая кишечная непроходимость:</strong> задержка стула и газов, вздутие живота, рвота, схваткообразные боли.</li>
+                    <li><strong>Острый аппендицит (тазовое расположение):</strong> боли внизу живота, симптомы раздражения брюшины.</li>
+                    <li><strong>Перфорация прямой кишки:</strong> резкая боль, симптомы перитонита, свободный газ под диафрагмой, ухудшение общего состояния.</li>
+                </ul>
+                <div class="warning-note" style="margin-top: 0.5rem;">
+                    <i class="fas fa-heartbeat"></i>
+                    <span>На момент осмотра признаков перфорации кишечника, перитонита, острой кишечной непроходимости <strong>не выявлено</strong>.</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Новый стиль клинического комментария -->
+        <div class="clinical-new">
+            <div class="clinical-new-header">
+                <i class="fas fa-stethoscope"></i>
+                <span>Клинический разбор (догоспитальный этап)</span>
+            </div>
+            <div class="clinical-new-content">
+                <p>Клиническая картина соответствует наличию <strong>инородного тела в ампулярной части прямой кишки</strong>. При осмотре перианальной области определяются реактивные изменения (отек, гиперемия), что является ответной реакцией на наличие инородного предмета. Наружное отверстие анального канала сомкнуто, зияния нет.</p>
+                <p>При пальцевом исследовании: тонус сфинктера умеренно повышен (рефлекторный спазм), пальпация болезненна. В ампулярной части прямой кишки на глубине ___ см от ануса пальпаторно определяется <span class="danger-sign">плотное инородное тело</span> продолговатой/округлой формы, размерами ориентировочно ___ × ___ см, с гладкой/шероховатой поверхностью, умеренно смещаемое. Слизистая оболочка в доступных зонах без видимых повреждений, признаков активного кровотечения нет. Бимануально инородное тело не определяется, признаков повреждения стенки кишки не выявлено.</p>
+                <p>На момент осмотра <strong>признаков перфорации кишечника, перитонита, острой кишечной непроходимости не выявлено</strong>. Общее состояние удовлетворительное, гемодинамика стабильная. Обстоятельства попадания инородного тела уточняются.</p>
+                <div class="clinical-quote">
+                    <i class="fas fa-chart-line"></i>
+                    <span><strong>Клиническое заключение:</strong> инородное тело в ампулярной части прямой кишки (на глубине ___ см от ануса). Реактивные изменения перианальной области, рефлекторный спазм сфинктера. Признаков перфорации стенки кишки, активного кровотечения, острой кишечной непроходимости, перитонита на момент осмотра не выявлено.</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Заключение -->
+        <div class="impressio-box">
+            <h4><i class="fas fa-notes-medical"></i> Предварительное заключение (СМП)</h4>
+            <p><strong>Инородное тело в ампулярной части прямой кишки.</strong> При осмотре перианальной области: отечность и гиперемия кожи вокруг анального отверстия (реактивные изменения), видимых повреждений нет, наружное отверстие сомкнуто. Пальцевое исследование: тонус сфинктера умеренно повышен (рефлекторный спазм), введение пальца болезненно. На глубине ___ см от ануса пальпаторно определяется плотное инородное тело (форма: ___, размеры: ___ × ___ см, поверхность: ___). Слизистая оболочка без видимых повреждений, кровотечения нет. Бимануально инородное тело не определяется. Признаков повреждения стенки кишки, перфорации, активного кровотечения, острой кишечной непроходимости, перитонита <strong>не выявлено</strong>. Рентгенологически: наличие рентгеноконтрастного инородного тела, свободного газа под диафрагмой нет. Общее состояние удовлетворительное, гемодинамика стабильна.</p>
+        </div>
+    </div>
+</div>
+</body>
+</html>
