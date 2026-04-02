@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Пролежни 4-я стадия | Описание локального статуса</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #eef2f7 0%, #e0e8f0 100%);
+            font-family: 'Inter', sans-serif;
+            padding: 1rem;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .medical-card {
+            max-width: 800px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 2rem;
+            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.12);
+            overflow: hidden;
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #4a2e1e 0%, #2e2218 100%);
+            padding: 1.25rem 1.5rem;
+            color: white;
+            border-bottom: 3px solid #e08e3a;
+        }
+
+        .title-section h1 {
+            font-weight: 700;
+            font-size: 1.5rem;
+            letter-spacing: -0.3px;
+            color: #fff5ea;
+            margin-bottom: 0.25rem;
+            line-height: 1.3;
+        }
+
+        .sub {
+            font-size: 0.85rem;
+            color: #e6cfb5;
+            font-weight: 400;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .sub i {
+            font-size: 0.9rem;
+            color: #e08e3a;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .diagnosis-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #fef3e6;
+            color: #b45a1c;
+            padding: 0.4rem 1.1rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.75rem;
+            margin-bottom: 1.5rem;
+            border-left: 3px solid #e67e22;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+        }
+
+        .exam-section {
+            display: flex;
+            flex-direction: column;
+            gap: 1.35rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-row {
+            background: #ffffff;
+            border-radius: 1.25rem;
+            border: 1.5px solid #e5d5c2;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+
+        .row-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 700;
+            font-size: 1rem;
+            color: #2f5342;
+            padding: 1rem 1.2rem 0.5rem 1.2rem;
+            background: #fefcf9;
+            border-bottom: 2px solid #f0e3d4;
+        }
+
+        .row-header i {
+            font-size: 1.4rem;
+            width: 34px;
+            color: #c96f1e;
+            background: #fff2e6;
+            padding: 6px;
+            border-radius: 14px;
+            text-align: center;
+        }
+
+        .row-content {
+            font-size: 0.95rem;
+            line-height: 1.55;
+            color: #2c3e3a;
+            padding: 0 1.2rem 1rem 1.2rem;
+            background: #ffffff;
+        }
+
+        .highlight {
+            font-weight: 600;
+            color: #bf6019;
+            background: #fff2e6;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .danger-sign {
+            font-weight: 600;
+            color: #c0392b;
+            background: #ffe6e0;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .normal-sign {
+            font-weight: 600;
+            color: #2c7a4a;
+            background: #e0f5e8;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .warning-sign {
+            font-weight: 600;
+            color: #c96f1e;
+            background: #fff0e2;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .bullet-list {
+            margin: 0.25rem 0 0 0;
+            padding-left: 1.2rem;
+        }
+        
+        .bullet-list li {
+            margin-bottom: 0.3rem;
+        }
+
+        .grid-2col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+            margin-top: 0.5rem;
+        }
+
+        .info-card {
+            background: #fefcf9;
+            border-radius: 12px;
+            padding: 0.6rem 0.8rem;
+            border: 1px solid #f0e3d4;
+        }
+
+        .info-label {
+            font-size: 0.7rem;
+            color: #8b6b4a;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.2rem;
+        }
+
+        .info-value {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #2f5342;
+        }
+
+        .danger-note {
+            background: #fff0e0;
+            border-left: 3px solid #e08e3a;
+            border-radius: 12px;
+            padding: 0.6rem 1rem;
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            color: #b45a1c;
+            display: flex;
+            gap: 8px;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 0.75rem;
+            }
+            
+            .card-header {
+                padding: 1rem 1.2rem;
+            }
+            
+            .title-section h1 {
+                font-size: 1.25rem;
+            }
+            
+            .sub {
+                font-size: 0.75rem;
+            }
+            
+            .card-body {
+                padding: 1.2rem;
+            }
+            
+            .row-header {
+                padding: 0.8rem 1rem 0.3rem 1rem;
+            }
+            
+            .row-header i {
+                font-size: 1.2rem;
+                width: 30px;
+            }
+            
+            .row-content {
+                padding: 0 1rem 0.8rem 1rem;
+                font-size: 0.88rem;
+            }
+            
+            .diagnosis-tag {
+                font-size: 0.7rem;
+                margin-bottom: 1rem;
+            }
+            
+            .grid-2col {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="medical-card">
+    <div class="card-header">
+        <div class="title-section">
+            <h1>Пролежни 4-я стадия</h1>
+            <div class="sub">
+                <i class="fas fa-ambulance"></i> Пролежень IV стадии · L89.3 (пролежень IV степени)
+            </div>
+        </div>
+    </div>
+    
+    <div class="card-body">
+        <div class="diagnosis-tag">
+            <i class="fas fa-band-aid"></i> Пролежни IV стадии · Глубокий некроз мягких тканей · Поражение мышц и связок
+        </div>
+
+        <div class="exam-section">
+            <!-- Локализация -->
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>📍 Локализация</span>
+                </div>
+                <div class="row-content">
+                    В области <span class="highlight">крестца и парасакрально</span> определяется очаг поражения.
+                </div>
+            </div>
+            
+            <!-- Данные осмотра -->
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-eye"></i>
+                    <span>🔍 Данные осмотра</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>Определяется очаг поражения кожи и <span class="danger-sign">некротический дефект на всю ее толщину</span>.</li>
+                        <li><strong>Дно раны:</strong> <span class="danger-sign">изъязвленные связки и мышцы</span>.</li>
+                        <li><strong>Размеры пролежня:</strong> <span class="highlight">5–8 см</span>.</li>
+                        <li>Определяется наличие <span class="danger-sign">полости</span>, обнажающей нижележащие ткани — связки, апоневроз, мышцы, вплоть до кости.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Характеристика повреждения -->
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-hand-peace"></i>
+                    <span>🩸 Характеристика повреждения</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li><strong>Повреждение тканей (некроз-омертвение) всех слоев кожи и подкожной клетчатки</strong>.</li>
+                        <li>В отличие от III стадии, повреждены и подвержены <span class="danger-sign">гнойно-некротическому процессу глубоколежащие ткани и структуры</span> (фасции, сухожилия, мышцы, кости и суставы).</li>
+                        <li><strong>Нарушается кровообращение</strong> в пораженном участке.</li>
+                        <li>Рана <span class="warning-sign">частично или полностью покрыта некротическими массами (мертвыми тканями) или струпом</span>.</li>
+                        <li><strong>Глубокие карманы, затеки с гнойным отделяемым и свищевые ходы</strong> характерны для этой стадии.</li>
+                        <li><span class="danger-sign">Влажные некрозы (мертвые ткани)</span> пролежня могут являться причиной интоксикации и сепсиса.</li>
+                        <li>В ране могут <span class="danger-sign">зиять костные структуры, суставные капсулы</span>, что делает возможным возникновение <span class="danger-sign">остеомиелита</span>.</li>
+                        <li><strong>Остеомиелит</strong> — тяжелейшее осложнение (нагноение, омертвение и секвестрация-отторжение костной ткани).</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Пальпаторные данные -->
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-hand-peace"></i>
+                    <span>🖐 Пальпаторные данные</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>При пальпации области поражения <span class="danger-sign">болезненность может отсутствовать</span> (за счет глубокого некроза и повреждения нервных окончаний).</li>
+                        <li>Отмечается <span class="warning-sign">локальная гипертермия</span> (кожа теплее окружающих тканей).</li>
+                        <li>При наличии затеков — пальпаторно определяется <span class="danger-sign">флюктуация</span>.</li>
+                        <li>Края раны <span class="danger-sign">подрыты, плотные</span>.</li>
+                        <li>При пальпации костных структур возможно определение <span class="danger-sign">патологической подвижности</span> (при остеомиелите).</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Оценка раневой поверхности -->
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-microscope"></i>
+                    <span>🔬 Оценка раневой поверхности</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li><strong>Цвет дна раны:</strong> черный / темно-коричневый (некротические ткани).</li>
+                        <li><strong>Характер отделяемого:</strong> <span class="danger-sign">гнойное, обильное</span>, с гнилостным запахом.</li>
+                        <li>Наличие <span class="danger-sign">фибринозно-гнойного налета</span> на дне и стенках раны.</li>
+                        <li>Определяются <span class="danger-sign">глубокие карманы и затеки</span> с гнойным содержимым.</li>
+                        <li>Возможно наличие <span class="danger-sign">свищевых ходов</span>, идущих вглубь тканей.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Оценка перифокальных тканей -->
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-hand-peace"></i>
+                    <span>📌 Оценка перифокальных тканей</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>Вокруг язвы определяется <span class="danger-sign">выраженная гиперемия</span> и <span class="danger-sign">инфильтрация</span>.</li>
+                        <li>Края раны <span class="danger-sign">подрыты</span>, с признаками <span class="danger-sign">некротического ободка</span>.</li>
+                        <li>Кожа вокруг <span class="warning-sign">отечная, гиперпигментированная, возможно наличие мацерации</span>.</li>
+                        <li>Отмечается <span class="danger-sign">распространение отека на прилежащие области</span>.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Признаки системной инфекции и осложнений -->
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-bacteria"></i>
+                    <span>🦠 Признаки системной инфекции и осложнений</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li><strong>Лихорадка:</strong> повышение температуры тела до фебрильных значений.</li>
+                        <li><strong>Озноб, потливость</strong> — признаки бактериемии.</li>
+                        <li><strong>Лейкоцитоз, сдвиг формулы влево</strong> (лабораторно).</li>
+                        <li><strong>Признаки сепсиса:</strong> тахикардия, тахипноэ, гипотензия, нарушение сознания.</li>
+                        <li><strong>Остеомиелит:</strong> при пальпации — патологическая подвижность, секвестрация костной ткани.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Факторы риска и провоцирующие условия -->
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-history"></i>
+                    <span>📋 Факторы риска и провоцирующие условия</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li><strong>Длительная иммобилизация:</strong> пациент прикован к постели / находится в вынужденном положении.</li>
+                        <li><strong>Нарушение чувствительности:</strong> не ощущает дискомфорта от давления.</li>
+                        <li><strong>Нарушение трофики:</strong> снижение питания тканей (сахарный диабет, сосудистая патология).</li>
+                        <li><strong>Недержание мочи/кала:</strong> мацерация кожи, повышение риска инфицирования.</li>
+                        <li><strong>Прогрессирование:</strong> отсутствие адекватного лечения приводит к развитию сепсиса и летальному исходу.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Заключение -->
+        <div class="info-row" style="margin-top: 0;">
+            <div class="row-header">
+                <i class="fas fa-stethoscope"></i>
+                <span>📋 Заключение</span>
+            </div>
+            <div class="row-content">
+                Клиническая картина соответствует <span class="highlight">пролежню IV стадии в области крестца и парасакральной области</span>. Объективно: некротический дефект всех слоев кожи и подкожной клетчатки, дно раны представлено изъязвленными связками и мышцами. Размеры пролежня 5–8 см, определяется полость, обнажающая нижележащие ткани вплоть до кости. Характерны глубокие карманы, затеки с гнойным отделяемым, свищевые ходы. Высок риск развития остеомиелита, сепсиса. Состояние тяжелое.
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
