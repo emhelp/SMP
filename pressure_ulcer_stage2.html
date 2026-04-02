@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Пролежни 2-я стадия | Описание локального статуса</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #eef2f7 0%, #e0e8f0 100%);
+            font-family: 'Inter', sans-serif;
+            padding: 1rem;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .medical-card {
+            max-width: 800px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 2rem;
+            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.12);
+            overflow: hidden;
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #4a2e1e 0%, #2e2218 100%);
+            padding: 1.25rem 1.5rem;
+            color: white;
+            border-bottom: 3px solid #e08e3a;
+        }
+
+        .title-section h1 {
+            font-weight: 700;
+            font-size: 1.5rem;
+            letter-spacing: -0.3px;
+            color: #fff5ea;
+            margin-bottom: 0.25rem;
+            line-height: 1.3;
+        }
+
+        .sub {
+            font-size: 0.85rem;
+            color: #e6cfb5;
+            font-weight: 400;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .sub i {
+            font-size: 0.9rem;
+            color: #e08e3a;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .diagnosis-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #fef3e6;
+            color: #b45a1c;
+            padding: 0.4rem 1.1rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.75rem;
+            margin-bottom: 1.5rem;
+            border-left: 3px solid #e67e22;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+        }
+
+        .exam-section {
+            display: flex;
+            flex-direction: column;
+            gap: 1.35rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-row {
+            background: #ffffff;
+            border-radius: 1.25rem;
+            border: 1.5px solid #e5d5c2;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+
+        .row-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 700;
+            font-size: 1rem;
+            color: #2f5342;
+            padding: 1rem 1.2rem 0.5rem 1.2rem;
+            background: #fefcf9;
+            border-bottom: 2px solid #f0e3d4;
+        }
+
+        .row-header i {
+            font-size: 1.4rem;
+            width: 34px;
+            color: #c96f1e;
+            background: #fff2e6;
+            padding: 6px;
+            border-radius: 14px;
+            text-align: center;
+        }
+
+        .row-content {
+            font-size: 0.95rem;
+            line-height: 1.55;
+            color: #2c3e3a;
+            padding: 0 1.2rem 1rem 1.2rem;
+            background: #ffffff;
+        }
+
+        .highlight {
+            font-weight: 600;
+            color: #bf6019;
+            background: #fff2e6;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .danger-sign {
+            font-weight: 600;
+            color: #c0392b;
+            background: #ffe6e0;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .normal-sign {
+            font-weight: 600;
+            color: #2c7a4a;
+            background: #e0f5e8;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .warning-sign {
+            font-weight: 600;
+            color: #c96f1e;
+            background: #fff0e2;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .bullet-list {
+            margin: 0.25rem 0 0 0;
+            padding-left: 1.2rem;
+        }
+        
+        .bullet-list li {
+            margin-bottom: 0.3rem;
+        }
+
+        .grid-2col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+            margin-top: 0.5rem;
+        }
+
+        .info-card {
+            background: #fefcf9;
+            border-radius: 12px;
+            padding: 0.6rem 0.8rem;
+            border: 1px solid #f0e3d4;
+        }
+
+        .info-label {
+            font-size: 0.7rem;
+            color: #8b6b4a;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.2rem;
+        }
+
+        .info-value {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #2f5342;
+        }
+
+        .danger-note {
+            background: #fff0e0;
+            border-left: 3px solid #e08e3a;
+            border-radius: 12px;
+            padding: 0.6rem 1rem;
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            color: #b45a1c;
+            display: flex;
+            gap: 8px;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 0.75rem;
+            }
+            
+            .card-header {
+                padding: 1rem 1.2rem;
+            }
+            
+            .title-section h1 {
+                font-size: 1.25rem;
+            }
+            
+            .sub {
+                font-size: 0.75rem;
+            }
+            
+            .card-body {
+                padding: 1.2rem;
+            }
+            
+            .row-header {
+                padding: 0.8rem 1rem 0.3rem 1rem;
+            }
+            
+            .row-header i {
+                font-size: 1.2rem;
+                width: 30px;
+            }
+            
+            .row-content {
+                padding: 0 1rem 0.8rem 1rem;
+                font-size: 0.88rem;
+            }
+            
+            .diagnosis-tag {
+                font-size: 0.7rem;
+                margin-bottom: 1rem;
+            }
+            
+            .grid-2col {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="medical-card">
+    <div class="card-header">
+        <div class="title-section">
+            <h1>Пролежни 2-я стадия</h1>
+            <div class="sub">
+                <i class="fas fa-ambulance"></i> Пролежень II стадии · L89.1 (пролежень II степени)
+            </div>
+        </div>
+    </div>
+    
+    <div class="card-body">
+        <div class="diagnosis-tag">
+            <i class="fas fa-band-aid"></i> Пролежни II стадии · Повреждение поверхностных слоев кожи · Эрозия
+        </div>
+
+        <div class="exam-section">
+            <!-- Локализация -->
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>📍 Локализация</span>
+                </div>
+                <div class="row-content">
+                    В области <span class="highlight">крестца и нижне-поясничной зоны</span> определяется очаг поражения.
+                </div>
+            </div>
+            
+            <!-- Данные осмотра -->
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-eye"></i>
+                    <span>🔍 Данные осмотра</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>Определяется очаг с признаками <span class="danger-sign">поверхностного нарушения целостности кожного покрова</span>.</li>
+                        <li>Единичные очаги <span class="warning-sign">отслоения эпидермиса (эрозия)</span> без истинной язвы (дефекта, выходящего за пределы эпидермиса).</li>
+                        <li>Подкожная клетчатка <span class="normal-sign">не повреждена</span>.</li>
+                        <li>Мелкие очаги поверхностных язв с <span class="warning-sign">дном на уровне дермы красного цвета</span>.</li>
+                        <li>В области <span class="highlight">S1</span> определяется <span class="danger-sign">частично лопнувший пузырь размером 2×2 см</span>.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Характеристика повреждения -->
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-hand-peace"></i>
+                    <span>🩸 Характеристика повреждения</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li><strong>Повреждение поверхностных слоев кожи</strong> (эпидермис и дерма).</li>
+                        <li>Пролежень выглядит как <span class="warning-sign">неглубокая открытая рана, язва, эрозия</span> с <span class="danger-sign">красным или розовым дном</span>.</li>
+                        <li>Может быть <span class="warning-sign">поверхностный струп (корочка)</span> или <span class="warning-sign">налет фибрина</span>.</li>
+                        <li>Изменения могут быть в виде <span class="danger-sign">пузыря</span>, который заполнен <span class="warning-sign">серозным или сукровичным содержимым</span>.</li>
+                        <li>Иногда этот пузырь бывает <span class="warning-sign">вскрывшимся</span> в виде отслоенного и сморщенного эпидермиса (поверхностный слой кожи).</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Пальпаторные данные -->
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-hand-peace"></i>
+                    <span>🖐 Пальпаторные данные</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>При пальпации область <span class="warning-sign">умеренно болезненна</span>.</li>
+                        <li>Отмечается <span class="warning-sign">локальная гипертермия</span> (кожа теплее окружающих тканей).</li>
+                        <li>Инфильтрации подлежащих тканей <span class="normal-sign">не определяется</span>.</li>
+                        <li>Флюктуации <span class="normal-sign">нет</span>.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Оценка раневой поверхности -->
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-microscope"></i>
+                    <span>🔬 Оценка раневой поверхности</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li><strong>Цвет дна раны:</strong> красный / розовый.</li>
+                        <li><strong>Характер отделяемого:</strong> серозное / сукровичное (скудное).</li>
+                        <li>Признаков гнойного отделяемого, некроза тканей <span class="normal-sign">нет</span>.</li>
+                        <li>Края раны ровные, без признаков подрытости.</li>
+                        <li>Признаков вторичного инфицирования <span class="normal-sign">не выявлено</span>.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Дополнительные клинические признаки -->
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span>⚠️ Дополнительные признаки</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>Вокруг зоны поражения может определяться <span class="warning-sign">небольшая гиперемия и отёк</span>.</li>
+                        <li>Чувствительность в зоне поражения <span class="warning-sign">снижена</span> (за счет повреждения нервных окончаний).</li>
+                        <li>Признаков распространения процесса на глубокие ткани <span class="normal-sign">нет</span>.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Факторы риска и провоцирующие условия -->
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-history"></i>
+                    <span>📋 Факторы риска и провоцирующие условия</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li><strong>Длительная иммобилизация:</strong> пациент прикован к постели / находится в вынужденном положении.</li>
+                        <li><strong>Нарушение чувствительности:</strong> не ощущает дискомфорта от давления.</li>
+                        <li><strong>Нарушение трофики:</strong> снижение питания тканей (сахарный диабет, сосудистая патология).</li>
+                        <li><strong>Недержание мочи/кала:</strong> мацерация кожи, повышение риска инфицирования.</li>
+                        <li><strong>Прогрессирование:</strong> без адекватного ухода возможно углубление дефекта и переход в III стадию.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Заключение -->
+        <div class="info-row" style="margin-top: 0;">
+            <div class="row-header">
+                <i class="fas fa-stethoscope"></i>
+                <span>📋 Заключение</span>
+            </div>
+            <div class="row-content">
+                Клиническая картина соответствует <span class="highlight">пролежню II стадии в области крестца и нижне-поясничной зоны</span>. Объективно: поверхностное нарушение целостности кожного покрова (эрозия) без повреждения подкожной клетчатки, мелкие очаги поверхностных язв с красным дном, частично лопнувший пузырь с серозным содержимым в области S1 размерами 2×2 см. Подкожная клетчатка не повреждена. Признаков распространения процесса на глубокие ткани, гнойного отделяемого, некроза не выявлено.
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
