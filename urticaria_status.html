@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Крапивница | Описание локального статуса (локализованная и генерализованная)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #eef2f7 0%, #e0e8f0 100%);
+            font-family: 'Inter', sans-serif;
+            padding: 1rem;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .medical-card {
+            max-width: 800px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 2rem;
+            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.12);
+            overflow: hidden;
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #4a2e1e 0%, #2e2218 100%);
+            padding: 1.25rem 1.5rem;
+            color: white;
+            border-bottom: 3px solid #e08e3a;
+        }
+
+        .title-section h1 {
+            font-weight: 700;
+            font-size: 1.5rem;
+            letter-spacing: -0.3px;
+            color: #fff5ea;
+            margin-bottom: 0.25rem;
+            line-height: 1.3;
+        }
+
+        .sub {
+            font-size: 0.85rem;
+            color: #e6cfb5;
+            font-weight: 400;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .sub i {
+            font-size: 0.9rem;
+            color: #e08e3a;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .diagnosis-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #fef3e6;
+            color: #b45a1c;
+            padding: 0.4rem 1.1rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.75rem;
+            margin-bottom: 1.5rem;
+            border-left: 3px solid #e67e22;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+        }
+
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin: 1.5rem 0 1rem 0;
+            padding: 0.6rem 0.8rem;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title:first-of-type {
+            margin-top: 0;
+        }
+
+        .section-title i {
+            font-size: 1.2rem;
+        }
+
+        /* Цветовые схемы */
+        .localized-section {
+            background: #e3f2fd;
+            border-left: 4px solid #1976d2;
+            color: #0d47a1;
+        }
+
+        .localized-section i {
+            color: #1976d2;
+        }
+
+        .generalized-section {
+            background: #ffebee;
+            border-left: 4px solid #c62828;
+            color: #b71c1c;
+        }
+
+        .generalized-section i {
+            color: #c62828;
+        }
+
+        .exam-section {
+            display: flex;
+            flex-direction: column;
+            gap: 1.35rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-row {
+            background: #ffffff;
+            border-radius: 1.25rem;
+            border: 1.5px solid #e5d5c2;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+
+        .row-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 700;
+            font-size: 1rem;
+            color: #2f5342;
+            padding: 1rem 1.2rem 0.5rem 1.2rem;
+            background: #fefcf9;
+            border-bottom: 2px solid #f0e3d4;
+        }
+
+        .row-header i {
+            font-size: 1.4rem;
+            width: 34px;
+            color: #c96f1e;
+            background: #fff2e6;
+            padding: 6px;
+            border-radius: 14px;
+            text-align: center;
+        }
+
+        .row-content {
+            font-size: 0.95rem;
+            line-height: 1.55;
+            color: #2c3e3a;
+            padding: 0 1.2rem 1rem 1.2rem;
+            background: #ffffff;
+        }
+
+        .highlight {
+            font-weight: 600;
+            color: #bf6019;
+            background: #fff2e6;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .rash-normal {
+            font-weight: 600;
+            color: #1976d2;
+            background: #e3f2fd;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .rash-severe {
+            font-weight: 600;
+            color: #c62828;
+            background: #ffebee;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .normal-sign {
+            font-weight: 600;
+            color: #2c7a4a;
+            background: #e0f5e8;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .warning-sign {
+            font-weight: 600;
+            color: #c96f1e;
+            background: #fff0e2;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .danger-sign {
+            font-weight: 600;
+            color: #c0392b;
+            background: #ffe6e0;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .bullet-list {
+            margin: 0.25rem 0 0 0;
+            padding-left: 1.2rem;
+        }
+        
+        .bullet-list li {
+            margin-bottom: 0.3rem;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 0.75rem;
+            }
+            
+            .card-header {
+                padding: 1rem 1.2rem;
+            }
+            
+            .title-section h1 {
+                font-size: 1.25rem;
+            }
+            
+            .sub {
+                font-size: 0.75rem;
+            }
+            
+            .card-body {
+                padding: 1.2rem;
+            }
+            
+            .row-header {
+                padding: 0.8rem 1rem 0.3rem 1rem;
+            }
+            
+            .row-header i {
+                font-size: 1.2rem;
+                width: 30px;
+            }
+            
+            .row-content {
+                padding: 0 1rem 0.8rem 1rem;
+                font-size: 0.88rem;
+            }
+            
+            .diagnosis-tag {
+                font-size: 0.7rem;
+                margin-bottom: 1rem;
+            }
+            
+            .section-title {
+                font-size: 1rem;
+                margin: 1.2rem 0 0.8rem 0;
+                padding: 0.4rem 0.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="medical-card">
+    <div class="card-header">
+        <div class="title-section">
+            <h1>Крапивница</h1>
+            <div class="sub">
+                <i class="fas fa-ambulance"></i> Аллергическая реакция · L50.0 (аллергическая крапивница)
+            </div>
+        </div>
+    </div>
+    
+    <div class="card-body">
+        <div class="diagnosis-tag">
+            <i class="fas fa-allergies"></i> Крапивница · Оценка распространенности высыпаний
+        </div>
+
+        <!-- ЛОКАЛИЗОВАННАЯ КРАПИВНИЦА — синий блок -->
+        <div class="section-title localized-section">
+            <i class="fas fa-dot-circle"></i>
+            <span>Крапивница локализованная</span>
+        </div>
+        
+        <div class="exam-section">
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-eye"></i>
+                    <span>🔍 Локализация и характер высыпаний</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li><strong>Локализация:</strong> высыпания расположены на ограниченном участке кожного покрова — в области <span class="highlight">туловища / верхних конечностей / нижних конечностей / лица / шеи</span>.</li>
+                        <li><strong>Характер высыпаний:</strong> элементы имеют <span class="rash-normal">эритематозно-папулезный характер</span>, <span class="warning-sign">полиморфные</span> (одновременно присутствуют волдыри разных размеров и форм).</li>
+                        <li><strong>Элементы сыпи:</strong> множественные волдыри (уртикарии) округлой или неправильной формы, размерами от 0,5 до 3,0 см в диаметре, склонные к <span class="warning-sign">слиянию</span> в более крупные очаги.</li>
+                        <li><strong>Цвет:</strong> бледно-розовый с <span class="warning-sign">фарфорово-белым центром</span> (характерный признак крапивницы).</li>
+                        <li><strong>Поверхность:</strong> элементы возвышаются над уровнем кожи, имеют четкие границы.</li>
+                        <li><strong>Феномен исчезновения:</strong> при надавливании волдыри <span class="highlight">бледнеют и временно исчезают</span> (положительный симптом «исчезновения»).</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-hand-peace"></i>
+                    <span>🖐 Пальпаторные данные и динамика</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li><strong>Консистенция:</strong> элементы <span class="warning-sign">плотно-эластические</span>, при надавливании бледнеют.</li>
+                        <li><strong>Зуд:</strong> выраженный, пациент расчесывает элементы (<span class="warning-sign">экскориации</span>).</li>
+                        <li><strong>Динамика:</strong> отдельные элементы сохраняются <span class="rash-normal">до 24 часов</span>, затем бесследно исчезают, на их месте могут появляться новые.</li>
+                        <li>Кожные покровы вне очагов высыпаний <span class="normal-sign">не изменены</span>, обычной окраски.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-thermometer-half"></i>
+                    <span>🌡️ Общее состояние и температура</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>Общее состояние пациента <span class="normal-sign">удовлетворительное</span>.</li>
+                        <li>Температура тела: <span class="normal-sign">нормальная (36,6°C)</span> / субфебрильная (до 37,5°C).</li>
+                        <li>Признаков системной аллергической реакции (отек Квинке, ангионевротический отек, бронхоспазм, анафилаксия) <span class="normal-sign">не выявлено</span>.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-comment-medical"></i>
+                    <span>😷 Жалобы пациента</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li><span class="warning-sign">Интенсивный зуд</span> в области высыпаний, усиливающийся в ночное время.</li>
+                        <li>Чувство <span class="highlight">жжения и "ползания мурашек"</span> в местах локализации волдырей.</li>
+                        <li>Возможна связь с воздействием аллергена (пищевой продукт, лекарственный препарат, физический фактор).</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ГЕНЕРАЛИЗОВАННАЯ КРАПИВНИЦА — красный блок -->
+        <div class="section-title generalized-section">
+            <i class="fas fa-thermometer-high"></i>
+            <span>Крапивница генерализованная</span>
+        </div>
+        
+        <div class="exam-section">
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-eye"></i>
+                    <span>🔍 Локализация и характер высыпаний</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li><strong>Локализация:</strong> высыпания <span class="danger-sign">распространены по всему кожному покрову</span> (туловище, конечности, лицо, волосистая часть головы, ладони, подошвы).</li>
+                        <li><strong>Характер высыпаний:</strong> элементы имеют <span class="rash-severe">эритематозно-папулезный характер</span>, <span class="danger-sign">выраженно полиморфные</span> (одновременно присутствуют свежие, зрелые и регрессирующие элементы различных размеров и форм).</li>
+                        <li><strong>Элементы сыпи:</strong> множественные, <span class="danger-sign">склонные к слиянию</span> волдыри различных размеров (от 0,5 до 10-15 см), занимающие обширные участки кожи. При слиянии образуются <span class="warning-sign">гигантские очаги неправильных очертаний</span>, покрывающие более 50% поверхности тела.</li>
+                        <li><strong>Цвет:</strong> от <span class="danger-sign">ярко-розового до багрово-красного</span> (интенсивная воспалительная реакция).</li>
+                        <li><strong>Феномен исчезновения:</strong> при надавливании волдыри <span class="highlight">бледнеют и временно исчезают</span>, после прекращения давления восстанавливаются.</li>
+                        <li>Сыпь носит <span class="warning-sign">полиморфный характер</span> (одновременно присутствуют свежие и регрессирующие элементы).</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-hand-peace"></i>
+                    <span>🖐 Пальпаторные данные и динамика</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li><strong>Консистенция:</strong> элементы <span class="danger-sign">плотные, напряженные</span>, могут быть отечными. При надавливании <span class="highlight">бледнеют</span>.</li>
+                        <li><strong>Зуд:</strong> <span class="danger-sign">мучительный, нестерпимый</span>, приводит к множественным расчесам (экскориациям), нарушению сна.</li>
+                        <li><strong>Динамика:</strong> волдыри <span class="warning-sign">быстро появляются и исчезают</span> в течение нескольких часов, постоянно рецидивируют.</li>
+                        <li>На месте разрешившихся элементов <span class="normal-sign">пигментации и шелушения не остается</span>.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-thermometer-high"></i>
+                    <span>🌡️ Общее состояние и температура</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>Общее состояние <span class="danger-sign">средней тяжести / тяжелое</span>.</li>
+                        <li>Температура тела: <span class="warning-sign">фебрильная (38–39°C)</span>, сопровождается ознобом.</li>
+                        <li>Слабость, головная боль, снижение аппетита (симптомы интоксикации).</li>
+                        <li>Возможно наличие <span class="danger-sign">отека Квинке (ангионевротического отека)</span> — отек губ, век, языка, гортани.</li>
+                        <li>Признаки поражения желудочно-кишечного тракта: тошнота, рвота, боли в животе (уртикарный васкулит).</li>
+                        <li>Возможно развитие <span class="danger-sign">бронхоспазма</span> (одышка, затрудненное дыхание).</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-heartbeat"></i>
+                    <span>❤️ Витальные показатели</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li><strong>ЧДД:</strong> учащена (до 20-24 в мин.) при наличии бронхоспазма.</li>
+                        <li><strong>ЧСС:</strong> тахикардия (100-120 уд/мин) на фоне лихорадки и интоксикации.</li>
+                        <li><strong>АД:</strong> может быть снижено (вплоть до гипотензии при анафилаксии).</li>
+                        <li><strong>SpO₂:</strong> в норме (≥ 95%) / снижен при отеке гортани или бронхоспазме.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-comment-medical"></i>
+                    <span>😷 Жалобы пациента</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li><span class="danger-sign">Мучительный зуд</span> по всему телу, лишающий сна и покоя.</li>
+                        <li>Чувство <span class="warning-sign">жжения, "горения"</span> кожи.</li>
+                        <li>Выраженная <span class="warning-sign">слабость, головокружение</span>.</li>
+                        <li>Ощущение <span class="danger-sign">затрудненного дыхания</span> (при отеке гортани или бронхоспазме).</li>
+                        <li>Возможна <span class="warning-sign">тошнота, рвота, боли в животе</span>.</li>
+                        <li>Пациент может указать на причинно-значимый аллерген (прием лекарства, укус насекомого, пищевой продукт).</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
