@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Обморожение I степени | Описание локального статуса</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #eef2f7 0%, #e0e8f0 100%);
+            font-family: 'Inter', sans-serif;
+            padding: 1rem;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .medical-card {
+            max-width: 800px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 2rem;
+            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.12);
+            overflow: hidden;
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #4a2e1e 0%, #2e2218 100%);
+            padding: 1.25rem 1.5rem;
+            color: white;
+            border-bottom: 3px solid #e08e3a;
+        }
+
+        .title-section h1 {
+            font-weight: 700;
+            font-size: 1.5rem;
+            letter-spacing: -0.3px;
+            color: #fff5ea;
+            margin-bottom: 0.25rem;
+            line-height: 1.3;
+        }
+
+        .sub {
+            font-size: 0.85rem;
+            color: #e6cfb5;
+            font-weight: 400;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .sub i {
+            font-size: 0.9rem;
+            color: #e08e3a;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .diagnosis-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #fef3e6;
+            color: #b45a1c;
+            padding: 0.4rem 1.1rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.75rem;
+            margin-bottom: 1.5rem;
+            border-left: 3px solid #e67e22;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+        }
+
+        .section-title {
+            font-size: 1rem;
+            font-weight: 700;
+            margin: 1.5rem 0 1rem 0;
+            padding: 0.5rem 0.8rem;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title:first-of-type {
+            margin-top: 0;
+        }
+
+        .section-title i {
+            font-size: 1.1rem;
+        }
+
+        .grade1-section {
+            background: #e3f2fd;
+            border-left: 4px solid #1976d2;
+            color: #0d47a1;
+        }
+
+        .grade2-section {
+            background: #fff3e0;
+            border-left: 4px solid #e67e22;
+            color: #bf6019;
+        }
+
+        .grade3-section {
+            background: #ffebee;
+            border-left: 4px solid #c62828;
+            color: #b71c1c;
+        }
+
+        .grade4-section {
+            background: #e8e0d5;
+            border-left: 4px solid #5e4b34;
+            color: #4a3724;
+        }
+
+        .exam-section {
+            display: flex;
+            flex-direction: column;
+            gap: 1.35rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-row {
+            background: #ffffff;
+            border-radius: 1.25rem;
+            border: 1.5px solid #e5d5c2;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+
+        .row-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 700;
+            font-size: 1rem;
+            color: #2f5342;
+            padding: 1rem 1.2rem 0.5rem 1.2rem;
+            background: #fefcf9;
+            border-bottom: 2px solid #f0e3d4;
+        }
+
+        .row-header i {
+            font-size: 1.4rem;
+            width: 34px;
+            color: #c96f1e;
+            background: #fff2e6;
+            padding: 6px;
+            border-radius: 14px;
+            text-align: center;
+        }
+
+        .row-content {
+            font-size: 0.95rem;
+            line-height: 1.55;
+            color: #2c3e3a;
+            padding: 0 1.2rem 1rem 1.2rem;
+            background: #ffffff;
+        }
+
+        .highlight {
+            font-weight: 600;
+            color: #bf6019;
+            background: #fff2e6;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .frostbite-color {
+            font-weight: 600;
+            color: #1976d2;
+            background: #e3f2fd;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .frostbite-severe {
+            font-weight: 600;
+            color: #c62828;
+            background: #ffebee;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .normal-sign {
+            font-weight: 600;
+            color: #2c7a4a;
+            background: #e0f5e8;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .deficit {
+            font-weight: 600;
+            color: #c0392b;
+            background: #ffe6e0;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .warning-sign {
+            font-weight: 600;
+            color: #c96f1e;
+            background: #fff0e2;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .bullet-list {
+            margin: 0.25rem 0 0 0;
+            padding-left: 1.2rem;
+        }
+        
+        .bullet-list li {
+            margin-bottom: 0.3rem;
+        }
+
+        .grid-2col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+            margin-top: 0.5rem;
+        }
+
+        .info-card {
+            background: #fefcf9;
+            border-radius: 12px;
+            padding: 0.6rem 0.8rem;
+            border: 1px solid #f0e3d4;
+        }
+
+        .info-label {
+            font-size: 0.7rem;
+            color: #8b6b4a;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.2rem;
+        }
+
+        .info-value {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #2f5342;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 0.75rem;
+            }
+            
+            .card-header {
+                padding: 1rem 1.2rem;
+            }
+            
+            .title-section h1 {
+                font-size: 1.25rem;
+            }
+            
+            .sub {
+                font-size: 0.75rem;
+            }
+            
+            .card-body {
+                padding: 1.2rem;
+            }
+            
+            .row-header {
+                padding: 0.8rem 1rem 0.3rem 1rem;
+            }
+            
+            .row-header i {
+                font-size: 1.2rem;
+                width: 30px;
+            }
+            
+            .row-content {
+                padding: 0 1rem 0.8rem 1rem;
+                font-size: 0.88rem;
+            }
+            
+            .diagnosis-tag {
+                font-size: 0.7rem;
+                margin-bottom: 1rem;
+            }
+            
+            .section-title {
+                font-size: 0.9rem;
+                margin: 1.2rem 0 0.8rem 0;
+                padding: 0.4rem 0.6rem;
+            }
+            
+            .grid-2col {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="medical-card">
+    <div class="card-header">
+        <div class="title-section">
+            <h1>Обморожение I степени</h1>
+            <div class="sub">
+                <i class="fas fa-ambulance"></i> Холодовая травма · T33 (поверхностное отморожение)
+            </div>
+        </div>
+    </div>
+    
+    <div class="card-body">
+        <div class="diagnosis-tag">
+            <i class="fas fa-snowflake"></i> Обморожение I степени · Отморожение щек · Реактивный период
+        </div>
+
+        <!-- Локальный статус при обморожении I степени -->
+        <div class="section-title grade1-section">
+            <i class="fas fa-thermometer-half"></i>
+            <span>Локальный статус (отморожение I степени)</span>
+        </div>
+        
+        <div class="exam-section">
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-eye"></i>
+                    <span>🔍 Локализация и внешний вид</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>На <span class="highlight">обеих щеках</span> определяются округлые участки отёчной, <span class="frostbite-color">бледно-цианотичной кожи</span> размерами <span class="highlight">3,5 × 4,0 см</span>.</li>
+                        <li>Участки окружены зоной гиперемии до <span class="highlight">2,5 см</span>.</li>
+                        <li>Отмечается <span class="deficit">локальная гипотермия</span> (кожа на ощупь холодная).</li>
+                        <li>Кожа в местах поражения становится <span class="frostbite-color">отёчной, гиперемированной, с цианотичной или мраморной окраской</span>.</li>
+                        <li>Цвет кожи чаще всего бывает <span class="frostbite-severe">тёмно-синим, багрово-красным</span>. Иногда вся кожа имеет мраморный вид из-за сочетания белого, синего и красного цветов на различных участках.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-hand-peace"></i>
+                    <span>🖐 Пальпаторные данные и отёк</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li><strong>Характер отёка:</strong> мягкий, умеренно выраженный, после отогревания <span class="warning-sign">отёк увеличивается</span>.</li>
+                        <li><strong>Чувствительность:</strong> тактильная и болевая чувствительность в зоне поражения <span class="normal-sign">сохранена (незначительно снижена)</span>.</li>
+                        <li><strong>Локальная температура:</strong> разница с симметричным участком здоровой кожи составляет <span class="deficit">2–3°C</span> (методом пальпации).</li>
+                        <li><strong>Демаркация:</strong> чёткой границы между поражённой и здоровой тканью <span class="normal-sign">нет</span> (характерно для I степени).</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-comment-medical"></i>
+                    <span>😷 Субъективные ощущения</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>В отмороженных тканях отмечаются <span class="warning-sign">зуд, боль и покалывание</span>.</li>
+                        <li><strong>Интенсивность:</strong> умеренная, усиливается при отогревании и в ночное время.</li>
+                        <li>Возможно чувство <span class="highlight">жжения и «ползания мурашек»</span> (парестезии) в зоне поражения.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-clock"></i>
+                    <span>⏱️ Динамика, исход и прогностические признаки</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>Явления проходят через <span class="normal-sign">3–5 дней</span>, не оставляя после себя ни морфологических, ни функциональных нарушений.</li>
+                        <li>В последующем в зоне поражения возможны <span class="warning-sign">шелушение рогового слоя эпидермиса и пигментация кожи</span>.</li>
+                        <li><strong>Некроз не развивается.</strong></li>
+                        <li><strong>Прогностические признаки:</strong> восстановление чувствительности, нормализация цвета кожи в течение 3–7 дней.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-dumbbell"></i>
+                    <span>💪 Функциональное состояние</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>Объём движений в мимической мускулатуре лица <span class="normal-sign">сохранён в полном объёме</span>.</li>
+                        <li>Ограничения подвижности <span class="normal-sign">нет</span>.</li>
+                        <li>Функция жевания и глотания не нарушена.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Классификация степеней отморожения -->
+        <div class="section-title grade1-section">
+            <i class="fas fa-chart-line"></i>
+            <span>Классификация степеней отморожения</span>
+        </div>
+        
+        <div class="exam-section">
+            <!-- II степень -->
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-layer-group"></i>
+                    <span>❄️ II степень отморожения</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>Граница омертвения возникает в <span class="highlight">роговом, зернистом или в самых верхних зонах сосочкового эпителиального слоя кожи</span>.</li>
+                        <li>В течение первых 2–3 дней после травмы появляются <span class="frostbite-color">напряжённые пузыри, наполненные прозрачным экссудатом</span>.</li>
+                        <li>Дно пузырей представлено сосочково-эпителиальным слоем кожи, покрытым фибрином, чувствительным к механическим и химическим раздражителям.</li>
+                        <li><span class="normal-sign">Грануляций и рубцов на месте поражения в дальнейшем не возникает</span>.</li>
+                        <li>Поражения ликвидируются чаще всего в течение <span class="normal-sign">второй – третьей недели</span> после травмы.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- III степень -->
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-layer-group"></i>
+                    <span>❄️ III степень отморожения</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>Граница омертвения тканей проходит в <span class="frostbite-severe">нижних слоях дермы или на уровне жировой клетчатки</span>.</li>
+                        <li>Образующиеся напряжённые пузыри содержат <span class="frostbite-severe">геморрагический экссудат</span>, дно их <span class="frostbite-severe">сине-багрового цвета, нечувствительно к болевым раздражениям</span>.</li>
+                        <li>После отторжения омертвевшей кожи в дальнейшем образуются <span class="warning-sign">грануляции и рубцы</span>.</li>
+                        <li>Мелкие раны заживают посредством краевой эпителизации, более обширные требуют оперативного лечения (аутодермопластики).</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- IV степень -->
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-layer-group"></i>
+                    <span>❄️ IV степень отморожения</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li><span class="frostbite-severe">Омертвение всей толщи мягких тканей и костных структур</span>.</li>
+                        <li>Клинические признаки те же, что и при отморожении III степени.</li>
+                        <li>Морфофункциональным субстратом является <span class="highlight">спазм артерий на участке охлаждения</span>, который распространяется от периферии к центру.</li>
+                        <li>Возникающая ишемия тканей уже через <span class="deficit">шесть и более часов</span> приводит к развитию необратимых некробиотических процессов.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Патофизиологическая справка -->
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-microscope"></i>
+                    <span>🔬 Патофизиологический механизм</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>Морфофункциональным субстратом отморожений конечностей является <span class="highlight">спазм артерий на участке охлаждения</span>, который распространяется от периферии к центру.</li>
+                        <li>Возникающая ишемия тканей уже через <span class="deficit">шесть и более часов</span> приводит к развитию необратимых некробиотических процессов.</li>
+                        <li>Вследствие этого формируются <span class="warning-sign">четыре зоны поражения</span>, различные по клиническим признакам.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Заключение -->
+        <div class="info-row" style="margin-top: 0;">
+            <div class="row-header">
+                <i class="fas fa-stethoscope"></i>
+                <span>📋 Заключение</span>
+            </div>
+            <div class="row-content">
+                Клиническая картина соответствует <span class="highlight">отморожению I степени обеих щек</span> (поверхностное отморожение, реактивный период). Определяются округлые участки отёчной, бледно-цианотичной кожи размерами 3,5 × 4,0 см, окружённые зоной гиперемии до 2,5 см. Отмечается локальная гипотермия, отёк мягкий, чувствительность сохранена. Субъективно: зуд, боль, покалывание умеренной интенсивности. Некроза тканей нет, чёткой демаркационной линии не определяется. Функция мимической мускулатуры сохранена. Прогноз благоприятный: разрешение явлений в течение 3–5 дней с возможным шелушением и пигментацией кожи в зоне поражения.
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
