@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Флегмона плеча | Описание локального статуса</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #eef2f7 0%, #e0e8f0 100%);
+            font-family: 'Inter', sans-serif;
+            padding: 1rem;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .medical-card {
+            max-width: 800px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 2rem;
+            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.12);
+            overflow: hidden;
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #4a2e1e 0%, #2e2218 100%);
+            padding: 1.25rem 1.5rem;
+            color: white;
+            border-bottom: 3px solid #e08e3a;
+        }
+
+        .title-section h1 {
+            font-weight: 700;
+            font-size: 1.5rem;
+            letter-spacing: -0.3px;
+            color: #fff5ea;
+            margin-bottom: 0.25rem;
+            line-height: 1.3;
+        }
+
+        .sub {
+            font-size: 0.85rem;
+            color: #e6cfb5;
+            font-weight: 400;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .sub i {
+            font-size: 0.9rem;
+            color: #e08e3a;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .diagnosis-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #fef3e6;
+            color: #b45a1c;
+            padding: 0.4rem 1.1rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.75rem;
+            margin-bottom: 1.5rem;
+            border-left: 3px solid #e67e22;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+        }
+
+        .exam-section {
+            display: flex;
+            flex-direction: column;
+            gap: 1.35rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-row {
+            background: #ffffff;
+            border-radius: 1.25rem;
+            border: 1.5px solid #e5d5c2;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+
+        .row-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 700;
+            font-size: 1rem;
+            color: #2f5342;
+            padding: 1rem 1.2rem 0.5rem 1.2rem;
+            background: #fefcf9;
+            border-bottom: 2px solid #f0e3d4;
+        }
+
+        .row-header i {
+            font-size: 1.4rem;
+            width: 34px;
+            color: #c96f1e;
+            background: #fff2e6;
+            padding: 6px;
+            border-radius: 14px;
+            text-align: center;
+        }
+
+        .row-content {
+            font-size: 0.95rem;
+            line-height: 1.55;
+            color: #2c3e3a;
+            padding: 0 1.2rem 1rem 1.2rem;
+            background: #ffffff;
+        }
+
+        .highlight {
+            font-weight: 600;
+            color: #bf6019;
+            background: #fff2e6;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .danger-sign {
+            font-weight: 600;
+            color: #c0392b;
+            background: #ffe6e0;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .normal-sign {
+            font-weight: 600;
+            color: #2c7a4a;
+            background: #e0f5e8;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .warning-sign {
+            font-weight: 600;
+            color: #c96f1e;
+            background: #fff0e2;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .phlegmon-color {
+            font-weight: 600;
+            color: #c62828;
+            background: #ffebee;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .bullet-list {
+            margin: 0.25rem 0 0 0;
+            padding-left: 1.2rem;
+        }
+        
+        .bullet-list li {
+            margin-bottom: 0.3rem;
+        }
+
+        .grid-2col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+            margin-top: 0.5rem;
+        }
+
+        .info-card {
+            background: #fefcf9;
+            border-radius: 12px;
+            padding: 0.6rem 0.8rem;
+            border: 1px solid #f0e3d4;
+        }
+
+        .info-label {
+            font-size: 0.7rem;
+            color: #8b6b4a;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.2rem;
+        }
+
+        .info-value {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #2f5342;
+        }
+
+        .danger-note {
+            background: #fff0e0;
+            border-left: 3px solid #e08e3a;
+            border-radius: 12px;
+            padding: 0.6rem 1rem;
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            color: #b45a1c;
+            display: flex;
+            gap: 8px;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 0.75rem;
+            }
+            
+            .card-header {
+                padding: 1rem 1.2rem;
+            }
+            
+            .title-section h1 {
+                font-size: 1.25rem;
+            }
+            
+            .sub {
+                font-size: 0.75rem;
+            }
+            
+            .card-body {
+                padding: 1.2rem;
+            }
+            
+            .row-header {
+                padding: 0.8rem 1rem 0.3rem 1rem;
+            }
+            
+            .row-header i {
+                font-size: 1.2rem;
+                width: 30px;
+            }
+            
+            .row-content {
+                padding: 0 1rem 0.8rem 1rem;
+                font-size: 0.88rem;
+            }
+            
+            .diagnosis-tag {
+                font-size: 0.7rem;
+                margin-bottom: 1rem;
+            }
+            
+            .grid-2col {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="medical-card">
+    <div class="card-header">
+        <div class="title-section">
+            <h1>Флегмона плеча</h1>
+            <div class="sub">
+                <i class="fas fa-ambulance"></i> Острая гнойная флегмона · L03.1 (флегмона конечности)
+            </div>
+        </div>
+    </div>
+    
+    <div class="card-body">
+        <div class="diagnosis-tag">
+            <i class="fas fa-bacterium"></i> Острая гнойная флегмона левого плеча · Стадия инфильтрации (без флюктуации)
+        </div>
+
+        <div class="exam-section">
+            <!-- Локализация -->
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>📍 Локализация</span>
+                </div>
+                <div class="row-content">
+                    На левой верхней конечности, в области <span class="highlight">наружной поверхности нижней трети плеча</span>.
+                </div>
+            </div>
+            
+            <!-- Данные осмотра -->
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-eye"></i>
+                    <span>🔍 Данные осмотра</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>Определяется <span class="warning-sign">локальный отек мягких тканей</span>.</li>
+                        <li>Кожные покровы в этой области <span class="phlegmon-color">гиперемированы (ярко-розового цвета)</span>, <span class="danger-sign">без чётких границ</span>, что свидетельствует о разлитом воспалении.</li>
+                        <li>Видимых травм, ссадин, ран, гнойничковых элементов в зоне поражения <span class="normal-sign">не выявлено</span>.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Пальпаторные данные -->
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-hand-peace"></i>
+                    <span>🖐 Пальпаторные данные</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>Пальпируется <span class="danger-sign">плотный, болезненный инфильтрат</span> размером приблизительно <span class="highlight">5 × 5 см</span>, <span class="warning-sign">без чётких контуров</span>.</li>
+                        <li>Инфильтрат <span class="warning-sign">спаян с окружающими тканями</span>, смещаемость ограничена.</li>
+                        <li><strong>Симптом флюктуации</strong> (наличие гноя) на момент осмотра <span class="normal-sign">не определяется</span> (или положителен, если гнойное расплавление уже есть).</li>
+                        <li>Местная температура кожи над инфильтратом <span class="danger-sign">повышена</span>.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Регионарные лимфатические узлы -->
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-disease"></i>
+                    <span>🩸 Регионарные лимфатические узлы</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>Подмышечные лимфатические узлы слева могут быть <span class="warning-sign">увеличены, болезненны</span> (реактивный лимфаденит).</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Функциональный статус -->
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-dumbbell"></i>
+                    <span>💪 Функциональный статус</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>Движения в левом плечевом и локтевом суставах <span class="danger-sign">ограничены</span> из-за боли и отека.</li>
+                        <li>Активные движения пальцами и кистью <span class="normal-sign">сохранены</span>.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Дополнительные клинические признаки -->
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-thermometer-half"></i>
+                    <span>🌡️ Общее состояние (симптомы интоксикации)</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>У пациента возможны <span class="danger-sign">повышение температуры тела, озноб, слабость</span> (симптомы интоксикации).</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Дифференциальная диагностика -->
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-chart-line"></i>
+                    <span>📋 Дифференциальная диагностика</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li><strong>Фурункул/карбункул:</strong> наличие гнойно-некротического стержня, локальное выбухание.</li>
+                        <li><strong>Абсцесс:</strong> чёткая граница, положительная флюктуация.</li>
+                        <li><strong>Эризипелоид (рожа):</strong> яркая эритема с чёткими границами, лимфангиит.</li>
+                        <li><strong>Тромбофлебит:</strong> болезненный тяж по ходу вены, цианоз, отёк.</li>
+                        <li><strong>Остеомиелит плечевой кости:</strong> глубокая боль, усиливающаяся при пальпации кости.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Заключение -->
+        <div class="info-row" style="margin-top: 0;">
+            <div class="row-header">
+                <i class="fas fa-stethoscope"></i>
+                <span>📋 Заключение</span>
+            </div>
+            <div class="row-content">
+                Клиническая картина соответствует <span class="highlight">острой гнойной флегмоне левого плеча (вероятно, глубокая форма) в стадии инфильтрации (без флюктуации) или абсцедирования (с флюктуацией)</span>. Учитывая распространённость процесса и риск генерализации, показано экстренное хирургическое лечение — широкое вскрытие и дренирование гнойного очага на фоне массивной антибактериальной и дезинтоксикационной терапии.
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
