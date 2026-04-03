@@ -6,7 +6,8 @@
   <title>Скорая помощь</title>
   <link rel="icon" href="1712743647196.png" type="image/png">
   <link rel="stylesheet" href="style.css">
-  <!-- Отключаем кэширование для главной страницы -->
+  
+  <!-- ОТКЛЮЧЕНИЕ КЭШИРОВАНИЯ (мета-теги) -->
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -76,14 +77,46 @@
     updateVisitCounter();
   </script>
 
+  <!-- ========== ПРИНУДИТЕЛЬНОЕ ОБНОВЛЕНИЕ (ТРОЙНАЯ ЗАЩИТА) ========== -->
   <script>
-    // Принудительное обновление страницы, если она загружена из кэша
+    // 1. Защита от bfcache (кэша навигации)
     window.addEventListener('pageshow', function(event) {
       if (event.persisted) {
         window.location.reload();
       }
     });
+    
+    // 2. Защита от кэширования при возврате через историю
+    window.addEventListener('load', function() {
+      const timestamp = Date.now();
+      const currentUrl = new URL(window.location.href);
+      
+      // Если нет параметра _t в URL — добавляем и перезагружаем
+      if (!currentUrl.searchParams.has('_t')) {
+        currentUrl.searchParams.set('_t', timestamp);
+        window.location.replace(currentUrl.href);
+      }
+    });
+    
+    // 3. Добавляем параметр _t ко всем внутренним ссылкам
+    (function() {
+      const links = document.querySelectorAll('a');
+      const timestamp = Date.now();
+      
+      links.forEach(link => {
+        const href = link.getAttribute('href');
+        // Обрабатываем только внутренние ссылки
+        if (href && !href.startsWith('http') && !href.startsWith('//') && !href.startsWith('#')) {
+          const separator = href.includes('?') ? '&' : '?';
+          // Удаляем старый _t если был
+          let cleanHref = href.replace(/([?&])_t=\d+/, '$1').replace(/[?&]$/, '');
+          // Добавляем новый _t
+          link.href = cleanHref + separator + '_t=' + timestamp;
+        }
+      });
+    })();
   </script>
+  <!-- ============================================================== -->
 
 </body>
 </html>
