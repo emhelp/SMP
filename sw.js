@@ -1,4 +1,4 @@
-const CACHE_NAME = 'emhelp-v8';
+const CACHE_NAME = 'emhelp-v9';
 
 const urlsToCache = [
   '/SMP/',
@@ -7,7 +7,8 @@ const urlsToCache = [
   '/SMP/grify.html',
   '/SMP/status.html',
   '/SMP/calculators.html',
-  '/SMP/templates.html',      // ← ДОБАВЛЕНО
+  '/SMP/templates.html',
+  '/SMP/consilium.html',
   '/SMP/style.css',
   '/SMP/manifest.json',
   '/SMP/icon-512.png',
