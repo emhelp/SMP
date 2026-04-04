@@ -1,12 +1,11 @@
-const CACHE_NAME = 'emhelp-v2';
-
+const CACHE_NAME = 'emhelp-v3';
 const urlsToCache = [
-  '/',
-  '/index.html',
-  '/style.css',
-  '/manifest.json',
-  '/icon-512.png',
-  '/1712743647196.png'
+  '/SMP/',
+  '/SMP/index.html',
+  '/SMP/style.css',
+  '/SMP/manifest.json',
+  '/SMP/icon-512.png',
+  '/SMP/1712743647196.png'
 ];
 
 self.addEventListener('install', event => {
@@ -24,13 +23,11 @@ self.addEventListener('fetch', event => {
         if (response) {
           return response;
         }
-        
         return fetch(event.request)
           .then(response => {
             if (!response || response.status !== 200) {
               return response;
             }
-            
             const responseClone = response.clone();
             caches.open(CACHE_NAME).then(cache => {
               cache.put(event.request, responseClone);
@@ -39,7 +36,7 @@ self.addEventListener('fetch', event => {
           })
           .catch(() => {
             if (event.request.headers.get('accept') && event.request.headers.get('accept').includes('text/html')) {
-              return caches.match('/index.html');
+              return caches.match('/SMP/index.html');
             }
             return new Response('Нет соединения', { status: 503 });
           });
