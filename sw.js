@@ -1,53 +1,56 @@
-const CACHE_NAME = 'emhelp-v1';
+const CACHE_NAME = 'emhelp-v2';
+
+// Кэшируем только критически важные файлы при установке
 const urlsToCache = [
   '/',
   '/index.html',
   '/style.css',
-  '/templates.html',
-  '/status.html',
-  '/calculators.html',
-  '/consilium.html',
-  '/prikaz.html',
-  '/stations.html',
+  '/manifest.json',
   '/icon-512.png',
   '/1712743647196.png'
 ];
 
-// Установка сервис-воркера и кэширование файлов
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
-      .then(cache => {
-        console.log('Кэширование файлов');
-        return cache.addAll(urlsToCache);
-      })
-      .catch(err => {
-        console.error('Ошибка кэширования:', err);
-      })
+      .then(cache => cache.addAll(urlsToCache))
+      .catch(err => console.error('Ошибка кэширования:', err))
   );
 });
 
-// Перехват запросов: сначала пытаемся из сети, если нет - из кэша
 self.addEventListener('fetch', event => {
   event.respondWith(
-    fetch(event.request)
+    caches.match(event.request)
       .then(response => {
-        // Кэшируем только успешные ответы с того же домена
-        if (response && response.status === 200 && event.request.url.includes(window.location.origin)) {
-          const responseClone = response.clone();
-          caches.open(CACHE_NAME).then(cache => {
-            cache.put(event.request, responseClone);
-          });
+        if (response) {
+          return response;
         }
-        return response;
-      })
-      .catch(() => {
-        return caches.match(event.request);
+        
+        // Если нет в кэше - идём в сеть
+        return fetch(event.request)
+          .then(response => {
+            if (!response || response.status !== 200) {
+              return response;
+            }
+            
+            // Клонируем и сохраняем в кэш для будущего оффлайн доступа
+            const responseClone = response.clone();
+            caches.open(CACHE_NAME).then(cache => {
+              cache.put(event.request, responseClone);
+            });
+            return response;
+          })
+          .catch(() => {
+            // Если нет сети и нет кэша - показываем страницу оффлайн
+            if (event.request.headers.get('accept').includes('text/html')) {
+              return caches.match('/index.html');
+            }
+            return new Response('Нет соединения', { status: 503 });
+          });
       })
   );
 });
 
-// Обновление: удаляем старый кэш, когда активируется новый воркер
 self.addEventListener('activate', event => {
   event.waitUntil(
     caches.keys().then(cacheNames => {
