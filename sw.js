@@ -1,4 +1,4 @@
-const CACHE_NAME = 'emhelp-v7';
+const CACHE_NAME = 'emhelp-v8';
 
 const urlsToCache = [
   '/SMP/',
@@ -6,14 +6,14 @@ const urlsToCache = [
   '/SMP/install-instruction.html',
   '/SMP/grify.html',
   '/SMP/status.html',
-  '/SMP/calculators.html',    // ← ДОБАВЛЕНО
+  '/SMP/calculators.html',
+  '/SMP/templates.html',      // ← ДОБАВЛЕНО
   '/SMP/style.css',
   '/SMP/manifest.json',
   '/SMP/icon-512.png',
   '/SMP/1712743647196.png'
 ];
 
-// остальное без изменений (fetch, activate)
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
