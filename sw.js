@@ -1,4 +1,4 @@
-const CACHE_NAME = 'emhelp-v9';
+const CACHE_NAME = 'emhelp-v12';
 
 const urlsToCache = [
   '/SMP/',
@@ -9,6 +9,7 @@ const urlsToCache = [
   '/SMP/calculators.html',
   '/SMP/templates.html',
   '/SMP/consilium.html',
+  '/SMP/prikaz.html',
   '/SMP/style.css',
   '/SMP/manifest.json',
   '/SMP/icon-512.png',
@@ -18,8 +19,17 @@ const urlsToCache = [
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
-      .then(cache => cache.addAll(urlsToCache))
-      .catch(err => console.error('Ошибка кэширования:', err))
+      .then(cache => {
+        console.log('📦 Кэширование файлов...');
+        return cache.addAll(urlsToCache);
+      })
+      .then(() => {
+        console.log('✅ Все файлы закэшированы');
+        self.skipWaiting();
+      })
+      .catch(err => {
+        console.error('❌ Ошибка кэширования:', err);
+      })
   );
 });
 
@@ -45,7 +55,7 @@ self.addEventListener('fetch', event => {
             if (event.request.headers.get('accept') && event.request.headers.get('accept').includes('text/html')) {
               return caches.match('/SMP/index.html');
             }
-            return new Response('Нет соединения', { status: 503 });
+            return new Response('Нет соединения с интернетом', { status: 503 });
           });
       })
   );
@@ -57,11 +67,14 @@ self.addEventListener('activate', event => {
       return Promise.all(
         cacheNames.map(cache => {
           if (cache !== CACHE_NAME) {
-            console.log('Удаляем старый кэш:', cache);
+            console.log('🗑️ Удаляем старый кэш:', cache);
             return caches.delete(cache);
           }
         })
       );
+    }).then(() => {
+      console.log('✅ Новый сервис-воркер активирован');
+      return self.clients.claim();
     })
   );
 });
