@@ -2,18 +2,19 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <title>Калькуляторы СМП</title>
-  <!-- Отключаем кэширование -->
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-  <meta http-equiv="Pragma" content="no-cache">
-  <meta http-equiv="Expires" content="0">
+  
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0f1446">
+  
   <style>
     body {
       font-family: 'Segoe UI', 'Roboto', sans-serif;
       margin: 0;
       padding: 20px;
-      background: #f5f5f5;
+      background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -24,6 +25,7 @@
       text-align: center;
       margin-bottom: 20px;
       color: #0f1446;
+      font-size: 28px;
     }
 
     .calc-section {
@@ -31,9 +33,9 @@
       max-width: 500px;
       margin-bottom: 20px;
       background: white;
-      border-radius: 8px;
-      padding: 15px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      border-radius: 12px;
+      padding: 18px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       box-sizing: border-box;
     }
 
@@ -41,7 +43,7 @@
       font-size: 18px;
       font-weight: bold;
       color: #e53935;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
       padding-bottom: 8px;
       border-bottom: 2px solid #e53935;
     }
@@ -55,23 +57,24 @@
     .calc-btn {
       text-decoration: none;
       color: white;
-      background: #0f1446;
-      padding: 16px 0;
-      border-radius: 8px;
+      background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
+      padding: 14px 0;
+      border-radius: 10px;
       font-weight: bold;
       text-align: center;
       width: 100%;
-      transition: background 0.2s;
+      transition: all 0.2s;
       border: none;
       cursor: pointer;
-      font-size: 18px;
+      font-size: 16px;
       font-family: inherit;
       box-sizing: border-box;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     }
 
     .calc-btn:hover {
-      background: #3949ab;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
     }
 
     .calc-btn:active {
@@ -80,21 +83,25 @@
 
     @media (max-width: 600px) {
       .calc-section {
-        max-width: 90%;
+        max-width: 95%;
+        padding: 14px;
       }
       .calc-btn {
-        font-size: 16px;
-        padding: 14px 0;
+        font-size: 15px;
+        padding: 12px 0;
       }
       .section-title {
         font-size: 16px;
+      }
+      h1 {
+        font-size: 24px;
       }
     }
   </style>
 </head>
 <body>
 
-  <h1>Калькуляторы СМП</h1>
+  <h1>📱 Калькуляторы СМП</h1>
 
   <!-- Шкалы, индексы, манипуляции -->
   <div class="calc-section">
@@ -178,6 +185,7 @@
   </div>
 
   <script>
+    // Навигация по кнопкам
     document.querySelectorAll('.calc-btn').forEach(button => {
       button.addEventListener('click', function() {
         const url = this.getAttribute('data-url');
@@ -189,12 +197,12 @@
   </script>
 
   <script>
-    // Принудительное обновление страницы, если она загружена из кэша
-    window.addEventListener('pageshow', function(event) {
-      if (event.persisted) {
-        window.location.reload();
-      }
-    });
+    // Регистрация Service Worker для PWA
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/SMP/sw.js')
+        .then(reg => console.log('✅ Сервис-воркер зарегистрирован:', reg))
+        .catch(err => console.error('❌ Ошибка регистрации:', err));
+    }
   </script>
 
 </body>
