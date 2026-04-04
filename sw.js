@@ -1,4 +1,4 @@
-const CACHE_NAME = 'emhelp-v12';
+const CACHE_NAME = 'emhelp-v13';
 
 const urlsToCache = [
   '/SMP/',
