@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Грифам МСК - Скорая помощь</title>
+  <link rel="icon" href="1712743647196.png" type="image/png">
+  <link rel="stylesheet" href="style.css">
+  
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0f1446">
+</head>
+<body>
+
+  <div class="header">
+    <img src="1712743647196.png" alt="Логотип" class="logo">
+    <h1>Скорая помощь</h1>
+    <p>Проект EMHelp Group '2026</p>
+  </div>
+
+  <nav class="menu">
+    <div class="grify-title">
+      <h2>📋 ГРИФАМ МСК</h2>
+    </div>
+
+    <a href="consilium.html" class="menu-btn grify-item">🏥 КОНСИЛИУМЫ МСК</a>
+    <a href="prikaz.html" class="menu-btn grify-item">📜 ПРИКАЗЫ МСК</a>
+    <a href="stations.html" class="menu-btn grify-item gradient">🚑 ПОДСТАНЦИИ МСК</a>
+  </nav>
+
+  <style>
+    .grify-title {
+      text-align: center;
+      margin: 10px auto 20px auto;
+      padding: 10px;
+    }
+    
+    .grify-title h2 {
+      margin: 0;
+      color: #0f1446;
+      font-size: 24px;
+    }
+    
+    .grify-item {
+      background: linear-gradient(135deg, #0f1446 0%, #2a2f7e 100%);
+    }
+    
+    .grify-item.gradient {
+      background: linear-gradient(135deg, #0f1446 0%, #800000 100%);
+    }
+  </style>
+
+  <!-- РЕГИСТРАЦИЯ СЕРВИС-ВОРКЕРА -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/SMP/sw.js')
+        .then(reg => console.log('✅ Сервис-воркер зарегистрирован:', reg))
+        .catch(err => console.error('❌ Ошибка:', err));
+    }
+  </script>
+
+</body>
+</html>
