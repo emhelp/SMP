@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Карта вызова скорой медицинской помощи | Флегмона щечной области</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #e9ecef;
+            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+            padding: 40px 20px;
+            color: #212529;
+            line-height: 1.45;
+        }
+
+        .card {
+            max-width: 1100px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            border: 1px solid #dee2e6;
+        }
+
+        .mkb-row {
+            background: linear-gradient(135deg, #a83232 0%, #c0392b 100%);
+            color: white;
+            padding: 20px 32px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border-bottom: 4px solid #ffc107;
+        }
+
+        .mkb-row span {
+            font-weight: 700;
+            color: #ffc107;
+        }
+
+        .diagnosis {
+            background: #fef9e6;
+            padding: 12px 32px;
+            border-left: 6px solid #ffc107;
+            font-weight: 500;
+            font-size: 0.98rem;
+            color: #2d3e50;
+            border-bottom: 1px solid #f0e2b6;
+        }
+
+        .content {
+            padding: 24px 32px 40px 32px;
+        }
+
+        .section {
+            margin-bottom: 32px;
+            break-inside: avoid;
+            page-break-inside: avoid;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #a83232;
+            border-left: 6px solid #ffc107;
+            padding-left: 16px;
+            margin-bottom: 18px;
+            margin-top: 8px;
+            background: #f4f9ff;
+            border-radius: 0 12px 12px 0;
+            line-height: 1.3;
+        }
+
+        .field-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .field-item {
+            padding: 6px 0 4px 8px;
+            border-bottom: 1px dotted #e0e6ed;
+            font-size: 0.94rem;
+            line-height: 1.45;
+        }
+
+        .field-item strong {
+            font-weight: 700;
+            color: #1e4663;
+            display: inline-block;
+            min-width: 240px;
+        }
+
+        .field-item .value {
+            color: #2c3e4e;
+            font-weight: 500;
+        }
+
+        .full-width-text {
+            padding: 8px 0 8px 8px;
+            border-bottom: 1px dotted #e0e6ed;
+            font-size: 0.94rem;
+        }
+
+        .full-width-text strong {
+            font-weight: 700;
+            color: #1e4663;
+            display: inline-block;
+            min-width: 240px;
+        }
+
+        .status-local {
+            background: #fef0f0;
+            padding: 14px 18px;
+            border-radius: 18px;
+            margin-top: 6px;
+            border: 1px solid #ffcccc;
+            font-size: 0.94rem;
+        }
+
+        .scales-list {
+            background: #f1f4f9;
+            padding: 12px 20px;
+            border-radius: 20px;
+            margin-top: 10px;
+        }
+
+        .scales-list p {
+            margin: 8px 0;
+        }
+
+        .note {
+            background: #ffe8e8;
+            border-left: 4px solid #a83232;
+            padding: 12px 16px;
+            margin-top: 16px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            color: #1e4663;
+        }
+
+        .note-list {
+            margin-top: 8px;
+            margin-left: 20px;
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .note-list li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .note-list li:before {
+            content: "•";
+            position: absolute;
+            left: 4px;
+            color: #a83232;
+            font-weight: bold;
+        }
+
+        .alert-box {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 12px;
+            padding: 12px 16px;
+            margin-top: 16px;
+            font-weight: 600;
+        }
+
+        .warning-box {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            border-radius: 12px;
+            padding: 12px 16px;
+            margin-top: 16px;
+            color: #721c24;
+        }
+
+        @media (max-width: 700px) {
+            .field-item strong {
+                min-width: 170px;
+            }
+            .full-width-text strong {
+                min-width: 170px;
+            }
+            .content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="card">
+    <div class="mkb-row">
+        🚨 Код по МКБ-10: <span>L03.2</span> (Флегмона лица) — НЕОТЛОЖНОЕ ХИРУРГИЧЕСКОЕ СОСТОЯНИЕ
+    </div>
+    <div class="diagnosis">
+        🧾 <strong>Диагноз:</strong> Флегмона щечной области справа (одонтогенная, предположительно). Осложнение: Регионарный лимфаденит.
+    </div>
+
+    <div class="content">
+        <!-- ЖАЛОБЫ -->
+        <div class="section">
+            <div class="section-title">📢 ЖАЛОБЫ</div>
+            <div class="full-width-text"><em>На момент осмотра пациент предъявляет жалобы на интенсивные распирающие боли в правой половине лица (область щеки), усиливающиеся при разговоре, жевании и открывании рта, выраженный отек правой щеки, распространяющийся на подглазничную и околоушную области, покраснение и напряжение кожи над отеком, повышение температуры тела до 39,2°С, озноб, общую слабость, головную боль, невозможность приема пищи из-за боли и отека.</em></div>
+        </div>
+
+        <!-- АНАМНЕЗ -->
+        <div class="section">
+            <div class="section-title">📋 АНАМНЕЗ</div>
+            <div class="full-width-text"><strong>Anamnesis morbi:</strong> Со слов пациента, около 3 дней назад появилась зубная боль в области нижнего правого моляра, затем присоединился отек десны. К стоматологу не обращался, принимал обезболивающие. За последние сутки отек резко усилился, распространился на щеку, подглазничную область, поднялась температура до фебрильных цифр, появилась резкая боль. Самостоятельно не лечился, СМП вызвана женой.</div>
+            <div class="full-width-text"><strong>Анамнез жизни:</strong> Хронические заболевания: сахарный диабет 2 типа (диагностирован около года назад, диета, сахароснижающие не принимает регулярно), хронический периодонтит. Травмы, операции отрицает. Вредные привычки: курит (по 1 пачке в день), алкоголь употребляет умеренно. Профессия: строитель.</div>
+            <div class="full-width-text"><strong>Аллергологический анамнез:</strong> Не отягощен. Аллергии на лекарственные препараты, пищевые продукты, бытовые аллергены отрицает.</div>
+            <div class="full-width-text"><strong>Эпидемиологический анамнез:</strong> Контакт с инфекционными больными отрицает. За пределы РФ не выезжал, укусы насекомых отрицает.</div>
+            <div class="full-width-text"><strong>Гинекологический анамнез:</strong> Не применимо (пациент мужского пола).</div>
+        </div>
+
+        <!-- ОБЪЕКТИВНО -->
+        <div class="section">
+            <div class="section-title">🩺 ОБЪЕКТИВНО</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Общее состояние:</strong> <span class="value">средней тяжести.</span></div>
+                <div class="field-item"><strong>Сознание:</strong> <span class="value">ясное.</span></div>
+                <div class="field-item"><strong>Шкала комы Глазго (GCS):</strong> <span class="value">15 баллов (E4,V5,M6).</span></div>
+                <div class="field-item"><strong>Положение:</strong> <span class="value">вынужденное (сидит, голова слегка наклонена вперед, щадит правую половину лица).</span></div>
+                <div class="field-item"><strong>Кожные покровы:</strong> <span class="value">обычной окраски, чистые, умеренно влажные, горячие на ощупь в области воспаления. На лице – гиперемия, отек.</span></div>
+                <div class="field-item"><strong>Сыпь:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Зев:</strong> <span class="value">осмотр затруднен из-за отека и тризма жевательной мускулатуры. Видимая слизистая полости рта гиперемирована, отечна.</span></div>
+                <div class="field-item"><strong>Миндалины:</strong> <span class="value">без особенностей, не увеличены, налетов нет.</span></div>
+                <div class="field-item"><strong>Лимфоузлы:</strong> <span class="value">подчелюстные и шейные справа увеличены до 2 см, резко болезненны при пальпации (регионарный лимфаденит).</span></div>
+                <div class="field-item"><strong>Пролежни:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Отеки:</strong> <span class="value">выраженный отек правой половины лица: щечной, подглазничной, околоушной областей, распространяющийся на шею. Отек плотный, кожа лоснится, гиперемирована.</span></div>
+                <div class="field-item"><strong>t°:</strong> <span class="value">39,2 °C (аксиллярно).</span></div>
+            </div>
+        </div>
+
+        <!-- ОРГАНЫ ДЫХАНИЯ -->
+        <div class="section">
+            <div class="section-title">🌬️ ОРГАНЫ ДЫХАНИЯ</div>
+            <div class="field-list">
+                <div class="field-item"><strong>ЧДД в мин:</strong> <span class="value">22</span></div>
+                <div class="field-item"><strong>Одышка:</strong> <span class="value">нет (тахипноэ).</span></div>
+                <div class="field-item"><strong>Патологическое дыхание:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Аускультативно:</strong> <span class="value">везикулярное дыхание, проводится во все отделы, хрипов нет.</span></div>
+                <div class="field-item"><strong>Хрипы сухие:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Влажные:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Крепитация:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Шум трения плевры:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Перкуторный звук:</strong> <span class="value">ясный легочный, симметричный.</span></div>
+                <div class="field-item"><strong>Кашель:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Мокрота:</strong> <span class="value">нет.</span></div>
+            </div>
+        </div>
+
+        <!-- ОРГАНЫ КРОВООБРАЩЕНИЯ -->
+        <div class="section">
+            <div class="section-title">❤️ ОРГАНЫ КРОВООБРАЩЕНИЯ</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Пульс в мин:</strong> <span class="value">110</span></div>
+                <div class="field-item"><strong>Ритмичный, аритмичный, наполнение пульса:</strong> <span class="value">ритмичный, удовлетворительного наполнения.</span></div>
+                <div class="field-item"><strong>ЧСС:</strong> <span class="value">110</span></div>
+                <div class="field-item"><strong>Дефицит пульса:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>АД мм.рт.ст. на момент осмотра:</strong> <span class="value">120/70, привычное АД мм.рт.ст.: 125/80, максимальное АД мм.рт.ст.: 130/85.</span></div>
+                <div class="field-item"><strong>Тоны сердца:</strong> <span class="value">приглушены, тахикардия.</span></div>
+                <div class="field-item"><strong>Шум:</strong> <span class="value">не выслушивается.</span></div>
+                <div class="field-item"><strong>Шум трения перикарда:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Акцент какого тона на:</strong> <span class="value">нет.</span></div>
+            </div>
+        </div>
+
+        <!-- ОРГАНЫ ПИЩЕВАРЕНИЯ -->
+        <div class="section">
+            <div class="section-title">🍽️ ОРГАНЫ ПИЩЕВАРЕНИЯ</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Язык:</strong> <span class="value">сухой, обложен коричневым налетом.</span></div>
+                <div class="field-item"><strong>Живот:</strong> <span class="value">правильной формы, не вздут, участвует в акте дыхания, мягкий, безболезненный во всех отделах.</span></div>
+                <div class="field-item"><strong>Болезненный в:</strong> <span class="value">безболезненный.</span></div>
+                <div class="field-item"><strong>Положительные симптомы:</strong> <span class="value">все симптомы раздражения брюшины (Щёткина-Блюмберга, Образцова, Ровзинга, Ситковского, Ортнера, Мерфи, Мейо-Робсона, Валя) — отрицательные.</span></div>
+                <div class="field-item"><strong>Перистальтика:</strong> <span class="value">выслушивается во всех отделах, активная.</span></div>
+                <div class="field-item"><strong>Печень:</strong> <span class="value">по краю реберной дуги, край эластичный, безболезненный.</span></div>
+                <div class="field-item"><strong>Селезенка:</strong> <span class="value">не пальпируется.</span></div>
+                <div class="field-item"><strong>Стул:</strong> <span class="value">регулярный, оформленный.</span></div>
+                <div class="field-item"><strong>Рвота:</strong> <span class="value">нет.</span></div>
+            </div>
+        </div>
+
+        <!-- НЕРВНАЯ СИСТЕМА -->
+        <div class="section">
+            <div class="section-title">🧠 НЕРВНАЯ СИСТЕМА</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Поведение:</strong> <span class="value">беспокойное (из-за боли).</span></div>
+                <div class="field-item"><strong>Контакт:</strong> <span class="value">доступен, ориентирован полностью.</span></div>
+                <div class="field-item"><strong>Чувствительность:</strong> <span class="value">сохранена.</span></div>
+                <div class="field-item"><strong>Речь:</strong> <span class="value">затруднена из-за отека и боли.</span></div>
+                <div class="field-item"><strong>Зрачки (OD, OS):</strong> <span class="value">обычные, равные, D=S.</span></div>
+                <div class="field-item"><strong>Фотореакция:</strong> <span class="value">живая.</span></div>
+                <div class="field-item"><strong>Нистагм:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Асимметрия лица:</strong> <span class="value">выраженная асимметрия за счет отека правой половины.</span></div>
+                <div class="field-item"><strong>Менингеальные симптомы:</strong> <span class="value">ригидность затылочных мышц, Кернига, Брудзинского — отрицательные.</span></div>
+                <div class="field-item"><strong>Очаговые симптомы:</strong> <span class="value">не выявлены.</span></div>
+                <div class="field-item"><strong>Координаторные пробы:</strong> <span class="value">не выполнялись из-за состояния.</span></div>
+            </div>
+        </div>
+
+        <!-- МОЧЕПОЛОВАЯ СИСТЕМА -->
+        <div class="section">
+            <div class="section-title">🚽 МОЧЕПОЛОВАЯ СИСТЕМА</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Мочеиспускание:</strong> <span class="value">свободное, безболезненное. Моча темная, концентрированная.</span></div>
+                <div class="field-item"><strong>Симптом поколачивания:</strong> <span class="value">отрицательный с обеих сторон.</span></div>
+            </div>
+        </div>
+
+        <!-- STATUS LOCALIS -->
+        <div class="section">
+            <div class="section-title">🔍 STATUS LOCALIS (подробно!)</div>
+            <div class="status-local">
+                <strong>Лицо:</strong> правая половина лица резко отечна, гиперемирована. Отек распространяется на щечную, подглазничную, околоушную области, верхнюю губу и правую половину шеи. Кожа над областью воспаления напряжена, лоснится, горячая на ощупь. При пальпации определяется плотный, резко болезненный инфильтрат без четких границ, занимающий всю щечную область. Флюктуации не определяется. Открывание рта ограничено из-за отека и боли (тризм жевательной мускулатуры). Слизистая щеки справа отечна, гиперемирована, имеется гиперемия и отечность десны в области нижнего моляра. Из-под зуба отмечается скудное гнойное отделяемое.<br><br>
+                <strong>Регионарные лимфоузлы:</strong> пальпируются увеличенные и болезненные подчелюстные и шейные лимфоузлы справа.
+            </div>
+        </div>
+
+        <!-- ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ -->
+        <div class="section">
+            <div class="section-title">📈 ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ</div>
+            <div class="scales-list">
+                <p>✔ <strong>Пульсоксиметрия:</strong> SpO₂ – 94%.</p>
+                <p>✔ <strong>Глюкометрия:</strong> 8,9 ммоль/л (гипергликемия на фоне сахарного диабета и инфекции).</p>
+                <p>✔ <strong>ЭКГ:</strong> синусовая тахикардия, ЧСС 110, без очаговых изменений.</p>
+            </div>
+        </div>
+
+        <!-- ОЦЕНКА ПО ШКАЛАМ -->
+        <div class="section">
+            <div class="section-title">📊 ОЦЕНКА ПО ШКАЛАМ</div>
+            <div class="scales-list">
+                <p>✔ <strong>Шкала NEWS2:</strong> ЧДД 22 (2 балла), SpO2 94% (1 балл), температура 39,2 (2 балла), АД сист. 120 (0), ЧСС 110 (2 балла), сознание ясное (0). <strong>Сумма: 7 баллов (высокий риск, требуется срочная госпитализация).</strong></p>
+                <p>✔ <strong>Индекс Альговера:</strong> ЧСС/АДсист = 110/120 ≈ 0,92 (пограничное значение, риск ухудшения).</p>
+                <p>✔ <strong>Шкала комы Глазго (GCS):</strong> 15 баллов.</p>
+                <p>✔ <strong>Шкала боли ВАШ:</strong> 8 баллов (интенсивная боль).</p>
+                <p>✔ <strong>Шкала qSOFA:</strong> ЧДД ≥22 (1 балл), АД сист. 120 (0), сознание ясное (0). Сумма: 1 балл (риск сепсиса, наблюдение).</p>
+                <p>✔ <strong>Состояние алкогольного опьянения:</strong> не употреблял, запаха алкоголя нет.</p>
+            </div>
+        </div>
+
+        <!-- Дифференциальная диагностика и тактика -->
+        <div class="note">
+            <strong>📌 Примечание для бригады СМП (дифференциальная диагностика):</strong><br>
+            Дифференциальная диагностика проведена с:
+            <ul class="note-list">
+                <li><strong>Рожей лица:</strong> При роже характерна яркая гиперемия с четкими границами, «языки пламени», отек, но нет инфильтрата, флюктуации, гнойного очага. Лимфаденит менее выражен. У пациента есть плотный инфильтрат, источник инфекции (зуб).</li>
+                <li><strong>Абсцессом щечной области:</strong> При абсцессе есть ограниченное скопление гноя, флюктуация, менее выражен отек окружающих тканей. У пациента инфильтрат разлитой, флюктуации нет (флегмонозная стадия).</li>
+                <li><strong>Сиаладенитом (воспаление слюнной железы):</strong> Отек локализуется в области околоушной или подчелюстной слюнной железы, боль усиливается при приеме пищи, есть «слюнные колики», гнойное отделяемое из протока. У пациента процесс более разлитой, есть связь с зубом.</li>
+                <li><strong>Лимфаденитом подчелюстным (гнойным):</strong> При лимфадените увеличены и болезненны лимфоузлы, но нет разлитого отека щеки и подглазничной области. У пациента есть разлитой отек, что указывает на флегмону.</li>
+                <li><strong>Одонтогенной инфекцией (периостит, остеомиелит челюсти):</strong> Периостит дает ограниченный отек десны и переходной складки. Остеомиелит – более глубокий процесс, с вовлечением кости, может осложняться флегмоной. У пациента клиника флегмоны.</li>
+                <li><strong>Фурункулом или карбункулом лица:</strong> При фурункуле есть ограниченное воспаление с некротическим стержнем, нет разлитого отека и тризма. У пациента процесс разлитой.</li>
+                <li><strong>Аллергическим отеком Квинке:</strong> Отек возникает остро, быстро, не сопровождается лихорадкой, болью, гиперемией, нет инфильтрата, лимфаденита. У пациента есть все признаки воспаления.</li>
+            </ul>
+            
+            <div class="warning-box">
+                ⚠️ <strong>ОПАСНОСТЬ! Флегмона лица может осложниться:</strong><br>
+                – Распространением на средостение (медиастинит)<br>
+                – Тромбозом кавернозного синуса<br>
+                – Менингитом, абсцессом головного мозга<br>
+                – Сепсисом, септическим шоком
+            </div>
+
+            <div class="alert-box">
+                <strong>🚨 НЕОТЛОЖНАЯ ТАКТИКА СМП (высокий риск!):</strong><br>
+                1. Экстренная госпитализация в челюстно-лицевое или гнойное хирургическое отделение (реанимация).<br>
+                2. Обезболивание: ненаркотические анальгетики (кеторолак 1 мл в/м) – при отсутствии аллергии.<br>
+                3. Антибактериальная терапия (по назначению врача): в/в цефалоспорины (цефтриаксон 1,0 г) + метронидазол 500 мг.<br>
+                4. Инфузионная терапия: физраствор 800-1000 мл в/в капельно (дезинтоксикация, коррекция гликемии).<br>
+                5. Коррекция гипергликемии: контроль глюкозы, при необходимости – инсулин короткого действия.<br>
+                6. Кислородотерапия (маска, 4-6 л/мин).<br>
+                7. Транспортировка на носилках в положении полусидя с поворотом головы на здоровую сторону (профилактика аспирации).<br>
+                8. Запрещены согревающие компрессы, физиопроцедуры!
+            </div>
+
+            <strong>🔑 Ключевые признаки флегмоны лица:</strong><br>
+            – Острое начало с зубной боли (одонтогенный источник).<br>
+            – Быстрое прогрессирование: нарастающий отек, гиперемия, боль.<br>
+            – Разлитой характер воспаления (отсутствие четких границ инфильтрата).<br>
+            – Плотный, резко болезненный инфильтрат в щечной области.<br>
+            – Распространение отека на соседние области (подглазничная, околоушная, шея).<br>
+            – Тризм жевательной мускулатуры, затруднение открывания рта.<br>
+            – Регионарный лимфаденит (подчелюстные, шейные лимфоузлы).<br>
+            – Выраженная интоксикация: высокая лихорадка, тахикардия, тахипноэ.<br>
+            – Высокий балл по NEWS2 (7) и риск септических осложнений.<br>
+            – Наличие фоновых заболеваний (сахарный диабет), отягощающих течение.
+        </div>
+    </div>
+</div>
+</body>
+</html>
