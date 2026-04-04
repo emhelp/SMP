@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <title>Как установить приложение - Скорая помощь</title>
   <link rel="icon" href="1712743647196.png" type="image/png">
   <link rel="stylesheet" href="style.css">
@@ -13,40 +13,457 @@
 </head>
 <body>
 
-  <div class="header">
-    <img src="1712743647196.png" alt="Логотип" class="logo">
-    <h1>Скорая помощь</h1>
-    <p>Проект EMHelp Group '2026</p>
-  </div>
-
   <nav class="menu">
-    <div class="instruction-content">
-      <!-- ЗДЕСЬ ВЫ НАПИШЕТЕ СВОЮ ИНСТРУКЦИЮ -->
-      <h2>📱 Как установить приложение</h2>
-      <p>Скоро тут появится инструкция по установке...</p>
-      <!-- КОНЕЦ ВАШЕЙ ИНСТРУКЦИИ -->
+    <div class="instruction-container">
+      <h2 class="main-title">📱 Установите приложение "Скорая помощь"</h2>
+      <p class="subtitle">Работает даже без интернета!</p>
+      
+      <!-- Блок для Android -->
+      <div class="platform-card android">
+        <div class="card-header">
+          <span class="platform-icon">🤖</span>
+          <h3>Android</h3>
+          <span class="badge chrome-badge">Chrome</span>
+        </div>
+        <div class="card-content">
+          <div class="step">
+            <div class="step-number">1</div>
+            <div class="step-text">Установите <strong class="chrome-text">Google Chrome</strong> из Play Маркет</div>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <div class="step-text">Откройте сайт: <code>https://emhelp.github.io/SMP/index.html</code></div>
+          </div>
+          <div class="step">
+            <div class="step-number">3</div>
+            <div class="step-text">Нажмите <strong>«Установить приложение»</strong> внизу экрана <strong>или</strong> дождитесь появления баннера вверху экрана с предложением установки</div>
+          </div>
+          <div class="tip-highlight">
+            ⚡ <strong>ВАЖНО:</strong> Если баннер не появился — нажмите <strong class="menu-dots">⋮</strong> (три точки) в правом верхнем углу → <strong>«Установить приложение»</strong>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Блок для iPhone -->
+      <div class="platform-card iphone">
+        <div class="card-header">
+          <span class="platform-icon">🍎</span>
+          <h3>iPhone</h3>
+          <span class="badge safari-badge">Safari</span>
+        </div>
+        <div class="card-content">
+          <div class="step">
+            <div class="step-number">1</div>
+            <div class="step-text">Откройте <strong class="safari-text">Safari</strong> (стандартный браузер)</div>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <div class="step-text">Перейдите на сайт: <code>https://emhelp.github.io/SMP/index.html</code></div>
+          </div>
+          <div class="step">
+            <div class="step-number">3</div>
+            <div class="step-text">Нажмите <strong>«Поделиться»</strong> <span class="share-icon">⎔</span></div>
+          </div>
+          <div class="step">
+            <div class="step-number">4</div>
+            <div class="step-text">Выберите <strong>«На экран "Домой"»</strong> → «Добавить»</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Результат (фиолетовый блок) -->
+      <div class="result-card-purple">
+        <div class="result-icon">✅</div>
+        <div class="result-text">
+          <strong>Готово!</strong> Иконка приложения появится на рабочем столе.<br>
+          Теперь приложение работает <strong>даже без интернета</strong>!
+        </div>
+      </div>
+      
+      <!-- Сравнительная таблица -->
+      <div class="comparison">
+        <h4>📊 Сравнение функций</h4>
+        <div class="comparison-row header">
+          <div>Функция</div>
+          <div>Android</div>
+          <div>iPhone</div>
+        </div>
+        <div class="comparison-row">
+          <div>Установка</div>
+          <div>Кнопка «Установить»</div>
+          <div>«На экран "Домой"»</div>
+        </div>
+        <div class="comparison-row">
+          <div>Работа оффлайн</div>
+          <div>✅ Да</div>
+          <div>✅ Да</div>
+        </div>
+        <div class="comparison-row">
+          <div>Отдельное окно</div>
+          <div>✅ Да</div>
+          <div>✅ Да</div>
+        </div>
+        <div class="comparison-row">
+          <div>Автообновление</div>
+          <div>✅ Да</div>
+          <div>✅ Да</div>
+        </div>
+      </div>
     </div>
   </nav>
 
   <style>
-    .instruction-content {
+    * {
+      box-sizing: border-box;
+    }
+    
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+      background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+      min-height: 100vh;
+      padding: 0;
+    }
+    
+    .instruction-container {
       max-width: 500px;
-      margin: 20px auto;
-      padding: 20px;
-      background: #fff;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      text-align: left;
+      width: 100%;
+      margin: 0 auto;
+      padding: 16px;
     }
     
-    .instruction-content h2 {
+    .main-title {
+      text-align: center;
       color: #0f1446;
-      margin-top: 0;
+      font-size: 22px;
+      margin: 0 0 5px 0;
     }
     
-    .instruction-content p, .instruction-content li {
+    .subtitle {
+      text-align: center;
+      color: #666;
+      font-size: 13px;
+      margin: 0 0 20px 0;
+    }
+    
+    /* Карточки платформ */
+    .platform-card {
+      background: white;
+      border-radius: 16px;
+      margin-bottom: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    
+    .android .card-header {
+      background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
+    }
+    
+    .iphone .card-header {
+      background: linear-gradient(135deg, #000000 0%, #1a1a2e 100%);
+    }
+    
+    .card-header {
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .platform-icon {
+      font-size: 24px;
+    }
+    
+    .card-header h3 {
+      color: white;
+      margin: 0;
+      font-size: 18px;
+      flex: 1;
+    }
+    
+    .badge {
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: bold;
+      color: white;
+    }
+    
+    .chrome-badge {
+      background: linear-gradient(135deg, #DB4437 0%, #E5734A 100%);
+      box-shadow: 0 2px 6px rgba(219, 68, 55, 0.3);
+    }
+    
+    .safari-badge {
+      background: linear-gradient(135deg, #007AFF 0%, #5856D6 100%);
+      box-shadow: 0 2px 6px rgba(0, 122, 255, 0.3);
+    }
+    
+    .chrome-text {
+      color: #DB4437;
+      font-size: 15px;
+      background: rgba(219, 68, 55, 0.1);
+      padding: 2px 6px;
+      border-radius: 10px;
+      display: inline-block;
+    }
+    
+    .safari-text {
+      color: #007AFF;
+      font-size: 15px;
+      background: rgba(0, 122, 255, 0.1);
+      padding: 2px 6px;
+      border-radius: 10px;
+      display: inline-block;
+    }
+    
+    .card-content {
+      padding: 16px;
+    }
+    
+    /* Шаги */
+    .step {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    
+    .step-number {
+      width: 26px;
+      height: 26px;
+      background: #0f1446;
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 13px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    
+    .iphone .step-number {
+      background: #000;
+    }
+    
+    .step-text {
+      font-size: 14px;
+      line-height: 1.4;
+      color: #333;
+    }
+    
+    .step-text code {
+      background: #f0f0f0;
+      padding: 2px 6px;
+      border-radius: 6px;
+      font-size: 12px;
+      word-break: break-all;
+    }
+    
+    .share-icon {
+      display: inline-block;
       font-size: 16px;
+    }
+    
+    /* ВЫДЕЛЕННАЯ ПОДСКАЗКА (заметная) */
+    .tip-highlight {
+      background: linear-gradient(135deg, #fff8e1 0%, #ffefb5 100%);
+      padding: 14px 16px;
+      border-radius: 12px;
+      font-size: 13px;
+      color: #5d4a00;
+      margin-top: 16px;
+      border-left: 5px solid #ff8c00;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    
+    .tip-highlight .menu-dots {
+      font-size: 18px;
+      background: #333;
+      color: white;
+      padding: 2px 8px;
+      border-radius: 8px;
+      display: inline-block;
+    }
+    
+    /* ФИОЛЕТОВЫЙ БЛОК РЕЗУЛЬТАТА */
+    .result-card-purple {
+      background: linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%);
+      border-radius: 16px;
+      padding: 18px;
+      margin: 20px 0;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
+    }
+    
+    .result-icon {
+      font-size: 36px;
+    }
+    
+    .result-text {
+      color: white;
+      font-size: 13px;
       line-height: 1.5;
+      flex: 1;
+    }
+    
+    .result-text strong {
+      color: #ffd700;
+    }
+    
+    /* Сравнительная таблица */
+    .comparison {
+      background: white;
+      border-radius: 16px;
+      padding: 16px;
+      margin: 16px 0;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    
+    .comparison h4 {
+      margin: 0 0 12px 0;
+      color: #0f1446;
+      font-size: 15px;
+    }
+    
+    .comparison-row {
+      display: flex;
+      padding: 10px 0;
+      border-bottom: 1px solid #eee;
+      font-size: 12px;
+    }
+    
+    .comparison-row:last-child {
+      border-bottom: none;
+    }
+    
+    .comparison-row.header {
+      font-weight: bold;
+      color: #0f1446;
+      border-bottom: 2px solid #0f1446;
+      padding-bottom: 8px;
+    }
+    
+    .comparison-row div {
+      flex: 1;
+    }
+    
+    .comparison-row div:first-child {
+      flex: 1.2;
+    }
+    
+    /* Адаптив для мобильных */
+    @media (max-width: 550px) {
+      .instruction-container {
+        padding: 12px;
+      }
+      
+      .main-title {
+        font-size: 20px;
+      }
+      
+      .card-header {
+        padding: 10px 14px;
+      }
+      
+      .card-header h3 {
+        font-size: 17px;
+      }
+      
+      .platform-icon {
+        font-size: 22px;
+      }
+      
+      .badge {
+        font-size: 10px;
+        padding: 3px 8px;
+      }
+      
+      .card-content {
+        padding: 14px;
+      }
+      
+      .step {
+        gap: 10px;
+        margin-bottom: 14px;
+      }
+      
+      .step-number {
+        width: 24px;
+        height: 24px;
+        font-size: 12px;
+      }
+      
+      .step-text {
+        font-size: 13px;
+      }
+      
+      .step-text code {
+        font-size: 11px;
+      }
+      
+      .tip-highlight {
+        padding: 12px 14px;
+        font-size: 12px;
+      }
+      
+      .tip-highlight .menu-dots {
+        font-size: 16px;
+        padding: 1px 6px;
+      }
+      
+      .result-card-purple {
+        padding: 14px;
+        gap: 12px;
+      }
+      
+      .result-icon {
+        font-size: 32px;
+      }
+      
+      .result-text {
+        font-size: 12px;
+      }
+      
+      .comparison {
+        padding: 14px;
+      }
+      
+      .comparison h4 {
+        font-size: 14px;
+      }
+      
+      .comparison-row {
+        font-size: 11px;
+        padding: 8px 0;
+      }
+    }
+    
+    /* Для очень маленьких экранов (iPhone SE) */
+    @media (max-width: 380px) {
+      .instruction-container {
+        padding: 10px;
+      }
+      
+      .step-text {
+        font-size: 12px;
+      }
+      
+      .tip-highlight {
+        font-size: 11px;
+      }
+      
+      .result-text {
+        font-size: 11px;
+      }
+      
+      .comparison-row {
+        font-size: 10px;
+      }
     }
   </style>
 
