@@ -17,7 +17,13 @@ const urlsToCache = [
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
-      .then(cache => cache.addAll(urlsToCache))
+      .then(cache => {
+        console.log('Кэширование файлов');
+        return cache.addAll(urlsToCache);
+      })
+      .catch(err => {
+        console.error('Ошибка кэширования:', err);
+      })
   );
 });
 
@@ -26,14 +32,18 @@ self.addEventListener('fetch', event => {
   event.respondWith(
     fetch(event.request)
       .then(response => {
-        // Если запрос успешен, клонируем и сохраняем в кэш
-        const responseClone = response.clone();
-        caches.open(CACHE_NAME).then(cache => {
-          cache.put(event.request, responseClone);
-        });
+        // Кэшируем только успешные ответы с того же домена
+        if (response && response.status === 200 && event.request.url.includes(window.location.origin)) {
+          const responseClone = response.clone();
+          caches.open(CACHE_NAME).then(cache => {
+            cache.put(event.request, responseClone);
+          });
+        }
         return response;
       })
-      .catch(() => caches.match(event.request))
+      .catch(() => {
+        return caches.match(event.request);
+      })
   );
 });
 
@@ -44,6 +54,7 @@ self.addEventListener('activate', event => {
       return Promise.all(
         cacheNames.map(cache => {
           if (cache !== CACHE_NAME) {
+            console.log('Удаляем старый кэш:', cache);
             return caches.delete(cache);
           }
         })
