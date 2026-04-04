@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Карта вызова скорой медицинской помощи | Уход за трахеостомой</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #e9ecef;
+            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+            padding: 40px 20px;
+            color: #212529;
+            line-height: 1.45;
+        }
+
+        .card {
+            max-width: 1100px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            border: 1px solid #dee2e6;
+        }
+
+        .mkb-row {
+            background: linear-gradient(135deg, #2c5f8a 0%, #3a7ca8 100%);
+            color: white;
+            padding: 20px 32px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border-bottom: 4px solid #ffc107;
+        }
+
+        .mkb-row span {
+            font-weight: 700;
+            color: #ffc107;
+        }
+
+        .diagnosis {
+            background: #fef9e6;
+            padding: 12px 32px;
+            border-left: 6px solid #ffc107;
+            font-weight: 500;
+            font-size: 0.98rem;
+            color: #2d3e50;
+            border-bottom: 1px solid #f0e2b6;
+        }
+
+        .content {
+            padding: 24px 32px 40px 32px;
+        }
+
+        .section {
+            margin-bottom: 32px;
+            break-inside: avoid;
+            page-break-inside: avoid;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #2c5f8a;
+            border-left: 6px solid #ffc107;
+            padding-left: 16px;
+            margin-bottom: 18px;
+            margin-top: 8px;
+            background: #f4f9ff;
+            border-radius: 0 12px 12px 0;
+            line-height: 1.3;
+        }
+
+        .field-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .field-item {
+            padding: 6px 0 4px 8px;
+            border-bottom: 1px dotted #e0e6ed;
+            font-size: 0.94rem;
+            line-height: 1.45;
+        }
+
+        .field-item strong {
+            font-weight: 700;
+            color: #1e4663;
+            display: inline-block;
+            min-width: 240px;
+        }
+
+        .field-item .value {
+            color: #2c3e4e;
+            font-weight: 500;
+        }
+
+        .full-width-text {
+            padding: 8px 0 8px 8px;
+            border-bottom: 1px dotted #e0e6ed;
+            font-size: 0.94rem;
+        }
+
+        .full-width-text strong {
+            font-weight: 700;
+            color: #1e4663;
+            display: inline-block;
+            min-width: 240px;
+        }
+
+        .status-local {
+            background: #e8f4fd;
+            padding: 14px 18px;
+            border-radius: 18px;
+            margin-top: 6px;
+            border: 1px solid #b8d8f0;
+            font-size: 0.94rem;
+        }
+
+        .scales-list {
+            background: #f1f4f9;
+            padding: 12px 20px;
+            border-radius: 20px;
+            margin-top: 10px;
+        }
+
+        .scales-list p {
+            margin: 8px 0;
+        }
+
+        .note {
+            background: #e7f1ff;
+            border-left: 4px solid #2c5f8a;
+            padding: 12px 16px;
+            margin-top: 16px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            color: #1e4663;
+        }
+
+        .note-list {
+            margin-top: 8px;
+            margin-left: 20px;
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .note-list li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .note-list li:before {
+            content: "•";
+            position: absolute;
+            left: 4px;
+            color: #2c5f8a;
+            font-weight: bold;
+        }
+
+        @media (max-width: 700px) {
+            .field-item strong {
+                min-width: 170px;
+            }
+            .full-width-text strong {
+                min-width: 170px;
+            }
+            .content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="card">
+    <div class="mkb-row">
+        📌 Код по МКБ-10: <span>Z43.0</span> (Наблюдение за трахеостомой)
+    </div>
+    <div class="diagnosis">
+        🧾 <strong>Диагноз:</strong> Уход за трахеостомой.
+    </div>
+
+    <div class="content">
+        <!-- ЖАЛОБЫ -->
+        <div class="section">
+            <div class="section-title">📢 ЖАЛОБЫ</div>
+            <div class="full-width-text"><em>На момент осмотра пациентка (со слов дочери) предъявляет жалобы на скопление густой слизи в трахеостомической трубке и трахее, что вызывает затруднение дыхания, появление грубого дыхания слышного на расстоянии, беспокойство, невозможность самостоятельно эффективно отсосать мокроту имеющимся домашним отсосом.</em></div>
+        </div>
+
+        <!-- АНАМНЕЗ -->
+        <div class="section">
+            <div class="section-title">📋 АНАМНЕЗ</div>
+            <div class="full-width-text"><strong>Anamnesis morbi:</strong> Со слов дочери, пациентка находится на домашнем уходе после перенесенного тяжелого инсульта с бульбарными нарушениями, в связи с чем была наложена трахеостома (около 6 месяцев назад) для длительной ИВЛ и санации трахеобронхиального дерева. В последние 2 дня отмечается скопление густой мокроты, которую не удается эффективно отсосать домашним электроотсосом. Пациентка стала беспокойной, появился шумное дыхание. СМП вызвана дочерью для проведения санации.</div>
+            <div class="full-width-text"><strong>Анамнез жизни:</strong> Хронические заболевания: гипертоническая болезнь II стадии, цереброваскулярная болезнь, последствия ишемического инсульта (2019) с правосторонним гемипарезом, моторной афазией, дисфагией. Трахеостома с 2023 года. Травмы, операции: трахеостомия.</div>
+            <div class="full-width-text"><strong>Аллергологический анамнез:</strong> Не отягощен. Аллергии на лекарственные препараты, пищевые продукты, бытовые аллергены отрицает.</div>
+            <div class="full-width-text"><strong>Эпидемиологический анамнез:</strong> Контакт с инфекционными больными отрицает. За пределы РФ не выезжала, укусы насекомых отрицает.</div>
+            <div class="full-width-text"><strong>Гинекологический анамнез:</strong> Менструации с 13 лет, установились сразу, регулярные, по 5 дней, через 28 дней, умеренные, безболезненные. Менопауза с 52 лет. Выделения из половых путей отсутствуют. Беременностей – 2, родов – 2. Последний осмотр гинеколога – более 5 лет назад.</div>
+        </div>
+
+        <!-- ОБЪЕКТИВНО -->
+        <div class="section">
+            <div class="section-title">🩺 ОБЪЕКТИВНО</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Общее состояние:</strong> <span class="value">средней тяжести (обусловлено нарушением дыхания).</span></div>
+                <div class="field-item"><strong>Сознание:</strong> <span class="value">ясное (ориентирована, но контакт ограничен из-за афазии, выполняет простые команды).</span></div>
+                <div class="field-item"><strong>Шкала комы Глазго (GCS):</strong> <span class="value">15 баллов (E4,V5,M6) – с учетом афазии.</span></div>
+                <div class="field-item"><strong>Положение:</strong> <span class="value">вынужденное (лежит в постели с приподнятым изголовьем).</span></div>
+                <div class="field-item"><strong>Кожные покровы:</strong> <span class="value">обычной окраски, чистые, умеренно влажные. Акроцианоз губ.</span></div>
+                <div class="field-item"><strong>Сыпь:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Зев:</strong> <span class="value">спокойный, слизистая бледно-розовая, чистая.</span></div>
+                <div class="field-item"><strong>Миндалины:</strong> <span class="value">без особенностей, не увеличены, налетов нет.</span></div>
+                <div class="field-item"><strong>Лимфоузлы:</strong> <span class="value">не пальпируются.</span></div>
+                <div class="field-item"><strong>Пролежни:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Отеки:</strong> <span class="value">пастозность голеней и стоп.</span></div>
+                <div class="field-item"><strong>t°:</strong> <span class="value">36,7 °C (аксиллярно).</span></div>
+            </div>
+        </div>
+
+        <!-- ОРГАНЫ ДЫХАНИЯ -->
+        <div class="section">
+            <div class="section-title">🌬️ ОРГАНЫ ДЫХАНИЯ</div>
+            <div class="field-list">
+                <div class="field-item"><strong>ЧДД в мин:</strong> <span class="value">22 (тахипноэ)</span></div>
+                <div class="field-item"><strong>Одышка:</strong> <span class="value">инспираторная, стридорозное дыхание (шумное, слышное на расстоянии).</span></div>
+                <div class="field-item"><strong>Патологическое дыхание:</strong> <span class="value">стридор.</span></div>
+                <div class="field-item"><strong>Аускультативно:</strong> <span class="value">через трахеостому дыхание жесткое, проводится во все отделы, с обеих сторон выслушиваются обильные разнокалиберные влажные хрипы, больше справа.</span></div>
+                <div class="field-item"><strong>Хрипы сухие:</strong> <span class="value">единичные.</span></div>
+                <div class="field-item"><strong>Влажные:</strong> <span class="value">обильные, мелко- и среднепузырчатые с обеих сторон.</span></div>
+                <div class="field-item"><strong>Крепитация:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Шум трения плевры:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Перкуторный звук:</strong> <span class="value">ясный легочный, симметричный над всеми отделами.</span></div>
+                <div class="field-item"><strong>Кашель:</strong> <span class="value">непродуктивный, слышно бульканье слизи в трахее.</span></div>
+                <div class="field-item"><strong>Мокрота:</strong> <span class="value">густая, гнойная, желто-зеленого цвета, отходит с трудом.</span></div>
+            </div>
+        </div>
+
+        <!-- ОРГАНЫ КРОВООБРАЩЕНИЯ -->
+        <div class="section">
+            <div class="section-title">❤️ ОРГАНЫ КРОВООБРАЩЕНИЯ</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Пульс в мин:</strong> <span class="value">92</span></div>
+                <div class="field-item"><strong>Ритмичный, аритмичный, наполнение пульса:</strong> <span class="value">ритмичный, удовлетворительного наполнения.</span></div>
+                <div class="field-item"><strong>ЧСС:</strong> <span class="value">92</span></div>
+                <div class="field-item"><strong>Дефицит пульса:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>АД мм.рт.ст. на момент осмотра:</strong> <span class="value">130/80, привычное АД мм.рт.ст.: 125/75, максимальное АД мм.рт.ст.: 140/85.</span></div>
+                <div class="field-item"><strong>Тоны сердца:</strong> <span class="value">ясные, ритмичные.</span></div>
+                <div class="field-item"><strong>Шум:</strong> <span class="value">не выслушивается.</span></div>
+                <div class="field-item"><strong>Шум трения перикарда:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Акцент какого тона на:</strong> <span class="value">акцент II тона на аорте.</span></div>
+            </div>
+        </div>
+
+        <!-- ОРГАНЫ ПИЩЕВАРЕНИЯ -->
+        <div class="section">
+            <div class="section-title">🍽️ ОРГАНЫ ПИЩЕВАРЕНИЯ</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Язык:</strong> <span class="value">влажный, чистый.</span></div>
+                <div class="field-item"><strong>Живот:</strong> <span class="value">правильной формы, не вздут, участвует в акте дыхания, мягкий, безболезненный во всех отделах.</span></div>
+                <div class="field-item"><strong>Болезненный в:</strong> <span class="value">безболезненный.</span></div>
+                <div class="field-item"><strong>Положительные симптомы:</strong> <span class="value">все симптомы раздражения брюшины (Щёткина-Блюмберга, Образцова, Ровзинга, Ситковского, Ортнера, Мерфи, Мейо-Робсона, Валя) — отрицательные.</span></div>
+                <div class="field-item"><strong>Перистальтика:</strong> <span class="value">выслушивается во всех отделах, активная.</span></div>
+                <div class="field-item"><strong>Печень:</strong> <span class="value">по краю реберной дуги, край эластичный, безболезненный.</span></div>
+                <div class="field-item"><strong>Селезенка:</strong> <span class="value">не пальпируется.</span></div>
+                <div class="field-item"><strong>Стул:</strong> <span class="value">регулярный, через памперс.</span></div>
+                <div class="field-item"><strong>Рвота:</strong> <span class="value">нет.</span></div>
+            </div>
+        </div>
+
+        <!-- НЕРВНАЯ СИСТЕМА -->
+        <div class="section">
+            <div class="section-title">🧠 НЕРВНАЯ СИСТЕМА</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Поведение:</strong> <span class="value">беспокойное (из-за затруднения дыхания).</span></div>
+                <div class="field-item"><strong>Контакт:</strong> <span class="value">ограничен из-за афазии.</span></div>
+                <div class="field-item"><strong>Чувствительность:</strong> <span class="value">сохранена (ориентировочно).</span></div>
+                <div class="field-item"><strong>Речь:</strong> <span class="value">моторная афазия.</span></div>
+                <div class="field-item"><strong>Зрачки (OD, OS):</strong> <span class="value">обычные, равные, D=S.</span></div>
+                <div class="field-item"><strong>Фотореакция:</strong> <span class="value">живая.</span></div>
+                <div class="field-item"><strong>Нистагм:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Асимметрия лица:</strong> <span class="value">сглаженность правой носогубной складки.</span></div>
+                <div class="field-item"><strong>Менингеальные симптомы:</strong> <span class="value">ригидность затылочных мышц, Кернига, Брудзинского — отрицательные.</span></div>
+                <div class="field-item"><strong>Очаговые симптомы:</strong> <span class="value">правосторонний гемипарез (мышечная сила снижена до 3 баллов).</span></div>
+                <div class="field-item"><strong>Координаторные пробы:</strong> <span class="value">не выполнялись.</span></div>
+            </div>
+        </div>
+
+        <!-- МОЧЕПОЛОВАЯ СИСТЕМА -->
+        <div class="section">
+            <div class="section-title">🚽 МОЧЕПОЛОВАЯ СИСТЕМА</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Мочеиспускание:</strong> <span class="value">свободное, через памперс. Моча светлая, прозрачная.</span></div>
+                <div class="field-item"><strong>Симптом поколачивания:</strong> <span class="value">отрицательный с обеих сторон.</span></div>
+            </div>
+        </div>
+
+        <!-- STATUS LOCALIS -->
+        <div class="section">
+            <div class="section-title">🔍 STATUS LOCALIS (подробно!)</div>
+            <div class="status-local">
+                <strong>Шея:</strong> на передней поверхности шеи, в нижней трети, имеется трахеостома. Трахеостомическая трубка (пластиковая, с манжетой? – уточнить, но для домашнего ухода обычно без манжеты или со спущенной манжетой) фиксирована тесемками к шее. Кожа вокруг стомы чистая, без признаков мацерации, гиперемии, гнойного отделяемого. В просвете трубки и вокруг нее видна густая, гнойная мокрота желто-зеленого цвета, затрудняющая дыхание. Слышно «хлюпанье» слизи при дыхании. Дыхание через нос и рот неэффективно (из-за основного заболевания).<br><br>
+                <strong>Санация:</strong> (проведена после информированного согласия дочери) — см. раздел "Оказанная помощь".
+            </div>
+        </div>
+
+        <!-- ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ -->
+        <div class="section">
+            <div class="section-title">📈 ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ</div>
+            <div class="scales-list">
+                <p>✔ <strong>Пульсоксиметрия:</strong> SpO₂ – 90% (на фоне обтурации), после санации – 95%.</p>
+                <p>✔ <strong>Глюкометрия:</strong> 5,5 ммоль/л.</p>
+                <p>✔ <strong>ЭКГ:</strong> не проводилась (нет показаний).</p>
+            </div>
+        </div>
+
+        <!-- ОЦЕНКА ПО ШКАЛАМ -->
+        <div class="section">
+            <div class="section-title">📊 ОЦЕНКА ПО ШКАЛАМ</div>
+            <div class="scales-list">
+                <p>✔ <strong>Шкала NEWS2:</strong> ЧДД 22 (2 балла), SpO2 90% (2 балла), температура 36,7 (0), АД сист. 130 (0), ЧСС 92 (1 балл), сознание ясное (0). Сумма: 5 баллов (средний риск, требуется наблюдение и госпитализация).</p>
+                <p>✔ <strong>Индекс Альговера:</strong> ЧСС/АДсист = 92/130 ≈ 0,71 (норма).</p>
+                <p>✔ <strong>Шкала комы Глазго (GCS):</strong> 15 баллов.</p>
+                <p>✔ <strong>Шкала ОДН по Кассиль:</strong> II степень (умеренная дыхательная недостаточность).</p>
+                <p>✔ <strong>Состояние алкогольного опьянения:</strong> не употребляла, запаха алкоголя нет.</p>
+            </div>
+        </div>
+
+        <!-- Дифференциальная диагностика -->
+        <div class="note">
+            <strong>📌 Примечание для бригады СМП (дифференциальная диагностика):</strong><br>
+            Дифференциальная диагностика проведена с:
+            <ul class="note-list">
+                <li><strong>Обтурацией трахеостомической трубки мокротой (что и имело место):</strong> Наиболее частая причина дыхательных нарушений у пациентов с трахеостомой. Характерно: нарастание одышки, стридор, участие вспомогательной мускулатуры, снижение сатурации, наличие густой мокроты в просвете трубки. Санация приносит немедленное облегчение.</li>
+                <li><strong>Смещением или дислокацией трахеостомической трубки:</strong> При смещении трубка может находиться не в трахее, а в предтрахеальном пространстве. Характерно: внезапное ухудшение дыхания, невозможность провести катетер для санации, подкожная эмфизема шеи, отсутствие воздушного потока через трубку. У пациентки катетер прошел свободно, эмфиземы нет.</li>
+                <li><strong>Стенозом трахеи (после длительной интубации или трахеостомии):</strong> Хроническое состояние, но может проявляться нарастающей одышкой. Для стеноза характерно затруднение вдоха, свистящее дыхание, которое не купируется санацией. У пациентки после санации состояние улучшилось.</li>
+                <li><strong>Инфекционным трахеобронхитом или пневмонией:</strong> Может быть причиной повышенного образования мокроты. Характерны лихорадка, интоксикация, аускультативные изменения (влажные хрипы). У пациентки есть хрипы, но нет лихорадки. Требует наблюдения.</li>
+                <li><strong>Разрывом трахеи или бронха (редко, при травме):</strong> Внезапная резкая боль, подкожная эмфизема, быстро нарастающая дыхательная недостаточность. У пациентки нет.</li>
+                <li><strong>Тромбоэмболией легочной артерии (ТЭЛА):</strong> Внезапная одышка, боль в груди, цианоз, тахикардия, гипотония. У пациентки нет.</li>
+                <li><strong>Пневмотораксом:</strong> Острая боль в груди, внезапная одышка, ослабление дыхания на стороне поражения, коробочный звук. У пациентки нет.</li>
+            </ul>
+            <strong>🔑 Ключевые признаки обструкции трахеостомической трубки:</strong><br>
+            – Наличие трахеостомы в анамнезе.<br>
+            – Внезапное или постепенное нарастание одышки (инспираторной).<br>
+            – Стридорозное (шумное) дыхание.<br>
+            – Наличие густой мокроты в просвете трубки и трахее.<br>
+            – Участие вспомогательной мускулатуры в дыхании.<br>
+            – Беспокойство пациента.<br>
+            – Тахипноэ (ЧДД 22), снижение сатурации (SpO2 до 90%).<br>
+            – Эффективность санации (удаление мокроты) – быстрое улучшение состояния.<br>
+            – Отсутствие признаков других осложнений (дислокация трубки, пневмоторакс).
+        </div>
+    </div>
+</div>
+</body>
+</html>
