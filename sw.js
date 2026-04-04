@@ -1,16 +1,18 @@
-const CACHE_NAME = 'emhelp-v5';
+const CACHE_NAME = 'emhelp-v6';
 
 const urlsToCache = [
   '/SMP/',
   '/SMP/index.html',
   '/SMP/install-instruction.html',
   '/SMP/grify.html',
+  '/SMP/status.html',        // ← ДОБАВЛЕНО
   '/SMP/style.css',
   '/SMP/manifest.json',
   '/SMP/icon-512.png',
   '/SMP/1712743647196.png'
 ];
 
+// остальное без изменений...
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
@@ -26,13 +28,11 @@ self.addEventListener('fetch', event => {
         if (response) {
           return response;
         }
-        
         return fetch(event.request)
           .then(response => {
             if (!response || response.status !== 200) {
               return response;
             }
-            
             const responseClone = response.clone();
             caches.open(CACHE_NAME).then(cache => {
               cache.put(event.request, responseClone);
