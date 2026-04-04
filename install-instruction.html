@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Как установить приложение - Скорая помощь</title>
+  <link rel="icon" href="1712743647196.png" type="image/png">
+  <link rel="stylesheet" href="style.css">
+  
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0f1446">
+</head>
+<body>
+
+  <div class="header">
+    <img src="1712743647196.png" alt="Логотип" class="logo">
+    <h1>Скорая помощь</h1>
+    <p>Проект EMHelp Group '2026</p>
+  </div>
+
+  <nav class="menu">
+    <div class="instruction-content">
+      <!-- ЗДЕСЬ ВЫ НАПИШЕТЕ СВОЮ ИНСТРУКЦИЮ -->
+      <h2>📱 Как установить приложение</h2>
+      <p>Скоро тут появится инструкция по установке...</p>
+      <!-- КОНЕЦ ВАШЕЙ ИНСТРУКЦИИ -->
+    </div>
+    
+    <a href="index.html" class="menu-btn back-btn">← НАЗАД НА ГЛАВНУЮ</a>
+  </nav>
+
+  <style>
+    .instruction-content {
+      max-width: 500px;
+      margin: 20px auto;
+      padding: 20px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      text-align: left;
+    }
+    
+    .instruction-content h2 {
+      color: #0f1446;
+      margin-top: 0;
+    }
+    
+    .instruction-content p, .instruction-content li {
+      font-size: 16px;
+      line-height: 1.5;
+    }
+    
+    .back-btn {
+      background-color: #555 !important;
+    }
+  </style>
+
+  <!-- РЕГИСТРАЦИЯ СЕРВИС-ВОРКЕРА -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/SMP/sw.js')
+        .then(reg => console.log('✅ Сервис-воркер зарегистрирован:', reg))
+        .catch(err => console.error('❌ Ошибка:', err));
+    }
+  </script>
+
+</body>
+</html>
