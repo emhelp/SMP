@@ -1,6 +1,5 @@
 const CACHE_NAME = 'emhelp-v2';
 
-// Кэшируем только критически важные файлы при установке
 const urlsToCache = [
   '/',
   '/index.html',
@@ -26,14 +25,12 @@ self.addEventListener('fetch', event => {
           return response;
         }
         
-        // Если нет в кэше - идём в сеть
         return fetch(event.request)
           .then(response => {
             if (!response || response.status !== 200) {
               return response;
             }
             
-            // Клонируем и сохраняем в кэш для будущего оффлайн доступа
             const responseClone = response.clone();
             caches.open(CACHE_NAME).then(cache => {
               cache.put(event.request, responseClone);
@@ -41,8 +38,7 @@ self.addEventListener('fetch', event => {
             return response;
           })
           .catch(() => {
-            // Если нет сети и нет кэша - показываем страницу оффлайн
-            if (event.request.headers.get('accept').includes('text/html')) {
+            if (event.request.headers.get('accept') && event.request.headers.get('accept').includes('text/html')) {
               return caches.match('/index.html');
             }
             return new Response('Нет соединения', { status: 503 });
