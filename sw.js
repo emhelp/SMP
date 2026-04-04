@@ -3,6 +3,7 @@ const CACHE_NAME = 'emhelp-v5';
 const urlsToCache = [
   '/SMP/',
   '/SMP/index.html',
+  '/SMP/install-instruction.html',
   '/SMP/grify.html',
   '/SMP/style.css',
   '/SMP/manifest.json',
