@@ -1,7 +1,9 @@
-const CACHE_NAME = 'emhelp-v3';
+const CACHE_NAME = 'emhelp-v4';
+
 const urlsToCache = [
   '/SMP/',
   '/SMP/index.html',
+  '/SMP/grify.html',
   '/SMP/style.css',
   '/SMP/manifest.json',
   '/SMP/icon-512.png',
@@ -23,11 +25,13 @@ self.addEventListener('fetch', event => {
         if (response) {
           return response;
         }
+        
         return fetch(event.request)
           .then(response => {
             if (!response || response.status !== 200) {
               return response;
             }
+            
             const responseClone = response.clone();
             caches.open(CACHE_NAME).then(cache => {
               cache.put(event.request, responseClone);
