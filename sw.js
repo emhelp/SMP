@@ -1,4 +1,4 @@
-const CACHE_NAME = 'emhelp-v14';
+const CACHE_NAME = 'emhelp-v15';
 
 const urlsToCache = [
   '/SMP/',
@@ -10,10 +10,14 @@ const urlsToCache = [
   '/SMP/templates.html',
   '/SMP/consilium.html',
   '/SMP/prikaz.html',
-  '/SMP/other_local_status.html',      // ← ДОБАВЛЕНО
-  '/SMP/dislocations.html',            // ← ДОБАВЛЕНО
-  '/SMP/fractures_upper_limb.html',    // ← ДОБАВЛЕНО
-  '/SMP/fractures_lower_limb.html',    // ← ДОБАВЛЕНО
+  '/SMP/other_local_status.html',
+  '/SMP/dislocations.html',
+  '/SMP/fractures_upper_limb.html',
+  '/SMP/fractures_lower_limb.html',
+  '/SMP/fractures_ribs.html',              // ← НОВЫЙ
+  '/SMP/spine_fractures.html',             // ← НОВЫЙ
+  '/SMP/facial_fractures.html',            // ← НОВЫЙ
+  '/SMP/ligament_muscle_injuries.html',    // ← НОВЫЙ
   '/SMP/style.css',
   '/SMP/manifest.json',
   '/SMP/icon-512.png',
