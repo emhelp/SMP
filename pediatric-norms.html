@@ -2,8 +2,13 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes, viewport-fit=cover">
-    <title>Детский калькулятор физиологических норм (офлайн-версия)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Детские возрастные нормы - физиологические показатели</title>
+    
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1e2f47">
+    
     <style>
         * {
             margin: 0;
@@ -11,67 +16,71 @@
             box-sizing: border-box;
         }
 
-        html, body {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-            background: #eef2f5;
-        }
-
-        .scrollable-wrapper {
-            min-height: 100vh;
-            overflow: visible;
-            padding: 1rem;
-            box-sizing: border-box;
-        }
-
         body {
+            background: linear-gradient(145deg, #eef2f7 0%, #dce3ec 100%);
             font-family: 'Segoe UI', Roboto, system-ui, -apple-system, 'Helvetica Neue', sans-serif;
-            color: #1a2c3e;
+            padding: 2rem 1rem;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
         }
 
-        .container {
+        .calculator-card {
             max-width: 1000px;
+            width: 100%;
             margin: 0 auto;
+            background: #ffffff;
+            border-radius: 48px;
+            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
         }
 
-        .hero {
-            background: linear-gradient(135deg, #1a4d6b, #0f3b52);
-            border-radius: 2rem;
-            padding: 1.5rem 1.8rem;
-            margin-bottom: 1.5rem;
+        .card-header {
+            background: #1e2f47;
+            background-image: linear-gradient(115deg, #142a3b, #1d3f55);
+            padding: 1.8rem 2rem;
             color: white;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
-        .hero h1 {
-            font-size: 1.7rem;
+        .card-header h1 {
+            font-size: 1.9rem;
             font-weight: 700;
             display: flex;
             align-items: center;
             gap: 12px;
             flex-wrap: wrap;
         }
-        .hero p {
-            margin-top: 8px;
-            opacity: 0.9;
+        .card-header h1 span {
+            background: rgba(255,255,255,0.2);
             font-size: 0.9rem;
+            padding: 5px 14px;
+            border-radius: 60px;
+            font-weight: 500;
+        }
+        .card-header p {
+            margin-top: 12px;
+            opacity: 0.85;
+            font-size: 0.95rem;
             border-left: 3px solid #5f9bc2;
             padding-left: 16px;
         }
 
+        .card-content {
+            padding: 2rem;
+        }
+
         .form-card {
-            background: white;
+            background: #f6fafd;
             border-radius: 28px;
-            padding: 1.2rem;
+            padding: 1.5rem;
             margin-bottom: 1.5rem;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-            border: 1px solid #e2edf2;
+            border: 1px solid #d4e2f0;
         }
 
         .form-row {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.8rem;
+            gap: 1rem;
             margin-bottom: 1rem;
         }
         .form-group {
@@ -81,67 +90,65 @@
         .form-group label {
             font-weight: 600;
             display: block;
-            margin-bottom: 5px;
-            color: #2c5a72;
+            margin-bottom: 6px;
+            color: #1f4a66;
             font-size: 0.85rem;
         }
         .form-group input {
             width: 100%;
-            padding: 10px 12px;
+            padding: 12px 14px;
             border-radius: 40px;
-            border: 1px solid #cfdfe8;
+            border: 2px solid #d4e2f0;
             font-size: 0.9rem;
             transition: 0.2s;
             background: white;
+            font-family: inherit;
         }
         .form-group input:focus {
             outline: none;
-            border-color: #2c7cb6;
-            box-shadow: 0 0 0 2px rgba(44,124,182,0.2);
+            border-color: #1f6e9c;
+            box-shadow: 0 0 0 3px rgba(31,110,156,0.1);
         }
         .age-group {
             display: flex;
-            gap: 0.8rem;
+            gap: 1rem;
             flex-wrap: wrap;
         }
-        .age-group .form-group input {
-            background: #e6f3ff;
-        }
-        .age-group .form-group label {
-            color: #9b59b6;
-        }
+        
         .btn {
-            background: #2c7cb6;
+            background: linear-gradient(135deg, #1f6e9c 0%, #155a80 100%);
             color: white;
             border: none;
-            padding: 10px 20px;
-            border-radius: 40px;
+            padding: 12px 20px;
+            border-radius: 60px;
             font-weight: 600;
             font-size: 0.9rem;
             cursor: pointer;
             transition: 0.2s;
-            margin-top: 8px;
             width: 100%;
+            font-family: inherit;
         }
         .btn:hover {
-            background: #1f6392;
-            transform: scale(0.98);
+            background: linear-gradient(135deg, #1a5c84 0%, #114d6e 100%);
+            transform: translateY(-2px);
+        }
+        .btn:active {
+            transform: translateY(0);
         }
 
         .result-section {
-            background: white;
+            background: #ffffff;
             border-radius: 28px;
-            padding: 1.2rem;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
-            border: 1px solid #e2edf2;
+            padding: 1.5rem;
+            border: 1px solid #d4e2f0;
             overflow-x: auto;
         }
         .result-title {
             font-size: 1.3rem;
             font-weight: 700;
-            color: #1f5e7e;
-            margin-bottom: 0.8rem;
-            border-left: 5px solid #2c9bce;
+            color: #1f4a66;
+            margin-bottom: 1rem;
+            border-left: 5px solid #1f6e9c;
             padding-left: 14px;
         }
         .table-wrap {
@@ -154,112 +161,142 @@
             font-size: 0.85rem;
         }
         th, td {
-            border: 1px solid #d0e2ef;
-            padding: 8px 10px;
+            border: 1px solid #d4e2f0;
+            padding: 10px 12px;
             text-align: left;
             vertical-align: top;
         }
         th {
-            background: #eef2fa;
-            font-weight: 600;
-            color: #1f4a66;
-            font-size: 1rem;
-        }
-        /* Стиль для заголовков таблиц (первая строка) */
-        .table-header-cell {
-            font-size: 1.05rem;
+            background: #eef7ff;
             font-weight: 700;
-            color: #8b3c3c;
-            background: #fef5f0;
+            color: #1f4a66;
+            font-size: 0.9rem;
         }
-        /* Цвета строк */
+        .table-header-cell {
+            font-size: 1rem;
+            font-weight: 800;
+            color: #1f6e9c;
+            background: #eef2f7;
+        }
         .bg-pink-light {
-            background: #ffe6e6;
+            background: #fff8e7;
         }
         .bg-white {
             background: #ffffff;
         }
         .bg-green-light {
-            background: #e8f5e9;
+            background: #e8f0e8;
         }
         .drug-list {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 10px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 12px;
             margin-top: 12px;
         }
         .drug-item {
-            background: #f9fbfd;
+            background: #f6fafd;
             border-radius: 18px;
-            padding: 8px 12px;
-            border-left: 3px solid #2c9bce;
+            padding: 10px 14px;
+            border-left: 3px solid #1f6e9c;
             font-size: 0.85rem;
+            color: #1f3a4b;
+        }
+        .drug-item strong {
+            color: #1f4a66;
         }
         .footnote {
-            font-size: 0.65rem;
-            color: #7c95af;
+            font-size: 0.7rem;
+            color: #6f8eaa;
             margin-top: 1rem;
             text-align: center;
             border-top: 1px solid #e2ecf3;
-            padding-top: 0.8rem;
+            padding-top: 1rem;
+            line-height: 1.5;
         }
-        @media (max-width: 640px) {
-            .scrollable-wrapper {
-                padding: 0.5rem;
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
             }
-            .hero h1 {
+            .card-header {
+                padding: 1.2rem;
+            }
+            .card-header h1 {
                 font-size: 1.3rem;
             }
-            .hero {
+            .card-header p {
+                font-size: 0.8rem;
+            }
+            .card-content {
+                padding: 1rem;
+            }
+            .form-card {
                 padding: 1rem;
             }
             .form-group input {
-                padding: 8px 10px;
+                padding: 8px 12px;
                 font-size: 0.85rem;
             }
             .btn {
-                padding: 8px 16px;
+                padding: 10px 16px;
             }
             th, td {
                 padding: 6px 8px;
+                font-size: 0.75rem;
             }
             .table-header-cell {
-                font-size: 0.95rem;
+                font-size: 0.85rem;
+            }
+            .drug-list {
+                grid-template-columns: 1fr;
+            }
+            .drug-item {
+                font-size: 0.8rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .form-row {
+                flex-direction: column;
+                gap: 0.8rem;
+            }
+            .age-group {
+                flex-direction: column;
             }
         }
     </style>
 </head>
 <body>
-<div class="scrollable-wrapper">
-    <div class="container">
-        <div class="hero">
-            <h1>
-                👶 Детские возрастные нормы
-                <br><span style="font-size: 0.85rem;">Физиологические показатели + параметры неотложной помощи</span>
-            </h1>
-            <p>Для детей от 0 до 16 лет. Введите возраст, рост и вес (необязательно). Если рост/вес не указаны, будут рассчитаны средние нормативы.</strong></p>
-        </div>
-
+<div class="calculator-card">
+    <div class="card-header">
+        <h1>
+            👶 Детские возрастные нормы
+            <span>физиологические показатели</span>
+        </h1>
+        <p>Для детей от 0 до 16 лет. Введите возраст, рост и вес (необязательно). Если рост/вес не указаны, будут рассчитаны средние нормативы.</p>
+    </div>
+    <div class="card-content">
+        
         <div class="form-card">
             <div class="form-row">
                 <div class="age-group">
                     <div class="form-group">
-                        <label>Возраст (годы)</label>
+                        <label>📅 Возраст (годы)</label>
                         <input type="number" id="ageYears" min="0" max="16" step="1" value="5">
                     </div>
                     <div class="form-group">
-                        <label>Возраст (месяцы)</label>
+                        <label>📅 Возраст (месяцы)</label>
                         <input type="number" id="ageMonths" min="0" max="11" step="1" value="0">
                     </div>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group">
-                    <label>Рост (см, опционально)</label>
+                    <label>📏 Рост (см, опционально)</label>
                     <input type="number" id="heightCm" step="0.1" placeholder="например, 110">
                 </div>
                 <div class="form-group">
-                    <label>Вес (кг, опционально)</label>
+                    <label>⚖️ Вес (кг, опционально)</label>
                     <input type="number" id="weightKg" step="0.1" placeholder="например, 18">
                 </div>
             </div>
@@ -267,9 +304,10 @@
         </div>
 
         <div class="result-section" id="resultArea">
-            <div class="result-title">Результаты расчёта</div>
+            <div class="result-title">📋 Результаты расчёта</div>
             <div id="output" style="min-height: 180px;">Введите данные и нажмите «Рассчитать»</div>
         </div>
+        
         <div class="footnote">
             ⚕️ Формулы основаны на клинических рекомендациях (ВОЗ, педиатрические протоколы). Данные носят ориентировочный характер. Всегда уточняйте индивидуальные особенности пациента.<br>
             📱 Офлайн-версия работает без интернета — сохраните файл на устройство.
@@ -278,7 +316,6 @@
 </div>
 
 <script>
-    // Нормативные таблицы (без учёта пола)
     function getNormalWeight(years, months) {
         let ageYears = years + months / 12;
         if (ageYears <= 0.25) return 4.5;
@@ -349,7 +386,6 @@
         return 16;
     }
 
-    // Параметры неотложной помощи (зависят от веса)
     function getLaryngealTubeSize(weightKg) {
         if (weightKg < 5) return "№ 1 (неонатальный)";
         if (weightKg < 10) return "№ 1.5";
@@ -384,7 +420,6 @@
         return `Однократно: ${single} мл (10 мл/кг). Общий объём процедуры: до ${total} мл (макс 50 мл/кг или 1000 мл)`;
     }
 
-    // ========== ПРЕПАРАТЫ (алфавитный порядок с анальгином) ==========
     const drugListRaw = [
         { name: "Адреналин", doseMgPerKg: 0.01, concentration: 0.1, note: "(0.1 мг/мл, 1:10 000) – внутривенно при анафилаксии/остановке" },
         { name: "Анальгин (метамизол натрия)", doseMgPerKg: 10, concentration: 500, note: "500 мг/мл (50% раствор). В/в или в/м медленно, разовая доза 5–10 мг/кг." },
@@ -448,7 +483,7 @@
         let drugsHtml = '';
         drugList.forEach(drug => {
             let ml = getDrugMl(weight, drug);
-            drugsHtml += `<div class="drug-item"><strong>${drug.name}</strong><br>${ml} мл (доза ${drug.doseMgPerKg} мг/кг, конц. ${drug.concentration} мг/мл)<br><span style="font-size:0.7rem;">${drug.note}</span></div>`;
+            drugsHtml += `<div class="drug-item"><strong>${drug.name}</strong><br>${ml} мл (доза ${drug.doseMgPerKg} мг/кг, конц. ${drug.concentration} мг/мл)<br><span style="font-size:0.7rem; color:#6f8eaa;">${drug.note}</span></div>`;
         });
 
         let ageDisplay = `${years} лет ${months} мес`;
@@ -493,6 +528,13 @@
 
     document.getElementById('calcBtn').addEventListener('click', calculate);
     window.addEventListener('load', () => calculate());
+    
+    // Регистрация Service Worker для PWA
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/SMP/sw.js')
+            .then(reg => console.log('✅ Сервис-воркер зарегистрирован:', reg))
+            .catch(err => console.error('❌ Ошибка регистрации:', err));
+    }
 </script>
 </body>
 </html>
