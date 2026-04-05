@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <title>Калькулятор площади ожоговой поверхности</title>
+    
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1e2f47">
+    
     <style>
         * {
             margin: 0;
@@ -11,11 +16,9 @@
             box-sizing: border-box;
         }
         body {
-            background: linear-gradient(145deg, #eef2f5 0%, #e2eaf0 100%);
-            font-family: 'Inter', -apple-system, 'Segoe UI', Roboto, system-ui, sans-serif;
-            line-height: 1.5;
-            color: #1a2c3e;
-            padding: 16px;
+            background: linear-gradient(145deg, #eef2f7 0%, #dce3ec 100%);
+            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, 'Helvetica Neue', sans-serif;
+            padding: 2rem 1rem;
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -25,37 +28,44 @@
             max-width: 1200px;
             width: 100%;
             background: #ffffff;
-            border-radius: 28px;
+            border-radius: 48px;
             box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.12);
             overflow: hidden;
             margin: 0 auto;
         }
         .card-header {
-            background: linear-gradient(115deg, #c62828 0%, #8b0000 100%);
+            background: #1e2f47;
+            background-image: linear-gradient(115deg, #142a3b, #1d3f55);
+            padding: 1.8rem 2rem;
             color: white;
-            padding: 1.5rem;
             border-bottom: 3px solid #ffc107;
         }
         .card-header h1 {
-            font-size: 1.5rem;
+            font-size: 1.9rem;
             font-weight: 700;
-            margin-bottom: 0.5rem;
             display: flex;
             align-items: center;
             gap: 12px;
             flex-wrap: wrap;
         }
+        .card-header h1 span {
+            background: rgba(255,255,255,0.2);
+            font-size: 0.9rem;
+            padding: 5px 14px;
+            border-radius: 60px;
+            font-weight: 500;
+        }
         .card-header p {
-            font-size: 0.85rem;
-            opacity: 0.92;
-            border-left: 3px solid #ffc107;
-            padding-left: 14px;
+            margin-top: 12px;
+            opacity: 0.85;
+            font-size: 0.95rem;
+            border-left: 3px solid #5f9bc2;
+            padding-left: 16px;
         }
         .card-content {
-            padding: 1.5rem;
+            padding: 2rem;
         }
         
-        /* Переключатель возраста - ВИЗУАЛЬНО ВЫДЕЛЕННЫЕ КНОПКИ */
         .age-selector {
             display: flex;
             gap: 12px;
@@ -85,25 +95,23 @@
         }
         .age-btn:hover {
             background: linear-gradient(135deg, #e8f0f5 0%, #dfeaf0 100%);
-            border-color: #c62828;
+            border-color: #1f6e9c;
             transform: translateY(-2px);
             box-shadow: 0 6px 12px rgba(0,0,0,0.1);
         }
         .age-btn.active {
-            background: linear-gradient(135deg, #c62828 0%, #9b2a2a 100%);
+            background: linear-gradient(135deg, #1f6e9c 0%, #155a80 100%);
             border-color: #ffc107;
             color: white;
-            box-shadow: 0 4px 12px rgba(198,40,40,0.4);
+            box-shadow: 0 4px 12px rgba(31,110,156,0.4);
         }
         .age-btn.active:hover {
             transform: translateY(-1px);
         }
         .age-btn:active {
             transform: scale(0.97);
-            transition: transform 0.05s;
         }
         
-        /* Две колонки - адаптив */
         .two-columns {
             display: flex;
             gap: 1.5rem;
@@ -112,10 +120,10 @@
         .body-parts {
             flex: 1;
             min-width: 280px;
-            background: #f8fafc;
-            border-radius: 24px;
+            background: #f6fafd;
+            border-radius: 28px;
             padding: 1rem;
-            border: 1px solid #e2e8f0;
+            border: 1px solid #d4e2f0;
         }
         .calc-section {
             flex: 1;
@@ -123,13 +131,13 @@
         }
         .parts-title {
             font-weight: 700;
-            color: #c62828;
+            color: #1f4a66;
             margin-bottom: 1rem;
             font-size: 0.95rem;
             display: flex;
             align-items: center;
             gap: 8px;
-            border-left: 4px solid #ffc107;
+            border-left: 4px solid #1f6e9c;
             padding-left: 12px;
         }
         .parts-grid {
@@ -145,40 +153,41 @@
             align-items: center;
             gap: 8px;
             background: white;
-            border-radius: 14px;
+            border-radius: 16px;
             padding: 8px 10px;
-            border: 1px solid #e2e8f0;
+            border: 1px solid #d4e2f0;
             cursor: pointer;
             transition: all 0.2s;
         }
         .part-item:hover {
-            border-color: #c62828;
-            background: #fff5f5;
+            border-color: #1f6e9c;
+            background: #eef7ff;
             transform: translateY(-1px);
             box-shadow: 0 2px 6px rgba(0,0,0,0.05);
         }
         .part-item.selected {
-            background: #ffebee;
-            border-color: #c62828;
+            background: #e8f0fe;
+            border-color: #1f6e9c;
             border-width: 2px;
         }
         .part-checkbox {
             width: 18px;
             height: 18px;
             cursor: pointer;
-            accent-color: #c62828;
+            accent-color: #1f6e9c;
             flex-shrink: 0;
         }
         .part-name {
             flex: 1;
             font-size: 0.85rem;
             font-weight: 500;
+            color: #1f3a4b;
         }
         .part-percent {
             font-size: 0.75rem;
             font-weight: 700;
-            color: #c62828;
-            background: #fff0f0;
+            color: #1f6e9c;
+            background: #eef2f7;
             padding: 3px 8px;
             border-radius: 20px;
             flex-shrink: 0;
@@ -189,7 +198,7 @@
         }
         .input-group label {
             font-weight: 600;
-            color: #1e5f7a;
+            color: #1f4a66;
             display: block;
             margin-bottom: 6px;
             font-size: 0.85rem;
@@ -198,7 +207,7 @@
             width: 100%;
             padding: 12px 16px;
             font-size: 0.95rem;
-            border: 2px solid #e2e8f0;
+            border: 2px solid #d4e2f0;
             border-radius: 18px;
             transition: 0.2s;
             font-family: inherit;
@@ -206,8 +215,8 @@
         }
         .input-group input:focus {
             outline: none;
-            border-color: #c62828;
-            box-shadow: 0 0 0 3px rgba(198,40,40,0.1);
+            border-color: #1f6e9c;
+            box-shadow: 0 0 0 3px rgba(31,110,156,0.1);
         }
         .input-row {
             display: flex;
@@ -222,22 +231,21 @@
         .manual-percent {
             margin-top: 1rem;
             padding-top: 1rem;
-            border-top: 1px dashed #e2e8f0;
+            border-top: 1px dashed #d4e2f0;
         }
         
-        /* Результат */
         .result-block {
-            background: linear-gradient(135deg, #ffebee 0%, #fff0f0 100%);
-            border-radius: 24px;
+            background: #f6fafd;
+            border-radius: 28px;
             padding: 1.2rem;
             margin: 1rem 0;
-            border: 1px solid #ffcdd2;
+            border-left: 6px solid #1f6e9c;
         }
         .result-title {
             font-size: 0.7rem;
             text-transform: uppercase;
             letter-spacing: 1.5px;
-            color: #c62828;
+            color: #6f8eaa;
             margin-bottom: 0.8rem;
             font-weight: 600;
         }
@@ -248,7 +256,7 @@
         .burn-percent {
             font-size: 2.2rem;
             font-weight: 800;
-            color: #c62828;
+            color: #1a4d6b;
         }
         .burn-unit {
             font-size: 0.9rem;
@@ -256,28 +264,28 @@
         }
         .shock-card {
             background: white;
-            border-radius: 18px;
+            border-radius: 20px;
             padding: 0.8rem;
             margin: 0.8rem 0;
+            border: 1px solid #d4e2f0;
         }
         .shock-level {
             font-weight: 800;
             font-size: 1rem;
         }
         .infusion-card {
-            background: #e3f2fd;
-            border-radius: 18px;
+            background: #eef7ff;
+            border-radius: 20px;
             padding: 0.8rem;
             margin-top: 0.8rem;
         }
         .infusion-value {
             font-size: 0.95rem;
             font-weight: 800;
-            color: #0b5e7c;
+            color: #1a4d6b;
             line-height: 1.5;
         }
         
-        /* ВИЗУАЛЬНО ВЫДЕЛЕННЫЕ КНОПКИ */
         .button-group {
             display: flex;
             gap: 12px;
@@ -302,26 +310,26 @@
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
         .btn-primary {
-            background: linear-gradient(135deg, #c62828 0%, #9b2a2a 100%);
+            background: linear-gradient(135deg, #1f6e9c 0%, #155a80 100%);
             color: white;
             border: 2px solid #ffc107;
         }
         .btn-primary:hover {
-            background: linear-gradient(135deg, #b52424 0%, #8b2323 100%);
+            background: linear-gradient(135deg, #1a5c84 0%, #114d6e 100%);
             transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(198,40,40,0.3);
+            box-shadow: 0 6px 12px rgba(31,110,156,0.3);
         }
         .btn-primary:active {
             transform: scale(0.97);
         }
         .btn-secondary {
             background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-            color: #c62828;
+            color: #1f4a66;
             border: 2px solid #cbdde6;
         }
         .btn-secondary:hover {
             background: linear-gradient(135deg, #e8f0f5 0%, #dfeaf0 100%);
-            border-color: #c62828;
+            border-color: #1f6e9c;
             transform: translateY(-2px);
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
@@ -329,28 +337,39 @@
             transform: scale(0.97);
         }
         
-        .info-text {
-            font-size: 0.7rem;
-            color: #7c95af;
-            text-align: center;
-            margin-top: 1.2rem;
-            padding-top: 1rem;
-            border-top: 1px solid #e2e8f0;
-            line-height: 1.5;
-        }
-        
         .selected-summary {
-            background: #fef5e8;
+            background: #fff8e7;
             border-radius: 16px;
             padding: 0.8rem;
             margin-top: 1rem;
             font-size: 0.8rem;
+            border-left: 4px solid #f0b849;
+        }
+        .info-text {
+            font-size: 0.7rem;
+            color: #6f8eaa;
+            text-align: center;
+            margin-top: 1.2rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e2ecf3;
+            line-height: 1.5;
         }
         
-        /* Адаптация под мобильные устройства */
+        .parts-grid::-webkit-scrollbar {
+            width: 6px;
+        }
+        .parts-grid::-webkit-scrollbar-track {
+            background: #e2e8f0;
+            border-radius: 10px;
+        }
+        .parts-grid::-webkit-scrollbar-thumb {
+            background: #1f6e9c;
+            border-radius: 10px;
+        }
+        
         @media (max-width: 768px) {
             body {
-                padding: 12px;
+                padding: 1rem;
             }
             .card-header {
                 padding: 1.2rem;
@@ -358,21 +377,15 @@
             .card-header h1 {
                 font-size: 1.3rem;
             }
-            .card-header p {
-                font-size: 0.75rem;
-            }
             .card-content {
                 padding: 1rem;
             }
-            
-            /* Кнопки возраста на мобильных */
             .age-btn {
                 padding: 10px 16px;
                 font-size: 0.8rem;
                 min-width: calc(33% - 8px);
                 flex: 0 0 auto;
             }
-            
             .parts-grid {
                 grid-template-columns: 1fr;
                 max-height: 400px;
@@ -380,31 +393,17 @@
             .part-name {
                 font-size: 0.8rem;
             }
-            .part-percent {
-                font-size: 0.7rem;
-                padding: 2px 6px;
-            }
             .burn-percent {
                 font-size: 2rem;
             }
-            .infusion-value {
-                font-size: 0.85rem;
-            }
             .button-group {
                 flex-direction: column;
-            }
-            .btn {
-                padding: 10px 18px;
-                font-size: 0.85rem;
             }
             .two-columns {
                 gap: 1rem;
             }
             .body-parts, .calc-section {
                 min-width: 100%;
-            }
-            .parts-title {
-                font-size: 0.9rem;
             }
         }
         
@@ -417,77 +416,9 @@
             .age-selector {
                 gap: 8px;
             }
-            .result-block {
-                padding: 1rem;
-            }
             .burn-percent {
                 font-size: 1.8rem;
             }
-            .shock-card, .infusion-card {
-                padding: 0.7rem;
-            }
-            .part-item {
-                padding: 6px 8px;
-            }
-            .selected-summary {
-                font-size: 0.7rem;
-            }
-        }
-        
-        @media (min-width: 769px) and (max-width: 900px) {
-            .parts-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            .age-btn {
-                padding: 10px 16px;
-                font-size: 0.85rem;
-            }
-        }
-        
-        @media (min-width: 901px) {
-            .card-header {
-                padding: 1.5rem 2rem;
-            }
-            .card-header h1 {
-                font-size: 1.8rem;
-            }
-            .card-content {
-                padding: 2rem;
-            }
-            .parts-grid {
-                max-height: 550px;
-            }
-        }
-        
-        @media print {
-            body {
-                background: white;
-                padding: 0;
-            }
-            .calculator-card {
-                box-shadow: none;
-                border: 1px solid #ccc;
-                border-radius: 0;
-            }
-            .age-btn, .btn {
-                display: none;
-            }
-            .button-group {
-                display: none;
-            }
-        }
-        
-        /* Стили для скроллбара */
-        .parts-grid::-webkit-scrollbar {
-            width: 6px;
-        }
-        .parts-grid::-webkit-scrollbar-track {
-            background: #e2e8f0;
-            border-radius: 10px;
-        }
-        .parts-grid::-webkit-scrollbar-thumb {
-            background: #c62828;
-            border-radius: 10px;
         }
     </style>
 </head>
@@ -496,13 +427,12 @@
         <div class="card-header">
             <h1>
                 🔥 Расчет площади ожоговой поверхности
-                <span style="font-size: 0.8rem;">правило девяток</span>
+                <span>правило девяток</span>
             </h1>
             <p>Выбор пораженных частей тела | Оценка шока и инфузионной терапии по формуле Паркленда</p>
         </div>
         <div class="card-content">
             
-            <!-- Переключатель возраста - ВИЗУАЛЬНО ВЫДЕЛЕННЫЕ КНОПКИ -->
             <div class="age-selector" id="ageSelector">
                 <button class="age-btn active" data-age="adult">🧑 Взрослый</button>
                 <button class="age-btn" data-age="teen">🧒 Подросток (12-17 лет)</button>
@@ -510,7 +440,6 @@
             </div>
             
             <div class="two-columns">
-                <!-- Левая колонка - части тела -->
                 <div class="body-parts">
                     <div class="parts-title">🩻 Части тела (выберите пораженные)</div>
                     <div class="parts-grid" id="partsGrid"></div>
@@ -520,7 +449,6 @@
                     </div>
                 </div>
                 
-                <!-- Правая колонка - расчет -->
                 <div class="calc-section">
                     <div class="input-row">
                         <div class="input-group">
@@ -561,7 +489,6 @@
                 </div>
             </div>
             
-            <!-- ВИЗУАЛЬНО ВЫДЕЛЕННЫЕ КНОПКИ -->
             <div class="button-group">
                 <button class="btn btn-primary" id="calculateBtn">📊 Рассчитать</button>
                 <button class="btn btn-secondary" id="resetBtn">⟳ Сбросить выбор</button>
@@ -578,7 +505,6 @@
     </div>
     
     <script>
-        // ОБЪЕДИНЕННЫЕ парные части тела
         const bodyPartsAdult = [
             { id: "head", name: "Голова", percent: 9 },
             { id: "neck", name: "Шея", percent: 1 },
@@ -593,7 +519,6 @@
             { id: "feet", name: "Стопы (обе)", percent: 7 }
         ];
         
-        // Данные для ребенка (голова 18%, ноги 14% вместо 18% у взрослых)
         const bodyPartsChild = [
             { id: "head", name: "Голова", percent: 18 },
             { id: "neck", name: "Шея", percent: 1 },
@@ -608,16 +533,12 @@
             { id: "feet", name: "Стопы (обе)", percent: 7 }
         ];
         
-        // Функция сортировки по алфавиту
         function sortPartsAlphabetically(partsArray) {
-            return [...partsArray].sort((a, b) => {
-                return a.name.localeCompare(b.name, 'ru');
-            });
+            return [...partsArray].sort((a, b) => a.name.localeCompare(b.name, 'ru'));
         }
         
         const bodyPartsAdultSorted = sortPartsAlphabetically(bodyPartsAdult);
         const bodyPartsChildSorted = sortPartsAlphabetically(bodyPartsChild);
-        const bodyPartsTeenSorted = sortPartsAlphabetically(bodyPartsAdult);
         
         let currentParts = [...bodyPartsAdultSorted];
         let selectedParts = new Set();
@@ -665,7 +586,6 @@
                     }
                 });
             });
-            
             updateSelectedSummary();
         }
         
@@ -675,7 +595,6 @@
                 summarySpan.innerHTML = '—';
                 return;
             }
-            
             const selectedList = [];
             let totalPercent = 0;
             currentParts.forEach(part => {
@@ -749,10 +668,10 @@
         }
         
         function getShockInfo(percent) {
-            if (percent <= 0) return { level: "Нет ожогового шока", hypovolemia: "Гиповолемии нет", color: "#2e7d32" };
-            if (percent < 10) return { level: "Ожоговый шок отсутствует", hypovolemia: "Риск гиповолемии минимальный", color: "#2e7d32" };
-            if (percent <= 20) return { level: "Легкий ожоговый шок", hypovolemia: "Умеренная гиповолемия. Требуется инфузионная терапия.", color: "#f57c00" };
-            if (percent <= 40) return { level: "Средний ожоговый шок", hypovolemia: "Выраженная гиповолемия. Срочная инфузионная терапия!", color: "#f57c00" };
+            if (percent <= 0) return { level: "Нет ожогового шока", hypovolemia: "Гиповолемии нет", color: "#2c7a4d" };
+            if (percent < 10) return { level: "Ожоговый шок отсутствует", hypovolemia: "Риск гиповолемии минимальный", color: "#2c7a4d" };
+            if (percent <= 20) return { level: "Легкий ожоговый шок", hypovolemia: "Умеренная гиповолемия. Требуется инфузионная терапия.", color: "#e68a2e" };
+            if (percent <= 40) return { level: "Средний ожоговый шок", hypovolemia: "Выраженная гиповолемия. Срочная инфузионная терапия!", color: "#e68a2e" };
             if (percent <= 60) return { level: "Тяжелый ожоговый шок", hypovolemia: "Критическая гиповолемия. Немедленная инфузия!", color: "#c62828" };
             return { level: "Крайне тяжелый ожоговый шок", hypovolemia: "Угрожающая жизни гиповолемия. Реанимационные мероприятия!", color: "#c62828" };
         }
@@ -789,8 +708,6 @@
             
             if (age === 'child') {
                 currentParts = JSON.parse(JSON.stringify(bodyPartsChildSorted));
-            } else if (age === 'teen') {
-                currentParts = JSON.parse(JSON.stringify(bodyPartsTeenSorted));
             } else {
                 currentParts = JSON.parse(JSON.stringify(bodyPartsAdultSorted));
             }
@@ -830,6 +747,13 @@
         document.getElementById('childAge').addEventListener('input', updateCalculation);
         
         setAge('adult');
+        
+        // Регистрация Service Worker для PWA
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/SMP/sw.js')
+                .then(reg => console.log('✅ Сервис-воркер зарегистрирован:', reg))
+                .catch(err => console.error('❌ Ошибка регистрации:', err));
+        }
     </script>
 </body>
 </html>
