@@ -2,8 +2,13 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Шкала NEWS (National Early Warning Score) | Интерактивный калькулятор</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
+    <title>Шкала NEWS2 (National Early Warning Score) | Интерактивный калькулятор</title>
+    
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1e2f47">
+    
     <style>
         * {
             margin: 0;
@@ -12,27 +17,33 @@
         }
 
         body {
-            background: #eef2f5;
+            background: linear-gradient(145deg, #eef2f7 0%, #dce3ec 100%);
             font-family: 'Segoe UI', Roboto, system-ui, -apple-system, 'Helvetica Neue', sans-serif;
             padding: 2rem 1rem;
-            color: #1a2c3e;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
         }
 
-        .container {
-            max-width: 1200px;
+        .calculator-card {
+            max-width: 1100px;
+            width: 100%;
             margin: 0 auto;
+            background: #ffffff;
+            border-radius: 48px;
+            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            transition: transform 0.2s;
         }
 
-        /* шапка */
-        .hero {
-            background: linear-gradient(135deg, #1a4d6b, #0f3b52);
-            border-radius: 2rem;
+        .card-header {
+            background: #1e2f47;
+            background-image: linear-gradient(115deg, #142a3b, #1d3f55);
             padding: 1.8rem 2rem;
-            margin-bottom: 2rem;
             color: white;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
-        .hero h1 {
+        .card-header h1 {
             font-size: 1.9rem;
             font-weight: 700;
             display: flex;
@@ -40,11 +51,23 @@
             gap: 12px;
             flex-wrap: wrap;
         }
-        .hero p {
-            margin-top: 8px;
-            opacity: 0.9;
+        .card-header h1 span {
+            background: rgba(255,255,255,0.2);
+            font-size: 0.9rem;
+            padding: 5px 14px;
+            border-radius: 60px;
+            font-weight: 500;
+        }
+        .card-header p {
+            margin-top: 12px;
+            opacity: 0.85;
+            font-size: 0.95rem;
             border-left: 3px solid #5f9bc2;
             padding-left: 16px;
+        }
+
+        .card-body {
+            padding: 2rem 2rem 1.8rem;
         }
 
         /* сетка параметров */
@@ -57,22 +80,25 @@
 
         /* карточка параметра */
         .param-card {
-            background: white;
-            border-radius: 28px;
+            background: #f6fafd;
+            border-radius: 24px;
             padding: 1.2rem 1.2rem 1rem;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
             transition: all 0.2s;
-            border: 1px solid #e2edf2;
+            border: 1px solid #d4e2f0;
+        }
+        .param-card:hover {
+            border-color: #b9d0e5;
         }
         .param-title {
             font-weight: 700;
-            font-size: 1.1rem;
-            color: #1f5e7e;
+            font-size: 1rem;
+            color: #1f4a66;
             margin-bottom: 12px;
             display: flex;
             align-items: center;
             gap: 8px;
-            border-left: 4px solid #2c9bce;
+            border-left: 4px solid #1f6e9c;
             padding-left: 12px;
         }
         .param-buttons {
@@ -82,7 +108,7 @@
             margin-top: 8px;
         }
         .param-btn {
-            background: #f0f4f9;
+            background: #ffffff;
             border: 1px solid #cbdae6;
             padding: 8px 14px;
             border-radius: 40px;
@@ -90,47 +116,46 @@
             font-weight: 500;
             cursor: pointer;
             transition: 0.15s;
-            color: #1f4a66;
+            color: #1f3a4b;
             flex: 1 0 auto;
             text-align: center;
+            font-family: inherit;
         }
         .param-btn.active {
-            background: #2c7cb6;
-            border-color: #1f6e9c;
+            background: #1f6e9c;
+            border-color: #0f557c;
             color: white;
             box-shadow: 0 2px 6px rgba(0,0,0,0.1);
         }
-        /* Стиль для нормальных значений (балл 0) — жирный шрифт */
         .param-btn.normal-value {
             font-weight: 700;
             background: #e8f0e8;
             border-color: #b8d0b8;
         }
         .param-btn.active.normal-value {
-            background: #2c7cb6;
-            border-color: #1f6e9c;
+            background: #1f6e9c;
+            border-color: #0f557c;
             color: white;
             font-weight: 700;
         }
         .param-btn:hover:not(.active) {
-            background: #e2ecf3;
+            background: #eef2f7;
             border-color: #b9cfdf;
         }
         .subnote {
             font-size: 0.7rem;
-            color: #7e9ab5;
+            color: #6f8eaa;
             margin-top: 8px;
             text-align: right;
         }
 
         /* результат */
         .result-panel {
-            background: #fff;
-            border-radius: 32px;
+            background: #f6fafd;
+            border-radius: 28px;
             padding: 1.5rem;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
             margin-top: 0.5rem;
-            border: 1px solid #e2edf2;
+            border-left: 6px solid #1f6e9c;
         }
         .score-box {
             display: flex;
@@ -140,87 +165,127 @@
             gap: 1rem;
             margin-bottom: 1rem;
             padding-bottom: 1rem;
-            border-bottom: 2px solid #ecf3f8;
+            border-bottom: 2px solid #d4e2f0;
         }
         .score-number {
             font-size: 3.5rem;
             font-weight: 800;
             line-height: 1;
+            color: #1a4d6b;
         }
         .risk-level {
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             font-weight: 600;
             padding: 6px 18px;
             border-radius: 60px;
-            background: #eef2f7;
+            background: white;
         }
         .recommendation {
-            font-size: 1rem;
+            font-size: 0.95rem;
             margin-top: 12px;
             padding: 12px 16px;
-            border-radius: 28px;
-            background: #f8fafc;
+            border-radius: 20px;
+            background: #ffffff;
+            border: 1px solid #d4e2f0;
         }
         .reset-btn {
-            background: #e9edf2;
+            background: #ecf3f8;
             border: none;
-            padding: 8px 24px;
+            padding: 10px 24px;
             border-radius: 40px;
-            font-weight: 500;
+            font-weight: 600;
             cursor: pointer;
             margin-top: 16px;
             font-family: inherit;
             transition: 0.2s;
+            color: #1f4a66;
         }
         .reset-btn:hover {
-            background: #dce4ec;
+            background: #dee4ec;
         }
         .footer-note {
             text-align: center;
             font-size: 0.7rem;
-            color: #7a93ae;
+            color: #6f8eaa;
             margin-top: 2rem;
-            border-top: 1px solid #e0ecf5;
-            padding-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e2ecf3;
         }
-        @media (max-width: 680px) {
-            .param-buttons { justify-content: center; }
-            .score-number { font-size: 2.5rem; }
+        
+        @media (max-width: 768px) {
+            .card-body {
+                padding: 1.5rem;
+            }
+            .parameters-grid {
+                gap: 1rem;
+            }
+            .score-number {
+                font-size: 2.5rem;
+            }
+            .risk-level {
+                font-size: 0.9rem;
+                padding: 4px 12px;
+            }
+            .recommendation {
+                font-size: 0.85rem;
+            }
+            .card-header h1 {
+                font-size: 1.4rem;
+            }
+            .card-header p {
+                font-size: 0.85rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .param-btn {
+                font-size: 0.75rem;
+                padding: 6px 10px;
+            }
+            .param-title {
+                font-size: 0.9rem;
+            }
+            .score-number {
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
 <body>
-<div class="container">
-    <div class="hero">
+<div class="calculator-card">
+    <div class="card-header">
         <h1>
-            📊 Шкала NEWS (National Early Warning Score)
-            <span style="font-size: 0.9rem;">версия NEWS2</span>
+            📊 Шкала NEWS2
+            <span>National Early Warning Score</span>
         </h1>
         <p>Быстрая оценка физиологического статуса пациента. Выберите параметры – итоговый балл и уровень риска рассчитаются автоматически.</p>
     </div>
+    <div class="card-body">
+        
+        <div class="parameters-grid" id="paramsGrid"></div>
 
-    <div class="parameters-grid" id="paramsGrid"></div>
-
-    <div class="result-panel" id="resultPanel">
-        <div class="score-box">
-            <div><span style="font-size: 0.9rem; font-weight: 500;">Общий балл NEWS:</span>
-                <div class="score-number" id="totalScore">0</div>
+        <div class="result-panel" id="resultPanel">
+            <div class="score-box">
+                <div>
+                    <span style="font-size: 0.9rem; font-weight: 500;">Общий балл NEWS2:</span>
+                    <div class="score-number" id="totalScore">0</div>
+                </div>
+                <div class="risk-level" id="riskLevel">Низкий риск</div>
             </div>
-            <div class="risk-level" id="riskLevel">Низкий риск</div>
+            <div class="recommendation" id="recommendation">
+                Балл 0–4: рутинное клиническое наблюдение.
+            </div>
+            <button class="reset-btn" id="resetBtn">⟳ Сбросить все параметры</button>
         </div>
-        <div class="recommendation" id="recommendation">
-            Балл 0–4: рутинное клиническое наблюдение.
+        
+        <div class="footer-note">
+            ⚕️ Шкала NEWS2 (National Early Warning Score) — стандартизированная система оценки тяжести состояния.<br>
+            Параметры: дыхание, сатурация, кислород, АД, пульс, сознание (AVPU), температура. Балл ≥5 требует срочной врачебной оценки.
         </div>
-        <button class="reset-btn" id="resetBtn">⟳ Сбросить все параметры</button>
-    </div>
-    <div class="footer-note">
-        ⚕️ Шкала NEWS2 (National Early Warning Score) — стандартизированная система оценки тяжести состояния. <br>
-        Параметры: дыхание, сатурация, кислород, АД, пульс, сознание (AVPU), температура. Балл ≥5 требует срочной врачебной оценки.
     </div>
 </div>
 
 <script>
-    // ---- Описание параметров и их баллов ----
     const parameters = {
         respiratory: {
             name: "Частота дыхания (дыханий/мин)",
@@ -231,7 +296,7 @@
                 { label: "21–24", value: 2, isNormal: false },
                 { label: "≥25", value: 3, isNormal: false }
             ],
-            defaultIdx: 2   // 12-20
+            defaultIdx: 2
         },
         spo2: {
             name: "SpO₂ (сатурация) и кислород",
@@ -257,7 +322,7 @@
                 { label: "111–219", value: 0, isNormal: true },
                 { label: "≥220", value: 3, isNormal: false }
             ],
-            defaultIdx: 3   // 111-219
+            defaultIdx: 3
         },
         pulse: {
             name: "Частота пульса (уд/мин)",
@@ -269,7 +334,7 @@
                 { label: "111–130", value: 2, isNormal: false },
                 { label: "≥131", value: 3, isNormal: false }
             ],
-            defaultIdx: 2   // 51-90
+            defaultIdx: 2
         },
         consciousness: {
             name: "Сознание (AVPU)",
@@ -290,11 +355,10 @@
                 { label: "38.1–39.0", value: 1, isNormal: false },
                 { label: "≥39.1", value: 2, isNormal: false }
             ],
-            defaultIdx: 2   // 36.1-38.0
+            defaultIdx: 2
         }
     };
 
-    // Состояние выбранных индексов для каждого параметра
     let selectedIndices = {
         respiratory: parameters.respiratory.defaultIdx,
         spo2: parameters.spo2.defaultIdx,
@@ -303,14 +367,12 @@
         consciousness: parameters.consciousness.defaultIdx,
         temperature: parameters.temperature.defaultIdx
     };
-    let oxygenFlag = false;   // использование кислорода
+    let oxygenFlag = false;
 
-    // Дополнительно: для параметра spo2 нужно динамически показывать нужные опции в зависимости от oxygenFlag
     function getVisibleSpo2Options() {
         return parameters.spo2.options.filter(opt => opt.condition ? opt.condition(oxygenFlag) : true);
     }
 
-    // Получить текущий балл для параметра
     function getParamScore(paramKey) {
         if (paramKey === 'spo2') {
             const visibleOptions = getVisibleSpo2Options();
@@ -329,7 +391,6 @@
         }
     }
 
-    // Пересчитать общий балл и обновить интерфейс
     function updateTotalScore() {
         let total = 0;
         total += getParamScore('respiratory');
@@ -338,12 +399,10 @@
         total += getParamScore('pulse');
         total += getParamScore('consciousness');
         total += getParamScore('temperature');
-        // Добавляем 2 балла, если пациент на кислородной поддержке (NEWS2)
         if (oxygenFlag) total += 2;
 
         document.getElementById('totalScore').innerText = total;
 
-        // Определяем уровень риска
         let riskText = "", recommendationText = "", riskColor = "";
         if (total <= 4) {
             riskText = "Низкий риск";
@@ -365,14 +424,12 @@
         document.getElementById('riskLevel').style.border = `1px solid ${riskColor}40`;
     }
 
-    // Построение интерфейса кнопок
     function buildUI() {
         const container = document.getElementById('paramsGrid');
         container.innerHTML = '';
 
-        // Создаём карточки для каждого параметра (кроме кислорода, его добавим как отдельный элемент)
         for (const [key, param] of Object.entries(parameters)) {
-            if (key === 'spo2') continue; // Обработаем отдельно из-за динамических опций
+            if (key === 'spo2') continue;
             const card = document.createElement('div');
             card.className = 'param-card';
             card.innerHTML = `<div class="param-title">${param.name}</div><div class="param-buttons" id="buttons-${key}"></div>`;
@@ -385,9 +442,7 @@
                 if (selectedIndices[key] === idx) btn.classList.add('active');
                 btn.innerText = opt.label;
                 btn.addEventListener('click', () => {
-                    // обновляем выбранный индекс
                     selectedIndices[key] = idx;
-                    // обновляем активный класс у кнопок в этой группе
                     document.querySelectorAll(`#buttons-${key} .param-btn`).forEach(b => b.classList.remove('active'));
                     btn.classList.add('active');
                     updateTotalScore();
@@ -396,7 +451,6 @@
             });
         }
 
-        // Специальная карточка для SpO₂ и кислородной поддержки
         const spo2Card = document.createElement('div');
         spo2Card.className = 'param-card';
         spo2Card.innerHTML = `
@@ -420,7 +474,6 @@
                 const btn = document.createElement('button');
                 btn.className = 'param-btn';
                 if (opt.isNormal) btn.classList.add('normal-value');
-                // если текущий индекс выходит за пределы нового списка, сбрасываем на первый
                 let currentIdx = selectedIndices.spo2;
                 if (currentIdx >= visibleOpts.length) currentIdx = 0;
                 if (currentIdx === idx) btn.classList.add('active');
@@ -433,14 +486,12 @@
                 });
                 spo2BtnContainer.appendChild(btn);
             });
-            // синхронизируем selectedIndices.spo2, если был выход за пределы
             if (selectedIndices.spo2 >= visibleOpts.length) {
                 selectedIndices.spo2 = 0;
-                renderSpo2Buttons(); // рекурсивно обновим
+                renderSpo2Buttons();
             }
         }
 
-        // обработчики кнопок кислорода
         const oxygenNo = spo2Card.querySelector('#oxygenNoBtn');
         const oxygenYes = spo2Card.querySelector('#oxygenYesBtn');
         function updateOxygenUI() {
@@ -463,12 +514,10 @@
             updateOxygenUI();
         });
 
-        // Инициализируем отображение SpO2 кнопок
         renderSpo2Buttons();
         updateOxygenUI();
     }
 
-    // Сброс всех параметров в дефолтные значения
     function resetAll() {
         selectedIndices = {
             respiratory: parameters.respiratory.defaultIdx,
@@ -479,16 +528,22 @@
             temperature: parameters.temperature.defaultIdx
         };
         oxygenFlag = false;
-        // Перестроим UI заново (проще, чем обновлять каждый активный класс вручную)
         buildUI();
         updateTotalScore();
     }
 
-    // Инициализация
     buildUI();
     updateTotalScore();
 
     document.getElementById('resetBtn').addEventListener('click', resetAll);
+
+    // Регистрация Service Worker для PWA
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/SMP/sw.js')
+            .then(reg => console.log('✅ Сервис-воркер зарегистрирован:', reg))
+            .catch(err => console.error('❌ Ошибка регистрации:', err));
+    }
 </script>
+
 </body>
 </html>
