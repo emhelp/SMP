@@ -2,65 +2,107 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Перечень состояний - Оценка по шкале боли ВАШ</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Оценка по шкале боли ВАШ - Перечень состояний</title>
+    
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1e2f47">
+    
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+        
         body {
-            background-color: transparent;
-            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
-            line-height: 1.5;
-            color: #1e2a3e;
-            padding: 20px 0;
+            background: linear-gradient(145deg, #eef2f7 0%, #dce3ec 100%);
+            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, 'Helvetica Neue', sans-serif;
+            padding: 2rem 1rem;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
         }
-        .document-container {
+        
+        .calculator-card {
             max-width: 1100px;
+            width: 100%;
             margin: 0 auto;
-            background-color: #ffffff;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            background: #ffffff;
+            border-radius: 48px;
+            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.2);
             overflow: hidden;
+            transition: transform 0.2s;
         }
-        .document-header {
-            background: linear-gradient(135deg, #c2185b 0%, #8b1e4a 100%);
+        
+        .card-header {
+            background: #1e2f47;
+            background-image: linear-gradient(115deg, #142a3b, #1d3f55);
+            padding: 1.8rem 2rem;
             color: white;
-            padding: 1.5rem 2rem;
-            border-bottom: 4px solid #ffc107;
         }
-        .document-header h1 {
-            font-size: 1.8rem;
+        .card-header h1 {
+            font-size: 1.9rem;
             font-weight: 700;
-            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
         }
-        .document-header .hashtag {
+        .card-header h1 span {
+            background: rgba(255,255,255,0.2);
+            font-size: 0.9rem;
+            padding: 5px 14px;
+            border-radius: 60px;
+            font-weight: 500;
+        }
+        .card-header .hashtag {
             font-size: 1rem;
             opacity: 0.9;
             font-family: monospace;
+            margin-top: 8px;
         }
-        .document-content {
-            padding: 2rem;
+        .card-header p {
+            margin-top: 12px;
+            opacity: 0.85;
+            font-size: 0.95rem;
+            border-left: 3px solid #5f9bc2;
+            padding-left: 16px;
         }
+        
+        .card-content {
+            padding: 2rem 2rem 1.8rem;
+        }
+        
+        .info-card {
+            background: #eef7ff;
+            border-left: 5px solid #1f6e9c;
+            border-radius: 20px;
+            padding: 1rem 1.25rem;
+            margin: 1rem 0;
+        }
+        
         .section {
             margin-bottom: 2rem;
-            border-left: 4px solid #c2185b;
+            border-left: 4px solid #1f6e9c;
             padding-left: 1.25rem;
         }
+        
         .section-title {
             font-size: 1.4rem;
             font-weight: 700;
-            color: #c2185b;
+            color: #1f4a66;
             margin-bottom: 1rem;
             display: inline-block;
             border-bottom: 2px solid #ffc107;
             padding-bottom: 0.25rem;
         }
+        
         .badge {
             display: inline-block;
-            background: #c2185b;
+            background: #1f6e9c;
             color: white;
             font-size: 0.7rem;
             font-weight: 600;
@@ -69,103 +111,104 @@
             margin-right: 0.5rem;
             vertical-align: middle;
         }
+        
         .badge-orange {
             background: #f57c00;
         }
+        
         .badge-blue {
-            background: #1976d2;
+            background: #1f6e9c;
         }
+        
         .badge-green {
-            background: #2e7d32;
+            background: #2c7a4d;
         }
+        
         .highlight {
-            background-color: #ffecb3;
+            background-color: #fff3b0;
             padding: 0.1rem 0.3rem;
-            border-radius: 4px;
+            border-radius: 8px;
             font-weight: 600;
+            color: #a56b00;
         }
+        
         .important-text {
             font-weight: 700;
             color: #c62828;
             text-decoration: underline;
         }
-        .info-card {
-            background: #e3f2fd;
-            border-left: 6px solid #1976d2;
-            padding: 1rem 1.25rem;
-            margin: 1rem 0;
-            border-radius: 0 12px 12px 0;
-        }
+        
         .category-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
             gap: 1rem;
             margin: 1rem 0;
         }
+        
         .category-card {
-            background: #fef5f0;
-            border-radius: 12px;
+            background: #f6fafd;
+            border-radius: 20px;
             padding: 1rem;
-            border-left: 4px solid #ff9800;
+            border-left: 4px solid #1f6e9c;
+            transition: all 0.2s;
         }
+        
+        .category-card:hover {
+            border-color: #0f557c;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        
         .category-title {
             font-weight: 800;
             font-size: 1.1rem;
-            color: #c2185b;
+            color: #1f4a66;
             margin-bottom: 0.75rem;
             padding-bottom: 0.5rem;
-            border-bottom: 2px solid #ffe0b5;
+            border-bottom: 2px solid #d4e2f0;
         }
+        
         .condition-list {
             list-style: none;
             padding-left: 0;
         }
+        
         .condition-list li {
             padding-left: 1.3rem;
             position: relative;
             margin-bottom: 0.4rem;
-            font-size: 0.92rem;
+            font-size: 0.9rem;
+            color: #1f3a4b;
         }
+        
         .condition-list li::before {
             content: "•";
-            color: #c2185b;
+            color: #1f6e9c;
             font-weight: bold;
             position: absolute;
             left: 0;
         }
-        .sub-list {
-            list-style: none;
-            padding-left: 1.5rem;
-            margin-top: 0.25rem;
-        }
-        .sub-list li {
-            padding-left: 1rem;
-            position: relative;
-            font-size: 0.88rem;
-            color: #4a627a;
-        }
-        .sub-list li::before {
-            content: "–";
-            color: #f57c00;
-            position: absolute;
-            left: 0;
-        }
+        
         hr {
             margin: 1.5rem 0;
             border: none;
             height: 1px;
             background: linear-gradient(90deg, #e2e8f0, transparent);
         }
+        
         .subnote {
             font-size: 0.85rem;
-            color: #5a6e85;
+            color: #6f8eaa;
             margin-top: 1rem;
             padding-top: 0.75rem;
-            border-top: 1px solid #e2e8f0;
+            border-top: 1px solid #e2ecf3;
         }
+        
         @media (max-width: 768px) {
-            .document-content {
+            body {
                 padding: 1rem;
+            }
+            .card-content {
+                padding: 1.5rem;
             }
             .section {
                 padding-left: 0.75rem;
@@ -176,17 +219,26 @@
             .category-grid {
                 grid-template-columns: 1fr;
             }
+            .card-header h1 {
+                font-size: 1.4rem;
+            }
+            .card-header p {
+                font-size: 0.85rem;
+            }
         }
     </style>
 </head>
 <body>
-<div class="document-container">
-    <div class="document-header">
-        <h1>📋 ОЦЕНКА ПО ШКАЛЕ БОЛИ ВАШ</h1>
+<div class="calculator-card">
+    <div class="card-header">
+        <h1>
+            📋 Оценка по шкале боли ВАШ
+            <span>Visual Analogue Scale</span>
+        </h1>
         <div class="hashtag">Перечень состояний, при которых проводится обязательная оценка</div>
-        <p style="margin-top: 0.5rem;">Визуальная аналоговая шкала (ВАШ) — инструмент объективной оценки интенсивности болевого синдрома</p>
+        <p>Визуальная аналоговая шкала (ВАШ) — инструмент объективной оценки интенсивности болевого синдрома</p>
     </div>
-    <div class="document-content">
+    <div class="card-content">
         
         <div class="info-card">
             <strong>📌 Шкала ВАШ (Visual Analogue Scale)</strong> — метод оценки боли, при котором пациент отмечает уровень боли на прямой линии от 0 (нет боли) до 10 (невыносимая боль). <strong class="highlight">Оценка проводится у всех пациентов с указанными состояниями!</strong>
@@ -197,7 +249,6 @@
             
             <div class="category-grid">
                 
-                <!-- Онкология и неврология -->
                 <div class="category-card">
                     <div class="category-title">🔬 Онкология / Неврология</div>
                     <ul class="condition-list">
@@ -206,7 +257,6 @@
                     </ul>
                 </div>
                 
-                <!-- Черепно-мозговая травма -->
                 <div class="category-card">
                     <div class="category-title">🧠 Черепно-мозговая травма</div>
                     <ul class="condition-list">
@@ -224,7 +274,6 @@
                     </ul>
                 </div>
                 
-                <!-- Позвоночник -->
                 <div class="category-card">
                     <div class="category-title">🦴 Позвоночник</div>
                     <ul class="condition-list">
@@ -233,7 +282,6 @@
                     </ul>
                 </div>
                 
-                <!-- Вывихи верхних конечностей -->
                 <div class="category-card">
                     <div class="category-title">💪 Вывихи верхних конечностей</div>
                     <ul class="condition-list">
@@ -245,7 +293,6 @@
                     </ul>
                 </div>
                 
-                <!-- Вывихи нижних конечностей -->
                 <div class="category-card">
                     <div class="category-title">🦵 Вывихи нижних конечностей</div>
                     <ul class="condition-list">
@@ -256,7 +303,6 @@
                     </ul>
                 </div>
                 
-                <!-- Переломы конечностей -->
                 <div class="category-card">
                     <div class="category-title">🦴 Переломы конечностей</div>
                     <ul class="condition-list">
@@ -265,7 +311,6 @@
                     </ul>
                 </div>
                 
-                <!-- Травмы и повреждения -->
                 <div class="category-card">
                     <div class="category-title">⚠️ Травмы и повреждения</div>
                     <ul class="condition-list">
@@ -277,7 +322,6 @@
                     </ul>
                 </div>
                 
-                <!-- Термические поражения -->
                 <div class="category-card">
                     <div class="category-title">🔥 Термические поражения</div>
                     <ul class="condition-list">
@@ -286,7 +330,6 @@
                     </ul>
                 </div>
                 
-                <!-- Особые состояния -->
                 <div class="category-card">
                     <div class="category-title">🩺 Особые состояния</div>
                     <ul class="condition-list">
@@ -322,5 +365,15 @@
         
     </div>
 </div>
+
+<script>
+    // Регистрация Service Worker для PWA
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/SMP/sw.js')
+            .then(reg => console.log('✅ Сервис-воркер зарегистрирован:', reg))
+            .catch(err => console.error('❌ Ошибка регистрации:', err));
+    }
+</script>
+
 </body>
 </html>
