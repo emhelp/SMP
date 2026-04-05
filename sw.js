@@ -1,4 +1,4 @@
-const CACHE_NAME = 'emhelp-v15';
+const CACHE_NAME = 'emhelp-v16';
 
 const urlsToCache = [
   '/SMP/',
@@ -10,14 +10,63 @@ const urlsToCache = [
   '/SMP/templates.html',
   '/SMP/consilium.html',
   '/SMP/prikaz.html',
+  
+  // STATUS LOCALIS - основные страницы
   '/SMP/other_local_status.html',
   '/SMP/dislocations.html',
   '/SMP/fractures_upper_limb.html',
   '/SMP/fractures_lower_limb.html',
-  '/SMP/fractures_ribs.html',              // ← НОВЫЙ
-  '/SMP/spine_fractures.html',             // ← НОВЫЙ
-  '/SMP/facial_fractures.html',            // ← НОВЫЙ
-  '/SMP/ligament_muscle_injuries.html',    // ← НОВЫЙ
+  '/SMP/fractures_ribs.html',
+  '/SMP/spine_fractures.html',
+  '/SMP/facial_fractures.html',
+  '/SMP/ligament_muscle_injuries.html',
+  
+  // ПЕРЕЛОМЫ ПОЗВОНОЧНИКА (spine_fractures.html)
+  '/SMP/c4_compression_fracture.html',
+  '/SMP/c5_uncomplicated_compression_fracture.html',
+  '/SMP/t10_t11_compression_fracture_spinal_cord_rupture.html',
+  '/SMP/l1_compression_fracture.html',
+  '/SMP/l2_compression_fracture.html',
+  '/SMP/l2_spinous_process_fracture.html',
+  '/SMP/l2_transverse_process_fracture_right.html',
+  '/SMP/senile_spondylopathy_l2.html',
+  '/SMP/coccyx_fracture.html',
+  
+  // ПЕРЕЛОМЫ ЛИЦЕВОГО ЧЕРЕПА (facial_fractures.html)
+  '/SMP/nasal_bones_nondisplaced.html',
+  '/SMP/nasal_bones_displaced.html',
+  '/SMP/zygomatic_bone.html',
+  '/SMP/mandible.html',
+  
+  // ТРАВМЫ СВЯЗОК И МЫШЦ (ligament_muscle_injuries.html)
+  '/SMP/lumbar_ligament_capsule_injury.html',
+  '/SMP/posttraumatic_cervical_myositis.html',
+  '/SMP/supraspinatus_muscle_injury_right.html',
+  '/SMP/shoulder_joint_capsule_ligament_injury.html',
+  '/SMP/biceps_brachii_long_head_avulsion_right.html',
+  '/SMP/biceps_brachii_tendon_rupture.html',
+  '/SMP/biceps_brachii_partial_injury.html',
+  '/SMP/elbow_ligament_injury.html',
+  '/SMP/wrist_ligament_injury.html',
+  '/SMP/left_wrist_ligament_sprain.html',
+  '/SMP/finger_extensor_tendon_avulsion_distal.html',
+  '/SMP/finger_extensor_tendon_avulsion_proximal.html',
+  '/SMP/finger_interphalangeal_ligament_injury.html',
+  '/SMP/left_hand_extensor_tendon_rupture_iii_finger.html',
+  '/SMP/right_hip_capsule_ligament_injury.html',
+  '/SMP/left_quadriceps_tendon_rupture.html',
+  '/SMP/medial_meniscus_injury_right_block_hemarthrosis.html',
+  '/SMP/medial_collateral_ligament_injury.html',
+  '/SMP/lateral_collateral_anterior_cruciate_ligament_injury_right_hemarthrosis.html',
+  '/SMP/right_medial_meniscus_rupture.html',
+  '/SMP/right_medial_collateral_ligament_rupture.html',
+  '/SMP/left_anterior_cruciate_ligament_rupture.html',
+  '/SMP/right_medial_collateral_ligament_partial_injury.html',
+  '/SMP/right_ankle_ligament_injury.html',
+  '/SMP/ankle_ligament_sprain.html',
+  '/SMP/right_foot_ligament_injury.html',
+  
+  // CSS и основные файлы
   '/SMP/style.css',
   '/SMP/manifest.json',
   '/SMP/icon-512.png',
