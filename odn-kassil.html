@@ -3,7 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>Калькулятор ОДН | Клиническая шкала</title>
+    <title>Калькулятор ОДН | Шкала Кассиля</title>
+    
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1e2f47">
+    
     <style>
         * {
             margin: 0;
@@ -12,71 +17,59 @@
         }
 
         body {
-            background: linear-gradient(145deg, #ecf5f9 0%, #dee9f0 100%);
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-            padding: 16px;
+            background: linear-gradient(145deg, #eef2f7 0%, #dce3ec 100%);
+            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, 'Helvetica Neue', sans-serif;
+            padding: 2rem 1rem;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: flex-start;
-            color: #1a3a4f;
         }
 
-        .calculator-wrapper {
+        .calculator-card {
+            max-width: 1100px;
             width: 100%;
-            max-width: 1400px;
             margin: 0 auto;
-        }
-
-        /* Главная карточка */
-        .main-card {
             background: #ffffff;
-            border-radius: 32px;
-            box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.15);
+            border-radius: 48px;
+            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.2);
             overflow: hidden;
-            transition: all 0.2s;
+            transition: transform 0.2s;
         }
 
-        /* Шапка */
         .card-header {
-            background: linear-gradient(115deg, #0c4e6e 0%, #083c54 100%);
-            padding: 20px 28px;
+            background: #1e2f47;
+            background-image: linear-gradient(115deg, #142a3b, #1d3f55);
+            padding: 1.8rem 2rem;
             color: white;
         }
-
         .card-header h1 {
-            font-size: 1.7rem;
+            font-size: 1.9rem;
             font-weight: 700;
             display: flex;
             align-items: center;
-            flex-wrap: wrap;
             gap: 12px;
-            letter-spacing: -0.3px;
+            flex-wrap: wrap;
         }
-
         .card-header h1 span {
-            font-size: 0.85rem;
-            font-weight: 500;
             background: rgba(255,255,255,0.2);
+            font-size: 0.9rem;
             padding: 5px 14px;
-            border-radius: 40px;
+            border-radius: 60px;
+            font-weight: 500;
         }
-
         .card-header p {
-            font-size: 0.85rem;
-            opacity: 0.92;
-            border-left: 3px solid #6eb4d0;
-            padding-left: 16px;
             margin-top: 12px;
-            line-height: 1.4;
+            opacity: 0.85;
+            font-size: 0.95rem;
+            border-left: 3px solid #5f9bc2;
+            padding-left: 16px;
         }
 
-        /* Контент */
         .card-content {
-            padding: 24px 28px;
+            padding: 2rem 2rem 1.8rem;
         }
 
-        /* Гибкая сетка */
         .flex-layout {
             display: flex;
             gap: 32px;
@@ -96,31 +89,29 @@
             top: 16px;
         }
 
-        /* Группы параметров */
         .param-group {
-            background: #fefefe;
+            background: #f6fafd;
             border-radius: 24px;
             padding: 20px;
             margin-bottom: 24px;
-            border: 1px solid #e2edf5;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+            border: 1px solid #d4e2f0;
             transition: all 0.2s;
         }
 
         .param-group:hover {
-            border-color: #cbdde8;
-            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.05);
+            border-color: #b9d0e5;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
         }
 
         .group-title {
             font-weight: 700;
-            font-size: 1.05rem;
-            color: #0f5b7a;
+            font-size: 1rem;
+            color: #1f4a66;
             margin-bottom: 18px;
             display: flex;
             align-items: center;
             gap: 10px;
-            border-left: 4px solid #2c9bce;
+            border-left: 4px solid #1f6e9c;
             padding-left: 14px;
         }
 
@@ -128,25 +119,14 @@
             margin-bottom: 20px;
         }
 
-        .param-label {
-            font-weight: 600;
-            font-size: 0.88rem;
-            color: #1f5f7e;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        /* Опции (кнопки выбора) */
         .options-grid {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
-            background: #fafdff;
+            background: #ffffff;
             padding: 10px 12px;
             border-radius: 20px;
-            border: 1px solid #e6f0f5;
+            border: 1px solid #e2edf5;
         }
 
         .option {
@@ -159,42 +139,37 @@
             border-radius: 60px;
             transition: all 0.2s;
             background: white;
-            border: 1px solid #dce8f0;
+            border: 1px solid #cbdae6;
             font-weight: 500;
+            color: #1f3a4b;
         }
 
         .option:hover {
-            background: #eef4f9;
-            border-color: #b6d2e6;
+            background: #eef2f7;
+            border-color: #b9cfdf;
             transform: translateY(-1px);
         }
 
         .option input {
             cursor: pointer;
-            accent-color: #0f5b7a;
+            accent-color: #1f6e9c;
             width: 16px;
             height: 16px;
             margin: 0;
         }
 
-        .option span {
-            user-select: none;
-        }
-
-        /* Стиль выбранного */
         .option:has(input:checked) {
-            background: #e2f0f7;
-            border-color: #5fa3c2;
+            background: #e8f0fe;
+            border-color: #1f6e9c;
             box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         }
 
-        /* Результат */
         .result-card {
-            background: linear-gradient(115deg, #fafeff 0%, #ffffff 100%);
+            background: #f6fafd;
             border-radius: 28px;
             padding: 22px;
-            border: 1px solid #ddecf3;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+            border: 1px solid #d4e2f0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
             margin-bottom: 20px;
         }
 
@@ -208,13 +183,13 @@
             text-transform: uppercase;
             letter-spacing: 1.5px;
             font-weight: 600;
-            color: #6a8ea8;
+            color: #6f8eaa;
         }
 
         .degree-value {
-            font-size: 2.8rem;
+            font-size: 2.5rem;
             font-weight: 800;
-            color: #0f5b7a;
+            color: #1a4d6b;
             line-height: 1;
             margin: 8px 0;
         }
@@ -226,25 +201,26 @@
             padding: 12px 16px;
             border-radius: 60px;
             font-weight: 700;
-            font-size: 1rem;
+            font-size: 0.95rem;
             margin: 12px 0;
-            background: #f0f6fa;
+            background: #ffffff;
             box-sizing: border-box;
+            border: 1px solid #d4e2f0;
         }
 
         .clinical-card {
-            background: #f8fdfe;
+            background: #ffffff;
             border-radius: 20px;
             padding: 16px;
             margin: 16px 0;
-            border-left: 4px solid #5f9bc2;
+            border-left: 4px solid #1f6e9c;
         }
 
         .clinical-row {
             display: flex;
             justify-content: space-between;
             padding: 8px 0;
-            border-bottom: 1px solid #e6f0f5;
+            border-bottom: 1px solid #e2ecf3;
             font-size: 0.8rem;
         }
 
@@ -254,16 +230,16 @@
 
         .clinical-label {
             font-weight: 600;
-            color: #2a627f;
+            color: #1f4a66;
         }
 
         .clinical-value {
             font-weight: 500;
-            color: #1e3b4b;
+            color: #1f3a4b;
         }
 
         .recommendation-box {
-            background: #fff7ec;
+            background: #fff8e7;
             border-radius: 20px;
             padding: 14px 18px;
             font-size: 0.85rem;
@@ -274,12 +250,12 @@
 
         .btn-reset {
             width: 100%;
-            background: #eff3f8;
+            background: #ecf3f8;
             border: none;
             padding: 12px 18px;
             border-radius: 60px;
             font-weight: 600;
-            color: #0f5b7a;
+            color: #1f4a66;
             cursor: pointer;
             font-family: inherit;
             font-size: 0.85rem;
@@ -289,7 +265,7 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
-            border: 1px solid #dde5ed;
+            border: 1px solid #d4e2f0;
         }
 
         .btn-reset:hover {
@@ -299,39 +275,35 @@
 
         .info-footer {
             font-size: 0.68rem;
-            color: #7c9eb8;
+            color: #6f8eaa;
             text-align: center;
             margin-top: 20px;
             padding-top: 14px;
-            border-top: 1px solid #e2eef5;
+            border-top: 1px solid #e2ecf3;
         }
 
-        /* Адаптивность */
         @media (max-width: 850px) {
             .card-content {
-                padding: 18px;
+                padding: 1.5rem;
             }
             .flex-layout {
                 gap: 24px;
-            }
-            .options-grid {
-                gap: 8px;
             }
             .option {
                 padding: 6px 12px;
                 font-size: 0.75rem;
             }
             .degree-value {
-                font-size: 2.4rem;
+                font-size: 2rem;
             }
         }
 
         @media (max-width: 720px) {
             body {
-                padding: 10px;
+                padding: 1rem;
             }
             .card-header {
-                padding: 16px 20px;
+                padding: 1.2rem 1.5rem;
             }
             .card-header h1 {
                 font-size: 1.4rem;
@@ -351,182 +323,160 @@
         @media (max-width: 550px) {
             .options-grid {
                 display: grid;
-                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+                grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
             }
             .option {
                 justify-content: center;
             }
             .degree-value {
-                font-size: 2rem;
-            }
-            .severity-tag {
-                font-size: 0.85rem;
-                padding: 10px;
-            }
-        }
-
-        @media print {
-            body {
-                background: white;
-                padding: 0;
-            }
-            .btn-reset {
-                display: none;
-            }
-            .main-card {
-                box-shadow: none;
-                border: 1px solid #ccc;
+                font-size: 1.6rem;
             }
         }
     </style>
 </head>
 <body>
-<div class="calculator-wrapper">
-    <div class="main-card">
-        <div class="card-header">
-            <h1>
-                📊 Калькулятор ОДН
-                <span>клиническая шкала (I–IV степени)</span>
-            </h1>
-            <p>Оценка степени острой дыхательной недостаточности по 6 ключевым параметрам: сознание, ЧДД, цвет кожи, ЧСС, АД, SpO₂ на фоне оксигенотерапии. Данные основаны на клинических рекомендациях.</p>
-        </div>
-        <div class="card-content">
-            <div class="flex-layout">
-                <!-- Левая колонка: параметры -->
-                <div class="params-area">
-                    <!-- Сознание -->
-                    <div class="param-group">
-                        <div class="group-title">🧠 Сознание</div>
-                        <div class="param-row">
-                            <div class="options-grid" data-param="consciousness">
-                                <label class="option"><input type="radio" name="consciousness" value="0"> <span>Ясное (Норма)</span></label>
-                                <label class="option"><input type="radio" name="consciousness" value="1"> <span>Ясное (ОДН I)</span></label>
-                                <label class="option"><input type="radio" name="consciousness" value="2"> <span>Возбуждение, агрессивность</span></label>
-                                <label class="option"><input type="radio" name="consciousness" value="3"> <span>Спутанность, оглушение</span></label>
-                                <label class="option"><input type="radio" name="consciousness" value="4"> <span>Гипоксическая кома, судороги</span></label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Частота дыхания (ЧДД) -->
-                    <div class="param-group">
-                        <div class="group-title">🌬️ Частота дыхания (ЧДД, в мин)</div>
-                        <div class="param-row">
-                            <div class="options-grid" data-param="respRate">
-                                <label class="option"><input type="radio" name="respRate" value="0"> <span>12–16 (Норма)</span></label>
-                                <label class="option"><input type="radio" name="respRate" value="1"> <span>14–20 (ОДН I)</span></label>
-                                <label class="option"><input type="radio" name="respRate" value="2"> <span>20–30 (ОДН II)</span></label>
-                                <label class="option"><input type="radio" name="respRate" value="3"> <span>30–40 (ОДН III)</span></label>
-                                <label class="option"><input type="radio" name="respRate" value="4"> <span>&gt;40 или &lt;8 (ОДН IV)</span></label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Цвет кожных покровов -->
-                    <div class="param-group">
-                        <div class="group-title">🩵 Цвет кожных покровов</div>
-                        <div class="param-row">
-                            <div class="options-grid" data-param="skinColor">
-                                <label class="option"><input type="radio" name="skinColor" value="0"> <span>Обычной окраски (Норма)</span></label>
-                                <label class="option"><input type="radio" name="skinColor" value="1"> <span>Бледность, умеренный цианоз (I)</span></label>
-                                <label class="option"><input type="radio" name="skinColor" value="2"> <span>Цианоз (ОДН II)</span></label>
-                                <label class="option"><input type="radio" name="skinColor" value="3"> <span>Выраженный цианоз (ОДН III)</span></label>
-                                <label class="option"><input type="radio" name="skinColor" value="4"> <span>«Мраморный» цианоз (ОДН IV)</span></label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- ЧСС -->
-                    <div class="param-group">
-                        <div class="group-title">❤️ Частота сердечных сокращений (ЧСС)</div>
-                        <div class="param-row">
-                            <div class="options-grid" data-param="heartRate">
-                                <label class="option"><input type="radio" name="heartRate" value="0"> <span>Норма (60–90)</span></label>
-                                <label class="option"><input type="radio" name="heartRate" value="1"> <span>100–110 (ОДН I)</span></label>
-                                <label class="option"><input type="radio" name="heartRate" value="2"> <span>110–120 (ОДН II)</span></label>
-                                <label class="option"><input type="radio" name="heartRate" value="3"> <span>120–140 (ОДН III)</span></label>
-                                <label class="option"><input type="radio" name="heartRate" value="4"> <span>&gt;140 или &lt;60, аритмия (IV)</span></label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Артериальное давление -->
-                    <div class="param-group">
-                        <div class="group-title">📈 Артериальное давление (систолическое)</div>
-                        <div class="param-row">
-                            <div class="options-grid" data-param="bp">
-                                <label class="option"><input type="radio" name="bp" value="0"> <span>Норма (ОДН 0)</span></label>
-                                <label class="option"><input type="radio" name="bp" value="1"> <span>Норма / умеренная гипертензия (I)</span></label>
-                                <label class="option"><input type="radio" name="bp" value="2"> <span>Умеренная гипертензия (II)</span></label>
-                                <label class="option"><input type="radio" name="bp" value="3"> <span>Гипертензия (III)</span></label>
-                                <label class="option"><input type="radio" name="bp" value="4"> <span>Гипотензия (IV)</span></label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- SpO₂ на фоне оксигенотерапии -->
-                    <div class="param-group">
-                        <div class="group-title">🫧 SpO₂ на фоне оксигенотерапии (%)</div>
-                        <div class="param-row">
-                            <div class="options-grid" data-param="spo2">
-                                <label class="option"><input type="radio" name="spo2" value="0"> <span>96–99% (Норма)</span></label>
-                                <label class="option"><input type="radio" name="spo2" value="1"> <span>92–95% (ОДН I)</span></label>
-                                <label class="option"><input type="radio" name="spo2" value="2"> <span>90–92% (ОДН II)</span></label>
-                                <label class="option"><input type="radio" name="spo2" value="3"> <span>85–90% (ОДН III)</span></label>
-                                <label class="option"><input type="radio" name="spo2" value="4"> <span>&lt;85% (ОДН IV)</span></label>
-                            </div>
+<div class="calculator-card">
+    <div class="card-header">
+        <h1>
+            📊 Калькулятор ОДН
+            <span>шкала Кассиля (I–IV степени)</span>
+        </h1>
+        <p>Оценка степени острой дыхательной недостаточности по 6 ключевым параметрам: сознание, ЧДД, цвет кожи, ЧСС, АД, SpO₂ на фоне оксигенотерапии. Данные основаны на клинических рекомендациях.</p>
+    </div>
+    <div class="card-content">
+        <div class="flex-layout">
+            <div class="params-area">
+                <!-- Сознание -->
+                <div class="param-group">
+                    <div class="group-title">🧠 Сознание</div>
+                    <div class="param-row">
+                        <div class="options-grid" data-param="consciousness">
+                            <label class="option"><input type="radio" name="consciousness" value="0"> <span>Ясное (Норма)</span></label>
+                            <label class="option"><input type="radio" name="consciousness" value="1"> <span>Ясное (ОДН I)</span></label>
+                            <label class="option"><input type="radio" name="consciousness" value="2"> <span>Возбуждение, агрессивность</span></label>
+                            <label class="option"><input type="radio" name="consciousness" value="3"> <span>Спутанность, оглушение</span></label>
+                            <label class="option"><input type="radio" name="consciousness" value="4"> <span>Гипоксическая кома, судороги</span></label>
                         </div>
                     </div>
                 </div>
 
-                <!-- Правая колонка: результат -->
-                <div class="result-area">
-                    <div class="result-card">
-                        <div class="degree-badge">
-                            <div class="degree-title">Степень острой дыхательной недостаточности</div>
-                            <div class="degree-value" id="odnDegree">—</div>
-                            <div id="severityTag" class="severity-tag">Норма</div>
+                <!-- Частота дыхания (ЧДД) -->
+                <div class="param-group">
+                    <div class="group-title">🌬️ Частота дыхания (ЧДД, в мин)</div>
+                    <div class="param-row">
+                        <div class="options-grid" data-param="respRate">
+                            <label class="option"><input type="radio" name="respRate" value="0"> <span>12–16 (Норма)</span></label>
+                            <label class="option"><input type="radio" name="respRate" value="1"> <span>14–20 (ОДН I)</span></label>
+                            <label class="option"><input type="radio" name="respRate" value="2"> <span>20–30 (ОДН II)</span></label>
+                            <label class="option"><input type="radio" name="respRate" value="3"> <span>30–40 (ОДН III)</span></label>
+                            <label class="option"><input type="radio" name="respRate" value="4"> <span>&gt;40 или &lt;8 (ОДН IV)</span></label>
                         </div>
-
-                        <div class="clinical-card">
-                            <div class="clinical-row">
-                                <span class="clinical-label">🧠 Сознание:</span>
-                                <span class="clinical-value" id="val_consciousness">—</span>
-                            </div>
-                            <div class="clinical-row">
-                                <span class="clinical-label">🌬️ ЧДД:</span>
-                                <span class="clinical-value" id="val_respRate">—</span>
-                            </div>
-                            <div class="clinical-row">
-                                <span class="clinical-label">🩵 Цвет кожи:</span>
-                                <span class="clinical-value" id="val_skinColor">—</span>
-                            </div>
-                            <div class="clinical-row">
-                                <span class="clinical-label">❤️ ЧСС:</span>
-                                <span class="clinical-value" id="val_heartRate">—</span>
-                            </div>
-                            <div class="clinical-row">
-                                <span class="clinical-label">📈 АД:</span>
-                                <span class="clinical-value" id="val_bp">—</span>
-                            </div>
-                            <div class="clinical-row">
-                                <span class="clinical-label">🫧 SpO₂ (оксигенотерапия):</span>
-                                <span class="clinical-value" id="val_spo2">—</span>
-                            </div>
-                        </div>
-
-                        <div id="recommendationBox" class="recommendation-box">
-                            📋 Выберите параметры для определения степени ОДН.
-                        </div>
-
-                        <button class="btn-reset" id="resetBtn">
-                            ⟳ Сбросить все параметры
-                        </button>
                     </div>
-                    <div class="info-footer">
-                        ⚕️ Шкала основана на клинических критериях (сознание, ЧДД, цианоз, гемодинамика, SpO₂).<br>
-                        Определение степени ОДН (I–IV) помогает выбрать тактику респираторной поддержки и интенсивной терапии.
+                </div>
+
+                <!-- Цвет кожных покровов -->
+                <div class="param-group">
+                    <div class="group-title">🩵 Цвет кожных покровов</div>
+                    <div class="param-row">
+                        <div class="options-grid" data-param="skinColor">
+                            <label class="option"><input type="radio" name="skinColor" value="0"> <span>Обычной окраски (Норма)</span></label>
+                            <label class="option"><input type="radio" name="skinColor" value="1"> <span>Бледность, умеренный цианоз (I)</span></label>
+                            <label class="option"><input type="radio" name="skinColor" value="2"> <span>Цианоз (ОДН II)</span></label>
+                            <label class="option"><input type="radio" name="skinColor" value="3"> <span>Выраженный цианоз (ОДН III)</span></label>
+                            <label class="option"><input type="radio" name="skinColor" value="4"> <span>«Мраморный» цианоз (ОДН IV)</span></label>
+                        </div>
                     </div>
+                </div>
+
+                <!-- ЧСС -->
+                <div class="param-group">
+                    <div class="group-title">❤️ Частота сердечных сокращений (ЧСС)</div>
+                    <div class="param-row">
+                        <div class="options-grid" data-param="heartRate">
+                            <label class="option"><input type="radio" name="heartRate" value="0"> <span>Норма (60–90)</span></label>
+                            <label class="option"><input type="radio" name="heartRate" value="1"> <span>100–110 (ОДН I)</span></label>
+                            <label class="option"><input type="radio" name="heartRate" value="2"> <span>110–120 (ОДН II)</span></label>
+                            <label class="option"><input type="radio" name="heartRate" value="3"> <span>120–140 (ОДН III)</span></label>
+                            <label class="option"><input type="radio" name="heartRate" value="4"> <span>&gt;140 или &lt;60, аритмия (IV)</span></label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Артериальное давление -->
+                <div class="param-group">
+                    <div class="group-title">📈 Артериальное давление (систолическое)</div>
+                    <div class="param-row">
+                        <div class="options-grid" data-param="bp">
+                            <label class="option"><input type="radio" name="bp" value="0"> <span>Норма (ОДН 0)</span></label>
+                            <label class="option"><input type="radio" name="bp" value="1"> <span>Норма / умеренная гипертензия (I)</span></label>
+                            <label class="option"><input type="radio" name="bp" value="2"> <span>Умеренная гипертензия (II)</span></label>
+                            <label class="option"><input type="radio" name="bp" value="3"> <span>Гипертензия (III)</span></label>
+                            <label class="option"><input type="radio" name="bp" value="4"> <span>Гипотензия (IV)</span></label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SpO₂ на фоне оксигенотерапии -->
+                <div class="param-group">
+                    <div class="group-title">🫧 SpO₂ на фоне оксигенотерапии (%)</div>
+                    <div class="param-row">
+                        <div class="options-grid" data-param="spo2">
+                            <label class="option"><input type="radio" name="spo2" value="0"> <span>96–99% (Норма)</span></label>
+                            <label class="option"><input type="radio" name="spo2" value="1"> <span>92–95% (ОДН I)</span></label>
+                            <label class="option"><input type="radio" name="spo2" value="2"> <span>90–92% (ОДН II)</span></label>
+                            <label class="option"><input type="radio" name="spo2" value="3"> <span>85–90% (ОДН III)</span></label>
+                            <label class="option"><input type="radio" name="spo2" value="4"> <span>&lt;85% (ОДН IV)</span></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="result-area">
+                <div class="result-card">
+                    <div class="degree-badge">
+                        <div class="degree-title">Степень острой дыхательной недостаточности</div>
+                        <div class="degree-value" id="odnDegree">—</div>
+                        <div id="severityTag" class="severity-tag">Норма</div>
+                    </div>
+
+                    <div class="clinical-card">
+                        <div class="clinical-row">
+                            <span class="clinical-label">🧠 Сознание:</span>
+                            <span class="clinical-value" id="val_consciousness">—</span>
+                        </div>
+                        <div class="clinical-row">
+                            <span class="clinical-label">🌬️ ЧДД:</span>
+                            <span class="clinical-value" id="val_respRate">—</span>
+                        </div>
+                        <div class="clinical-row">
+                            <span class="clinical-label">🩵 Цвет кожи:</span>
+                            <span class="clinical-value" id="val_skinColor">—</span>
+                        </div>
+                        <div class="clinical-row">
+                            <span class="clinical-label">❤️ ЧСС:</span>
+                            <span class="clinical-value" id="val_heartRate">—</span>
+                        </div>
+                        <div class="clinical-row">
+                            <span class="clinical-label">📈 АД:</span>
+                            <span class="clinical-value" id="val_bp">—</span>
+                        </div>
+                        <div class="clinical-row">
+                            <span class="clinical-label">🫧 SpO₂ (оксигенотерапия):</span>
+                            <span class="clinical-value" id="val_spo2">—</span>
+                        </div>
+                    </div>
+
+                    <div id="recommendationBox" class="recommendation-box">
+                        📋 Выберите параметры для определения степени ОДН.
+                    </div>
+
+                    <button class="btn-reset" id="resetBtn">
+                        ⟳ Сбросить все параметры
+                    </button>
+                </div>
+                <div class="info-footer">
+                    ⚕️ Шкала Кассиля основана на клинических критериях (сознание, ЧДД, цианоз, гемодинамика, SpO₂).<br>
+                    Определение степени ОДН (I–IV) помогает выбрать тактику респираторной поддержки и интенсивной терапии.
                 </div>
             </div>
         </div>
@@ -534,13 +484,11 @@
 </div>
 
 <script>
-    // Получение выбранного значения (0-4) для группы
     function getSelectedValue(groupName) {
         const selected = document.querySelector(`input[name="${groupName}"]:checked`);
         return selected ? parseInt(selected.value, 10) : 0;
     }
 
-    // Человекочитаемые тексты для отображения
     const textMap = {
         consciousness: {
             0: "Ясное (норма)", 1: "Ясное (ОДН I)", 2: "Возбуждение / агрессивность", 
@@ -568,7 +516,6 @@
         }
     };
 
-    // Определение степени ОДН по максимальному баллу из всех параметров (согласно логике таблицы)
     function calculateODNDegree() {
         const scores = [
             getSelectedValue('consciousness'),
@@ -578,9 +525,7 @@
             getSelectedValue('bp'),
             getSelectedValue('spo2')
         ];
-        // Степень определяется по наиболее тяжелому критерию (максимальный балл)
         const maxScore = Math.max(...scores);
-        // 0 -> Норма, 1 -> ОДН I, 2 -> ОДН II, 3 -> ОДН III, 4 -> ОДН IV
         return { degree: maxScore, maxScore };
     }
 
@@ -592,7 +537,6 @@
         const bpVal = getSelectedValue('bp');
         const spo2Val = getSelectedValue('spo2');
 
-        // Обновляем текстовые значения
         document.getElementById('val_consciousness').innerText = textMap.consciousness[consciousnessVal] || "—";
         document.getElementById('val_respRate').innerText = textMap.respRate[respRateVal] || "—";
         document.getElementById('val_skinColor').innerText = textMap.skinColor[skinColorVal] || "—";
@@ -612,8 +556,8 @@
                 degreeText = "Норма";
                 severityDesc = "✅ Нормальные показатели";
                 recommendation = "Дыхательная недостаточность отсутствует. Параметры в пределах референсных значений. При стабильном состоянии специальная терапия не требуется.";
-                badgeColor = "#2a7f5c";
-                bgColor = "#e2f3ec";
+                badgeColor = "#2c7a4d";
+                bgColor = "#e8f0e8";
                 break;
             case 1:
                 degreeText = "ОДН I степени (легкая)";
@@ -649,8 +593,7 @@
                 recommendation = "Выберите параметры для оценки степени ОДН.";
         }
 
-        const degreeElem = document.getElementById('odnDegree');
-        degreeElem.innerText = degreeText;
+        document.getElementById('odnDegree').innerText = degreeText;
         
         const severityTag = document.getElementById('severityTag');
         severityTag.innerText = severityDesc;
@@ -662,10 +605,6 @@
     }
 
     function resetAll() {
-        const allRadios = document.querySelectorAll('input[type="radio"]');
-        allRadios.forEach(radio => radio.checked = false);
-        
-        // Устанавливаем значения "норма" (балл 0) для всех групп
         const groups = ['consciousness', 'respRate', 'skinColor', 'heartRate', 'bp', 'spo2'];
         groups.forEach(group => {
             const defaultRadio = document.querySelector(`input[name="${group}"][value="0"]`);
@@ -691,6 +630,13 @@
 
     bindEvents();
     initDefault();
+
+    // Регистрация Service Worker для PWA
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/SMP/sw.js')
+            .then(reg => console.log('✅ Сервис-воркер зарегистрирован:', reg))
+            .catch(err => console.error('❌ Ошибка регистрации:', err));
+    }
 </script>
 </body>
 </html>
