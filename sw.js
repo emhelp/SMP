@@ -1,4 +1,4 @@
-const CACHE_NAME = 'emhelp-v13';
+const CACHE_NAME = 'emhelp-v14';
 
 const urlsToCache = [
   '/SMP/',
@@ -10,6 +10,10 @@ const urlsToCache = [
   '/SMP/templates.html',
   '/SMP/consilium.html',
   '/SMP/prikaz.html',
+  '/SMP/other_local_status.html',      // ← ДОБАВЛЕНО
+  '/SMP/dislocations.html',            // ← ДОБАВЛЕНО
+  '/SMP/fractures_upper_limb.html',    // ← ДОБАВЛЕНО
+  '/SMP/fractures_lower_limb.html',    // ← ДОБАВЛЕНО
   '/SMP/style.css',
   '/SMP/manifest.json',
   '/SMP/icon-512.png',
