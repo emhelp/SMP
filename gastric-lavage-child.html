@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <title>Промывание желудка у детей | Калькулятор и алгоритм</title>
+    
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1e2f47">
+    
     <style>
         * {
             margin: 0;
@@ -12,53 +17,58 @@
         }
 
         body {
-            background: linear-gradient(145deg, #eef5f9 0%, #e2eaf2 100%);
-            font-family: 'Inter', -apple-system, 'Segoe UI', Roboto, system-ui, sans-serif;
-            padding: 16px;
+            background: linear-gradient(145deg, #eef2f7 0%, #dce3ec 100%);
+            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, 'Helvetica Neue', sans-serif;
+            padding: 2rem 1rem;
             min-height: 100vh;
-            color: #1a4a5f;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
         }
 
-        .container {
+        .calculator-card {
             max-width: 1400px;
+            width: 100%;
             margin: 0 auto;
+            background: #ffffff;
+            border-radius: 48px;
+            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
         }
 
-        /* Header */
-        .header {
-            background: linear-gradient(115deg, #2c7a5e 0%, #1e5a4a 100%);
-            border-radius: 28px;
-            padding: 24px 28px;
-            margin-bottom: 24px;
+        .card-header {
+            background: #1e2f47;
+            background-image: linear-gradient(115deg, #142a3b, #1d3f55);
+            padding: 1.8rem 2rem;
             color: white;
-            box-shadow: 0 12px 24px rgba(0,0,0,0.1);
         }
-
-        .header h1 {
-            font-size: 1.8rem;
+        .card-header h1 {
+            font-size: 1.9rem;
             font-weight: 700;
             display: flex;
             align-items: center;
             gap: 12px;
             flex-wrap: wrap;
         }
-
-        .header h1 span {
-            font-size: 0.9rem;
+        .card-header h1 span {
             background: rgba(255,255,255,0.2);
-            padding: 5px 14px;
-            border-radius: 40px;
-        }
-
-        .header p {
-            margin-top: 12px;
-            opacity: 0.92;
-            border-left: 3px solid #8fc5b0;
-            padding-left: 18px;
             font-size: 0.9rem;
+            padding: 5px 14px;
+            border-radius: 60px;
+            font-weight: 500;
+        }
+        .card-header p {
+            margin-top: 12px;
+            opacity: 0.85;
+            font-size: 0.95rem;
+            border-left: 3px solid #5f9bc2;
+            padding-left: 16px;
         }
 
-        /* Grid layout */
+        .card-content {
+            padding: 2rem;
+        }
+
         .flex-grid {
             display: flex;
             gap: 24px;
@@ -75,29 +85,28 @@
             min-width: 380px;
         }
 
-        /* Cards */
         .card {
-            background: white;
+            background: #ffffff;
             border-radius: 28px;
-            padding: 24px;
-            margin-bottom: 24px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
-            border: 1px solid #deecf2;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+            border: 1px solid #d4e2f0;
             transition: all 0.2s;
         }
         .card:hover {
-            box-shadow: 0 12px 28px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
         }
 
         .card-title {
             font-size: 1.25rem;
             font-weight: 700;
-            color: #2c7a5e;
+            color: #1f4a66;
             margin-bottom: 20px;
             display: flex;
             align-items: center;
             gap: 10px;
-            border-left: 4px solid #4cae8c;
+            border-left: 4px solid #1f6e9c;
             padding-left: 16px;
         }
 
@@ -107,7 +116,7 @@
 
         .param-label {
             font-weight: 600;
-            color: #2c6b5a;
+            color: #1f4a66;
             margin-bottom: 10px;
             font-size: 0.9rem;
         }
@@ -131,45 +140,46 @@
             font-weight: 500;
         }
 
-        /* ВИЗУАЛЬНО ВЫДЕЛЕННЫЕ ЭЛЕМЕНТЫ ВВОДА */
         .input-field select, .input-field input {
             width: 100%;
             padding: 12px 16px;
-            border: 2px solid #e2ecf3;
+            border: 2px solid #d4e2f0;
             border-radius: 18px;
             font-size: 0.9rem;
             font-family: inherit;
-            transition: all 0.25s ease;
+            transition: all 0.2s;
             background: white;
             cursor: pointer;
+            color: #1f3a4b;
         }
 
         .input-field select:hover, .input-field input:hover {
-            border-color: #4cae8c;
+            border-color: #1f6e9c;
         }
 
         .input-field select:focus, .input-field input:focus {
             outline: none;
-            border-color: #2c7a5e;
-            box-shadow: 0 0 0 3px rgba(44,122,94,0.1);
+            border-color: #1f6e9c;
+            box-shadow: 0 0 0 3px rgba(31,110,156,0.1);
         }
 
         .result-box {
-            background: linear-gradient(135deg, #f0faf5 0%, #e8f5ef 100%);
+            background: #f6fafd;
             border-radius: 20px;
             padding: 18px;
             margin: 20px 0;
-            border: 1px solid #cde8df;
+            border: 1px solid #d4e2f0;
         }
 
         .result-item {
             display: flex;
             justify-content: space-between;
             padding: 10px 0;
-            border-bottom: 1px solid #d4e8df;
+            border-bottom: 1px solid #d4e2f0;
             font-size: 0.9rem;
             flex-wrap: wrap;
             gap: 8px;
+            color: #1f3a4b;
         }
 
         .result-item:last-child {
@@ -178,19 +188,29 @@
 
         .result-value {
             font-weight: 700;
-            color: #2c7a5e;
+            color: #1a4d6b;
             font-size: 0.95rem;
             text-align: right;
         }
 
-        .badge {
-            display: inline-block;
-            background: #e6f3ed;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            font-weight: 500;
-            color: #2c7a5e;
+        .warning-note {
+            background: #ffebee;
+            border-left: 4px solid #c62828;
+            padding: 12px 16px;
+            border-radius: 16px;
+            margin: 16px 0;
+            font-size: 0.8rem;
+            color: #c62828;
+        }
+
+        .info-note {
+            background: #eef7ff;
+            border-left: 4px solid #1f6e9c;
+            padding: 12px 16px;
+            border-radius: 16px;
+            margin: 16px 0;
+            font-size: 0.8rem;
+            color: #1f3a4b;
         }
 
         .step-list {
@@ -200,14 +220,14 @@
 
         .step-item {
             padding: 14px 0;
-            border-bottom: 1px solid #e9f0f5;
+            border-bottom: 1px solid #e2ecf3;
             display: flex;
             gap: 14px;
             align-items: flex-start;
         }
 
         .step-number {
-            background: linear-gradient(135deg, #2c7a5e 0%, #1e5a4a 100%);
+            background: linear-gradient(135deg, #1f6e9c 0%, #155a80 100%);
             color: white;
             width: 30px;
             height: 30px;
@@ -225,40 +245,20 @@
             flex: 1;
             font-size: 0.85rem;
             line-height: 1.45;
-            color: #2c5a4e;
+            color: #1f3a4b;
         }
 
-        /* ВИЗУАЛЬНО ВЫДЕЛЕННЫЕ УВЕДОМЛЕНИЯ */
-        .warning-note {
-            background: #fff8e8;
-            border-left: 4px solid #e6a017;
-            padding: 12px 16px;
-            border-radius: 16px;
-            margin: 16px 0;
-            font-size: 0.8rem;
-        }
-
-        .info-note {
-            background: #e8f4fc;
-            border-left: 4px solid #4a9ec7;
-            padding: 12px 16px;
-            border-radius: 16px;
-            margin: 16px 0;
-            font-size: 0.8rem;
-        }
-
-        /* ВИЗУАЛЬНО ВЫДЕЛЕННАЯ КНОПКА КОПИРОВАНИЯ */
         .btn-copy {
-            background: linear-gradient(135deg, #eef2f8 0%, #e6edf4 100%);
-            border: 2px solid #cbdde6;
+            background: linear-gradient(135deg, #ecf3f8 0%, #e6edf4 100%);
+            border: 2px solid #cbdae6;
             padding: 10px 20px;
             border-radius: 60px;
             font-size: 0.8rem;
             font-weight: 600;
             cursor: pointer;
             font-family: inherit;
-            color: #2c7a5e;
-            transition: all 0.25s ease;
+            color: #1f4a66;
+            transition: all 0.2s;
             margin-top: 12px;
             display: inline-flex;
             align-items: center;
@@ -269,7 +269,7 @@
 
         .btn-copy:hover {
             background: linear-gradient(135deg, #e2eaf2 0%, #d8e2ec 100%);
-            border-color: #2c7a5e;
+            border-color: #1f6e9c;
             transform: translateY(-2px);
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
@@ -278,24 +278,6 @@
             transform: scale(0.98);
         }
 
-        hr {
-            margin: 16px 0;
-            border: none;
-            height: 1px;
-            background: #e2ecf3;
-        }
-
-        .footnote {
-            font-size: 0.7rem;
-            color: #7c9ab3;
-            text-align: center;
-            margin-top: 24px;
-            padding-top: 16px;
-            border-top: 1px solid #e2ecf3;
-            line-height: 1.5;
-        }
-
-        /* Таблица с адаптивностью */
         .age-table {
             font-size: 0.75rem;
             width: 100%;
@@ -307,25 +289,47 @@
             padding: 10px 8px;
             text-align: left;
             border-bottom: 1px solid #e2ecf3;
+            color: #1f3a4b;
         }
 
         .age-table th {
-            color: #2c7a5e;
-            font-weight: 600;
-            background: #f8fafc;
+            color: #1f4a66;
+            font-weight: 700;
+            background: #eef7ff;
         }
 
         .age-table tr:hover {
-            background: #f8fafc;
+            background: #f6fafd;
         }
 
-        /* АДАПТАЦИЯ ПОД МОБИЛЬНЫЕ УСТРОЙСТВА */
+        .protocol-text {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            border: 1px solid #d4e2f0;
+            color: #1f3a4b;
+            white-space: pre-wrap;
+        }
+
+        .footnote {
+            font-size: 0.7rem;
+            color: #6f8eaa;
+            text-align: center;
+            margin-top: 24px;
+            padding-top: 16px;
+            border-top: 1px solid #e2ecf3;
+            line-height: 1.5;
+        }
+
         @media (max-width: 900px) {
-            .header h1 {
+            .card-header h1 {
                 font-size: 1.4rem;
             }
             .card {
-                padding: 18px;
+                padding: 1.2rem;
             }
             .card-title {
                 font-size: 1.1rem;
@@ -341,16 +345,19 @@
 
         @media (max-width: 768px) {
             body {
-                padding: 12px;
+                padding: 1rem;
             }
-            .header {
-                padding: 18px 20px;
+            .card-header {
+                padding: 1.2rem;
             }
-            .header h1 {
+            .card-header h1 {
                 font-size: 1.3rem;
             }
-            .header p {
+            .card-header p {
                 font-size: 0.8rem;
+            }
+            .card-content {
+                padding: 1rem;
             }
             .flex-grid {
                 gap: 16px;
@@ -380,6 +387,10 @@
                 padding: 10px 16px;
                 font-size: 0.75rem;
             }
+            .protocol-text {
+                font-size: 0.8rem;
+                padding: 14px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -388,272 +399,210 @@
                 overflow-x: auto;
                 white-space: nowrap;
             }
-            .age-table th, .age-table td {
-                padding: 6px 10px;
-            }
             .result-box {
                 padding: 14px;
             }
             .result-item {
                 font-size: 0.8rem;
             }
-            .result-value {
-                font-size: 0.85rem;
-            }
             .warning-note, .info-note {
                 font-size: 0.75rem;
                 padding: 10px 12px;
             }
-        }
-
-        @media (min-width: 901px) {
-            .header {
-                padding: 28px 32px;
+            .protocol-text {
+                font-size: 0.75rem;
+                padding: 12px;
             }
-            .header h1 {
-                font-size: 2rem;
-            }
-        }
-
-        @media print {
-            body {
-                background: white;
-                padding: 0;
-            }
-            .btn-copy {
-                display: none;
-            }
-            .card {
-                box-shadow: none;
-                border: 1px solid #ccc;
-                break-inside: avoid;
-            }
-        }
-
-        /* Дополнительные улучшения для сенсорного ввода */
-        .input-field select:active, .input-field input:active {
-            transform: scale(0.99);
         }
     </style>
 </head>
 <body>
-<div class="container">
-    <div class="header">
+<div class="calculator-card">
+    <div class="card-header">
         <h1>
             🧸 Промывание желудка у детей
             <span>возрастные нормы и алгоритм</span>
         </h1>
         <p>Калькулятор разового и общего объема жидкости для промывания желудка у детей от 1 недели до 14 лет. Пошаговый алгоритм процедуры на основе клинических рекомендаций.</p>
     </div>
+    <div class="card-content">
+        <div class="flex-grid">
+            <div class="calculator-panel">
+                <div class="card">
+                    <div class="card-title">📏 Расчет параметров промывания</div>
+                    
+                    <div class="param-group">
+                        <div class="param-label">👶 Возрастная группа</div>
+                        <div class="input-field">
+                            <select id="ageGroup">
+                                <option value="newborn1">1 неделя жизни (до 7 дней)</option>
+                                <option value="newborn2">2 недели жизни</option>
+                                <option value="newborn3">3 недели жизни</option>
+                                <option value="newborn4">4 недели жизни</option>
+                                <option value="1-2m">1–2 месяца</option>
+                                <option value="3-4m">3–4 месяца</option>
+                                <option value="5-6m">5–6 месяцев</option>
+                                <option value="7-8m">7–8 месяцев</option>
+                                <option value="9-12m">9–12 месяцев</option>
+                                <option value="2-3y">2–3 года</option>
+                                <option value="4-5y">4–5 лет</option>
+                                <option value="6-7y">6–7 лет</option>
+                                <option value="8-11y">8–11 лет</option>
+                                <option value="12-14y">12–14 лет</option>
+                            </select>
+                        </div>
+                    </div>
 
-    <div class="flex-grid">
-        <!-- Левая колонка: калькулятор -->
-        <div class="calculator-panel">
-            <div class="card">
-                <div class="card-title">📏 Расчет параметров промывания</div>
-                
-                <div class="param-group">
-                    <div class="param-label">👶 Возрастная группа</div>
-                    <div class="input-field">
-                        <select id="ageGroup">
-                            <option value="newborn1">1 неделя жизни (до 7 дней)</option>
-                            <option value="newborn2">2 недели жизни</option>
-                            <option value="newborn3">3 недели жизни</option>
-                            <option value="newborn4">4 недели жизни</option>
-                            <option value="1-2m">1–2 месяца</option>
-                            <option value="3-4m">3–4 месяца</option>
-                            <option value="5-6m">5–6 месяцев</option>
-                            <option value="7-8m">7–8 месяцев</option>
-                            <option value="9-12m">9–12 месяцев</option>
-                            <option value="2-3y">2–3 года</option>
-                            <option value="4-5y">4–5 лет</option>
-                            <option value="6-7y">6–7 лет</option>
-                            <option value="8-11y">8–11 лет</option>
-                            <option value="12-14y">12–14 лет</option>
-                        </select>
+                    <div class="param-group">
+                        <div class="param-label">⚖️ Вес ребенка (кг)</div>
+                        <div class="input-field">
+                            <input type="number" id="weight" step="0.5" value="10" placeholder="введите вес в кг">
+                        </div>
+                    </div>
+
+                    <div class="param-group">
+                        <div class="param-label">🧪 Тип отравляющего вещества</div>
+                        <div class="input-field">
+                            <select id="poisonType">
+                                <option value="liquid">💧 Жидкое вещество (2–3 разовых объема)</option>
+                                <option value="solid">💊 Твердые вещества, таблетки (3–4 разовых объема)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="result-box">
+                        <div class="result-item">
+                            <span>💧 Разовый объем (1 цикл):</span>
+                            <span class="result-value" id="singleVolume">—</span>
+                        </div>
+                        <div class="result-item">
+                            <span>🔄 Количество промывных циклов:</span>
+                            <span class="result-value" id="cyclesCount">—</span>
+                        </div>
+                        <div class="result-item">
+                            <span>📊 Общий объем промывания:</span>
+                            <span class="result-value" id="totalVolume">—</span>
+                        </div>
+                        <div class="result-item">
+                            <span>🌡️ Температура воды:</span>
+                            <span class="result-value">38°C (температура тела)</span>
+                        </div>
+                        <div class="result-item">
+                            <span>⏱️ Время цикла:</span>
+                            <span class="result-value">введение 1.5 мин → выведение 1.5 мин (≤3 мин)</span>
+                        </div>
+                    </div>
+
+                    <div class="info-note">
+                        <strong>📌 Важно:</strong> Каждый промывной цикл заканчивается введением сорбента. Сорбент разводится в ½ разового объема жидкости.
                     </div>
                 </div>
 
-                <div class="param-group">
-                    <div class="param-label">⚖️ Вес ребенка (кг)</div>
-                    <div class="input-field">
-                        <input type="number" id="weight" step="0.5" value="10" placeholder="введите вес в кг">
+                <div class="card">
+                    <div class="card-title">💊 Энтеросорбенты</div>
+                    <div class="param-group">
+                        <div class="param-label">Активированный уголь</div>
+                        <div class="result-item" style="border-bottom: none;">
+                            <span>Доза активированного угля:</span>
+                            <span class="result-value" id="charcoalDose">0.5–1 г/кг</span>
+                        </div>
+                        <div class="result-item" style="border-bottom: none;">
+                            <span>Расчет на вес ребенка:</span>
+                            <span class="result-value" id="charcoalCalc">—</span>
+                        </div>
+                        <div class="result-item" style="border-bottom: none;">
+                            <span>Растворитель:</span>
+                            <span class="result-value">½ разового объема кипяченой воды</span>
+                        </div>
                     </div>
-                </div>
-
-                <div class="param-group">
-                    <div class="param-label">🧪 Тип отравляющего вещества</div>
-                    <div class="input-field">
-                        <select id="poisonType">
-                            <option value="liquid">💧 Жидкое вещество (2–3 разовых объема)</option>
-                            <option value="solid">💊 Твердые вещества, таблетки (3–4 разовых объема)</option>
-                        </select>
+                    <div class="warning-note">
+                        <strong>❌ Противопоказания к применению угля:</strong> отравления кислотами, щелочами, бромидами, синильной кислотой, этанолом, этиленгликолем, ФОС (карбофос, хлорофос, дихлофос), железом.
                     </div>
-                </div>
-
-                <div class="result-box">
-                    <div class="result-item">
-                        <span>💧 Разовый объем (1 цикл):</span>
-                        <span class="result-value" id="singleVolume">—</span>
-                    </div>
-                    <div class="result-item">
-                        <span>🔄 Количество промывных циклов:</span>
-                        <span class="result-value" id="cyclesCount">—</span>
-                    </div>
-                    <div class="result-item">
-                        <span>📊 Общий объем промывания:</span>
-                        <span class="result-value" id="totalVolume">—</span>
-                    </div>
-                    <div class="result-item">
-                        <span>🌡️ Температура воды:</span>
-                        <span class="result-value">38°C (температура желудка)</span>
-                    </div>
-                    <div class="result-item">
-                        <span>⏱️ Время цикла:</span>
-                        <span class="result-value">введение 1.5 мин → выведение 1.5 мин (≤3 мин)</span>
-                    </div>
-                </div>
-
-                <div class="info-note">
-                    <strong>📌 Важно:</strong> Каждый промывной цикл заканчивается введением сорбента. Сорбент разводится в ½ разового объема жидкости.
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-title">💊 Энтеросорбенты</div>
-                <div class="param-group">
-                    <div class="param-label">Активированный уголь</div>
-                    <div class="result-item" style="border-bottom: none;">
-                        <span>Доза активированного угля:</span>
-                        <span class="result-value" id="charcoalDose">0.5–1 г/кг</span>
-                    </div>
-                    <div class="result-item" style="border-bottom: none;">
-                        <span>Расчет на вес ребенка:</span>
-                        <span class="result-value" id="charcoalCalc">—</span>
-                    </div>
-                    <div class="result-item" style="border-bottom: none;">
-                        <span>Растворитель:</span>
-                        <span class="result-value">½ разового объема кипяченой воды</span>
-                    </div>
-                </div>
-                <div class="warning-note" style="background: #fee8e8; border-left-color: #c62828;">
-                    <strong>❌ Противопоказания к применению угля:</strong> отравления кислотами, щелочами, бромидами, синильной кислотой, этанолом, этиленгликолем, ФОС (карбофос, хлорофос, дихлофос), железом.
-                </div>
-            </div>
-        </div>
-
-        <!-- Правая колонка: алгоритм -->
-        <div class="algorithm-panel">
-            <div class="card">
-                <div class="card-title">📋 Пошаговый алгоритм промывания желудка у детей</div>
-                <ul class="step-list">
-                    <li class="step-item">
-                        <div class="step-number">1</div>
-                        <div class="step-text"><strong>Выбор зонда:</strong> диаметр зонда соответствует наружному носовому отверстию (трансназальное введение). Для новорожденных и детей до 1 года — пероральное или трансназальное введение.</div>
-                    </li>
-                    <li class="step-item">
-                        <div class="step-number">2</div>
-                        <div class="step-text"><strong>Определение глубины введения:</strong><br>
-                        • Для детей до 1 года: «ухо — кончик носа — ухо»<br>
-                        • Для детей старшего возраста: «кончик носа — пупок»<br>
-                        Отметить расстояние на зонде.</div>
-                    </li>
-                    <li class="step-item">
-                        <div class="step-number">3</div>
-                        <div class="step-text"><strong>Анестезия:</strong> аппликационная анестезия корня языка и глотки (гель Катеджель или лидокаин). Обработка зонда гелем с анестетиком.</div>
-                    </li>
-                    <li class="step-item">
-                        <div class="step-number">4</div>
-                        <div class="step-text"><strong>Положение ребенка:</strong> лежа на левом боку (пилорический отдел приподнимается, снижается риск аспирации).</div>
-                    </li>
-                    <li class="step-item">
-                        <div class="step-number">5</div>
-                        <div class="step-text"><strong>Введение зонда:</strong> свободно через рот или нос с первой попытки, продвигать до ранее нанесенной отметки.</div>
-                    </li>
-                    <li class="step-item">
-                        <div class="step-number">6</div>
-                        <div class="step-text"><strong>Контроль положения:</strong> ввести 10–20 мл воздуха (в зависимости от возраста), аускультативно над эпигастрием — булькающие звуки.</div>
-                    </li>
-                    <li class="step-item">
-                        <div class="step-number">7</div>
-                        <div class="step-text"><strong>Эвакуация содержимого:</strong> удалить желудочное содержимое шприцем Жане или грушей.</div>
-                    </li>
-                    <li class="step-item">
-                        <div class="step-number">8</div>
-                        <div class="step-text"><strong>Зондовое промывание:</strong> ввести разовый объем воды комфортной температуры (38°C), вывести. Цикл повторяется 2–4 раза в зависимости от типа вещества. Скорость: введение за 1.5 мин, выведение за 1.5 мин.</div>
-                    </li>
-                    <li class="step-item">
-                        <div class="step-number">9</div>
-                        <div class="step-text"><strong>Введение сорбента:</strong> после завершения промывных циклов ввести активированный уголь (0.5–1 г/кг) в ½ разового объема кипяченой воды.</div>
-                    </li>
-                    <li class="step-item">
-                        <div class="step-number">10</div>
-                        <div class="step-text"><strong>Завершение:</strong> медленно извлечь зонд. В течение первых 6–8 часов после отравления кишечник не стимулируется (слабительные не применяются).</div>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="card">
-                <div class="card-title">📊 Нормативы по возрастам</div>
-                <div style="overflow-x: auto;">
-                    <table class="age-table">
-                        <thead>
-                            <tr><th>Возраст</th><th>Разовый объем</th><th>Максимальный объем</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr><td>1 неделя жизни</td><td>10–12 мл/кг</td><td>200 мл</td></tr>
-                            <tr><td>2 недели жизни</td><td>12–15 мл/кг</td><td>200 мл</td></tr>
-                            <tr><td>3 недели жизни</td><td>15–18 мл/кг</td><td>200 мл</td></tr>
-                            <tr><td>4 недели жизни</td><td>20 мл/кг</td><td>200 мл</td></tr>
-                            <tr><td>1–2 месяца</td><td>60–90 мл</td><td>300 мл</td></tr>
-                            <tr><td>3–4 месяца</td><td>90–100 мл</td><td>500 мл</td></tr>
-                            <tr><td>5–6 месяцев</td><td>100–110 мл</td><td>700 мл</td></tr>
-                            <tr><td>7–8 месяцев</td><td>110–120 мл</td><td>800 мл</td></tr>
-                            <tr><td>9–12 месяцев</td><td>120–150 мл</td><td>1 литр</td></tr>
-                            <tr><td>2–3 года</td><td>200–250 мл</td><td>1.5–2 литра</td></tr>
-                            <tr><td>4–5 лет</td><td>300–350 мл</td><td>2–2.5 литра</td></tr>
-                            <tr><td>6–7 лет</td><td>350–400 мл</td><td>3–3.5 литра</td></tr>
-                            <tr><td>8–11 лет</td><td>400–450 мл</td><td>3.5–4 литра</td></tr>
-                            <tr><td>12–14 лет</td><td>450–500 мл</td><td>4–5 литров</td></tr>
-                        </tbody>
-                    </table>
                 </div>
             </div>
 
-            <div class="card">
-                <div class="card-title">📝 Шаблон протокола процедуры</div>
-                <div id="protocolText" style="background: #f8fafc; padding: 16px; border-radius: 20px; font-size: 0.75rem; font-family: 'Courier New', monospace; white-space: pre-wrap; line-height: 1.5; border: 1px solid #e2ecf3;">
-                    Апликационная анестезия KateGel корня языка и глотки. Определение глубины введения зонда... 
+            <div class="algorithm-panel">
+                <div class="card">
+                    <div class="card-title">📋 Пошаговый алгоритм промывания желудка у детей</div>
+                    <ul class="step-list">
+                        <li class="step-item"><div class="step-number">1</div><div class="step-text"><strong>Выбор зонда:</strong> диаметр зонда соответствует наружному носовому отверстию (трансназальное введение). Для новорожденных и детей до 1 года — пероральное или трансназальное введение.</div></li>
+                        <li class="step-item"><div class="step-number">2</div><div class="step-text"><strong>Определение глубины введения:</strong><br>• Для детей до 1 года: «ухо — кончик носа — ухо»<br>• Для детей старшего возраста: «кончик носа — пупок»<br>Отметить расстояние на зонде.</div></li>
+                        <li class="step-item"><div class="step-number">3</div><div class="step-text"><strong>Анестезия:</strong> аппликационная анестезия корня языка и глотки (гель Катеджель или лидокаин). Обработка зонда гелем с анестетиком.</div></li>
+                        <li class="step-item"><div class="step-number">4</div><div class="step-text"><strong>Положение ребенка:</strong> лежа на левом боку (пилорический отдел приподнимается, снижается риск аспирации).</div></li>
+                        <li class="step-item"><div class="step-number">5</div><div class="step-text"><strong>Введение зонда:</strong> свободно через рот или нос с первой попытки, продвигать до ранее нанесенной отметки.</div></li>
+                        <li class="step-item"><div class="step-number">6</div><div class="step-text"><strong>Контроль положения:</strong> ввести 10–20 мл воздуха (в зависимости от возраста), аускультативно над эпигастрием — булькающие звуки.</div></li>
+                        <li class="step-item"><div class="step-number">7</div><div class="step-text"><strong>Эвакуация содержимого:</strong> удалить желудочное содержимое шприцем Жане или грушей.</div></li>
+                        <li class="step-item"><div class="step-number">8</div><div class="step-text"><strong>Зондовое промывание:</strong> ввести разовый объем воды комфортной температуры (38°C), вывести. Цикл повторяется 2–4 раза в зависимости от типа вещества. Скорость: введение за 1.5 мин, выведение за 1.5 мин.</div></li>
+                        <li class="step-item"><div class="step-number">9</div><div class="step-text"><strong>Введение сорбента:</strong> после завершения промывных циклов ввести активированный уголь (0.5–1 г/кг) в ½ разового объема кипяченой воды.</div></li>
+                        <li class="step-item"><div class="step-number">10</div><div class="step-text"><strong>Завершение:</strong> медленно извлечь зонд. В течение первых 6–8 часов после отравления кишечник не стимулируется (слабительные не применяются).</div></li>
+                    </ul>
                 </div>
-                <button class="btn-copy" id="copyProtocolBtn">
-                    📋 Скопировать протокол
-                </button>
-            </div>
 
-            <div class="card">
-                <div class="card-title">⚠️ Критерии прекращения процедуры</div>
-                <ul style="margin-left: 20px; font-size: 0.8rem; color: #2c5a4e; line-height: 1.6;">
-                    <li>• Появление чистых промывных вод</li>
-                    <li>• Ухудшение состояния ребенка (нарушение сознания, брадикардия, гипотензия)</li>
-                    <li>• Появление крови в промывных водах</li>
-                    <li>• Разница между введенной и выведенной жидкостью >1%</li>
-                </ul>
+                <div class="card">
+                    <div class="card-title">📊 Нормативы по возрастам</div>
+                    <div style="overflow-x: auto;">
+                        <table class="age-table">
+                            <thead><tr><th>Возраст</th><th>Разовый объем</th><th>Максимальный объем</th></tr></thead>
+                            <tbody>
+                                <tr><td>1 неделя жизни</td><td>10–12 мл/кг</td><td>200 мл</td></tr>
+                                <tr><td>2 недели жизни</td><td>12–15 мл/кг</td><td>200 мл</td></tr>
+                                <tr><td>3 недели жизни</td><td>15–18 мл/кг</td><td>200 мл</td></tr>
+                                <tr><td>4 недели жизни</td><td>20 мл/кг</td><td>200 мл</td></tr>
+                                <tr><td>1–2 месяца</td><td>60–90 мл</td><td>300 мл</td></tr>
+                                <tr><td>3–4 месяца</td><td>90–100 мл</td><td>500 мл</td></tr>
+                                <tr><td>5–6 месяцев</td><td>100–110 мл</td><td>700 мл</td></tr>
+                                <tr><td>7–8 месяцев</td><td>110–120 мл</td><td>800 мл</td></tr>
+                                <tr><td>9–12 месяцев</td><td>120–150 мл</td><td>1 литр</td></tr>
+                                <tr><td>2–3 года</td><td>200–250 мл</td><td>1.5–2 литра</td></tr>
+                                <tr><td>4–5 лет</td><td>300–350 мл</td><td>2–2.5 литра</td></tr>
+                                <tr><td>6–7 лет</td><td>350–400 мл</td><td>3–3.5 литра</td></tr>
+                                <tr><td>8–11 лет</td><td>400–450 мл</td><td>3.5–4 литра</td></tr>
+                                <tr><td>12–14 лет</td><td>450–500 мл</td><td>4–5 литров</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">📝 Шаблон протокола процедуры</div>
+                    <div id="protocolText" class="protocol-text">
+                        Апликационная анестезия KateGel (Sol.Lidocaini) корня языка и глотки.
+Определение глубины введения зонда в желудок: для ребенка 5 лет измерено расстояние "кончик носа — пупок" с нанесением отметки на зонд.
+KateGel обработка зонда.
+В положении пациента на левом боку свободно через рот с первой попытки введен зонд в желудок до отметки.
+Контрольное введение воздуха через зонд вызывает урчание в эпигастрии.
+Через зонд в желудок введено дробно (2–3 цикла промывания, разовый объем 100 мл) общим объемом 300 мл проточной воды комнатной температуры (38°C).
+Количество введенной и выведенной жидкости полностью равно.
+Через зонд в желудок введен активированный уголь в дозе 8 г (32 таблеток по 0,25 г), растертый в порошок и растворенный в 50 мл кипяченой воды комнатной температуры.
+Зонд из желудка извлечен. Состояние ребенка на момент завершения процедуры стабильное.
+                    </div>
+                    <button class="btn-copy" id="copyProtocolBtn">📋 Скопировать протокол</button>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">⚠️ Критерии прекращения процедуры</div>
+                    <ul style="margin-left: 20px; font-size: 0.8rem; color: #1f3a4b; line-height: 1.6;">
+                        <li>• Появление чистых промывных вод</li>
+                        <li>• Ухудшение состояния ребенка (нарушение сознания, брадикардия, гипотензия)</li>
+                        <li>• Появление крови в промывных водах</li>
+                        <li>• Разница между введенной и выведенной жидкостью >1%</li>
+                    </ul>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="footnote">
-        ⚕️ Алгоритм составлен на основе клинических рекомендаций. При промывании желудка у детей используется вода комфортной температуры (38°C). Скорость введения/выведения: 1.5 минуты на каждую фазу. В первые 6–8 часов после отравления кишечник не стимулируется. Сорбент вводится после каждого промывного цикла, разводится в ½ разового объема.
+        <div class="footnote">
+            ⚕️ Алгоритм составлен на основе клинических рекомендаций. При промывании желудка у детей используется вода комфортной температуры (38°C). Скорость введения/выведения: 1.5 минуты на каждую фазу. В первые 6–8 часов после отравления кишечник не стимулируется. Сорбент вводится после каждого промывного цикла, разводится в ½ разового объема.
+        </div>
     </div>
 </div>
 
 <script>
-    // Данные по возрастам: разовый объем (мл) и максимальный общий объем (мл)
     const ageData = {
-        newborn1: { name: "1 неделя жизни", singleBase: "10–12 мл/кг", maxTotal: 200, useWeight: true, weightMin: 2, weightMax: 4.5 },
-        newborn2: { name: "2 недели жизни", singleBase: "12–15 мл/кг", maxTotal: 200, useWeight: true, weightMin: 2.5, weightMax: 5 },
-        newborn3: { name: "3 недели жизни", singleBase: "15–18 мл/кг", maxTotal: 200, useWeight: true, weightMin: 3, weightMax: 5.5 },
-        newborn4: { name: "4 недели жизни", singleBase: "20 мл/кг", maxTotal: 200, useWeight: true, weightMin: 3.5, weightMax: 6 },
+        newborn1: { name: "1 неделя жизни", singleBase: "10–12 мл/кг", maxTotal: 200, useWeight: true },
+        newborn2: { name: "2 недели жизни", singleBase: "12–15 мл/кг", maxTotal: 200, useWeight: true },
+        newborn3: { name: "3 недели жизни", singleBase: "15–18 мл/кг", maxTotal: 200, useWeight: true },
+        newborn4: { name: "4 недели жизни", singleBase: "20 мл/кг", maxTotal: 200, useWeight: true },
         "1-2m": { name: "1–2 месяца", singleBase: "60–90 мл", maxTotal: 300, useWeight: false, singleMin: 60, singleMax: 90 },
         "3-4m": { name: "3–4 месяца", singleBase: "90–100 мл", maxTotal: 500, useWeight: false, singleMin: 90, singleMax: 100 },
         "5-6m": { name: "5–6 месяцев", singleBase: "100–110 мл", maxTotal: 700, useWeight: false, singleMin: 100, singleMax: 110 },
@@ -689,7 +638,6 @@
         const singleVolumeMax = singleRange.max;
         const singleVolumeAvg = Math.round((singleVolumeMin + singleVolumeMax) / 2);
         
-        let cycles = poisonType === 'liquid' ? "2–3" : "3–4";
         let cyclesMin = poisonType === 'liquid' ? 2 : 3;
         let cyclesMax = poisonType === 'liquid' ? 3 : 4;
         
@@ -697,7 +645,7 @@
         const totalMax = Math.min(singleVolumeMax * cyclesMax, data.maxTotal);
         
         document.getElementById('singleVolume').innerHTML = `${singleVolumeMin}–${singleVolumeMax} мл (средний: ${singleVolumeAvg} мл)`;
-        document.getElementById('cyclesCount').innerHTML = `${cycles} цикла (в зависимости от типа вещества)`;
+        document.getElementById('cyclesCount').innerHTML = `${cyclesMin}–${cyclesMax} цикла (в зависимости от типа вещества)`;
         document.getElementById('totalVolume').innerHTML = `${totalMin}–${totalMax} мл (макс. по возрасту: ${data.maxTotal} мл)`;
         
         const charcoalMinG = (weight * 0.5).toFixed(1);
@@ -706,7 +654,7 @@
         const tabletsAvg = Math.ceil(weight * 0.75 / 0.25);
         
         document.getElementById('charcoalDose').innerHTML = `0.5–1 г/кг (всего ${charcoalMinG}–${charcoalMaxG} г)`;
-        document.getElementById('charcoalCalc').innerHTML = `${charcoalAvg} г (средняя доза) ≈ ${tabletsAvg} таб. по 0.25 г, растворить в ${Math.round(singleVolumeAvg/2)} мл воды`;
+        document.getElementById('charcoalCalc').innerHTML = `${charcoalAvg} г (средняя доза) ≈ ${tabletsAvg} таб. по 0,25 г, растворить в ${Math.round(singleVolumeAvg/2)} мл воды`;
         
         updateProtocol(ageKey, weight, singleVolumeAvg, cyclesMin, cyclesMax, totalMin, totalMax, charcoalAvg, tabletsAvg);
     }
@@ -750,6 +698,12 @@ KateGel обработка зонда.
     document.getElementById('copyProtocolBtn').addEventListener('click', copyProtocol);
     
     updateCalculator();
+    
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/SMP/sw.js')
+            .then(reg => console.log('✅ Сервис-воркер зарегистрирован:', reg))
+            .catch(err => console.error('❌ Ошибка регистрации:', err));
+    }
 </script>
 </body>
 </html>
