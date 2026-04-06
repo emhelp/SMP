@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Справочник МКБ-10 | Класс VII. Болезни глаза (H00-H59) | Коды ССиНМП</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #dce5ec;
+            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+            padding: 24px 20px;
+            color: #1a3a48;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .header {
+            background: #0b3b4f;
+            background-image: radial-gradient(circle at 10% 20%, #125d78, #062633);
+            border-radius: 32px;
+            padding: 16px 24px;
+            margin-bottom: 28px;
+            box-shadow: 0 6px 12px -6px rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+        .header h1 {
+            font-size: 1.55rem;
+            font-weight: 700;
+            letter-spacing: -0.2px;
+            color: #ffffff;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .header h1 span {
+            background: #f5b042;
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 60px;
+            color: #0a2e3c;
+            box-shadow: inset 0 -1px 0 rgba(0,0,0,0.05), 0 1px 4px rgba(0,0,0,0.1);
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 18px;
+        }
+        .card {
+            background: #ffffff;
+            border-radius: 24px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.03);
+            border: 1px solid #dce5ec;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .disease-title {
+            background: #f4f9fe;
+            padding: 12px 18px 10px 18px;
+            border-bottom: 1px solid #e2edf5;
+        }
+        .disease-name {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: #0c4e6b;
+            line-height: 1.3;
+            letter-spacing: -0.2px;
+        }
+        .code-block {
+            padding: 14px 18px 16px 18px;
+            background: #ffffff;
+            flex: 1;
+        }
+        .mkb-line {
+            font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+            font-weight: 400;
+            font-size: 0.9rem;
+            color: #000000;
+            background: #eef2f8;
+            padding: 5px 12px;
+            border-radius: 32px;
+            margin-bottom: 10px;
+            border: 1px solid #d0dee9;
+            display: inline-block;
+            letter-spacing: 0.2px;
+        }
+        .inner-code-block {
+            margin-top: 8px;
+            margin-bottom: 12px;
+            background: #f9f3e0;
+            padding: 5px 12px;
+            border-radius: 28px;
+            display: inline-block;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-weight: 500;
+            font-size: 0.85rem;
+            color: #a55217;
+            border: 1px solid #ffe0a3;
+        }
+        .inner-code-block strong {
+            font-weight: 700;
+            color: #8b3c0c;
+        }
+        .description {
+            margin-top: 10px;
+            font-size: 0.88rem;
+            line-height: 1.4;
+            color: #2c4e62;
+            background: #fefef7;
+            padding: 8px 12px;
+            border-radius: 18px;
+            border-left: 3px solid #7fc1db;
+        }
+        .description em {
+            font-style: italic;
+            background: #fff2dd;
+            padding: 0 2px;
+            border-radius: 6px;
+        }
+        @media (max-width: 760px) {
+            body { padding: 14px 12px; }
+            .grid { grid-template-columns: 1fr; }
+            .disease-name { font-size: 1.1rem; }
+            .header h1 { font-size: 1.3rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>
+            📘 Класс VII. Болезни глаза и его придаточного аппарата (H00–H59)
+            <span>МКБ-10 + коды ССиНМП</span>
+        </h1>
+    </div>
+    <div class="grid" id="eyeGrid"></div>
+</div>
+<script>
+    const eyeData = [
+        { name: "Астигматизм", internalCode: "4024", mkb: "H52.2", desc: "" },
+        { name: "Атрофия зрительного нерва", internalCode: "4021", mkb: "H47.2", desc: "" },
+        { name: "Блефарит", internalCode: "1345", mkb: "H01.0", desc: "исключен: блефароконъюнктивит (H10.5)" },
+        { name: "Блефароконъюнктивит", internalCode: "4001", mkb: "H10.5", desc: "" },
+        { name: "Вывих хрусталика", internalCode: "4009", mkb: "H27.1", desc: "" },
+        { name: "Гиперметропия", internalCode: "4022", mkb: "H52.0", desc: "" },
+        { name: "Глазная боль", internalCode: "1355", mkb: "H57.1", desc: "" },
+        { name: "Глаукома неуточненная", internalCode: "1350", mkb: "H40.9", desc: "" },
+        { name: "Гнойный эндоофтальмит", internalCode: "4017", mkb: "H44.0", desc: "" },
+        { name: "Гордеолум и другие глубокие воспаления век", internalCode: "2863", mkb: "H00.0", desc: "абсцесс, фурункул, ячмень (гордеолум) века" },
+        { name: "Дегенеративная миопия", internalCode: "4018", mkb: "H44.2", desc: "" },
+        { name: "Дегенерация макулы и заднего полюса", internalCode: "2982", mkb: "H35.3", desc: "в том числе: старческая дегенерация макулы; токсическая макулопатия" },
+        { name: "Диабетическая ретинопатия", internalCode: "4014", mkb: "H36.0", desc: "" },
+        { name: "Другие болезни стекловидного тела", internalCode: "4016", mkb: "H43.8", desc: "" },
+        { name: "Другие дегенеративные болезни глазного яблока", internalCode: "4019", mkb: "H44.3", desc: "" },
+        { name: "Другие поверхностные кератиты без конъюнктивита", internalCode: "4006", mkb: "H16.1", desc: "" },
+        { name: "Другие поражения глаза и его придаточного аппарата после медицинских процедур", internalCode: "4028", mkb: "H59.8", desc: "" },
+        { name: "Другие расстройства зрения", internalCode: "4027", mkb: "H53.8", desc: "" },
+        { name: "Другие ретинальные артериальные окклюзии", internalCode: "2897", mkb: "H34.2", desc: "" },
+        { name: "Другие ретинальные сосудистые окклюзии", internalCode: "2898", mkb: "H34.8", desc: "венозная окклюзия сетчатки" },
+        { name: "Другие уточненные болезни века", internalCode: "4000", mkb: "H02.8", desc: "" },
+        { name: "Другие уточненные болезни хрусталика", internalCode: "4010", mkb: "H27.8", desc: "" },
+        { name: "Другие уточненные ретинальные нарушения", internalCode: "2961", mkb: "H35.8", desc: "" },
+        { name: "Другие формы кератита", internalCode: "4007", mkb: "H16.8", desc: "" },
+        { name: "Другие хориоретинальные воспаления", internalCode: "4011", mkb: "H30.8", desc: "" },
+        { name: "Кератоконъюнктивит", internalCode: "2134", mkb: "H16.2", desc: "в том числе: вызванный внешним воздействием; кератоконъюнктивит без дополнительного уточнения" },
+        { name: "Конъюнктивит неуточненный", internalCode: "4002", mkb: "H10.9", desc: "" },
+        { name: "Кровоизлияние в стекловидное тело", internalCode: "4015", mkb: "H43.1", desc: "" },
+        { name: "Кровоизлияние и разрыв сосудистой оболочки глаза", internalCode: "1348", mkb: "H31.3", desc: "" },
+        { name: "Миопия", internalCode: "4023", mkb: "H52.1", desc: "" },
+        { name: "Неврит зрительного нерва", internalCode: "1351", mkb: "H46", desc: "" },
+        { name: "Нистагм и другие непроизвольные движения глаз", internalCode: "1354", mkb: "H55", desc: "в том числе: врожденный нистагм; нистагм без дополнительных уточнений" },
+        { name: "Острое и неуточненное воспаление слезных протоков", internalCode: "2132", mkb: "H04.3", desc: "в том числе: дакриоцистит флегмонозный, острый, подострый, неуточненный" },
+        { name: "Острое воспаление глазницы", internalCode: "2133", mkb: "H05.0", desc: "абсцесс, остеомиелит, периостит" },
+        { name: "Острый и подострый иридоциклит", internalCode: "1347", mkb: "H20.0", desc: "" },
+        { name: "Острый конъюнктивит неуточненный", internalCode: "1346", mkb: "H10.3", desc: "" },
+        { name: "Отек зрительного нерва неуточненный", internalCode: "4020", mkb: "H47.1", desc: "" },
+        { name: "Отслойка сосудистой оболочки глаза", internalCode: "4013", mkb: "H31.4", desc: "" },
+        { name: "Паралитическое косоглазие неуточненное", internalCode: "1352", mkb: "H49.9", desc: "" },
+        { name: "Пресбиопия", internalCode: "4025", mkb: "H52.4", desc: "" },
+        { name: "Преретинопатия", internalCode: "4063", mkb: "H35.1", desc: "ретролентальная фиброплазия" },
+        { name: "Расстройства зрения неуточненные", internalCode: "1353", mkb: "H53.9", desc: "" },
+        { name: "Серозная отслойка сетчатки", internalCode: "1349", mkb: "H33.2", desc: "в том числе: отслойка сетчатки без дополнительных уточнений" },
+        { name: "Склерит", internalCode: "4004", mkb: "H15.0", desc: "" },
+        { name: "Старческая катаракта неуточненная", internalCode: "4008", mkb: "H25.9", desc: "" },
+        { name: "Субъективные зрительные расстройства", internalCode: "4026", mkb: "H53.1", desc: "" },
+        { name: "Фоновая ретинопатия и ретинальные сосудистые изменения", internalCode: "2960", mkb: "H35.0", desc: "в том числе: гипертензивная ретинопатия" },
+        { name: "Халязион", internalCode: "2131", mkb: "H00.1", desc: "" },
+        { name: "Хориоретинальные воспаления неуточненные", internalCode: "4012", mkb: "H30.9", desc: "" },
+        { name: "Эписклерит", internalCode: "4005", mkb: "H15.1", desc: "" }
+    ];
+    
+    eyeData.sort((a, b) => a.name.localeCompare(b.name, 'ru'));
+    
+    function escapeHtml(str) {
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+    
+    function render() {
+        const grid = document.getElementById('eyeGrid');
+        if (!grid) return;
+        grid.innerHTML = '';
+        eyeData.forEach(item => {
+            const card = document.createElement('div'); card.className = 'card';
+            const titleDiv = document.createElement('div'); titleDiv.className = 'disease-title';
+            const nameSpan = document.createElement('div'); nameSpan.className = 'disease-name'; nameSpan.textContent = item.name;
+            titleDiv.appendChild(nameSpan);
+            const codeBlockDiv = document.createElement('div'); codeBlockDiv.className = 'code-block';
+            const mkbSpan = document.createElement('div'); mkbSpan.className = 'mkb-line'; mkbSpan.textContent = `МКБ-10: ${item.mkb}`;
+            codeBlockDiv.appendChild(mkbSpan);
+            const innerSpan = document.createElement('div'); innerSpan.className = 'inner-code-block';
+            innerSpan.innerHTML = `<strong>Код ССиНМП:</strong> ${item.internalCode}`;
+            codeBlockDiv.appendChild(innerSpan);
+            if (item.desc && item.desc.trim() !== "") {
+                const descDiv = document.createElement('div'); descDiv.className = 'description';
+                descDiv.innerHTML = `<em>${escapeHtml(item.desc)}</em>`;
+                codeBlockDiv.appendChild(descDiv);
+            }
+            card.appendChild(titleDiv); card.appendChild(codeBlockDiv);
+            grid.appendChild(card);
+        });
+    }
+    render();
+</script>
+</body>
+</html>
