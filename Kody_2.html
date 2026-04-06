@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Справочник МКБ-10 | Новообразования (C00-D48) | Коды ССиНМП</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #dce5ec;
+            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+            padding: 24px 20px;
+            color: #1a3a48;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* шапка — как в инфекциях */
+        .header {
+            background: #0b3b4f;
+            background-image: radial-gradient(circle at 10% 20%, #125d78, #062633);
+            border-radius: 32px;
+            padding: 16px 24px;
+            margin-bottom: 28px;
+            box-shadow: 0 6px 12px -6px rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .header h1 {
+            font-size: 1.55rem;
+            font-weight: 700;
+            letter-spacing: -0.2px;
+            color: #ffffff;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .header h1 span {
+            background: #f5b042;
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 60px;
+            color: #0a2e3c;
+            box-shadow: inset 0 -1px 0 rgba(0,0,0,0.05), 0 1px 4px rgba(0,0,0,0.1);
+        }
+
+        /* сетка */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 18px;
+        }
+
+        /* карточка статичная, компактная */
+        .card {
+            background: #ffffff;
+            border-radius: 24px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.03);
+            border: 1px solid #dce5ec;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .disease-title {
+            background: #f4f9fe;
+            padding: 12px 18px 10px 18px;
+            border-bottom: 1px solid #e2edf5;
+        }
+
+        .disease-name {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: #0c4e6b;
+            line-height: 1.3;
+            letter-spacing: -0.2px;
+        }
+
+        .code-block {
+            padding: 14px 18px 16px 18px;
+            background: #ffffff;
+            flex: 1;
+        }
+
+        .mkb-line {
+            font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+            font-weight: 400;
+            font-size: 0.9rem;
+            color: #000000;
+            background: #eef2f8;
+            padding: 5px 12px;
+            border-radius: 32px;
+            margin-bottom: 10px;
+            border: 1px solid #d0dee9;
+            display: inline-block;
+            letter-spacing: 0.2px;
+        }
+
+        .inner-code-block {
+            margin-top: 8px;
+            margin-bottom: 12px;
+            background: #f9f3e0;
+            padding: 5px 12px;
+            border-radius: 28px;
+            display: inline-block;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-weight: 500;
+            font-size: 0.85rem;
+            color: #a55217;
+            border: 1px solid #ffe0a3;
+        }
+
+        .inner-code-block strong {
+            font-weight: 700;
+            color: #8b3c0c;
+        }
+
+        .description {
+            margin-top: 10px;
+            font-size: 0.88rem;
+            line-height: 1.4;
+            color: #2c4e62;
+            background: #fefef7;
+            padding: 8px 12px;
+            border-radius: 18px;
+            border-left: 3px solid #7fc1db;
+        }
+
+        .description em {
+            font-style: italic;
+            background: #fff2dd;
+            padding: 0 2px;
+            border-radius: 6px;
+        }
+
+        @media (max-width: 760px) {
+            body {
+                padding: 14px 12px;
+            }
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            .disease-name {
+                font-size: 1.1rem;
+            }
+            .header h1 {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>
+            📘 Класс II. Новообразования (C00–D48)
+            <span>МКБ-10 + коды ССиНМП</span>
+        </h1>
+    </div>
+    <div class="grid" id="neoplasmsGrid"></div>
+</div>
+
+<script>
+    // ========== НОВООБРАЗОВАНИЯ (злокачественные, доброкачественные, неопределённые) ==========
+    const neoplasmsData = [
+        // Злокачественные
+        { name: "Болезнь Ходжкина неуточненная", internalCode: "1091", mkb: "C81.9", desc: "" },
+        { name: "Злокачественная меланома кожи неуточненная", internalCode: "2950", mkb: "C43.9", desc: "" },
+        { name: "Злокачественное новообразование без уточнения локализации", internalCode: "1090", mkb: "C80", desc: "злокачественное новообразование неизвестной первичной локализации; злокачественное новообразование неуточненное" },
+        { name: "Злокачественное новообразование бронхов или легкого неуточненной локализации", internalCode: "2053", mkb: "C34.9", desc: "" },
+        { name: "Злокачественное новообразование вульвы неуточненной части", internalCode: "2061", mkb: "C51.9", desc: "наружных женских половых органов БДУ, срамной области" },
+        { name: "Злокачественное новообразование головного мозга неуточненной локализации", internalCode: "2067", mkb: "C71.9", desc: "" },
+        { name: "Злокачественное новообразование головы, лица и шеи", internalCode: "2069", mkb: "C76.0", desc: "в том числе: щеки, носа" },
+        { name: "Злокачественное новообразование гортани неуточненное", internalCode: "2052", mkb: "C32.9", desc: "" },
+        { name: "Злокачественное новообразование глотки неуточненное", internalCode: "2042", mkb: "C14.0", desc: "" },
+        { name: "Злокачественное новообразование гипофиза", internalCode: "2951", mkb: "C75.1", desc: "" },
+        { name: "Злокачественное новообразование желудка неуточненной локализации", internalCode: "2045", mkb: "C16.9", desc: "в том числе: карцинома желудка БДУ" },
+        { name: "Злокачественное новообразование женских половых органов неуточненной локализации", internalCode: "2064", mkb: "C57.9", desc: "злокачественное новообразование мочеполового тракта у женщин неуточненное" },
+        { name: "Злокачественное новообразование кожи неуточненной области", internalCode: "2058", mkb: "C44.9", desc: "" },
+        { name: "Злокачественное новообразование матки неуточненной локализации", internalCode: "2062", mkb: "C55", desc: "" },
+        { name: "Злокачественное новообразование молочной железы неуточненной части", internalCode: "2060", mkb: "C50.9", desc: "" },
+        { name: "Злокачественное новообразование мочевого пузыря неуточненной части", internalCode: "2066", mkb: "C67.9", desc: "" },
+        { name: "Злокачественное новообразование надпочечника", internalCode: "2901", mkb: "C74.9", desc: "" },
+        { name: "Злокачественное новообразование неточно обозначенных локализаций в пределах пищеварительной системы", internalCode: "2051", mkb: "C26.9", desc: "" },
+        { name: "Злокачественное новообразование нижней конечности", internalCode: "2070", mkb: "C76.5", desc: "" },
+        { name: "Злокачественное новообразование нижней челюсти", internalCode: "2056", mkb: "C41.1", desc: "нижней челюсти костной части. Исключены: карцинома любого типа, кроме внутрикостной или одонтогенной: челюсти БДУ (C03.9), нижней (C03.1), верхней челюсти костной части (C41.0)" },
+        { name: "Злокачественное новообразование ободочной кишки неуточненной локализации", internalCode: "2047", mkb: "C18.9", desc: "толстой кишки БДУ" },
+        { name: "Злокачественное новообразование печени неуточненное", internalCode: "2049", mkb: "C22.9", desc: "" },
+        { name: "Злокачественное новообразование пищевода неуточненное", internalCode: "2044", mkb: "C15.9", desc: "" },
+        { name: "Злокачественное новообразование плевры", internalCode: "2055", mkb: "C38.4", desc: "" },
+        { name: "Злокачественное новообразование позвоночного столба", internalCode: "2057", mkb: "C41.2", desc: "исключено: крестца и копчика (C41.4)" },
+        { name: "Злокачественное новообразование поджелудочной железы неуточненное", internalCode: "2050", mkb: "C25.9", desc: "" },
+        { name: "Злокачественное новообразование полового члена", internalCode: "2899", mkb: "C60.9", desc: "кожи полового члена БДУ" },
+        { name: "Злокачественное новообразование почки, кроме почечной лоханки (рак почки)", internalCode: "2900", mkb: "C64", desc: "исключены: почечной чашки (C65), почечной лоханки (C65)" },
+        { name: "Злокачественное новообразование предстательной железы", internalCode: "2065", mkb: "C61", desc: "" },
+        { name: "Злокачественное новообразование прямой кишки", internalCode: "2048", mkb: "C20", desc: "ампулы прямой кишки" },
+        { name: "Злокачественное новообразование рта неуточненное", internalCode: "2041", mkb: "C06.9", desc: "малой слюнной железы неуточненной локализации; полости рта БДУ" },
+        { name: "Злокачественное новообразование средостения неуточненной части", internalCode: "2054", mkb: "C38.3", desc: "" },
+        { name: "Злокачественное новообразование тонкого кишечника неуточненной локализации", internalCode: "2046", mkb: "C17.9", desc: "" },
+        { name: "Злокачественное новообразование ценс неуточненного отдела", internalCode: "2068", mkb: "C72.9", desc: "нервной системы БДУ" },
+        { name: "Злокачественное новообразование шейки матки", internalCode: "4061", mkb: "C53.9", desc: "" },
+        { name: "Злокачественное новообразование щитовидной железы", internalCode: "1170", mkb: "C73", desc: "" },
+        { name: "Злокачественное новообразование яичника", internalCode: "2063", mkb: "C56", desc: "" },
+        { name: "Злокачественные иммунопролиферативные болезни неуточненные", internalCode: "2071", mkb: "C88.9", desc: "" },
+        { name: "Злокачественные новообразования неуточненной части языка", internalCode: "2040", mkb: "C02.9", desc: "" },
+        { name: "Лейкоз неуточненный", internalCode: "1093", mkb: "C95.9", desc: "" },
+        { name: "Множественная миелома", internalCode: "2952", mkb: "C90.0", desc: "миеломная болезнь; болезнь Калера; миеломатоз" },
+        { name: "Неходжкинская лимфома неуточненного типа", internalCode: "1092", mkb: "C85.9", desc: "" },
+        { name: "Поражение губы, полости рта и глотки, выходящее за пределы одной и более вышеуказанных локализаций", internalCode: "2043", mkb: "C14.8", desc: "злокачественное новообразование губы, полости рта и глотки, которое по месту возникновения не может быть отнесено ни к одной из рубрик C00–C14.2" },
+        { name: "Саркома Капоши неуточненной локализации", internalCode: "2059", mkb: "C46.9", desc: "" },
+        
+        // Доброкачественные
+        { name: "Гемангиома любой локализации", internalCode: "2073", mkb: "D18.0", desc: "" },
+        { name: "Доброкачественное новообразование головного мозга неуточненное", internalCode: "2905", mkb: "D33.2", desc: "" },
+        { name: "Доброкачественное новообразование гипофиза", internalCode: "2910", mkb: "D35.2", desc: "" },
+        { name: "Доброкачественное новообразование жировой ткани кожи и подкожной клетчатки других и неуточненных локализаций", internalCode: "2072", mkb: "D17.3", desc: "" },
+        { name: "Доброкачественное новообразование лимфатических узлов", internalCode: "1094", mkb: "D36.0", desc: "" },
+        { name: "Доброкачественное новообразование надпочечника", internalCode: "2909", mkb: "D35.0", desc: "" },
+        { name: "Доброкачественное новообразование оболочек головного мозга", internalCode: "2918", mkb: "D32.0", desc: "в том числе менингеома с дополнительными уточнениями" },
+        { name: "Доброкачественное новообразование оболочек мозга неуточненное", internalCode: "2920", mkb: "D32.9", desc: "менингеома без дополнительных уточнений" },
+        { name: "Доброкачественное новообразование оболочек спинного мозга", internalCode: "2919", mkb: "D32.1", desc: "" },
+        { name: "Доброкачественное новообразование других уточненных частей ЦНС", internalCode: "2907", mkb: "D33.7", desc: "" },
+        { name: "Доброкачественное новообразование спинного мозга", internalCode: "2906", mkb: "D33.4", desc: "" },
+        { name: "Доброкачественное новообразование щитовидной железы", internalCode: "2908", mkb: "D34", desc: "" },
+        { name: "Лейомиома матки неуточненная", internalCode: "2074", mkb: "D25.9", desc: "Миома матки с кровотечением (Осложнение - 10), Нарушение питания миоматозного узла. Рождающийся миоматозный узел (Осложнение - 21: нарушение питания или рождающийся узел)" },
+        { name: "Лимфангиома любой локализации", internalCode: "2953", mkb: "D18.1", desc: "" },
+        
+        // Неопределённые / неизвестного характера
+        { name: "Миелодиспластический синдром неуточненный", internalCode: "2911", mkb: "D46.9", desc: "" },
+        { name: "Новообразование неопределенного или неизвестного характера брюшины", internalCode: "2075", mkb: "D48.4", desc: "" },
+        { name: "Новообразование неопределенного или неизвестного характера головного мозга над мозговым намётом", internalCode: "2954", mkb: "D43.0", desc: "желудочка головного мозга (исключая IV желудочек); большого мозга; лобной, затылочной, теменной, височной доли" },
+        { name: "Новообразование неопределенного или неизвестного характера головного мозга неуточненное", internalCode: "2956", mkb: "D43.2", desc: "" },
+        { name: "Новообразование неопределенного или неизвестного характера головного мозга под мозговым намётом", internalCode: "2955", mkb: "D43.1", desc: "ствола мозга; мозжечка; IV желудочка" },
+        { name: "Новообразование неопределенного или неизвестного характера забрюшинного пространства", internalCode: "1095", mkb: "D48.3", desc: "" },
+        { name: "Новообразование неопределенного или неизвестного характера молочной железы", internalCode: "2076", mkb: "D48.6", desc: "соединительной ткани молочной железы цистосаркома листовидная. Исключено: кожи молочной железы (D48.5)" },
+        { name: "Новообразование неопределенного или неизвестного характера оболочек головного мозга", internalCode: "2921", mkb: "D42.0", desc: "" },
+        { name: "Новообразование неопределенного или неизвестного характера оболочек спинного мозга", internalCode: "2922", mkb: "D42.1", desc: "" },
+        { name: "Новообразование неопределенного или неизвестного характера других отделов центральной нервной системы", internalCode: "2958", mkb: "D43.7", desc: "" },
+        { name: "Новообразование неопределенного или неизвестного характера спинного мозга", internalCode: "2957", mkb: "D43.4", desc: "" }
+    ];
+
+    // Сортировка по алфавиту
+    neoplasmsData.sort((a, b) => a.name.localeCompare(b.name, 'ru'));
+
+    function renderCards() {
+        const grid = document.getElementById('neoplasmsGrid');
+        if (!grid) return;
+        grid.innerHTML = '';
+        
+        neoplasmsData.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'card';
+
+            const titleDiv = document.createElement('div');
+            titleDiv.className = 'disease-title';
+            const nameSpan = document.createElement('div');
+            nameSpan.className = 'disease-name';
+            nameSpan.textContent = item.name;
+            titleDiv.appendChild(nameSpan);
+            
+            const codeBlockDiv = document.createElement('div');
+            codeBlockDiv.className = 'code-block';
+            
+            const mkbSpan = document.createElement('div');
+            mkbSpan.className = 'mkb-line';
+            mkbSpan.textContent = `МКБ-10: ${item.mkb}`;
+            codeBlockDiv.appendChild(mkbSpan);
+            
+            const innerSpan = document.createElement('div');
+            innerSpan.className = 'inner-code-block';
+            innerSpan.innerHTML = `<strong>Код ССиНМП:</strong> ${item.internalCode}`;
+            codeBlockDiv.appendChild(innerSpan);
+            
+            if (item.desc && item.desc.trim() !== "") {
+                const descDiv = document.createElement('div');
+                descDiv.className = 'description';
+                descDiv.innerHTML = `<em>${escapeHtml(item.desc)}</em>`;
+                codeBlockDiv.appendChild(descDiv);
+            }
+            
+            card.appendChild(titleDiv);
+            card.appendChild(codeBlockDiv);
+            grid.appendChild(card);
+        });
+    }
+    
+    function escapeHtml(str) {
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+    
+    renderCards();
+</script>
+</body>
+</html>
