@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Справочник МКБ-10 | Класс IV. Эндокринные болезни (E00-E90) | Коды ССиНМП</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #dce5ec;
+            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+            padding: 24px 20px;
+            color: #1a3a48;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .header {
+            background: #0b3b4f;
+            background-image: radial-gradient(circle at 10% 20%, #125d78, #062633);
+            border-radius: 32px;
+            padding: 16px 24px;
+            margin-bottom: 28px;
+            box-shadow: 0 6px 12px -6px rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+        .header h1 {
+            font-size: 1.55rem;
+            font-weight: 700;
+            letter-spacing: -0.2px;
+            color: #ffffff;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .header h1 span {
+            background: #f5b042;
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 60px;
+            color: #0a2e3c;
+            box-shadow: inset 0 -1px 0 rgba(0,0,0,0.05), 0 1px 4px rgba(0,0,0,0.1);
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 18px;
+        }
+        .card {
+            background: #ffffff;
+            border-radius: 24px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.03);
+            border: 1px solid #dce5ec;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .disease-title {
+            background: #f4f9fe;
+            padding: 12px 18px 10px 18px;
+            border-bottom: 1px solid #e2edf5;
+        }
+        .disease-name {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: #0c4e6b;
+            line-height: 1.3;
+            letter-spacing: -0.2px;
+        }
+        .code-block {
+            padding: 14px 18px 16px 18px;
+            background: #ffffff;
+            flex: 1;
+        }
+        .mkb-line {
+            font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+            font-weight: 400;
+            font-size: 0.9rem;
+            color: #000000;
+            background: #eef2f8;
+            padding: 5px 12px;
+            border-radius: 32px;
+            margin-bottom: 10px;
+            border: 1px solid #d0dee9;
+            display: inline-block;
+            letter-spacing: 0.2px;
+        }
+        .inner-code-block {
+            margin-top: 8px;
+            margin-bottom: 12px;
+            background: #f9f3e0;
+            padding: 5px 12px;
+            border-radius: 28px;
+            display: inline-block;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-weight: 500;
+            font-size: 0.85rem;
+            color: #a55217;
+            border: 1px solid #ffe0a3;
+        }
+        .inner-code-block strong {
+            font-weight: 700;
+            color: #8b3c0c;
+        }
+        .description {
+            margin-top: 10px;
+            font-size: 0.88rem;
+            line-height: 1.4;
+            color: #2c4e62;
+            background: #fefef7;
+            padding: 8px 12px;
+            border-radius: 18px;
+            border-left: 3px solid #7fc1db;
+        }
+        .description em {
+            font-style: italic;
+            background: #fff2dd;
+            padding: 0 2px;
+            border-radius: 6px;
+        }
+        @media (max-width: 760px) {
+            body { padding: 14px 12px; }
+            .grid { grid-template-columns: 1fr; }
+            .disease-name { font-size: 1.1rem; }
+            .header h1 { font-size: 1.3rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>
+            📘 Класс IV. Эндокринные болезни, расстройства питания и обмена (E00–E90)
+            <span>МКБ-10 + коды ССиНМП</span>
+        </h1>
+    </div>
+    <div class="grid" id="endocrineGrid"></div>
+</div>
+<script>
+    const endocrineData = [
+        { name: "Аддисонов криз", internalCode: "2096", mkb: "E27.2", desc: "адреналовый криз, адренокортикальный криз" },
+        { name: "Амилоидоз неуточненный", internalCode: "1139", mkb: "E85.9", desc: "" },
+        { name: "Белково-энергетическая недостаточность неуточненная", internalCode: "1136", mkb: "E46", desc: "недостаточность питания без дополнительного уточнения, белково-энергетический дисбаланс без дополнительных уточнений" },
+        { name: "Гиперкалиемия", internalCode: "2874", mkb: "E87.5", desc: "избыток калия [K], перегрузка калием [K]" },
+        { name: "Гипогликемия неуточненная", internalCode: "1130", mkb: "E16.2", desc: "" },
+        { name: "Гипокалиемия", internalCode: "2875", mkb: "E87.6", desc: "недостаточность калия [K]" },
+        { name: "Гипотиреоз неуточненный", internalCode: "2090", mkb: "E03.9", desc: "микседема БДУ" },
+        { name: "Дисфункция яичников неуточненная", internalCode: "1134", mkb: "E28.9", desc: "" },
+        { name: "Другие нарушения водно-солевого равновесия, не классифицированные в других рубриках", internalCode: "2876", mkb: "E87.8", desc: "нарушение электролитного баланса БДУ, гиперхлоремия, гипохлоремия" },
+        { name: "Инсулинзависимый сахарный диабет без осложнений", internalCode: "1124", mkb: "E10.9", desc: "диабет (сахарный) лабильный; с наклонностью к кетозу, с началом в молодом возрасте, тип I" },
+        { name: "Инсулинзависимый сахарный диабет с комой", internalCode: "1125", mkb: "E10.0", desc: "диабет (сахарный) лабильный; с наклонностью к кетозу, с началом в молодом возрасте, тип I" },
+        { name: "Инсулинзависимый сахарный диабет с нарушениями периферического кровообращения", internalCode: "2093", mkb: "E10.5", desc: "диабетическая гангрена, диабетическая язва, диабетическая ангиопатия" },
+        { name: "Инсулиннезависимый сахарный диабет без осложнений", internalCode: "1126", mkb: "E11.9", desc: "диабет (сахарный) (без ожирения) (с ожирением): без склонности к кетозу, с началом в зрелом возрасте, стабильный, тип II" },
+        { name: "Инсулиннезависимый сахарный диабет с комой", internalCode: "1127", mkb: "E11.0", desc: "диабет (сахарный) (без ожирения) (с ожирением): без склонности к кетозу, с началом в зрелом возрасте, стабильный, тип II" },
+        { name: "Инсулиннезависимый сахарный диабет с нарушениями периферического кровообращения", internalCode: "2094", mkb: "E11.5", desc: "диабетическая гангрена, диабетическая язва, диабетическая ангиопатия" },
+        { name: "Кистозный фиброз неуточненный", internalCode: "2099", mkb: "E84.9", desc: "муковисцидоз" },
+        { name: "Классическая фенилкетонурия", internalCode: "2097", mkb: "E70.0", desc: "" },
+        { name: "Микседематозная кома", internalCode: "1121", mkb: "E03.5", desc: "" },
+        { name: "Недиабетическая гипогликемическая кома", internalCode: "1129", mkb: "E15", desc: "" },
+        { name: "Непереносимость лактозы неуточненная", internalCode: "2098", mkb: "E73.9", desc: "" },
+        { name: "Несахарный диабет", internalCode: "1131", mkb: "E23.2", desc: "исключен: нефрогенный несахарный диабет (N25.1)" },
+        { name: "Ожирение неуточненное", internalCode: "1138", mkb: "E66.9", desc: "в том числе: пикквикский синдром" },
+        { name: "Первичная недостаточность коры надпочечников", internalCode: "1133", mkb: "E27.1", desc: "в том числе: болезнь Аддисона, аутоиммунное воспаление надпочечников. Исключены: амилоидоз (E85.-), болезнь Аддисона туберкулезного происхождения (A18.7), синдром Уотерхауса-Фридериксена (A39.1)" },
+        { name: "Сахарный диабет неуточненный без осложнений", internalCode: "1128", mkb: "E14.9", desc: "" },
+        { name: "Сахарный диабет неуточненный с комой", internalCode: "2095", mkb: "E14.0", desc: "" },
+        { name: "Сахарный диабет неуточненный с нарушениями периферического кровообращения", internalCode: "2873", mkb: "E14.5", desc: "диабетическая гангрена, диабетическая язва, диабетическая ангиопатия" },
+        { name: "Синдром Иценко-Кушинга неуточненный", internalCode: "1132", mkb: "E24.9", desc: "" },
+        { name: "Тиреоидит неуточненный", internalCode: "1123", mkb: "E06.9", desc: "" },
+        { name: "Тиреоидный криз или кома", internalCode: "2091", mkb: "E05.5", desc: "" },
+        { name: "Тиреотоксикоз неуточненный", internalCode: "2092", mkb: "E05.9", desc: "гипертиреоидизм БДУ, тиреотоксическая болезнь сердца (I43.8*)" },
+        { name: "Тиреотоксикоз с диффузным зобом", internalCode: "1122", mkb: "E05.0", desc: "экзофтальмический или токсический зоб БДУ, болезнь Грейвса, диффузный токсический зоб" },
+        { name: "Уменьшение объема жидкости", internalCode: "1140", mkb: "E86", desc: "обезвоживание, уменьшение объема плазмы или внеклеточной жидкости, гиповолемия. Исключены: обезвоживание новорожденного (P74.1), гиповолемический шок: БДУ (R57.1), послеоперационный (T81.1), травматический (T79.4)" },
+        { name: "Энцефалопатия Вернике", internalCode: "1137", mkb: "E51.2", desc: "" },
+        { name: "Эндокринное расстройство неуточненное", internalCode: "1135", mkb: "E34.9", desc: "" }
+    ];
+    endocrineData.sort((a, b) => a.name.localeCompare(b.name, 'ru'));
+    
+    function escapeHtml(str) {
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+    
+    function render() {
+        const grid = document.getElementById('endocrineGrid');
+        if (!grid) return;
+        grid.innerHTML = '';
+        endocrineData.forEach(item => {
+            const card = document.createElement('div'); card.className = 'card';
+            const titleDiv = document.createElement('div'); titleDiv.className = 'disease-title';
+            const nameSpan = document.createElement('div'); nameSpan.className = 'disease-name'; nameSpan.textContent = item.name;
+            titleDiv.appendChild(nameSpan);
+            const codeBlockDiv = document.createElement('div'); codeBlockDiv.className = 'code-block';
+            const mkbSpan = document.createElement('div'); mkbSpan.className = 'mkb-line'; mkbSpan.textContent = `МКБ-10: ${item.mkb}`;
+            codeBlockDiv.appendChild(mkbSpan);
+            const innerSpan = document.createElement('div'); innerSpan.className = 'inner-code-block';
+            innerSpan.innerHTML = `<strong>Код ССиНМП:</strong> ${item.internalCode}`;
+            codeBlockDiv.appendChild(innerSpan);
+            if (item.desc && item.desc.trim() !== "") {
+                const descDiv = document.createElement('div'); descDiv.className = 'description';
+                descDiv.innerHTML = `<em>${escapeHtml(item.desc)}</em>`;
+                codeBlockDiv.appendChild(descDiv);
+            }
+            card.appendChild(titleDiv); card.appendChild(codeBlockDiv);
+            grid.appendChild(card);
+        });
+    }
+    render();
+</script>
+</body>
+</html>
