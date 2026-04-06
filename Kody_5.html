@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Справочник МКБ-10 | Класс VI. Болезни нервной системы (G00-G99) | Коды ССиНМП</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #dce5ec;
+            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+            padding: 24px 20px;
+            color: #1a3a48;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .header {
+            background: #0b3b4f;
+            background-image: radial-gradient(circle at 10% 20%, #125d78, #062633);
+            border-radius: 32px;
+            padding: 16px 24px;
+            margin-bottom: 28px;
+            box-shadow: 0 6px 12px -6px rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+        .header h1 {
+            font-size: 1.55rem;
+            font-weight: 700;
+            letter-spacing: -0.2px;
+            color: #ffffff;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .header h1 span {
+            background: #f5b042;
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 60px;
+            color: #0a2e3c;
+            box-shadow: inset 0 -1px 0 rgba(0,0,0,0.05), 0 1px 4px rgba(0,0,0,0.1);
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 18px;
+        }
+        .card {
+            background: #ffffff;
+            border-radius: 24px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.03);
+            border: 1px solid #dce5ec;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .disease-title {
+            background: #f4f9fe;
+            padding: 12px 18px 10px 18px;
+            border-bottom: 1px solid #e2edf5;
+        }
+        .disease-name {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: #0c4e6b;
+            line-height: 1.3;
+            letter-spacing: -0.2px;
+        }
+        .code-block {
+            padding: 14px 18px 16px 18px;
+            background: #ffffff;
+            flex: 1;
+        }
+        .mkb-line {
+            font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+            font-weight: 400;
+            font-size: 0.9rem;
+            color: #000000;
+            background: #eef2f8;
+            padding: 5px 12px;
+            border-radius: 32px;
+            margin-bottom: 10px;
+            border: 1px solid #d0dee9;
+            display: inline-block;
+            letter-spacing: 0.2px;
+        }
+        .inner-code-block {
+            margin-top: 8px;
+            margin-bottom: 12px;
+            background: #f9f3e0;
+            padding: 5px 12px;
+            border-radius: 28px;
+            display: inline-block;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-weight: 500;
+            font-size: 0.85rem;
+            color: #a55217;
+            border: 1px solid #ffe0a3;
+        }
+        .inner-code-block strong {
+            font-weight: 700;
+            color: #8b3c0c;
+        }
+        .description {
+            margin-top: 10px;
+            font-size: 0.88rem;
+            line-height: 1.4;
+            color: #2c4e62;
+            background: #fefef7;
+            padding: 8px 12px;
+            border-radius: 18px;
+            border-left: 3px solid #7fc1db;
+        }
+        .description em {
+            font-style: italic;
+            background: #fff2dd;
+            padding: 0 2px;
+            border-radius: 6px;
+        }
+        @media (max-width: 760px) {
+            body { padding: 14px 12px; }
+            .grid { grid-template-columns: 1fr; }
+            .disease-name { font-size: 1.1rem; }
+            .header h1 { font-size: 1.3rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>
+            📘 Класс VI. Болезни нервной системы (G00–G99)
+            <span>МКБ-10 + коды ССиНМП</span>
+        </h1>
+    </div>
+    <div class="grid" id="nervousGrid"></div>
+</div>
+<script>
+    const nervousData = [
+        { name: "Алкогольная полиневропатия", internalCode: "1326", mkb: "G62.1", desc: "" },
+        { name: "Бактериальный менингит неуточненный", internalCode: "1300", mkb: "G00.9", desc: "" },
+        { name: "Болезнь Альцгеймера неуточненная", internalCode: "1308", mkb: "G30.9", desc: "" },
+        { name: "Болезнь двигательного неврона", internalCode: "1303", mkb: "G12.2", desc: "в том числе: боковой амиотрофический склероз, прогрессирующий бульбарный паралич, прогрессирующая спинальная мышечная атрофия" },
+        { name: "Болезнь Паркинсона", internalCode: "1304", mkb: "G20", desc: "" },
+        { name: "Внутрипозвоночный абсцесс и гранулема", internalCode: "2101", mkb: "G06.1", desc: "абсцесс (эмболический) спинного мозга (любой части), внутрипозвоночный абсцесс или гранулема: эпидуральный, экстрадуральный, субдуральный" },
+        { name: "Внутричерепной абсцесс и гранулема", internalCode: "1302", mkb: "G06.0", desc: "абсцесс (эмболический): головного мозга (любой части), мозжечковый, церебральный, отогенный, внутричерепной абсцесс или гранулема: эпидуральный, экстрадуральный, субдуральный" },
+        { name: "Внутричерепной и внутрипозвоночный флебит и тромбофлебит", internalCode: "2102", mkb: "G08", desc: "" },
+        { name: "Врожденная мышечная дистрофия", internalCode: "2120", mkb: "G71.2", desc: "" },
+        { name: "Врожденные или приобретенные миастении", internalCode: "2119", mkb: "G70.2", desc: "" },
+        { name: "Гемиплегия неуточненная", internalCode: "1332", mkb: "G81.9", desc: "используется только в случаях, когда ее причина не установлена" },
+        { name: "Генерализованная идиопатическая эпилепсия и эпилептические синдромы", internalCode: "2105", mkb: "G40.3", desc: "эпилепсия с большими судорожными припадками при пробуждении. Неонатальные судороги (семейные). Миоклоническая эпилепсия. Неспецифические эпилептические припадки" },
+        { name: "Гидроцефалия неуточненная", internalCode: "1336", mkb: "G91.9", desc: "" },
+        { name: "Головная боль напряженного типа", internalCode: "1315", mkb: "G44.2", desc: "хроническая головная боль напряжения. Эпизодическая головная боль напряжения. Головная боль напряжения без дополнительного уточнения" },
+        { name: "Дегенерация нервной системы, вызванная алкоголем", internalCode: "1309", mkb: "G31.2", desc: "в том числе: алкогольная энцефалопатия, расстройство вегетативной (автономной) нервной системы, вызванное алкоголем" },
+        { name: "Демиелинизирующая болезнь центральной нервной системы неуточненная", internalCode: "1311", mkb: "G37.9", desc: "" },
+        { name: "Детский церебральный паралич неуточненный", internalCode: "1331", mkb: "G80.9", desc: "" },
+        { name: "Другие поражения лицевого нерва", internalCode: "2112", mkb: "G51.8", desc: "" },
+        { name: "Другие поражения тройничного нерва", internalCode: "2111", mkb: "G50.8", desc: "" },
+        { name: "Другие расстройства периферической нервной системы", internalCode: "1327", mkb: "G64", desc: "" },
+        { name: "Другой энцефалит, миелит и энцефаломиелит", internalCode: "1301", mkb: "G04.8", desc: "постинфекционный энцефалит и энцефаломиелит без дополнительного уточнения" },
+        { name: "Злокачественный нейролептический синдром", internalCode: "1305", mkb: "G21.0", desc: "" },
+        { name: "Локализованная (фокальная) парциальная симптоматическая эпилепсия и эпилептические синдромы с комплексными парциальными судорожными припадками", internalCode: "2104", mkb: "G40.2", desc: "приступы с изменением сознания, часто с эпилептическим автоматизмом. Комплексные парциальные припадки, переходящие во вторично генерализованные припадки" },
+        { name: "Локализованная (фокальная) парциальная симптоматическая эпилепсия и эпилептические синдромы с простыми парциальными припадками", internalCode: "1312", mkb: "G40.1", desc: "приступы без изменения сознания, простые парциальные припадки, переходящие во вторично генерализованные припадки" },
+        { name: "Малые припадки неуточненные без генерализованных припадков", internalCode: "2107", mkb: "G40.7", desc: "" },
+        { name: "Менингит, вызванный другими уточненными возбудителями", internalCode: "2100", mkb: "G03.8", desc: "" },
+        { name: "Мигрень неуточненная", internalCode: "1314", mkb: "G43.9", desc: "" },
+        { name: "Мигренозный статус", internalCode: "2109", mkb: "G43.2", desc: "" },
+        { name: "Мышечная дистрофия", internalCode: "1329", mkb: "G71.0", desc: "" },
+        { name: "Myasthenia gravis", internalCode: "1328", mkb: "G70.0", desc: "" },
+        { name: "Невралгия тройничного нерва", internalCode: "1318", mkb: "G50.0", desc: "включены: поражения 5-го черепного нерва" },
+        { name: "Невропатия неуточненная", internalCode: "2117", mkb: "G62.9", desc: "" },
+        { name: "Особые эпилептические синдромы", internalCode: "2106", mkb: "G40.5", desc: "эпилептические припадки, связанные с: употреблением алкоголя, лишением сна, стрессовыми факторами и т.д. Эпилепсия парциальная непрерывная (Кожевникова)" },
+        { name: "Паралич Белла", internalCode: "1319", mkb: "G51.0", desc: "лицевой паралич" },
+        { name: "Паралич Тодда", internalCode: "2122", mkb: "G83.8", desc: "постэпилептический" },
+        { name: "Параплегия", internalCode: "1333", mkb: "G82.2", desc: "используется только в случаях, когда ее причина не установлена" },
+        { name: "Полиневропатия, вызванная другими токсическими веществами", internalCode: "2116", mkb: "G62.2", desc: "" },
+        { name: "Поражение бокового подколенного нерва", internalCode: "1324", mkb: "G57.3", desc: "" },
+        { name: "Поражение локтевого нерва", internalCode: "2113", mkb: "G56.2", desc: "" },
+        { name: "Поражение лучевого нерва", internalCode: "2114", mkb: "G56.3", desc: "" },
+        { name: "Поражение плечевого сплетения", internalCode: "1321", mkb: "G54.0", desc: "" },
+        { name: "Поражения других уточненных черепных нервов", internalCode: "1320", mkb: "G52.8", desc: "" },
+        { name: "Рассеянный склероз", internalCode: "1310", mkb: "G35", desc: "" },
+        { name: "Расстройства вегетативной [автономной] нервной системы неуточненные", internalCode: "1335", mkb: "G90.9", desc: "ВСД" },
+        { name: "Синдром вертебробазилярной артериальной системы", internalCode: "2110", mkb: "G45.0", desc: "" },
+        { name: "Синдром Гийена-Барре", internalCode: "2115", mkb: "G61.0", desc: "" },
+        { name: "Синдром запястного канала", internalCode: "1323", mkb: "G56.0", desc: "" },
+        { name: "Синдром конского хвоста", internalCode: "1334", mkb: "G83.4", desc: "" },
+        { name: "Синдром фантома конечности с болью", internalCode: "1322", mkb: "G54.6", desc: "" },
+        { name: "Сирингомиелия и сирингобульбия", internalCode: "1339", mkb: "G95.0", desc: "" },
+        { name: "Сосудистые миелопатии", internalCode: "2123", mkb: "G95.1", desc: "" },
+        { name: "Сосудистый паркинсонизм", internalCode: "2103", mkb: "G21.4", desc: "" },
+        { name: "Тетраплегия неуточненная", internalCode: "2121", mkb: "G82.5", desc: "используется только в случаях, когда ее причина не установлена" },
+        { name: "Токсическая энцефалопатия", internalCode: "1337", mkb: "G92", desc: "" },
+        { name: "Токсические нарушения нервно-мышечного синапса", internalCode: "2118", mkb: "G70.1", desc: "" },
+        { name: "Транзиторная церебральная ишемическая атака неуточненная", internalCode: "1316", mkb: "G45.9", desc: "спазм церебральных артерий. Транзиторная церебральная ишемия без дополнительного уточнения" },
+        { name: "Церебральная киста", internalCode: "1338", mkb: "G93.0", desc: "" },
+        { name: "Экстрапирамидное и двигательное расстройство неуточненное", internalCode: "1307", mkb: "G25.9", desc: "" },
+        { name: "Эпилептический статус неуточненный", internalCode: "1313", mkb: "G41.9", desc: "" },
+        { name: "Эпилепсия неуточненная", internalCode: "2108", mkb: "G40.9", desc: "эпилептические (без дополнительного уточнения) припадки" }
+    ];
+    
+    nervousData.sort((a, b) => a.name.localeCompare(b.name, 'ru'));
+    
+    function escapeHtml(str) {
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+    
+    function render() {
+        const grid = document.getElementById('nervousGrid');
+        if (!grid) return;
+        grid.innerHTML = '';
+        nervousData.forEach(item => {
+            const card = document.createElement('div'); card.className = 'card';
+            const titleDiv = document.createElement('div'); titleDiv.className = 'disease-title';
+            const nameSpan = document.createElement('div'); nameSpan.className = 'disease-name'; nameSpan.textContent = item.name;
+            titleDiv.appendChild(nameSpan);
+            const codeBlockDiv = document.createElement('div'); codeBlockDiv.className = 'code-block';
+            const mkbSpan = document.createElement('div'); mkbSpan.className = 'mkb-line'; mkbSpan.textContent = `МКБ-10: ${item.mkb}`;
+            codeBlockDiv.appendChild(mkbSpan);
+            const innerSpan = document.createElement('div'); innerSpan.className = 'inner-code-block';
+            innerSpan.innerHTML = `<strong>Код ССиНМП:</strong> ${item.internalCode}`;
+            codeBlockDiv.appendChild(innerSpan);
+            if (item.desc && item.desc.trim() !== "") {
+                const descDiv = document.createElement('div'); descDiv.className = 'description';
+                descDiv.innerHTML = `<em>${escapeHtml(item.desc)}</em>`;
+                codeBlockDiv.appendChild(descDiv);
+            }
+            card.appendChild(titleDiv); card.appendChild(codeBlockDiv);
+            grid.appendChild(card);
+        });
+    }
+    render();
+</script>
+</body>
+</html>
