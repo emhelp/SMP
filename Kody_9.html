@@ -1,1 +1,359 @@
 
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Справочник МКБ-10 | Класс X. Болезни органов дыхания (J00-J99) | Коды ССиНМП</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #dce5ec;
+            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+            padding: 24px 20px;
+            color: #1a3a48;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .header {
+            background: #0b3b4f;
+            background-image: radial-gradient(circle at 10% 20%, #125d78, #062633);
+            border-radius: 32px;
+            padding: 16px 24px;
+            margin-bottom: 28px;
+            box-shadow: 0 6px 12px -6px rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+        .header h1 {
+            font-size: 1.55rem;
+            font-weight: 700;
+            letter-spacing: -0.2px;
+            color: #ffffff;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .header h1 span {
+            background: #f5b042;
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 60px;
+            color: #0a2e3c;
+            box-shadow: inset 0 -1px 0 rgba(0,0,0,0.05), 0 1px 4px rgba(0,0,0,0.1);
+        }
+        .search-bar {
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: flex-end;
+        }
+        .search-input {
+            padding: 10px 18px;
+            border-radius: 60px;
+            border: 1px solid #cbdbe2;
+            background: white;
+            font-size: 0.9rem;
+            width: 300px;
+            max-width: 100%;
+            outline: none;
+            transition: all 0.2s;
+            font-family: inherit;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .search-input:focus {
+            border-color: #0f6b8c;
+            box-shadow: 0 0 0 3px rgba(18, 93, 120, 0.2);
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 18px;
+        }
+        .card {
+            background: #ffffff;
+            border-radius: 24px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.03);
+            border: 1px solid #dce5ec;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.15s ease;
+        }
+        .disease-title {
+            background: #f4f9fe;
+            padding: 12px 18px 10px 18px;
+            border-bottom: 1px solid #e2edf5;
+        }
+        .disease-name {
+            font-size: 1.18rem;
+            font-weight: 800;
+            color: #0c4e6b;
+            line-height: 1.3;
+            letter-spacing: -0.2px;
+        }
+        .code-block {
+            padding: 14px 18px 16px 18px;
+            background: #ffffff;
+            flex: 1;
+        }
+        .mkb-line {
+            font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+            font-weight: 400;
+            font-size: 0.9rem;
+            color: #000000;
+            background: #eef2f8;
+            padding: 5px 12px;
+            border-radius: 32px;
+            margin-bottom: 10px;
+            border: 1px solid #d0dee9;
+            display: inline-block;
+            letter-spacing: 0.2px;
+        }
+        .inner-code-block {
+            margin-top: 8px;
+            margin-bottom: 12px;
+            background: #f9f3e0;
+            padding: 5px 12px;
+            border-radius: 28px;
+            display: inline-block;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-weight: 500;
+            font-size: 0.85rem;
+            color: #a55217;
+            border: 1px solid #ffe0a3;
+        }
+        .inner-code-block strong {
+            font-weight: 700;
+            color: #8b3c0c;
+        }
+        .description {
+            margin-top: 10px;
+            font-size: 0.88rem;
+            line-height: 1.4;
+            color: #2c4e62;
+            background: #fefef7;
+            padding: 8px 12px;
+            border-radius: 18px;
+            border-left: 3px solid #7fc1db;
+        }
+        .description em {
+            font-style: italic;
+            background: #fff2dd;
+            padding: 0 2px;
+            border-radius: 6px;
+        }
+        .no-results {
+            text-align: center;
+            padding: 48px 24px;
+            background: white;
+            border-radius: 32px;
+            color: #2c5a70;
+            font-weight: 500;
+            font-size: 1.1rem;
+            grid-column: 1 / -1;
+            border: 1px solid #cde3ef;
+        }
+        @media (max-width: 760px) {
+            body { padding: 14px 12px; }
+            .grid { grid-template-columns: 1fr; }
+            .disease-name { font-size: 1.1rem; }
+            .header h1 { font-size: 1.3rem; }
+            .search-bar { justify-content: stretch; }
+            .search-input { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>
+            📘 Класс X. Болезни органов дыхания (J00–J99)
+            <span>МКБ-10 + коды ССиНМП</span>
+        </h1>
+    </div>
+    <div class="search-bar">
+        <input type="text" id="searchInput" class="search-input" placeholder="Введите название или код" autocomplete="off">
+    </div>
+    <div class="grid" id="respGrid"></div>
+</div>
+<script>
+    // ПОЛНЫЙ ПЕРЕЧЕНЬ на основе всех скриншотов с уточнением для J06.9
+    const respiratoryData = [
+        // --- группа острых инфекций верхних дыхательных путей (J00-J06)
+        { name: "Острый назофарингит (насморк)", internalCode: "1430", mkb: "J00", desc: "" },
+        { name: "Острый синусит неуточненный", internalCode: "1431", mkb: "J01.9", desc: "" },
+        { name: "Острый фарингит неуточненный", internalCode: "1432", mkb: "J02.9", desc: "" },
+        { name: "Острый тонзиллит (ангина) неуточненный", internalCode: "1433", mkb: "J03.9", desc: "" },
+        { name: "Острый ларингит", internalCode: "1434", mkb: "J04.0", desc: "в том числе: язвенный, отечный, гнойный" },
+        { name: "Острый трахеит", internalCode: "2180", mkb: "J04.1", desc: "" },
+        { name: "Острый ларинготрахеит", internalCode: "2181", mkb: "J04.2", desc: "" },
+        { name: "Острый обструктивный ларингит [круп]", internalCode: "1435", mkb: "J05.0", desc: "" },
+        { name: "Острый эпиглотит", internalCode: "2182", mkb: "J05.1", desc: "" },
+        { name: "Острые инфекции верхних дыхательных путей неуточненные (острая респираторная вирусная инфекция)", internalCode: "1436", mkb: "J06.9", desc: "ОРВИ, острая респираторная вирусная инфекция без дополнительных уточнений" },
+        
+        // --- грипп и пневмонии
+        { name: "Грипп, с другими респираторными проявлениями, вирус гриппа идентифицирован", internalCode: "2183", mkb: "J10.1", desc: "" },
+        { name: "Грипп с пневмонией, вирус не идентифицирован", internalCode: "2962", mkb: "J11.0", desc: "" },
+        { name: "Грипп с другими респираторными проявлениями, вирус гриппа не идентифицирован", internalCode: "1437", mkb: "J11.1", desc: "" },
+        { name: "Вирусная пневмония, неуточненная", internalCode: "1438", mkb: "J12.9", desc: "" },
+        { name: "Бронхопневмония неуточненная", internalCode: "1439", mkb: "J18.0", desc: "очаговая пневмония" },
+        { name: "Долевая пневмония неуточненная", internalCode: "2184", mkb: "J18.1", desc: "крупозная пневмония" },
+        
+        // --- бронхиты, бронхиолиты
+        { name: "Острый бронхит неуточненный", internalCode: "1440", mkb: "J20.9", desc: "в том числе с бронхоспазмом" },
+        { name: "Острый бронхиолит неуточненный", internalCode: "1441", mkb: "J21.9", desc: "в том числе с бронхоспазмом" },
+        
+        // --- риниты, синуситы, болезни носа и глотки
+        { name: "Вазомоторный ринит", internalCode: "1442", mkb: "J30.0", desc: "" },
+        { name: "Аллергический ринит неуточненный", internalCode: "2185", mkb: "J30.4", desc: "" },
+        { name: "Хронический синусит неуточненный", internalCode: "1444", mkb: "J32.9", desc: "" },
+        { name: "Абсцесс, фурункул и карбункул носа", internalCode: "1445", mkb: "J34.0", desc: "включая носовую перегородку, ямку" },
+        { name: "Хронический тонзиллит", internalCode: "1446", mkb: "J35.0", desc: "" },
+        { name: "Перитонзиллярный абсцесс", internalCode: "1447", mkb: "J36", desc: "" },
+        { name: "Отек гортани", internalCode: "1448", mkb: "J38.4", desc: "исключено: острый обструктивный ларингит (J05.0), отечный ларингит (J04.0)" },
+        { name: "Стеноз гортани", internalCode: "2186", mkb: "J38.6", desc: "" },
+        { name: "Ретрофарингеальный и парафарингеальный абсцесс", internalCode: "2187", mkb: "J39.0", desc: "исключено: перитонзиллярный абсцесс (J36)" },
+        { name: "Другой абсцесс глотки (назофарингеальный абсцесс)", internalCode: "2188", mkb: "J39.1", desc: "включая назофарингеальный абсцесс" },
+        
+        // --- хронические болезни нижних дыхательных путей, ХОБЛ, астма
+        { name: "Хронический бронхит неуточненный", internalCode: "1449", mkb: "J42", desc: "в том числе: хронический трахеит, хронический трахеобронхит" },
+        { name: "Другая уточненная хроническая обструктивная легочная болезнь", internalCode: "1451", mkb: "J44.8", desc: "хронический бронхит астматический, эмфизематозный, обструктивный" },
+        { name: "Астма с преобладанием аллергического компонента", internalCode: "1452", mkb: "J45.0", desc: "в том числе: атопическая астма, аллергический бронхит БДУ, аллергический ринит с астмой, экзогенная аллергическая астма, сенная лихорадка с астмой." },
+        { name: "Неаллергическая астма", internalCode: "2189", mkb: "J45.1", desc: "идиосинкратическая астма, эндогенная неаллергическая астма" },
+        { name: "Смешанная астма", internalCode: "2190", mkb: "J45.8", desc: "инфекционно-аллергическая бронхиальная астма" },
+        { name: "Астма неуточненная", internalCode: "2191", mkb: "J45.9", desc: "бронхиальная астма БДУ, поздно начавшаяся астма" },
+        { name: "Астматическое статус [status asthmaticus]", internalCode: "1453", mkb: "J46", desc: "" },
+        
+        // --- пневмокониозы, химические поражения
+        { name: "Пневмокониоз неуточненный", internalCode: "1455", mkb: "J64", desc: "" },
+        { name: "Бронхит и пневмонит, вызванный химическими веществами, газами, дымами и парами", internalCode: "2192", mkb: "J68.0", desc: "химический бронхит острый" },
+        { name: "Острый легочный отек, вызванный химическими веществами, газами, дымами и парами", internalCode: "2193", mkb: "J68.1", desc: "химический легочный отек (острый)" },
+        
+        // --- респираторный дистресс, интерстициальные болезни
+        { name: "Синдром респираторного расстройства (дистресса) у взрослого", internalCode: "2194", mkb: "J80", desc: "болезнь гиалиновых мембран у взрослого" },
+        { name: "Другие интерстициальные легочные болезни с упоминанием о фиброзе", internalCode: "2195", mkb: "J84.1", desc: "в том числе: диффузный легочный фиброз, фиброзирующий альвеолит (криптогенный), синдром Хаммена-Рича" },
+        
+        // --- абсцессы легких и средостения
+        { name: "Абсцесс легкого с пневмонией", internalCode: "1459", mkb: "J85.1", desc: "" },
+        { name: "Абсцесс легкого без пневмонии", internalCode: "2196", mkb: "J85.2", desc: "" },
+        { name: "Абсцесс средостения", internalCode: "2197", mkb: "J85.3", desc: "" },
+        
+        // --- плевральные болезни, пиоторакс, пневмоторакс
+        { name: "Пиоторакс без фистулы", internalCode: "2198", mkb: "J86.9", desc: "" },
+        { name: "Плевральный выпот, не классифицированный в других рубриках", internalCode: "1460", mkb: "J90", desc: "плеврит с выпотом. Исключены: хилусный выпот (J94.0), плеврит БДУ (R09.1), туберкулезный (A15-A16)" },
+        { name: "Спонтанный пневмоторакс напряжения", internalCode: "1461", mkb: "J93.0", desc: "исключено: травматический пневмоторакс (S27), пиопневмоторакс (J86)" },
+        { name: "Другой спонтанный пневмоторакс", internalCode: "2199", mkb: "J93.1", desc: "" },
+        { name: "Гемоторакс", internalCode: "2200", mkb: "J94.2", desc: "в том числе: гемопневмоторакс (не травматический)" },
+        { name: "Другие уточненные плевральные состояния", internalCode: "2201", mkb: "J94.8", desc: "гидроторакс" },
+        
+        // --- трахеостома, синдром Мендельсона, дыхательная недостаточность, коллапс
+        { name: "Нарушение функционирования трахеостомы", internalCode: "2202", mkb: "J95.0", desc: "кровотечение из трахеостомы, закупорка трахеостомного дыхательного пути, сепсис трахеостомы, трахеопищеводный свищ вследствие трахеостомии, несостоятельность" },
+        { name: "Синдром Мендельсона", internalCode: "2203", mkb: "J95.4", desc: "" },
+        { name: "Острая респираторная недостаточность", internalCode: "1462", mkb: "J96.0", desc: "" },
+        { name: "Легочный коллапс", internalCode: "1463", mkb: "J98.1", desc: "ателектаз" },
+        { name: "Болезни средостения, не классифицированные в других рубриках", internalCode: "2204", mkb: "J98.5", desc: "медиастинит" }
+    ];
+
+    // Удаление дубликатов по связке internalCode+mkb
+    const uniqueMap = new Map();
+    for (const item of respiratoryData) {
+        const key = `${item.internalCode}|${item.mkb}`;
+        if (!uniqueMap.has(key)) {
+            uniqueMap.set(key, item);
+        }
+    }
+    const uniqueData = Array.from(uniqueMap.values());
+    
+    // Сортировка по названию заболевания (русская локаль)
+    uniqueData.sort((a, b) => a.name.localeCompare(b.name, 'ru'));
+
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+
+    function renderCards(filterText = '') {
+        const grid = document.getElementById('respGrid');
+        if (!grid) return;
+        
+        const lowerFilter = filterText.toLowerCase().trim();
+        let filtered = uniqueData;
+        
+        if (lowerFilter !== '') {
+            filtered = uniqueData.filter(item => {
+                return item.name.toLowerCase().includes(lowerFilter) ||
+                       item.mkb.toLowerCase().includes(lowerFilter) ||
+                       item.internalCode.includes(lowerFilter) ||
+                       (item.desc && item.desc.toLowerCase().includes(lowerFilter));
+            });
+        }
+        
+        if (filtered.length === 0) {
+            grid.innerHTML = `<div class="no-results">🚫 Ничего не найдено. Попробуйте другой поисковый запрос.</div>`;
+            return;
+        }
+        
+        grid.innerHTML = '';
+        filtered.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'card';
+
+            const titleDiv = document.createElement('div');
+            titleDiv.className = 'disease-title';
+            const nameSpan = document.createElement('div');
+            nameSpan.className = 'disease-name';
+            nameSpan.textContent = item.name;
+            titleDiv.appendChild(nameSpan);
+
+            const codeBlockDiv = document.createElement('div');
+            codeBlockDiv.className = 'code-block';
+
+            const mkbSpan = document.createElement('div');
+            mkbSpan.className = 'mkb-line';
+            mkbSpan.textContent = `МКБ-10: ${item.mkb}`;
+            codeBlockDiv.appendChild(mkbSpan);
+
+            const innerSpan = document.createElement('div');
+            innerSpan.className = 'inner-code-block';
+            innerSpan.innerHTML = `<strong>Код ССиНМП:</strong> ${item.internalCode}`;
+            codeBlockDiv.appendChild(innerSpan);
+
+            if (item.desc && item.desc.trim() !== "") {
+                const descDiv = document.createElement('div');
+                descDiv.className = 'description';
+                descDiv.innerHTML = `<em>${escapeHtml(item.desc)}</em>`;
+                codeBlockDiv.appendChild(descDiv);
+            }
+
+            card.appendChild(titleDiv);
+            card.appendChild(codeBlockDiv);
+            grid.appendChild(card);
+        });
+    }
+    
+    // Поиск в реальном времени
+    const searchInput = document.getElementById('searchInput');
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            renderCards(e.target.value);
+        });
+    }
+    
+    // Первоначальный рендер
+    renderCards();
+</script>
+</body>
+</html>
