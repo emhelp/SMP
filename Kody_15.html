@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Справочник МКБ-10 | Класс XVII. Врожденные аномалии (Q00-Q99) | Коды ССиНМП</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #dce5ec;
+            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+            padding: 24px 20px;
+            color: #1a3a48;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .header {
+            background: #0b3b4f;
+            background-image: radial-gradient(circle at 10% 20%, #125d78, #062633);
+            border-radius: 32px;
+            padding: 16px 24px;
+            margin-bottom: 28px;
+            box-shadow: 0 6px 12px -6px rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+        .header h1 {
+            font-size: 1.55rem;
+            font-weight: 700;
+            letter-spacing: -0.2px;
+            color: #ffffff;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .header h1 span {
+            background: #f5b042;
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 60px;
+            color: #0a2e3c;
+            box-shadow: inset 0 -1px 0 rgba(0,0,0,0.05), 0 1px 4px rgba(0,0,0,0.1);
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 18px;
+        }
+        .card {
+            background: #ffffff;
+            border-radius: 24px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.03);
+            border: 1px solid #dce5ec;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .disease-title {
+            background: #f4f9fe;
+            padding: 12px 18px 10px 18px;
+            border-bottom: 1px solid #e2edf5;
+        }
+        .disease-name {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: #0c4e6b;
+            line-height: 1.3;
+            letter-spacing: -0.2px;
+        }
+        .code-block {
+            padding: 14px 18px 16px 18px;
+            background: #ffffff;
+            flex: 1;
+        }
+        .mkb-line {
+            font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+            font-weight: 400;
+            font-size: 0.9rem;
+            color: #000000;
+            background: #eef2f8;
+            padding: 5px 12px;
+            border-radius: 32px;
+            margin-bottom: 10px;
+            border: 1px solid #d0dee9;
+            display: inline-block;
+            letter-spacing: 0.2px;
+        }
+        .inner-code-block {
+            margin-top: 8px;
+            margin-bottom: 12px;
+            background: #f9f3e0;
+            padding: 5px 12px;
+            border-radius: 28px;
+            display: inline-block;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-weight: 500;
+            font-size: 0.85rem;
+            color: #a55217;
+            border: 1px solid #ffe0a3;
+        }
+        .inner-code-block strong {
+            font-weight: 700;
+            color: #8b3c0c;
+        }
+        .description {
+            margin-top: 10px;
+            font-size: 0.88rem;
+            line-height: 1.4;
+            color: #2c4e62;
+            background: #fefef7;
+            padding: 8px 12px;
+            border-radius: 18px;
+            border-left: 3px solid #7fc1db;
+        }
+        .description em {
+            font-style: italic;
+            background: #fff2dd;
+            padding: 0 2px;
+            border-radius: 6px;
+        }
+        @media (max-width: 760px) {
+            body { padding: 14px 12px; }
+            .grid { grid-template-columns: 1fr; }
+            .disease-name { font-size: 1.1rem; }
+            .header h1 { font-size: 1.3rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>
+            📘 Класс XVII. Врожденные аномалии (пороки развития), деформации и хромосомные нарушения (Q00–Q99)
+            <span>МКБ-10 + коды ССиНМП</span>
+        </h1>
+    </div>
+    <div class="grid" id="congenitalGrid"></div>
+</div>
+<script>
+    const congenitalData = [
+        { name: "Алкогольный синдром у плода", internalCode: "1694", mkb: "Q86.0", desc: "дизморфия" },
+        { name: "Атрезия пищевода без свища", internalCode: "4104", mkb: "Q39.0", desc: "атрезия пищевода без дополнительных уточнений" },
+        { name: "Атрезия пищевода с трахеально-пищеводным свищом", internalCode: "4105", mkb: "Q39.1", desc: "" },
+        { name: "Врожденная аномалия аортального и митрального клапанов неуточненная", internalCode: "4101", mkb: "Q23.9", desc: "" },
+        { name: "Врожденная аномалия женских половых органов неуточненная", internalCode: "1685", mkb: "Q52.9", desc: "" },
+        { name: "Врожденная аномалия кишечника неуточненная", internalCode: "4108", mkb: "Q43.9", desc: "" },
+        { name: "Врожденная аномалия конечности неуточненная", internalCode: "1692", mkb: "Q74.9", desc: "" },
+        { name: "Врожденная аномалия мочевыделительной системы неуточненная", internalCode: "1688", mkb: "Q64.9", desc: "" },
+        { name: "Врожденная аномалия мужских половых органов неуточненная", internalCode: "1686", mkb: "Q55.9", desc: "" },
+        { name: "Врожденная аномалия пищевода неуточненная", internalCode: "4106", mkb: "Q39.9", desc: "" },
+        { name: "Врожденная аномалия сердца", internalCode: "1678", mkb: "Q20.9", desc: "врожденная аномалия сердечных камер и соединений неуточненная" },
+        { name: "Врожденная аномалия сердечной перегородки неуточненная", internalCode: "2450", mkb: "Q21.9", desc: "" },
+        { name: "Врожденная гидроцефалия неуточненная", internalCode: "1675", mkb: "Q03.9", desc: "гидроцефалия новорожденного" },
+        { name: "Врожденная диафрагмальная грыжа", internalCode: "4109", mkb: "Q79.0", desc: "" },
+        { name: "Врожденные деформации стопы неуточненные", internalCode: "1690", mkb: "Q66.9", desc: "" },
+        { name: "Врожденный вывих бедра двусторонний", internalCode: "2453", mkb: "Q65.1", desc: "" },
+        { name: "Врожденный вывих бедра односторонний", internalCode: "1689", mkb: "Q65.0", desc: "" },
+        { name: "Врожденный порок развития спинного мозга неуточненный", internalCode: "1677", mkb: "Q06.9", desc: "" },
+        { name: "Врожденный порок сердца неуточненный", internalCode: "1680", mkb: "Q24.9", desc: "" },
+        { name: "Врожденный свищ прямой кишки и ануса", internalCode: "4107", mkb: "Q43.6", desc: "" },
+        { name: "Врожденный стеноз аортального клапана", internalCode: "4100", mkb: "Q23.0", desc: "" },
+        { name: "Гастрошиз", internalCode: "4111", mkb: "Q79.3", desc: "" },
+        { name: "Другие врожденные деформации грудной клетки", internalCode: "1691", mkb: "Q67.8", desc: "" },
+        { name: "Другие синдромы врожденных аномалий, обусловленные воздействием известных экзогенных факторов", internalCode: "1693", mkb: "Q86.8", desc: "" },
+        { name: "Другие уточненные врожденные аномалии мочевыделительной системы", internalCode: "1687", mkb: "Q64.8", desc: "" },
+        { name: "Другие уточненные врожденные аномалии органов пищеварения", internalCode: "1683", mkb: "Q45.8", desc: "в том числе: отсутствие пищеварительного тракта неуточненное, удвоение или неправильное положение органов пищеварения неуточненное" },
+        { name: "Другие уточненные врожденные аномалии сердца", internalCode: "4102", mkb: "Q24.8", desc: "" },
+        { name: "Другие уточненные хромосомные аномалии", internalCode: "1696", mkb: "Q99.8", desc: "" },
+        { name: "Коарктация аорты", internalCode: "4103", mkb: "Q25.1", desc: "" },
+        { name: "Множественные врожденные аномалии, не классифицированные в других рубриках", internalCode: "4112", mkb: "Q89.7", desc: "" },
+        { name: "Неопущение яичка неуточненное", internalCode: "2452", mkb: "Q53.9", desc: "крипторхизм БДУ" },
+        { name: "Порок развития органов пищеварения неуточненный", internalCode: "1684", mkb: "Q45.9", desc: "" },
+        { name: "Пороки развития верхней части пищеварительного тракта неуточненные", internalCode: "2451", mkb: "Q40.9", desc: "пилоростеноз Q40.0" },
+        { name: "Расщелина губы [заячья губа] односторонняя", internalCode: "1682", mkb: "Q36.9", desc: "заячья губа БДУ" },
+        { name: "Расщелина неба [волчья пасть] неуточненная односторонняя", internalCode: "1681", mkb: "Q35.9", desc: "" },
+        { name: "Синдром Дауна неуточненный", internalCode: "1695", mkb: "Q90.9", desc: "" },
+        { name: "Синдром Марфана", internalCode: "2454", mkb: "Q87.4", desc: "" },
+        { name: "Синдром Патау неуточненный", internalCode: "4114", mkb: "Q91.7", desc: "" },
+        { name: "Синдром Эдвардса неуточненный", internalCode: "4113", mkb: "Q91.3", desc: "" },
+        { name: "Spina bifida неуточненная", internalCode: "4099", mkb: "Q05.9", desc: "неполное закрытие позвоночного канала" },
+        { name: "Тетрада Фалло", internalCode: "1679", mkb: "Q21.3", desc: "" },
+        { name: "Хромосомная аномалия неуточненная", internalCode: "1697", mkb: "Q99.9", desc: "" },
+        { name: "Экзомфалоз", internalCode: "4110", mkb: "Q79.2", desc: "омфалоцеле. Исключено: пупочная грыжа (K42...)" }
+    ];
+
+    // Сортировка по алфавиту по названию заболевания
+    congenitalData.sort((a, b) => a.name.localeCompare(b.name, 'ru'));
+
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+
+    function render() {
+        const grid = document.getElementById('congenitalGrid');
+        if (!grid) return;
+        grid.innerHTML = '';
+        congenitalData.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'card';
+
+            const titleDiv = document.createElement('div');
+            titleDiv.className = 'disease-title';
+            const nameSpan = document.createElement('div');
+            nameSpan.className = 'disease-name';
+            nameSpan.textContent = item.name;
+            titleDiv.appendChild(nameSpan);
+
+            const codeBlockDiv = document.createElement('div');
+            codeBlockDiv.className = 'code-block';
+
+            const mkbSpan = document.createElement('div');
+            mkbSpan.className = 'mkb-line';
+            mkbSpan.textContent = `МКБ-10: ${item.mkb}`;
+            codeBlockDiv.appendChild(mkbSpan);
+
+            const innerSpan = document.createElement('div');
+            innerSpan.className = 'inner-code-block';
+            innerSpan.innerHTML = `<strong>Код ССиНМП:</strong> ${item.internalCode}`;
+            codeBlockDiv.appendChild(innerSpan);
+
+            if (item.desc && item.desc.trim() !== "") {
+                const descDiv = document.createElement('div');
+                descDiv.className = 'description';
+                descDiv.innerHTML = `<em>${escapeHtml(item.desc)}</em>`;
+                codeBlockDiv.appendChild(descDiv);
+            }
+
+            card.appendChild(titleDiv);
+            card.appendChild(codeBlockDiv);
+            grid.appendChild(card);
+        });
+    }
+
+    render();
+</script>
+</body>
+</html>
