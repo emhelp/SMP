@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <title>Калькулятор инфузии норэпинефрина | Взрослые</title>
+    
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1e2f47">
+    
     <style>
         * {
             margin: 0;
@@ -12,59 +17,66 @@
         }
 
         body {
-            background: linear-gradient(145deg, #eef2f7 0%, #e2eaf2 100%);
-            font-family: 'Inter', -apple-system, 'Segoe UI', Roboto, system-ui, sans-serif;
-            padding: 16px;
+            background: linear-gradient(145deg, #eef2f7 0%, #dce3ec 100%);
+            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, 'Helvetica Neue', sans-serif;
+            padding: 2rem 1rem;
             min-height: 100vh;
-            color: #1a3a4a;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
         }
 
-        .container {
+        .calculator-card {
             max-width: 1400px;
+            width: 100%;
             margin: 0 auto;
+            background: #ffffff;
+            border-radius: 48px;
+            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
         }
 
-        .header {
-            background: linear-gradient(115deg, #7a5c5c 0%, #5a4040 100%);
-            border-radius: 28px;
-            padding: 24px 28px;
-            margin-bottom: 24px;
+        .card-header {
+            background: #1e2f47;
+            background-image: linear-gradient(115deg, #142a3b, #1d3f55);
+            padding: 1.8rem 2rem;
             color: white;
-            box-shadow: 0 12px 24px rgba(0,0,0,0.1);
         }
-
-        .header h1 {
-            font-size: 1.8rem;
+        .card-header h1 {
+            font-size: 1.9rem;
             font-weight: 700;
             display: flex;
             align-items: center;
             gap: 12px;
             flex-wrap: wrap;
         }
-
-        .header h1 span {
-            font-size: 0.9rem;
+        .card-header h1 span {
             background: rgba(255,255,255,0.2);
+            font-size: 0.9rem;
             padding: 5px 14px;
-            border-radius: 40px;
+            border-radius: 60px;
+            font-weight: 500;
+        }
+        .card-header p {
+            margin-top: 12px;
+            opacity: 0.85;
+            font-size: 0.95rem;
+            border-left: 3px solid #5f9bc2;
+            padding-left: 16px;
         }
 
-        .header p {
-            margin-top: 12px;
-            opacity: 0.92;
-            border-left: 3px solid #b88f8f;
-            padding-left: 18px;
-            font-size: 0.9rem;
+        .card-content {
+            padding: 2rem;
         }
 
         .tabs-wrapper {
-            margin-bottom: 24px;
+            margin-bottom: 1.5rem;
         }
 
         .tabs-label {
             font-size: 0.85rem;
             font-weight: 600;
-            color: #5a4040;
+            color: #1f4a66;
             margin-bottom: 12px;
             display: flex;
             align-items: center;
@@ -88,7 +100,7 @@
             padding: 10px 20px;
             font-size: 0.85rem;
             font-weight: 600;
-            color: #5a4040;
+            color: #1f4a66;
             cursor: pointer;
             border-radius: 60px;
             transition: all 0.25s ease;
@@ -101,40 +113,51 @@
 
         .tab-btn:hover {
             background: linear-gradient(135deg, #e8f0f5 0%, #dfeaf0 100%);
-            border-color: #7a5c5c;
+            border-color: #1f6e9c;
             transform: translateY(-2px);
         }
 
         .tab-btn.active {
-            background: linear-gradient(135deg, #7a5c5c 0%, #5a4040 100%);
+            background: linear-gradient(135deg, #1f6e9c 0%, #155a80 100%);
             border-color: #ffc107;
             color: white;
-            box-shadow: 0 4px 12px rgba(122,92,92,0.4);
+            box-shadow: 0 4px 12px rgba(31,110,156,0.4);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fade 0.25s ease;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        @keyframes fade {
+            from { opacity: 0; transform: translateY(8px);}
+            to { opacity: 1; transform: translateY(0);}
         }
 
         .card {
-            background: white;
+            background: #ffffff;
             border-radius: 28px;
-            padding: 24px;
-            margin-bottom: 24px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
-            border: 1px solid #e2ecf3;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+            border: 1px solid #d4e2f0;
             transition: all 0.2s;
         }
-
         .card:hover {
-            box-shadow: 0 12px 28px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
         }
 
         .card-title {
             font-size: 1.25rem;
             font-weight: 700;
-            color: #5a4040;
+            color: #1f4a66;
             margin-bottom: 20px;
             display: flex;
             align-items: center;
             gap: 10px;
-            border-left: 4px solid #b88f8f;
+            border-left: 4px solid #1f6e9c;
             padding-left: 16px;
         }
 
@@ -144,7 +167,7 @@
 
         .param-label {
             font-weight: 600;
-            color: #2a627f;
+            color: #1f4a66;
             margin-bottom: 10px;
             font-size: 0.9rem;
         }
@@ -171,22 +194,23 @@
         .input-field input {
             width: 100%;
             padding: 12px 16px;
-            border: 2px solid #e2ecf3;
+            border: 2px solid #d4e2f0;
             border-radius: 18px;
             font-size: 0.95rem;
             font-family: inherit;
             transition: all 0.25s ease;
             background: white;
+            color: #1f3a4b;
         }
 
         .input-field input:hover {
-            border-color: #b88f8f;
+            border-color: #1f6e9c;
         }
 
         .input-field input:focus {
             outline: none;
-            border-color: #5a4040;
-            box-shadow: 0 0 0 3px rgba(90,64,64,0.1);
+            border-color: #1f6e9c;
+            box-shadow: 0 0 0 3px rgba(31,110,156,0.1);
         }
 
         .result-table-wrapper {
@@ -198,7 +222,7 @@
             width: 100%;
             border-collapse: collapse;
             font-size: 0.85rem;
-            min-width: 650px;
+            min-width: 700px;
         }
 
         .result-table th, .result-table td {
@@ -208,20 +232,20 @@
         }
 
         .result-table th {
-            background: #f0f7fc;
-            color: #5a4040;
+            background: #eef7ff;
+            color: #1f4a66;
             font-weight: 700;
             font-size: 0.85rem;
         }
 
         .result-table td {
             font-weight: 500;
-            color: #1a3a4a;
+            color: #1f3a4b;
         }
 
         .result-table td.highlight-speed {
-            background: #fff3e0;
-            color: #e67e22;
+            background: #fff8e7;
+            color: #e68a2e;
             font-weight: 700;
             position: relative;
         }
@@ -235,51 +259,55 @@
         }
 
         .speed-note {
-            background: #fff3e0;
-            border-left: 4px solid #e67e22;
+            background: #fff8e7;
+            border-left: 4px solid #e68a2e;
             padding: 10px 14px;
             border-radius: 12px;
             font-size: 0.75rem;
             margin-top: 12px;
+            color: #a56b00;
         }
 
         .info-note {
-            background: #e8f4fc;
-            border-left: 4px solid #5a4040;
+            background: #eef7ff;
+            border-left: 4px solid #1f6e9c;
             padding: 12px 16px;
             border-radius: 16px;
             margin: 16px 0;
             font-size: 0.8rem;
+            color: #1f3a4b;
         }
 
         .warning-note {
-            background: #fff8e8;
-            border-left: 4px solid #e6a017;
+            background: #fff8e7;
+            border-left: 4px solid #f0b849;
             padding: 12px 16px;
             border-radius: 16px;
             margin: 16px 0;
             font-size: 0.8rem;
+            color: #a56b00;
         }
 
         .danger-note {
-            background: #fee8e8;
+            background: #ffebee;
             border-left: 4px solid #c62828;
             padding: 12px 16px;
             border-radius: 16px;
             margin: 16px 0;
             font-size: 0.8rem;
+            color: #c62828;
         }
 
         .btn-reset {
-            background: linear-gradient(135deg, #eef2f8 0%, #e6edf4 100%);
-            border: 2px solid #cbdde6;
+            background: linear-gradient(135deg, #ecf3f8 0%, #e6edf4 100%);
+            border: 2px solid #cbdae6;
             padding: 10px 20px;
             border-radius: 60px;
             font-size: 0.85rem;
             font-weight: 600;
             cursor: pointer;
             font-family: inherit;
-            color: #5a4040;
+            color: #1f4a66;
             transition: all 0.25s ease;
             display: inline-flex;
             align-items: center;
@@ -289,13 +317,13 @@
 
         .btn-reset:hover {
             background: linear-gradient(135deg, #e2eaf2 0%, #d8e2ec 100%);
-            border-color: #5a4040;
+            border-color: #1f6e9c;
             transform: translateY(-2px);
         }
 
         .footnote {
             font-size: 0.7rem;
-            color: #7c9ab3;
+            color: #6f8eaa;
             text-align: center;
             margin-top: 24px;
             padding-top: 16px;
@@ -303,30 +331,21 @@
             line-height: 1.5;
         }
 
-        .tab-content {
-            display: none;
-            animation: fade 0.25s ease;
-        }
-        .tab-content.active {
-            display: block;
-        }
-        @keyframes fade {
-            from { opacity: 0; transform: translateY(8px);}
-            to { opacity: 1; transform: translateY(0);}
-        }
-
         @media (max-width: 768px) {
             body {
-                padding: 12px;
+                padding: 1rem;
             }
-            .header {
-                padding: 18px 20px;
+            .card-header {
+                padding: 1.2rem;
             }
-            .header h1 {
+            .card-header h1 {
                 font-size: 1.3rem;
             }
-            .header p {
+            .card-header p {
                 font-size: 0.8rem;
+            }
+            .card-content {
+                padding: 1rem;
             }
             .tab-btn {
                 padding: 8px 12px;
@@ -335,7 +354,7 @@
                 justify-content: center;
             }
             .card {
-                padding: 18px;
+                padding: 1.2rem;
             }
             .card-title {
                 font-size: 1.1rem;
@@ -363,187 +382,143 @@
                 font-size: 8px;
             }
         }
-
-        @media print {
-            body {
-                background: white;
-                padding: 0;
-            }
-            .tab-btn, .btn-reset {
-                display: none;
-            }
-            .card {
-                box-shadow: none;
-                border: 1px solid #ccc;
-            }
-        }
     </style>
 </head>
 <body>
-<div class="container">
-    <div class="header">
+<div class="calculator-card">
+    <div class="card-header">
         <h1>
             💊 Калькулятор инфузии норэпинефрина
             <span>для взрослых</span>
         </h1>
         <p>Расчет скорости введения норэпинефрина у взрослых с использованием шприцевого насоса (шприц 20 мл и 50 мл) и капельной инфузии (капли/мин). ⭐ — выделены наиболее часто используемые в практике вазопрессорные дозы (0,1–2 мкг/кг/мин).</p>
     </div>
-
-    <div class="tabs-wrapper">
-        <div class="tabs-label">Способ введения:</div>
-        <div class="nav-tabs">
-            <button class="tab-btn active" data-tab="syringe20">💉 Шприц 20 мл</button>
-            <button class="tab-btn" data-tab="syringe50">💊 Шприц 50 мл</button>
-            <button class="tab-btn" data-tab="drip">💧 Капельная инфузия</button>
+    <div class="card-content">
+        <div class="tabs-wrapper">
+            <div class="tabs-label">Способ введения:</div>
+            <div class="nav-tabs">
+                <button class="tab-btn active" data-tab="syringe20">💉 Шприц 20 мл</button>
+                <button class="tab-btn" data-tab="syringe50">💊 Шприц 50 мл</button>
+                <button class="tab-btn" data-tab="drip">💧 Капельная инфузия</button>
+            </div>
         </div>
-    </div>
 
-    <!-- Шприц 20 мл -->
-    <div id="syringe20" class="tab-content active">
-        <div class="card">
-            <div class="card-title">📊 Шприцевой насос | Шприц 20 мл</div>
-            <div class="param-group">
-                <div class="param-label">👤 Данные пациента</div>
-                <div class="input-row">
-                    <div class="input-field">
-                        <label>Масса тела (кг)</label>
-                        <input type="number" id="weight20" value="70" step="1" min="40" max="150">
+        <div id="syringe20" class="tab-content active">
+            <div class="card">
+                <div class="card-title">📊 Шприцевой насос | Шприц 20 мл</div>
+                <div class="param-group">
+                    <div class="param-label">👤 Данные пациента</div>
+                    <div class="input-row">
+                        <div class="input-field">
+                            <label>Масса тела (кг)</label>
+                            <input type="number" id="weight20" value="70" step="1" min="40" max="150">
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="info-note">
-                <strong>📌 Разведение:</strong> Норэпинефрин 8 мг (4 мл) + Натрия хлорид 0,9% до 20 мл (0,4 мг/мл).<br>
-                <strong>⚙️ Единица измерения:</strong> мл/час (устанавливается на шприцевом насосе)
-            </div>
-            <div class="result-table-wrapper">
-                <table class="result-table" id="table20">
-                    <thead>
-                        <tr>
-                            <th>Вес (кг)</th>
-                            <th>0,1 мкг/кг/мин</th>
-                            <th>0,5 мкг/кг/мин</th>
-                            <th>1 мкг/кг/мин</th>
-                            <th>2 мкг/кг/мин</th>
-                            <th>3 мкг/кг/мин</th>
-                            <th>4 мкг/кг/мин</th>
-                            <th>5 мкг/кг/мин</th>
-                        </tr>
-                    </thead>
-                    <tbody id="table20Body"></tbody>
-                </table>
-            </div>
-            <div class="speed-note">
-                ⭐ <strong>Часто используемые скорости:</strong> 0,1–2 мкг/кг/мин — стандартный диапазон для вазопрессорной поддержки.
-            </div>
-        </div>
-    </div>
-
-    <!-- Шприц 50 мл -->
-    <div id="syringe50" class="tab-content">
-        <div class="card">
-            <div class="card-title">📊 Шприцевой насос | Шприц 50 мл</div>
-            <div class="param-group">
-                <div class="param-label">👤 Данные пациента</div>
-                <div class="input-row">
-                    <div class="input-field">
-                        <label>Масса тела (кг)</label>
-                        <input type="number" id="weight50" value="70" step="1" min="40" max="150">
-                    </div>
+                <div class="info-note">
+                    <strong>📌 Разведение:</strong> Норэпинефрин 8 мг (4 мл) + Натрия хлорид 0,9% до 20 мл (0,4 мг/мл).<br>
+                    <strong>⚙️ Единица измерения:</strong> мл/час (устанавливается на шприцевом насосе)
+                </div>
+                <div class="result-table-wrapper">
+                    <table class="result-table" id="table20">
+                        <thead>
+                            <tr><th>Вес (кг)</th><th>0,1 мкг/кг/мин</th><th>0,5 мкг/кг/мин</th><th>1 мкг/кг/мин</th><th>2 мкг/кг/мин</th><th>3 мкг/кг/мин</th><th>4 мкг/кг/мин</th><th>5 мкг/кг/мин</th></tr>
+                        </thead>
+                        <tbody id="table20Body"></tbody>
+                    </table>
+                </div>
+                <div class="speed-note">
+                    ⭐ <strong>Часто используемые скорости:</strong> 0,1–2 мкг/кг/мин — стандартный диапазон для вазопрессорной поддержки.
                 </div>
             </div>
-            <div class="info-note">
-                <strong>📌 Разведение:</strong> Норэпинефрин 16 мг (1 ампула - 8 мл) + Натрия хлорид 0,9% до 50 мл (0,32 мг/мл).<br>
-                <strong>⚙️ Единица измерения:</strong> мл/час (устанавливается на шприцевом насосе)
-            </div>
-            <div class="result-table-wrapper">
-                <table class="result-table" id="table50">
-                    <thead>
-                        <tr>
-                            <th>Вес (кг)</th>
-                            <th>0,1 мкг/кг/мин</th>
-                            <th>0,5 мкг/кг/мин</th>
-                            <th>1 мкг/кг/мин</th>
-                            <th>2 мкг/кг/мин</th>
-                            <th>3 мкг/кг/мин</th>
-                            <th>4 мкг/кг/мин</th>
-                            <th>5 мкг/кг/мин</th>
-                        </tr>
-                    </thead>
-                    <tbody id="table50Body"></tbody>
-                </table>
-            </div>
-            <div class="speed-note">
-                ⭐ <strong>Часто используемые скорости:</strong> 0,1–2 мкг/кг/мин — стандартный диапазон для вазопрессорной поддержки.
-            </div>
         </div>
-    </div>
 
-    <!-- Капельная инфузия -->
-    <div id="drip" class="tab-content">
-        <div class="card">
-            <div class="card-title">📊 Капельная инфузия</div>
-            <div class="param-group">
-                <div class="param-label">👤 Данные пациента</div>
-                <div class="input-row">
-                    <div class="input-field">
-                        <label>Масса тела (кг)</label>
-                        <input type="number" id="weightDrip" value="70" step="1" min="40" max="150">
+        <div id="syringe50" class="tab-content">
+            <div class="card">
+                <div class="card-title">📊 Шприцевой насос | Шприц 50 мл</div>
+                <div class="param-group">
+                    <div class="param-label">👤 Данные пациента</div>
+                    <div class="input-row">
+                        <div class="input-field">
+                            <label>Масса тела (кг)</label>
+                            <input type="number" id="weight50" value="70" step="1" min="40" max="150">
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="info-note">
-                <strong>📌 Разведение:</strong> Норэпинефрин 16 мг (1 ампула - 8 мл) + Натрия хлорид 0,9% 250 мл (0,064 мг/мл)<br>
-                <strong>⚙️ Единица измерения:</strong> капли в минуту (20 капель = 1 мл)
-            </div>
-            <div class="result-table-wrapper">
-                <table class="result-table" id="tableDrip">
-                    <thead>
-                        <tr>
-                            <th>Вес (кг)</th>
-                            <th>0,1 мкг/кг/мин</th>
-                            <th>0,5 мкг/кг/мин</th>
-                            <th>1 мкг/кг/мин</th>
-                            <th>2 мкг/кг/мин</th>
-                            <th>3 мкг/кг/мин</th>
-                            <th>4 мкг/кг/мин</th>
-                            <th>5 мкг/кг/мин</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tableDripBody"></tbody>
-                </table>
-            </div>
-            <div class="speed-note">
-                ⭐ <strong>Часто используемые скорости:</strong> 0,1–2 мкг/кг/мин — стандартный диапазон для вазопрессорной поддержки.
+                <div class="info-note">
+                    <strong>📌 Разведение:</strong> Норэпинефрин 16 мг (1 ампула - 8 мл) + Натрия хлорид 0,9% до 50 мл (0,32 мг/мл).<br>
+                    <strong>⚙️ Единица измерения:</strong> мл/час (устанавливается на шприцевом насосе)
+                </div>
+                <div class="result-table-wrapper">
+                    <table class="result-table" id="table50">
+                        <thead>
+                            <tr><th>Вес (кг)</th><th>0,1 мкг/кг/мин</th><th>0,5 мкг/кг/мин</th><th>1 мкг/кг/мин</th><th>2 мкг/кг/мин</th><th>3 мкг/кг/мин</th><th>4 мкг/кг/мин</th><th>5 мкг/кг/мин</th></tr>
+                        </thead>
+                        <tbody id="table50Body"></tbody>
+                    </table>
+                </div>
+                <div class="speed-note">
+                    ⭐ <strong>Часто используемые скорости:</strong> 0,1–2 мкг/кг/мин — стандартный диапазон для вазопрессорной поддержки.
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="card">
-        <div class="card-title">⚠️ Клинические рекомендации (норэпинефрин)</div>
-        <div class="warning-note">
-            <strong>💊 Дозы норэпинефрина (вазопрессорная поддержка):</strong><br>
-            • <strong>0,1–0,5 мкг/кг/мин</strong> — слабый вазопрессорный эффект<br>
-            • <strong>0,5–2 мкг/кг/мин</strong> — умеренный вазопрессорный эффект (поддержание АД)<br>
-            • <strong>2–5 мкг/кг/мин</strong> — выраженный вазопрессорный эффект<br>
-            • <strong>>5 мкг/кг/мин</strong> — риск тяжелой вазоконстрикции, ишемии конечностей
+        <div id="drip" class="tab-content">
+            <div class="card">
+                <div class="card-title">📊 Капельная инфузия</div>
+                <div class="param-group">
+                    <div class="param-label">👤 Данные пациента</div>
+                    <div class="input-row">
+                        <div class="input-field">
+                            <label>Масса тела (кг)</label>
+                            <input type="number" id="weightDrip" value="70" step="1" min="40" max="150">
+                        </div>
+                    </div>
+                </div>
+                <div class="info-note">
+                    <strong>📌 Разведение:</strong> Норэпинефрин 16 мг (1 ампула - 8 мл) + Натрия хлорид 0,9% 250 мл (0,064 мг/мл)<br>
+                    <strong>⚙️ Единица измерения:</strong> капли в минуту (20 капель = 1 мл)
+                </div>
+                <div class="result-table-wrapper">
+                    <table class="result-table" id="tableDrip">
+                        <thead>
+                            <tr><th>Вес (кг)</th><th>0,1 мкг/кг/мин</th><th>0,5 мкг/кг/мин</th><th>1 мкг/кг/мин</th><th>2 мкг/кг/мин</th><th>3 мкг/кг/мин</th><th>4 мкг/кг/мин</th><th>5 мкг/кг/мин</th></tr>
+                        </thead>
+                        <tbody id="tableDripBody"></tbody>
+                    </table>
+                </div>
+                <div class="speed-note">
+                    ⭐ <strong>Часто используемые скорости:</strong> 0,1–2 мкг/кг/мин — стандартный диапазон для вазопрессорной поддержки.
+                </div>
+            </div>
         </div>
-        <div class="danger-note">
-            <strong>⚠️ Важно!</strong> Норэпинефрин является мощным вазопрессором. Инфузия проводится строго через центральный венозный катетер под контролем АД и ЧСС. При экстравазации возможен некроз тканей!
-        </div>
-        <button class="btn-reset" id="resetBtn">⟳ Сбросить все значения к 70 кг</button>
-    </div>
 
-    <div class="footnote">
-        ⚕️ Расчеты основаны на стандартных протоколах инфузии норэпинефрина. Скорость введения титруется под контролем гемодинамики (целевое АД). ⭐ — выделены наиболее часто применяемые в клинической практике дозы (0,1–2 мкг/кг/мин).<br>
-        <strong>📌 Формулы расчета:</strong><br>
-        • Шприцевой насос (мл/час) = (доза мкг/кг/мин × вес кг × 60) / (концентрация мг/мл × 1000)<br>
-        • Капельная инфузия (капли/мин) = (доза мкг/кг/мин × вес кг × 60) / (концентрация мг/мл × 1000) × 20<br>
-        <strong>📌 Концентрации:</strong> Шприц 20 мл — 0,4 мг/мл (8 мг в 20 мл); Шприц 50 мл — 0,32 мг/мл (16 мг в 50 мл); Капельно — 0,064 мг/мл (16 мг в 250 мл)
+        <div class="card">
+            <div class="card-title">⚠️ Клинические рекомендации (норэпинефрин)</div>
+            <div class="warning-note">
+                <strong>💊 Дозы норэпинефрина (вазопрессорная поддержка):</strong><br>
+                • <strong>0,1–0,5 мкг/кг/мин</strong> — слабый вазопрессорный эффект<br>
+                • <strong>0,5–2 мкг/кг/мин</strong> — умеренный вазопрессорный эффект (поддержание АД)<br>
+                • <strong>2–5 мкг/кг/мин</strong> — выраженный вазопрессорный эффект<br>
+                • <strong>>5 мкг/кг/мин</strong> — риск тяжелой вазоконстрикции, ишемии конечностей
+            </div>
+            <div class="danger-note">
+                <strong>⚠️ Важно!</strong> Норэпинефрин является мощным вазопрессором. Инфузия проводится строго через центральный венозный катетер под контролем АД и ЧСС. При экстравазации возможен некроз тканей!
+            </div>
+            <button class="btn-reset" id="resetBtn">⟳ Сбросить все значения к 70 кг</button>
+        </div>
+
+        <div class="footnote">
+            ⚕️ Расчеты основаны на стандартных протоколах инфузии норэпинефрина. Скорость введения титруется под контролем гемодинамики (целевое АД). ⭐ — выделены наиболее часто применяемые в клинической практике дозы (0,1–2 мкг/кг/мин).<br>
+            <strong>📌 Формулы расчета:</strong><br>
+            • Шприцевой насос (мл/час) = (доза мкг/кг/мин × вес кг × 60) / (концентрация мг/мл × 1000)<br>
+            • Капельная инфузия (капли/мин) = (доза мкг/кг/мин × вес кг × 60) / (концентрация мг/мл × 1000) × 20<br>
+            <strong>📌 Концентрации:</strong> Шприц 20 мл — 0,4 мг/мл (8 мг в 20 мл); Шприц 50 мл — 0,32 мг/мл (16 мг в 50 мл); Капельно — 0,064 мг/мл (16 мг в 250 мл)
+        </div>
     </div>
 </div>
 
 <script>
-    // Данные для шприца 20 мл (мл/час) - концентрация 0,4 мг/мл
     const syringe20Data = {
         doses: [0.1, 0.5, 1, 2, 3, 4, 5],
         weights: [50, 60, 70, 80, 90, 100, 110],
@@ -559,7 +534,6 @@
         }
     };
 
-    // Данные для шприца 50 мл (мл/час) - концентрация 0,32 мг/мл
     const syringe50Data = {
         doses: [0.1, 0.5, 1, 2, 3, 4, 5],
         weights: [50, 60, 70, 80, 90, 100, 110],
@@ -568,20 +542,19 @@
             50: [0.9, 4.7, 9.4, 18.8, 28.1, 37.5, 46.9],
             60: [1.1, 5.6, 11.3, 22.5, 33.8, 45.0, 56.3],
             70: [1.3, 6.6, 13.1, 26.3, 39.4, 52.5, 65.6],
-            80: [1.5, 7.6, 15.0, 30.0, 45.0, 60.0, 75.0],
-            90: [0.7, 8.4, 16.9, 33.8, 50.6, 67.5, 84.4],
-            100: [1.9, 9.4, 18.8, 37.6, 56.3, 75.0, 93.8],
+            80: [1.5, 7.5, 15.0, 30.0, 45.0, 60.0, 75.0],
+            90: [1.7, 8.4, 16.9, 33.8, 50.6, 67.5, 84.4],
+            100: [1.9, 9.4, 18.8, 37.5, 56.3, 75.0, 93.8],
             110: [2.1, 10.3, 20.6, 41.3, 61.9, 82.5, 103.1]
         }
     };
 
-    // Данные для капельной инфузии (капли/мин)
     const dripData = {
         doses: [0.1, 0.5, 1, 2, 3, 4, 5],
         weights: [50, 60, 70, 80, 90, 100, 110],
         unit: "кап/мин",
         values: {
-            50: [2, 8, 6, 32, 46, 62, 78],
+            50: [2, 8, 16, 32, 46, 62, 78],
             60: [2, 10, 18, 37, 56, 75, 93],
             70: [2, 12, 23, 46, 67, 90, 113],
             80: [3, 13, 26, 52, 77, 103, 129],
@@ -596,7 +569,6 @@
     }
 
     function formatValue(value, unit) {
-        // Форматируем число: если целое, то без десятичных, иначе с одним знаком
         const formattedValue = Number.isInteger(value) ? value.toString() : value.toFixed(1);
         return `${formattedValue} ${unit}`;
     }
@@ -621,25 +593,12 @@
         const row = document.createElement('tr');
         row.innerHTML = `<td style="font-weight: 600;">${closestWeight} кг</td>`;
         for (let i = 0; i < syringe20Data.doses.length; i++) {
-            const value = values[i];
-            const formattedValue = formatValue(value, unit);
             const td = document.createElement('td');
-            td.textContent = formattedValue;
-            if (isHighlightSpeed(syringe20Data.doses[i])) {
-                td.classList.add('highlight-speed');
-            }
+            td.textContent = formatValue(values[i], unit);
+            if (isHighlightSpeed(syringe20Data.doses[i])) td.classList.add('highlight-speed');
             row.appendChild(td);
         }
         tbody.appendChild(row);
-        
-        if (Math.abs(weight - closestWeight) > 0.1 && !syringe20Data.weights.includes(weight)) {
-            const note = document.createElement('tr');
-            note.style.backgroundColor = '#fff8e8';
-            note.innerHTML = `<td colspan="8" style="text-align: center; font-size: 0.7rem; padding: 8px;">
-                ⚠️ Ближайшее табличное значение для веса ${weight} кг — ${closestWeight} кг.
-              </td>`;
-            tbody.appendChild(note);
-        }
     }
 
     function updateTable50() {
@@ -656,25 +615,12 @@
         const row = document.createElement('tr');
         row.innerHTML = `<td style="font-weight: 600;">${closestWeight} кг</td>`;
         for (let i = 0; i < syringe50Data.doses.length; i++) {
-            const value = values[i];
-            const formattedValue = formatValue(value, unit);
             const td = document.createElement('td');
-            td.textContent = formattedValue;
-            if (isHighlightSpeed(syringe50Data.doses[i])) {
-                td.classList.add('highlight-speed');
-            }
+            td.textContent = formatValue(values[i], unit);
+            if (isHighlightSpeed(syringe50Data.doses[i])) td.classList.add('highlight-speed');
             row.appendChild(td);
         }
         tbody.appendChild(row);
-        
-        if (Math.abs(weight - closestWeight) > 0.1 && !syringe50Data.weights.includes(weight)) {
-            const note = document.createElement('tr');
-            note.style.backgroundColor = '#fff8e8';
-            note.innerHTML = `<td colspan="8" style="text-align: center; font-size: 0.7rem; padding: 8px;">
-                ⚠️ Ближайшее табличное значение для веса ${weight} кг — ${closestWeight} кг.
-              </td>`;
-            tbody.appendChild(note);
-        }
     }
 
     function updateTableDrip() {
@@ -691,25 +637,12 @@
         const row = document.createElement('tr');
         row.innerHTML = `<td style="font-weight: 600;">${closestWeight} кг</td>`;
         for (let i = 0; i < dripData.doses.length; i++) {
-            const value = values[i];
-            const formattedValue = formatValue(value, unit);
             const td = document.createElement('td');
-            td.textContent = formattedValue;
-            if (isHighlightSpeed(dripData.doses[i])) {
-                td.classList.add('highlight-speed');
-            }
+            td.textContent = formatValue(values[i], unit);
+            if (isHighlightSpeed(dripData.doses[i])) td.classList.add('highlight-speed');
             row.appendChild(td);
         }
         tbody.appendChild(row);
-        
-        if (Math.abs(weight - closestWeight) > 0.1 && !dripData.weights.includes(weight)) {
-            const note = document.createElement('tr');
-            note.style.backgroundColor = '#fff8e8';
-            note.innerHTML = `<td colspan="8" style="text-align: center; font-size: 0.7rem; padding: 8px;">
-                ⚠️ Ближайшее табличное значение для веса ${weight} кг — ${closestWeight} кг.
-              </td>`;
-            tbody.appendChild(note);
-        }
     }
 
     function resetAllWeights() {
@@ -748,6 +681,12 @@
     updateTable20();
     updateTable50();
     updateTableDrip();
+    
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/SMP/sw.js')
+            .then(reg => console.log('✅ Сервис-воркер зарегистрирован:', reg))
+            .catch(err => console.error('❌ Ошибка регистрации:', err));
+    }
 </script>
 </body>
 </html>
