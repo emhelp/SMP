@@ -13,55 +13,52 @@
         body {
             background: #dce5ec;
             font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
-            padding: 24px 20px;
+            padding: 16px 12px;
             color: #1a3a48;
         }
         .container {
-            max-width: 1400px;
+            max-width: 100%;
             margin: 0 auto;
         }
         .header {
             background: #0b3b4f;
             background-image: radial-gradient(circle at 10% 20%, #125d78, #062633);
-            border-radius: 32px;
-            padding: 16px 24px;
-            margin-bottom: 28px;
-            box-shadow: 0 6px 12px -6px rgba(0, 0, 0, 0.25);
+            border-radius: 24px;
+            padding: 14px 18px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px -4px rgba(0, 0, 0, 0.2);
             border: 1px solid rgba(255, 255, 255, 0.15);
         }
         .header h1 {
-            font-size: 1.55rem;
+            font-size: 1.25rem;
             font-weight: 700;
             letter-spacing: -0.2px;
             color: #ffffff;
             text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 8px;
             flex-wrap: wrap;
         }
         .header h1 span {
             background: #f5b042;
-            font-size: 0.9rem;
+            font-size: 0.75rem;
             font-weight: 600;
-            padding: 4px 12px;
+            padding: 3px 10px;
             border-radius: 60px;
             color: #0a2e3c;
             box-shadow: inset 0 -1px 0 rgba(0,0,0,0.05), 0 1px 4px rgba(0,0,0,0.1);
         }
         .search-bar {
-            margin-bottom: 24px;
-            display: flex;
-            justify-content: flex-end;
+            margin-bottom: 18px;
         }
         .search-input {
-            padding: 10px 18px;
+            padding: 12px 16px;
             border-radius: 60px;
             border: 1px solid #cbdbe2;
             background: white;
-            font-size: 0.9rem;
-            width: 300px;
-            max-width: 100%;
+            font-size: 0.95rem;
+            width: 100%;
             outline: none;
             transition: all 0.2s;
             font-family: inherit;
@@ -71,14 +68,15 @@
             border-color: #0f6b8c;
             box-shadow: 0 0 0 3px rgba(18, 93, 120, 0.2);
         }
+        /* Телефонная сетка — всегда 1 колонка */
         .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-            gap: 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
         }
         .card {
             background: #ffffff;
-            border-radius: 24px;
+            border-radius: 20px;
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.03);
             border: 1px solid #dce5ec;
             overflow: hidden;
@@ -88,85 +86,112 @@
         }
         .disease-title {
             background: #f4f9fe;
-            padding: 12px 18px 10px 18px;
+            padding: 12px 16px 10px 16px;
             border-bottom: 1px solid #e2edf5;
         }
         .disease-name {
-            font-size: 1.18rem;
+            font-size: 1.08rem;
             font-weight: 800;
             color: #0c4e6b;
-            line-height: 1.3;
+            line-height: 1.35;
             letter-spacing: -0.2px;
         }
         .code-block {
-            padding: 14px 18px 16px 18px;
+            padding: 14px 16px 16px 16px;
             background: #ffffff;
             flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        /* Коды в одной строке */
+        .codes-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
         }
         .mkb-line {
             font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
             font-weight: 400;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: #000000;
             background: #eef2f8;
-            padding: 5px 12px;
-            border-radius: 32px;
-            margin-bottom: 10px;
+            padding: 8px 14px;
+            border-radius: 40px;
             border: 1px solid #d0dee9;
-            display: inline-block;
             letter-spacing: 0.2px;
+            word-break: break-word;
+            flex-shrink: 0;
         }
         .inner-code-block {
-            margin-top: 8px;
-            margin-bottom: 12px;
             background: #f9f3e0;
-            padding: 5px 12px;
-            border-radius: 28px;
-            display: inline-block;
+            padding: 8px 14px;
+            border-radius: 40px;
             font-family: 'SF Mono', 'Fira Code', monospace;
             font-weight: 500;
             font-size: 0.85rem;
             color: #a55217;
             border: 1px solid #ffe0a3;
+            flex-shrink: 0;
         }
         .inner-code-block strong {
             font-weight: 700;
             color: #8b3c0c;
         }
         .description {
-            margin-top: 10px;
-            font-size: 0.88rem;
+            margin-top: 4px;
+            font-size: 0.85rem;
             line-height: 1.4;
             color: #2c4e62;
             background: #fefef7;
-            padding: 8px 12px;
-            border-radius: 18px;
+            padding: 10px 12px;
+            border-radius: 16px;
             border-left: 3px solid #7fc1db;
         }
         .description em {
             font-style: italic;
             background: #fff2dd;
-            padding: 0 2px;
-            border-radius: 6px;
+            padding: 2px 4px;
+            border-radius: 8px;
+            display: inline-block;
         }
         .no-results {
             text-align: center;
-            padding: 48px 24px;
+            padding: 48px 20px;
             background: white;
-            border-radius: 32px;
+            border-radius: 28px;
             color: #2c5a70;
             font-weight: 500;
-            font-size: 1.1rem;
-            grid-column: 1 / -1;
+            font-size: 1rem;
             border: 1px solid #cde3ef;
         }
-        @media (max-width: 760px) {
-            body { padding: 14px 12px; }
-            .grid { grid-template-columns: 1fr; }
-            .disease-name { font-size: 1.1rem; }
-            .header h1 { font-size: 1.3rem; }
-            .search-bar { justify-content: stretch; }
-            .search-input { width: 100%; }
+        @media (min-width: 768px) {
+            .grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
+            }
+            body {
+                padding: 20px;
+            }
+            .header h1 {
+                font-size: 1.4rem;
+            }
+        }
+        @media (min-width: 1024px) {
+            .grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            body {
+                padding: 24px 20px;
+            }
+        }
+        .container {
+            overflow-x: hidden;
+        }
+        body {
+            overflow-x: hidden;
         }
     </style>
 </head>
@@ -179,16 +204,13 @@
         </h1>
     </div>
     <div class="search-bar">
-        <input type="text" id="searchInput" class="search-input" placeholder="🔍 Поиск по названию, коду МКБ или коду ССиНМП...">
+        <input type="text" id="searchInput" class="search-input" placeholder="Введите название или код" autocomplete="off">
     </div>
     <div class="grid" id="poisonGrid"></div>
 </div>
 
 <script>
-    // Объединённый массив: все данные из скриншотов (отравления, токсические эффекты, эффекты излучения,
-    // температурные воздействия, баротравмы, асфиксия, аллергии, электротравма и пр.)
     const unifiedData = [
-        // ---------- Блок отравлений и токсических эффектов (T36–T65) из первого набора скриншотов ----------
         { name: "Отравление антибиотиками системного действия неуточненными", internalCode: "1830", mkb: "T36.9", desc: "Исключая: отравление антибиотиками противоопухолевого действия и антибиотиками, применяемыми для лечения уха, горла, носа, глаза (T49)" },
         { name: "Отравление противомикробными и противопаразитарными средствами системного действия неуточненными", internalCode: "1831", mkb: "T37.9", desc: "Исключая: отравление противоинфекционными средствами для уха, горла, носа, глаза (T49)" },
         { name: "Отравление инсулином и пероральными гипогликемическими (противодиабетическими) препаратами", internalCode: "1832", mkb: "T38.3", desc: "Исключая: минералокортикоиды, гормоны паращитовидной железы (T50), окситоцин (T48)" },
@@ -275,8 +297,6 @@
         { name: "Токсическое действие нитроглицерина и других азотных кислот и сложных эфиров", internalCode: "2752", mkb: "T65.5", desc: "" },
         { name: "Токсическое действие красок и красящих веществ", internalCode: "2753", mkb: "T65.6", desc: "" },
         { name: "Токсическое действие других и неуточненных веществ", internalCode: "1860", mkb: "T65.9", desc: "" },
-        
-        // ---------- НОВЫЕ ДАННЫЕ из скриншотов: эффекты излучения, температуры, давления, асфиксия, аллергии, электротравма (T66–T78) ----------
         { name: "Неуточненные эффекты излучения (лучевая болезнь)", internalCode: "1861", mkb: "T66", desc: "лучевая болезнь" },
         { name: "Тепловой и солнечный удар", internalCode: "2754", mkb: "T67.0", desc: "в том числе: тепловая гипертермия" },
         { name: "Тепловой обморок (тепловой коллапс)", internalCode: "2755", mkb: "T67.1", desc: "тепловой коллапс" },
@@ -298,7 +318,6 @@
         { name: "Аллергия неуточненная", internalCode: "1875", mkb: "T78.4", desc: "" }
     ];
 
-    // Сортировка по алфавиту по названию
     unifiedData.sort((a, b) => a.name.localeCompare(b.name, 'ru'));
 
     function escapeHtml(str) {
@@ -347,15 +366,21 @@
             const codeBlockDiv = document.createElement('div');
             codeBlockDiv.className = 'code-block';
             
+            // Коды в одной строке
+            const codesRow = document.createElement('div');
+            codesRow.className = 'codes-row';
+            
             const mkbSpan = document.createElement('div');
             mkbSpan.className = 'mkb-line';
             mkbSpan.textContent = `МКБ-10: ${item.mkb}`;
-            codeBlockDiv.appendChild(mkbSpan);
+            codesRow.appendChild(mkbSpan);
             
             const innerSpan = document.createElement('div');
             innerSpan.className = 'inner-code-block';
             innerSpan.innerHTML = `<strong>Код ССиНМП:</strong> ${item.internalCode}`;
-            codeBlockDiv.appendChild(innerSpan);
+            codesRow.appendChild(innerSpan);
+            
+            codeBlockDiv.appendChild(codesRow);
             
             if (item.desc && item.desc.trim() !== "") {
                 const descDiv = document.createElement('div');
@@ -370,7 +395,6 @@
         });
     }
     
-    // Поиск в реальном времени
     const searchInput = document.getElementById('searchInput');
     if (searchInput) {
         searchInput.addEventListener('input', (e) => {
@@ -378,7 +402,6 @@
         });
     }
     
-    // Первоначальный рендер
     renderCards();
 </script>
 </body>
