@@ -1,81 +1,114 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Коды МКБ</title>
-  <link rel="stylesheet" href="style.css">
-  <style>
-    .kody-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 100%;
-      margin-top: 20px;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Коды МКБ</title>
+
+<!-- PWA -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0f1446">
+
+<style>
+  body {
+    font-family: 'Segoe UI', 'Roboto', sans-serif;
+    margin: 0;
+    padding: 20px;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+  }
+
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #0f1446;
+    font-size: 28px;
+  }
+
+  .kody-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    max-width: 500px;
+    box-sizing: border-box;
+  }
+
+  .kody-btn {
+    text-decoration: none;
+    color: white;
+    background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
+    padding: 16px 0;
+    border-radius: 12px;
+    font-weight: bold;
+    text-align: center;
+    width: 100%;
+    transition: all 0.2s;
+    border: none;
+    cursor: pointer;
+    font-size: 17px;
+    font-family: inherit;
+    box-sizing: border-box;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
+
+  .kody-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+  }
+
+  .kody-btn:active {
+    transform: scale(0.98);
+  }
+
+  @media (max-width: 600px) {
+    .kody-menu {
+      max-width: 95%;
     }
     .kody-btn {
-      display: block;
-      width: 100%;
-      max-width: 500px;
-      text-align: center;
-      padding: 16px 0;
-      font-size: 18px;
-      font-weight: bold;
-      background-color: #0f1446;
-      color: #fff;
-      text-decoration: none;
-      border: none;
-      cursor: pointer;
-      border-radius: 8px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-      margin: 6px auto;
+      font-size: 16px;
+      padding: 14px 0;
     }
-    @media (max-width: 600px) {
-      .kody-btn {
-        font-size: 16px;
-        padding: 14px 0;
-        max-width: 90%;
-      }
+    h1 {
+      font-size: 24px;
     }
-    /* Скрываем логотип и подзаголовок */
-    .header .logo {
-      display: none;
-    }
-    .header p {
-      display: none;
-    }
-    /* Уменьшаем отступы после скрытия элементов */
-    .header {
-      padding-bottom: 5px;
-    }
-  </style>
+  }
+</style>
 </head>
 <body>
 
-  <div class="header">
-    <img src="1712743647196.png" alt="Логотип" class="logo">
-    <h1>Коды МКБ</h1>
-    <p>Международная классификация болезней</p>
-  </div>
+<h1>📋 Коды МКБ-10</h1>
 
-  <div class="kody-container">
-    <a href="Kody_1.html" class="kody-btn">Инфекционные и паразитарные болезни</a>
-    <a href="Kody_2.html" class="kody-btn">Новообразования</a>
-    <a href="Kody_3.html" class="kody-btn">Болезни крови</a>
-    <a href="Kody_4.html" class="kody-btn">Эндокринные болезни, расстройства питания</a>
-    <a href="Kody_5.html" class="kody-btn">Болезни нервной системы</a>
-    <a href="Kody_6.html" class="kody-btn">Болезни глаза</a>
-    <a href="Kody_7.html" class="kody-btn">Болезни уха</a>
-    <a href="Kody_8.html" class="kody-btn">Болезни системы кровообращения</a>
-    <a href="Kody_9.html" class="kody-btn">Болезни органов дыхания</a>
-    <a href="Kody_10.html" class="kody-btn">Болезни органов пищеварения</a>
-    <a href="Kody_11.html" class="kody-btn">Болезни кожи и подкожной клетчатки</a>
-    <a href="Kody_12.html" class="kody-btn">Болезни мочеполовой системы</a>
-    <a href="Kody_13.html" class="kody-btn">Беременность, роды и послеродовой период</a>
-    <a href="Kody_14.html" class="kody-btn">Состояния, возникающие в перинатальном периоде</a>
-    <a href="Kody_15.html" class="kody-btn">Врожденные аномалии</a>
-    <a href="Kody_16.html" class="kody-btn">Травмы, отравления, токсические эффекты и некоторые другие последствия воздействия внешних причин</a>
-  </div>
+<div class="kody-menu">
+  <a href="Kody_1.html" class="kody-btn">Инфекционные и паразитарные болезни</a>
+  <a href="Kody_2.html" class="kody-btn">Новообразования</a>
+  <a href="Kody_3.html" class="kody-btn">Болезни крови и кроветворных органов</a>
+  <a href="Kody_4.html" class="kody-btn">Эндокринные болезни, расстройства питания</a>
+  <a href="Kody_5.html" class="kody-btn">Болезни нервной системы</a>
+  <a href="Kody_6.html" class="kody-btn">Болезни глаза и его придаточного аппарата</a>
+  <a href="Kody_7.html" class="kody-btn">Болезни уха и сосцевидного отростка</a>
+  <a href="Kody_8.html" class="kody-btn">Болезни системы кровообращения</a>
+  <a href="Kody_9.html" class="kody-btn">Болезни органов дыхания</a>
+  <a href="Kody_10.html" class="kody-btn">Болезни органов пищеварения</a>
+  <a href="Kody_11.html" class="kody-btn">Болезни кожи и подкожной клетчатки</a>
+  <a href="Kody_12.html" class="kody-btn">Болезни мочеполовой системы</a>
+  <a href="Kody_13.html" class="kody-btn">Беременность, роды и послеродовой период</a>
+  <a href="Kody_14.html" class="kody-btn">Состояния, возникающие в перинатальном периоде</a>
+  <a href="Kody_15.html" class="kody-btn">Врожденные аномалии (пороки развития)</a>
+  <a href="Kody_16.html" class="kody-btn">Травмы, отравления и другие последствия внешних причин</a>
+</div>
+
+<script>
+  // Регистрация Service Worker для PWA
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/SMP/sw.js')
+      .then(reg => console.log('✅ Сервис-воркер зарегистрирован:', reg))
+      .catch(err => console.error('❌ Ошибка регистрации:', err));
+  }
+</script>
 
 </body>
 </html>
