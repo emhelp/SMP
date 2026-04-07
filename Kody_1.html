@@ -3,177 +3,202 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Справочник МКБ-10 | Коды ССиНМП</title>
+    <title>Справочник МКБ-10 | Класс I. Некоторые инфекционные и паразитарные болезни (A00-B99) | Коды ССиНМП</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
             background: #dce5ec;
             font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
-            padding: 24px 20px;
+            padding: 16px 12px;
             color: #1a3a48;
         }
-
         .container {
-            max-width: 1400px;
+            max-width: 100%;
             margin: 0 auto;
         }
-
-        /* шапка — без изменений, компактно */
         .header {
             background: #0b3b4f;
             background-image: radial-gradient(circle at 10% 20%, #125d78, #062633);
-            border-radius: 32px;
-            padding: 16px 24px;
-            margin-bottom: 28px;
-            box-shadow: 0 6px 12px -6px rgba(0, 0, 0, 0.25);
+            border-radius: 24px;
+            padding: 14px 18px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px -4px rgba(0, 0, 0, 0.2);
             border: 1px solid rgba(255, 255, 255, 0.15);
         }
-
         .header h1 {
-            font-size: 1.55rem;
+            font-size: 1.25rem;
             font-weight: 700;
             letter-spacing: -0.2px;
             color: #ffffff;
             text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 8px;
             flex-wrap: wrap;
         }
-
         .header h1 span {
             background: #f5b042;
-            font-size: 0.9rem;
+            font-size: 0.75rem;
             font-weight: 600;
-            padding: 4px 12px;
+            padding: 3px 10px;
             border-radius: 60px;
             color: #0a2e3c;
             box-shadow: inset 0 -1px 0 rgba(0,0,0,0.05), 0 1px 4px rgba(0,0,0,0.1);
         }
-
-        /* сетка карточек — без изменений */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-            gap: 18px;
+        .search-bar {
+            margin-bottom: 18px;
         }
-
-        /* карточка — статичная, без hover-эффектов, более компактная */
+        .search-input {
+            padding: 12px 16px;
+            border-radius: 60px;
+            border: 1px solid #cbdbe2;
+            background: white;
+            font-size: 0.95rem;
+            width: 100%;
+            outline: none;
+            transition: all 0.2s;
+            font-family: inherit;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .search-input:focus {
+            border-color: #0f6b8c;
+            box-shadow: 0 0 0 3px rgba(18, 93, 120, 0.2);
+        }
+        .grid {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
         .card {
             background: #ffffff;
-            border-radius: 24px;
+            border-radius: 20px;
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.03);
             border: 1px solid #dce5ec;
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            transition: none;
+            transition: all 0.15s ease;
         }
-
-        /* заголовок болезни — чуть меньше отступов */
         .disease-title {
             background: #f4f9fe;
-            padding: 12px 18px 10px 18px;
+            padding: 12px 16px 10px 16px;
             border-bottom: 1px solid #e2edf5;
         }
-
         .disease-name {
-            font-size: 1.2rem;
+            font-size: 1.08rem;
             font-weight: 800;
             color: #0c4e6b;
-            line-height: 1.3;
+            line-height: 1.35;
             letter-spacing: -0.2px;
         }
-
-        /* основная часть — компактнее */
         .code-block {
-            padding: 14px 18px 16px 18px;
+            padding: 14px 16px 16px 16px;
             background: #ffffff;
             flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
         }
-
-        /* строка МКБ-10: чёрный цвет, не жирный, компактно */
+        .codes-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
         .mkb-line {
             font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
             font-weight: 400;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: #000000;
             background: #eef2f8;
-            padding: 5px 12px;
-            border-radius: 32px;
-            margin-bottom: 10px;
+            padding: 8px 14px;
+            border-radius: 40px;
             border: 1px solid #d0dee9;
-            display: inline-block;
             letter-spacing: 0.2px;
+            word-break: break-word;
+            flex-shrink: 0;
         }
-
-        /* блок внутреннего кода (под МКБ) — компактнее */
         .inner-code-block {
-            margin-top: 8px;
-            margin-bottom: 12px;
             background: #f9f3e0;
-            padding: 5px 12px;
-            border-radius: 28px;
-            display: inline-block;
+            padding: 8px 14px;
+            border-radius: 40px;
             font-family: 'SF Mono', 'Fira Code', monospace;
             font-weight: 500;
             font-size: 0.85rem;
             color: #a55217;
             border: 1px solid #ffe0a3;
+            flex-shrink: 0;
         }
-
         .inner-code-block strong {
             font-weight: 700;
             color: #8b3c0c;
         }
-
-        /* описание (курсив, скобки убраны — текст чистый) */
         .description {
-            margin-top: 10px;
-            font-size: 0.88rem;
+            margin-top: 4px;
+            font-size: 0.85rem;
             line-height: 1.4;
             color: #2c4e62;
             background: #fefef7;
-            padding: 8px 12px;
-            border-radius: 18px;
+            padding: 10px 12px;
+            border-radius: 16px;
             border-left: 3px solid #7fc1db;
         }
-
+        .description em {
+            font-style: italic;
+            background: #fff2dd;
+            padding: 2px 4px;
+            border-radius: 8px;
+            display: inline-block;
+        }
         .italic-note {
             font-style: italic;
             color: #5b6f7c;
             background: #f8fafc;
             padding: 8px 12px;
             border-radius: 18px;
-            margin-top: 10px;
+            margin-top: 4px;
             font-size: 0.82rem;
         }
-
-        .description em, .italic-note em {
-            font-style: italic;
-            background: #fff2dd;
-            padding: 0 2px;
-            border-radius: 6px;
+        .no-results {
+            text-align: center;
+            padding: 48px 20px;
+            background: white;
+            border-radius: 28px;
+            color: #2c5a70;
+            font-weight: 500;
+            font-size: 1rem;
+            border: 1px solid #cde3ef;
         }
-
-        @media (max-width: 760px) {
-            body {
-                padding: 14px 12px;
-            }
+        @media (min-width: 768px) {
             .grid {
-                grid-template-columns: 1fr;
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
             }
-            .disease-name {
-                font-size: 1.1rem;
+            body {
+                padding: 20px;
             }
             .header h1 {
-                font-size: 1.3rem;
+                font-size: 1.4rem;
             }
+        }
+        @media (min-width: 1024px) {
+            .grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            body {
+                padding: 24px 20px;
+            }
+        }
+        .container {
+            overflow-x: hidden;
+        }
+        body {
+            overflow-x: hidden;
         }
     </style>
 </head>
@@ -181,16 +206,18 @@
 <div class="container">
     <div class="header">
         <h1>
-            📘 Класс I. Некоторые инфекционные и паразитарные болезни
+            📘 Класс I. Некоторые инфекционные и паразитарные болезни (A00–B99)
             <span>МКБ-10 + коды ССиНМП</span>
         </h1>
     </div>
-
+    <div class="search-bar">
+        <input type="text" id="searchInput" class="search-input" placeholder="Введите название или код" autocomplete="off">
+    </div>
     <div class="grid" id="diseasesGrid"></div>
 </div>
 
 <script>
-    // 100% исправленный, выверенный массив (убраны лишние скобки, исправлена пунктуация, всё по алфавиту)
+    // ========== ПОЛНЫЙ МАССИВ ДАННЫХ (все записи из PDF, страницы 5-9) ==========
     const diseasesData = [
         { name: "Аденовирусная инфекция неуточненная", internalCode: "1071", mkb: "B34.0", desc: "" },
         { name: "Амебиаз неуточненный", internalCode: "1008", mkb: "A06.9", desc: "" },
@@ -261,6 +288,7 @@
         { name: "Острый гепатит А с печеночной комой", internalCode: "1061", mkb: "B15.0", desc: "" },
         { name: "Острый гепатит В без дельта-агента и без печеночной комы", internalCode: "1062", mkb: "B16.9", desc: "гепатит В острый вирусный без дополнительного уточнения" },
         { name: "Острая менингококцемия", internalCode: "1026", mkb: "A39.2", desc: "" },
+        { name: "Острый милиарный туберкулез одной уточненной локализации", internalCode: "2005", mkb: "A19.0", desc: "" },
         { name: "Острый паралитический полиомиелит, ассоциированный с вакциной", internalCode: "1039", mkb: "A80.0", desc: "" },
         { name: "Острый полиомиелит неуточненный", internalCode: "2015", mkb: "A80.9", desc: "" },
         { name: "Паразитарная болезнь неуточненная", internalCode: "1087", mkb: "B89", desc: "" },
@@ -303,16 +331,56 @@
         { name: "Энтерит, вызванный Yersinia enterocolitica", internalCode: "1145", mkb: "A04.6", desc: "" }
     ];
 
-    function renderCards() {
+    // Удаление дубликатов по internalCode + mkb
+    const uniqueData = [];
+    const keySet = new Set();
+    for (const item of diseasesData) {
+        const key = `${item.internalCode}|${item.mkb}`;
+        if (!keySet.has(key)) {
+            keySet.add(key);
+            uniqueData.push(item);
+        }
+    }
+
+    // Сортировка по алфавиту
+    uniqueData.sort((a, b) => a.name.localeCompare(b.name, 'ru'));
+
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+
+    function renderCards(filterText = '') {
         const grid = document.getElementById('diseasesGrid');
         if (!grid) return;
-        grid.innerHTML = '';
         
-        diseasesData.forEach(item => {
+        const lowerFilter = filterText.toLowerCase().trim();
+        let filtered = uniqueData;
+        
+        if (lowerFilter !== '') {
+            filtered = uniqueData.filter(item => {
+                return item.name.toLowerCase().includes(lowerFilter) ||
+                       item.mkb.toLowerCase().includes(lowerFilter) ||
+                       item.internalCode.includes(lowerFilter) ||
+                       (item.desc && item.desc.toLowerCase().includes(lowerFilter));
+            });
+        }
+        
+        if (filtered.length === 0) {
+            grid.innerHTML = `<div class="no-results">🚫 Ничего не найдено. Попробуйте другой поисковый запрос.</div>`;
+            return;
+        }
+        
+        grid.innerHTML = '';
+        filtered.forEach(item => {
             const card = document.createElement('div');
             card.className = 'card';
-
-            // заголовок
+            
             const titleDiv = document.createElement('div');
             titleDiv.className = 'disease-title';
             const nameSpan = document.createElement('div');
@@ -320,27 +388,29 @@
             nameSpan.textContent = item.name;
             titleDiv.appendChild(nameSpan);
             
-            // блок кодов
             const codeBlockDiv = document.createElement('div');
             codeBlockDiv.className = 'code-block';
             
-            // МКБ-10 (не жирный, чёрный)
+            const codesRow = document.createElement('div');
+            codesRow.className = 'codes-row';
+            
             const mkbSpan = document.createElement('div');
             mkbSpan.className = 'mkb-line';
             mkbSpan.textContent = `МКБ-10: ${item.mkb}`;
-            codeBlockDiv.appendChild(mkbSpan);
+            codesRow.appendChild(mkbSpan);
             
-            // Код ССиНМП под ним
             const innerSpan = document.createElement('div');
             innerSpan.className = 'inner-code-block';
             innerSpan.innerHTML = `<strong>Код ССиНМП:</strong> ${item.internalCode}`;
-            codeBlockDiv.appendChild(innerSpan);
+            codesRow.appendChild(innerSpan);
             
-            // описание (если есть) — без лишних скобок
+            codeBlockDiv.appendChild(codesRow);
+            
             if (item.desc && item.desc.trim() !== "") {
                 const descDiv = document.createElement('div');
                 descDiv.className = 'description';
-                descDiv.innerHTML = `<em>${escapeHtml(item.desc)}</em>`;
+                let escaped = escapeHtml(item.desc);
+                descDiv.innerHTML = `<em>${escaped}</em>`;
                 codeBlockDiv.appendChild(descDiv);
             }
             
@@ -360,12 +430,10 @@
         });
     }
     
-    function escapeHtml(str) {
-        return str.replace(/[&<>]/g, function(m) {
-            if (m === '&') return '&amp;';
-            if (m === '<') return '&lt;';
-            if (m === '>') return '&gt;';
-            return m;
+    const searchInput = document.getElementById('searchInput');
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            renderCards(e.target.value);
         });
     }
     
