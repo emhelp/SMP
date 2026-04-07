@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Справочник МКБ-10 | Класс XII. Болезни кожи и подкожной клетчатки (L00-L99) | Коды ССиНМП</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #dce5ec;
+            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+            padding: 24px 20px;
+            color: #1a3a48;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .header {
+            background: #0b3b4f;
+            background-image: radial-gradient(circle at 10% 20%, #125d78, #062633);
+            border-radius: 32px;
+            padding: 16px 24px;
+            margin-bottom: 28px;
+            box-shadow: 0 6px 12px -6px rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+        .header h1 {
+            font-size: 1.55rem;
+            font-weight: 700;
+            letter-spacing: -0.2px;
+            color: #ffffff;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .header h1 span {
+            background: #f5b042;
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 60px;
+            color: #0a2e3c;
+            box-shadow: inset 0 -1px 0 rgba(0,0,0,0.05), 0 1px 4px rgba(0,0,0,0.1);
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 18px;
+        }
+        .card {
+            background: #ffffff;
+            border-radius: 24px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.03);
+            border: 1px solid #dce5ec;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .disease-title {
+            background: #f4f9fe;
+            padding: 12px 18px 10px 18px;
+            border-bottom: 1px solid #e2edf5;
+        }
+        .disease-name {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: #0c4e6b;
+            line-height: 1.3;
+            letter-spacing: -0.2px;
+        }
+        .code-block {
+            padding: 14px 18px 16px 18px;
+            background: #ffffff;
+            flex: 1;
+        }
+        .mkb-line {
+            font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+            font-weight: 400;
+            font-size: 0.9rem;
+            color: #000000;
+            background: #eef2f8;
+            padding: 5px 12px;
+            border-radius: 32px;
+            margin-bottom: 10px;
+            border: 1px solid #d0dee9;
+            display: inline-block;
+            letter-spacing: 0.2px;
+        }
+        .inner-code-block {
+            margin-top: 8px;
+            margin-bottom: 12px;
+            background: #f9f3e0;
+            padding: 5px 12px;
+            border-radius: 28px;
+            display: inline-block;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-weight: 500;
+            font-size: 0.85rem;
+            color: #a55217;
+            border: 1px solid #ffe0a3;
+        }
+        .inner-code-block strong {
+            font-weight: 700;
+            color: #8b3c0c;
+        }
+        .description {
+            margin-top: 10px;
+            font-size: 0.88rem;
+            line-height: 1.4;
+            color: #2c4e62;
+            background: #fefef7;
+            padding: 8px 12px;
+            border-radius: 18px;
+            border-left: 3px solid #7fc1db;
+        }
+        .description em {
+            font-style: italic;
+            background: #fff2dd;
+            padding: 0 2px;
+            border-radius: 6px;
+        }
+        @media (max-width: 760px) {
+            body { padding: 14px 12px; }
+            .grid { grid-template-columns: 1fr; }
+            .disease-name { font-size: 1.1rem; }
+            .header h1 { font-size: 1.3rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>
+            📘 Класс XII. Болезни кожи и подкожной клетчатки (L00–L99)
+            <span>МКБ-10 + коды ССиНМП</span>
+        </h1>
+    </div>
+    <div class="grid" id="skinGrid"></div>
+</div>
+<script>
+    const skinData = [
+        { name: "Абсцесс кожи, фурункул и карбункул других локализаций", internalCode: "2265", mkb: "L02.8", desc: "головы (кроме лица), волосистой части головы" },
+        { name: "Абсцесс кожи, фурункул и карбункул конечностей", internalCode: "2264", mkb: "L02.4", desc: "подмышечной впадины, тазового пояса, плеча" },
+        { name: "Абсцесс кожи, фурункул и карбункул неуточненной локализации", internalCode: "1525", mkb: "L02.9", desc: "фурункулез неуточненной локализации" },
+        { name: "Абсцесс кожи, фурункул и карбункул туловища", internalCode: "2262", mkb: "L02.2", desc: "брюшной стенки, спины (кроме ягодичной области), грудной стенки, паховой области, промежности, пупка. Исключено: молочной железы (N61), омфалит новорожденного (P38), тазового пояса (L02.4)" },
+        { name: "Абсцесс кожи, фурункул и карбункул лица", internalCode: "2260", mkb: "L02.0", desc: "исключено: области заднего прохода и прямой кишки (K61), наружных половых органов: женских (N76), мужских (N48, N49), наружного уха (H60), века (H00), слезных желез и путей (H04), рта (K12), носа (J34), глазницы (H05), подчелюстной (K12)" },
+        { name: "Абсцесс кожи, фурункул и карбункул шеи", internalCode: "2261", mkb: "L02.1", desc: "" },
+        { name: "Абсцесс кожи, фурункул и карбункул ягодицы", internalCode: "2263", mkb: "L02.3", desc: "исключено: пилонидальная киста с абсцессом (L05)" },
+        { name: "Аллергическая крапивница", internalCode: "1532", mkb: "L50.0", desc: "" },
+        { name: "Аллергический контактный дерматит, вызванный красителями", internalCode: "2280", mkb: "L23.4", desc: "" },
+        { name: "Аллергический контактный дерматит, вызванный косметическими средствами", internalCode: "2278", mkb: "L23.2", desc: "" },
+        { name: "Аллергический контактный дерматит, вызванный лекарственными средствами при их контакте с кожей", internalCode: "2279", mkb: "L23.3", desc: "" },
+        { name: "Аллергический контактный дерматит, вызванный другими веществами", internalCode: "2912", mkb: "L23.8", desc: "" },
+        { name: "Аллергический контактный дерматит, вызванный растениями (кроме пищевых)", internalCode: "2281", mkb: "L23.7", desc: "ожог борщевиком" },
+        { name: "Аллергический контактный дерматит, причина не уточнена", internalCode: "1530", mkb: "L23.9", desc: "аллергическая контактная экзема без дополнительных уточнений" },
+        { name: "Атопический дерматит неуточненный", internalCode: "2276", mkb: "L20.9", desc: "" },
+        { name: "Буллезная эритема многоморфная", internalCode: "2291", mkb: "L51.1", desc: "синдром Стивенса-Джонсона" },
+        { name: "Вросший ноготь", internalCode: "1536", mkb: "L60.0", desc: "" },
+        { name: "Генерализованное высыпание на коже, вызванное лекарственными средствами и медикаментами", internalCode: "2282", mkb: "L27.0", desc: "" },
+        { name: "Гидраденит гнойный", internalCode: "1537", mkb: "L73.2", desc: "" },
+        { name: "Декубитальная язва и область давления неуточненные", internalCode: "2296", mkb: "L89", desc: "в том числе: пролежень; язва, вызванная гипсовой повязкой" },
+        { name: "Дерматит, вызванный другими веществами, принятыми внутрь", internalCode: "2285", mkb: "L27.8", desc: "" },
+        { name: "Дерматит, вызванный неуточненными веществами, принятыми внутрь", internalCode: "2286", mkb: "L27.9", desc: "" },
+        { name: "Дерматит, вызванный съеденной пищей", internalCode: "2284", mkb: "L27.2", desc: "" },
+        { name: "Дискоидная красная волчанка", internalCode: "2297", mkb: "L93.0", desc: "красная волчанка без дополнительного уточнения" },
+        { name: "Другие атопические дерматиты", internalCode: "2275", mkb: "L20.8", desc: "в том числе: экзема детская (острая, хроническая), эндогенная (аллергическая), нейродермит атопический (локализованный), нейродермит диффузный" },
+        { name: "Идиопатическая крапивница", internalCode: "2288", mkb: "L50.1", desc: "" },
+        { name: "Крапивница, вызванная воздействием низкой или высокой температуры", internalCode: "2289", mkb: "L50.2", desc: "" },
+        { name: "Крапивница неуточненная", internalCode: "2290", mkb: "L50.9", desc: "" },
+        { name: "Локализованное высыпание на коже, вызванное лекарственными средствами и медикаментами", internalCode: "2283", mkb: "L27.1", desc: "" },
+        { name: "Острый лимфаденит верхней конечности", internalCode: "2273", mkb: "L04.2", desc: "в том числе: подмышечной впадины, плеча" },
+        { name: "Острый лимфаденит лица, головы и шеи", internalCode: "2271", mkb: "L04.0", desc: "" },
+        { name: "Острый лимфаденит нижней конечности", internalCode: "2274", mkb: "L04.3", desc: "в том числе: тазового пояса" },
+        { name: "Острый лимфаденит неуточненный", internalCode: "1527", mkb: "L04.9", desc: "" },
+        { name: "Острый лимфаденит туловища", internalCode: "2272", mkb: "L04.1", desc: "" },
+        { name: "Пеленочный дерматит", internalCode: "2277", mkb: "L22", desc: "пеленочная эритема, сыпь; псориазоподобное высыпание, вызванное пеленками" },
+        { name: "Пилонидальная киста с абсцессом", internalCode: "1528", mkb: "L05.0", desc: "нагноившаяся киста копчика" },
+        { name: "Пиодермия", internalCode: "1529", mkb: "L08.0", desc: "" },
+        { name: "Потница неуточненная", internalCode: "1538", mkb: "L74.3", desc: "" },
+        { name: "Псориаз неуточненный", internalCode: "2287", mkb: "L40.9", desc: "" },
+        { name: "Синдром стафилококкового поражения кожи в виде ожогоподобных пузырей", internalCode: "2130", mkb: "L00", desc: "пузырчатка новорожденного, болезнь Риттера. Исключено: токсический эпидермальный некролиз (Лайелла) (L51.2)" },
+        { name: "Солнечная крапивница", internalCode: "1535", mkb: "L56.3", desc: "" },
+        { name: "Солнечный ожог второй степени", internalCode: "2294", mkb: "L55.1", desc: "подразумевается ожог 3–4 степени" },
+        { name: "Солнечный ожог первой степени", internalCode: "2293", mkb: "L55.0", desc: "подразумевается ожог 1–2 степени" },
+        { name: "Солнечный ожог неуточненный", internalCode: "1534", mkb: "L55.9", desc: "" },
+        { name: "Солнечный ожог третьей степени", internalCode: "2295", mkb: "L55.2", desc: "" },
+        { name: "Токсический эпидермальный некролиз [Лайелла]", internalCode: "1533", mkb: "L51.2", desc: "" },
+        { name: "Флегмона других локализаций", internalCode: "2270", mkb: "L03.8", desc: "в том числе: головы (кроме лица), волосистой части головы" },
+        { name: "Флегмона других отделов конечностей", internalCode: "2267", mkb: "L03.1", desc: "в том числе: подмышечной впадины, тазового пояса, плеча" },
+        { name: "Флегмона лица", internalCode: "2268", mkb: "L03.2", desc: "" },
+        { name: "Флегмона неуточненная", internalCode: "1526", mkb: "L03.9", desc: "в том числе: острый лимфангит" },
+        { name: "Флегмона пальцев кисти и стопы", internalCode: "2266", mkb: "L03.0", desc: "инфекция ногтя, онихия, паронихия, перионихия" },
+        { name: "Флегмона туловища", internalCode: "2269", mkb: "L03.3", desc: "" },
+        { name: "Эритема узловатая", internalCode: "2292", mkb: "L52", desc: "" },
+        { name: "Язва нижней конечности, не классифицированная в других рубриках", internalCode: "2298", mkb: "L97", desc: "исключены: декубитальная язва (L89), гангрена (R02), инфекции кожи (L00-L08), специфические инфекции, классифицированные в рубриках A00-B99, варикозная язва (I83.0, I83.2)" }
+    ];
+
+    // Сортировка по алфавиту по названию заболевания
+    skinData.sort((a, b) => a.name.localeCompare(b.name, 'ru'));
+
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+
+    function render() {
+        const grid = document.getElementById('skinGrid');
+        if (!grid) return;
+        grid.innerHTML = '';
+        skinData.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'card';
+
+            const titleDiv = document.createElement('div');
+            titleDiv.className = 'disease-title';
+            const nameSpan = document.createElement('div');
+            nameSpan.className = 'disease-name';
+            nameSpan.textContent = item.name;
+            titleDiv.appendChild(nameSpan);
+
+            const codeBlockDiv = document.createElement('div');
+            codeBlockDiv.className = 'code-block';
+
+            const mkbSpan = document.createElement('div');
+            mkbSpan.className = 'mkb-line';
+            mkbSpan.textContent = `МКБ-10: ${item.mkb}`;
+            codeBlockDiv.appendChild(mkbSpan);
+
+            const innerSpan = document.createElement('div');
+            innerSpan.className = 'inner-code-block';
+            innerSpan.innerHTML = `<strong>Код ССиНМП:</strong> ${item.internalCode}`;
+            codeBlockDiv.appendChild(innerSpan);
+
+            if (item.desc && item.desc.trim() !== "") {
+                const descDiv = document.createElement('div');
+                descDiv.className = 'description';
+                descDiv.innerHTML = `<em>${escapeHtml(item.desc)}</em>`;
+                codeBlockDiv.appendChild(descDiv);
+            }
+
+            card.appendChild(titleDiv);
+            card.appendChild(codeBlockDiv);
+            grid.appendChild(card);
+        });
+    }
+
+    render();
+</script>
+</body>
+</html>
