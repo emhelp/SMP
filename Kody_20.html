@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Справочник СМП: кодировки безрезультатных вызовов</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #eef2f5;
+            font-family: system-ui, -apple-system, 'Segoe UI', 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            padding: 16px 12px 40px 12px;
+            color: #1a2c3e;
+        }
+
+        .container {
+            max-width: 680px;
+            margin: 0 auto;
+        }
+
+        .header {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 1.7rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #0b3b5f, #1b6b8f);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: -0.3px;
+            margin-bottom: 6px;
+        }
+
+        .header p {
+            color: #4a627a;
+            font-size: 0.85rem;
+            background: #ffffffcc;
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 30px;
+            backdrop-filter: blur(2px);
+            font-weight: 500;
+        }
+
+        .card {
+            background: white;
+            border-radius: 28px;
+            margin-bottom: 24px;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.03), 0 2px 4px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            border: 1px solid #e2edf2;
+        }
+
+        .card-header {
+            padding: 16px 18px 10px 18px;
+            border-bottom: 2px solid #eef3f8;
+            background: #fafdff;
+        }
+
+        .card-header h2 {
+            font-size: 1.35rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            color: #134b6b;
+        }
+
+        .badge-code {
+            background: #1b6b8f;
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 40px;
+            letter-spacing: 0.3px;
+            font-family: monospace;
+        }
+
+        .subnote {
+            font-size: 0.7rem;
+            color: #5f7f9a;
+            margin-top: 8px;
+            border-left: 3px solid #9bc0d4;
+            padding-left: 10px;
+        }
+
+        .card-content {
+            padding: 14px 18px 20px 18px;
+        }
+
+        .info-row {
+            margin-bottom: 14px;
+            border-bottom: 1px dashed #e3edf2;
+            padding-bottom: 10px;
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            color: #6c8dab;
+            margin-bottom: 5px;
+        }
+
+        .value {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #0c2e44;
+            word-break: break-word;
+            line-height: 1.4;
+        }
+
+        .comment-block {
+            background: #f9fbfd;
+            border-radius: 20px;
+            padding: 12px 14px;
+            margin-top: 10px;
+            border-left: 4px solid #2c8ebb;
+            font-size: 0.9rem;
+            line-height: 1.45;
+            color: #1c4c6e;
+        }
+
+        .important {
+            background: #fff2e0;
+            border-left-color: #e68a2e;
+            color: #a4510c;
+            font-size: 0.85rem;
+            margin-top: 12px;
+        }
+
+        .green-note {
+            background: #e6f4ea;
+            border-left-color: #2c6e3c;
+            color: #1e562c;
+        }
+
+        hr {
+            margin: 14px 0;
+            border: none;
+            height: 1px;
+            background: linear-gradient(to right, #cbdde6, transparent);
+        }
+
+        .footer-note {
+            background: #d9e9f2;
+            border-radius: 24px;
+            padding: 18px;
+            margin-top: 20px;
+            text-align: left;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border: 1px solid #c0d9e6;
+            color: #014175;
+        }
+
+        .footer-note strong {
+            color: #b13e3e;
+        }
+
+        .small-mono {
+            font-family: 'SF Mono', monospace;
+            font-size: 0.85rem;
+            background: #eef2f5;
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 20px;
+        }
+
+        /* Красное предупреждение - единый стиль для обеих фраз */
+        .error-cancel {
+            color: #d32f2f;
+            font-weight: 800;
+            background: rgba(211, 47, 47, 0.08);
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 24px;
+            font-size: 0.85rem;
+            letter-spacing: 0.2px;
+            border-left: 3px solid #d32f2f;
+            margin-top: 6px;
+        }
+
+        .error-cancel-inline {
+            color: #d32f2f;
+            font-weight: 800;
+            background: rgba(211, 47, 47, 0.08);
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+
+        /* стили для сводки: жирными только коды */
+        .code-list-item {
+            display: inline-flex;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 4px;
+            background: #f4f9fe;
+            padding: 4px 12px;
+            border-radius: 40px;
+            font-size: 0.9rem;
+        }
+        .code-number {
+            font-weight: 800;
+            color: #0b5e7e;
+            font-family: monospace;
+            font-size: 0.95rem;
+        }
+        .code-desc {
+            font-weight: 400;
+            color: #2c4c6c;
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 12px 10px 32px 10px;
+            }
+            .card-header h2 {
+                font-size: 1.2rem;
+            }
+            .value {
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>🚑 Кодировки вызовов СМП</h1>
+        <p>Безрезультатные вызовы &nbsp;|&nbsp; МКБ‑10 &nbsp;|&nbsp; Результаты</p>
+    </div>
+
+    <!-- 1. Код 1950 / Z53.8 (Больного на месте нет) с красной фразой -->
+    <div class="card">
+        <div class="card-header">
+            <h2><span class="badge-code">Код ст. 1950</span> <span>Z53.8</span></h2>
+            <div class="subnote">Процедура не выполнена</div>
+        </div>
+        <div class="card-content">
+            <div class="info-row">
+                <div class="label">📋 Результат вызова</div>
+                <div class="value"><strong>01 — Больного на месте нет</strong></div>
+            </div>
+            <div class="comment-block">
+                <strong>✏️ Комментарий:</strong> Указывается причина отсутствия больного (со слов свидетелей, родственников). При отсутствии очевидцев — указать, что больного и очевидцев нет на месте.<br><br>
+                <div class="error-cancel">❗ Считается ошибкой указание, что вызов отменен.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. Ложный вызов 02 — красная фраза -->
+    <div class="card">
+        <div class="card-header">
+            <h2><span class="badge-code">Код ст. 1950</span> <span>Z53.8</span></h2>
+            <div class="subnote">Процедура не выполнена</div>
+        </div>
+        <div class="card-content">
+            <div class="info-row">
+                <div class="label">📋 Результат вызова</div>
+                <div class="value"><strong>02 — Ложный вызов</strong></div>
+            </div>
+            <div class="comment-block">
+                В карте указывается, что по данному адресу или к указанному лицу бригаду «03» не вызывали. Код применяется при наличии достоверных данных. Уточнить у диспетчера правильность адреса.<br><br>
+                <div class="error-cancel">❗ Считается ошибкой указание, что вызов отменен.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. Адрес не найден 03 (без красной фразы, но по желанию можно не трогать) -->
+    <div class="card">
+        <div class="card-header">
+            <h2><span class="badge-code">Код ст. 1950</span> <span>Z53.8</span></h2>
+            <div class="subnote">Процедура не выполнена</div>
+        </div>
+        <div class="card-content">
+            <div class="info-row">
+                <div class="label">📍 Результат вызова</div>
+                <div class="value"><strong>03 — Адрес не найден</strong></div>
+            </div>
+            <div class="comment-block">
+                В карте указывается, что данного адреса не существует. <strong>Обязательно подтверждение в ОМВД</strong> и отметка в карте вызова.
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. Вызов выполнен другой мед. бригадой 04 + жирная фраза -->
+    <div class="card">
+        <div class="card-header">
+            <h2><span class="badge-code">Код ст. 1950</span> <span>Z53.8</span></h2>
+            <div class="subnote">Процедура не выполнена</div>
+        </div>
+        <div class="card-content">
+            <div class="info-row">
+                <div class="label">🔄 Результат вызова</div>
+                <div class="value"><strong>04 — Вызов выполнен другой мед. бригадой / организацией</strong></div>
+            </div>
+            <div class="comment-block">
+                Указываются данные бригады, обслужившей вызов (№ подстанции, № бригады, № наряда), либо данные коммерческой (ведомственной) бригады СМП. <strong>Используется, когда пациент уже обслуживается другой бригадой СМП, мед. организацией или ОКМП/ОНМП на дому.</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- 5. Отказ пациента от осмотра (1951 / Z53.2) -->
+    <div class="card">
+        <div class="card-header">
+            <h2><span class="badge-code">Код ст. 1951</span> <span>Z53.2</span></h2>
+            <div class="subnote">Процедура не выполнена из-за отказа больного</div>
+        </div>
+        <div class="card-content">
+            <div class="info-row">
+                <div class="label">🚫 Результат вызова</div>
+                <div class="value"><strong>05 — Отказ пациента от осмотра</strong></div>
+            </div>
+            <div class="comment-block">
+                Указывается причина вызова СМП и причина отказа от осмотра. Пациент (или законный представитель) расписывается в графе «отказ от медицинского вмешательства». При отказе от подписи — делается запись ответственным медработником. <br>
+                🔁 <strong>Обязательный прозвон</strong> старшим врачом подстанции для подтверждения факта и уточнения причины.
+            </div>
+        </div>
+    </div>
+
+    <!-- 6. Вызов отменен 06 (особый случай) -->
+    <div class="card">
+        <div class="card-header">
+            <h2><span class="badge-code">Код ст. 1950</span> <span>Z53.8</span></h2>
+            <div class="subnote">Процедура не выполнена</div>
+        </div>
+        <div class="card-content">
+            <div class="info-row">
+                <div class="label">⏸️ Результат вызова</div>
+                <div class="value"><strong>06 — Вызов отменен</strong></div>
+            </div>
+            <div class="comment-block important">
+                🚨 <strong>Важное ограничение:</strong> Данный код применим <u>только</u> когда вызов отменен диспетчером направления <strong>до прибытия на вызов</strong>. Указываются данные лица, отменившего вызов (№ диспетчера). В остальных случаях использовать другие коды безрезультатных вызовов.
+            </div>
+        </div>
+    </div>
+
+    <!-- 7. Технические причины 07 -->
+    <div class="card">
+        <div class="card-header">
+            <h2><span class="badge-code">Код ст. 1950</span> <span>Z53.8</span></h2>
+            <div class="subnote">Процедура не выполнена</div>
+        </div>
+        <div class="card-content">
+            <div class="info-row">
+                <div class="label">🔧 Результат вызова</div>
+                <div class="value"><strong>07 — Вызов не выполнен по техническим причинам</strong></div>
+            </div>
+            <div class="comment-block">
+                Неисправность санитарного транспорта, из-за которой бригада не прибыла на место вызова. Если поломка случилась по пути с больным в ЛПУ — код <strong>«07» не применяется</strong>.
+            </div>
+        </div>
+    </div>
+
+    <!-- 8. Здоров (на момент осмотра) ст 1890 / Z00.0 -->
+    <div class="card">
+        <div class="card-header">
+            <h2><span class="badge-code">Код ст. 1890</span> <span>Z00.0</span></h2>
+            <div class="subnote">Здоров (на момент осмотра)</div>
+        </div>
+        <div class="card-content">
+            <div class="info-row">
+                <div class="label">✅ Результат вызова</div>
+                <div class="value"><strong>08 — Здоров</strong></div>
+            </div>
+            <div class="comment-block green-note">
+                Полное описание карты вызова, с уточнением причины вызова, указанием на отсутствие необходимости в оказании медицинской помощи на момент осмотра пациента. Диагноз подтвержден объективно.
+            </div>
+        </div>
+    </div>
+
+    <!-- 9. Констатация смерти ст 1737 / R99 -->
+    <div class="card">
+        <div class="card-header">
+            <h2><span class="badge-code">Код ст. 1737</span> <span>R99</span></h2>
+            <div class="subnote">Неуточненная причина смерти</div>
+        </div>
+        <div class="card-content">
+            <div class="info-row">
+                <div class="label">⚰️ Результат вызова</div>
+                <div class="value"><strong>10 — Констатация смерти</strong></div>
+            </div>
+            <div class="comment-block">
+                Указывается анамнез (со слов родственников или очевидцев). Данные объективного осмотра описываются текстом, минуя раздел «Объективно», с указанием достоверных признаков биологической смерти и наличием/отсутствием телесных повреждений. При наличии повреждений — описать.<br>
+                📌 <strong>Время констатации смерти не может совпадать с временем прибытия бригады.</strong> Оформляется «Протокол установления смерти человека», номер протокола вносится в примечания на лицевой стороне карты.
+            </div>
+        </div>
+    </div>
+
+    <!-- ОСОБЫЙ СЛУЧАЙ: Ушел от бригады СМП (код 29) -->
+    <div class="card">
+        <div class="card-header">
+            <h2><span class="badge-code" style="background:#b87c4f;">⚠️ Особый случай</span> <span>Код 29</span></h2>
+            <div class="subnote">Не относится к безрезультатным</div>
+        </div>
+        <div class="card-content">
+            <div class="info-row">
+                <div class="label">🏃 Результат вызова</div>
+                <div class="value"><strong>29 — Ушел от бригады СМП</strong></div>
+            </div>
+            <div class="comment-block green-note">
+                Если пациент осмотрен, ему установлен диагноз, но по любым причинам пациент ушел от бригады СМП — применяется код <strong>«29»</strong>. Вызов с таким кодом <strong>НЕ относится к категории безрезультатных!</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- ОБЩИЕ ПРИМЕЧАНИЯ из документа -->
+    <div class="footer-note">
+        <strong>🧾 Ключевые правила оформления безрезультатных вызовов (коды 01–07):</strong><br>
+        • ❌ <strong>Считается ошибкой</strong> списание расходного материала (необоснованное расходование материальных средств).<br>
+        • ❌ <strong>Считается ошибкой</strong> отметка об осмотре больного на наличие педикулеза.<br>
+        • <span class="error-cancel-inline">❗ Считается ошибкой указание, что вызов отменен</span> для кодов <strong>01, 02, 03, 04, 06, 07</strong>, кроме строго регламентированного случая кода <strong>06</strong> (отмена диспетчером до прибытия).<br>
+        • 📞 При отказе пациента (код 05) обязателен прозвон старшим врачом подстанции.<br>
+        • 🧾 При констатации смерти (код 10) заполняется отдельный протокол, время смерти ≠ время прибытия.
+    </div>
+
+    <!-- Блок СВОДКА: жирным только цифры кодов -->
+    <div class="card" style="margin-top: 8px;">
+        <div class="card-header">
+            <h2 style="font-size: 1.1rem;">📌 Сводка кодов результатов (безрезультатные вызовы)</h2>
+        </div>
+        <div class="card-content" style="padding-top: 0;">
+            <div class="value" style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px;">
+                <div class="code-list-item"><span class="code-number">01</span> <span class="code-desc">— Больного нет</span></div>
+                <div class="code-list-item"><span class="code-number">02</span> <span class="code-desc">— Ложный вызов</span></div>
+                <div class="code-list-item"><span class="code-number">03</span> <span class="code-desc">— Адрес не найден</span></div>
+                <div class="code-list-item"><span class="code-number">04</span> <span class="code-desc">— Выполнено другой бригадой</span></div>
+                <div class="code-list-item"><span class="code-number">05</span> <span class="code-desc">— Отказ от осмотра (ст.1951)</span></div>
+                <div class="code-list-item"><span class="code-number">06</span> <span class="code-desc">— Отменен (до прибытия)</span></div>
+                <div class="code-list-item"><span class="code-number">07</span> <span class="code-desc">— Технические причины</span></div>
+                <div class="code-list-item"><span class="code-number">08</span> <span class="code-desc">— Здоров</span></div>
+                <div class="code-list-item"><span class="code-number">10</span> <span class="code-desc">— Констатация смерти</span></div>
+                <div class="code-list-item"><span class="code-number">29</span> <span class="code-desc">— Ушел от бригады (не безрезультатный)</span></div>
+            </div>
+            <hr>
+            <div class="label" style="margin-top: 4px;">📖 МКБ-10 соответствия:</div>
+            <div class="value" style="font-size: 0.85rem;">Z53.8 (процедура не выполнена) — для кодов 01,02,03,04,06,07<br>
+            Z53.2 — отказ пациента (05) <br> Z00.0 — здоров (08) <br> R99 — неуточненная причина смерти (10)</div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
