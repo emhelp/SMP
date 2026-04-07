@@ -13,124 +13,183 @@
         body {
             background: #dce5ec;
             font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
-            padding: 24px 20px;
+            padding: 16px 12px;
             color: #1a3a48;
         }
         .container {
-            max-width: 1400px;
+            max-width: 100%;
             margin: 0 auto;
         }
         .header {
             background: #0b3b4f;
             background-image: radial-gradient(circle at 10% 20%, #125d78, #062633);
-            border-radius: 32px;
-            padding: 16px 24px;
-            margin-bottom: 28px;
-            box-shadow: 0 6px 12px -6px rgba(0, 0, 0, 0.25);
+            border-radius: 24px;
+            padding: 14px 18px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px -4px rgba(0, 0, 0, 0.2);
             border: 1px solid rgba(255, 255, 255, 0.15);
         }
         .header h1 {
-            font-size: 1.55rem;
+            font-size: 1.25rem;
             font-weight: 700;
             letter-spacing: -0.2px;
             color: #ffffff;
             text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 8px;
             flex-wrap: wrap;
         }
         .header h1 span {
             background: #f5b042;
-            font-size: 0.9rem;
+            font-size: 0.75rem;
             font-weight: 600;
-            padding: 4px 12px;
+            padding: 3px 10px;
             border-radius: 60px;
             color: #0a2e3c;
             box-shadow: inset 0 -1px 0 rgba(0,0,0,0.05), 0 1px 4px rgba(0,0,0,0.1);
         }
+        .search-bar {
+            margin-bottom: 18px;
+        }
+        .search-input {
+            padding: 12px 16px;
+            border-radius: 60px;
+            border: 1px solid #cbdbe2;
+            background: white;
+            font-size: 0.95rem;
+            width: 100%;
+            outline: none;
+            transition: all 0.2s;
+            font-family: inherit;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .search-input:focus {
+            border-color: #0f6b8c;
+            box-shadow: 0 0 0 3px rgba(18, 93, 120, 0.2);
+        }
         .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-            gap: 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
         }
         .card {
             background: #ffffff;
-            border-radius: 24px;
+            border-radius: 20px;
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.03);
             border: 1px solid #dce5ec;
             overflow: hidden;
             display: flex;
             flex-direction: column;
+            transition: all 0.15s ease;
         }
         .disease-title {
             background: #f4f9fe;
-            padding: 12px 18px 10px 18px;
+            padding: 12px 16px 10px 16px;
             border-bottom: 1px solid #e2edf5;
         }
         .disease-name {
-            font-size: 1.2rem;
+            font-size: 1.08rem;
             font-weight: 800;
             color: #0c4e6b;
-            line-height: 1.3;
+            line-height: 1.35;
             letter-spacing: -0.2px;
         }
         .code-block {
-            padding: 14px 18px 16px 18px;
+            padding: 14px 16px 16px 16px;
             background: #ffffff;
             flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .codes-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
         }
         .mkb-line {
             font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
             font-weight: 400;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: #000000;
             background: #eef2f8;
-            padding: 5px 12px;
-            border-radius: 32px;
-            margin-bottom: 10px;
+            padding: 8px 14px;
+            border-radius: 40px;
             border: 1px solid #d0dee9;
-            display: inline-block;
             letter-spacing: 0.2px;
+            word-break: break-word;
+            flex-shrink: 0;
         }
         .inner-code-block {
-            margin-top: 8px;
-            margin-bottom: 12px;
             background: #f9f3e0;
-            padding: 5px 12px;
-            border-radius: 28px;
-            display: inline-block;
+            padding: 8px 14px;
+            border-radius: 40px;
             font-family: 'SF Mono', 'Fira Code', monospace;
             font-weight: 500;
             font-size: 0.85rem;
             color: #a55217;
             border: 1px solid #ffe0a3;
+            flex-shrink: 0;
         }
         .inner-code-block strong {
             font-weight: 700;
             color: #8b3c0c;
         }
         .description {
-            margin-top: 10px;
-            font-size: 0.88rem;
+            margin-top: 4px;
+            font-size: 0.85rem;
             line-height: 1.4;
             color: #2c4e62;
             background: #fefef7;
-            padding: 8px 12px;
-            border-radius: 18px;
+            padding: 10px 12px;
+            border-radius: 16px;
             border-left: 3px solid #7fc1db;
         }
         .description em {
             font-style: italic;
             background: #fff2dd;
-            padding: 0 2px;
-            border-radius: 6px;
+            padding: 2px 4px;
+            border-radius: 8px;
+            display: inline-block;
         }
-        @media (max-width: 760px) {
-            body { padding: 14px 12px; }
-            .grid { grid-template-columns: 1fr; }
-            .disease-name { font-size: 1.1rem; }
-            .header h1 { font-size: 1.3rem; }
+        .no-results {
+            text-align: center;
+            padding: 48px 20px;
+            background: white;
+            border-radius: 28px;
+            color: #2c5a70;
+            font-weight: 500;
+            font-size: 1rem;
+            border: 1px solid #cde3ef;
+        }
+        @media (min-width: 768px) {
+            .grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
+            }
+            body {
+                padding: 20px;
+            }
+            .header h1 {
+                font-size: 1.4rem;
+            }
+        }
+        @media (min-width: 1024px) {
+            .grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            body {
+                padding: 24px 20px;
+            }
+        }
+        .container {
+            overflow-x: hidden;
+        }
+        body {
+            overflow-x: hidden;
         }
     </style>
 </head>
@@ -142,79 +201,86 @@
             <span>МКБ-10 + коды ССиНМП</span>
         </h1>
     </div>
+    <div class="search-bar">
+        <input type="text" id="searchInput" class="search-input" placeholder="Введите название или код" autocomplete="off">
+    </div>
     <div class="grid" id="circulatoryGrid"></div>
 </div>
+
 <script>
+    // ========== ПОЛНЫЙ МАССИВ ДАННЫХ (все записи из PDF, страницы 19-23) ==========
     const circulatoryData = [
         { name: "Аневризма артерии верхних конечностей", internalCode: "4052", mkb: "I72.1", desc: "" },
         { name: "Аневризма артерии нижних конечностей", internalCode: "4053", mkb: "I72.4", desc: "" },
         { name: "Аневризма брюшной аорты без упоминания о разрыве", internalCode: "2941", mkb: "I71.4", desc: "" },
         { name: "Аневризма брюшной аорты разорванная", internalCode: "2940", mkb: "I71.3", desc: "" },
+        { name: "Аневризма грудной части аорты без упоминания о разрыве", internalCode: "1422", mkb: "I71.2", desc: "" },
         { name: "Аневризма грудной части аорты разорванная", internalCode: "2939", mkb: "I71.1", desc: "" },
         { name: "Аневризма других уточненных артерий", internalCode: "2944", mkb: "I72.8", desc: "" },
         { name: "Аневризма мозга без разрыва", internalCode: "2934", mkb: "I67.1", desc: "" },
         { name: "Аневризма подвздошной артерии", internalCode: "2943", mkb: "I72.3", desc: "" },
         { name: "Аневризма сонной артерии", internalCode: "2942", mkb: "I72.0", desc: "" },
-        { name: "Аневризма сердца", internalCode: "2155", mkb: "I25.3", desc: "" },
+        { name: "Аневризма сердца", internalCode: "2155", mkb: "I25.3", desc: "хроническая аневризма сердца" },
         { name: "Атеросклероз артерий конечностей", internalCode: "1405", mkb: "I70.2", desc: "атеросклеротическая гангрена" },
         { name: "Атеросклероз других артерий", internalCode: "4051", mkb: "I70.8", desc: "" },
         { name: "Атеросклеротическая болезнь сердца", internalCode: "1381", mkb: "I25.1", desc: "атеросклеротический кардиосклероз" },
+        { name: "Атипичная форма трепетания предсердий", internalCode: "2862", mkb: "I48.4", desc: "" },
         { name: "Бессимптомная ишемия миокарда", internalCode: "2156", mkb: "I25.6", desc: "" },
-        { name: "Болезни перикарда неуточненные", internalCode: "1386", mkb: "I31.9", desc: "тампонада сердца. Перикардит хронический без дополнительного уточнения" },
-        { name: "Варикозное расширение вен мошонки", internalCode: "1148", mkb: "I86.1", desc: "расширение вен семенного канатика; варикоцеле" },
-        { name: "Варикозное расширение вен нижних конечностей без язвы или воспаления", internalCode: "2175", mkb: "I83.9", desc: "флебэктазия, варикозные вены, варикозное расширение вен" },
+        { name: "Болезни перикарда неуточненные", internalCode: "1386", mkb: "I31.9", desc: "тампонада сердца. Перикардит хронический БДУ" },
+        { name: "Варикозное расширение вен мошонки", internalCode: "1148", mkb: "I86.1", desc: "варикоцеле" },
+        { name: "Варикозное расширение вен нижних конечностей без язвы или воспаления", internalCode: "2175", mkb: "I83.9", desc: "" },
         { name: "Варикозное расширение вен нижних конечностей с язвой", internalCode: "1414", mkb: "I83.0", desc: "" },
         { name: "Варикозное расширение вен пищевода с кровотечением", internalCode: "1416", mkb: "I85.0", desc: "" },
-        { name: "Венозная недостаточность", internalCode: "2945", mkb: "I87.2", desc: "хроническая, периферическая" },
-        { name: "Внезапная сердечная смерть, так описанная", internalCode: "2161", mkb: "I46.1", desc: "исключено: внезапная смерть: БДУ (R96.-), при инфаркте миокарда (I21-I22), нарушении проводимости (I44-I45), кардиогенный шок (R57.0)" },
+        { name: "Венозная недостаточность (хроническая) (периферическая)", internalCode: "2945", mkb: "I87.2", desc: "хроническая венозная недостаточность" },
+        { name: "Внезапная сердечная смерть, так описанная", internalCode: "2161", mkb: "I46.1", desc: "исключено: внезапная смерть БДУ (R96.-), при инфаркте миокарда (I21-I22), нарушении проводимости (I44-I45), кардиогенный шок (R57.0)" },
         { name: "Внутримозговое кровоизлияние в мозжечок", internalCode: "2167", mkb: "I61.4", desc: "" },
         { name: "Внутримозговое кровоизлияние в полушарие неуточненное", internalCode: "1400", mkb: "I61.2", desc: "исключено: травматическое внутричерепное кровоизлияние (S06); транзиторные церебральные ишемические приступы и родственные синдромы (G45)" },
         { name: "Внутримозговое кровоизлияние в ствол мозга", internalCode: "2166", mkb: "I61.3", desc: "" },
         { name: "Внутримозговое кровоизлияние внутрижелудочковое", internalCode: "2168", mkb: "I61.5", desc: "" },
         { name: "Внутримозговое кровоизлияние множественной локализации", internalCode: "2923", mkb: "I61.6", desc: "" },
-        { name: "Внутримозговое кровоизлияние неуточненное", internalCode: "2169", mkb: "I61.9", desc: "субарахноидальное кровоизлияние" },
+        { name: "Внутримозговое кровоизлияние неуточненное", internalCode: "2169", mkb: "I61.9", desc: "" },
         { name: "Генерализованный и неуточненный атеросклероз", internalCode: "2170", mkb: "I70.9", desc: "облитерирующий эндартериит" },
-        { name: "Гипертензивная болезнь сердца без (застойной) сердечной недостаточности", internalCode: "2151", mkb: "I11.9", desc: "" },
-        { name: "Гипертензивная болезнь сердца с (застойной) сердечной недостаточностью", internalCode: "1373", mkb: "I11.0", desc: "" },
+        { name: "Гипертензивная болезнь сердца без (застойной) сердечной недостаточности", internalCode: "2151", mkb: "I11.9", desc: "гипертоническая болезнь II стадия; гипертоническая болезнь III стадия (без сердечной недостаточности)" },
+        { name: "Гипертензивная болезнь сердца с (застойной) сердечной недостаточностью", internalCode: "1373", mkb: "I11.0", desc: "гипертоническая болезнь III стадия с сердечной недостаточностью" },
         { name: "Гипертензивная энцефалопатия", internalCode: "2864", mkb: "I67.4", desc: "" },
         { name: "Гипертензия вторичная по отношению к другим поражениям почек", internalCode: "1374", mkb: "I15.1", desc: "" },
         { name: "Гипертензия вторичная по отношению к эндокринным нарушениям", internalCode: "2152", mkb: "I15.2", desc: "" },
-        { name: "Гипотензия, вызванная лекарственными средствами", internalCode: "2176", mkb: "I95.2", desc: "исключено: коллапс (R57). Медикаментозная гипотония" },
+        { name: "Гипотензия, вызванная лекарственными средствами", internalCode: "2176", mkb: "I95.2", desc: "исключено: коллапс (R57)" },
         { name: "Дилатационная кардиомиопатия", internalCode: "1390", mkb: "I42.0", desc: "" },
         { name: "Другие и неуточненные нарушения системы кровообращения", internalCode: "1421", mkb: "I99", desc: "" },
-        { name: "Другие уточненные поражения сосудов мозга", internalCode: "1403", mkb: "I67.8", desc: "дисциркуляторная энцефалопатия, острая цереброваскулярная недостаточность БДУ, ишемия мозга (хроническая)" },
-        { name: "Другие формы стенокардии", internalCode: "1376", mkb: "I20.8", desc: "стенокардия напряжения" },
+        { name: "Другие уточненные поражения сосудов мозга", internalCode: "1403", mkb: "I67.8", desc: "дисциркуляторная энцефалопатия" },
+        { name: "Другие формы стенокардии", internalCode: "1376", mkb: "I20.8", desc: "стенокардия напряжения стабильная" },
         { name: "Другая и неуточненная преждевременная деполяризация", internalCode: "2163", mkb: "I49.4", desc: "эктопические систолы, экстрасистолы, экстрасистолическая аритмия" },
-        { name: "Другая уточненная блокада сердца", internalCode: "1392", mkb: "I45.5", desc: "" },
+        { name: "Другая уточненная блокада сердца", internalCode: "1392", mkb: "I45.5", desc: "синусно-предсердная блокада, синоаурикулярная блокада" },
         { name: "Другое внутримозговое кровоизлияние", internalCode: "2924", mkb: "I61.8", desc: "" },
         { name: "Другой инфаркт мозга", internalCode: "2931", mkb: "I63.8", desc: "" },
-        { name: "Закупорка и стеноз множественных и двусторонних церебральных артерий, не приводящие к инфаркту мозга", internalCode: "2933", mkb: "I65.3", desc: "в том числе: двусторонний стеноз сонных артерий" },
-        { name: "Инфаркт мозга, вызванный стенозом церебральных артерий", internalCode: "2929", mkb: "I63.2", desc: "" },
+        { name: "Закупорка и стеноз множественных и двусторонних прецеребральных артерий, не приводящие к инфаркту мозга", internalCode: "2933", mkb: "I65.3", desc: "в том числе: двусторонний стеноз сонных артерий" },
+        { name: "Инфаркт мозга, вызванный стенозом прецеребральных артерий", internalCode: "2929", mkb: "I63.2", desc: "" },
         { name: "Инфаркт мозга, вызванный тромбозом мозговых артерий", internalCode: "2930", mkb: "I63.3", desc: "" },
-        { name: "Инфаркт мозга, вызванный тромбозом церебральных артерий", internalCode: "2928", mkb: "I63.0", desc: "" },
+        { name: "Инфаркт мозга, вызванный тромбозом прецеребральных артерий", internalCode: "2928", mkb: "I63.0", desc: "" },
         { name: "Инфаркт мозга неуточненный", internalCode: "1401", mkb: "I63.9", desc: "исключено: травматическое внутричерепное кровоизлияние (S06); транзиторные церебральные ишемические приступы и родственные синдромы (G45)" },
         { name: "Инсульт, не уточненный как кровоизлияние или инфаркт", internalCode: "1402", mkb: "I64", desc: "исключено: травматическое внутричерепное кровоизлияние (S06); транзиторные церебральные ишемические приступы и родственные синдромы (G45)" },
-        { name: "Левожелудочковая недостаточность", internalCode: "2165", mkb: "I50.1", desc: "острый отек легких, сердечная астма с упоминанием о болезни сердца без дополнительного уточнения или сердечной недостаточности" },
-        { name: "Легочная эмболия без упоминания об остром легочном сердце", internalCode: "1382", mkb: "I26.9", desc: "легочная эмболия без дополнительного уточнения" },
+        { name: "Левожелудочковая недостаточность", internalCode: "2165", mkb: "I50.1", desc: "острый отек легких, сердечная астма с упоминанием о болезни сердца БДУ или сердечной недостаточности" },
+        { name: "Легочная эмболия без упоминания об остром легочном сердце", internalCode: "1382", mkb: "I26.9", desc: "легочная эмболия БДУ" },
         { name: "Легочная эмболия с упоминанием об остром легочном сердце", internalCode: "4050", mkb: "I26.0", desc: "" },
         { name: "Легочно-сердечная недостаточность неуточненная", internalCode: "1383", mkb: "I27.9", desc: "хроническая болезнь сердца легочного происхождения. Легочное сердце (cor pulmonale) (хроническое) БДУ" },
         { name: "Лимфоотек, не классифицированный в других рубриках", internalCode: "4055", mkb: "I89.0", desc: "" },
         { name: "Наследственная геморрагическая телеангиэктазия", internalCode: "1410", mkb: "I78.0", desc: "болезнь Рандю-Ослера-Вебера" },
-        { name: "Неспецифический лимфаденит неуточненный", internalCode: "1418", mkb: "I88.9", desc: "лимфаденит без дополнительного уточнения" },
-        { name: "Нестабильная стенокардия", internalCode: "1375", mkb: "I20.0", desc: "стенокардия нарастающая; стенокардия напряжения, впервые возникшая; стенокардия напряжения прогрессирующая, промежуточный коронарный синдром" },
+        { name: "Неспецифический лимфаденит неуточненный", internalCode: "1418", mkb: "I88.9", desc: "лимфаденит БДУ" },
+        { name: "Нестабильная стенокардия", internalCode: "1375", mkb: "I20.0", desc: "стенокардия нарастающая; стенокардия напряжения, впервые возникшая; стенокардия напряжения прогрессирующая; промежуточный коронарный синдром" },
         { name: "Нетравматическое внутричерепное кровоизлияние неуточненное", internalCode: "2927", mkb: "I62.9", desc: "" },
         { name: "Нетравматическое экстрадуральное кровоизлияние", internalCode: "2926", mkb: "I62.1", desc: "нетравматическое эпидуральное кровоизлияние" },
-        { name: "Ортостатическая гипотензия", internalCode: "1420", mkb: "I95.1", desc: "связанная с изменением позы, положения. Исключено: коллапс (R57)" },
+        { name: "Ортостатическая гипотензия", internalCode: "1420", mkb: "I95.1", desc: "связанная с изменением позы, положения (Исключено: коллапс (R57))" },
         { name: "Остановка сердца неуточненная", internalCode: "1393", mkb: "I46.9", desc: "" },
         { name: "Остановка сердца с успешным восстановлением сердечной деятельности", internalCode: "2160", mkb: "I46.0", desc: "" },
-        { name: "Острая ревматическая болезнь сердца неуточненная", internalCode: "2150", mkb: "I01.9", desc: "любое состояние, относящееся к рубрике I00, в сочетании с неуточненной формой поражения сердца, ревматический кардит, острый, болезнь сердца, активная или острая" },
+        { name: "Острая ревматическая болезнь сердца неуточненная", internalCode: "2150", mkb: "I01.9", desc: "" },
         { name: "Острый и подострый эндокардит неуточненный", internalCode: "1387", mkb: "I33.9", desc: "" },
         { name: "Острый инфаркт миокарда неуточненный", internalCode: "1377", mkb: "I21.9", desc: "" },
         { name: "Острый миокардит неуточненный", internalCode: "1389", mkb: "I40.9", desc: "" },
         { name: "Острый перикардит неуточненный", internalCode: "1385", mkb: "I30.9", desc: "" },
         { name: "Пароксизмальная желудочковая тахикардия", internalCode: "2162", mkb: "I47.2", desc: "" },
         { name: "Пароксизмальная наджелудочковая тахикардия", internalCode: "1394", mkb: "I47.1", desc: "" },
-        { name: "Пароксизмальная форма фибрилляции предсердий", internalCode: "2859", mkb: "I48.0", desc: "самостоятельно купировавшийся приступ" },
+        { name: "Пароксизмальная форма фибрилляции предсердий", internalCode: "2859", mkb: "I48.0", desc: "" },
         { name: "Перенесенный в прошлом инфаркт миокарда", internalCode: "2154", mkb: "I25.2", desc: "постинфарктный кардиосклероз" },
         { name: "Повторный инфаркт миокарда неуточненный", internalCode: "1378", mkb: "I22.9", desc: "в том числе: рецидивирующий инфаркт миокарда" },
         { name: "Постфлебитический синдром", internalCode: "1417", mkb: "I87.0", desc: "" },
@@ -227,24 +293,24 @@
         { name: "Предсердно-желудочковая блокада второй степени", internalCode: "1391", mkb: "I44.1", desc: "" },
         { name: "Предсердно-желудочковая блокада полная", internalCode: "2158", mkb: "I44.2", desc: "атриовентрикулярная блокада третьей степени" },
         { name: "Расслоение аорты (любой части)", internalCode: "1406", mkb: "I71.0", desc: "расслаивающая аневризма аорты, в том числе с упоминанием о разрыве" },
-        { name: "Ревматическая болезнь сердца неуточненная", internalCode: "1371", mkb: "I09.9", desc: "в том числе: ревматический кардит, ревматическая сердечная недостаточность" },
+        { name: "Ревматическая болезнь сердца неуточненная", internalCode: "1371", mkb: "I09.9", desc: "в том числе: ревматический кардит" },
         { name: "Ревматическая лихорадка без упоминания о вовлечении сердца", internalCode: "1370", mkb: "I00", desc: "артрит ревматический острый и подострый" },
         { name: "Сдавление вен", internalCode: "2868", mkb: "I87.1", desc: "синдром полой вены нижней/верхней" },
-        { name: "Сердечная недостаточность неуточненная", internalCode: "1397", mkb: "I50.9", desc: "недостаточность обоих желудочков, сердечная или миокардиальная недостаточность без дополнительного уточнения (ХСН)" },
+        { name: "Сердечная недостаточность неуточненная", internalCode: "1397", mkb: "I50.9", desc: "недостаточность обоих желудочков, сердечная или миокардиальная недостаточность БДУ; недостаточность кровообращения" },
         { name: "Синдром Бадда-Киари", internalCode: "1413", mkb: "I82.0", desc: "" },
         { name: "Синдром Дресслера", internalCode: "1380", mkb: "I24.1", desc: "" },
         { name: "Синдром преждевременного возбуждения", internalCode: "2159", mkb: "I45.6", desc: "синдром Вольфа-Паркинсона-Уайта (WPW), CLC" },
         { name: "Синдром Рейно", internalCode: "1408", mkb: "I73.0", desc: "включая гангрену" },
-        { name: "Синдром слабости синусового узла", internalCode: "2164", mkb: "I49.5", desc: "синдром (тахи)брадикардии. Медикаментозная брадикардия" },
+        { name: "Синдром слабости синусового узла", internalCode: "2164", mkb: "I49.5", desc: "синдром (тахи-)брадикардии" },
         { name: "Стеноз сонной артерии, не приводящий к инфаркту мозга", internalCode: "2932", mkb: "I65.2", desc: "" },
         { name: "Стенокардия с документально подтвержденным спазмом", internalCode: "2153", mkb: "I20.1", desc: "стенокардия ангиоспастическая, Принцметала, обусловленная спазмом, вариантная" },
         { name: "Субарахноидальное кровоизлияние неуточненное", internalCode: "1399", mkb: "I60.9", desc: "исключено: травматическое внутричерепное кровоизлияние (S06); транзиторные церебральные ишемические приступы и родственные синдромы (G45)" },
-        { name: "Субдуральное кровоизлияние острое нетравматическое", internalCode: "2925", mkb: "I62.0", desc: "" },
-        { name: "Типичная форма трепетание предсердий", internalCode: "2861", mkb: "I48.3", desc: "" },
+        { name: "Субдуральное кровоизлияние (острое) (нетравматическое)", internalCode: "2925", mkb: "I62.0", desc: "" },
+        { name: "Типичная форма трепетания предсердий", internalCode: "2861", mkb: "I48.3", desc: "" },
         { name: "Фибрилляция и трепетание желудочков", internalCode: "1396", mkb: "I49.0", desc: "" },
-        { name: "Фибрилляция и трепетание предсердий неуточненное", internalCode: "1395", mkb: "I48.9", desc: "неизвестной давности" },
+        { name: "Фибрилляция и трепетание предсердий неуточненное", internalCode: "1395", mkb: "I48.9", desc: "" },
         { name: "Флебит и тромбофлебит бедренной вены", internalCode: "2865", mkb: "I80.1", desc: "" },
-        { name: "Флебит и тромбофлебит других глубоких сосудов нижних конечностей", internalCode: "2866", mkb: "I80.2", desc: "тромбоз глубоких вен" },
+        { name: "Флебит и тромбофлебит других глубоких сосудов нижних конечностей", internalCode: "2866", mkb: "I80.2", desc: "тромбоз глубоких вен; илиофеморальный тромбоз" },
         { name: "Флебит и тромбофлебит других локализаций", internalCode: "2877", mkb: "I80.8", desc: "" },
         { name: "Флебит и тромбофлебит поверхностный сосудов нижних конечностей", internalCode: "1411", mkb: "I80.0", desc: "" },
         { name: "Эмболия и тромбоз артерий верхних конечностей", internalCode: "2171", mkb: "I74.2", desc: "" },
@@ -254,12 +320,25 @@
         { name: "Эмболия и тромбоз других уточненных вен", internalCode: "4054", mkb: "I82.8", desc: "" },
         { name: "Эмболия и тромбоз подвздошной артерии", internalCode: "2173", mkb: "I74.5", desc: "" },
         { name: "Эмболия и тромбоз полой вены", internalCode: "2867", mkb: "I82.2", desc: "" },
-        { name: "Эссенциальная [первичная] гипертензия", internalCode: "1372", mkb: "I10", desc: "" }
+        { name: "Эссенциальная [первичная] гипертензия", internalCode: "1372", mkb: "I10", desc: "гипертоническая болезнь I стадия" }
     ];
-    
-    circulatoryData.sort((a, b) => a.name.localeCompare(b.name, 'ru'));
-    
+
+    // Удаление дубликатов по internalCode + mkb
+    const uniqueData = [];
+    const keySet = new Set();
+    for (const item of circulatoryData) {
+        const key = `${item.internalCode}|${item.mkb}`;
+        if (!keySet.has(key)) {
+            keySet.add(key);
+            uniqueData.push(item);
+        }
+    }
+
+    // Сортировка по алфавиту
+    uniqueData.sort((a, b) => a.name.localeCompare(b.name, 'ru'));
+
     function escapeHtml(str) {
+        if (!str) return '';
         return str.replace(/[&<>]/g, function(m) {
             if (m === '&') return '&amp;';
             if (m === '<') return '&lt;';
@@ -267,32 +346,79 @@
             return m;
         });
     }
-    
-    function render() {
+
+    function renderCards(filterText = '') {
         const grid = document.getElementById('circulatoryGrid');
         if (!grid) return;
+        
+        const lowerFilter = filterText.toLowerCase().trim();
+        let filtered = uniqueData;
+        
+        if (lowerFilter !== '') {
+            filtered = uniqueData.filter(item => {
+                return item.name.toLowerCase().includes(lowerFilter) ||
+                       item.mkb.toLowerCase().includes(lowerFilter) ||
+                       item.internalCode.includes(lowerFilter) ||
+                       (item.desc && item.desc.toLowerCase().includes(lowerFilter));
+            });
+        }
+        
+        if (filtered.length === 0) {
+            grid.innerHTML = `<div class="no-results">🚫 Ничего не найдено. Попробуйте другой поисковый запрос.</div>`;
+            return;
+        }
+        
         grid.innerHTML = '';
-        circulatoryData.forEach(item => {
-            const card = document.createElement('div'); card.className = 'card';
-            const titleDiv = document.createElement('div'); titleDiv.className = 'disease-title';
-            const nameSpan = document.createElement('div'); nameSpan.className = 'disease-name'; nameSpan.textContent = item.name;
+        filtered.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'card';
+            
+            const titleDiv = document.createElement('div');
+            titleDiv.className = 'disease-title';
+            const nameSpan = document.createElement('div');
+            nameSpan.className = 'disease-name';
+            nameSpan.textContent = item.name;
             titleDiv.appendChild(nameSpan);
-            const codeBlockDiv = document.createElement('div'); codeBlockDiv.className = 'code-block';
-            const mkbSpan = document.createElement('div'); mkbSpan.className = 'mkb-line'; mkbSpan.textContent = `МКБ-10: ${item.mkb}`;
-            codeBlockDiv.appendChild(mkbSpan);
-            const innerSpan = document.createElement('div'); innerSpan.className = 'inner-code-block';
+            
+            const codeBlockDiv = document.createElement('div');
+            codeBlockDiv.className = 'code-block';
+            
+            const codesRow = document.createElement('div');
+            codesRow.className = 'codes-row';
+            
+            const mkbSpan = document.createElement('div');
+            mkbSpan.className = 'mkb-line';
+            mkbSpan.textContent = `МКБ-10: ${item.mkb}`;
+            codesRow.appendChild(mkbSpan);
+            
+            const innerSpan = document.createElement('div');
+            innerSpan.className = 'inner-code-block';
             innerSpan.innerHTML = `<strong>Код ССиНМП:</strong> ${item.internalCode}`;
-            codeBlockDiv.appendChild(innerSpan);
+            codesRow.appendChild(innerSpan);
+            
+            codeBlockDiv.appendChild(codesRow);
+            
             if (item.desc && item.desc.trim() !== "") {
-                const descDiv = document.createElement('div'); descDiv.className = 'description';
+                const descDiv = document.createElement('div');
+                descDiv.className = 'description';
                 descDiv.innerHTML = `<em>${escapeHtml(item.desc)}</em>`;
                 codeBlockDiv.appendChild(descDiv);
             }
-            card.appendChild(titleDiv); card.appendChild(codeBlockDiv);
+            
+            card.appendChild(titleDiv);
+            card.appendChild(codeBlockDiv);
             grid.appendChild(card);
         });
     }
-    render();
+    
+    const searchInput = document.getElementById('searchInput');
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            renderCards(e.target.value);
+        });
+    }
+    
+    renderCards();
 </script>
 </body>
 </html>
