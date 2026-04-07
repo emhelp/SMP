@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Справочник МКБ-10 | Ранние осложнения травм | Коды ССиНМП</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #dce5ec;
+            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+            padding: 16px 12px;
+            color: #1a3a48;
+        }
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+        }
+        .header {
+            background: #0b3b4f;
+            background-image: radial-gradient(circle at 10% 20%, #125d78, #062633);
+            border-radius: 24px;
+            padding: 14px 18px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px -4px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+        .header h1 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: -0.2px;
+            color: #ffffff;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .header h1 span {
+            background: #f5b042;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 60px;
+            color: #0a2e3c;
+            box-shadow: inset 0 -1px 0 rgba(0,0,0,0.05), 0 1px 4px rgba(0,0,0,0.1);
+        }
+        .search-bar {
+            margin-bottom: 18px;
+        }
+        .search-input {
+            padding: 12px 16px;
+            border-radius: 60px;
+            border: 1px solid #cbdbe2;
+            background: white;
+            font-size: 0.95rem;
+            width: 100%;
+            outline: none;
+            transition: all 0.2s;
+            font-family: inherit;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .search-input:focus {
+            border-color: #0f6b8c;
+            box-shadow: 0 0 0 3px rgba(18, 93, 120, 0.2);
+        }
+        .grid {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+        .card {
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.03);
+            border: 1px solid #dce5ec;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.15s ease;
+        }
+        .disease-title {
+            background: #f4f9fe;
+            padding: 12px 16px 10px 16px;
+            border-bottom: 1px solid #e2edf5;
+        }
+        .disease-name {
+            font-size: 1.08rem;
+            font-weight: 800;
+            color: #0c4e6b;
+            line-height: 1.35;
+            letter-spacing: -0.2px;
+        }
+        .code-block {
+            padding: 14px 16px 16px 16px;
+            background: #ffffff;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .codes-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+        .mkb-line {
+            font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+            font-weight: 400;
+            font-size: 0.85rem;
+            color: #000000;
+            background: #eef2f8;
+            padding: 8px 14px;
+            border-radius: 40px;
+            border: 1px solid #d0dee9;
+            letter-spacing: 0.2px;
+            word-break: break-word;
+            flex-shrink: 0;
+        }
+        .inner-code-block {
+            background: #f9f3e0;
+            padding: 8px 14px;
+            border-radius: 40px;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-weight: 500;
+            font-size: 0.85rem;
+            color: #a55217;
+            border: 1px solid #ffe0a3;
+            flex-shrink: 0;
+        }
+        .inner-code-block strong {
+            font-weight: 700;
+            color: #8b3c0c;
+        }
+        .description {
+            margin-top: 4px;
+            font-size: 0.85rem;
+            line-height: 1.4;
+            color: #2c4e62;
+            background: #fefef7;
+            padding: 10px 12px;
+            border-radius: 16px;
+            border-left: 3px solid #7fc1db;
+        }
+        .description em {
+            font-style: italic;
+            background: #fff2dd;
+            padding: 2px 4px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+        .no-results {
+            text-align: center;
+            padding: 48px 20px;
+            background: white;
+            border-radius: 28px;
+            color: #2c5a70;
+            font-weight: 500;
+            font-size: 1rem;
+            border: 1px solid #cde3ef;
+        }
+        @media (min-width: 768px) {
+            .grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
+            }
+            body {
+                padding: 20px;
+            }
+            .header h1 {
+                font-size: 1.4rem;
+            }
+        }
+        @media (min-width: 1024px) {
+            .grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            body {
+                padding: 24px 20px;
+            }
+        }
+        .container {
+            overflow-x: hidden;
+        }
+        body {
+            overflow-x: hidden;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>
+            📘 Ранние осложнения травм и манипуляций
+            <span>МКБ-10 + коды ССиНМП</span>
+        </h1>
+    </div>
+    <div class="search-bar">
+        <input type="text" id="searchInput" class="search-input" placeholder="Введите название или код" autocomplete="off">
+    </div>
+    <div class="grid" id="traumaGrid"></div>
+</div>
+
+<script>
+    // ========== ДАННЫЕ ИЗ ВСЕХ ПРЕДОСТАВЛЕННЫХ СКРИНШОТОВ (осложнения травм, инфузий, процедур, ампутаций, иммунизации, лекарств, последствия) ==========
+    const traumaData = [
+        // --- Скрин 1: ранние осложнения травм (T79) — уточнённые названия
+        { name: "Воздушная эмболия (травматическая)", internalCode: "2761", mkb: "T79.0", desc: "" },
+        { name: "Жировая эмболия (травматическая)", internalCode: "2762", mkb: "T79.1", desc: "" },
+        { name: "Травматическое вторичное или рецидивирующее кровотечение", internalCode: "2763", mkb: "T79.2", desc: "" },
+        { name: "Посттравматическая раневая инфекция, не классифицированная в других рубриках", internalCode: "2764", mkb: "T79.3", desc: "инфицированная рана" },
+        { name: "Травматический шок", internalCode: "1877", mkb: "T79.4", desc: "" },
+        { name: "Травматическая ишемия мышцы (синдром длительного сдавления)", internalCode: "1878", mkb: "T79.6", desc: "синдром длительного сдавления; футлярный синдром; ишемическая контрактура Фолькманна" },
+        { name: "Травматическая подкожная эмфизема", internalCode: "1879", mkb: "T79.7", desc: "" },
+        { name: "Другие ранние осложнения травмы", internalCode: "2978", mkb: "T79.8", desc: "" },
+        { name: "Некоторые ранние осложнения травм неуточненные", internalCode: "1876", mkb: "T79.9", desc: "осложнения травматического генеза, не классифицированные в других рубриках" },
+        
+        // --- Скрин 2: осложнения инфузий, трансфузий (T80)
+        { name: "Сосудистые осложнения, связанные с инфузией, трансфузией и лечебной инъекцией", internalCode: "1880", mkb: "T80.1", desc: "флебит, тромбоэмболия, тромбофлебит" },
+        { name: "Инфекции, связанные с инфузией, трансфузией и лечебной инъекцией", internalCode: "2765", mkb: "T80.2", desc: "инфекция, сепсис, септический шок, септицемия" },
+        { name: "Осложнение, связанное с инфузией, трансфузией и лечебной инъекцией неуточненное", internalCode: "2766", mkb: "T80.9", desc: "реакция на трансфузию БДУ" },
+        
+        // --- Скрин 2: осложнения процедур (T81)
+        { name: "Кровотечение и гематома любой локализации, являющиеся следствием процедуры, не классифицированные в других рубриках", internalCode: "2767", mkb: "T81.0", desc: "кровотечение после удаления зуба" },
+        { name: "Шок во время процедуры, не классифицированный в других рубриках", internalCode: "2768", mkb: "T81.1", desc: "" },
+        { name: "Расхождение краев операционной раны, не классифицированное в других рубриках", internalCode: "2769", mkb: "T81.3", desc: "исключено: рана после кесарева сечения (O90.0) и акушерских ран промежности (O90.1)" },
+        { name: "Инфекция, связанная с процедурой, не классифицированная в других рубриках", internalCode: "2770", mkb: "T81.4", desc: "абсцесс внутрибрюшной, шовный, поддиафрагмальный, раны после процедуры, септицемия. Исключено: инфекция акушерской хирургической раны (O86.0). Последствия послеоперационных вмешательств" },
+        { name: "Другие осложнения процедур, не классифицированные в других рубриках", internalCode: "2771", mkb: "T81.8", desc: "незакрывающийся послеоперационный свищ; эмфизема (подкожная) вследствие процедуры" },
+        
+        // --- Скрин 3: осложнения протезов, имплантатов (T82-T85)
+        { name: "Другие осложнения, связанные с сердечными и сосудистыми протезными устройствами, имплантатами и трансплантатами", internalCode: "1881", mkb: "T82.8", desc: "эмболия, фиброз, кровотечение, боль, стеноз, тромбоз" },
+        { name: "Осложнение механического происхождения, связанное с мочеполовыми протезными устройствами, имплантатами и трансплантатами", internalCode: "1882", mkb: "T83.0", desc: "поломка (механическая), смещение, подтекание, неправильное положение, закупорка (механическая), несостоятельность цистостомы" },
+        { name: "Осложнения механического происхождения, связанные с внутренними ортопедическими протезными устройствами, имплантатами и трансплантатами", internalCode: "1883", mkb: "T84.0", desc: "поломка (механическая), смещение, неправильное положение" },
+        { name: "Осложнения механического происхождения, связанное с искусственным хрусталиком", internalCode: "1884", mkb: "T85.2", desc: "смещение, неправильное положение" },
+        
+        // --- Скрин 4: осложнения ампутационной культи (T87)
+        { name: "Инфекция ампутационной культи", internalCode: "1885", mkb: "T87.4", desc: "" },
+        { name: "Некроз ампутационной культи", internalCode: "2772", mkb: "T87.5", desc: "" },
+        { name: "Другие и неуточненные осложнения ампутационной культи", internalCode: "2773", mkb: "T87.6", desc: "гематома, отек ампутационной культи. Исключено: фантомный синдром (G54.6)" },
+        
+        // --- Скрин 5: осложнения иммунизации и лекарственные реакции (T88)
+        { name: "Инфекция, связанная с иммунизацией", internalCode: "1886", mkb: "T88.0", desc: "сепсис, септицемия" },
+        { name: "Другие осложнения, связанные с иммунизацией, не классифицированные в других рубриках", internalCode: "2774", mkb: "T88.1", desc: "сыпь, связанная с иммунизацией" },
+        { name: "Анафилактический шок, обусловленный патологической реакцией на адекватно назначенное и правильно примененное лекарственное средство", internalCode: "2775", mkb: "T88.6", desc: "" },
+        { name: "Патологическая реакция на лекарственное средство или медикаменты неуточненная", internalCode: "2776", mkb: "T88.7", desc: "неблагоприятная реакция, аллергическая реакция, повышенная чувствительность, идиосинкразия" },
+        
+        // --- Скрин 6: последствия травм (T90)
+        { name: "Последствия внутричерепной травмы", internalCode: "2777", mkb: "T90.5", desc: "ВНИМАНИЕ!!! Понятие 'последствие' включает состояния как таковые или как отдаленные эффекты, сохраняющиеся в течение года или более после острой травмы" }
+    ];
+
+    // Удаление дубликатов по internalCode + mkb (на случай возможных повторов)
+    const uniqueMap = new Map();
+    for (const item of traumaData) {
+        const key = `${item.internalCode}|${item.mkb}`;
+        if (!uniqueMap.has(key)) {
+            uniqueMap.set(key, item);
+        }
+    }
+    const uniqueData = Array.from(uniqueMap.values());
+
+    // Сортировка по алфавиту (название заболевания, русская локаль)
+    uniqueData.sort((a, b) => a.name.localeCompare(b.name, 'ru'));
+
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+
+    function renderCards(filterText = '') {
+        const grid = document.getElementById('traumaGrid');
+        if (!grid) return;
+        
+        const lowerFilter = filterText.toLowerCase().trim();
+        let filtered = uniqueData;
+        
+        if (lowerFilter !== '') {
+            filtered = uniqueData.filter(item => {
+                return item.name.toLowerCase().includes(lowerFilter) ||
+                       item.mkb.toLowerCase().includes(lowerFilter) ||
+                       item.internalCode.includes(lowerFilter) ||
+                       (item.desc && item.desc.toLowerCase().includes(lowerFilter));
+            });
+        }
+        
+        if (filtered.length === 0) {
+            grid.innerHTML = `<div class="no-results">🚫 Ничего не найдено. Попробуйте другой поисковый запрос.</div>`;
+            return;
+        }
+        
+        grid.innerHTML = '';
+        filtered.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'card';
+            
+            const titleDiv = document.createElement('div');
+            titleDiv.className = 'disease-title';
+            const nameSpan = document.createElement('div');
+            nameSpan.className = 'disease-name';
+            nameSpan.textContent = item.name;
+            titleDiv.appendChild(nameSpan);
+            
+            const codeBlockDiv = document.createElement('div');
+            codeBlockDiv.className = 'code-block';
+            
+            const codesRow = document.createElement('div');
+            codesRow.className = 'codes-row';
+            
+            const mkbSpan = document.createElement('div');
+            mkbSpan.className = 'mkb-line';
+            mkbSpan.textContent = `МКБ-10: ${item.mkb}`;
+            codesRow.appendChild(mkbSpan);
+            
+            const innerSpan = document.createElement('div');
+            innerSpan.className = 'inner-code-block';
+            innerSpan.innerHTML = `<strong>Код ССиНМП:</strong> ${item.internalCode}`;
+            codesRow.appendChild(innerSpan);
+            
+            codeBlockDiv.appendChild(codesRow);
+            
+            if (item.desc && item.desc.trim() !== "") {
+                const descDiv = document.createElement('div');
+                descDiv.className = 'description';
+                descDiv.innerHTML = `<em>${escapeHtml(item.desc)}</em>`;
+                codeBlockDiv.appendChild(descDiv);
+            }
+            
+            card.appendChild(titleDiv);
+            card.appendChild(codeBlockDiv);
+            grid.appendChild(card);
+        });
+    }
+    
+    const searchInput = document.getElementById('searchInput');
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            renderCards(e.target.value);
+        });
+    }
+    
+    // Первоначальный рендер
+    renderCards();
+</script>
+</body>
+</html>
