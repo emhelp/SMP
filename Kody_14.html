@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Справочник МКБ-10 | Класс XVI. Отдельные состояния, возникающие в перинатальном периоде (P00-P96) | Коды ССиНМП</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #dce5ec;
+            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+            padding: 24px 20px;
+            color: #1a3a48;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .header {
+            background: #0b3b4f;
+            background-image: radial-gradient(circle at 10% 20%, #125d78, #062633);
+            border-radius: 32px;
+            padding: 16px 24px;
+            margin-bottom: 28px;
+            box-shadow: 0 6px 12px -6px rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+        .header h1 {
+            font-size: 1.55rem;
+            font-weight: 700;
+            letter-spacing: -0.2px;
+            color: #ffffff;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .header h1 span {
+            background: #f5b042;
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 60px;
+            color: #0a2e3c;
+            box-shadow: inset 0 -1px 0 rgba(0,0,0,0.05), 0 1px 4px rgba(0,0,0,0.1);
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 18px;
+        }
+        .card {
+            background: #ffffff;
+            border-radius: 24px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.03);
+            border: 1px solid #dce5ec;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .disease-title {
+            background: #f4f9fe;
+            padding: 12px 18px 10px 18px;
+            border-bottom: 1px solid #e2edf5;
+        }
+        .disease-name {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: #0c4e6b;
+            line-height: 1.3;
+            letter-spacing: -0.2px;
+        }
+        .code-block {
+            padding: 14px 18px 16px 18px;
+            background: #ffffff;
+            flex: 1;
+        }
+        .mkb-line {
+            font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+            font-weight: 400;
+            font-size: 0.9rem;
+            color: #000000;
+            background: #eef2f8;
+            padding: 5px 12px;
+            border-radius: 32px;
+            margin-bottom: 10px;
+            border: 1px solid #d0dee9;
+            display: inline-block;
+            letter-spacing: 0.2px;
+        }
+        .inner-code-block {
+            margin-top: 8px;
+            margin-bottom: 12px;
+            background: #f9f3e0;
+            padding: 5px 12px;
+            border-radius: 28px;
+            display: inline-block;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-weight: 500;
+            font-size: 0.85rem;
+            color: #a55217;
+            border: 1px solid #ffe0a3;
+        }
+        .inner-code-block strong {
+            font-weight: 700;
+            color: #8b3c0c;
+        }
+        .description {
+            margin-top: 10px;
+            font-size: 0.88rem;
+            line-height: 1.4;
+            color: #2c4e62;
+            background: #fefef7;
+            padding: 8px 12px;
+            border-radius: 18px;
+            border-left: 3px solid #7fc1db;
+        }
+        .description em {
+            font-style: italic;
+            background: #fff2dd;
+            padding: 0 2px;
+            border-radius: 6px;
+        }
+        @media (max-width: 760px) {
+            body { padding: 14px 12px; }
+            .grid { grid-template-columns: 1fr; }
+            .disease-name { font-size: 1.1rem; }
+            .header h1 { font-size: 1.3rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>
+            📘 Класс XVI. Отдельные состояния, возникающие в перинатальном периоде (P00–P96)
+            <span>МКБ-10 + коды ССиНМП</span>
+        </h1>
+    </div>
+    <div class="grid" id="perinatalGrid"></div>
+</div>
+<script>
+    const perinatalData = [
+        { name: "Бактериальный сепсис новорожденного неуточненный", internalCode: "2430", mkb: "P36.9", desc: "" },
+        { name: "Внутрижелудочковое кровоизлияние (нетравматическое) 1-й степени у плода и новорожденного", internalCode: "4090", mkb: "P52.0", desc: "субэпендимальное кровоизлияние (без распространения в желудочки мозга)" },
+        { name: "Внутрижелудочковое кровоизлияние (нетравматическое) 2-й степени у плода и новорожденного", internalCode: "4091", mkb: "P52.1", desc: "субэпендимальное кровоизлияние с распространением в желудочки мозга" },
+        { name: "Внутрижелудочковое кровоизлияние (нетравматическое) 3-й степени у плода и новорожденного", internalCode: "4092", mkb: "P52.2", desc: "субэпендимальное кровоизлияние с распространением в желудочки и ткань мозга" },
+        { name: "Внутриутробная гипоксия плода", internalCode: "2421", mkb: "P20.9", desc: "" },
+        { name: "Врожденная вирусная болезнь неуточненная", internalCode: "4087", mkb: "P35.9", desc: "" },
+        { name: "Врожденная инфекционная или паразитарная болезнь неуточненная", internalCode: "1150", mkb: "P37.9", desc: "" },
+        { name: "Врожденная пневмония", internalCode: "2425", mkb: "P23.9", desc: "инфекционная пневмония, развившаяся внутриутробно или при рождении" },
+        { name: "Врожденный гипертонус", internalCode: "1667", mkb: "P94.1", desc: "" },
+        { name: "Гаматемезис и мелена вследствие заглатывания материнской крови", internalCode: "2974", mkb: "P78.2", desc: "" },
+        { name: "Гемолитическая болезнь плода и новорожденного неуточненная", internalCode: "2437", mkb: "P55.9", desc: "" },
+        { name: "Геморрагическая болезнь плода и новорожденного", internalCode: "2433", mkb: "P53", desc: "дефицит витамина K у новорожденного" },
+        { name: "Гипоксически-ишемическая энцефалопатия новорожденного", internalCode: "1665", mkb: "P91.6", desc: "" },
+        { name: "Гипотермия новорожденного неуточненная", internalCode: "1662", mkb: "P80.9", desc: "" },
+        { name: "Другие неонатальные гипогликемии", internalCode: "2442", mkb: "P70.4", desc: "преходящая неонатальная гипогликемия" },
+        { name: "Другие типы апноэ у новорожденного", internalCode: "4083", mkb: "P28.4", desc: "" },
+        { name: "Другие уточненные кровотечения у новорожденного", internalCode: "2436", mkb: "P54.8", desc: "" },
+        { name: "Другие уточненные нарушения со стороны мозга у новорожденного", internalCode: "2444", mkb: "P91.8", desc: "" },
+        { name: "Другие формы неонатального перитонита", internalCode: "4095", mkb: "P78.1", desc: "неонатальный перитонит без дополнительных уточнений" },
+        { name: "Другая уточненная инфекция, специфическая для перинатального периода", internalCode: "4088", mkb: "P39.8", desc: "" },
+        { name: "Другие случаи малой массы тела при рождении", internalCode: "4077", mkb: "P07.1", desc: "масса тела при рождении 1000–2499 гр." },
+        { name: "Другие случаи недоношенности", internalCode: "2971", mkb: "P07.3", desc: "недоношенность при сроке беременности 28 полных недель или более, но не менее 37 полных недель" },
+        { name: "Другой и неуточненный ателектаз у новорожденного", internalCode: "2427", mkb: "P28.1", desc: "" },
+        { name: "Дыхательное расстройство у новорожденного (дистресс) неуточненное", internalCode: "2423", mkb: "P22.9", desc: "" },
+        { name: "Желудочно-кишечное кровотечение у новорожденного", internalCode: "2435", mkb: "P54.3", desc: "" },
+        { name: "Замедленный рост плода неуточненный", internalCode: "4076", mkb: "P05.9", desc: "задержка роста плода без дополнительных уточнений" },
+        { name: "Инфекция, специфическая для перинатального периода, неуточненная", internalCode: "4089", mkb: "P39.9", desc: "" },
+        { name: "Конъюнктивит и дакриоцистит у новорожденного", internalCode: "2432", mkb: "P39.1", desc: "" },
+        { name: "Крайне малая масса тела при рождении", internalCode: "1120", mkb: "P07.0", desc: "экстремально низкая масса тела (масса тела при рождении 999 гр. и менее)" },
+        { name: "Крайняя незрелость", internalCode: "2970", mkb: "P07.2", desc: "недоношенность при сроке беременности менее 28 полных недель (менее 196 полных дней)" },
+        { name: "Кровотечение из прямой кишки у новорожденного", internalCode: "2434", mkb: "P54.2", desc: "" },
+        { name: "Малый размер плода для гестационного возраста", internalCode: "2420", mkb: "P05.1", desc: "" },
+        { name: "Набухание молочных желез у новорожденного", internalCode: "2443", mkb: "P83.4", desc: "" },
+        { name: "Нарушения ритма сердца у новорожденного", internalCode: "4084", mkb: "P29.1", desc: "" },
+        { name: "Нарушения со стороны мозга у новорожденного неуточненное", internalCode: "4097", mkb: "P91.9", desc: "" },
+        { name: "Неонатальная аспирация амниотической жидкости и слизи", internalCode: "4081", mkb: "P24.1", desc: "аспирация околоплодных вод" },
+        { name: "Неонатальная аспирация крови", internalCode: "2972", mkb: "P24.2", desc: "" },
+        { name: "Неонатальная аспирация мекония", internalCode: "4080", mkb: "P24.0", desc: "" },
+        { name: "Неонатальная аспирация молока и срыгиваемой пищи", internalCode: "2973", mkb: "P24.3", desc: "" },
+        { name: "Неонатальная желтуха неуточненная", internalCode: "2440", mkb: "P59.9", desc: "физиологическая желтуха (выраженная) без дополнительных уточнений" },
+        { name: "Неонатальная желтуха, обусловленная чрезмерным гемолизом неуточненная", internalCode: "2439", mkb: "P58.9", desc: "" },
+        { name: "Неонатальная инфекция кожных покровов", internalCode: "2870", mkb: "P39.4", desc: "пиодермия новорожденных" },
+        { name: "Неонатальная кома", internalCode: "4096", mkb: "P91.5", desc: "" },
+        { name: "Неонатальный аспирационный синдром", internalCode: "2426", mkb: "P24.9", desc: "неонатальная пневмония, обусловленная аспирацией" },
+        { name: "Непроходимость кишечника у новорожденного неуточненная", internalCode: "4093", mkb: "P76.9", desc: "" },
+        { name: "Неуточненная асфиксия при рождении", internalCode: "2422", mkb: "P21.9", desc: "" },
+        { name: "Омфалит новорожденного с небольшим кровотечением или без него", internalCode: "2431", mkb: "P38", desc: "" },
+        { name: "Первичный ателектаз у новорожденного", internalCode: "4082", mkb: "P28.0", desc: "лёгочная гипоплазия, связанная с недоношенностью; лёгочная незрелость без дополнительных уточнений" },
+        { name: "Перфорация кишечника в перинатальном периоде", internalCode: "4094", mkb: "P78.0", desc: "мекониевый перитонит" },
+        { name: "Поражения плода и новорожденного, обусловленные другими болезнями матери, осложняющими беременность", internalCode: "1657", mkb: "P01.8", desc: "" },
+        { name: "Поражения плода и новорожденного, обусловленные другими видами сдавления пуповины", internalCode: "2413", mkb: "P02.5", desc: "" },
+        { name: "Поражения плода и новорожденного, обусловленные другими вредными воздействиями на мать", internalCode: "2419", mkb: "P04.8", desc: "" },
+        { name: "Поражения плода и новорожденного, обусловленные другими осложнениями, связанными с отделением плаценты и кровотечением", internalCode: "2412", mkb: "P02.1", desc: "" },
+        { name: "Поражения плода и новорожденного, обусловленные другим видом неправильного предлежания, положения и диспропорции во время родов и родоразрешения", internalCode: "2415", mkb: "P03.1", desc: "" },
+        { name: "Поражения плода и новорожденного, обусловленные многоплодной беременностью", internalCode: "1656", mkb: "P01.5", desc: "" },
+        { name: "Поражения плода и новорожденного, обусловленные неуточненными состояниями матери", internalCode: "2410", mkb: "P00.9", desc: "" },
+        { name: "Поражения плода и новорожденного, обусловленные осложнениями родов и родоразрешения неуточненные", internalCode: "1658", mkb: "P03.9", desc: "" },
+        { name: "Поражения плода и новорожденного, обусловленные потреблением алкоголя матерью", internalCode: "2417", mkb: "P04.3", desc: "" },
+        { name: "Поражения плода и новорожденного, обусловленные потреблением табака матерью", internalCode: "1659", mkb: "P04.2", desc: "" },
+        { name: "Поражения плода и новорожденного, обусловленные предлежанием плаценты", internalCode: "1655", mkb: "P02.0", desc: "" },
+        { name: "Поражения плода и новорожденного, обусловленные применением анестезии и анальгезирующих средств у матери во время беременности, родов и родоразрешения", internalCode: "4075", mkb: "P04.0", desc: "реакции и интоксикации, вызванные введением матери опиатов и транквилизаторов во время родов и родоразрешения" },
+        { name: "Поражения плода и новорожденного, обусловленные родоразрешением в тазовом предлежании и с экстракцией плода", internalCode: "2414", mkb: "P03.0", desc: "" },
+        { name: "Поражения плода и новорожденного, обусловленные стремительными родами", internalCode: "2416", mkb: "P03.5", desc: "" },
+        { name: "Поражения плода и новорожденного, обусловленные употреблением матерью наркотических средств", internalCode: "2418", mkb: "P04.4", desc: "" },
+        { name: "Поражения плода и новорожденного, обусловленное неправильным предлежанием плода перед родами", internalCode: "2411", mkb: "P01.7", desc: "" },
+        { name: "Преходящая ишемия миокарда у новорожденного", internalCode: "4086", mkb: "P29.4", desc: "" },
+        { name: "Расстройство системы пищеварения в перинатальном периоде неуточненное", internalCode: "2975", mkb: "P78.9", desc: "" },
+        { name: "Респираторное нарушение у новорожденного неуточненное", internalCode: "2428", mkb: "P28.9", desc: "" },
+        { name: "Рвота новорожденного", internalCode: "1666", mkb: "P92.0", desc: "" },
+        { name: "Родовая травма неуточненная", internalCode: "1661", mkb: "P15.9", desc: "" },
+        { name: "Сахарный диабет новорожденных", internalCode: "2441", mkb: "P70.2", desc: "" },
+        { name: "Сердечно-сосудистые нарушения, возникшие в перинатальном периоде неуточненные", internalCode: "2429", mkb: "P29.9", desc: "" },
+        { name: "Симптомы лекарственной абстиненции у новорожденного, обусловленные наркоманией матери", internalCode: "4098", mkb: "P96.1", desc: "синдром у младенца, обусловленный наркоманией матери. Исключено: лекарственные реакции и интоксикации, обусловленные введением матери опиатов и транквилизаторов (P04.0)" },
+        { name: "Смерть плода по неуточненной причине", internalCode: "1668", mkb: "P95", desc: "мертвый плод (без дополнительных уточнений), мертворожденный (без дополнительных уточнений)" },
+        { name: "Средняя и умеренная асфиксия при рождении", internalCode: "4079", mkb: "P21.1", desc: "синяя асфиксия. Оценка по шкале Апгар 4–7 через 1 минуту после рождения" },
+        { name: "Срыгивание и руминация новорожденного", internalCode: "2445", mkb: "P92.1", desc: "" },
+        { name: "Стойкое фетальное кровообращение у новорожденного", internalCode: "4085", mkb: "P29.3", desc: "задержка закрытия артериального протока у новорожденного" },
+        { name: "Судороги новорожденного", internalCode: "1664", mkb: "P90", desc: "" },
+        { name: "Тяжелая асфиксия при рождении", internalCode: "4078", mkb: "P21.0", desc: "белая асфиксия. Асфиксия с оценкой по шкале Апгар 0–3 через 1 минуту после рождения" },
+        { name: "Ядерная желтуха неуточненная", internalCode: "2438", mkb: "P57.9", desc: "" }
+    ];
+
+    // Сортировка по алфавиту по названию заболевания
+    perinatalData.sort((a, b) => a.name.localeCompare(b.name, 'ru'));
+
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+
+    function render() {
+        const grid = document.getElementById('perinatalGrid');
+        if (!grid) return;
+        grid.innerHTML = '';
+        perinatalData.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'card';
+
+            const titleDiv = document.createElement('div');
+            titleDiv.className = 'disease-title';
+            const nameSpan = document.createElement('div');
+            nameSpan.className = 'disease-name';
+            nameSpan.textContent = item.name;
+            titleDiv.appendChild(nameSpan);
+
+            const codeBlockDiv = document.createElement('div');
+            codeBlockDiv.className = 'code-block';
+
+            const mkbSpan = document.createElement('div');
+            mkbSpan.className = 'mkb-line';
+            mkbSpan.textContent = `МКБ-10: ${item.mkb}`;
+            codeBlockDiv.appendChild(mkbSpan);
+
+            const innerSpan = document.createElement('div');
+            innerSpan.className = 'inner-code-block';
+            innerSpan.innerHTML = `<strong>Код ССиНМП:</strong> ${item.internalCode}`;
+            codeBlockDiv.appendChild(innerSpan);
+
+            if (item.desc && item.desc.trim() !== "") {
+                const descDiv = document.createElement('div');
+                descDiv.className = 'description';
+                descDiv.innerHTML = `<em>${escapeHtml(item.desc)}</em>`;
+                codeBlockDiv.appendChild(descDiv);
+            }
+
+            card.appendChild(titleDiv);
+            card.appendChild(codeBlockDiv);
+            grid.appendChild(card);
+        });
+    }
+
+    render();
+</script>
+</body>
+</html>
