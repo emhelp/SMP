@@ -2,8 +2,13 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <title>Эндотрахеальная трубка (ЭТТ) — с учётом веса</title>
+    
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1e2f47">
+    
     <style>
         * {
             box-sizing: border-box;
@@ -12,35 +17,35 @@
         }
 
         body {
-            background: linear-gradient(145deg, #eef2f9 0%, #d4e0f0 100%);
-            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-            padding: 24px 16px;
+            background: linear-gradient(145deg, #eef2f7 0%, #dce3ec 100%);
+            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, 'Helvetica Neue', sans-serif;
+            padding: 2rem 1rem;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
-        .calculator-container {
+        .calculator-card {
             max-width: 950px;
             width: 100%;
-            background: rgba(255,255,255,0.96);
+            background: #ffffff;
             border-radius: 48px;
-            box-shadow: 0 20px 40px -12px rgba(0,0,0,0.3);
+            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.2);
             overflow: hidden;
         }
 
-        .header {
-            background: #0b2b3f;
-            padding: 28px 24px 20px;
+        .card-header {
+            background: #1e2f47;
+            background-image: linear-gradient(115deg, #142a3b, #1d3f55);
+            padding: 1.8rem 2rem;
             color: white;
             text-align: center;
         }
 
-        .header h1 {
+        .card-header h1 {
             font-size: 1.9rem;
             font-weight: 700;
-            letter-spacing: -0.3px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -48,28 +53,31 @@
             flex-wrap: wrap;
         }
 
-        .header h1 span {
-            background: #2c7da0;
-            padding: 4px 12px;
-            border-radius: 60px;
+        .card-header h1 span {
+            background: rgba(255,255,255,0.2);
             font-size: 0.9rem;
+            padding: 5px 14px;
+            border-radius: 60px;
             font-weight: 500;
         }
 
-        .header p {
+        .card-header p {
             margin-top: 12px;
-            opacity: 0.8;
-            font-size: 0.9rem;
+            opacity: 0.85;
+            font-size: 0.95rem;
+            border-left: 3px solid #5f9bc2;
+            padding-left: 16px;
+            text-align: left;
         }
 
-        .content {
-            padding: 28px 28px 36px;
+        .card-content {
+            padding: 2rem;
         }
 
         .mode-switch {
             display: flex;
             gap: 12px;
-            margin-bottom: 32px;
+            margin-bottom: 1.5rem;
             background: #eef2f7;
             border-radius: 60px;
             padding: 6px;
@@ -81,56 +89,57 @@
             padding: 12px 8px;
             border: none;
             background: transparent;
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 600;
-            border-radius: 50px;
+            border-radius: 60px;
             cursor: pointer;
             transition: 0.2s;
             font-family: inherit;
-            color: #1f4662;
+            color: #1f4a66;
         }
 
         .mode-btn.active {
-            background: #ffffff;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            color: #0f3b4f;
+            background: #1f6e9c;
+            color: white;
+            box-shadow: 0 4px 12px rgba(31,110,156,0.3);
         }
 
         .input-panel {
-            background: #f9fbfe;
-            border-radius: 36px;
-            padding: 20px 24px;
-            margin-bottom: 28px;
-            box-shadow: inset 0 1px 2px #0001, 0 6px 12px -8px rgba(0,0,0,0.1);
+            background: #f6fafd;
+            border-radius: 28px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid #d4e2f0;
         }
 
         .input-group {
-            margin-bottom: 20px;
+            margin-bottom: 1.25rem;
         }
 
         .input-group label {
             display: block;
             font-weight: 600;
-            color: #1a4c6e;
+            color: #1f4a66;
             margin-bottom: 8px;
             font-size: 0.9rem;
         }
 
         .input-group input, .input-group select {
             width: 100%;
-            padding: 14px 18px;
-            font-size: 1rem;
-            border: 2px solid #cfdfed;
-            border-radius: 32px;
+            padding: 12px 16px;
+            font-size: 0.95rem;
+            border: 2px solid #d4e2f0;
+            border-radius: 18px;
             background: white;
             transition: 0.2s;
             font-family: inherit;
+            color: #1f3a4b;
         }
 
         .input-group input:focus {
             outline: none;
-            border-color: #2c7da0;
-            box-shadow: 0 0 0 3px rgba(44,125,160,0.2);
+            border-color: #1f6e9c;
+            box-shadow: 0 0 0 3px rgba(31,110,156,0.1);
         }
 
         .radio-group {
@@ -146,129 +155,161 @@
             gap: 8px;
             font-weight: 500;
             cursor: pointer;
+            color: #1f3a4b;
+        }
+
+        .radio-group input {
+            width: 16px;
+            height: 16px;
+            accent-color: #1f6e9c;
         }
 
         .calc-btn {
-            background: #1f6392;
+            background: linear-gradient(135deg, #1f6e9c 0%, #155a80 100%);
             color: white;
             border: none;
             width: 100%;
-            padding: 16px;
-            font-size: 1.2rem;
+            padding: 14px 20px;
+            font-size: 1rem;
             font-weight: 700;
-            border-radius: 44px;
+            border-radius: 60px;
             cursor: pointer;
             transition: 0.2s;
-            margin-top: 8px;
+            margin-top: 0.5rem;
             font-family: inherit;
-            box-shadow: 0 8px 16px -6px rgba(0,0,0,0.2);
         }
 
         .calc-btn:hover {
-            background: #0f4b6e;
+            background: linear-gradient(135deg, #1a5c84 0%, #114d6e 100%);
             transform: translateY(-2px);
         }
 
         .calc-btn:active {
-            transform: translateY(1px);
+            transform: translateY(0);
         }
 
         .result-card {
-            background: linear-gradient(120deg, #ffffff, #f5faff);
-            border-radius: 36px;
-            padding: 20px 24px;
-            margin-top: 24px;
-            border: 1px solid rgba(70,130,200,0.2);
-            box-shadow: 0 12px 24px -12px rgba(0,0,0,0.2);
+            background: #f6fafd;
+            border-radius: 28px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            border-left: 6px solid #1f6e9c;
         }
 
         .result-title {
-            font-size: 1rem;
+            font-size: 0.85rem;
             text-transform: uppercase;
             letter-spacing: 2px;
-            color: #2c7da0;
+            color: #6f8eaa;
             font-weight: 700;
             margin-bottom: 16px;
-            border-left: 4px solid #2c7da0;
-            padding-left: 14px;
         }
 
         .result-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 18px;
-            margin-bottom: 16px;
+            gap: 1rem;
+            margin-bottom: 1rem;
         }
 
         .result-item {
-            background: #ffffffcc;
-            border-radius: 28px;
-            padding: 12px 16px;
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 1rem;
             text-align: center;
-            backdrop-filter: blur(2px);
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border: 1px solid #d4e2f0;
         }
 
         .result-item-label {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: 600;
-            color: #5f7f9e;
+            color: #6f8eaa;
             text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .result-item-value {
-            font-size: 1.7rem;
+            font-size: 1.6rem;
             font-weight: 800;
-            color: #0a2f44;
+            color: #1a4d6b;
             line-height: 1.2;
             margin-top: 6px;
         }
 
         .note {
             font-size: 0.75rem;
-            color: #4e6e8a;
-            background: #eef3fc;
+            color: #6f8eaa;
+            background: #ffffff;
             padding: 12px 16px;
-            border-radius: 24px;
-            margin-top: 16px;
-            border-left: 3px solid #2c7da0;
+            border-radius: 20px;
+            margin-top: 1rem;
+            border: 1px solid #d4e2f0;
         }
 
         .footnote {
             text-align: center;
             font-size: 0.7rem;
-            color: #5f7f9e;
-            margin-top: 28px;
-            border-top: 1px solid #cde0ef;
-            padding-top: 18px;
+            color: #6f8eaa;
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e2ecf3;
+            line-height: 1.5;
         }
 
-        @media (max-width: 550px) {
-            .content {
-                padding: 20px;
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+            .card-header {
+                padding: 1.2rem;
+            }
+            .card-header h1 {
+                font-size: 1.3rem;
+            }
+            .card-header p {
+                font-size: 0.8rem;
+            }
+            .card-content {
+                padding: 1rem;
             }
             .result-item-value {
-                font-size: 1.4rem;
+                font-size: 1.3rem;
             }
-            .header h1 {
-                font-size: 1.5rem;
+            .mode-btn {
+                font-size: 0.85rem;
+                padding: 10px 8px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .result-grid {
+                grid-template-columns: 1fr;
+            }
+            .radio-group {
+                gap: 12px;
+            }
+            .input-group input {
+                padding: 10px 14px;
             }
         }
     </style>
 </head>
 <body>
-<div class="calculator-container">
-    <div class="header">
-        <h1>📏 Эндотрахеальная трубка <span>ЭТТ + вес</span></h1>
-        <p>Калькулятор размера, глубины, манжеты и катетера с учётом веса пациента</p>
+<div class="calculator-card">
+    <div class="card-header">
+        <h1>
+            📏 Эндотрахеальная трубка
+            <span>ЭТТ + вес</span>
+        </h1>
+        <p>Калькулятор размера, глубины, манжеты и катетера для аспирации с учётом веса пациента</p>
     </div>
-    <div class="content">
+    <div class="card-content">
         <div class="mode-switch">
             <button class="mode-btn active" data-mode="adult">🧑 Взрослые</button>
             <button class="mode-btn" data-mode="pediatric">👶 Дети (0–14 лет)</button>
         </div>
 
-        <!-- Панель для взрослых (добавлен вес) -->
+        <!-- Панель для взрослых -->
         <div id="adultPanel" class="input-panel">
             <div class="input-group">
                 <label>Пол пациента</label>
@@ -293,7 +334,7 @@
             </div>
         </div>
 
-        <!-- Панель для детей (вес уже был, добавили подсказку) -->
+        <!-- Панель для детей -->
         <div id="pediatricPanel" class="input-panel" style="display: none;">
             <div class="input-group">
                 <label>Возраст (лет) — можно дробное, например 0.5 для 6 мес</label>
@@ -318,7 +359,7 @@
         <button class="calc-btn" id="calcBtn">🔍 Рассчитать параметры ЭТТ (с учётом веса)</button>
 
         <div class="result-card" id="resultCard">
-            <div class="result-title">📌 Рекомендация</div>
+            <div class="result-title">📌 РЕКОМЕНДАЦИЯ</div>
             <div class="result-grid" id="resultGrid">
                 <div class="result-item">
                     <div class="result-item-label">Внутренний диаметр (мм)</div>
@@ -341,15 +382,15 @@
                 * Вес учтён в расчёте.
             </div>
         </div>
+        
         <div class="footnote">
             ⚕️ Калькулятор даёт ориентировочные значения. Окончательное решение принимает анестезиолог/реаниматолог.<br>
-            Данные основаны на предоставленном PDF + коррекция по весу.
+            Данные основаны на клинических рекомендациях с коррекцией по весу.
         </div>
     </div>
 </div>
 
 <script>
-    // -------------------- ДЕТСКАЯ ТАБЛИЦА (возраст, вес, диаметр, глубина оральная, катетер, манжета) --------------------
     const pediatricTable = [
         { ageMin: 0, ageMax: 0.1, weightMin: 0, weightMax: 0.7, diam: 2.0, depthOral: 5, catheter: 6, cuff: false },
         { ageMin: 0, ageMax: 0.2, weightMin: 0.7, weightMax: 1.0, diam: 2.5, depthOral: 5.5, catheter: 6, cuff: false },
@@ -369,19 +410,16 @@
     ];
 
     function getPediatricMatch(ageYears, weightKg) {
-        // поиск по весу и возрасту
         for (let row of pediatricTable) {
             const ageOk = (ageYears >= row.ageMin && ageYears <= row.ageMax);
             const weightOk = (weightKg >= row.weightMin && weightKg <= row.weightMax);
             if (ageOk && weightOk) return { ...row };
         }
-        // fallback по возрасту (среднее)
         for (let row of pediatricTable) {
             if (ageYears <= row.ageMax + 0.5 && weightKg <= row.weightMax + 3) {
                 return { ...row };
             }
         }
-        // резервная формула
         let diamFormula = (ageYears / 4) + 4;
         diamFormula = Math.min(8.0, Math.max(2.5, diamFormula));
         let depthFormula = (ageYears / 2) + 12;
@@ -391,23 +429,20 @@
         else if (diamFormula <= 4.0) cath = 8;
         else if (diamFormula <= 6.0) cath = 10;
         else cath = 12;
-        return { diam: diamFormula, depthOral: depthFormula, catheter: cath, cuff: cuffRec, ageMin: 0, ageMax: 14, weightMin: 0, weightMax: 200 };
+        return { diam: diamFormula, depthOral: depthFormula, catheter: cath, cuff: cuffRec };
     }
 
-    // Коррекция диаметра у детей на основе веса (если вес сильно выше нормы для возраста)
     function adjustPediatricDiameterByWeight(baseDiam, ageYears, weightKg) {
         let expectedWeight = 0;
-        if (ageYears <= 1) expectedWeight = 3.5 + ageYears * 6; // примерная оценка
+        if (ageYears <= 1) expectedWeight = 3.5 + ageYears * 6;
         else if (ageYears <= 10) expectedWeight = 10 + (ageYears-1)*2.5;
         else expectedWeight = 30 + (ageYears-10)*4;
         if (expectedWeight < 0.5) expectedWeight = 3;
         let ratio = weightKg / expectedWeight;
         if (ratio > 1.3 && weightKg > 15) {
-            // значительный избыток веса -> увеличиваем диаметр на 0.5 мм, но не более 8.5
             return Math.min(8.5, baseDiam + 0.5);
         }
         if (ratio < 0.7 && weightKg < 10 && ageYears > 0.5) {
-            // дефицит веса -> возможно уменьшить на 0.5, но не менее 2.5
             return Math.max(2.5, baseDiam - 0.5);
         }
         return baseDiam;
@@ -422,11 +457,8 @@
         let cuff = match.cuff;
         let catheter = match.catheter;
 
-        // коррекция диаметра по весу (избыток/дефицит)
         diameter = adjustPediatricDiameterByWeight(diameter, ageYears, weightKg);
-        // Детям до 8 лет — без манжеты
         if (ageYears < 8) cuff = false;
-        // Очень маленький вес для новорождённых
         if (weightKg < 1.0) diameter = 2.5;
         if (weightKg < 2.0 && diameter > 3.0) diameter = 3.0;
 
@@ -434,7 +466,6 @@
         if (route === 'oral') {
             depth = oralDepth;
         } else {
-            // назальная глубина: формула возраст/2 + 15
             depth = (ageYears / 2) + 15;
             if (depth < 8) depth = 8;
         }
@@ -445,9 +476,7 @@
         return { diameter, depth, cuffText, catheterText };
     }
 
-    // -------------------- ВЗРОСЛЫЕ С УЧЁТОМ ВЕСА --------------------
     function calculateAdult(gender, weightKg, route) {
-        // базовые диапазоны (min-max)
         let minDiam, maxDiam;
         if (gender === 'male') {
             minDiam = 7.5;
@@ -456,40 +485,31 @@
             minDiam = 7.0;
             maxDiam = 8.0;
         }
-        // коррекция по весу
         let selectedDiam;
         let lowWeightThreshold = (gender === 'female') ? 55 : 65;
         let highWeightThreshold = 95;
         if (weightKg < lowWeightThreshold) {
-            // низкий вес: берём нижнюю границу, но если очень низкий (<45) можно даже уменьшить на 0.5
             selectedDiam = minDiam;
             if (weightKg < 45) selectedDiam = Math.max(6.5, minDiam - 0.5);
         } else if (weightKg > highWeightThreshold) {
-            // высокий вес: верхняя граница, при ожирении >120 добавим +0.5
             selectedDiam = maxDiam;
             if (weightKg > 120) selectedDiam = Math.min(9.0, maxDiam + 0.5);
         } else {
-            // нормальный вес: среднее значение диапазона
             selectedDiam = (minDiam + maxDiam) / 2;
-            // округление до 0.5
             selectedDiam = Math.round(selectedDiam * 2) / 2;
         }
-        // дополнительно: для очень низкого роста не меняем, но вес учтён
         selectedDiam = Math.round(selectedDiam * 10) / 10;
         
-        // глубина
         let depth;
         if (route === 'oral') {
             depth = (gender === 'male') ? 23 : 21;
         } else {
-            depth = (gender === 'male') ? 25 : 23; // назальная глубже на 2 см
+            depth = (gender === 'male') ? 25 : 23;
         }
-        // коррекция глубины по весу? для очень высокого веса можно увеличить на 1 см, но оставим стандарт
         if (weightKg > 110) depth += 1;
         
         let cuffText = "С манжетой (стандарт)";
         let catheterText = "12–14 Fr";
-        // подбор катетера в зависимости от диаметра
         if (selectedDiam <= 7.0) catheterText = "10–12 Fr";
         else if (selectedDiam >= 8.0) catheterText = "14 Fr";
         else catheterText = "12 Fr";
@@ -498,7 +518,6 @@
         return { diameter: diameterDisplay, depth: depth, cuffText, catheterText };
     }
 
-    // ---------- Управление интерфейсом ----------
     let currentMode = "adult";
     const adultPanel = document.getElementById('adultPanel');
     const pediatricPanel = document.getElementById('pediatricPanel');
@@ -580,11 +599,16 @@
         computeAndDisplay();
     });
 
-    // Стартовый расчёт для взрослых
     switchMode('adult');
     setTimeout(() => {
         computeAndDisplay();
     }, 50);
+    
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/SMP/sw.js')
+            .then(reg => console.log('✅ Сервис-воркер зарегистрирован:', reg))
+            .catch(err => console.error('❌ Ошибка регистрации:', err));
+    }
 </script>
 </body>
 </html>
