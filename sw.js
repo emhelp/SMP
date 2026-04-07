@@ -1,4 +1,4 @@
-const CACHE_NAME = 'emhelp-v16';
+const CACHE_NAME = 'emhelp-v17';
 
 const urlsToCache = [
   '/SMP/',
@@ -10,6 +10,26 @@ const urlsToCache = [
   '/SMP/templates.html',
   '/SMP/consilium.html',
   '/SMP/prikaz.html',
+  '/SMP/kody.html',
+  
+  // Коды МКБ (17 страниц)
+  '/SMP/Kody_1.html',
+  '/SMP/Kody_2.html',
+  '/SMP/Kody_3.html',
+  '/SMP/Kody_4.html',
+  '/SMP/Kody_5.html',
+  '/SMP/Kody_6.html',
+  '/SMP/Kody_7.html',
+  '/SMP/Kody_8.html',
+  '/SMP/Kody_9.html',
+  '/SMP/Kody_10.html',
+  '/SMP/Kody_11.html',
+  '/SMP/Kody_12.html',
+  '/SMP/Kody_13.html',
+  '/SMP/Kody_14.html',
+  '/SMP/Kody_15.html',
+  '/SMP/Kody_16.html',
+  '/SMP/Kody_17.html',
   
   // STATUS LOCALIS - основные страницы
   '/SMP/other_local_status.html',
@@ -20,6 +40,9 @@ const urlsToCache = [
   '/SMP/spine_fractures.html',
   '/SMP/facial_fractures.html',
   '/SMP/ligament_muscle_injuries.html',
+  '/SMP/contusions_and_abrasions.html',
+  '/SMP/wounds_including_infected.html',
+  '/SMP/head_injury.html',
   
   // ПЕРЕЛОМЫ ПОЗВОНОЧНИКА (spine_fractures.html)
   '/SMP/c4_compression_fracture.html',
