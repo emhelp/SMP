@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Справочник МКБ-10 | Класс XV. Беременность, роды и послеродовой период (O00-O99) | Коды ССиНМП</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #dce5ec;
+            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+            padding: 24px 20px;
+            color: #1a3a48;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .header {
+            background: #0b3b4f;
+            background-image: radial-gradient(circle at 10% 20%, #125d78, #062633);
+            border-radius: 32px;
+            padding: 16px 24px;
+            margin-bottom: 28px;
+            box-shadow: 0 6px 12px -6px rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+        .header h1 {
+            font-size: 1.55rem;
+            font-weight: 700;
+            letter-spacing: -0.2px;
+            color: #ffffff;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .header h1 span {
+            background: #f5b042;
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 60px;
+            color: #0a2e3c;
+            box-shadow: inset 0 -1px 0 rgba(0,0,0,0.05), 0 1px 4px rgba(0,0,0,0.1);
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 18px;
+        }
+        .card {
+            background: #ffffff;
+            border-radius: 24px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.03);
+            border: 1px solid #dce5ec;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .disease-title {
+            background: #f4f9fe;
+            padding: 12px 18px 10px 18px;
+            border-bottom: 1px solid #e2edf5;
+        }
+        .disease-name {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: #0c4e6b;
+            line-height: 1.3;
+            letter-spacing: -0.2px;
+        }
+        .code-block {
+            padding: 14px 18px 16px 18px;
+            background: #ffffff;
+            flex: 1;
+        }
+        .mkb-line {
+            font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+            font-weight: 400;
+            font-size: 0.9rem;
+            color: #000000;
+            background: #eef2f8;
+            padding: 5px 12px;
+            border-radius: 32px;
+            margin-bottom: 10px;
+            border: 1px solid #d0dee9;
+            display: inline-block;
+            letter-spacing: 0.2px;
+        }
+        .inner-code-block {
+            margin-top: 8px;
+            margin-bottom: 12px;
+            background: #f9f3e0;
+            padding: 5px 12px;
+            border-radius: 28px;
+            display: inline-block;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-weight: 500;
+            font-size: 0.85rem;
+            color: #a55217;
+            border: 1px solid #ffe0a3;
+        }
+        .inner-code-block strong {
+            font-weight: 700;
+            color: #8b3c0c;
+        }
+        .description {
+            margin-top: 10px;
+            font-size: 0.88rem;
+            line-height: 1.4;
+            color: #2c4e62;
+            background: #fefef7;
+            padding: 8px 12px;
+            border-radius: 18px;
+            border-left: 3px solid #7fc1db;
+        }
+        .description em {
+            font-style: italic;
+            background: #fff2dd;
+            padding: 0 2px;
+            border-radius: 6px;
+        }
+        @media (max-width: 760px) {
+            body { padding: 14px 12px; }
+            .grid { grid-template-columns: 1fr; }
+            .disease-name { font-size: 1.1rem; }
+            .header h1 { font-size: 1.3rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>
+            📘 Класс XV. Беременность, роды и послеродовой период (O00–O99)
+            <span>МКБ-10 + коды ССиНМП</span>
+        </h1>
+    </div>
+    <div class="grid" id="pregnancyGrid"></div>
+</div>
+<script>
+    const pregnancyData = [
+        { name: "Абсцесс молочной железы, связанный с деторождением", internalCode: "1647", mkb: "O91.1", desc: "в том числе: гнойный мастит" },
+        { name: "Акушерская смерть по неуточненной причине", internalCode: "1649", mkb: "O95", desc: "смерть матери от неуточненной причины во время беременности, родов или послеродовом периоде" },
+        { name: "Акушерская эмболия сгустками крови", internalCode: "1645", mkb: "O88.2", desc: "акушерская (легочная) эмболия, послеродовая легочная эмболия" },
+        { name: "Акушерский шок", internalCode: "2386", mkb: "O75.1", desc: "" },
+        { name: "Акушерское пособие при одноплодных родах неуточненное", internalCode: "1641", mkb: "O83.9", desc: "роды при бригаде 03" },
+        { name: "Анемия, осложняющая беременность, роды и послеродовой период", internalCode: "2401", mkb: "O99.0", desc: "состояния из рубрик B50–D64" },
+        { name: "Болезни кожи и подкожной клетчатки, осложняющие беременность, роды и послеродовой период", internalCode: "2408", mkb: "O99.7", desc: "состояния из рубрик L00-L99. Исключено: O26.4" },
+        { name: "Болезни органов пищеварения, осложняющие беременность, роды и послеродовой период", internalCode: "2407", mkb: "O99.6", desc: "состояния из рубрик K00-K93. Исключено: O22.4, O87.2" },
+        { name: "Болезни системы кровообращения, осложняющие беременность, роды и послеродовой период", internalCode: "2405", mkb: "O99.4", desc: "состояния из рубрик I00-I99. Исключено: O10-O16, O22.0, O22.2, O22.9, O87.0, O87.1" },
+        { name: "Болезни эндокринной системы, осложняющие беременность, роды и послеродовой период", internalCode: "2403", mkb: "O99.2", desc: "состояния из рубрик E00–E90. Исключено: сахарный диабет при беременности, родах, послеродовом периоде" },
+        { name: "Венозные осложнения в послеродовом периоде неуточненные", internalCode: "2390", mkb: "O87.9", desc: "послеродовой флебит, тромбоз БДУ" },
+        { name: "Вирусный гепатит, осложняющий беременность, роды и послеродовой период", internalCode: "2396", mkb: "O98.4", desc: "состояния из рубрик B15–B19" },
+        { name: "Внутриутробная гибель плода", internalCode: "2373", mkb: "O36.4", desc: "" },
+        { name: "Внематочная [эктопическая] беременность неуточненная", internalCode: "1605", mkb: "O00.9", desc: "" },
+        { name: "Вызванная беременностью гипертензия без значительной протеинурии", internalCode: "2358", mkb: "O13", desc: "в том числе: нефропатия легкой степени" },
+        { name: "Вызванные беременностью отеки", internalCode: "2969", mkb: "O12.0", desc: "" },
+        { name: "Вызванные беременностью отеки с протеинурией без гипертензии", internalCode: "2357", mkb: "O12.2", desc: "" },
+        { name: "Герпес беременных", internalCode: "1618", mkb: "O26.4", desc: "" },
+        { name: "Гипертензия у матери неуточненная", internalCode: "1614", mkb: "O16", desc: "преходящая гипертензия во время беременности" },
+        { name: "Гипертермия неясного происхождения, возникшая после родов", internalCode: "2389", mkb: "O86.4", desc: "послеродовая инфекция, пирексия БДУ" },
+        { name: "Гипотензивный синдром у матери", internalCode: "2372", mkb: "O26.5", desc: "гипотензивный синдром в положении лежа" },
+        { name: "Глубокий флеботромбоз во время беременности", internalCode: "1617", mkb: "O22.3", desc: "тромбоз глубоких вен, дородовой" },
+        { name: "Дистресс матери во время родов и родоразрешения", internalCode: "1639", mkb: "O75.0", desc: "" },
+        { name: "Другие вирусные болезни, осложняющие беременность, роды и послеродовой период", internalCode: "2397", mkb: "O98.5", desc: "состояния из рубрик A80–B09, B25–B34" },
+        { name: "Другие болезни крови и кроветворных органов, осложняющие беременность, роды и послеродовой период", internalCode: "2402", mkb: "O99.1", desc: "состояния из рубрик D65–D89" },
+        { name: "Другие виды слабости родовой деятельности", internalCode: "1629", mkb: "O62.2", desc: "атония матки, нерегулярные схватки, слабые схватки, слабость родовой деятельности БДУ" },
+        { name: "Другие инфекционные и паразитарные болезни матери, осложняющие беременность, роды и послеродовой период", internalCode: "2400", mkb: "O98.8", desc: "" },
+        { name: "Другие кровотечения в ранние сроки беременности", internalCode: "2364", mkb: "O20.8", desc: "" },
+        { name: "Другие кровотечения в раннем послеродовом периоде", internalCode: "2384", mkb: "O72.1", desc: "кровотечение после рождения плаценты, послеродовое кровотечение (атоническое БДУ)" },
+        { name: "Другие нарушения родовой деятельности", internalCode: "2378", mkb: "O62.8", desc: "" },
+        { name: "Другая и неуточненная инфекция мочеполовых путей при беременности", internalCode: "2368", mkb: "O23.9", desc: "" },
+        { name: "Другие уточненные акушерские травмы", internalCode: "2383", mkb: "O71.8", desc: "" },
+        { name: "Другие уточненные болезни и состояния, осложняющие беременность, роды и послеродовой период", internalCode: "1650", mkb: "O99.8", desc: "применяется в случаях двух и более нозологических единиц с кодами O99.0–O99.7, например, у беременной анемии и обострение хронического гастрита. Состояния из рубрик C00-D48, H00-H95, M00-M99, N00-N99 и Q00-Q99. Например: острый отит и беременность 12 нед. Исключено: O23.0, O23.1, O23.9, O86.2" },
+        { name: "Другие уточненные отклонения в состоянии плода", internalCode: "2375", mkb: "O36.8", desc: "" },
+        { name: "Задержка плаценты без кровотечения", internalCode: "1638", mkb: "O73.0", desc: "" },
+        { name: "Затрудненные роды вследствие несоответствия размеров таза и плода", internalCode: "2380", mkb: "O65.4", desc: "" },
+        { name: "Затрудненные роды вследствие неправильного положения и предлежания плода", internalCode: "2379", mkb: "O64.9", desc: "" },
+        { name: "Затрудненные роды неуточненные", internalCode: "1631", mkb: "O66.9", desc: "" },
+        { name: "Затяжные роды", internalCode: "1630", mkb: "O63.9", desc: "" },
+        { name: "Инфекции мочевого пузыря при беременности", internalCode: "2367", mkb: "O23.1", desc: "" },
+        { name: "Инфекции почек при беременности", internalCode: "2366", mkb: "O23.0", desc: "гестационный пиелонефрит" },
+        { name: "Инфекция хирургической акушерской раны", internalCode: "1644", mkb: "O86.0", desc: "инфицированная рана кесарева сечения, инфицированный шов промежности" },
+        { name: "Кровотечение в третьем периоде родов", internalCode: "1637", mkb: "O72.0", desc: "" },
+        { name: "Кровотечение во время родов неуточненное", internalCode: "1632", mkb: "O67.9", desc: "" },
+        { name: "Ложные схватки в период до 37 полных недель беременности", internalCode: "1626", mkb: "O47.0", desc: "угроза на сроке 22–36 недель" },
+        { name: "Многоплодная беременность неуточненная", internalCode: "1619", mkb: "O30.9", desc: "" },
+        { name: "Невынашивание — другие уточненные болезни и состояния, осложняющие беременность", internalCode: "1650", mkb: "O99.8", desc: "применяется для дополнительных состояний при беременности" },
+        { name: "Негнойный мастит, связанный с деторождением", internalCode: "2392", mkb: "O91.2", desc: "лимфангиит молочной железы, мастит: интерстициальный, паренхиматозный, БДУ. Лактостаз (серозный, инфильтративный)" },
+        { name: "Недостаточный рост плода", internalCode: "2374", mkb: "O36.5", desc: "" },
+        { name: "Неполный самопроизвольный аборт без осложнений", internalCode: "2351", mkb: "O03.4", desc: "выкидыш до 22 недель" },
+        { name: "Неполный самопроизвольный аборт, осложнившийся инфекцией половых путей и тазовых органов", internalCode: "2967", mkb: "O03.0", desc: "осложнившийся: эндометритом, оофоритом, параметритом, тазовым перитонитом, сальпингоофоритом, сепсисом, септическим шоком" },
+        { name: "Неполный самопроизвольный аборт, осложнившийся длительным или чрезмерным кровотечением", internalCode: "2968", mkb: "O03.1", desc: "" },
+        { name: "Несостоявшийся выкидыш", internalCode: "2350", mkb: "O02.1", desc: "ранняя гибель плода с задержкой в матке" },
+        { name: "Неудачный медицинский аборт, осложнившийся длительным или чрезмерным кровотечением", internalCode: "2352", mkb: "O07.1", desc: "" },
+        { name: "Неудачный медицинский аборт, осложнившийся инфекцией половых путей и тазовых органов", internalCode: "1610", mkb: "O07.0", desc: "" },
+        { name: "Одноплодные самопроизвольные роды в затылочном предлежании", internalCode: "1640", mkb: "O80.0", desc: "" },
+        { name: "Одноплодные самопроизвольные роды в ягодичном предлежании", internalCode: "2387", mkb: "O80.1", desc: "" },
+        { name: "Одноплодные самопроизвольные роды неуточненные", internalCode: "2388", mkb: "O80.9", desc: "подходит для: 1-й период срочных родов от 37 недель, при регулярных схватках или предвестники срочных родов при нерегулярных схватках и тянущих болях, воды ЦЕЛЫ" },
+        { name: "Переношенная беременность", internalCode: "1627", mkb: "O48", desc: "" },
+        { name: "Плацентарное нарушение неуточненное", internalCode: "1622", mkb: "O43.9", desc: "" },
+        { name: "Погибшее плодное яйцо", internalCode: "1607", mkb: "O02.0", desc: "если кровотечение — код 10" },
+        { name: "Позднее или вторичное послеродовое кровотечение", internalCode: "2385", mkb: "O72.2", desc: "" },
+        { name: "Поздняя рвота беременных с нарушениями обмена веществ", internalCode: "2365", mkb: "O21.2", desc: "после 22 недель беременности" },
+        { name: "Последствия осложнения беременности, деторождения и послеродового периода", internalCode: "2393", mkb: "O94", desc: "" },
+        { name: "Послеродовой сепсис", internalCode: "1643", mkb: "O85", desc: "в том числе: послеродовой эндометрит, послеродовая лихорадка, послеродовой перитонит, послеродовая септицемия" },
+        { name: "Преждевременная отслойка плаценты [abruptio placentae] неуточненная", internalCode: "1624", mkb: "O45.9", desc: "звонок на центр (84956205245)!!!" },
+        { name: "Преждевременные роды без родоразрешения", internalCode: "1628", mkb: "O60.0", desc: "начало родов (спонтанное) ранее 37 полных недель беременности. Угроза преждевременных родов, регулярные схватки. Звонок на центр (84956205245)!!!" },
+        { name: "Преждевременные самопроизвольные роды с преждевременным родоразрешением", internalCode: "2376", mkb: "O60.1", desc: "начало родов (спонтанное) ранее 37 полных недель беременности. Звонок на центр (84956205245)!!!" },
+        { name: "Преждевременный разрыв плодных оболочек неуточненный", internalCode: "1621", mkb: "O42.9", desc: "" },
+        { name: "Предлежание плаценты с кровотечением", internalCode: "1623", mkb: "O44.1", desc: "" },
+        { name: "Преэклампсия [нефропатия] неуточненная", internalCode: "2360", mkb: "O14.9", desc: "" },
+        { name: "Преэклампсия [нефропатия] средней тяжести", internalCode: "1612", mkb: "O14.0", desc: "" },
+        { name: "Признаки внутриутробной гипоксии плода", internalCode: "1620", mkb: "O36.3", desc: "" },
+        { name: "Протозойные инфекции, осложняющие беременность, роды и послеродовой период", internalCode: "2398", mkb: "O98.6", desc: "состояния из рубрик B50–B64" },
+        { name: "Психические расстройства и болезни нервной системы, осложняющие беременность, роды и послеродовой период", internalCode: "2404", mkb: "O99.3", desc: "в сочетании с ВСД. Используется линейными бригадами в случае заболеваний нервной системы с кодами G00–G99. Например: невралгия тройничного нерва и беременность" },
+        { name: "Пузырный занос неуточненный", internalCode: "1606", mkb: "O01.9", desc: "" },
+        { name: "Разрыв матки во время родов", internalCode: "1636", mkb: "O71.1", desc: "" },
+        { name: "Разрывы промежности при родоразрешении неуточненные", internalCode: "1635", mkb: "O70.9", desc: "" },
+        { name: "Расхождение швов после кесарева сечения", internalCode: "1646", mkb: "O90.0", desc: "" },
+        { name: "Расхождение швов промежности", internalCode: "2391", mkb: "O90.1", desc: "" },
+        { name: "Роды многоплодные, полностью самопроизвольные", internalCode: "1642", mkb: "O84.0", desc: "" },
+        { name: "Роды, осложнившиеся выпадением пуповины", internalCode: "1634", mkb: "O69.0", desc: "" },
+        { name: "Роды, осложнившиеся изменением частоты сердечных сокращений плода", internalCode: "1633", mkb: "O68.0", desc: "брадикардия, нарушение ритма, тахикардия у плода" },
+        { name: "Роды, осложнившиеся короткой пуповиной", internalCode: "2382", mkb: "O69.3", desc: "" },
+        { name: "Роды, осложнившиеся обвитием пуповины вокруг шеи со сдавлением", internalCode: "2381", mkb: "O69.1", desc: "" },
+        { name: "Самопроизвольный неполный аборт с другими и неуточненными осложнениями", internalCode: "1608", mkb: "O03.3", desc: "в том числе: полный, неполный, неуточненный; с осложнениями (инфекцией, кровотечением, эмболией или неуточненными осложнениями), без осложнений" },
+        { name: "Сахарный диабет, развившийся во время беременности", internalCode: "2371", mkb: "O24.4", desc: "гестационный сахарный диабет" },
+        { name: "Сифилис, осложняющий беременность, роды и послеродовой период", internalCode: "2395", mkb: "O98.1", desc: "запрещено использовать в качестве основного диагноза" },
+        { name: "Стремительные роды", internalCode: "2377", mkb: "O62.3", desc: "" },
+        { name: "Существовавшая ранее гипертензия, осложняющая беременность, роды и послеродовой период", internalCode: "2353", mkb: "O10.0", desc: "включая ранее существовавшую гипертоническую болезнь, вторичную артериальную гипертензию. Д-3 ГБ-2 ст. Беременность XX нед." },
+        { name: "Существовавшая ранее гипертензия с присоединившейся протеинурией", internalCode: "2356", mkb: "O11", desc: "" },
+        { name: "Существовавшая ранее почечная гипертензия, осложняющая беременность, роды и послеродовой период", internalCode: "2354", mkb: "O10.2", desc: "" },
+        { name: "Существовавшая ранее вторичная гипертензия, осложняющая беременность, роды и послеродовой период", internalCode: "2355", mkb: "O10.4", desc: "" },
+        { name: "Существовавший ранее сахарный диабет инсулинзависимый", internalCode: "2369", mkb: "O24.0", desc: "у беременных, существовавший ранее сахарный диабет (инсулинозависимый, инсулиннезависимый, связанный с недостаточностью питания, неуточненный); сахарный диабет, развившийся во время беременности (гестационный сахарный диабет); сахарный диабет при беременности неуточненный" },
+        { name: "Существовавший ранее сахарный диабет инсулиннезависимый", internalCode: "2370", mkb: "O24.1", desc: "у беременных" },
+        { name: "Существовавший ранее сахарный диабет неуточненный при беременности", internalCode: "4034", mkb: "O24.3", desc: "" },
+        { name: "Трещина соска, связанная с деторождением", internalCode: "1648", mkb: "O92.1", desc: "" },
+        { name: "Трубная беременность", internalCode: "2915", mkb: "O00.1", desc: "беременность в маточной трубе, разрыв маточной трубы вследствие беременности, трубный аборт" },
+        { name: "Туберкулез, осложняющий беременность, роды и послеродовой период", internalCode: "2394", mkb: "O98.0", desc: "запрещено использовать в качестве основного диагноза" },
+        { name: "Тяжелая преэклампсия", internalCode: "2359", mkb: "O14.1", desc: "" },
+        { name: "Угрожающий аборт", internalCode: "1615", mkb: "O20.0", desc: "кровотечение, уточненное как проявление угрожающего аборта. Угроза на сроке до 22 недель" },
+        { name: "Чрезмерная или тяжелая рвота беременных с нарушениями обмена веществ", internalCode: "1616", mkb: "O21.1", desc: "до 22 недель беременности" },
+        { name: "Эклампсия в послеродовом периоде", internalCode: "2362", mkb: "O15.2", desc: "" },
+        { name: "Эклампсия в родах", internalCode: "2361", mkb: "O15.1", desc: "" },
+        { name: "Эклампсия во время беременности", internalCode: "1613", mkb: "O15.0", desc: "" },
+        { name: "Эклампсия неуточненная по срокам", internalCode: "2363", mkb: "O15.9", desc: "" }
+    ];
+
+    // Сортировка по алфавиту по названию заболевания
+    pregnancyData.sort((a, b) => a.name.localeCompare(b.name, 'ru'));
+
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+
+    function render() {
+        const grid = document.getElementById('pregnancyGrid');
+        if (!grid) return;
+        grid.innerHTML = '';
+        pregnancyData.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'card';
+
+            const titleDiv = document.createElement('div');
+            titleDiv.className = 'disease-title';
+            const nameSpan = document.createElement('div');
+            nameSpan.className = 'disease-name';
+            nameSpan.textContent = item.name;
+            titleDiv.appendChild(nameSpan);
+
+            const codeBlockDiv = document.createElement('div');
+            codeBlockDiv.className = 'code-block';
+
+            const mkbSpan = document.createElement('div');
+            mkbSpan.className = 'mkb-line';
+            mkbSpan.textContent = `МКБ-10: ${item.mkb}`;
+            codeBlockDiv.appendChild(mkbSpan);
+
+            const innerSpan = document.createElement('div');
+            innerSpan.className = 'inner-code-block';
+            innerSpan.innerHTML = `<strong>Код ССиНМП:</strong> ${item.internalCode}`;
+            codeBlockDiv.appendChild(innerSpan);
+
+            if (item.desc && item.desc.trim() !== "") {
+                const descDiv = document.createElement('div');
+                descDiv.className = 'description';
+                descDiv.innerHTML = `<em>${escapeHtml(item.desc)}</em>`;
+                codeBlockDiv.appendChild(descDiv);
+            }
+
+            card.appendChild(titleDiv);
+            card.appendChild(codeBlockDiv);
+            grid.appendChild(card);
+        });
+    }
+
+    render();
+</script>
+</body>
+</html>
