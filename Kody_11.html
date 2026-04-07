@@ -49,6 +49,28 @@
             color: #0a2e3c;
             box-shadow: inset 0 -1px 0 rgba(0,0,0,0.05), 0 1px 4px rgba(0,0,0,0.1);
         }
+        .search-bar {
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: flex-end;
+        }
+        .search-input {
+            padding: 10px 18px;
+            border-radius: 60px;
+            border: 1px solid #cbdbe2;
+            background: white;
+            font-size: 0.9rem;
+            width: 300px;
+            max-width: 100%;
+            outline: none;
+            transition: all 0.2s;
+            font-family: inherit;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .search-input:focus {
+            border-color: #0f6b8c;
+            box-shadow: 0 0 0 3px rgba(18, 93, 120, 0.2);
+        }
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
@@ -62,6 +84,7 @@
             overflow: hidden;
             display: flex;
             flex-direction: column;
+            transition: all 0.15s ease;
         }
         .disease-title {
             background: #f4f9fe;
@@ -69,7 +92,7 @@
             border-bottom: 1px solid #e2edf5;
         }
         .disease-name {
-            font-size: 1.2rem;
+            font-size: 1.18rem;
             font-weight: 800;
             color: #0c4e6b;
             line-height: 1.3;
@@ -126,11 +149,24 @@
             padding: 0 2px;
             border-radius: 6px;
         }
+        .no-results {
+            text-align: center;
+            padding: 48px 24px;
+            background: white;
+            border-radius: 32px;
+            color: #2c5a70;
+            font-weight: 500;
+            font-size: 1.1rem;
+            grid-column: 1 / -1;
+            border: 1px solid #cde3ef;
+        }
         @media (max-width: 760px) {
             body { padding: 14px 12px; }
             .grid { grid-template-columns: 1fr; }
             .disease-name { font-size: 1.1rem; }
             .header h1 { font-size: 1.3rem; }
+            .search-bar { justify-content: stretch; }
+            .search-input { width: 100%; }
         }
     </style>
 </head>
@@ -141,6 +177,9 @@
             📘 Класс XII. Болезни кожи и подкожной клетчатки (L00–L99)
             <span>МКБ-10 + коды ССиНМП</span>
         </h1>
+    </div>
+    <div class="search-bar">
+        <input type="text" id="searchInput" class="search-input" placeholder="Введите название или код" autocomplete="off">
     </div>
     <div class="grid" id="skinGrid"></div>
 </div>
@@ -215,11 +254,29 @@
         });
     }
 
-    function render() {
+    function renderCards(filterText = '') {
         const grid = document.getElementById('skinGrid');
         if (!grid) return;
+        
+        const lowerFilter = filterText.toLowerCase().trim();
+        let filtered = skinData;
+        
+        if (lowerFilter !== '') {
+            filtered = skinData.filter(item => {
+                return item.name.toLowerCase().includes(lowerFilter) ||
+                       item.mkb.toLowerCase().includes(lowerFilter) ||
+                       item.internalCode.includes(lowerFilter) ||
+                       (item.desc && item.desc.toLowerCase().includes(lowerFilter));
+            });
+        }
+        
+        if (filtered.length === 0) {
+            grid.innerHTML = `<div class="no-results">🚫 Ничего не найдено. Попробуйте другой поисковый запрос.</div>`;
+            return;
+        }
+        
         grid.innerHTML = '';
-        skinData.forEach(item => {
+        filtered.forEach(item => {
             const card = document.createElement('div');
             card.className = 'card';
 
@@ -255,8 +312,17 @@
             grid.appendChild(card);
         });
     }
-
-    render();
+    
+    // Поиск в реальном времени
+    const searchInput = document.getElementById('searchInput');
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            renderCards(e.target.value);
+        });
+    }
+    
+    // Первоначальный рендер
+    renderCards();
 </script>
 </body>
 </html>
