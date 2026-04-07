@@ -217,29 +217,12 @@
       color: #b45309;
     }
     
-    /* Блок с изображением перед фиолетовым блоком */
-    .image-before-result {
-      text-align: center;
-      margin: 20px 0 16px 0;
-      background: transparent;
-    }
-    
-    .swipe-image {
-      max-width: 100%;
-      height: auto;
-      border-radius: 24px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-      display: inline-block;
-      background: white;
-      padding: 8px;
-    }
-    
     /* ФИОЛЕТОВЫЙ БЛОК РЕЗУЛЬТАТА */
     .result-card-purple {
       background: linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%);
       border-radius: 20px;
       padding: 20px 22px;
-      margin: 12px 0 24px 0;
+      margin: 12px 0 20px 0;
       display: flex;
       align-items: center;
       gap: 16px;
@@ -261,6 +244,73 @@
     .result-text strong {
       color: #ffd966;
       font-weight: 700;
+    }
+    
+    /* Блок с изображением для iPhone (после фиолетового блока) */
+    .iphone-navigation-block {
+      background: white;
+      border-radius: 20px;
+      padding: 20px 18px;
+      margin: 8px 0 10px 0;
+      text-align: center;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+      border: 1px solid #e9eef3;
+    }
+    
+    .iphone-navigation-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: #0f1446;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: #f0f4fc;
+      padding: 8px 14px;
+      border-radius: 40px;
+      width: fit-content;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .iphone-navigation-title .apple-icon {
+      font-size: 22px;
+    }
+    
+    .iphone-navigation-title span {
+      background: #000;
+      color: white;
+      padding: 2px 12px;
+      border-radius: 30px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+    
+    .swipe-image {
+      max-width: 50%;
+      height: auto;
+      border-radius: 24px;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+      display: inline-block;
+      background: #f8f9fc;
+      padding: 6px;
+      transition: transform 0.2s ease;
+    }
+    
+    .swipe-image:hover {
+      transform: scale(1.01);
+    }
+    
+    .image-caption {
+      font-size: 14px;
+      color: #5b6e8c;
+      margin-top: 14px;
+      font-weight: 500;
+      background: #f8fafc;
+      display: inline-block;
+      padding: 5px 16px;
+      border-radius: 30px;
     }
     
     /* Адаптив */
@@ -328,15 +378,6 @@
         padding: 2px 8px;
       }
       
-      .image-before-result {
-        margin: 16px 0 12px 0;
-      }
-      
-      .swipe-image {
-        border-radius: 20px;
-        padding: 6px;
-      }
-      
       .result-card-purple {
         padding: 16px 18px;
         gap: 14px;
@@ -348,6 +389,29 @@
       
       .result-text {
         font-size: 15px;
+      }
+      
+      .iphone-navigation-block {
+        padding: 16px 14px;
+      }
+      
+      .iphone-navigation-title {
+        font-size: 15px;
+        padding: 6px 12px;
+        gap: 8px;
+      }
+      
+      .iphone-navigation-title .apple-icon {
+        font-size: 20px;
+      }
+      
+      .swipe-image {
+        max-width: 55%;
+      }
+      
+      .image-caption {
+        font-size: 13px;
+        margin-top: 12px;
       }
     }
     
@@ -367,6 +431,14 @@
       .clickable-link {
         font-size: 12px;
         padding: 6px 10px;
+      }
+      
+      .swipe-image {
+        max-width: 65%;
+      }
+      
+      .iphone-navigation-title {
+        font-size: 14px;
       }
     }
   </style>
@@ -441,17 +513,27 @@
       </div>
     </div>
     
-    <!-- Изображение перед фиолетовым блоком (55_swipe.png) -->
-    <div class="image-before-result">
-      <img src="55_swipe.png" alt="Свайп для установки" class="swipe-image" loading="lazy">
-    </div>
-    
     <!-- Результат (фиолетовый блок) -->
     <div class="result-card-purple">
       <div class="result-icon">✅</div>
       <div class="result-text">
         <strong>Готово!</strong> Иконка приложения появится на рабочем столе.<br>
         Теперь приложение работает <strong>даже без интернета</strong> (при условии, что вы хотя бы раз открыли нужные страницы в браузере — они сохранятся в <strong>кэше</strong>).
+      </div>
+    </div>
+    
+    <!-- Изображение 55_swipe.png после фиолетового блока, уменьшенное в 2 раза, с подписью для iPhone -->
+    <div class="iphone-navigation-block">
+      <div class="iphone-navigation-title">
+        <span class="apple-icon">🍏</span>
+        <span>iPhone</span>
+        <span class="apple-icon">📱</span>
+      </div>
+      <div style="text-align: center;">
+        <img src="55_swipe.png" alt="Навигация для iPhone" class="swipe-image" loading="lazy">
+      </div>
+      <div class="image-caption">
+        📲 Этот способ навигации только для пользователей iPhone
       </div>
     </div>
     
