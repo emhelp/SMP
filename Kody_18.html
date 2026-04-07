@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Справочник МКБ-10 | Симптомы, признаки (R00-R99) | Коды ССиНМП</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #dce5ec;
+            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+            padding: 16px 12px;
+            color: #1a3a48;
+        }
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+        }
+        .header {
+            background: #0b3b4f;
+            background-image: radial-gradient(circle at 10% 20%, #125d78, #062633);
+            border-radius: 24px;
+            padding: 14px 18px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px -4px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+        .header h1 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: -0.2px;
+            color: #ffffff;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .header h1 span {
+            background: #f5b042;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 60px;
+            color: #0a2e3c;
+            box-shadow: inset 0 -1px 0 rgba(0,0,0,0.05), 0 1px 4px rgba(0,0,0,0.1);
+        }
+        .search-bar {
+            margin-bottom: 18px;
+        }
+        .search-input {
+            padding: 12px 16px;
+            border-radius: 60px;
+            border: 1px solid #cbdbe2;
+            background: white;
+            font-size: 0.95rem;
+            width: 100%;
+            outline: none;
+            transition: all 0.2s;
+            font-family: inherit;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .search-input:focus {
+            border-color: #0f6b8c;
+            box-shadow: 0 0 0 3px rgba(18, 93, 120, 0.2);
+        }
+        .grid {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+        .card {
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.03);
+            border: 1px solid #dce5ec;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.15s ease;
+        }
+        .disease-title {
+            background: #f4f9fe;
+            padding: 12px 16px 10px 16px;
+            border-bottom: 1px solid #e2edf5;
+        }
+        .disease-name {
+            font-size: 1.08rem;
+            font-weight: 800;
+            color: #0c4e6b;
+            line-height: 1.35;
+            letter-spacing: -0.2px;
+        }
+        .code-block {
+            padding: 14px 16px 16px 16px;
+            background: #ffffff;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .codes-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+        .mkb-line {
+            font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+            font-weight: 400;
+            font-size: 0.85rem;
+            color: #000000;
+            background: #eef2f8;
+            padding: 8px 14px;
+            border-radius: 40px;
+            border: 1px solid #d0dee9;
+            letter-spacing: 0.2px;
+            word-break: break-word;
+            flex-shrink: 0;
+        }
+        .inner-code-block {
+            background: #f9f3e0;
+            padding: 8px 14px;
+            border-radius: 40px;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-weight: 500;
+            font-size: 0.85rem;
+            color: #a55217;
+            border: 1px solid #ffe0a3;
+            flex-shrink: 0;
+        }
+        .inner-code-block strong {
+            font-weight: 700;
+            color: #8b3c0c;
+        }
+        .description {
+            margin-top: 4px;
+            font-size: 0.85rem;
+            line-height: 1.4;
+            color: #2c4e62;
+            background: #fefef7;
+            padding: 10px 12px;
+            border-radius: 16px;
+            border-left: 3px solid #7fc1db;
+        }
+        .description em {
+            font-style: italic;
+            background: #fff2dd;
+            padding: 2px 4px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+        .no-results {
+            text-align: center;
+            padding: 48px 20px;
+            background: white;
+            border-radius: 28px;
+            color: #2c5a70;
+            font-weight: 500;
+            font-size: 1rem;
+            border: 1px solid #cde3ef;
+        }
+        @media (min-width: 768px) {
+            .grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
+            }
+            body {
+                padding: 20px;
+            }
+            .header h1 {
+                font-size: 1.4rem;
+            }
+        }
+        @media (min-width: 1024px) {
+            .grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            body {
+                padding: 24px 20px;
+            }
+        }
+        .container {
+            overflow-x: hidden;
+        }
+        body {
+            overflow-x: hidden;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>
+            📘 Класс XVIII. Симптомы, признаки и отклонения от нормы (R00–R99)
+            <span>МКБ-10 + коды ССиНМП</span>
+        </h1>
+    </div>
+    <div class="search-bar">
+        <input type="text" id="searchInput" class="search-input" placeholder="Введите название или код" autocomplete="off">
+    </div>
+    <div class="grid" id="symptomsGrid"></div>
+</div>
+
+<script>
+    // ========== ПОЛНЫЙ МАССИВ ДАННЫХ из всех скриншотов (симптомы, признаки, отклонения) ==========
+    const symptomsData = [
+        // --- Скрин 1: R00-R03 (сердечно-сосудистая система)
+        { name: "Тахикардия неуточненная", internalCode: "1700", mkb: "R00.0", desc: "Обязательна постановка на первое место при наличии беременности" },
+        { name: "Брадикардия неуточненная", internalCode: "2800", mkb: "R00.1", desc: "Обязательна постановка на первое место при наличии беременности" },
+        { name: "Сердцебиение", internalCode: "2801", mkb: "R00.2", desc: "Обязательна постановка на первое место при наличии беременности" },
+        { name: "Другие и неуточненные аномалии сердечного ритма", internalCode: "2802", mkb: "R00.8", desc: "Обязательна постановка на первое место при наличии беременности" },
+        { name: "Гангрена, не классифицированная в других рубриках", internalCode: "1701", mkb: "R02", desc: "Обязательна постановка на первое место при наличии беременности" },
+        { name: "Повышенное кровяное давление при отсутствии диагноза гипертензии", internalCode: "1702", mkb: "R03.0", desc: "Обязательна постановка на первое место при наличии беременности" },
+        { name: "Неспецифическое низкое давление", internalCode: "2803", mkb: "R03.1", desc: "Обязательна постановка на первое место при наличии беременности" },
+        
+        // --- Скрин 2: R04-R06 (дыхательная система)
+        { name: "Носовое кровотечение", internalCode: "1703", mkb: "R04.0", desc: "Обязательна постановка на первое место при наличии беременности" },
+        { name: "Кровотечение из горла", internalCode: "2804", mkb: "R04.1", desc: "Обязательна постановка на первое место при наличии беременности" },
+        { name: "Кровохарканье", internalCode: "2805", mkb: "R04.2", desc: "Обязательна постановка на первое место при наличии беременности" },
+        { name: "Кровотечение из других отделов дыхательных путей неуточненное", internalCode: "2806", mkb: "R04.8", desc: "легочное кровотечение БДУ. Обязательна постановка на первое место при наличии беременности" },
+        { name: "Одышка", internalCode: "1704", mkb: "R06.0", desc: "Обязательна постановка на первое место при наличии беременности" },
+        { name: "Стридор", internalCode: "2807", mkb: "R06.1", desc: "Обязательна постановка на первое место при наличии беременности" },
+        { name: "Гипервентиляция", internalCode: "2808", mkb: "R06.4", desc: "Обязательна постановка на первое место при наличии беременности" },
+        { name: "Икота", internalCode: "2809", mkb: "R06.6", desc: "Обязательна постановка на первое место при наличии беременности" },
+        { name: "Чихание", internalCode: "2810", mkb: "R06.7", desc: "Обязательна постановка на первое место при наличии беременности" },
+        { name: "Другое и неуточненное анормальное дыхание", internalCode: "2811", mkb: "R06.8", desc: "апноэ БДУ, задержка дыхания, ощущение удушья. Обязательна постановка на первое место при наличии беременности" },
+        { name: "Боль в горле", internalCode: "1705", mkb: "R07.0", desc: "Обязательна постановка на первое место при наличии беременности" },
+        
+        // --- Скрин 3: R07-R10 (боль в груди, живот)
+        { name: "Боль в груди при дыхании", internalCode: "2812", mkb: "R07.1", desc: "Обязательна постановка на первое место при наличии беременности" },
+        { name: "Боль в области сердца", internalCode: "2813", mkb: "R07.2", desc: "Обязательна постановка на первое место при наличии беременности" },
+        { name: "Боль в груди неуточненная", internalCode: "2814", mkb: "R07.4", desc: "Обязательна постановка на первое место при наличии беременности" },
+        { name: "Плеврит", internalCode: "2815", mkb: "R09.1", desc: "исключено: плеврит с выпотом (J90). Обязательна постановка на первое место при наличии беременности" },
+        { name: "Другие уточненные симптомы и признаки, относящиеся к системам кровообращения и дыхания", internalCode: "1706", mkb: "R09.8", desc: "Обязательна постановка на первое место при наличии беременности" },
+        { name: "Острый живот", internalCode: "1707", mkb: "R10.0", desc: "Обязательна постановка на первое место при наличии беременности" },
+        { name: "Другие и неуточненные боли в области живота", internalCode: "2816", mkb: "R10.4", desc: "колика неуточненная и кишечная колика у детей. Обязательна постановка на первое место при наличии беременности" },
+        
+        // --- Скрин 4: R11-R14, R17-R18, R21, R29.1 (ЖКТ, желтуха, сыпь)
+        { name: "Тошнота и рвота", internalCode: "1708", mkb: "R11", desc: "исключено: кровавая рвота (K92), рвота неукротимая при беременности (O21), рвота у новорожденного (P92), в том числе кровавая (P54). Обязательна постановка на первое место при наличии беременности" },
+        { name: "Изжога", internalCode: "1709", mkb: "R12", desc: "Обязательна постановка на первое место при наличии беременности" },
+        { name: "Дисфагия", internalCode: "1710", mkb: "R13", desc: "затрудненное глотание. Обязательна постановка на первое место при наличии беременности" },
+        { name: "Метеоризм и родственные состояния", internalCode: "1711", mkb: "R14", desc: "в том числе: вздутие живота, отрыжка, боли от скопления газов. Обязательна постановка на первое место при наличии беременности" },
+        { name: "Неуточненная желтуха", internalCode: "1712", mkb: "R17", desc: "исключено: желтуха новорожденного (P55, P57–59). Обязательна постановка на первое место при наличии беременности" },
+        { name: "Асцит", internalCode: "1713", mkb: "R18", desc: "Обязательна постановка на первое место при наличии беременности" },
+        { name: "Сыпь и другие неспецифические кожные высыпания", internalCode: "1715", mkb: "R21", desc: "Обязательна постановка на первое место при наличии беременности" },
+        { name: "Менингизм", internalCode: "1716", mkb: "R29.1", desc: "Обязательна постановка на первое место при наличии беременности" },
+        
+        // --- Скрин 5: R29.8, R31-R33, R40 (мочевая, нервная, ступор, кома)
+        { name: "Другие и неуточненные симптомы и признаки, относящиеся к нервной и костно-мышечной системам", internalCode: "2817", mkb: "R29.8", desc: "Обязательна постановка на первое место при наличии беременности" },
+        { name: "Неспецифическая гематурия", internalCode: "1717", mkb: "R31", desc: "Обязательна постановка на первое место при наличии беременности" },
+        { name: "Недержание мочи неуточненное", internalCode: "2818", mkb: "R32", desc: "энурез неуточненный. Обязательна постановка на первое место при наличии беременности" },
+        { name: "Задержка мочи", internalCode: "1718", mkb: "R33", desc: "Обязательна постановка на первое место при наличии беременности" },
+        { name: "Сомнолентность", internalCode: "1720", mkb: "R40.0", desc: "сонливость. Обязательна постановка на первое место при наличии беременности" },
+        { name: "Ступор", internalCode: "2819", mkb: "R40.1", desc: "Обязательна постановка на первое место при наличии беременности" },
+        { name: "Кома неуточненная", internalCode: "2820", mkb: "R40.2", desc: "Обязательна постановка на первое место при наличии беременности" },
+        
+        // --- Скрин 6: R41 (амнезии, нарушение ориентировки)
+        { name: "Нарушение ориентировки неуточненное", internalCode: "1721", mkb: "R41.0", desc: "Обязательна постановка на первое место при наличии беременности" },
+        { name: "Антероградная амнезия", internalCode: "2821", mkb: "R41.1", desc: "Обязательна постановка на первое место при наличии беременности" },
+        { name: "Ретроградная амнезия", internalCode: "2822", mkb: "R41.2", desc: "Обязательна постановка на первое место при наличии беременности" },
+        { name: "Другие амнезии", internalCode: "2823", mkb: "R41.3", desc: "амнезия БДУ. Обязательна постановка на первое место при наличии беременности" },
+        { name: "Другие и неуточненные симптомы и признаки, относящиеся к познавательной способности и осознанию", internalCode: "2824", mkb: "R41.8", desc: "Обязательна постановка на первое место при наличии беременности" },
+        
+        // --- Скрин 7: R42, R44-R45 (головокружение, галлюцинации, эмоции)
+        { name: "Головокружение и нарушение устойчивости", internalCode: "1722", mkb: "R42", desc: "Обязательна постановка на первое место при наличии беременности" },
+        { name: "Слуховые галлюцинации", internalCode: "2825", mkb: "R44.0", desc: "Обязательна постановка на первое место при наличии беременности" },
+        { name: "Зрительные галлюцинации", internalCode: "2826", mkb: "R44.1", desc: "Обязательна постановка на первое место при наличии беременности" },
+        { name: "Другие галлюцинации", internalCode: "1735", mkb: "R44.2", desc: "Обязательна постановка на первое место при наличии беременности" },
+        { name: "Другие и неуточненные симптомы и признаки, относящиеся к общим ощущениям и восприятиям", internalCode: "2827", mkb: "R44.8", desc: "Обязательна постановка на первое место при наличии беременности" },
+        { name: "Беспокойство и возбуждение", internalCode: "1736", mkb: "R45.1", desc: "Обязательна постановка на первое место при наличии беременности" },
+        { name: "Деморализация и апатия", internalCode: "2828", mkb: "R45.3", desc: "Обязательна постановка на первое место при наличии беременности" },
+        { name: "Состояние эмоционального шока и стресса неуточненное", internalCode: "2829", mkb: "R45.7", desc: "состояние эмоционального стресса. Обязательна постановка на первое место при наличии беременности" },
+        
+        // --- Скрин 8: R46, R50 (внешний вид, лихорадка)
+        { name: "Причудливый внешний вид", internalCode: "1723", mkb: "R46.1", desc: "Обязательна постановка на первое место при наличии беременности" },
+        { name: "Странное и необъяснимое поведение", internalCode: "2830", mkb: "R46.2", desc: "Обязательна постановка на первое место при наличии беременности" },
+        { name: "Другие симптомы и признаки, относящиеся к внешнему виду и поведению", internalCode: "2831", mkb: "R46.8", desc: "Обязательна постановка на первое место при наличии беременности" },
+        { name: "Лихорадка неуточненная", internalCode: "1724", mkb: "R50.9", desc: "Обязательна постановка на первое место при наличии беременности" },
+        
+        // --- Скрин 9: R51-R58 (боль, шок, кровотечение)
+        { name: "Головная боль", internalCode: "1725", mkb: "R51", desc: "исключая: мигрень (G43), головную боль напряжения (G44). Обязательна постановка на первое место при наличии беременности" },
+        { name: "Боль неуточненная", internalCode: "1726", mkb: "R52.9", desc: "генерализованная боль БДУ. Обязательна постановка на первое место при наличии беременности" },
+        { name: "Старость", internalCode: "1727", mkb: "R54", desc: "в том числе: старческая астения, слабость (без упоминания о психозе). Обязательна постановка на первое место при наличии беременности" },
+        { name: "Обморок [синкопе] и коллапс", internalCode: "1728", mkb: "R55", desc: "Обязательна постановка на первое место при наличии беременности" },
+        { name: "Судороги при лихорадке", internalCode: "1729", mkb: "R56.0", desc: "Обязательна постановка на первое место при наличии беременности" },
+        { name: "Другие и неуточненные судороги", internalCode: "2832", mkb: "R56.8", desc: "судорожный припадок неуточненный, состояние после приступа судорог. Обязательна постановка на первое место при наличии беременности" },
+        { name: "Кардиогенный шок", internalCode: "2833", mkb: "R57.0", desc: "Обязательна постановка на первое место при наличии беременности" },
+        { name: "Гиповолемический шок", internalCode: "2834", mkb: "R57.1", desc: "Обязательна постановка на первое место при наличии беременности" },
+        { name: "Септический шок", internalCode: "2835", mkb: "R57.2", desc: "Обязательна постановка на первое место при наличии беременности" },
+        { name: "Эндотоксический шок", internalCode: "1730", mkb: "R57.8", desc: "Обязательна постановка на первое место при наличии беременности" },
+        { name: "Кровотечение, не классифицированное в других рубриках", internalCode: "1731", mkb: "R58", desc: "Обязательна постановка на первое место при наличии беременности. Не подходит при удалении зубов в поликлинике" },
+        
+        // --- Скрин 10: R59, R64, R73, R95, R99
+        { name: "Увеличение лимфатических узлов неуточненное", internalCode: "2836", mkb: "R59.9", desc: "Обязательна постановка на первое место при наличии беременности" },
+        { name: "Кахексия", internalCode: "1732", mkb: "R64", desc: "Обязательна постановка на первое место при наличии беременности" },
+        { name: "Гипергликемия неуточненная", internalCode: "2837", mkb: "R73.9", desc: "Обязательна постановка на первое место при наличии беременности" },
+        { name: "Внезапная смерть грудного ребенка", internalCode: "1733", mkb: "R95.9", desc: "Обязательна постановка на первое место при наличии беременности" },
+        { name: "Другие неточно обозначенные и неуточненные причины смерти", internalCode: "1737", mkb: "R99", desc: "смерть БДУ, неизвестная причина смерти. Обязательна постановка на первое место при наличии беременности" }
+    ];
+
+    // Удаление дубликатов по internalCode + mkb
+    const uniqueMap = new Map();
+    for (const item of symptomsData) {
+        const key = `${item.internalCode}|${item.mkb}`;
+        if (!uniqueMap.has(key)) {
+            uniqueMap.set(key, item);
+        }
+    }
+    const uniqueData = Array.from(uniqueMap.values());
+
+    // Сортировка по алфавиту (название заболевания, русская локаль)
+    uniqueData.sort((a, b) => a.name.localeCompare(b.name, 'ru'));
+
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+
+    function renderCards(filterText = '') {
+        const grid = document.getElementById('symptomsGrid');
+        if (!grid) return;
+        
+        const lowerFilter = filterText.toLowerCase().trim();
+        let filtered = uniqueData;
+        
+        if (lowerFilter !== '') {
+            filtered = uniqueData.filter(item => {
+                return item.name.toLowerCase().includes(lowerFilter) ||
+                       item.mkb.toLowerCase().includes(lowerFilter) ||
+                       item.internalCode.includes(lowerFilter) ||
+                       (item.desc && item.desc.toLowerCase().includes(lowerFilter));
+            });
+        }
+        
+        if (filtered.length === 0) {
+            grid.innerHTML = `<div class="no-results">🚫 Ничего не найдено. Попробуйте другой поисковый запрос.</div>`;
+            return;
+        }
+        
+        grid.innerHTML = '';
+        filtered.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'card';
+            
+            const titleDiv = document.createElement('div');
+            titleDiv.className = 'disease-title';
+            const nameSpan = document.createElement('div');
+            nameSpan.className = 'disease-name';
+            nameSpan.textContent = item.name;
+            titleDiv.appendChild(nameSpan);
+            
+            const codeBlockDiv = document.createElement('div');
+            codeBlockDiv.className = 'code-block';
+            
+            const codesRow = document.createElement('div');
+            codesRow.className = 'codes-row';
+            
+            const mkbSpan = document.createElement('div');
+            mkbSpan.className = 'mkb-line';
+            mkbSpan.textContent = `МКБ-10: ${item.mkb}`;
+            codesRow.appendChild(mkbSpan);
+            
+            const innerSpan = document.createElement('div');
+            innerSpan.className = 'inner-code-block';
+            innerSpan.innerHTML = `<strong>Код ССиНМП:</strong> ${item.internalCode}`;
+            codesRow.appendChild(innerSpan);
+            
+            codeBlockDiv.appendChild(codesRow);
+            
+            if (item.desc && item.desc.trim() !== "") {
+                const descDiv = document.createElement('div');
+                descDiv.className = 'description';
+                descDiv.innerHTML = `<em>${escapeHtml(item.desc)}</em>`;
+                codeBlockDiv.appendChild(descDiv);
+            }
+            
+            card.appendChild(titleDiv);
+            card.appendChild(codeBlockDiv);
+            grid.appendChild(card);
+        });
+    }
+    
+    const searchInput = document.getElementById('searchInput');
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            renderCards(e.target.value);
+        });
+    }
+    
+    // Первоначальный рендер
+    renderCards();
+</script>
+</body>
+</html>
