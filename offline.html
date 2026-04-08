@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Нет соединения - Скорая помощь</title>
+  <link rel="icon" href="1712743647196.png" type="image/png">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .offline-card {
+      max-width: 400px;
+      width: 100%;
+      background: white;
+      border-radius: 32px;
+      box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.15);
+      overflow: hidden;
+      text-align: center;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .offline-header {
+      background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
+      padding: 30px 20px;
+    }
+
+    .offline-icon {
+      font-size: 70px;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .offline-header h1 {
+      color: white;
+      font-size: 24px;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    .offline-content {
+      padding: 30px 24px;
+    }
+
+    .offline-message {
+      background: #fff3e0;
+      border-left: 4px solid #e67e22;
+      padding: 16px;
+      border-radius: 16px;
+      margin-bottom: 24px;
+      text-align: left;
+    }
+
+    .offline-message p {
+      color: #5d4a00;
+      font-size: 15px;
+      line-height: 1.45;
+      margin: 0 0 8px 0;
+    }
+
+    .offline-message p:last-child {
+      margin-bottom: 0;
+    }
+
+    .offline-message strong {
+      color: #b45309;
+    }
+
+    .offline-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .btn-retry {
+      background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
+      color: white;
+      border: none;
+      padding: 14px 20px;
+      border-radius: 50px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+
+    .btn-retry:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 14px rgba(15, 20, 70, 0.3);
+    }
+
+    .btn-retry:active {
+      transform: scale(0.98);
+    }
+
+    .btn-home {
+      background: #f0f2f5;
+      color: #1a2c3e;
+      border: none;
+      padding: 14px 20px;
+      border-radius: 50px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: inherit;
+      text-decoration: none;
+      text-align: center;
+    }
+
+    .btn-home:hover {
+      background: #e4e8f0;
+    }
+
+    .btn-home:active {
+      transform: scale(0.98);
+    }
+
+    .tip-text {
+      margin-top: 20px;
+      font-size: 13px;
+      background: #f8f9fa;
+      padding: 12px;
+      border-radius: 12px;
+      line-height: 1.5;
+    }
+
+    /* Красный жирный для "💡 Совет:" */
+    .tip-label {
+      color: #dc2626;
+      font-weight: 800;
+      font-size: 13px;
+    }
+
+    /* Чёрный жирный для остального текста совета */
+    .tip-content {
+      color: #000000;
+      font-weight: 700;
+      font-size: 13px;
+    }
+
+    /* Подчёркивание для выделенных фраз */
+    .underline-text {
+      text-decoration: underline;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 2px;
+    }
+
+    @media (max-width: 480px) {
+      .offline-card {
+        border-radius: 24px;
+      }
+      .offline-header {
+        padding: 24px 16px;
+      }
+      .offline-header h1 {
+        font-size: 20px;
+      }
+      .offline-icon {
+        font-size: 55px;
+      }
+      .offline-content {
+        padding: 24px 20px;
+      }
+      .btn-retry, .btn-home {
+        padding: 12px 16px;
+        font-size: 15px;
+      }
+      .tip-label, .tip-content {
+        font-size: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="offline-card">
+  <div class="offline-header">
+    <span class="offline-icon">📡</span>
+    <h1>Нет соединения</h1>
+  </div>
+  <div class="offline-content">
+    <div class="offline-message">
+      <p>⚠️ <strong>Эта страница ещё не загружена</strong> в кэш вашего устройства.</p>
+      <p>Чтобы она стала доступна <strong>оффлайн</strong>:</p>
+      <p>• Подключитесь к интернету</p>
+      <p>• Откройте эту страницу один раз</p>
+      <p>• После этого она сохранится и будет работать без сети</p>
+    </div>
+    <div class="offline-buttons">
+      <button class="btn-retry" onclick="location.reload()">🔄 Попробовать снова</button>
+      <a href="/SMP/index.html" class="btn-home">🏠 На главный экран</a>
+    </div>
+    <div class="tip-text">
+      <span class="tip-label">💡 Совет:</span>
+      <span class="tip-content">
+        При первом использовании приложения
+        <span class="underline-text">откройте все нужные разделы</span>
+        при наличии интернета — они
+        <span class="underline-text">сохранятся для работы оффлайн</span>.
+      </span>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Регистрация Service Worker (если вдруг его нет)
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/SMP/sw.js')
+      .then(reg => console.log('✅ SW зарегистрирован:', reg))
+      .catch(err => console.error('❌ Ошибка:', err));
+  }
+</script>
+
+</body>
+</html>
