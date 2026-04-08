@@ -2,8 +2,13 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <title>Высота стояния дна матки - Акушерство</title>
+    
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1e2f47">
+    
     <style>
         * {
             margin: 0;
@@ -11,63 +16,77 @@
             box-sizing: border-box;
         }
         body {
-            background: linear-gradient(135deg, #7b2c5e 0%, #5a1e46 100%);
-            font-family: 'Segoe UI', 'Inter', 'Roboto', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(145deg, #eef2f7 0%, #dce3ec 100%);
+            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, 'Helvetica Neue', sans-serif;
             line-height: 1.5;
-            color: #1e2a3e;
-            padding: 0;
-            margin: 0;
+            padding: 2rem 1rem;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: flex-start;
-            min-height: 100vh;
         }
-        .document-container {
+        .calculator-card {
             max-width: 1000px;
             width: 100%;
+            margin: 0 auto;
             background: #ffffff;
-            border-radius: 32px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.3);
+            border-radius: 48px;
+            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.2);
             overflow: hidden;
-            margin: 20px;
         }
-        .document-header {
-            background: linear-gradient(135deg, #b34180 0%, #8b2c6e 100%);
+        .card-header {
+            background: #1e2f47;
+            background-image: linear-gradient(115deg, #142a3b, #1d3f55);
+            padding: 1.8rem 2rem;
             color: white;
-            padding: 1.5rem 2rem;
-            border-bottom: 4px solid #ffc107;
             text-align: center;
         }
-        .document-header h1 {
-            font-size: 1.8rem;
-            font-weight: 800;
-            letter-spacing: -0.02em;
-            margin-bottom: 0.25rem;
+        .card-header h1 {
+            font-size: 1.9rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
         }
-        .document-header .subtitle {
+        .card-header h1 span {
+            background: rgba(255,255,255,0.2);
             font-size: 0.9rem;
-            opacity: 0.9;
+            padding: 5px 14px;
+            border-radius: 60px;
+            font-weight: 500;
         }
-        .document-content {
+        .card-header .subtitle {
+            margin-top: 12px;
+            opacity: 0.85;
+            font-size: 0.95rem;
+            border-left: 3px solid #5f9bc2;
+            padding-left: 16px;
+            text-align: left;
+        }
+        .card-content {
             padding: 2rem;
         }
+        
         .definition-card {
-            background: #fef5f0;
-            border-radius: 20px;
-            padding: 1rem 1.25rem;
+            background: #f6fafd;
+            border-radius: 28px;
+            padding: 1.2rem 1.5rem;
             margin-bottom: 1.5rem;
-            border-left: 6px solid #b34180;
+            border-left: 6px solid #1f6e9c;
         }
         .definition-card p {
-            font-size: 1rem;
-            color: #2c3e66;
+            font-size: 0.95rem;
+            color: #1f3a4b;
             line-height: 1.5;
         }
+        
         .scale-table-wrapper {
             overflow-x: auto;
             margin: 1.5rem 0;
-            border-radius: 20px;
-            border: 1px solid #e2e8f0;
+            border-radius: 24px;
+            border: 1px solid #d4e2f0;
         }
         .scale-table {
             width: 100%;
@@ -75,60 +94,63 @@
             font-size: 0.9rem;
         }
         .scale-table th {
-            background: #b34180;
+            background: #1f6e9c;
             color: white;
             padding: 1rem;
             font-weight: 700;
             text-align: center;
-            font-size: 1rem;
+            font-size: 0.95rem;
         }
         .scale-table td {
             padding: 0.85rem 1rem;
-            border-bottom: 1px solid #e2e8f0;
+            border-bottom: 1px solid #e2ecf3;
             vertical-align: top;
+            color: #1f3a4b;
         }
         .scale-table tr:last-child td {
             border-bottom: none;
         }
         .scale-table tr:hover {
-            background: #fef5f0;
+            background: #f6fafd;
         }
         .week-cell {
             font-weight: 800;
-            color: #b34180;
+            color: #1f6e9c;
             text-align: center;
             font-size: 1rem;
             white-space: nowrap;
         }
+        
         .highlight {
-            background-color: #ffecb3;
+            background-color: #fff3b0;
             padding: 0.1rem 0.3rem;
-            border-radius: 4px;
+            border-radius: 8px;
             font-weight: 600;
-            color: #b85c00;
+            color: #a56b00;
         }
         .important-text {
             font-weight: 700;
             color: #c62828;
             text-decoration: underline;
         }
+        
         .info-card {
-            background: #e3f2fd;
-            border-left: 6px solid #1976d2;
-            border-radius: 16px;
+            background: #eef7ff;
+            border-left: 5px solid #1f6e9c;
+            border-radius: 20px;
             padding: 1rem 1.25rem;
             margin: 1.5rem 0;
         }
         .warning-card {
             background: #fff8e7;
-            border-left: 6px solid #ff9800;
-            border-radius: 16px;
+            border-left: 5px solid #f0b849;
+            border-radius: 20px;
             padding: 1rem 1.25rem;
             margin: 1rem 0;
         }
         .badge {
             display: inline-block;
-            background: #b34180;
+            background: #1f6e9c;
             color: white;
             font-size: 0.7rem;
             font-weight: 600;
@@ -137,112 +159,142 @@
             margin-right: 0.5rem;
             vertical-align: middle;
         }
-        .weeks-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin: 1rem 0;
-            justify-content: center;
-        }
-        .week-pill {
-            background: #f3e5f5;
-            padding: 0.2rem 0.6rem;
-            border-radius: 30px;
-            font-size: 0.7rem;
-            color: #b34180;
-            font-weight: 500;
-        }
+        
         hr {
             margin: 1.5rem 0;
             border: none;
             height: 1px;
-            background: linear-gradient(90deg, #e2e8f0, transparent);
+            background: linear-gradient(90deg, #e2ecf3, transparent);
         }
         .footer-logo {
             text-align: center;
             margin-top: 1.5rem;
             padding-top: 1rem;
-            border-top: 1px solid #e2e8f0;
-            font-size: 0.75rem;
-            color: #6c7a8e;
+            border-top: 1px solid #e2ecf3;
+            font-size: 0.7rem;
+            color: #6f8eaa;
         }
+        
+        ul {
+            margin-top: 0.5rem;
+            margin-left: 1.25rem;
+        }
+        li {
+            margin-bottom: 0.3rem;
+            font-size: 0.85rem;
+            color: #1f3a4b;
+        }
+        
         @media (max-width: 768px) {
-            .document-container {
-                margin: 0;
-                border-radius: 0;
+            body {
+                padding: 1rem;
             }
-            .document-content {
+            .card-header {
+                padding: 1.2rem;
+            }
+            .card-header h1 {
+                font-size: 1.3rem;
+            }
+            .card-header .subtitle {
+                font-size: 0.8rem;
+            }
+            .card-content {
                 padding: 1rem;
             }
             .scale-table th, .scale-table td {
                 padding: 0.6rem;
-                font-size: 0.8rem;
+                font-size: 0.75rem;
             }
             .week-cell {
+                font-size: 0.8rem;
+            }
+            .definition-card p {
                 font-size: 0.85rem;
+            }
+            li {
+                font-size: 0.8rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .scale-table th, .scale-table td {
+                padding: 0.5rem;
+                font-size: 0.7rem;
             }
         }
     </style>
 </head>
 <body>
-    <div class="document-container">
-        <div class="document-header">
-            <h1>🤰 ВЫСОТА СТОЯНИЯ ДНА МАТКИ</h1>
-            <div class="subtitle">Оценка сроков беременности и развития плода</div>
+<div class="calculator-card">
+    <div class="card-header">
+        <h1>
+            🤰 Высота стояния дна матки
+            <span>акушерство</span>
+        </h1>
+        <div class="subtitle">Оценка сроков беременности и развития плода</div>
+    </div>
+    <div class="card-content">
+        
+        <div class="definition-card">
+            <p><strong>📏 Высота стояния дна матки (ВСДМ)</strong> — это расстояние в сантиметрах от <span class="highlight">верхнего края лобкового симфиза (лобковой кости)</span> до самой высокой точки дна матки (её верхней части).</p>
         </div>
-        <div class="document-content">
-            
-            <div class="definition-card">
-                <p><strong>📏 Высота стояния дна матки (ВСДМ)</strong> — это расстояние в сантиметрах от <span class="highlight">верхнего края лобкового симфиза (лобковой кости)</span> до самой высокой точки дна матки (её верхней части).</p>
-            </div>
-            
-            <div class="scale-table-wrapper">
-                <table class="scale-table">
-                    <thead>
-                        <tr>
-                            <th>Срок беременности, недели</th>
-                            <th>Признаки</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr><td class="week-cell">4</td><td>Матка величиной с куриное яйцо</td></tr>
-                        <tr><td class="week-cell">8</td><td>Матка величиной с гусиное яйцо</td></tr>
-                        <tr><td class="week-cell">12</td><td>Матка величиной с мужской кулак, дно у верхнего края лона</td></tr>
-                        <tr><td class="week-cell">16</td><td>Дно матки на середине расстояния между лоном и пупком (на 6 см выше лона)</td></tr>
-                        <tr><td class="week-cell">20</td><td>Матка вытягивает живот, дно ее на расстоянии 11-12 см над лоном, появляются движения плода, выслушивается сердцебиение</td></tr>
-                        <tr><td class="week-cell">24</td><td>Дно матки на уровне пупка, 22-24 см над лоном</td></tr>
-                        <tr><td class="week-cell">28</td><td>Дно матки на 4 см выше пупка, 25-28 см над лоном</td></tr>
-                        <tr><td class="week-cell">32</td><td>Дно матки на середине расстояния между пупком и мечевидным отростком, 30-32 см над лоном, окружность живота на уровне пупка 80-85 см, пупок несколько сглажен, прямой размер головки 9-10 см</td></tr>
-                        <tr><td class="week-cell">36</td><td>Дно матки у реберных дуг, на уровне мечевидного отростка, окружность живота 90 см, пупок сглажен, прямой размер головки 10-12 см</td></tr>
-                        <tr><td class="week-cell">40</td><td>Дно матки опускается на середину между пупком и мечевидным отростком, 32 см над лоном, окружность живота 96-98 см, пупок выпячен, прямой размер головки 11-12 см. У первородящих головка прижата ко входу в малый таз, у повторнородящих — подвижная</td></tr>
-                    </tbody>
-                </table>
-            </div>
-            
-            <div class="info-card">
-                <strong>📊 Клиническое значение высоты стояния дна матки:</strong>
-                <ul style="margin-top: 0.5rem; margin-left: 1.5rem;">
-                    <li>Позволяет <span class="highlight">определить срок беременности</span> при отсутствии данных УЗИ</li>
-                    <li>Динамическое наблюдение за <span class="highlight">ростом плода</span> и соответствием срокам</li>
-                    <li>Выявление <span class="highlight">патологических состояний</span> (многоводие, маловодие, задержка внутриутробного развития, крупный плод, многоплодная беременность)</li>
-                    <li>На 40-й неделе оценивается <span class="highlight">готовность к родам</span> (опущение головки у первородящих)</li>
-                </ul>
-            </div>
-            
-            <div class="warning-card">
-                <strong>⚠️ Важные моменты для бригад СМП (акушерские вызовы):</strong>
-                <ul style="margin-top: 0.5rem; margin-left: 1.5rem;">
-                    <li>При определении срока беременности по ВСДМ следует учитывать <span class="highlight">конституциональные особенности</span> женщины (рост, вес, количество предыдущих беременностей)</li>
-                    <li>При <span class="highlight">несоответствии ВСДМ сроку беременности</span> — заподозрить акушерскую патологию и <span class="important-text">обязательную госпитализацию</span></li>
-                    <li>При <span class="highlight">подозрении на преждевременные роды</span> (срок до 37 недель) — <span class="highlight">оценка ВСДМ</span> является дополнительным критерием</li>
-                    <li>При <span class="highlight">угрозе прерывания беременности</span> — ВСДМ может не соответствовать сроку (тонус матки, низкое расположение дна)</li>
-                    <li>У <span class="highlight">повторнородящих</span> на 40-й неделе головка плода часто остается <span class="highlight">подвижной над входом в малый таз</span> (в отличие от первородящих)</li>
-                </ul>
-            </div>
-            
-            <hr>
-            
+        
+        <div class="scale-table-wrapper">
+            <table class="scale-table">
+                <thead>
+                    <tr><th>Срок беременности, недели</th><th>Признаки</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td class="week-cell">4</td><td>Матка величиной с куриное яйцо</td></tr>
+                    <tr><td class="week-cell">8</td><td>Матка величиной с гусиное яйцо</td></tr>
+                    <tr><td class="week-cell">12</td><td>Матка величиной с мужской кулак, дно у верхнего края лона</td></tr>
+                    <tr><td class="week-cell">16</td><td>Дно матки на середине расстояния между лоном и пупком (на 6 см выше лона)</td></tr>
+                    <tr><td class="week-cell">20</td><td>Матка вытягивает живот, дно ее на расстоянии 11-12 см над лоном, появляются движения плода, выслушивается сердцебиение</td></tr>
+                    <tr><td class="week-cell">24</td><td>Дно матки на уровне пупка, 22-24 см над лоном</td></tr>
+                    <tr><td class="week-cell">28</td><td>Дно матки на 4 см выше пупка, 25-28 см над лоном</td></tr>
+                    <tr><td class="week-cell">32</td><td>Дно матки на середине расстояния между пупком и мечевидным отростком, 30-32 см над лоном, окружность живота на уровне пупка 80-85 см, пупок несколько сглажен, прямой размер головки 9-10 см</td></tr>
+                    <tr><td class="week-cell">36</td><td>Дно матки у реберных дуг, на уровне мечевидного отростка, окружность живота 90 см, пупок сглажен, прямой размер головки 10-12 см</td></tr>
+                    <tr><td class="week-cell">40</td><td>Дно матки опускается на середину между пупком и мечевидным отростком, 32 см над лоном, окружность живота 96-98 см, пупок выпячен, прямой размер головки 11-12 см. У первородящих головка прижата ко входу в малый таз, у повторнородящих — подвижная</td></tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="info-card">
+            <strong>📊 Клиническое значение высоты стояния дна матки:</strong>
+            <ul>
+                <li>Позволяет <span class="highlight">определить срок беременности</span> при отсутствии данных УЗИ</li>
+                <li>Динамическое наблюдение за <span class="highlight">ростом плода</span> и соответствием срокам</li>
+                <li>Выявление <span class="highlight">патологических состояний</span> (многоводие, маловодие, задержка внутриутробного развития, крупный плод, многоплодная беременность)</li>
+                <li>На 40-й неделе оценивается <span class="highlight">готовность к родам</span> (опущение головки у первородящих)</li>
+            </ul>
+        </div>
+        
+        <div class="warning-card">
+            <strong>⚠️ Важные моменты для бригад СМП (акушерские вызовы):</strong>
+            <ul>
+                <li>При определении срока беременности по ВСДМ следует учитывать <span class="highlight">конституциональные особенности</span> женщины (рост, вес, количество предыдущих беременностей)</li>
+                <li>При <span class="highlight">несоответствии ВСДМ сроку беременности</span> — заподозрить акушерскую патологию и <span class="important-text">обязательную госпитализацию</span></li>
+                <li>При <span class="highlight">подозрении на преждевременные роды</span> (срок до 37 недель) — <span class="highlight">оценка ВСДМ</span> является дополнительным критерием</li>
+                <li>При <span class="highlight">угрозе прерывания беременности</span> — ВСДМ может не соответствовать сроку (тонус матки, низкое расположение дна)</li>
+                <li>У <span class="highlight">повторнородящих</span> на 40-й неделе головка плода часто остается <span class="highlight">подвижной над входом в малый таз</span> (в отличие от первородящих)</li>
+            </ul>
+        </div>
+        
+        <hr>
+        
+        <div class="footer-logo">
+            ⚕️ Высота стояния дна матки (ВСДМ) — важный диагностический критерий в акушерстве для оценки соответствия развития плода сроку беременности.
         </div>
     </div>
+</div>
+
+<script>
+    // Регистрация Service Worker для PWA
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/SMP/sw.js')
+            .then(reg => console.log('✅ Сервис-воркер зарегистрирован:', reg))
+            .catch(err => console.error('❌ Ошибка регистрации:', err));
+    }
+</script>
 </body>
 </html>
