@@ -2,8 +2,13 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>QT в норме – фиолетовая тема</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>QT в норме | Калькулятор интервала QT по RR</title>
+    
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1e2f47">
+    
     <style>
         * {
             margin: 0;
@@ -12,37 +17,35 @@
         }
 
         body {
-            background: linear-gradient(145deg, #e9def0 0%, #d1c4e9 100%);
-            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-            padding: 20px;
+            background: linear-gradient(145deg, #eef2f7 0%, #dce3ec 100%);
+            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, 'Helvetica Neue', sans-serif;
+            padding: 2rem 1rem;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
-        .card {
+        .calculator-card {
             max-width: 850px;
             width: 100%;
-            background: #fcf9ff;
+            background: #ffffff;
             border-radius: 48px;
-            box-shadow: 0 25px 40px -12px rgba(80, 50, 120, 0.4);
+            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.2);
             overflow: hidden;
-            border: 1px solid #d9c8f0;
         }
 
-        .header {
-            background: #6a4e9b;
-            padding: 28px 24px 20px;
-            color: #f5edff;
+        .card-header {
+            background: #1e2f47;
+            background-image: linear-gradient(115deg, #142a3b, #1d3f55);
+            padding: 1.8rem 2rem;
+            color: white;
             text-align: center;
-            border-bottom: 4px solid #b77ee0;
         }
 
-        .header h1 {
+        .card-header h1 {
             font-size: 1.9rem;
             font-weight: 700;
-            letter-spacing: -0.5px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -50,41 +53,43 @@
             flex-wrap: wrap;
         }
 
-        .header h1 span {
-            background: #b77ee0;
-            padding: 5px 14px;
-            border-radius: 40px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: #2e1a4a;
-        }
-
-        .header p {
-            margin-top: 12px;
-            opacity: 0.9;
+        .card-header h1 span {
+            background: rgba(255,255,255,0.2);
             font-size: 0.9rem;
+            padding: 5px 14px;
+            border-radius: 60px;
+            font-weight: 500;
         }
 
-        .content {
-            padding: 28px 28px 36px;
+        .card-header p {
+            margin-top: 12px;
+            opacity: 0.85;
+            font-size: 0.95rem;
+            border-left: 3px solid #5f9bc2;
+            padding-left: 16px;
+            text-align: left;
+        }
+
+        .card-content {
+            padding: 2rem;
         }
 
         .input-panel {
-            background: #faf5ff;
-            border-radius: 36px;
-            padding: 22px 26px;
-            margin-bottom: 28px;
-            border: 1px solid #e4d5fc;
+            background: #f6fafd;
+            border-radius: 28px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid #d4e2f0;
         }
 
         .input-group {
-            margin-bottom: 22px;
+            margin-bottom: 1.25rem;
         }
 
         .input-group label {
             display: block;
             font-weight: 600;
-            color: #6a4e9b;
+            color: #1f4a66;
             margin-bottom: 8px;
             font-size: 0.9rem;
         }
@@ -102,158 +107,189 @@
             gap: 8px;
             font-weight: 500;
             cursor: pointer;
-            color: #5a3c7c;
+            color: #1f3a4b;
+        }
+
+        .radio-group input {
+            width: 16px;
+            height: 16px;
+            accent-color: #1f6e9c;
         }
 
         input, select {
             width: 100%;
-            padding: 14px 18px;
-            font-size: 1rem;
-            border: 2px solid #ddcef5;
-            border-radius: 40px;
+            padding: 12px 16px;
+            font-size: 0.95rem;
+            border: 2px solid #d4e2f0;
+            border-radius: 18px;
             background: white;
             transition: 0.2s;
             font-family: inherit;
-            color: #2e1a4a;
+            color: #1f3a4b;
         }
 
         input:focus, select:focus {
             outline: none;
-            border-color: #b77ee0;
-            box-shadow: 0 0 0 3px rgba(183, 126, 224, 0.2);
+            border-color: #1f6e9c;
+            box-shadow: 0 0 0 3px rgba(31,110,156,0.1);
         }
 
-        .speed-select {
-            background: white;
-            cursor: pointer;
+        .info-box {
+            background: #eef7ff;
+            border-left: 4px solid #1f6e9c;
+            padding: 12px 16px;
+            border-radius: 20px;
+            margin-top: 1rem;
+            font-size: 0.8rem;
+            color: #1f3a4b;
         }
 
         .calc-btn {
-            background: #8a6cbb;
+            background: linear-gradient(135deg, #1f6e9c 0%, #155a80 100%);
             color: white;
             border: none;
             width: 100%;
-            padding: 16px;
-            font-size: 1.2rem;
+            padding: 14px 20px;
+            font-size: 1rem;
             font-weight: 700;
-            border-radius: 44px;
+            border-radius: 60px;
             cursor: pointer;
             transition: 0.2s;
-            margin: 12px 0 8px;
+            margin: 0.5rem 0 0.5rem;
             font-family: inherit;
-            box-shadow: 0 8px 18px -8px rgba(80, 50, 120, 0.4);
         }
 
         .calc-btn:hover {
-            background: #6a4e9b;
+            background: linear-gradient(135deg, #1a5c84 0%, #114d6e 100%);
             transform: translateY(-2px);
         }
 
         .result-card {
-            background: #fefbff;
-            border-radius: 36px;
-            padding: 20px 24px;
-            margin-top: 24px;
-            border: 1px solid #e2d5f7;
-            box-shadow: 0 12px 24px -12px rgba(80, 50, 120, 0.2);
+            background: #f6fafd;
+            border-radius: 28px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            border-left: 6px solid #1f6e9c;
         }
 
         .result-title {
-            font-size: 1rem;
+            font-size: 0.85rem;
             text-transform: uppercase;
             letter-spacing: 2px;
-            color: #8a6cbb;
+            color: #6f8eaa;
             font-weight: 700;
             margin-bottom: 18px;
-            border-left: 4px solid #b77ee0;
-            padding-left: 14px;
         }
 
         .result-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 18px;
-            margin-bottom: 20px;
+            gap: 1rem;
+            margin-bottom: 1rem;
         }
 
         .result-item {
-            background: #f9f3ff;
-            border-radius: 28px;
-            padding: 14px 12px;
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 1rem;
             text-align: center;
-            border: 1px solid #ede1fe;
+            border: 1px solid #d4e2f0;
         }
 
         .result-item-label {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: 600;
-            color: #9a7bcc;
+            color: #6f8eaa;
             text-transform: uppercase;
         }
 
         .result-item-value {
-            font-size: 1.7rem;
+            font-size: 1.6rem;
             font-weight: 800;
-            color: #4a2c6e;
+            color: #1a4d6b;
             line-height: 1.2;
             margin-top: 6px;
         }
 
-        .info-box {
-            background: #f3ebfe;
-            border-left: 5px solid #b77ee0;
-            padding: 14px 18px;
-            border-radius: 28px;
-            margin-top: 18px;
-            font-size: 0.85rem;
-            color: #5a3c7c;
-        }
-
         .cell-info {
-            background: #f5edfe;
+            background: #ffffff;
             padding: 12px 16px;
-            border-radius: 28px;
-            margin-top: 16px;
+            border-radius: 20px;
+            margin-top: 1rem;
             font-size: 0.8rem;
-            text-align: center;
+            text-align: left;
+            border: 1px solid #d4e2f0;
+            color: #1f3a4b;
         }
 
         .error-message {
-            color: #c05a9e;
-            background: #fce4f4;
+            color: #c62828;
+            background: #ffebee;
             padding: 8px 15px;
-            border-radius: 28px;
+            border-radius: 20px;
             margin-top: 10px;
             font-size: 0.8rem;
             text-align: center;
+            display: none;
         }
 
         .footnote {
             text-align: center;
             font-size: 0.7rem;
-            color: #9a7bcc;
-            margin-top: 28px;
-            border-top: 1px solid #e4d5fc;
-            padding-top: 18px;
+            color: #6f8eaa;
+            margin-top: 1.5rem;
+            border-top: 1px solid #e2ecf3;
+            padding-top: 1rem;
+            line-height: 1.5;
         }
 
-        @media (max-width: 550px) {
-            .content {
-                padding: 20px;
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+            .card-header {
+                padding: 1.2rem;
+            }
+            .card-header h1 {
+                font-size: 1.3rem;
+            }
+            .card-header p {
+                font-size: 0.8rem;
+            }
+            .card-content {
+                padding: 1rem;
             }
             .result-item-value {
                 font-size: 1.3rem;
             }
         }
+
+        @media (max-width: 480px) {
+            .result-grid {
+                grid-template-columns: 1fr;
+            }
+            .radio-group {
+                gap: 12px;
+            }
+            .info-box {
+                font-size: 0.75rem;
+            }
+            .cell-info {
+                font-size: 0.7rem;
+            }
+        }
     </style>
 </head>
 <body>
-<div class="card">
-    <div class="header">
-        <h1>📐 QT в норме <span>по RR</span></h1>
+<div class="calculator-card">
+    <div class="card-header">
+        <h1>
+            📐 QT в норме
+            <span>по RR</span>
+        </h1>
         <p>Должный диапазон QT для вашей частоты ритма</p>
     </div>
-    <div class="content">
+    <div class="card-content">
         <div class="input-panel">
             <div class="input-group">
                 <label>Категория пациента</label>
@@ -271,7 +307,7 @@
 
             <div class="input-group">
                 <label>Скорость движения ленты ЭКГ</label>
-                <select id="speedSelect" class="speed-select">
+                <select id="speedSelect">
                     <option value="25">25 мм/с (стандартная)</option>
                     <option value="50">50 мм/с</option>
                 </select>
@@ -301,8 +337,9 @@
             </div>
             <div id="cellConvert" class="cell-info"></div>
             <div id="qtcInfo" class="info-box" style="margin-top: 12px;"></div>
-            <div id="errorMsg" class="error-message" style="display: none;"></div>
+            <div id="errorMsg" class="error-message"></div>
         </div>
+        
         <div class="footnote">
             ⚕️ Расчёт основан на формуле Базетта. Нормальный QTc: мужчины 350–440 мс, женщины и дети 350–460 мс.<br>
             QT<sub>норма</sub> = QTc × √(RR/1000). Диапазон QT изменяется с частотой ритма.
@@ -411,6 +448,12 @@
     calcBtn.addEventListener('click', handleInput);
     
     updateAll();
+    
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/SMP/sw.js')
+            .then(reg => console.log('✅ Сервис-воркер зарегистрирован:', reg))
+            .catch(err => console.error('❌ Ошибка регистрации:', err));
+    }
 </script>
 </body>
 </html>
