@@ -1,4 +1,4 @@
-const CACHE_NAME = 'emhelp-v21';
+const CACHE_NAME = 'emhelp-v22';
 
 const urlsToCache = [
   '/SMP/',
@@ -44,52 +44,7 @@ const urlsToCache = [
   '/SMP/wounds_including_infected.html',
   '/SMP/head_injury.html',
   
-  // ПЕРЕЛОМЫ ПОЗВОНОЧНИКА
-  '/SMP/c4_compression_fracture.html',
-  '/SMP/c5_uncomplicated_compression_fracture.html',
-  '/SMP/t10_t11_compression_fracture_spinal_cord_rupture.html',
-  '/SMP/l1_compression_fracture.html',
-  '/SMP/l2_compression_fracture.html',
-  '/SMP/l2_spinous_process_fracture.html',
-  '/SMP/l2_transverse_process_fracture_right.html',
-  '/SMP/senile_spondylopathy_l2.html',
-  '/SMP/coccyx_fracture.html',
-  
-  // ПЕРЕЛОМЫ ЛИЦЕВОГО ЧЕРЕПА
-  '/SMP/nasal_bones_nondisplaced.html',
-  '/SMP/nasal_bones_displaced.html',
-  '/SMP/zygomatic_bone.html',
-  '/SMP/mandible.html',
-  
-  // ТРАВМЫ СВЯЗОК И МЫШЦ
-  '/SMP/lumbar_ligament_capsule_injury.html',
-  '/SMP/posttraumatic_cervical_myositis.html',
-  '/SMP/supraspinatus_muscle_injury_right.html',
-  '/SMP/shoulder_joint_capsule_ligament_injury.html',
-  '/SMP/biceps_brachii_long_head_avulsion_right.html',
-  '/SMP/biceps_brachii_tendon_rupture.html',
-  '/SMP/biceps_brachii_partial_injury.html',
-  '/SMP/elbow_ligament_injury.html',
-  '/SMP/wrist_ligament_injury.html',
-  '/SMP/left_wrist_ligament_sprain.html',
-  '/SMP/finger_extensor_tendon_avulsion_distal.html',
-  '/SMP/finger_extensor_tendon_avulsion_proximal.html',
-  '/SMP/finger_interphalangeal_ligament_injury.html',
-  '/SMP/left_hand_extensor_tendon_rupture_iii_finger.html',
-  '/SMP/right_hip_capsule_ligament_injury.html',
-  '/SMP/left_quadriceps_tendon_rupture.html',
-  '/SMP/medial_meniscus_injury_right_block_hemarthrosis.html',
-  '/SMP/medial_collateral_ligament_injury.html',
-  '/SMP/lateral_collateral_anterior_cruciate_ligament_injury_right_hemarthrosis.html',
-  '/SMP/right_medial_meniscus_rupture.html',
-  '/SMP/right_medial_collateral_ligament_rupture.html',
-  '/SMP/left_anterior_cruciate_ligament_rupture.html',
-  '/SMP/right_medial_collateral_ligament_partial_injury.html',
-  '/SMP/right_ankle_ligament_injury.html',
-  '/SMP/ankle_ligament_sprain.html',
-  '/SMP/right_foot_ligament_injury.html',
-  
-  // ========== НОВЫЕ КАЛЬКУЛЯТОРЫ (ДОБАВЛЕНЫ) ==========
+  // ========== НОВЫЕ КАЛЬКУЛЯТОРЫ ==========
   '/SMP/algovera-shock.html',
   '/SMP/glasgow-scale.html',
   '/SMP/itls-trauma.html',
