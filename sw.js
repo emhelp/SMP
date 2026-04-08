@@ -1,8 +1,11 @@
-const CACHE_NAME = 'emhelp-v22';
+const CACHE_NAME = 'emhelp-v23';
 
 const urlsToCache = [
+  // Главная
   '/SMP/',
   '/SMP/index.html',
+  
+  // Основные страницы навигации
   '/SMP/install-instruction.html',
   '/SMP/grify.html',
   '/SMP/status.html',
@@ -11,8 +14,9 @@ const urlsToCache = [
   '/SMP/consilium.html',
   '/SMP/prikaz.html',
   '/SMP/kody.html',
+  '/SMP/stations.html',
   
-  // Коды МКБ (17 страниц)
+  // Коды МКБ (20 страниц)
   '/SMP/Kody_1.html',
   '/SMP/Kody_2.html',
   '/SMP/Kody_3.html',
@@ -30,6 +34,9 @@ const urlsToCache = [
   '/SMP/Kody_15.html',
   '/SMP/Kody_16.html',
   '/SMP/Kody_17.html',
+  '/SMP/Kody_18.html',
+  '/SMP/Kody_19.html',
+  '/SMP/Kody_20.html',
   
   // STATUS LOCALIS - основные страницы
   '/SMP/other_local_status.html',
@@ -44,7 +51,7 @@ const urlsToCache = [
   '/SMP/wounds_including_infected.html',
   '/SMP/head_injury.html',
   
-  // ========== НОВЫЕ КАЛЬКУЛЯТОРЫ ==========
+  // Калькуляторы
   '/SMP/algovera-shock.html',
   '/SMP/glasgow-scale.html',
   '/SMP/itls-trauma.html',
@@ -78,11 +85,48 @@ const urlsToCache = [
   '/SMP/dental-formula.html',
   '/SMP/qt-interval-norms.html',
   
+  // Шаблоны карт
+  '/SMP/obstetrics.html',
+  '/SMP/anesthesiology.html',
+  '/SMP/infectious.html',
+  '/SMP/cardiology.html',
+  '/SMP/constatation.html',
+  '/SMP/neurology.html',
+  '/SMP/otolaryngology.html',
+  '/SMP/ophthalmology.html',
+  '/SMP/pediatrics.html',
+  '/SMP/dentistry.html',
+  '/SMP/therapy.html',
+  '/SMP/toxicology.html',
+  '/SMP/traumatology.html',
+  '/SMP/urology.html',
+  '/SMP/surgery.html',
+  
+  // Консилиумы
+  '/SMP/responsible-doctor.html',
+  '/SMP/diagnosis-change.html',
+  '/SMP/obstetrician.html',
+  '/SMP/psychiatrist.html',
+  '/SMP/toxicologist.html',
+  '/SMP/resuscitator.html',
+  
+  // Приказы
+  '/SMP/ekp.html',
+  '/SMP/alcohol.html',
+  '/SMP/methods.html',
+  '/SMP/antivich.html',
+  '/SMP/vitals.html',
+  '/SMP/routing.html',
+  '/SMP/algorithms.html',
+  '/SMP/nsipv.html',
+  
   // CSS и основные файлы
   '/SMP/style.css',
   '/SMP/manifest.json',
   '/SMP/icon-512.png',
-  '/SMP/1712743647196.png'
+  '/SMP/1712743647196.png',
+  '/SMP/55_swipe.png',
+  '/SMP/2026-03-21 18.08.19.jpg'
 ];
 
 self.addEventListener('install', event => {
