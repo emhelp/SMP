@@ -2,14 +2,19 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>УШИБЫ И ССАДИНЫ</title>
+
+<!-- PWA -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0f1446">
+
 <style>
   body {
     font-family: 'Segoe UI', 'Roboto', sans-serif;
     margin: 0;
     padding: 20px;
-    background: #f5f5f5;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -20,36 +25,57 @@
     text-align: center;
     margin-bottom: 20px;
     color: #0f1446;
+    font-size: 28px;
+  }
+
+  .injury-section {
+    width: 100%;
+    max-width: 500px;
+    margin-bottom: 20px;
+    background: white;
+    border-radius: 12px;
+    padding: 18px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    box-sizing: border-box;
+  }
+
+  .section-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #e53935;
+    margin-bottom: 14px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #e53935;
   }
 
   .injury-menu {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    width: 100%;
-    max-width: 500px;
-    box-sizing: border-box;
   }
 
   .injury-btn {
     text-decoration: none;
     color: white;
-    background: #0f1446;
-    padding: 12px 15px;
-    border-radius: 8px;
+    background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
+    padding: 14px 15px;
+    border-radius: 10px;
     font-weight: 600;
     text-align: center;
     width: 100%;
-    transition: background 0.2s;
+    transition: all 0.2s;
     border: none;
     cursor: pointer;
-    font-size: 1rem;
+    font-size: 15px;
     font-family: inherit;
     box-sizing: border-box;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    line-height: 1.4;
   }
 
   .injury-btn:hover {
-    background: #3949ab;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
   }
 
   .injury-btn:active {
@@ -57,59 +83,89 @@
   }
 
   @media (max-width: 600px) {
-    .injury-menu {
-      max-width: 90%;
+    .injury-section {
+      max-width: 95%;
+      padding: 14px;
     }
     .injury-btn {
-      font-size: 0.9rem;
+      font-size: 14px;
+      padding: 12px 12px;
     }
-  }
-
-  .section-header {
-    color: #0f1446;
-    font-weight: 700;
-    margin: 15px 0 5px 0;
-    padding-left: 5px;
-    border-left: 4px solid #0f1446;
-    font-size: 0.9rem;
-    letter-spacing: 0.5px;
-  }
-
-  .section-header:first-of-type {
-    margin-top: 0;
+    .section-title {
+      font-size: 16px;
+    }
+    h1 {
+      font-size: 24px;
+    }
   }
 </style>
 </head>
 <body>
 
-<h1>УШИБЫ И ССАДИНЫ</h1>
+<h1>🩸 УШИБЫ И ССАДИНЫ</h1>
 
-<div class="injury-menu">
-  <div class="section-header">📌 ГОЛОВА</div>
-  <button class="injury-btn" onclick="window.location.href='scalp_contusion_subcutaneous_hematoma.html'">Ушиб мягких тканей волосистой части головы, подкожная гематома</button>
-  <button class="injury-btn" onclick="window.location.href='face_contusion_abrasions_periorbital_hematoma_right.html'">Ушиб м/тканей и ссадины лица, параорбитальная гематома правого глаза (1-е сутки 6-24 часа)</button>
-
-  <div class="section-header">📌 ШЕЯ</div>
-  <button class="injury-btn" onclick="window.location.href='neck_bite_abrasions.html'">Укушенные ссадины шеи (1-е сутки — до 6 часов)</button>
-
-  <div class="section-header">📌 ГРУДНАЯ КЛЕТКА</div>
-  <button class="injury-btn" onclick="window.location.href='right_chest_contusion.html'">Ушиб правой половины грудной клетки</button>
-  <button class="injury-btn" onclick="window.location.href='right_chest_contusion_and_abrasions.html'">Ушиб и ссадины грудной клетки справа (4-6 сутки)</button>
-
-  <div class="section-header">📌 ПОЛОВЫЕ ОРГАНЫ</div>
-  <button class="injury-btn" onclick="window.location.href='external_genitalia_contusion.html'">Ушиб наружных половых органов</button>
-
-  <div class="section-header">📌 ВЕРХНИЕ КОНЕЧНОСТИ</div>
-  <button class="injury-btn" onclick="window.location.href='forearm_lower_third_compression_abrasions.html'">Сдавление мягких тканей и ссадины нижней трети предплечий (воздействие наручниками 2 — 3 сутки)</button>
-  <button class="injury-btn" onclick="window.location.href='left_hand_palm_contusion.html'">Ушиб ладонной поверхности левой кисти</button>
-  <button class="injury-btn" onclick="window.location.href='right_hand_dorsum_contusion.html'">Ушиб тыльной поверхности правой кисти</button>
-  <button class="injury-btn" onclick="window.location.href='left_hand_ii_finger_subungual_hematoma.html'">Подногтевая гематома II пальца левой кисти</button>
-  <button class="injury-btn" onclick="window.location.href='right_hand_iii_finger_middle_phalanx_contusion.html'">Ушиб средней фаланги III пальца правой кисти</button>
-
-  <div class="section-header">📌 НИЖНИЕ КОНЕЧНОСТИ</div>
-  <button class="injury-btn" onclick="window.location.href='knee_contusion.html'">Ушиб коленного сустава</button>
-  <button class="injury-btn" onclick="window.location.href='right_knee_contusion_hemarthrosis.html'">Ушиб, гемартроз правого коленного сустава</button>
+<!-- ГОЛОВА -->
+<div class="injury-section">
+  <div class="section-title">📌 ГОЛОВА</div>
+  <div class="injury-menu">
+    <button class="injury-btn" onclick="window.location.href='scalp_contusion_subcutaneous_hematoma.html'">Ушиб мягких тканей волосистой части головы, подкожная гематома</button>
+    <button class="injury-btn" onclick="window.location.href='face_contusion_abrasions_periorbital_hematoma_right.html'">Ушиб м/тканей и ссадины лица, параорбитальная гематома правого глаза (1-е сутки 6-24 часа)</button>
+  </div>
 </div>
+
+<!-- ШЕЯ -->
+<div class="injury-section">
+  <div class="section-title">📌 ШЕЯ</div>
+  <div class="injury-menu">
+    <button class="injury-btn" onclick="window.location.href='neck_bite_abrasions.html'">Укушенные ссадины шеи (1-е сутки — до 6 часов)</button>
+  </div>
+</div>
+
+<!-- ГРУДНАЯ КЛЕТКА -->
+<div class="injury-section">
+  <div class="section-title">📌 ГРУДНАЯ КЛЕТКА</div>
+  <div class="injury-menu">
+    <button class="injury-btn" onclick="window.location.href='right_chest_contusion.html'">Ушиб правой половины грудной клетки</button>
+    <button class="injury-btn" onclick="window.location.href='right_chest_contusion_and_abrasions.html'">Ушиб и ссадины грудной клетки справа (4-6 сутки)</button>
+  </div>
+</div>
+
+<!-- ПОЛОВЫЕ ОРГАНЫ -->
+<div class="injury-section">
+  <div class="section-title">📌 ПОЛОВЫЕ ОРГАНЫ</div>
+  <div class="injury-menu">
+    <button class="injury-btn" onclick="window.location.href='external_genitalia_contusion.html'">Ушиб наружных половых органов</button>
+  </div>
+</div>
+
+<!-- ВЕРХНИЕ КОНЕЧНОСТИ -->
+<div class="injury-section">
+  <div class="section-title">💪 ВЕРХНИЕ КОНЕЧНОСТИ</div>
+  <div class="injury-menu">
+    <button class="injury-btn" onclick="window.location.href='forearm_lower_third_compression_abrasions.html'">Сдавление мягких тканей и ссадины нижней трети предплечий (воздействие наручниками 2 — 3 сутки)</button>
+    <button class="injury-btn" onclick="window.location.href='left_hand_palm_contusion.html'">Ушиб ладонной поверхности левой кисти</button>
+    <button class="injury-btn" onclick="window.location.href='right_hand_dorsum_contusion.html'">Ушиб тыльной поверхности правой кисти</button>
+    <button class="injury-btn" onclick="window.location.href='left_hand_ii_finger_subungual_hematoma.html'">Подногтевая гематома II пальца левой кисти</button>
+    <button class="injury-btn" onclick="window.location.href='right_hand_iii_finger_middle_phalanx_contusion.html'">Ушиб средней фаланги III пальца правой кисти</button>
+  </div>
+</div>
+
+<!-- НИЖНИЕ КОНЕЧНОСТИ -->
+<div class="injury-section">
+  <div class="section-title">🦵 НИЖНИЕ КОНЕЧНОСТИ</div>
+  <div class="injury-menu">
+    <button class="injury-btn" onclick="window.location.href='knee_contusion.html'">Ушиб коленного сустава</button>
+    <button class="injury-btn" onclick="window.location.href='right_knee_contusion_hemarthrosis.html'">Ушиб, гемартроз правого коленного сустава</button>
+  </div>
+</div>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/SMP/sw.js')
+      .then(reg => console.log('✅ SW зарегистрирован:', reg))
+      .catch(err => console.error('❌ Ошибка:', err));
+  }
+</script>
 
 </body>
 </html>
