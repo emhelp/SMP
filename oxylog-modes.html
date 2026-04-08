@@ -2,8 +2,13 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <title>Oxylog | Медицинский навигатор режимов ИВЛ</title>
+    
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1e2f47">
+    
     <style>
         * {
             margin: 0;
@@ -12,38 +17,35 @@
         }
 
         body {
-            background: linear-gradient(145deg, #e0eef7 0%, #c2d6e8 100%);
-            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, 'Roboto', sans-serif;
-            padding: 1rem;
+            background: linear-gradient(145deg, #eef2f7 0%, #dce3ec 100%);
+            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, 'Helvetica Neue', sans-serif;
+            padding: 2rem 1rem;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
-        /* главная карточка */
-        .oxylog-container {
+        .calculator-card {
             max-width: 1200px;
             width: 100%;
-            background: #f9fcff;
-            border-radius: 40px;
-            box-shadow: 0 25px 45px -12px rgba(0, 20, 30, 0.35);
+            background: #ffffff;
+            border-radius: 48px;
+            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.2);
             overflow: hidden;
         }
 
-        /* шапка с логотипом */
-        .header {
-            background: linear-gradient(135deg, #0b2b3b 0%, #144e5e 100%);
-            padding: 1.2rem 1.5rem;
-            border-bottom: 3px solid #2fa7c5;
+        .card-header {
+            background: #1e2f47;
+            background-image: linear-gradient(115deg, #142a3b, #1d3f55);
+            padding: 1.5rem 2rem;
+            color: white;
         }
 
         .logo {
             font-size: 1.8rem;
             font-weight: 700;
             letter-spacing: 1px;
-            color: white;
-            text-shadow: 0 2px 3px rgba(0,0,0,0.2);
             display: flex;
             align-items: baseline;
             gap: 8px;
@@ -51,28 +53,24 @@
         }
 
         .logo span:first-child {
-            background: linear-gradient(135deg, #2fa7c5, #1d8aa8);
+            background: rgba(255,255,255,0.2);
             padding: 0 12px 0 10px;
             border-radius: 60px;
             font-size: 1.5rem;
             line-height: 1.4;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
 
         .logo small {
             font-size: 0.8rem;
             font-weight: 400;
-            opacity: 0.9;
+            opacity: 0.85;
             margin-left: 8px;
-            letter-spacing: 0.3px;
         }
 
-        /* основное содержимое */
-        .main-content {
-            padding: 1.5rem;
+        .card-content {
+            padding: 2rem;
         }
 
-        /* контейнер для кнопок */
         .buttons-area {
             display: flex;
             flex-direction: column;
@@ -92,7 +90,6 @@
             justify-content: center;
         }
 
-        /* базовый стиль для всех кнопок */
         .mode-btn {
             border: none;
             font-weight: 700;
@@ -101,11 +98,10 @@
             color: white;
             cursor: pointer;
             text-align: center;
-            background: linear-gradient(135deg, #FF8C42 0%, #F0742E 50%, #E65C1E 100%);
-            transition: none;
+            background: linear-gradient(135deg, #1f6e9c 0%, #155a80 100%);
+            transition: all 0.25s ease;
         }
 
-        /* круглые кнопки */
         .mode-btn.round {
             width: 150px;
             height: 150px;
@@ -115,32 +111,35 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 2px solid rgba(255, 200, 120, 0.6);
+            border: 2px solid #ffc107;
             line-height: 1.3;
         }
 
-        /* продолговатая кнопка IPPV */
         .mode-btn.oblong {
             width: 280px;
             padding: 1rem 1.8rem;
             border-radius: 60px;
             font-size: 1.35rem;
-            border: 2px solid rgba(255, 200, 120, 0.6);
+            border: 2px solid #ffc107;
             letter-spacing: 0.8px;
         }
 
-        /* активная кнопка — фиолетовая */
-        .mode-btn.active {
-            background: linear-gradient(135deg, #9B51E0 0%, #8B3FDC 50%, #7C2EBD 100%);
-            border-color: #D4A5FF;
+        .mode-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px -8px rgba(0,0,0,0.2);
         }
 
-        /* стилизованная подсказка с пальцем вверх */
+        .mode-btn.active {
+            background: linear-gradient(135deg, #ffc107 0%, #e6a800 100%);
+            color: #1e2f47;
+            border-color: #ffffff;
+        }
+
         .info-hint {
             text-align: center;
             font-size: 1rem;
-            color: #1f6e7e;
-            background: linear-gradient(135deg, #e8f4f9, #d9ecf3);
+            color: #1f4a66;
+            background: #eef7ff;
             width: fit-content;
             margin: 0 auto 1.5rem auto;
             padding: 0.7rem 1.8rem;
@@ -150,7 +149,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border: 1px solid #d4e2f0;
         }
 
         .info-hint::before {
@@ -159,24 +158,19 @@
             display: inline-block;
         }
 
-        /* панель расширенной информации */
         .info-panel {
-            background: linear-gradient(135deg, #ffffff, #fefefe);
+            background: #f6fafd;
             border-radius: 28px;
-            border: 1px solid rgba(47, 167, 197, 0.3);
-            padding: 1.5rem 1.5rem;
+            border: 1px solid #d4e2f0;
+            padding: 1.5rem;
             margin-bottom: 1.5rem;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
         }
 
         .mode-title {
             font-size: 1.5rem;
             font-weight: 700;
-            background: linear-gradient(135deg, #0e4b5e, #1a6b7c);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            border-left: 5px solid #2fa7c5;
+            color: #1f4a66;
+            border-left: 5px solid #1f6e9c;
             padding-left: 0.8rem;
             margin-bottom: 1.2rem;
             line-height: 1.3;
@@ -192,16 +186,16 @@
         .desc-card {
             flex: 1;
             min-width: 220px;
-            background: linear-gradient(135deg, #f9fefc, #f0f7fa);
+            background: #ffffff;
             border-radius: 20px;
             padding: 1.2rem;
-            border: 1px solid rgba(47, 167, 197, 0.15);
+            border: 1px solid #d4e2f0;
         }
 
         .desc-card h4 {
             font-size: 1.15rem;
             font-weight: 600;
-            color: #1a6b7c;
+            color: #1f4a66;
             margin-bottom: 0.7rem;
             display: flex;
             align-items: center;
@@ -209,25 +203,24 @@
         }
 
         .desc-card p {
-            font-size: 1rem;
+            font-size: 0.95rem;
             line-height: 1.5;
-            color: #1f3e48;
+            color: #1f3a4b;
         }
 
-        /* короткая шпаргалка */
         .quick-guide {
-            background: linear-gradient(135deg, #e6f2f5, #dcf0f5);
+            background: #fff8e7;
             border-radius: 24px;
             padding: 1.2rem 1.5rem;
             margin-top: 1rem;
             margin-bottom: 1rem;
-            border: 1px solid rgba(47, 167, 197, 0.3);
+            border: 1px solid #ffe0b5;
         }
 
         .quick-guide h4 {
             font-size: 1.1rem;
             font-weight: 700;
-            color: #0b5a6b;
+            color: #a56b00;
             margin-bottom: 0.8rem;
         }
 
@@ -239,127 +232,92 @@
         }
 
         .quick-guide li {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             background: rgba(255,255,255,0.8);
             padding: 0.3rem 1rem;
             border-radius: 30px;
-            color: #144d5a;
+            color: #1f3a4b;
             font-weight: 500;
         }
 
         .footer-note {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             text-align: center;
             margin-top: 1rem;
-            color: #558391;
-            border-top: 1px solid #cde3ec;
+            color: #6f8eaa;
+            border-top: 1px solid #e2ecf3;
             padding-top: 1rem;
         }
 
-        /* адаптация для телефонов */
-        @media (max-width: 550px) {
+        @media (max-width: 768px) {
             body {
-                padding: 0.8rem;
-            }
-            
-            .main-content {
                 padding: 1rem;
             }
-            
+            .card-header {
+                padding: 1.2rem;
+            }
+            .logo {
+                font-size: 1.3rem;
+            }
+            .logo span:first-child {
+                font-size: 1.1rem;
+            }
+            .card-content {
+                padding: 1rem;
+            }
             .mode-btn.round {
-                width: 125px;
-                height: 125px;
+                width: 120px;
+                height: 120px;
                 font-size: 1rem;
                 padding: 0.7rem;
             }
-            
             .mode-btn.oblong {
                 width: 240px;
                 padding: 0.85rem 1.4rem;
                 font-size: 1.15rem;
             }
-            
             .row-top, .row-middle {
                 gap: 1rem;
             }
-            
-            .buttons-area {
-                gap: 1rem;
-            }
-            
             .mode-title {
                 font-size: 1.2rem;
             }
-            
             .desc-card p {
-                font-size: 0.9rem;
-            }
-            
-            .desc-card h4 {
-                font-size: 1rem;
-            }
-            
-            .info-hint {
-                font-size: 0.9rem;
-                padding: 0.6rem 1.4rem;
-                margin-bottom: 1.2rem;
-            }
-            
-            .info-hint::before {
-                font-size: 1.1rem;
-            }
-            
-            .quick-guide li {
                 font-size: 0.85rem;
-                padding: 0.25rem 0.9rem;
             }
-            
-            .quick-guide h4 {
-                font-size: 1rem;
-            }
-            
-            .quick-guide {
-                padding: 1rem 1.2rem;
-            }
-            
-            .desc-card {
-                padding: 1rem;
+            .info-hint {
+                font-size: 0.85rem;
+                padding: 0.6rem 1.4rem;
             }
         }
 
-        @media (max-width: 400px) {
+        @media (max-width: 550px) {
             .mode-btn.round {
-                width: 110px;
-                height: 110px;
-                font-size: 0.9rem;
+                width: 100px;
+                height: 100px;
+                font-size: 0.85rem;
             }
-            
             .mode-btn.oblong {
-                width: 210px;
+                width: 200px;
                 font-size: 1rem;
                 padding: 0.7rem 1.2rem;
             }
-            
-            .mode-title {
-                font-size: 1.1rem;
-            }
-            
-            .desc-card p {
-                font-size: 0.85rem;
+            .quick-guide li {
+                font-size: 0.8rem;
             }
         }
     </style>
 </head>
 <body>
-<div class="oxylog-container">
-    <div class="header">
+<div class="calculator-card">
+    <div class="card-header">
         <div class="logo">
             <span>Oxylog</span>
-            <small>Аппарат ИВЛ</small>
+            <small>Аппарат ИВЛ | Медицинский навигатор режимов</small>
         </div>
     </div>
-    <div class="main-content">
-        <!-- область кнопок -->
+    <div class="card-content">
+        
         <div class="buttons-area">
             <div class="row-top">
                 <button class="mode-btn round" data-mode="VC CMV">VC CMV</button>
@@ -374,7 +332,7 @@
             </div>
         </div>
 
-        <div class="info-hint">выберите режим для получения информации</div>
+        <div class="info-hint">☝️ выберите режим для получения информации</div>
 
         <div class="info-panel" id="dynamicInfo">
             <div class="mode-title" id="modeTitle">Oxylog · режимы ИВЛ</div>
@@ -412,7 +370,7 @@
         "VC CMV": {
             title: "VC CMV (Управляемая вентиляция)",
             how: "Аппарат полностью дышит за пациента с заданной частотой и объемом. Пациент не инициирует вдохи — все параметры жестко заданы клиницистом. Режим обеспечивает полный контроль дыхания.",
-            when: "Когда человек не может дышать сам (комa, глубокая седация, наркоз, нейромышечная блокада). Применяется при отсутствии самостоятельного дыхания или его полной неэффективности."
+            when: "Когда человек не может дышать сам (кома, глубокая седация, наркоз, нейромышечная блокада). Применяется при отсутствии самостоятельного дыхания или его полной неэффективности."
         },
         "VC SIMV": {
             title: "VC SIMV (Синхронизированная перемежающаяся принудительная вентиляция)",
@@ -445,7 +403,7 @@
         document.getElementById('whenUsedText').innerText = mode.when;
 
         const panel = document.getElementById('dynamicInfo');
-        panel.style.backgroundColor = "#fff9e8";
+        panel.style.backgroundColor = "#fff8e7";
         setTimeout(() => { panel.style.backgroundColor = ""; }, 200);
     }
 
@@ -475,6 +433,12 @@
             updateModeInfo(modeValue);
             setActiveButton(defaultButton);
         }
+    }
+    
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/SMP/sw.js')
+            .then(reg => console.log('✅ Сервис-воркер зарегистрирован:', reg))
+            .catch(err => console.error('❌ Ошибка регистрации:', err));
     }
 </script>
 </body>
