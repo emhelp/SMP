@@ -5,6 +5,9 @@ const urlsToCache = [
   '/SMP/',
   '/SMP/index.html',
   
+  // Оффлайн-заглушка (ВАЖНО!)
+  '/SMP/offline.html',
+  
   // Основные страницы навигации
   '/SMP/install-instruction.html',
   '/SMP/grify.html',
@@ -150,14 +153,18 @@ self.addEventListener('fetch', event => {
   event.respondWith(
     caches.match(event.request)
       .then(response => {
+        // Нашли в кэше — отдаём
         if (response) {
           return response;
         }
+        
+        // Не нашли — идём в сеть
         return fetch(event.request)
           .then(response => {
             if (!response || response.status !== 200) {
               return response;
             }
+            // Сохраняем в кэш для будущих оффлайн-запросов
             const responseClone = response.clone();
             caches.open(CACHE_NAME).then(cache => {
               cache.put(event.request, responseClone);
@@ -165,9 +172,11 @@ self.addEventListener('fetch', event => {
             return response;
           })
           .catch(() => {
+            // ОФФЛАЙН-ЗАГЛУШКА: показываем страницу, если запрос HTML
             if (event.request.headers.get('accept') && event.request.headers.get('accept').includes('text/html')) {
-              return caches.match('/SMP/index.html');
+              return caches.match('/SMP/offline.html');
             }
+            // Для остальных ресурсов — стандартное сообщение
             return new Response('Нет соединения с интернетом', { status: 503 });
           });
       })
