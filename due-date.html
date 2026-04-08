@@ -2,8 +2,13 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <title>Акушерский калькулятор: срок беременности, дата родов, ВСДМ</title>
+    
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1e2f47">
+    
     <style>
         * {
             margin: 0;
@@ -12,69 +17,83 @@
         }
 
         body {
-            background: linear-gradient(145deg, #f5f0eb 0%, #e8dfd7 100%);
-            font-family: 'Segoe UI', 'Roboto', system-ui, -apple-system, 'Helvetica Neue', sans-serif;
+            background: linear-gradient(145deg, #eef2f7 0%, #dce3ec 100%);
+            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, 'Helvetica Neue', sans-serif;
             padding: 2rem 1rem;
             min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        .calculator-container {
-            max-width: 780px;
+        .calculator-card {
+            max-width: 800px;
+            width: 100%;
             margin: 0 auto;
-            background: #fffef7;
+            background: #ffffff;
             border-radius: 48px;
-            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.2);
             overflow: hidden;
         }
 
-        .calc-header {
-            background: #f3e1d4;
+        .card-header {
+            background: #1e2f47;
+            background-image: linear-gradient(115deg, #142a3b, #1d3f55);
             padding: 1.8rem 2rem;
-            border-bottom: 2px solid #f2cfbc;
+            color: white;
         }
-        .calc-header h1 {
-            font-size: 1.8rem;
-            color: #5a3e2b;
+        .card-header h1 {
+            font-size: 1.9rem;
+            font-weight: 700;
             display: flex;
             align-items: center;
             gap: 12px;
             flex-wrap: wrap;
         }
-        .calc-header p {
-            color: #7a5a44;
-            margin-top: 8px;
+        .card-header h1 span {
+            background: rgba(255,255,255,0.2);
+            font-size: 0.9rem;
+            padding: 5px 14px;
+            border-radius: 60px;
+            font-weight: 500;
+        }
+        .card-header p {
+            margin-top: 12px;
+            opacity: 0.85;
             font-size: 0.95rem;
+            border-left: 3px solid #5f9bc2;
+            padding-left: 16px;
         }
 
-        .calc-body {
+        .card-content {
             padding: 2rem;
         }
 
         .input-group {
-            margin-bottom: 1.8rem;
+            margin-bottom: 1.5rem;
         }
         .input-group label {
             font-weight: 600;
-            color: #4b3621;
+            color: #1f4a66;
             display: block;
             margin-bottom: 8px;
-            font-size: 1rem;
+            font-size: 0.95rem;
         }
         .date-input {
             width: 100%;
-            padding: 14px 18px;
+            padding: 12px 16px;
             font-size: 1rem;
-            border: 2px solid #f0d5c4;
+            border: 2px solid #d4e2f0;
             border-radius: 60px;
             background: white;
             transition: 0.2s;
             font-family: inherit;
-            color: #2c241a;
+            color: #1f3a4b;
         }
         .date-input:focus {
             outline: none;
-            border-color: #c2855b;
-            box-shadow: 0 0 0 3px rgba(194, 133, 91, 0.2);
+            border-color: #1f6e9c;
+            box-shadow: 0 0 0 3px rgba(31,110,156,0.1);
         }
 
         .button-group {
@@ -84,69 +103,66 @@
             margin: 24px 0 20px;
         }
         .btn {
-            background: #e7d3c6;
+            background: #ecf3f8;
             border: none;
             padding: 12px 28px;
-            border-radius: 80px;
+            border-radius: 60px;
             font-weight: 600;
-            font-size: 0.95rem;
-            color: #4f2f1a;
+            font-size: 0.9rem;
+            color: #1f4a66;
             cursor: pointer;
             transition: all 0.2s;
             font-family: inherit;
         }
         .btn-primary {
-            background: #b97f54;
+            background: linear-gradient(135deg, #1f6e9c 0%, #155a80 100%);
             color: white;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
         }
         .btn-primary:hover {
-            background: #9c6642;
-            transform: scale(0.97);
+            background: linear-gradient(135deg, #1a5c84 0%, #114d6e 100%);
+            transform: translateY(-2px);
         }
         .btn-secondary {
-            background: #f0e3db;
-            border: 1px solid #ddcbbc;
+            background: #ecf3f8;
+            border: 2px solid #cbdae6;
         }
         .btn-secondary:hover {
-            background: #e3d2c7;
+            background: #dee4ec;
+            transform: translateY(-2px);
         }
 
         .result-card {
-            background: #fef8f2;
-            border-radius: 32px;
+            background: #f6fafd;
+            border-radius: 28px;
             padding: 1.2rem 1.6rem;
             margin: 1.8rem 0 1rem;
-            border-left: 8px solid #c28a62;
-            transition: all 0.2s;
+            border-left: 6px solid #1f6e9c;
         }
         
-        /* Стиль для текущего срока беременности - крупно и голубое выделение */
         .gestational {
-            background: #e3f2fd;
+            background: #eef7ff;
             padding: 16px 20px;
             border-radius: 28px;
             margin: 16px 0;
             text-align: center;
-            border-left: 6px solid #2196f3;
+            border-left: 6px solid #1f6e9c;
         }
         .gestational .gestational-label {
-            font-size: 1rem;
+            font-size: 0.9rem;
             font-weight: 500;
-            color: #0d47a1;
+            color: #1f4a66;
             display: block;
             margin-bottom: 8px;
         }
         .gestational .gestational-value {
             font-size: 2rem;
             font-weight: 800;
-            color: #0b5e9e;
+            color: #1a4d6b;
             letter-spacing: 0.5px;
         }
         
-        /* Стиль для ПДР - оранжевое выделение обычным шрифтом */
         .due-date {
-            background: #fff3e0;
+            background: #fff8e7;
             padding: 12px 18px;
             border-radius: 28px;
             margin: 16px 0;
@@ -155,22 +171,21 @@
             justify-content: space-between;
             align-items: center;
             gap: 8px;
-            border-left: 4px solid #ff9800;
+            border-left: 4px solid #f0b849;
         }
         .due-date-label {
-            font-size: 1rem;
+            font-size: 0.9rem;
             font-weight: 500;
-            color: #e65100;
+            color: #a56b00;
         }
         .due-date-value {
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 600;
-            color: #e65100;
+            color: #a56b00;
         }
         
-        /* Стиль для количества дней до родов - зеленое выделение обычным шрифтом */
         .days-left {
-            background: #e8f5e9;
+            background: #e8f0e8;
             padding: 12px 18px;
             border-radius: 28px;
             margin: 16px 0;
@@ -179,105 +194,134 @@
             justify-content: space-between;
             align-items: center;
             gap: 8px;
-            border-left: 4px solid #4caf50;
+            border-left: 4px solid #2c7a4d;
         }
         .days-left-label {
-            font-size: 1rem;
+            font-size: 0.9rem;
             font-weight: 500;
-            color: #2e7d32;
+            color: #2c7a4d;
         }
         .days-left-value {
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 600;
-            color: #2e7d32;
+            color: #2c7a4d;
         }
         
-        /* Стиль для ВСДМ - крупный шрифт */
         .fundus-box {
-            background: #fff5ea;
+            background: #ffffff;
             border-radius: 28px;
             padding: 16px 20px;
             margin-top: 18px;
-            border: 1px solid #f2e0d2;
+            border: 1px solid #d4e2f0;
         }
         .fundus-title {
-            font-weight: 800;
-            font-size: 1.2rem;
+            font-weight: 700;
+            font-size: 1rem;
             display: flex;
             align-items: center;
             gap: 8px;
-            color: #7c5a42;
+            color: #1f4a66;
             margin-bottom: 12px;
         }
         .fundus-desc {
-            font-size: 1rem;
+            font-size: 0.9rem;
             line-height: 1.45;
-            color: #3a2a1f;
+            color: #1f3a4b;
         }
         
-        /* Стиль для аускультации и шевелений - крупный шрифт */
         .fetal-title {
-            font-weight: 800;
-            font-size: 1.2rem;
+            font-weight: 700;
+            font-size: 1rem;
             display: flex;
             align-items: center;
             gap: 8px;
-            color: #7c5a42;
+            color: #1f4a66;
             margin: 12px 0 12px 0;
         }
         .fetal-desc {
-            font-size: 1rem;
+            font-size: 0.9rem;
             line-height: 1.45;
-            color: #3a2a1f;
+            color: #1f3a4b;
         }
         
-        /* Стиль для локального статуса шевелений */
         .movement-status {
-            background: #faf3e8;
+            background: #f6fafd;
             border-radius: 20px;
             padding: 12px 16px;
             margin-top: 12px;
-            border-left: 4px solid #c28a62;
-            font-size: 0.95rem;
+            border-left: 4px solid #1f6e9c;
+            font-size: 0.85rem;
             line-height: 1.5;
+            color: #1f3a4b;
         }
         .movement-status strong {
-            color: #a56b3a;
+            color: #1f4a66;
         }
         
         .warning-note {
-            font-size: 0.75rem;
-            color: #a77958;
+            font-size: 0.7rem;
+            color: #6f8eaa;
             margin-top: 20px;
             text-align: center;
-            border-top: 1px solid #f2e2d6;
+            border-top: 1px solid #e2ecf3;
             padding-top: 18px;
+            line-height: 1.5;
         }
         
-        @media (max-width: 550px) {
-            .calc-body { padding: 1.5rem; }
-            .due-date { flex-direction: column; align-items: flex-start; }
-            .days-left { flex-direction: column; align-items: flex-start; }
-            .gestational .gestational-value { font-size: 1.5rem; }
-            .fundus-title, .fetal-title { font-size: 1rem; }
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+            .card-header {
+                padding: 1.2rem;
+            }
+            .card-header h1 {
+                font-size: 1.3rem;
+            }
+            .card-header p {
+                font-size: 0.8rem;
+            }
+            .card-content {
+                padding: 1rem;
+            }
+            .gestational .gestational-value {
+                font-size: 1.5rem;
+            }
+            .due-date, .days-left {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .fundus-title, .fetal-title {
+                font-size: 0.9rem;
+            }
+            .fundus-desc, .fetal-desc {
+                font-size: 0.85rem;
+            }
+            .movement-status {
+                font-size: 0.8rem;
+            }
         }
-        .fade-in { animation: fadeSlide 0.3s ease; }
-        @keyframes fadeSlide {
-            from { opacity: 0; transform: translateY(8px);}
-            to { opacity: 1; transform: translateY(0);}
+        
+        @media (max-width: 480px) {
+            .button-group {
+                flex-direction: column;
+            }
+            .btn {
+                text-align: center;
+            }
         }
     </style>
 </head>
 <body>
-<div class="calculator-container">
-    <div class="calc-header">
+<div class="calculator-card">
+    <div class="card-header">
         <h1>
             📅 Калькулятор даты родов
-            <span style="font-size: 1rem; background: #ffffffaa; border-radius: 40px; padding: 4px 12px;">по последней менструации</span>
+            <span>по последней менструации</span>
         </h1>
         <p>Акушерский срок + высота дна матки + сердцебиение и шевеления плода</p>
     </div>
-    <div class="calc-body">
+    <div class="card-content">
         <div class="input-group">
             <label>📆 Первый день последней менструации (ПДПМ):</label>
             <input type="date" id="lastMenstrualDate" class="date-input" value="2026-01-01">
@@ -290,19 +334,16 @@
 
         <div id="resultArea">
             <div class="result-card">
-                <!-- Текущий срок беременности - крупно и голубое выделение -->
                 <div class="gestational">
                     <div class="gestational-label">📍 Текущий срок беременности (акушерский):</div>
                     <div class="gestational-value" id="weeksDays">—</div>
                 </div>
                 
-                <!-- Предполагаемая дата родов - оранжевое выделение -->
                 <div class="due-date">
                     <span class="due-date-label">🤰 Предполагаемая дата родов (ПДР):</span>
                     <span class="due-date-value" id="dueDateDisplay">—</span>
                 </div>
                 
-                <!-- Количество дней до родов - зеленое выделение -->
                 <div class="days-left">
                     <span class="days-left-label">⏳ Количество дней до родов (ПДР):</span>
                     <span class="days-left-value" id="daysLeftDisplay">—</span>
@@ -385,7 +426,6 @@
             return "дней";
         }
 
-        // Высота дна матки (описание)
         function getFundusHeightDescription(weeks) {
             if (weeks < 12) return "🔹 До 12 недель: дно матки находится за лонным сочленением, пальпаторно не определяется.";
             if (weeks < 16) return "🔸 12–14 недель: дно матки на уровне верхнего края лобка (2–3 см над лоном).";
@@ -399,7 +439,6 @@
             return "⚠️ Срок >42 недель: переношенная беременность.";
         }
 
-        // Информация о сердцебиении и шевелениях
         function getFetalData(weeks) {
             let heartbeat = "";
             let movements = "";
@@ -429,8 +468,7 @@
             return { heartbeat, movements };
         }
         
-        // Локальный статус ощущений шевелений (в формате медицинской документации)
-        function getMovementStatus(weeks, isFirstPregnancy = true) {
+        function getMovementStatus(weeks) {
             let status = "";
             
             if (weeks < 12) {
@@ -549,7 +587,6 @@
                     const fetal = getFetalData(weeks);
                     fetalInfoSpan.innerHTML = `<strong>${fetal.heartbeat}</strong><br>${fetal.movements}`;
                     
-                    // Добавляем локальный статус ощущений шевелений
                     const movementStatusText = getMovementStatus(weeks);
                     movementStatusSpan.innerHTML = movementStatusText;
                 }
@@ -571,9 +608,14 @@
         resetBtn.addEventListener('click', resetToFirstJan2026);
         dateInput.addEventListener('change', updateCalculator);
 
-        // Инициализация: ставим 01.01.2026 и рассчитываем
         dateInput.value = "2026-01-01";
         updateCalculator();
+        
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/SMP/sw.js')
+                .then(reg => console.log('✅ Сервис-воркер зарегистрирован:', reg))
+                .catch(err => console.error('❌ Ошибка регистрации:', err));
+        }
     })();
 </script>
 </body>
