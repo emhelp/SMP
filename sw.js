@@ -1,4 +1,4 @@
-const CACHE_NAME = 'emhelp-v20';
+const CACHE_NAME = 'emhelp-v21';
 
 const urlsToCache = [
   '/SMP/',
@@ -44,7 +44,7 @@ const urlsToCache = [
   '/SMP/wounds_including_infected.html',
   '/SMP/head_injury.html',
   
-  // ПЕРЕЛОМЫ ПОЗВОНОЧНИКА (spine_fractures.html)
+  // ПЕРЕЛОМЫ ПОЗВОНОЧНИКА
   '/SMP/c4_compression_fracture.html',
   '/SMP/c5_uncomplicated_compression_fracture.html',
   '/SMP/t10_t11_compression_fracture_spinal_cord_rupture.html',
@@ -55,13 +55,13 @@ const urlsToCache = [
   '/SMP/senile_spondylopathy_l2.html',
   '/SMP/coccyx_fracture.html',
   
-  // ПЕРЕЛОМЫ ЛИЦЕВОГО ЧЕРЕПА (facial_fractures.html)
+  // ПЕРЕЛОМЫ ЛИЦЕВОГО ЧЕРЕПА
   '/SMP/nasal_bones_nondisplaced.html',
   '/SMP/nasal_bones_displaced.html',
   '/SMP/zygomatic_bone.html',
   '/SMP/mandible.html',
   
-  // ТРАВМЫ СВЯЗОК И МЫШЦ (ligament_muscle_injuries.html)
+  // ТРАВМЫ СВЯЗОК И МЫШЦ
   '/SMP/lumbar_ligament_capsule_injury.html',
   '/SMP/posttraumatic_cervical_myositis.html',
   '/SMP/supraspinatus_muscle_injury_right.html',
@@ -88,6 +88,40 @@ const urlsToCache = [
   '/SMP/right_ankle_ligament_injury.html',
   '/SMP/ankle_ligament_sprain.html',
   '/SMP/right_foot_ligament_injury.html',
+  
+  // ========== НОВЫЕ КАЛЬКУЛЯТОРЫ (ДОБАВЛЕНЫ) ==========
+  '/SMP/algovera-shock.html',
+  '/SMP/glasgow-scale.html',
+  '/SMP/itls-trauma.html',
+  '/SMP/lams-scale.html',
+  '/SMP/news2-scale.html',
+  '/SMP/odn-kassil.html',
+  '/SMP/pain-vas.html',
+  '/SMP/burn-area.html',
+  '/SMP/gastric-lavage-adult.html',
+  '/SMP/rass-scale.html',
+  '/SMP/shocks-scale.html',
+  '/SMP/pediatric-norms.html',
+  '/SMP/fontanelle.html',
+  '/SMP/gastric-lavage-child.html',
+  '/SMP/dobutamine-adult.html',
+  '/SMP/dobutamine-child.html',
+  '/SMP/dopamine-adult.html',
+  '/SMP/dopamine-child.html',
+  '/SMP/norepinephrine-adult.html',
+  '/SMP/norepinephrine-child.html',
+  '/SMP/mg-conversion.html',
+  '/SMP/iv-infusion-rate.html',
+  '/SMP/ett-size.html',
+  '/SMP/laryngeal-tube-size.html',
+  '/SMP/ventilation-parameters.html',
+  '/SMP/ventilation-modes.html',
+  '/SMP/intubation.html',
+  '/SMP/oxylog-modes.html',
+  '/SMP/due-date.html',
+  '/SMP/fundal-height.html',
+  '/SMP/dental-formula.html',
+  '/SMP/qt-interval-norms.html',
   
   // CSS и основные файлы
   '/SMP/style.css',
