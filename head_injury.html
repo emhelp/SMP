@@ -2,14 +2,19 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>ЧМТ</title>
+
+<!-- PWA -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0f1446">
+
 <style>
   body {
     font-family: 'Segoe UI', 'Roboto', sans-serif;
     margin: 0;
     padding: 20px;
-    background: #f5f5f5;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -20,36 +25,57 @@
     text-align: center;
     margin-bottom: 20px;
     color: #0f1446;
+    font-size: 28px;
+  }
+
+  .head-section {
+    width: 100%;
+    max-width: 500px;
+    margin-bottom: 20px;
+    background: white;
+    border-radius: 12px;
+    padding: 18px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    box-sizing: border-box;
+  }
+
+  .section-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #e53935;
+    margin-bottom: 14px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #e53935;
   }
 
   .head-menu {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    width: 100%;
-    max-width: 500px;
-    box-sizing: border-box;
   }
 
   .head-btn {
     text-decoration: none;
     color: white;
-    background: #0f1446;
-    padding: 12px 15px;
-    border-radius: 8px;
+    background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
+    padding: 14px 15px;
+    border-radius: 10px;
     font-weight: 600;
     text-align: center;
     width: 100%;
-    transition: background 0.2s;
+    transition: all 0.2s;
     border: none;
     cursor: pointer;
-    font-size: 1rem;
+    font-size: 15px;
     font-family: inherit;
     box-sizing: border-box;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    line-height: 1.4;
   }
 
   .head-btn:hover {
-    background: #3949ab;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
   }
 
   .head-btn:active {
@@ -57,28 +83,48 @@
   }
 
   @media (max-width: 600px) {
-    .head-menu {
-      max-width: 90%;
+    .head-section {
+      max-width: 95%;
+      padding: 14px;
     }
     .head-btn {
-      font-size: 0.9rem;
+      font-size: 14px;
+      padding: 12px 12px;
+    }
+    .section-title {
+      font-size: 16px;
+    }
+    h1 {
+      font-size: 24px;
     }
   }
 </style>
 </head>
 <body>
 
-<h1>ЧМТ</h1>
+<h1>🧠 ЧЕРЕПНО-МОЗГОВАЯ ТРАВМА (ЧМТ)</h1>
 
-<div class="head-menu">
-  <button class="head-btn" onclick="window.location.href='closed_tbi_severe_brain_contusion_dap_sah.html'">Закрытая черепно-мозговая травма. Ушиб головного мозга тяжелой степени с проявлениями ДАП. САК</button>
-  <button class="head-btn" onclick="window.location.href='closed_skull_vault_fracture.html'">Закрытый перелом свода черепа</button>
-  <button class="head-btn" onclick="window.location.href='closed_tbi_brain_concussion_soft_tissue_contusions_closed_nasal_fracture_closed_rib_fracture.html'">ЗЧМТ. Сотрясение головного мозга. Ушибы мягких тканей головы. Закрытый перелом костей носа. Закрытый перелом левого 5-6 ребра</button>
-  <button class="head-btn" onclick="window.location.href='closed_tbi_mild_brain_contusion_multiple_contusions_abrasions_face_scalp.html'">ЗЧМТ. Ушиб головного мозга легкой степени тяжести. Множественные ушибы и ссадины лица и волосистой части головы</button>
-  <button class="head-btn" onclick="window.location.href='closed_tbi_severe_brain_contusion_with_compression_intracranial_hematoma_sah_subgaleal_hematoma.html'">ЗЧМТ. Ушиб головного мозга тяжелой степени со сдавлением правого полушария внутричерепной гематомой. Субарахноидальное кровоизлияние. Подапоневротическая гематома левой височно-теменной области</button>
-  <button class="head-btn" onclick="window.location.href='open_tbi_moderate_brain_contusion_sah_anterior_cranial_fossa_fracture_nasoliquorrhea_multiple_contusions_abrasions_face.html'">Открытая черепно-мозговая травма. Ушиб головного мозга средней степени тяжести. Субарахноидальное кровоизлияние. Перелом основания передней черепной ямки. Назоликворея. Множественные ушибы и ссадины лица</button>
-  <button class="head-btn" onclick="window.location.href='left_temporal_subcutaneous_hematoma_severe_alcohol_poisoning.html'">Подкожная гематома левой височной области. Алкогольное отравление тяжелой степени</button>
+<!-- ЧМТ -->
+<div class="head-section">
+  <div class="section-title">📌 ЧЕРЕПНО-МОЗГОВАЯ ТРАВМА</div>
+  <div class="head-menu">
+    <button class="head-btn" onclick="window.location.href='closed_tbi_severe_brain_contusion_dap_sah.html'">Закрытая черепно-мозговая травма. Ушиб головного мозга тяжелой степени с проявлениями ДАП. САК</button>
+    <button class="head-btn" onclick="window.location.href='closed_skull_vault_fracture.html'">Закрытый перелом свода черепа</button>
+    <button class="head-btn" onclick="window.location.href='closed_tbi_brain_concussion_soft_tissue_contusions_closed_nasal_fracture_closed_rib_fracture.html'">ЗЧМТ. Сотрясение головного мозга. Ушибы мягких тканей головы. Закрытый перелом костей носа. Закрытый перелом левого 5-6 ребра</button>
+    <button class="head-btn" onclick="window.location.href='closed_tbi_mild_brain_contusion_multiple_contusions_abrasions_face_scalp.html'">ЗЧМТ. Ушиб головного мозга легкой степени тяжести. Множественные ушибы и ссадины лица и волосистой части головы</button>
+    <button class="head-btn" onclick="window.location.href='closed_tbi_severe_brain_contusion_with_compression_intracranial_hematoma_sah_subgaleal_hematoma.html'">ЗЧМТ. Ушиб головного мозга тяжелой степени со сдавлением правого полушария внутричерепной гематомой. Субарахноидальное кровоизлияние. Подапоневротическая гематома левой височно-теменной области</button>
+    <button class="head-btn" onclick="window.location.href='open_tbi_moderate_brain_contusion_sah_anterior_cranial_fossa_fracture_nasoliquorrhea_multiple_contusions_abrasions_face.html'">Открытая черепно-мозговая травма. Ушиб головного мозга средней степени тяжести. Субарахноидальное кровоизлияние. Перелом основания передней черепной ямки. Назоликворея. Множественные ушибы и ссадины лица</button>
+    <button class="head-btn" onclick="window.location.href='left_temporal_subcutaneous_hematoma_severe_alcohol_poisoning.html'">Подкожная гематома левой височной области. Алкогольное отравление тяжелой степени</button>
+  </div>
 </div>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/SMP/sw.js')
+      .then(reg => console.log('✅ SW зарегистрирован:', reg))
+      .catch(err => console.error('❌ Ошибка:', err));
+  }
+</script>
 
 </body>
 </html>
