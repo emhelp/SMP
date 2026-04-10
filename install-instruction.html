@@ -313,6 +313,59 @@
       padding: 5px 16px;
       border-radius: 30px;
     }
+
+    /* Стили для кнопки "Как делать свайп" */
+    .swipe-help-btn-container {
+      margin-top: 16px;
+      margin-bottom: 8px;
+      padding: 0 4px;
+    }
+
+    .swipe-help-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%);
+      border: none;
+      border-radius: 40px;
+      padding: 12px 20px;
+      font-size: 16px;
+      font-weight: 600;
+      color: #0f1446;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: 1px solid #94a3b8;
+    }
+
+    .swipe-help-btn:hover {
+      background: linear-gradient(135deg, #cbd5e1 0%, #b0bec5 100%);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transform: translateY(-1px);
+    }
+
+    .swipe-help-btn:active {
+      transform: translateY(1px);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    }
+
+    .btn-icon {
+      font-size: 20px;
+    }
+
+    /* Подсветка целевого блока при переходе */
+    .highlight-target {
+      animation: softHighlight 1.5s ease-in-out;
+    }
+
+    @keyframes softHighlight {
+      0% { box-shadow: 0 4px 14px rgba(0,0,0,0.08); }
+      30% { box-shadow: 0 0 0 6px rgba(124, 58, 237, 0.3); }
+      70% { box-shadow: 0 0 0 6px rgba(124, 58, 237, 0.3); }
+      100% { box-shadow: 0 4px 14px rgba(0,0,0,0.08); }
+    }
     
     /* Адаптив */
     @media (max-width: 550px) {
@@ -406,6 +459,11 @@
         font-size: 20px;
       }
       
+      .swipe-help-btn {
+        padding: 11px 16px;
+        font-size: 15px;
+      }
+      
       /* На мобильных фото чуть больше для читаемости */
       .swipe-image {
         max-width: 75%;
@@ -440,6 +498,11 @@
       }
       
       .iphone-navigation-title {
+        font-size: 14px;
+      }
+      
+      .swipe-help-btn {
+        padding: 10px 14px;
         font-size: 14px;
       }
     }
@@ -512,6 +575,15 @@
           <div class="step-number">4</div>
           <div class="step-text">Выберите <strong>«На экран «Домой»</strong> → «Добавить».</div>
         </div>
+        
+        <!-- 🆕 КНОПКА ДЛЯ ПЕРЕХОДА К СВАЙПУ (добавлена под шагами) -->
+        <div class="swipe-help-btn-container">
+          <button class="swipe-help-btn" id="scrollToSwipeBtn">
+            <span class="btn-icon">👆</span>
+            Как делать свайп на iPhone?
+            <span class="btn-icon">📱</span>
+          </button>
+        </div>
       </div>
     </div>
     
@@ -525,7 +597,7 @@
     </div>
     
     <!-- Изображение 55_swipe.png после фиолетового блока, увеличенное, с подписью для iPhone -->
-    <div class="iphone-navigation-block">
+    <div class="iphone-navigation-block" id="swipeGuideBlock">
       <div class="iphone-navigation-title">
         <span class="apple-icon">🍏</span>
         <span>iPhone</span>
@@ -542,7 +614,7 @@
   </div>
 </nav>
 
-<!-- РЕГИСТРАЦИЯ СЕРВИС-ВОРКЕРА -->
+<!-- РЕГИСТРАЦИЯ СЕРВИС-ВОРКЕРА И СКРИПТ ПРОКРУТКИ -->
 <script>
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/SMP/sw.js')
@@ -555,6 +627,32 @@
     if (!link.hasAttribute('target')) {
       link.setAttribute('target', '_blank');
       link.setAttribute('rel', 'noopener noreferrer');
+    }
+  });
+
+  // 🆕 ЛОГИКА ДЛЯ КНОПКИ ПРОКРУТКИ К БЛОКУ С ИЗОБРАЖЕНИЕМ СВАЙПА
+  document.addEventListener('DOMContentLoaded', function() {
+    const scrollBtn = document.getElementById('scrollToSwipeBtn');
+    const targetBlock = document.getElementById('swipeGuideBlock');
+    
+    if (scrollBtn && targetBlock) {
+      scrollBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        // Плавная прокрутка
+        targetBlock.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center'
+        });
+        
+        // Добавляем класс для анимации подсветки
+        targetBlock.classList.add('highlight-target');
+        
+        // Убираем класс через 1.5 секунды (чтобы можно было повторить)
+        setTimeout(() => {
+          targetBlock.classList.remove('highlight-target');
+        }, 1500);
+      });
     }
   });
 </script>
