@@ -19,8 +19,9 @@ const urlsToCache = [
   '/SMP/kody.html',
   '/SMP/stations.html',
   
-  // НОВАЯ СТРАНИЦА АЛГОРИТМОВ
+  // Страницы алгоритмов
   '/SMP/algo-mSK.html',
+  '/SMP/algorithms.html',
   
   // Коды МКБ (20 страниц)
   '/SMP/Kody_1.html',
@@ -123,7 +124,6 @@ const urlsToCache = [
   '/SMP/antivich.html',
   '/SMP/vitals.html',
   '/SMP/routing.html',
-  '/SMP/algorithms.html',
   '/SMP/nsipv.html',
   
   // CSS и основные файлы
