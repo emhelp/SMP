@@ -150,6 +150,69 @@
             background: #ffffff;
         }
 
+        /* Стили для модального окна просмотра PDF */
+        .pdf-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            z-index: 1000;
+            flex-direction: column;
+        }
+        .pdf-modal.active {
+            display: flex;
+        }
+        .pdf-toolbar {
+            background: #1e2f47;
+            padding: 12px 16px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .pdf-toolbar button {
+            background: #2c7cb6;
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .pdf-toolbar button:hover {
+            background: #1f6e9c;
+        }
+        .pdf-toolbar .close-btn {
+            background: #b71c1c;
+        }
+        .pdf-toolbar .close-btn:hover {
+            background: #8b0000;
+        }
+        .pdf-frame {
+            flex: 1;
+            width: 100%;
+            border: none;
+        }
+        .pdf-message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            max-width: 90%;
+        }
+        .pdf-message a {
+            color: #1f6e9c;
+            word-break: break-all;
+        }
         @media (max-width: 600px) {
             .card-body {
                 padding: 1.5rem;
@@ -162,6 +225,13 @@
             .section-btn {
                 padding: 12px 10px;
                 font-size: 0.9rem;
+            }
+            .pdf-toolbar {
+                padding: 8px 12px;
+            }
+            .pdf-toolbar button {
+                padding: 6px 12px;
+                font-size: 12px;
             }
         }
     </style>
@@ -182,10 +252,21 @@
 
             <div id="sectionsContainer" class="sections-grid"></div>
 
-            <!-- КНОПКА ВЕДЕТ НА algorithms.html (страница с изменениями) -->
             <button id="changesLinkBtn" class="changes-btn">📄 Изменения в результатах Алгоритмов</button>
         </div>
     </div>
+</div>
+
+<!-- Модальное окно для просмотра PDF -->
+<div id="pdfModal" class="pdf-modal">
+    <div class="pdf-toolbar">
+        <span id="pdfTitle">📄 Просмотр документа</span>
+        <div>
+            <button id="pdfDownloadBtn">⬇️ Скачать</button>
+            <button id="pdfCloseBtn" class="close-btn">✖️ Закрыть</button>
+        </div>
+    </div>
+    <iframe id="pdfFrame" class="pdf-frame" src=""></iframe>
 </div>
 
 <script>
@@ -224,6 +305,61 @@
 
     let currentMode = 'adult';
 
+    // Элементы модального окна
+    const pdfModal = document.getElementById('pdfModal');
+    const pdfFrame = document.getElementById('pdfFrame');
+    const pdfTitle = document.getElementById('pdfTitle');
+    const pdfDownloadBtn = document.getElementById('pdfDownloadBtn');
+    const pdfCloseBtn = document.getElementById('pdfCloseBtn');
+
+    // Функция открытия PDF в модальном окне (работает на всех устройствах)
+    function openPDF(pdfPath, title) {
+        // Полный URL к PDF
+        const fullPdfUrl = window.location.origin + '/SMP/' + pdfPath;
+        
+        // Устанавливаем заголовок
+        pdfTitle.textContent = `📄 ${title}`;
+        
+        // Для iOS: используем iframe с PDF
+        // Для Android: тоже iframe (работает в Chrome)
+        pdfFrame.src = fullPdfUrl;
+        
+        // Настраиваем кнопку скачивания
+        pdfDownloadBtn.onclick = () => {
+            window.open(fullPdfUrl, '_blank');
+        };
+        
+        // Показываем модальное окно
+        pdfModal.classList.add('active');
+        
+        // Блокируем прокрутку body
+        document.body.style.overflow = 'hidden';
+    }
+
+    // Закрыть модальное окно
+    function closePDF() {
+        pdfModal.classList.remove('active');
+        pdfFrame.src = ''; // Очищаем iframe
+        document.body.style.overflow = '';
+    }
+
+    // Обработчики для модального окна
+    pdfCloseBtn.addEventListener('click', closePDF);
+    
+    // Закрытие по клику на фон (нажатие на серую область)
+    pdfModal.addEventListener('click', (e) => {
+        if (e.target === pdfModal) {
+            closePDF();
+        }
+    });
+
+    // Закрытие по кнопке "Назад" на Android
+    window.addEventListener('popstate', () => {
+        if (pdfModal.classList.contains('active')) {
+            closePDF();
+        }
+    });
+
     function renderSections() {
         const container = document.getElementById('sectionsContainer');
         if (!container) return;
@@ -236,7 +372,8 @@
             btn.className = 'section-btn';
             btn.innerHTML = section.name;
             btn.addEventListener('click', () => {
-                window.open(section.pdf, '_blank');
+                // Открываем PDF во встроенном просмотрщике (модальное окно)
+                openPDF(section.pdf, section.name);
             });
             container.appendChild(btn);
         });
@@ -261,7 +398,6 @@
     document.getElementById('adultBtn').addEventListener('click', () => setActiveMode('adult'));
     document.getElementById('childBtn').addEventListener('click', () => setActiveMode('child'));
     
-    // КНОПКА ВЕДЕТ НА algorithms.html (страница с изменениями результатов)
     document.getElementById('changesLinkBtn').addEventListener('click', () => {
         window.location.href = 'algorithms.html';
     });
