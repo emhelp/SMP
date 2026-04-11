@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Алгоритмы МСК</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(145deg, #eef2f7 0%, #dce3ec 100%);
+            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, 'Helvetica Neue', sans-serif;
+            padding: 2rem 1rem;
+            min-height: 100vh;
+        }
+
+        .algorithms-container {
+            max-width: 880px;
+            margin: 0 auto;
+        }
+
+        .algorithms-card {
+            background: #ffffff;
+            border-radius: 48px;
+            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            transition: transform 0.2s;
+        }
+
+        .card-header {
+            background: #1e2f47;
+            background-image: linear-gradient(115deg, #142a3b, #1d3f55);
+            padding: 1.8rem 2rem;
+            color: white;
+            text-align: center;
+        }
+        .card-header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .card-body {
+            padding: 2rem 2rem 2rem;
+        }
+
+        .main-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        .main-age-btn {
+            flex: 1;
+            min-width: 200px;
+            text-align: center;
+            padding: 20px 16px;
+            font-size: 1.8rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+            background: #f0f4f9;
+            color: #1f4a66;
+        }
+        .main-age-btn.active {
+            background: #1f6e9c;
+            color: white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            transform: scale(0.98);
+        }
+        .main-age-btn:first-child.active {
+            background: #1f6e9c;
+        }
+        .main-age-btn:last-child.active {
+            background: #2c7cb6;
+        }
+
+        .sections-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 14px;
+            margin: 20px 0 20px;
+        }
+        .section-btn {
+            background: #f8fafc;
+            border: 1px solid #dce5ec;
+            border-radius: 50px;
+            padding: 14px 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #1f4a66;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .section-btn:hover {
+            background: #e9f0f5;
+            border-color: #b0c4de;
+            transform: translateY(-2px);
+        }
+        .section-btn:active {
+            transform: translateY(1px);
+        }
+
+        .changes-btn {
+            display: block;
+            width: 100%;
+            background: #fff4e8;
+            border: 2px solid #e67e22;
+            border-radius: 60px;
+            padding: 14px;
+            font-size: 1rem;
+            font-weight: bold;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.2s;
+            color: #c55a0a;
+            margin-top: 30px;
+        }
+        .changes-btn:hover {
+            background: #ffe6cc;
+            border-color: #d45a0a;
+        }
+
+        .back-button {
+            display: inline-block;
+            margin-bottom: 20px;
+            background: #ffffffcc;
+            backdrop-filter: blur(4px);
+            border-radius: 40px;
+            padding: 8px 20px;
+            text-decoration: none;
+            color: #1f4a66;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+        .back-button:hover {
+            background: #ffffff;
+        }
+
+        @media (max-width: 600px) {
+            .card-body {
+                padding: 1.5rem;
+            }
+            .main-age-btn {
+                font-size: 1.4rem;
+                padding: 14px;
+                min-width: 140px;
+            }
+            .section-btn {
+                padding: 12px 10px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="algorithms-container">
+    <a href="index.html" class="back-button">← На главную</a>
+    
+    <div class="algorithms-card">
+        <div class="card-header">
+            <h1>📚 Алгоритмы МСК</h1>
+        </div>
+        <div class="card-body">
+            <div class="main-buttons">
+                <button id="adultBtn" class="main-age-btn active">👨 Взрослым</button>
+                <button id="childBtn" class="main-age-btn">👶 Детям</button>
+            </div>
+
+            <div id="sectionsContainer" class="sections-grid"></div>
+
+            <button id="changesLinkBtn" class="changes-btn">📄 Изменения в результатах Алгоритмов</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const adultSections = [
+        { name: "🧠 Анестезиология и реаниматология", pdf: "pdfs/adult_anesthesia.pdf" },
+        { name: "🩺 Терапия", pdf: "pdfs/adult_therapy.pdf" },
+        { name: "❤️ Кардиология", pdf: "pdfs/adult_cardiology.pdf" },
+        { name: "🧠 Неврология", pdf: "pdfs/adult_neurology.pdf" },
+        { name: "🦠 Инфекционные заболевания", pdf: "pdfs/adult_infectious.pdf" },
+        { name: "🦴 Травматология", pdf: "pdfs/adult_traumatology.pdf" },
+        { name: "🔪 Хирургия", pdf: "pdfs/adult_surgery.pdf" },
+        { name: "🧪 Урология", pdf: "pdfs/adult_urology.pdf" },
+        { name: "🤰 Акушерство и гинекология", pdf: "pdfs/adult_obgyn.pdf" },
+        { name: "👁️ Офтальмология", pdf: "pdfs/adult_ophthalmology.pdf" },
+        { name: "👂 Оториноларингология", pdf: "pdfs/adult_ent.pdf" },
+        { name: "🦷 Стоматология", pdf: "pdfs/adult_dentistry.pdf" },
+        { name: "☠️ Токсикология", pdf: "pdfs/adult_toxicology.pdf" }
+    ];
+
+    const childSections = [
+        { name: "🧠 Детская анестезиология и реаниматология", pdf: "pdfs/child_anesthesia.pdf" },
+        { name: "🧒 Общая педиатрия", pdf: "pdfs/child_pediatrics.pdf" },
+        { name: "👶 Неонатология", pdf: "pdfs/child_neonatology.pdf" },
+        { name: "❤️ Детская кардиология", pdf: "pdfs/child_cardiology.pdf" },
+        { name: "🧠 Детская неврология", pdf: "pdfs/child_neurology.pdf" },
+        { name: "🦠 Инфекционные заболевания у детей", pdf: "pdfs/child_infectious.pdf" },
+        { name: "🦴 Детская травматология", pdf: "pdfs/child_traumatology.pdf" },
+        { name: "🔪 Детская хирургия", pdf: "pdfs/child_surgery.pdf" },
+        { name: "🧪 Детская урология", pdf: "pdfs/child_urology.pdf" },
+        { name: "🤰 Детская гинекология", pdf: "pdfs/child_gynecology.pdf" },
+        { name: "👁️ Детская офтальмология", pdf: "pdfs/child_ophthalmology.pdf" },
+        { name: "👂 Детская оториноларингология", pdf: "pdfs/child_ent.pdf" },
+        { name: "🦷 Детская стоматология", pdf: "pdfs/child_dentistry.pdf" },
+        { name: "☠️ Детская токсикология", pdf: "pdfs/child_toxicology.pdf" }
+    ];
+
+    let currentMode = 'adult';
+
+    function renderSections() {
+        const container = document.getElementById('sectionsContainer');
+        if (!container) return;
+        
+        const sections = currentMode === 'adult' ? adultSections : childSections;
+        container.innerHTML = '';
+        
+        sections.forEach(section => {
+            const btn = document.createElement('button');
+            btn.className = 'section-btn';
+            btn.innerHTML = section.name;
+            btn.addEventListener('click', () => {
+                window.open(section.pdf, '_blank');
+            });
+            container.appendChild(btn);
+        });
+    }
+
+    function setActiveMode(mode) {
+        currentMode = mode;
+        const adultBtn = document.getElementById('adultBtn');
+        const childBtn = document.getElementById('childBtn');
+        
+        if (mode === 'adult') {
+            adultBtn.classList.add('active');
+            childBtn.classList.remove('active');
+        } else {
+            childBtn.classList.add('active');
+            adultBtn.classList.remove('active');
+        }
+        
+        renderSections();
+    }
+
+    document.getElementById('adultBtn').addEventListener('click', () => setActiveMode('adult'));
+    document.getElementById('childBtn').addEventListener('click', () => setActiveMode('child'));
+    
+    document.getElementById('changesLinkBtn').addEventListener('click', () => {
+        window.location.href = 'algo-mSK.html';
+    });
+    
+    setActiveMode('adult');
+</script>
+</body>
+</html>
