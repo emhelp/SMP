@@ -6,11 +6,18 @@
         return;
     }
     
-    // Создаем контейнер для кнопки
+    // Создаем контейнер для кнопки (максимальное смещение в левый верхний угол)
     const backWrapper = document.createElement('div');
-    backWrapper.style.cssText = 'padding: 16px 20px 0 20px; max-width: 800px; margin: 0 auto;';
+    backWrapper.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 9999;
+        padding: 12px 0 0 12px;
+        margin: 0;
+    `;
     
-    // Создаем кнопку
+    // Создаем кнопку с градиентом (как кнопка "ГРИФАМ МСК")
     const backButton = document.createElement('button');
     backButton.innerHTML = `
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 4px;">
@@ -22,8 +29,8 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        gap: 4px;
-        background: #0f1446;
+        gap: 6px;
+        background: linear-gradient(135deg, #0f1446 0%, #800000 100%);
         color: white;
         border: none;
         padding: 10px 18px;
@@ -32,7 +39,7 @@
         font-weight: 500;
         font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
         cursor: pointer;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     `;
     
     backButton.onclick = (e) => {
@@ -42,7 +49,7 @@
     
     backWrapper.appendChild(backButton);
     
-    // Вставляем в начало body
+    // Вставляем в самое начало body
     if (document.body.firstChild) {
         document.body.insertBefore(backWrapper, document.body.firstChild);
     } else {
