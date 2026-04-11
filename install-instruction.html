@@ -157,6 +157,18 @@
       color: #0f1446;
     }
     
+    /* Стиль для кнопки ⋮ (три точки) - аккуратный, как в первоначальном варианте */
+    .menu-dots {
+      display: inline-block;
+      background: #2d2d2d;
+      color: white;
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-size: 18px;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+    
     /* АКТИВНАЯ ССЫЛКА */
     .clickable-link {
       display: inline-block;
@@ -186,35 +198,6 @@
       display: inline-block;
       font-size: 20px;
       font-weight: bold;
-    }
-    
-    /* ВЫДЕЛЕННАЯ ПОДСКАЗКА */
-    .tip-highlight {
-      background: linear-gradient(135deg, #fff8e1 0%, #ffefb5 100%);
-      padding: 18px 20px;
-      border-radius: 16px;
-      font-size: 16px;
-      color: #5d4a00;
-      margin-top: 20px;
-      border-left: 6px solid #ff8c00;
-      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
-      font-weight: 500;
-      line-height: 1.5;
-    }
-    
-    .tip-highlight .menu-dots {
-      font-size: 20px;
-      background: #2d2d2d;
-      color: white;
-      padding: 3px 10px;
-      border-radius: 12px;
-      display: inline-block;
-      font-weight: bold;
-    }
-    
-    .tip-highlight strong {
-      font-weight: 800;
-      color: #b45309;
     }
     
     /* ФИОЛЕТОВЫЙ БЛОК РЕЗУЛЬТАТА */
@@ -422,13 +405,8 @@
         font-size: 16px;
       }
       
-      .tip-highlight {
-        padding: 16px 18px;
-        font-size: 15px;
-      }
-      
-      .tip-highlight .menu-dots {
-        font-size: 18px;
+      .menu-dots {
+        font-size: 16px;
         padding: 2px 8px;
       }
       
@@ -464,7 +442,6 @@
         font-size: 15px;
       }
       
-      /* На мобильных фото чуть больше для читаемости */
       .swipe-image {
         max-width: 75%;
       }
@@ -478,10 +455,6 @@
     @media (max-width: 380px) {
       .step-text {
         font-size: 15px;
-      }
-      
-      .tip-highlight {
-        font-size: 14px;
       }
       
       .result-text {
@@ -504,6 +477,11 @@
       .swipe-help-btn {
         padding: 10px 14px;
         font-size: 14px;
+      }
+      
+      .menu-dots {
+        font-size: 14px;
+        padding: 2px 6px;
       }
     }
   </style>
@@ -538,10 +516,7 @@
         </div>
         <div class="step">
           <div class="step-number">3</div>
-          <div class="step-text">Нажмите <strong>«Установить приложение»</strong> внизу экрана <strong>или</strong> дождитесь появления баннера в верхней части экрана с предложением установки.</div>
-        </div>
-        <div class="tip-highlight">
-          ⚡ <strong>ВАЖНО:</strong> Если баннер не появился — нажмите <strong class="menu-dots">⋮</strong> (три точки) в правом верхнем углу → <strong>«Установить приложение»</strong> или <strong>«Добавить на главный экран»</strong>. В появившемся окне выберите <strong>«Установить»</strong> (не выбирайте создание ярлыка).
+          <div class="step-text">Нажмите <strong class="menu-dots">⋮</strong> (три точки) в правом верхнем углу браузера Chrome → пролистайте вниз → <strong>«Установить приложение»</strong> или <strong>«Добавить на гл. экран»</strong>. В появившемся окне выберите <strong>«Установить»</strong> (не выбирайте создание ярлыка).</div>
         </div>
       </div>
     </div>
@@ -576,7 +551,7 @@
           <div class="step-text">Выберите <strong>«На экран «Домой»</strong> → «Добавить».</div>
         </div>
         
-        <!-- 🆕 КНОПКА ДЛЯ ПЕРЕХОДА К СВАЙПУ (добавлена под шагами) -->
+        <!-- КНОПКА ДЛЯ ПЕРЕХОДА К СВАЙПУ -->
         <div class="swipe-help-btn-container">
           <button class="swipe-help-btn" id="scrollToSwipeBtn">
             <span class="btn-icon">👆</span>
@@ -596,7 +571,7 @@
       </div>
     </div>
     
-    <!-- Изображение 55_swipe.png после фиолетового блока, увеличенное, с подписью для iPhone -->
+    <!-- Изображение 55_swipe.png после фиолетового блока -->
     <div class="iphone-navigation-block" id="swipeGuideBlock">
       <div class="iphone-navigation-title">
         <span class="apple-icon">🍏</span>
@@ -630,7 +605,7 @@
     }
   });
 
-  // 🆕 ЛОГИКА ДЛЯ КНОПКИ ПРОКРУТКИ К БЛОКУ С ИЗОБРАЖЕНИЕМ СВАЙПА
+  // ЛОГИКА ДЛЯ КНОПКИ ПРОКРУТКИ К БЛОКУ С ИЗОБРАЖЕНИЕМ СВАЙПА
   document.addEventListener('DOMContentLoaded', function() {
     const scrollBtn = document.getElementById('scrollToSwipeBtn');
     const targetBlock = document.getElementById('swipeGuideBlock');
@@ -648,7 +623,7 @@
         // Добавляем класс для анимации подсветки
         targetBlock.classList.add('highlight-target');
         
-        // Убираем класс через 1.5 секунды (чтобы можно было повторить)
+        // Убираем класс через 1.5 секунды
         setTimeout(() => {
           targetBlock.classList.remove('highlight-target');
         }, 1500);
