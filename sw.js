@@ -1,4 +1,4 @@
-const CACHE_NAME = 'emhelp-v29';
+const CACHE_NAME = 'emhelp-v32';
 
 const urlsToCache = [
   // Главная
@@ -18,10 +18,6 @@ const urlsToCache = [
   '/SMP/prikaz.html',
   '/SMP/kody.html',
   '/SMP/stations.html',
-  
-  // Страницы алгоритмов
-  '/SMP/algo-mSK.html',
-  '/SMP/algorithms.html',
   
   // Коды МКБ (20 страниц)
   '/SMP/Kody_1.html',
