@@ -6,21 +6,18 @@
         return;
     }
     
-    // Создаем контейнер для кнопки (максимальное смещение в левый верхний угол)
+    // Создаем контейнер для кнопки (НЕ фиксированный, прокручивается со страницей)
     const backWrapper = document.createElement('div');
     backWrapper.style.cssText = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        z-index: 9999;
-        padding: 12px 0 0 12px;
+        padding: 8px 0 0 12px;
         margin: 0;
+        text-align: left;
     `;
     
-    // Создаем кнопку с градиентом (как кнопка "ГРИФАМ МСК")
+    // Создаем маленькую кнопку с градиентом
     const backButton = document.createElement('button');
     backButton.innerHTML = `
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 4px;">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 3px;">
             <path d="M15 18L9 12L15 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
         Назад
@@ -29,17 +26,17 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        gap: 6px;
+        gap: 4px;
         background: linear-gradient(135deg, #0f1446 0%, #800000 100%);
         color: white;
         border: none;
-        padding: 10px 18px;
-        border-radius: 40px;
-        font-size: 15px;
+        padding: 6px 12px;
+        border-radius: 30px;
+        font-size: 12px;
         font-weight: 500;
         font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
         cursor: pointer;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
     `;
     
     backButton.onclick = (e) => {
