@@ -6,12 +6,13 @@
         return;
     }
     
-    // Создаем контейнер для кнопки (НЕ фиксированный, прокручивается со страницей)
+    // Создаем контейнер для кнопки (максимально прижато к левому верхнему углу)
     const backWrapper = document.createElement('div');
     backWrapper.style.cssText = `
-        padding: 8px 0 0 12px;
+        padding: 0;
         margin: 0;
         text-align: left;
+        line-height: 0;
     `;
     
     // Создаем маленькую кнопку с градиентом
@@ -30,13 +31,14 @@
         background: linear-gradient(135deg, #0f1446 0%, #800000 100%);
         color: white;
         border: none;
-        padding: 6px 12px;
+        padding: 6px 10px;
         border-radius: 30px;
-        font-size: 12px;
+        font-size: 11px;
         font-weight: 500;
         font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
         cursor: pointer;
-        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+        margin: 4px 0 0 4px;
     `;
     
     backButton.onclick = (e) => {
