@@ -1,11 +1,11 @@
-const CACHE_NAME = 'emhelp-v27';
+const CACHE_NAME = 'emhelp-v29';
 
 const urlsToCache = [
   // Главная
   '/SMP/',
   '/SMP/index.html',
   
-  // Оффлайн-заглушка (ВАЖНО!)
+  // Оффлайн-заглушка
   '/SMP/offline.html',
   
   // Основные страницы навигации
@@ -18,6 +18,9 @@ const urlsToCache = [
   '/SMP/prikaz.html',
   '/SMP/kody.html',
   '/SMP/stations.html',
+  
+  // НОВАЯ СТРАНИЦА АЛГОРИТМОВ
+  '/SMP/algo-mSK.html',
   
   // Коды МКБ (20 страниц)
   '/SMP/Kody_1.html',
@@ -153,18 +156,15 @@ self.addEventListener('fetch', event => {
   event.respondWith(
     caches.match(event.request)
       .then(response => {
-        // Нашли в кэше — отдаём
         if (response) {
           return response;
         }
         
-        // Не нашли — идём в сеть
         return fetch(event.request)
           .then(response => {
             if (!response || response.status !== 200) {
               return response;
             }
-            // Сохраняем в кэш для будущих оффлайн-запросов
             const responseClone = response.clone();
             caches.open(CACHE_NAME).then(cache => {
               cache.put(event.request, responseClone);
@@ -172,11 +172,9 @@ self.addEventListener('fetch', event => {
             return response;
           })
           .catch(() => {
-            // ОФФЛАЙН-ЗАГЛУШКА: показываем страницу, если запрос HTML
             if (event.request.headers.get('accept') && event.request.headers.get('accept').includes('text/html')) {
               return caches.match('/SMP/offline.html');
             }
-            // Для остальных ресурсов — стандартное сообщение
             return new Response('Нет соединения с интернетом', { status: 503 });
           });
       })
