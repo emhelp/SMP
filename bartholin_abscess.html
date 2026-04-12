@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Карта вызова скорой медицинской помощи | Абсцесс бартолиновой железы</title>
     <style>
         * {
@@ -134,6 +134,194 @@
             margin: 8px 0;
         }
 
+        /* Кнопка алгоритма - красная продолговатая */
+        .algorithm-btn-container {
+            margin-top: 32px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .btn-algorithm {
+            background-color: #dc2626;
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            font-size: 1.25rem;
+            font-weight: 700;
+            border-radius: 60px;
+            cursor: pointer;
+            box-shadow: 0 8px 18px rgba(220, 38, 38, 0.3);
+            transition: all 0.2s ease;
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            letter-spacing: 0.5px;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .btn-algorithm:hover {
+            background-color: #b91c1c;
+            transform: scale(1.02);
+            box-shadow: 0 12px 22px rgba(185, 28, 28, 0.4);
+        }
+
+        .btn-algorithm:active {
+            transform: scale(0.98);
+        }
+
+        .btn-hint {
+            font-size: 0.8rem;
+            font-weight: normal;
+            opacity: 0.9;
+            letter-spacing: normal;
+            border-top: 1px dashed rgba(255,255,255,0.5);
+            padding-top: 5px;
+            margin-top: 2px;
+        }
+
+        /* Модальное окно */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0.2s, opacity 0.2s;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .modal-container {
+            background-color: #fffef7;
+            max-width: 700px;
+            width: 100%;
+            max-height: 85vh;
+            border-radius: 28px;
+            box-shadow: 0 25px 45px -12px black;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            animation: modalFadeIn 0.25s ease-out;
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            background: #b91c1c;
+            color: white;
+            padding: 18px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid #ffc107;
+        }
+
+        .modal-header h2 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+            line-height: 1;
+            transition: 0.2s;
+            padding: 0 8px;
+            border-radius: 40px;
+        }
+
+        .modal-close:hover {
+            background-color: rgba(255,255,255,0.2);
+            transform: scale(1.1);
+        }
+
+        .modal-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px 28px;
+            background: #fefcf5;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* стили для алгоритма */
+        .alg-section {
+            margin-bottom: 28px;
+            border-left: 4px solid #dc2626;
+            padding-left: 18px;
+            background: #fff9f0;
+            border-radius: 0 14px 14px 0;
+        }
+        .alg-title {
+            font-weight: 800;
+            font-size: 1.1rem;
+            color: #a51c1c;
+            margin: 10px 0 8px 0;
+            display: inline-block;
+            background: #ffeeee;
+            padding: 4px 14px;
+            border-radius: 30px;
+        }
+        .list-styled {
+            margin: 8px 0 10px 24px;
+        }
+        .list-styled li {
+            margin: 6px 0;
+        }
+        .inline-code {
+            background: #f3f0e8;
+            padding: 0 4px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+        .important-note {
+            background: #fff0d4;
+            border-left: 5px solid #dc2626;
+            padding: 10px 16px;
+            margin: 12px 0;
+            border-radius: 12px;
+        }
+        .tactic-block {
+            background: #eef2fa;
+            border-radius: 16px;
+            padding: 12px 18px;
+            margin-top: 12px;
+        }
+        .tactic-title {
+            font-weight: 700;
+            color: #1e4663;
+            margin-bottom: 6px;
+        }
+
         @media (max-width: 700px) {
             .field-item strong {
                 min-width: 170px;
@@ -143,6 +331,9 @@
             }
             .content {
                 padding: 20px;
+            }
+            .modal-body {
+                padding: 16px;
             }
         }
     </style>
@@ -296,7 +487,85 @@
                 <p>✔ <strong>Пациент с ДЭП (симптомы, синдромы орального автоматизма):</strong> не применимо.</p>
             </div>
         </div>
+
+        <!-- КРАСНАЯ КНОПКА С АЛГОРИТМОМ -->
+        <div class="algorithm-btn-container">
+            <button class="btn-algorithm" id="openAlgorithmBtn">
+                <span>🚨 Оказание помощи в соответствии с Алгоритмами МСК</span>
+                <span class="btn-hint">▼ нажмите для открытия ▼</span>
+            </button>
+        </div>
     </div>
 </div>
+
+<!-- МОДАЛЬНОЕ ОКНО: АЛГОРИТМ ПРИ ЗАБОЛЕВАНИЯХ БАРТОЛИНОВОЙ ЖЕЛЕЗЫ (ТЕКСТ ТОЧНО ИЗ ФАЙЛА, РАЗДЕЛЕНА ТАКТИКА) -->
+<div class="modal-overlay" id="algorithmModal">
+    <div class="modal-container">
+        <div class="modal-header">
+            <h2>📋 Алгоритм оказания помощи (МСК)</h2>
+            <button class="modal-close" id="closeModalBtn">&times;</button>
+        </div>
+        <div class="modal-body">
+            <!-- Киста бартолиновой железы -->
+            <div class="alg-section">
+                <div class="alg-title">🔹 Киста бартолиновой железы</div>
+                <ul class="list-styled">
+                    <li>Не требует лечения на этапе оказания скорой медицинской помощи</li>
+                </ul>
+                <div class="tactic-block">
+                    <div class="tactic-title">▶ Тактика ведения:</div>
+                    <ul class="list-styled" style="margin-top: 4px;">
+                        <li>Рекомендовать обратиться в ЖК</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Абсцесс бартолиновой железы -->
+            <div class="alg-section">
+                <div class="alg-title">⚠️ Абсцесс бартолиновой железы</div>
+                <ul class="list-styled">
+                    <li>Не требует лечения на этапе оказания скорой медицинской помощи</li>
+                    <li><strong>– при температуре тела > 38°C</strong> → Кеторолак 30 мг (1 мл) или Кетопрофен 100 мг (2 мл) в/венно или в/мышечно</li>
+                </ul>
+                <div class="tactic-block">
+                    <div class="tactic-title">▶ Тактика ведения:</div>
+                    <ul class="list-styled" style="margin-top: 4px;">
+                        <li>Медицинская эвакуация в больницу</li>
+                        <li>При отказе от медицинской эвакуации – актив в ЖК</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const modal = document.getElementById('algorithmModal');
+    const openBtn = document.getElementById('openAlgorithmBtn');
+    const closeBtn = document.getElementById('closeModalBtn');
+
+    function openModal() {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    openBtn.addEventListener('click', openModal);
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            closeModal();
+        }
+    });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+            closeModal();
+        }
+    });
+</script>
 </body>
 </html>
