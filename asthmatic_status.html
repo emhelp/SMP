@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Карта вызова скорой медицинской помощи | Астматический статус</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #e9ecef;
+            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+            padding: 40px 20px;
+            color: #212529;
+            line-height: 1.45;
+        }
+
+        .card {
+            max-width: 1100px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            border: 1px solid #dee2e6;
+        }
+
+        .mkb-row {
+            background: linear-gradient(135deg, #0b3b5f 0%, #1a4d6f 100%);
+            color: white;
+            padding: 20px 32px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border-bottom: 4px solid #ffc107;
+        }
+
+        .mkb-row span {
+            font-weight: 700;
+            color: #ffc107;
+        }
+
+        .diagnosis {
+            background: #fef9e6;
+            padding: 12px 32px;
+            border-left: 6px solid #ffc107;
+            font-weight: 500;
+            font-size: 0.98rem;
+            color: #2d3e50;
+            border-bottom: 1px solid #f0e2b6;
+        }
+
+        .content {
+            padding: 24px 32px 40px 32px;
+        }
+
+        .section {
+            margin-bottom: 32px;
+            break-inside: avoid;
+            page-break-inside: avoid;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #1a4d6f;
+            border-left: 6px solid #ffc107;
+            padding-left: 16px;
+            margin-bottom: 18px;
+            margin-top: 8px;
+            background: #f4f9ff;
+            border-radius: 0 12px 12px 0;
+            line-height: 1.3;
+        }
+
+        .field-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .field-item {
+            padding: 6px 0 4px 8px;
+            border-bottom: 1px dotted #e0e6ed;
+            font-size: 0.94rem;
+            line-height: 1.45;
+        }
+
+        .field-item strong {
+            font-weight: 700;
+            color: #1e4663;
+            display: inline-block;
+            min-width: 220px;
+        }
+
+        .field-item .value {
+            color: #2c3e4e;
+            font-weight: 500;
+        }
+
+        .full-width-text {
+            padding: 8px 0 8px 8px;
+            border-bottom: 1px dotted #e0e6ed;
+            font-size: 0.94rem;
+        }
+
+        .full-width-text strong {
+            font-weight: 700;
+            color: #1e4663;
+            display: inline-block;
+            min-width: 220px;
+        }
+
+        .status-local {
+            background: #fef7e0;
+            padding: 14px 18px;
+            border-radius: 18px;
+            margin-top: 6px;
+            border: 1px solid #ffe3a4;
+            font-size: 0.94rem;
+        }
+
+        .scales-list {
+            background: #f1f4f9;
+            padding: 12px 20px;
+            border-radius: 20px;
+            margin-top: 10px;
+        }
+
+        .scales-list p {
+            margin: 8px 0;
+        }
+
+        .note {
+            background: #e7f1ff;
+            border-left: 4px solid #1a4d6f;
+            padding: 12px 16px;
+            margin-top: 16px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            color: #1e4663;
+        }
+
+        .note-list {
+            margin-top: 8px;
+            margin-left: 20px;
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .note-list li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .note-list li:before {
+            content: "•";
+            position: absolute;
+            left: 4px;
+            color: #1a4d6f;
+            font-weight: bold;
+        }
+
+        @media (max-width: 700px) {
+            .field-item strong {
+                min-width: 170px;
+            }
+            .full-width-text strong {
+                min-width: 170px;
+            }
+            .content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="card">
+    <div class="mkb-row">
+        📌 Код по МКБ-10: <span>J46</span> (Астматический статус)
+    </div>
+    <div class="diagnosis">
+        🧾 <strong>Диагноз:</strong> Астматический статус. Бронхиальная астма, тяжелое течение.
+    </div>
+
+    <div class="content">
+        <!-- ЖАЛОБЫ -->
+        <div class="section">
+            <div class="section-title">📢 ЖАЛОБЫ</div>
+            <div class="full-width-text"><em>На выраженное удушье, невозможность сделать вдох, чувство нехватки воздуха, резкую слабость. Со слов дочери, пациент «посинел».</em></div>
+        </div>
+
+        <!-- АНАМНЕЗ -->
+        <div class="section">
+            <div class="section-title">📋 АНАМНЕЗ</div>
+            <div class="full-width-text"><strong>Анамнез заболевания:</strong> Много лет пациент страдает бронхиальной астмой. Наблюдается в ЛПУ. Пользуется ингаляторами: планово — сальбутамол, при приступах — беродуал. Ухудшение состояния сегодня с утра. Самостоятельно пользовался Беродуалом — без эффекта. Вызывал скорую медицинскую помощь. Была оказана помощь (небулайзер, медопред, эуфиллин), стало лучше, но приступ не купирован. От медицинской эвакуации отказался. Через 1,5 часа состояние ухудшилось: усилилось удушье, наросла слабость, появился цианоз. Вызвали скорую медицинскую помощь повторно.</div>
+            <div class="full-width-text"><strong>Эпидемиологический анамнез:</strong> Контакт с инфекционными больными, прилетевшими из эпидопасных районов в течение последних 14 дней отрицает. Вакцинацию от гриппа и COVID-19 отрицает. В регистре COVID-19 не состоит.</div>
+            <div class="full-width-text"><strong>Аллергологический анамнез:</strong> Не отягощен. Лекарственной, пищевой, бытовой аллергии не выявлено. Другие заболевания отрицает.</div>
+            <div class="full-width-text"><strong>Гинекологический анамнез:</strong> Менструальная функция с 13 лет, цикл установился сразу, продолжительность 4-5 дней, через 28 дней, регулярный, безболезненный. Выделения из половых путей на момент осмотра: отсутствуют. Гинекологических заболеваний не было. Операций на матке и придатках не было. Беременностей не было.</div>
+            <div class="full-width-text"><strong>Акушерско-гинекологический анамнез:</strong> По данным ЕМИАС информации нет.</div>
+        </div>
+
+        <!-- ОБЪЕКТИВНО -->
+        <div class="section">
+            <div class="section-title">🩺 ОБЪЕКТИВНО</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Общее состояние:</strong> <span class="value">тяжелое</span></div>
+                <div class="field-item"><strong>Сознание:</strong> <span class="value">оглушение</span></div>
+                <div class="field-item"><strong>Шкала комы Глазго (GCS):</strong> <span class="value">13 баллов</span></div>
+                <div class="field-item"><strong>Положение:</strong> <span class="value">вынужденное (ортопноэ)</span></div>
+                <div class="field-item"><strong>Кожные покровы:</strong> <span class="value">цианоз, влажные. Сыпи, желтушности нет.</span></div>
+                <div class="field-item"><strong>Сыпь:</strong> <span class="value">нет</span></div>
+                <div class="field-item"><strong>Зев:</strong> <span class="value">чистый</span></div>
+                <div class="field-item"><strong>Миндалины:</strong> <span class="value">не увеличены</span></div>
+                <div class="field-item"><strong>Лимфоузлы:</strong> <span class="value">не увеличены</span></div>
+                <div class="field-item"><strong>Пролежни:</strong> <span class="value">нет</span></div>
+                <div class="field-item"><strong>Отеки:</strong> <span class="value">нет</span></div>
+                <div class="field-item"><strong>t°:</strong> <span class="value">36,6 °C</span></div>
+            </div>
+        </div>
+
+        <!-- ОРГАНЫ ДЫХАНИЯ -->
+        <div class="section">
+            <div class="section-title">🌬️ ОРГАНЫ ДЫХАНИЯ</div>
+            <div class="field-list">
+                <div class="field-item"><strong>ЧДД в мин:</strong> <span class="value">36</span></div>
+                <div class="field-item"><strong>Одышка:</strong> <span class="value">экспираторная</span></div>
+                <div class="field-item"><strong>Патологическое дыхание:</strong> <span class="value">нет</span></div>
+                <div class="field-item"><strong>Аускультативно:</strong> <span class="value">дыхание ослаблено с двух сторон до верхушек</span></div>
+                <div class="field-item"><strong>Хрипы сухие (свистящие, жужжащие):</strong> <span class="value">в верхних отделах с двух сторон</span></div>
+                <div class="field-item"><strong>Влажные (мелко-, средне-, крупнопузырчатые):</strong> <span class="value">нет</span></div>
+                <div class="field-item"><strong>Крепитация:</strong> <span class="value">нет</span></div>
+                <div class="field-item"><strong>Шум трения плевры:</strong> <span class="value">нет</span></div>
+                <div class="field-item"><strong>Перкуторный звук:</strong> <span class="value">коробочный над всеми полями</span></div>
+                <div class="field-item"><strong>Кашель:</strong> <span class="value">сухой</span></div>
+                <div class="field-item"><strong>Мокрота:</strong> <span class="value">не отделяется</span></div>
+            </div>
+        </div>
+
+        <!-- ОРГАНЫ КРОВООБРАЩЕНИЯ -->
+        <div class="section">
+            <div class="section-title">❤️ ОРГАНЫ КРОВООБРАЩЕНИЯ</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Пульс в мин:</strong> <span class="value">130</span></div>
+                <div class="field-item"><strong>Ритмичный, аритмичный, наполнение пульса:</strong> <span class="value">ритмичный, удовлетворительного наполнения</span></div>
+                <div class="field-item"><strong>ЧСС:</strong> <span class="value">130 ударов в минуту</span></div>
+                <div class="field-item"><strong>Дефицит пульса:</strong> <span class="value">нет</span></div>
+                <div class="field-item"><strong>АД мм.рт.ст. на момент осмотра, привычное АД мм.рт.ст., максимальное АД мм.рт.ст.:</strong> <span class="value">130/100, привычное 110/70, максимальное 160/100</span></div>
+                <div class="field-item"><strong>Тоны сердца:</strong> <span class="value">приглушены</span></div>
+                <div class="field-item"><strong>Шум (систолический, диастолический):</strong> <span class="value">нет</span></div>
+                <div class="field-item"><strong>Шум трения перикарда:</strong> <span class="value">нет</span></div>
+                <div class="field-item"><strong>Акцент какого тона на (где?):</strong> <span class="value">нет</span></div>
+            </div>
+        </div>
+
+        <!-- ОРГАНЫ ПИЩЕВАРЕНИЯ -->
+        <div class="section">
+            <div class="section-title">🍽️ ОРГАНЫ ПИЩЕВАРЕНИЯ</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Язык:</strong> <span class="value">чистый</span></div>
+                <div class="field-item"><strong>Живот (форма, мягкий, напряжен):</strong> <span class="value">обычной формы, мягкий, не напряжен</span></div>
+                <div class="field-item"><strong>Болезненный в:</strong> <span class="value">безболезненный во всех отделах</span></div>
+                <div class="field-item"><strong>Положительные симптомы:</strong> <span class="value">Симптомы Образцова, Ровзинга, Ситковского, Ортнера, Мерфи, Мейо-Робсона, Щёткина-Блюмберга, Валя — отрицательные</span></div>
+                <div class="field-item"><strong>Перистальтика:</strong> <span class="value">выслушивается</span></div>
+                <div class="field-item"><strong>Печень:</strong> <span class="value">не увеличена</span></div>
+                <div class="field-item"><strong>Селезенка:</strong> <span class="value">не пальпируется</span></div>
+                <div class="field-item"><strong>Стул (частота, консистенция):</strong> <span class="value">вчера 1 раз, оформлен, коричневый</span></div>
+            </div>
+        </div>
+
+        <!-- НЕРВНАЯ СИСТЕМА -->
+        <div class="section">
+            <div class="section-title">🧠 НЕРВНАЯ СИСТЕМА</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Поведение:</strong> <span class="value">беспокойное</span></div>
+                <div class="field-item"><strong>Контакт:</strong> <span class="value">затруднен из-за удушья</span></div>
+                <div class="field-item"><strong>Чувствительность:</strong> <span class="value">не нарушена</span></div>
+                <div class="field-item"><strong>Речь:</strong> <span class="value">односложная, прерывистая</span></div>
+                <div class="field-item"><strong>Зрачки (OD, OS), обычные, широкие, узкие:</strong> <span class="value">OD = OS, обычные</span></div>
+                <div class="field-item"><strong>Фотореакция:</strong> <span class="value">живая</span></div>
+                <div class="field-item"><strong>Нистагм:</strong> <span class="value">нет</span></div>
+                <div class="field-item"><strong>Асимметрия лица:</strong> <span class="value">нет</span></div>
+                <div class="field-item"><strong>Менингеальные симптомы:</strong> <span class="value">отрицательные</span></div>
+                <div class="field-item"><strong>Очаговые симптомы:</strong> <span class="value">нет</span></div>
+                <div class="field-item"><strong>Координаторные пробы:</strong> <span class="value">выполнить невозможно из-за состояния</span></div>
+            </div>
+        </div>
+
+        <!-- МОЧЕПОЛОВАЯ СИСТЕМА -->
+        <div class="section">
+            <div class="section-title">🚽 МОЧЕПОЛОВАЯ СИСТЕМА</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Мочеиспускание:</strong> <span class="value">свободное, безболезненное, моча светлая, прозрачная</span></div>
+                <div class="field-item"><strong>Симптом поколачивания:</strong> <span class="value">отрицательный с обеих сторон</span></div>
+            </div>
+        </div>
+
+        <!-- STATUS LOCALIS -->
+        <div class="section">
+            <div class="section-title">🔍 STATUS LOCALIS</div>
+            <div class="status-local">
+                <strong>Локальный статус (осмотр):</strong><br>
+                • Кожные покровы: цианоз, влажные. Видимых травм и повреждений нет.<br>
+                • Наружные половые органы: развиты правильно, оволосение по женскому типу. Слизистые розовые, чистые.<br>
+                • Выделения из половых путей: отсутствуют.<br>
+                • Травм, гематом, видимых повреждений области промежности, лобка, поясницы нет.
+            </div>
+        </div>
+
+        <!-- ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ -->
+        <div class="section">
+            <div class="section-title">📊 ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ</div>
+            <div class="field-list">
+                <div class="field-item"><strong>SpO2:</strong> <span class="value">84%</span></div>
+                <div class="field-item"><strong>PS:</strong> <span class="value">130</span></div>
+                <div class="field-item"><strong>ЭКГ:</strong> <span class="value">синусовая тахикардия 130 в минуту, отклонение ЭОС вправо</span></div>
+            </div>
+        </div>
+
+        <!-- ОЦЕНКА ПО ШКАЛАМ -->
+        <div class="section">
+            <div class="section-title">📊 ОЦЕНКА ПО ШКАЛАМ</div>
+            <div class="scales-list">
+                <p>✔ <strong>Шкала NEWS2:</strong> 10 баллов (ЧДД 36 — 3 балла, SpO2 84% — 3 балла, ЧСС 130 — 2 балла, АД 130/100 — 0 баллов, сознание оглушение — 1 балл, t° 36,6 — 0 баллов) — высокий риск, критическое состояние.</p>
+                <p>✔ <strong>Пациент с острой дыхательной недостаточностью, шкала ОДН по Кассиль:</strong> II-III степени (тахипноэ 36 в мин, SpO2 84%, участие вспомогательной мускулатуры, цианоз).</p>
+                <p>✔ <strong>Пациент с шоком, индекс Альговера:</strong> Индекс Альговера = ЧСС / АД сист. = 130 / 130 = 1,0 (пограничное значение).</p>
+                <p>✔ <strong>Пациент с травмой, шкала боли ВАШ:</strong> не применимо.</p>
+                <p>✔ <strong>Пациент с ХСН, шкала ШОКС:</strong> не применимо.</p>
+                <p>✔ <strong>Пациент с ТЭЛА, шкала риска ТЭЛА:</strong> не применимо.</p>
+                <p>✔ <strong>Алкогольное опьянение:</strong> не применимо (запаха алкоголя изо рта нет).</p>
+                <p>✔ <strong>Пациент с инсультом, шкала LAMS:</strong> не применимо.</p>
+                <p>✔ <strong>Пациент с ДЭП (симптомы, синдромы орального автоматизма):</strong> не применимо.</p>
+            </div>
+        </div>
+
+        <!-- ПРИМЕЧАНИЕ ДЛЯ БРИГАДЫ СМП -->
+        <div class="note">
+            <strong>📌 Примечание для бригады СМП:</strong><br>
+            Дифференциальная диагностика проведена с:
+            <ul class="note-list">
+                <li><strong>ТЭЛА</strong> (острое начало, боль в грудной клетке, кровохарканье, тахипноэ, гипоксемия, ЭКГ-признаки перегрузки правых отделов сердца);</li>
+                <li><strong>отеком легких</strong> (влажные хрипы в нижних отделах, пенистая мокрота, ортопноэ, признаки сердечной недостаточности);</li>
+                <li><strong>спонтанным пневмотораксом</strong> (внезапная боль в грудной клетке, исчезновение дыхания на стороне поражения, коробочный звук при перкуссии);</li>
+                <li><strong>обструкцией верхних дыхательных путей (инородное тело, отек гортани)</strong> (стридор, инспираторная одышка, осиплость голоса).</li>
+            </ul>
+            <strong>Ключевые признаки астматического статуса:</strong><br>
+            – Длительный (более 6-8 часов) приступ удушья, не купирующийся бронхолитиками.<br>
+            – Нарастающая дыхательная недостаточность, гипоксемия (SpO2 &lt;90%).<br>
+            – «Немые легкие» (ослабление дыхания, хрипы отсутствуют или единичные) — признак тяжелого статуса.<br>
+            – Парадоксальный пульс (снижение АД на вдохе).<br>
+            – Нарушение сознания, цианоз, тахикардия, гипертензия.<br>
+            – Неэффективность ингаляционных β2-агонистов, эуфиллина, глюкокортикостероидов.<br>
+            – При прогрессировании — гиперкапния, ацидоз, угнетение дыхания, кома.
+        </div>
+    </div>
+</div>
+</body>
+</html>
