@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Карта вызова скорой медицинской помощи | Роды I период</title>
     <style>
         * {
@@ -134,6 +134,198 @@
             margin: 8px 0;
         }
 
+        /* Кнопка алгоритма - с подсказкой */
+        .algorithm-btn-container {
+            margin-top: 32px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .btn-algorithm {
+            background-color: #dc2626;
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            font-size: 1.25rem;
+            font-weight: 700;
+            border-radius: 60px;
+            cursor: pointer;
+            box-shadow: 0 8px 18px rgba(220, 38, 38, 0.3);
+            transition: all 0.2s ease;
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            letter-spacing: 0.5px;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .btn-algorithm:hover {
+            background-color: #b91c1c;
+            transform: scale(1.02);
+            box-shadow: 0 12px 22px rgba(185, 28, 28, 0.4);
+        }
+
+        .btn-algorithm:active {
+            transform: scale(0.98);
+        }
+
+        .btn-hint {
+            font-size: 0.8rem;
+            font-weight: normal;
+            opacity: 0.9;
+            letter-spacing: normal;
+            border-top: 1px dashed rgba(255,255,255,0.5);
+            padding-top: 5px;
+            margin-top: 2px;
+        }
+
+        /* Модальное окно - красная тема */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0.2s, opacity 0.2s;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .modal-container {
+            background-color: #fffef7;
+            max-width: 900px;
+            width: 100%;
+            max-height: 85vh;
+            border-radius: 28px;
+            box-shadow: 0 25px 45px -12px black;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            animation: modalFadeIn 0.25s ease-out;
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            background: #b91c1c;
+            color: white;
+            padding: 18px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid #ffc107;
+        }
+
+        .modal-header h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+            line-height: 1;
+            transition: 0.2s;
+            padding: 0 8px;
+            border-radius: 40px;
+        }
+
+        .modal-close:hover {
+            background-color: rgba(255,255,255,0.2);
+            transform: scale(1.1);
+        }
+
+        .modal-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px 28px;
+            background: #fefcf5;
+            font-size: 0.94rem;
+            line-height: 1.5;
+        }
+
+        /* стили для блоков алгоритма */
+        .alg-block {
+            margin-bottom: 28px;
+            border-left: 4px solid #b91c1c;
+            padding-left: 18px;
+            background: #fff9f0;
+            border-radius: 0 14px 14px 0;
+        }
+        
+        /* Заголовки блоков: по умолчанию красные (как просили для Неонатальные, После рождения, Контроль) */
+        .alg-title {
+            font-weight: 800;
+            font-size: 1.05rem;
+            color: #a51c1c;
+            margin: 12px 0 8px 0;
+            display: inline-block;
+            background: #ffeeee;
+            padding: 4px 14px;
+            border-radius: 30px;
+            letter-spacing: -0.2px;
+        }
+        
+        /* Исключение: два конкретных заголовка делаем синими (головное и тазовое предлежание) */
+        .alg-title.blue-title {
+            background: #e6f0fa;
+            color: #1e4a76;
+        }
+        
+        .list-styled {
+            margin: 8px 0 8px 24px;
+        }
+        .list-styled li {
+            margin: 6px 0;
+        }
+        hr {
+            margin: 20px 0;
+            border-color: #f0dbb2;
+        }
+        .badge-pill {
+            background: #f1e5d0;
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-right: 8px;
+        }
+        .note-important {
+            background: #fff0d4;
+            border-left: 5px solid #b91c1c;
+            padding: 8px 16px;
+            margin: 12px 0;
+            border-radius: 12px;
+        }
         @media (max-width: 700px) {
             .field-item strong {
                 min-width: 170px;
@@ -143,6 +335,9 @@
             }
             .content {
                 padding: 20px;
+            }
+            .modal-body {
+                padding: 16px;
             }
         }
     </style>
@@ -305,7 +500,124 @@
                 <p>✔ <strong>Пациент с ДЭП (симптомы, синдромы орального автоматизма):</strong> не применимо.</p>
             </div>
         </div>
+
+        <!-- КНОПКА АЛГОРИТМА с подсказкой, что нажимается -->
+        <div class="algorithm-btn-container">
+            <button class="btn-algorithm" id="openAlgorithmBtn">
+                <span>🚨 Оказание помощи в соответствии с Алгоритмами МСК</span>
+                <span class="btn-hint">▼ нажмите для открытия ▼</span>
+            </button>
+        </div>
     </div>
 </div>
+
+<!-- МОДАЛЬНОЕ ОКНО (красное оформление, но два заголовка синие) -->
+<div class="modal-overlay" id="algorithmModal">
+    <div class="modal-container">
+        <div class="modal-header">
+            <h2>📋 Алгоритм оказания помощи при родах</h2>
+            <button class="modal-close" id="closeModalBtn">&times;</button>
+        </div>
+        <div class="modal-body">
+            <!-- 1. ГОЛОВНОЕ ПРЕДЛЕЖАНИЕ — синий заголовок (blue-title) -->
+            <div class="alg-block">
+                <div class="alg-title blue-title">🔹 Роды в головном предлежании («Домашние роды» / «Роды вне роддома»)</div>
+                <ul class="list-styled">
+                    <li>Аускультация ЧСС плода в течение 1 минуты после схватки каждые 15–30 минут; в потужном периоде — после каждой потуги</li>
+                    <li>Катетеризация вены или внутрикостный доступ</li>
+                    <li>Акушерское пособие</li>
+                    <li>Под половые пути родильницы после рождения ребенка поместить лоток для оценки объема кровопотери</li>
+                    <li>Медицинская эвакуация в больницу. Транспортировка родильницы на носилках</li>
+                    <li>При отказе от медицинской эвакуации: актив на специализированную акушерско-гинекологическую и педиатрическую бригаду через 2 часа</li>
+                    <li>При повторном отказе – актив в ЖК</li>
+                </ul>
+            </div>
+
+            <!-- НЕОНАТАЛЬНЫЕ МЕРОПРИЯТИЯ — красный заголовок (по умолчанию) -->
+            <div class="alg-block">
+                <div class="alg-title">👶 Неонатальные мероприятия</div>
+                <ul class="list-styled">
+                    <li>Оценить необходимость проведения ребенку реанимационных мероприятий (см. «Приложение 8»)</li>
+                    <li>Санация ротоглотки и носа у новорожденного с помощью стерильной резиновой «груши» проводится только при отсутствии самостоятельного дыхания</li>
+                    <li>Оценка состояния новорожденного по шкале Апгар (см. «Приложение 7»)</li>
+                    <li>Новорожденного обсушить пеленкой, мокрую пеленку утилизировать, завернуть в теплые сухие пеленки, согреть, выложить на живот и грудь матери, обеспечить контакт «кожа к коже», убедившись, что голова повернута набок (нос не упирается в грудь матери)</li>
+                    <li><strong>Первичная обработка пуповины:</strong> Наложить 2 стерильных зажима: один — на расстоянии 10 см от пупочного кольца, второй — на 2 см дистальнее от него; участок пуповины между зажимами обработать 70° этиловым спиртом и пересечь; поверхность среза пуповины обработать 70° этиловым спиртом</li>
+                    <li><strong>Вторичная обработка пуповины:</strong> Пластмассовый зажим наложить на пуповинный остаток не ближе 2 см к коже живота ребенка, ткань пуповины отсечь и на культю пуповины наложить стерильную повязку</li>
+                </ul>
+            </div>
+
+            <!-- ПОСЛЕ РОЖДЕНИЯ РЕБЕНКА РОДИЛЬНИЦЕ — красный заголовок -->
+            <div class="alg-block">
+                <div class="alg-title">🤱 После рождения ребенка родильнице</div>
+                <ul class="list-styled">
+                    <li><strong>Окситоцин</strong> 10 МЕ (2 мл) в/мышечно в боковую поверхность бедра <strong>или</strong> (5 МЕ (1 мл) в разведении Натрия хлорида 0,9% — 50 мл со скоростью 16,2 мл/ч через шприцевой дозатор)</li>
+                    <li>Осмотр последа и доставка его в родильный дом</li>
+                    <li>Контроль состояния пациентки каждые 15 минут в течение первых двух часов после родов: АД, пульс, тонус матки, объем кровянистых выделений из влагалища</li>
+                    <li><strong>При отсутствии признаков отделения плаценты:</strong> Натрия хлорид 0,9% — 250-500 мл в/венно капельно</li>
+                </ul>
+            </div>
+
+            <!-- ТАЗОВОЕ ПРЕДЛЕЖАНИЕ — синий заголовок -->
+            <div class="alg-block">
+                <div class="alg-title blue-title">⚠️ Роды в тазовом предлежании</div>
+                <ul class="list-styled">
+                    <li>Аускультация ЧСС плода в течение 1 минуты после схватки каждые 15–30 минут, в потужном периоде после каждой потуги</li>
+                    <li>После излития околоплодных вод — влагалищное исследование для исключения выпадения петель пуповины (для АГБ)</li>
+                    <li>Катетеризация вены или внутрикостный доступ</li>
+                    <li>Не оказывать акушерское пособие ранее самостоятельного рождения ребенка до уровня пупка</li>
+                    <li>После рождения ножек и появления пупочного кольца необходимо небольшую петлю пуповины вытянуть вниз для предотвращения компрессии натянутой пуповины</li>
+                    <li>Контролировать поворот плода в передний вид, избегая заднего вида</li>
+                    <li>Пособие по Цовьянову в зависимости от вида тазового предлежания</li>
+                    <li>После рождения ребенка до уровня нижнего угла лопаток при запрокидывании ручек выполнить классическое ручное пособие по выведению ручек или прием Ловсета</li>
+                    <li>При отсутствии самостоятельного рождения головки выполнить прием Морисо-Смелли-Вайта</li>
+                    <li>Тянуть ребенка на себя запрещено</li>
+                    <li>Под половые пути родильницы после рождения ребенка поместить лоток для оценки объема кровопотери</li>
+                </ul>
+                <div class="note-important">
+                    ✅ Далее для новорожденного при тазовом предлежании: те же этапы (оценка реанимации, санация только при апноэ, шкала Апгар, контакт «кожа к коже», обработка пуповины — первичная и вторичная), а также родильнице окситоцин и контроль.
+                </div>
+            </div>
+
+            <!-- КОНТРОЛЬ И ИНФУЗИОННАЯ ПОДДЕРЖКА — красный заголовок -->
+            <div class="alg-block">
+                <div class="alg-title">📌 Контроль и инфузионная поддержка</div>
+                <ul class="list-styled">
+                    <li>Контроль состояния пациентки каждые 15 минут в течение первых двух часов после родов: АД, пульс, тонус матки, объем кровянистых выделений из влагалища</li>
+                    <li><strong>При отсутствии признаков отделения плаценты:</strong> Натрия хлорид 0,9% – 250–500 мл в/венно капельно</li>
+                </ul>
+                <p style="margin-top: 8px;"><span class="badge-pill">Важно</span> Алгоритм включает полный объем помощи: от аускультации до активного ведения III периода родов и неонатальной поддержки.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const modal = document.getElementById('algorithmModal');
+    const openBtn = document.getElementById('openAlgorithmBtn');
+    const closeBtn = document.getElementById('closeModalBtn');
+
+    function openModal() {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    openBtn.addEventListener('click', openModal);
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            closeModal();
+        }
+    });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+            closeModal();
+        }
+    });
+</script>
 </body>
 </html>
