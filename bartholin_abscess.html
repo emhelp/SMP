@@ -134,7 +134,7 @@
             margin: 8px 0;
         }
 
-        /* Кнопка алгоритма - красная продолговатая */
+        /* Кнопка алгоритма - уменьшенная по высоте, с подсказкой */
         .algorithm-btn-container {
             margin-top: 32px;
             margin-bottom: 20px;
@@ -145,25 +145,25 @@
             background-color: #dc2626;
             color: white;
             border: none;
-            padding: 16px 32px;
-            font-size: 1.25rem;
+            padding: 10px 28px;
+            font-size: 1.15rem;
             font-weight: 700;
-            border-radius: 60px;
+            border-radius: 50px;
             cursor: pointer;
-            box-shadow: 0 8px 18px rgba(220, 38, 38, 0.3);
+            box-shadow: 0 6px 14px rgba(220, 38, 38, 0.3);
             transition: all 0.2s ease;
             display: inline-flex;
             flex-direction: column;
             align-items: center;
-            gap: 6px;
-            letter-spacing: 0.5px;
+            gap: 4px;
+            letter-spacing: 0.3px;
             border: 1px solid rgba(255,255,255,0.3);
         }
 
         .btn-algorithm:hover {
             background-color: #b91c1c;
             transform: scale(1.02);
-            box-shadow: 0 12px 22px rgba(185, 28, 28, 0.4);
+            box-shadow: 0 10px 20px rgba(185, 28, 28, 0.4);
         }
 
         .btn-algorithm:active {
@@ -171,12 +171,12 @@
         }
 
         .btn-hint {
-            font-size: 0.8rem;
+            font-size: 0.7rem;
             font-weight: normal;
             opacity: 0.9;
             letter-spacing: normal;
             border-top: 1px dashed rgba(255,255,255,0.5);
-            padding-top: 5px;
+            padding-top: 4px;
             margin-top: 2px;
         }
 
@@ -206,7 +206,7 @@
 
         .modal-container {
             background-color: #fffef7;
-            max-width: 700px;
+            max-width: 650px;
             width: 100%;
             max-height: 85vh;
             border-radius: 28px;
@@ -296,25 +296,12 @@
         .list-styled li {
             margin: 6px 0;
         }
-        .inline-code {
-            background: #f3f0e8;
-            padding: 0 4px;
-            border-radius: 8px;
-            font-family: monospace;
-            font-size: 0.9rem;
-        }
-        .important-note {
-            background: #fff0d4;
-            border-left: 5px solid #dc2626;
-            padding: 10px 16px;
-            margin: 12px 0;
-            border-radius: 12px;
-        }
         .tactic-block {
             background: #eef2fa;
             border-radius: 16px;
             padding: 12px 18px;
             margin-top: 12px;
+            margin-bottom: 8px;
         }
         .tactic-title {
             font-weight: 700;
@@ -334,6 +321,13 @@
             }
             .modal-body {
                 padding: 16px;
+            }
+            .btn-algorithm {
+                padding: 8px 22px;
+                font-size: 1rem;
+            }
+            .btn-hint {
+                font-size: 0.65rem;
             }
         }
     </style>
@@ -488,7 +482,7 @@
             </div>
         </div>
 
-        <!-- КРАСНАЯ КНОПКА С АЛГОРИТМОМ -->
+        <!-- КРАСНАЯ КНОПКА (уменьшенная, с подсказкой) -->
         <div class="algorithm-btn-container">
             <button class="btn-algorithm" id="openAlgorithmBtn">
                 <span>🚨 Оказание помощи в соответствии с Алгоритмами МСК</span>
@@ -498,7 +492,7 @@
     </div>
 </div>
 
-<!-- МОДАЛЬНОЕ ОКНО: АЛГОРИТМ ПРИ ЗАБОЛЕВАНИЯХ БАРТОЛИНОВОЙ ЖЕЛЕЗЫ (ТЕКСТ ТОЧНО ИЗ ФАЙЛА, РАЗДЕЛЕНА ТАКТИКА) -->
+<!-- МОДАЛЬНОЕ ОКНО: АЛГОРИТМ ПРИ ЗАБОЛЕВАНИЯХ БАРТОЛИНОВОЙ ЖЕЛЕЗЫ (тактика выделена) -->
 <div class="modal-overlay" id="algorithmModal">
     <div class="modal-container">
         <div class="modal-header">
@@ -515,7 +509,7 @@
                 <div class="tactic-block">
                     <div class="tactic-title">▶ Тактика ведения:</div>
                     <ul class="list-styled" style="margin-top: 4px;">
-                        <li>Рекомендовать обратиться в ЖК (34)</li>
+                        <li>Рекомендовать обратиться в ЖК</li>
                     </ul>
                 </div>
             </div>
@@ -530,8 +524,8 @@
                 <div class="tactic-block">
                     <div class="tactic-title">▶ Тактика ведения:</div>
                     <ul class="list-styled" style="margin-top: 4px;">
-                        <li>Медицинская эвакуация в больницу (13)</li>
-                        <li>При отказе от медицинской эвакуации – рекомендовать обратиться в ЖК (35)</li>
+                        <li>Медицинская эвакуация в больницу</li>
+                        <li>При отказе от медицинской эвакуации – актив в ЖК</li>
                     </ul>
                 </div>
             </div>
