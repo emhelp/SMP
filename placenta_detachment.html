@@ -165,6 +165,210 @@
             font-weight: bold;
         }
 
+        /* Кнопка алгоритма */
+        .algorithm-btn-container {
+            margin-top: 32px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .btn-algorithm {
+            background-color: #dc2626;
+            color: white;
+            border: none;
+            padding: 10px 28px;
+            font-size: 1.15rem;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 6px 14px rgba(220, 38, 38, 0.3);
+            transition: all 0.2s ease;
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            letter-spacing: 0.3px;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .btn-algorithm:hover {
+            background-color: #b91c1c;
+            transform: scale(1.02);
+            box-shadow: 0 10px 20px rgba(185, 28, 28, 0.4);
+        }
+
+        .btn-algorithm:active {
+            transform: scale(0.98);
+        }
+
+        .btn-hint {
+            font-size: 0.7rem;
+            font-weight: normal;
+            opacity: 0.9;
+            letter-spacing: normal;
+            border-top: 1px dashed rgba(255,255,255,0.5);
+            padding-top: 4px;
+            margin-top: 2px;
+        }
+
+        /* Модальное окно */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0.2s, opacity 0.2s;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .modal-container {
+            background-color: #fffef7;
+            max-width: 700px;
+            width: 100%;
+            max-height: 85vh;
+            border-radius: 28px;
+            box-shadow: 0 25px 45px -12px black;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            animation: modalFadeIn 0.25s ease-out;
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            background: #b91c1c;
+            color: white;
+            padding: 18px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid #ffc107;
+        }
+
+        .modal-header h2 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+            line-height: 1;
+            transition: 0.2s;
+            padding: 0 8px;
+            border-radius: 40px;
+        }
+
+        .modal-close:hover {
+            background-color: rgba(255,255,255,0.2);
+            transform: scale(1.1);
+        }
+
+        .modal-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px 28px;
+            background: #fefcf5;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* стили для алгоритма */
+        .alg-section {
+            margin-bottom: 20px;
+            border-left: 4px solid #dc2626;
+            padding-left: 18px;
+            background: #fff9f0;
+            border-radius: 0 14px 14px 0;
+        }
+
+        .alg-title {
+            font-weight: 800;
+            font-size: 1rem;
+            color: #a51c1c;
+            margin: 8px 0 8px 0;
+            display: inline-block;
+            background: #ffeeee;
+            padding: 4px 14px;
+            border-radius: 30px;
+        }
+
+        .list-styled {
+            margin: 8px 0 10px 24px;
+        }
+
+        .list-styled li {
+            margin: 6px 0;
+        }
+
+        .tactic-block {
+            background: #eef2fa;
+            border-radius: 16px;
+            padding: 12px 18px;
+            margin-top: 12px;
+            margin-bottom: 8px;
+        }
+
+        .tactic-title {
+            font-weight: 700;
+            color: #1e4663;
+            margin-bottom: 6px;
+        }
+
+        .condition-block {
+            background: #fff0d4;
+            border-left: 5px solid #dc2626;
+            padding: 10px 16px;
+            margin: 10px 0;
+            border-radius: 12px;
+        }
+
+        .condition-title {
+            font-weight: 700;
+            color: #a51c1c;
+            margin-bottom: 6px;
+        }
+
+        .warning-block {
+            background: #ffe6e6;
+            border-left: 5px solid #dc2626;
+            padding: 10px 16px;
+            margin: 10px 0;
+            border-radius: 12px;
+            color: #b91c1c;
+            font-weight: bold;
+        }
+
         @media (max-width: 700px) {
             .field-item strong {
                 min-width: 170px;
@@ -174,6 +378,13 @@
             }
             .content {
                 padding: 20px;
+            }
+            .btn-algorithm {
+                padding: 8px 22px;
+                font-size: 1rem;
+            }
+            .btn-hint {
+                font-size: 0.65rem;
             }
         }
     </style>
@@ -230,14 +441,10 @@
                 <div class="field-item"><strong>ЧДД в мин:</strong> <span class="value">26</span></div>
                 <div class="field-item"><strong>Одышка:</strong> <span class="value">смешанная</span></div>
                 <div class="field-item"><strong>Патологическое дыхание:</strong> <span class="value">нет</span></div>
-                <div class="field-item"><strong>Аускультативно:</strong> <span class="value">везикулярное, проводится во всех отделах с двух сторон, хрипов нет</span></div>
-                <div class="field-item"><strong>Хрипы сухие (свистящие, жужжащие):</strong> <span class="value">нет</span></div>
-                <div class="field-item"><strong>Влажные (мелко-, средне-, крупнопузырчатые):</strong> <span class="value">нет</span></div>
-                <div class="field-item"><strong>Крепитация:</strong> <span class="value">нет</span></div>
-                <div class="field-item"><strong>Шум трения плевры:</strong> <span class="value">нет</span></div>
-                <div class="field-item"><strong>Перкуторный звук:</strong> <span class="value">легочный над всей поверхностью легких с двух сторон</span></div>
+                <div class="field-item"><strong>Аускультативно:</strong> <span class="value">везикулярное, проводится во всех отделах</span></div>
+                <div class="field-item"><strong>Хрипы:</strong> <span class="value">нет</span></div>
+                <div class="field-item"><strong>Перкуторный звук:</strong> <span class="value">легочный</span></div>
                 <div class="field-item"><strong>Кашель:</strong> <span class="value">нет</span></div>
-                <div class="field-item"><strong>Мокрота:</strong> <span class="value">нет</span></div>
             </div>
         </div>
 
@@ -249,11 +456,9 @@
                 <div class="field-item"><strong>Ритмичный, аритмичный, наполнение пульса:</strong> <span class="value">ритмичный, слабого наполнения</span></div>
                 <div class="field-item"><strong>ЧСС:</strong> <span class="value">120 ударов в минуту</span></div>
                 <div class="field-item"><strong>Дефицит пульса:</strong> <span class="value">нет</span></div>
-                <div class="field-item"><strong>АД мм.рт.ст. на момент осмотра, привычное АД мм.рт.ст., максимальное АД мм.рт.ст.:</strong> <span class="value">90/60, привычное 140/90, максимальное не известно</span></div>
+                <div class="field-item"><strong>АД мм.рт.ст. на момент осмотра, привычное АД мм.рт.ст.:</strong> <span class="value">90/60, привычное 140/90</span></div>
                 <div class="field-item"><strong>Тоны сердца:</strong> <span class="value">приглушены, тахикардия</span></div>
-                <div class="field-item"><strong>Шум (систолический, диастолический):</strong> <span class="value">систолический шум на верхушке</span></div>
-                <div class="field-item"><strong>Шум трения перикарда:</strong> <span class="value">нет</span></div>
-                <div class="field-item"><strong>Акцент какого тона на (где?):</strong> <span class="value">нет</span></div>
+                <div class="field-item"><strong>Шум:</strong> <span class="value">систолический шум на верхушке</span></div>
             </div>
         </div>
 
@@ -264,11 +469,10 @@
                 <div class="field-item"><strong>Язык:</strong> <span class="value">сухой, бледный</span></div>
                 <div class="field-item"><strong>Живот (форма, мягкий, напряжен):</strong> <span class="value">увеличен за счет беременной матки, матка «каменистой» плотности, резко болезненна при пальпации</span></div>
                 <div class="field-item"><strong>Болезненный в:</strong> <span class="value">диффузно по всей матке, больше в проекции плаценты (передняя стенка)</span></div>
-                <div class="field-item"><strong>Положительные симптомы:</strong> <span class="value">Симптомы раздражения брюшины — отрицательные</span></div>
                 <div class="field-item"><strong>Перистальтика:</strong> <span class="value">ослаблена</span></div>
                 <div class="field-item"><strong>Печень:</strong> <span class="value">не пальпируется</span></div>
                 <div class="field-item"><strong>Селезенка:</strong> <span class="value">не пальпируется</span></div>
-                <div class="field-item"><strong>Стул (частота, консистенция):</strong> <span class="value">без особенностей</span></div>
+                <div class="field-item"><strong>Стул:</strong> <span class="value">без особенностей</span></div>
             </div>
         </div>
 
@@ -280,13 +484,11 @@
                 <div class="field-item"><strong>Контакт:</strong> <span class="value">затруднен</span></div>
                 <div class="field-item"><strong>Чувствительность:</strong> <span class="value">не нарушена</span></div>
                 <div class="field-item"><strong>Речь:</strong> <span class="value">тихая, замедленная</span></div>
-                <div class="field-item"><strong>Зрачки (OD, OS), обычные, широкие, узкие:</strong> <span class="value">OD = OS, обычные</span></div>
-                <div class="field-item"><strong>Фотореакция:</strong> <span class="value">живая</span></div>
+                <div class="field-item"><strong>Зрачки:</strong> <span class="value">OD = OS, обычные, фотореакция живая</span></div>
                 <div class="field-item"><strong>Нистагм:</strong> <span class="value">нет</span></div>
                 <div class="field-item"><strong>Асимметрия лица:</strong> <span class="value">нет</span></div>
                 <div class="field-item"><strong>Менингеальные симптомы:</strong> <span class="value">отрицательные</span></div>
                 <div class="field-item"><strong>Очаговые симптомы:</strong> <span class="value">нет</span></div>
-                <div class="field-item"><strong>Координаторные пробы:</strong> <span class="value">выполнить невозможно из-за тяжести состояния</span></div>
             </div>
         </div>
 
@@ -299,16 +501,16 @@
             </div>
         </div>
 
-        <!-- STATUS LOCALIS (ПОДРОБНО! ПРОФЕССИОНАЛЬНАЯ ВЕРСИЯ) -->
+        <!-- STATUS LOCALIS -->
         <div class="section">
             <div class="section-title">🔍 STATUS LOCALIS (подробно!)</div>
             <div class="status-local">
                 <strong>Акушерский статус (локальный осмотр):</strong><br>
-                • Живот увеличен за счет беременной матки. Матка резко напряжена, «каменистой» плотности, не расслабляется. Пальпация матки резко болезненна, особенно в проекции плаценты (передняя стенка). Высота стояния дна матки 32 см (соответствует сроку).<br>
+                • Живот увеличен за счет беременной матки. Матка резко напряжена, «каменистой» плотности, не расслабляется. Пальпация матки резко болезненна, особенно в проекции плаценты (передняя стенка). Высота стояния дна матки 32 см.<br>
                 • Положение плода: продольное. Предлежание: головное. Сердцебиение плода приглушено, тахикардия до 170 уд/мин, аритмичное. Шевеление плода ослаблено.<br>
                 • Наружные половые органы: развиты правильно. В области преддверия влагалища, на промежности — кровянистые выделения с темными сгустками.<br>
-                • Выделения из половых путей: умеренные, кровянистые, с темными сгустками (размер сгустков до 2-3 см), без запаха. Патологических (гнойных, пенистых, творожистых) выделений нет.<br>
-                • Травм, гематом, видимых повреждений области промежности, лобка, поясницы нет.
+                • Выделения из половых путей: умеренные, кровянистые, с темными сгустками (размер сгустков до 2-3 см), без запаха.<br>
+                • Травм, гематом, видимых повреждений нет.
             </div>
         </div>
 
@@ -316,15 +518,10 @@
         <div class="section">
             <div class="section-title">📊 ОЦЕНКА ПО ШКАЛАМ</div>
             <div class="scales-list">
-                <p>✔ <strong>Шкала NEWS2:</strong> 8 баллов (ЧДД 26 — 2 балла, АД 90/60 — 2 балла, ЧСС 120 — 2 балла, SpO2 не измерялась, сознание оглушение — 1 балл, t° 36,2 — 0) — требуется экстренная госпитализация, высокий риск.</p>
-                <p>✔ <strong>Пациент с острой дыхательной недостаточностью, шкала ОДН по Кассиль:</strong> не применимо.</p>
-                <p>✔ <strong>Пациент с шоком, индекс Альговера:</strong> Индекс Альговера = ЧСС / АД сист. = 120 / 90 = 1,33 (кровопотеря 30-40% ОЦК, геморрагический шок II степени).</p>
-                <p>✔ <strong>Пациент с травмой, шкала боли ВАШ:</strong> 9 баллов из 10 (нестерпимая боль).</p>
-                <p>✔ <strong>Пациент с ХСН, шкала ШОКС:</strong> не применимо.</p>
-                <p>✔ <strong>Пациент с ТЭЛА, шкала риска ТЭЛА:</strong> не применимо.</p>
-                <p>✔ <strong>Алкогольное опьянение:</strong> не применимо (запаха алкоголя изо рта нет, поведение адекватное).</p>
-                <p>✔ <strong>Пациент с инсультом, шкала LAMS:</strong> не применимо.</p>
-                <p>✔ <strong>Пациент с ДЭП (симптомы, синдромы орального автоматизма):</strong> не применимо.</p>
+                <p>✔ <strong>Шкала NEWS2:</strong> 8 баллов (ЧДД 26 — 2 балла, АД 90/60 — 2 балла, ЧСС 120 — 2 балла, сознание оглушение — 1 балл, t° 36,2 — 0) — требуется экстренная госпитализация, высокий риск.</p>
+                <p>✔ <strong>Индекс Альговера:</strong> 120 / 90 = 1,33 (кровопотеря 30-40% ОЦК, геморрагический шок II степени).</p>
+                <p>✔ <strong>Шкала боли ВАШ:</strong> 9 баллов из 10 (нестерпимая боль).</p>
+                <p>✔ <strong>Алкогольное опьянение:</strong> не применимо.</p>
             </div>
         </div>
 
@@ -344,7 +541,85 @@
             – Отсутствие эффекта от токолитиков.<br>
             – Наличие факторов риска (гипертензия, преэклампсия, травма, ПОНРП в анамнезе).
         </div>
+
+        <!-- КРАСНАЯ КНОПКА -->
+        <div class="algorithm-btn-container">
+            <button class="btn-algorithm" id="openAlgorithmBtn">
+                <span>🚨 Оказание помощи в соответствии с Алгоритмами МСК</span>
+                <span class="btn-hint">▼ нажмите для открытия ▼</span>
+            </button>
+        </div>
     </div>
 </div>
+
+<!-- МОДАЛЬНОЕ ОКНО: АЛГОРИТМ ПРИ ПРЕЖДЕВРЕМЕННОЙ ОТСЛОЙКЕ ПЛАЦЕНТЫ -->
+<div class="modal-overlay" id="algorithmModal">
+    <div class="modal-container">
+        <div class="modal-header">
+            <h2>📋 Алгоритм оказания помощи (МСК)</h2>
+            <button class="modal-close" id="closeModalBtn">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="alg-section">
+                <div class="alg-title">🔹 Преждевременная отслойка нормально расположенной плаценты (045)</div>
+                
+                <ul class="list-styled">
+                    <li>Катетеризация вены или внутрикостный доступ</li>
+                    <li>Натрия хлорид 0,9% – 250–500 мл в/венно капельно</li>
+                    <li>Транексамовая кислота 1000 мг (20 мл) в/венно</li>
+                </ul>
+
+                <div class="warning-block">
+                    ⚠️ <strong>Влагалищное исследование категорически противопоказано!</strong>
+                </div>
+
+                <div class="condition-block">
+                    <div class="condition-title">▶ при САД &lt; 90 мм рт.ст., шоке:</div>
+                    <ul class="list-styled" style="margin-top: 4px;">
+                        <li>См. раздел «Анестезиология и реаниматология» (Геморрагический шок) стр. 16</li>
+                    </ul>
+                </div>
+
+                <div class="tactic-block">
+                    <div class="tactic-title">▶ Тактика ведения:</div>
+                    <ul class="list-styled" style="margin-top: 4px;">
+                        <li>Медицинская эвакуация в больницу (13). Транспортировка на носилках</li>
+                        <li>При отказе от медицинской эвакуации – активный аудиоконтроль (55)</li>
+                        <li>При повторном отказе – рекомендовать обратиться в ЖК (35)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const modal = document.getElementById('algorithmModal');
+    const openBtn = document.getElementById('openAlgorithmBtn');
+    const closeBtn = document.getElementById('closeModalBtn');
+
+    function openModal() {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    openBtn.addEventListener('click', openModal);
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            closeModal();
+        }
+    });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+            closeModal();
+        }
+    });
+</script>
 </body>
 </html>
