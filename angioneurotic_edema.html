@@ -165,6 +165,205 @@
             font-weight: bold;
         }
 
+        /* Кнопка алгоритма */
+        .algorithm-btn-container {
+            margin-top: 32px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .btn-algorithm {
+            background-color: #dc2626;
+            color: white;
+            border: none;
+            padding: 10px 28px;
+            font-size: 1.15rem;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 6px 14px rgba(220, 38, 38, 0.3);
+            transition: all 0.2s ease;
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            letter-spacing: 0.3px;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .btn-algorithm:hover {
+            background-color: #b91c1c;
+            transform: scale(1.02);
+            box-shadow: 0 10px 20px rgba(185, 28, 28, 0.4);
+        }
+
+        .btn-algorithm:active {
+            transform: scale(0.98);
+        }
+
+        .btn-hint {
+            font-size: 0.7rem;
+            font-weight: normal;
+            opacity: 0.9;
+            letter-spacing: normal;
+            border-top: 1px dashed rgba(255,255,255,0.5);
+            padding-top: 4px;
+            margin-top: 2px;
+        }
+
+        /* Модальное окно */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0.2s, opacity 0.2s;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .modal-container {
+            background-color: #fffef7;
+            max-width: 750px;
+            width: 100%;
+            max-height: 85vh;
+            border-radius: 28px;
+            box-shadow: 0 25px 45px -12px black;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            animation: modalFadeIn 0.25s ease-out;
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            background: #b91c1c;
+            color: white;
+            padding: 18px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid #ffc107;
+        }
+
+        .modal-header h2 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+            line-height: 1;
+            transition: 0.2s;
+            padding: 0 8px;
+            border-radius: 40px;
+        }
+
+        .modal-close:hover {
+            background-color: rgba(255,255,255,0.2);
+            transform: scale(1.1);
+        }
+
+        .modal-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px 28px;
+            background: #fefcf5;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* стили для алгоритма */
+        .alg-section {
+            margin-bottom: 24px;
+            border-left: 4px solid #dc2626;
+            padding-left: 18px;
+            background: #fff9f0;
+            border-radius: 0 14px 14px 0;
+        }
+
+        .alg-title {
+            font-weight: 800;
+            font-size: 1rem;
+            color: #a51c1c;
+            margin: 8px 0 8px 0;
+            display: inline-block;
+            background: #ffeeee;
+            padding: 4px 14px;
+            border-radius: 30px;
+        }
+
+        .list-styled {
+            margin: 8px 0 10px 24px;
+        }
+
+        .list-styled li {
+            margin: 6px 0;
+        }
+
+        .tactic-block {
+            background: #eef2fa;
+            border-radius: 16px;
+            padding: 12px 18px;
+            margin-top: 12px;
+            margin-bottom: 8px;
+        }
+
+        .tactic-title {
+            font-weight: 700;
+            color: #1e4663;
+            margin-bottom: 6px;
+        }
+
+        .condition-block {
+            background: #fff0d4;
+            border-left: 5px solid #dc2626;
+            padding: 10px 16px;
+            margin: 10px 0;
+            border-radius: 12px;
+        }
+
+        .condition-title {
+            font-weight: 700;
+            color: #a51c1c;
+            margin-bottom: 6px;
+        }
+
+        hr {
+            margin: 16px 0;
+            border-color: #f0dbb2;
+        }
+
         @media (max-width: 700px) {
             .field-item strong {
                 min-width: 170px;
@@ -174,6 +373,13 @@
             }
             .content {
                 padding: 20px;
+            }
+            .btn-algorithm {
+                padding: 8px 22px;
+                font-size: 1rem;
+            }
+            .btn-hint {
+                font-size: 0.65rem;
             }
         }
     </style>
@@ -191,7 +397,7 @@
         <!-- ЖАЛОБЫ -->
         <div class="section">
             <div class="section-title">📢 ЖАЛОБЫ</div>
-            <div class="full-width-text"><em>На гиперемию и отечность кожных покровов лица, шеи, верхних и нижних конечностей, чувство дискомфорта в горле — ощущение распирания.</em></div>
+            <div class="full-width-text"><em>На гиперемию и отечность кожных покровов лица, шеи, верхних и нижних конечностей.</em></div>
         </div>
 
         <!-- АНАМНЕЗ -->
@@ -231,13 +437,9 @@
                 <div class="field-item"><strong>Одышка:</strong> <span class="value">нет</span></div>
                 <div class="field-item"><strong>Патологическое дыхание:</strong> <span class="value">нет</span></div>
                 <div class="field-item"><strong>Аускультативно:</strong> <span class="value">везикулярное, выслушивается с обеих сторон</span></div>
-                <div class="field-item"><strong>Хрипы сухие (свистящие, жужжащие):</strong> <span class="value">отсутствуют</span></div>
-                <div class="field-item"><strong>Влажные (мелко-, средне-, крупнопузырчатые):</strong> <span class="value">отсутствуют</span></div>
-                <div class="field-item"><strong>Крепитация:</strong> <span class="value">нет</span></div>
-                <div class="field-item"><strong>Шум трения плевры:</strong> <span class="value">нет</span></div>
-                <div class="field-item"><strong>Перкуторный звук:</strong> <span class="value">легочный над всеми отделами с обеих сторон</span></div>
+                <div class="field-item"><strong>Хрипы:</strong> <span class="value">отсутствуют</span></div>
+                <div class="field-item"><strong>Перкуторный звук:</strong> <span class="value">легочный</span></div>
                 <div class="field-item"><strong>Кашель:</strong> <span class="value">нет</span></div>
-                <div class="field-item"><strong>Мокрота:</strong> <span class="value">нет</span></div>
             </div>
         </div>
 
@@ -249,11 +451,9 @@
                 <div class="field-item"><strong>Ритмичный, аритмичный, наполнение пульса:</strong> <span class="value">ритмичный, удовлетворительное</span></div>
                 <div class="field-item"><strong>ЧСС:</strong> <span class="value">70 ударов в минуту</span></div>
                 <div class="field-item"><strong>Дефицит пульса:</strong> <span class="value">нет</span></div>
-                <div class="field-item"><strong>АД мм.рт.ст. на момент осмотра, привычное АД мм.рт.ст., максимальное АД мм.рт.ст.:</strong> <span class="value">110/70, привычное 110/70, максимальное нет данных</span></div>
+                <div class="field-item"><strong>АД мм.рт.ст. на момент осмотра, привычное АД мм.рт.ст.:</strong> <span class="value">110/70, привычное 110/70</span></div>
                 <div class="field-item"><strong>Тоны сердца:</strong> <span class="value">звучные, ритмичные</span></div>
-                <div class="field-item"><strong>Шум (систолический, диастолический):</strong> <span class="value">нет</span></div>
-                <div class="field-item"><strong>Шум трения перикарда:</strong> <span class="value">нет</span></div>
-                <div class="field-item"><strong>Акцент какого тона на (где?):</strong> <span class="value">нет</span></div>
+                <div class="field-item"><strong>Шум:</strong> <span class="value">нет</span></div>
             </div>
         </div>
 
@@ -264,11 +464,10 @@
                 <div class="field-item"><strong>Язык:</strong> <span class="value">чистый</span></div>
                 <div class="field-item"><strong>Живот (форма, мягкий, напряжен):</strong> <span class="value">правильной формы, не напряжен, безболезненный</span></div>
                 <div class="field-item"><strong>Болезненный в:</strong> <span class="value">безболезненный во всех отделах</span></div>
-                <div class="field-item"><strong>Положительные симптомы:</strong> <span class="value">Симптомы Образцова, Ровзинга, Ситковского, Ортнера, Мерфи, Мейо-Робсона, Щёткина-Блюмберга, Валя — отрицательные</span></div>
                 <div class="field-item"><strong>Перистальтика:</strong> <span class="value">выслушивается, активная</span></div>
                 <div class="field-item"><strong>Печень:</strong> <span class="value">у края реберной дуги</span></div>
                 <div class="field-item"><strong>Селезенка:</strong> <span class="value">не увеличена</span></div>
-                <div class="field-item"><strong>Стул (частота, консистенция):</strong> <span class="value">оформлен, коричневый, 1 раз в сутки, газы отходят</span></div>
+                <div class="field-item"><strong>Стул:</strong> <span class="value">оформлен, коричневый, 1 раз в сутки</span></div>
             </div>
         </div>
 
@@ -277,16 +476,14 @@
             <div class="section-title">🧠 НЕРВНАЯ СИСТЕМА</div>
             <div class="field-list">
                 <div class="field-item"><strong>Поведение:</strong> <span class="value">спокойное, адекватное</span></div>
-                <div class="field-item"><strong>Контакт:</strong> <span class="value">сохранен, продуктивный</span></div>
-                <div class="field-item"><strong>Чувствительность:</strong> <span class="value">не нарушена, D = S</span></div>
+                <div class="field-item"><strong>Контакт:</strong> <span class="value">сохранен</span></div>
+                <div class="field-item"><strong>Чувствительность:</strong> <span class="value">не нарушена</span></div>
                 <div class="field-item"><strong>Речь:</strong> <span class="value">без патологии</span></div>
-                <div class="field-item"><strong>Зрачки (OD, OS), обычные, широкие, узкие:</strong> <span class="value">OD = OS, обычные</span></div>
-                <div class="field-item"><strong>Фотореакция:</strong> <span class="value">живая, содружественная</span></div>
+                <div class="field-item"><strong>Зрачки:</strong> <span class="value">OD = OS, обычные, фотореакция живая</span></div>
                 <div class="field-item"><strong>Нистагм:</strong> <span class="value">нет</span></div>
                 <div class="field-item"><strong>Асимметрия лица:</strong> <span class="value">нет</span></div>
                 <div class="field-item"><strong>Менингеальные симптомы:</strong> <span class="value">отрицательные</span></div>
                 <div class="field-item"><strong>Очаговые симптомы:</strong> <span class="value">не выявлены</span></div>
-                <div class="field-item"><strong>Координаторные пробы:</strong> <span class="value">выполняет с двух сторон, устойчива в позе Ромберга</span></div>
             </div>
         </div>
 
@@ -299,7 +496,7 @@
             </div>
         </div>
 
-        <!-- STATUS LOCALIS (ПОДРОБНО! ПРОФЕССИОНАЛЬНАЯ ВЕРСИЯ) -->
+        <!-- STATUS LOCALIS -->
         <div class="section">
             <div class="section-title">🔍 STATUS LOCALIS (подробно!)</div>
             <div class="status-local">
@@ -317,9 +514,6 @@
             <div class="section-title">📊 ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ</div>
             <div class="field-list">
                 <div class="field-item"><strong>SpO2:</strong> <span class="value">98%</span></div>
-                <div class="field-item"><strong>АД:</strong> <span class="value">110/70 мм.рт.ст.</span></div>
-                <div class="field-item"><strong>ЧСС:</strong> <span class="value">70 уд/мин</span></div>
-                <div class="field-item"><strong>ЧДД:</strong> <span class="value">18 в мин</span></div>
             </div>
         </div>
 
@@ -328,14 +522,8 @@
             <div class="section-title">📊 ОЦЕНКА ПО ШКАЛАМ</div>
             <div class="scales-list">
                 <p>✔ <strong>Шкала NEWS2:</strong> 0 баллов (АД 110/70, ЧСС 70, ЧДД 18, SpO2 98%, t° 36,7) — состояние стабильное, требуется экстренная госпитализация по аллергологическому показанию.</p>
-                <p>✔ <strong>Пациент с острой дыхательной недостаточностью, шкала ОДН по Кассиль:</strong> не применимо.</p>
-                <p>✔ <strong>Пациент с шоком, индекс Альговера:</strong> Индекс Альговера = ЧСС / АД сист. = 70 / 110 = 0,64 (норма до 0,7, гемодинамика стабильна).</p>
-                <p>✔ <strong>Пациент с травмой, шкала боли ВАШ:</strong> не применимо.</p>
-                <p>✔ <strong>Пациент с ХСН, шкала ШОКС:</strong> не применимо.</p>
-                <p>✔ <strong>Пациент с ТЭЛА, шкала риска ТЭЛА:</strong> не применимо.</p>
-                <p>✔ <strong>Алкогольное опьянение:</strong> не применимо (запаха алкоголя изо рта нет, поведение адекватное).</p>
-                <p>✔ <strong>Пациент с инсультом, шкала LAMS:</strong> не применимо.</p>
-                <p>✔ <strong>Пациент с ДЭП (симптомы, синдромы орального автоматизма):</strong> не применимо.</p>
+                <p>✔ <strong>Индекс Альговера:</strong> 70 / 110 = 0,64 (норма до 0,7, гемодинамика стабильна).</p>
+                <p>✔ <strong>Алкогольное опьянение:</strong> не применимо.</p>
             </div>
         </div>
 
@@ -344,8 +532,8 @@
             <strong>📌 Примечание для бригады СМП:</strong><br>
             Дифференциальная диагностика проведена с:
             <ul class="note-list">
-                <li><strong>крапивницей (N50.8)</strong> (характерны зудящие волдыри, отек менее плотный, обычно не затрагивает глубокие слои кожи и слизистые);</li>
-                <li><strong>анафилактическим шоком (T78.2)</strong> (выраженная гипотензия, тахикардия, бронхоспазм, нарушение сознания, угроза жизни);</li>
+                <li><strong>крапивницей</strong> (характерны зудящие волдыри, отек менее плотный, обычно не затрагивает глубокие слои кожи и слизистые);</li>
+                <li><strong>анафилактическим шоком</strong> (выраженная гипотензия, тахикардия, бронхоспазм, нарушение сознания, угроза жизни);</li>
                 <li><strong>отеком гортани инфекционного генеза (эпиглоттит, ложный круп)</strong> (лихорадка, боль в горле, интоксикация, осиплость голоса, кашель);</li>
                 <li><strong>гипотиреозом (микседема)</strong> (отеки плотные, без гиперемии, развиваются постепенно, брадикардия, сухость кожи, зябкость);</li>
                 <li><strong>синдромом верхней полой вены</strong> (отек лица, шеи, верхних конечностей, цианоз, набухание шейных вен, одышка, расширение вен грудной стенки);</li>
@@ -361,7 +549,142 @@
             – Связь с аллергеном (пищевые продукты, лекарства, укусы насекомых) — не всегда выявляется.<br>
             – Эффект от антигистаминных и глюкокортикостероидных препаратов.
         </div>
+
+        <!-- КРАСНАЯ КНОПКА -->
+        <div class="algorithm-btn-container">
+            <button class="btn-algorithm" id="openAlgorithmBtn">
+                <span>🚨 Оказание помощи в соответствии с Алгоритмами МСК</span>
+                <span class="btn-hint">▼ нажмите для открытия ▼</span>
+            </button>
+        </div>
     </div>
 </div>
+
+<!-- МОДАЛЬНОЕ ОКНО: АЛГОРИТМ ПРИ АНГИОНЕВРОТИЧЕСКОМ ОТЕКЕ И КРАПИВНИЦЕ -->
+<div class="modal-overlay" id="algorithmModal">
+    <div class="modal-container">
+        <div class="modal-header">
+            <h2>📋 Алгоритм оказания помощи (МСК)</h2>
+            <button class="modal-close" id="closeModalBtn">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="alg-section">
+                <div class="alg-title">🔹 Ангионевротический отек / Крапивница (T78.3, L50)</div>
+                
+                <ul class="list-styled">
+                    <li>Прекращение контакта с аллергеном</li>
+                    <li>Пульсоксиметрия</li>
+                    <li>ЭКГ(ЭКП) при подозрении на наличие кардиальной патологии</li>
+                </ul>
+
+                <!-- локализованная форма -->
+                <div class="condition-block">
+                    <div class="condition-title">▶ локализованная форма:</div>
+                    <ul class="list-styled" style="margin-top: 4px;">
+                        <li>Хлоропирамин 20–40 мг (1–2 мл) в/венно или в/мышечно</li>
+                    </ul>
+                    <div class="tactic-block" style="margin-top: 8px;">
+                        <div class="tactic-title">Тактика:</div>
+                        <ul class="list-styled" style="margin-top: 4px;">
+                            <li>Рекомендовать обратиться в поликлинику (34)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- генерализованная форма -->
+                <div class="condition-block">
+                    <div class="condition-title">▶ генерализованная форма:</div>
+                    <ul class="list-styled" style="margin-top: 4px;">
+                        <li>Преднизолон 60–90 мг (2–3 мл) в/мышечно или в/венно</li>
+                    </ul>
+                    <div class="tactic-block" style="margin-top: 8px;">
+                        <div class="tactic-title">Тактика:</div>
+                        <ul class="list-styled" style="margin-top: 4px;">
+                            <li>Медицинская эвакуация в больницу при отсутствии эффекта от терапии при генерализованной форме (13)</li>
+                            <li>При отказе от медицинской эвакуации в больницу – рекомендовать обратиться в поликлинику (35)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- при SpO₂ ≤ 90% -->
+                <div class="condition-block">
+                    <div class="condition-title">▶ при SpO₂ ≤ 90%:</div>
+                    <ul class="list-styled" style="margin-top: 4px;">
+                        <li>Ингаляция кислорода FiO₂ 0.5</li>
+                    </ul>
+                    <div class="tactic-block" style="margin-top: 8px;">
+                        <div class="tactic-title">Тактика:</div>
+                        <ul class="list-styled" style="margin-top: 4px;">
+                            <li>Медицинская эвакуация в больницу при отсутствии эффекта от терапии при генерализованной форме (13)</li>
+                            <li>При отказе от медицинской эвакуации в больницу – рекомендовать обратиться в поликлинику (35)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- при снижении САД на 30% от привычных цифр АД -->
+                <div class="condition-block">
+                    <div class="condition-title">▶ при снижении САД на 30% от привычных цифр АД:</div>
+                    <ul class="list-styled" style="margin-top: 4px;">
+                        <li>См. раздел «Анестезиология и реаниматология» (Анафилактический шок) стр. 15</li>
+                    </ul>
+                </div>
+
+                <!-- при признаках отека верхних дыхательных путей -->
+                <div class="condition-block">
+                    <div class="condition-title">▶ при признаках отека верхних дыхательных путей:</div>
+                    <ul class="list-styled" style="margin-top: 4px;">
+                        <li>См. раздел «Анестезиология и реаниматология» (Аллергический отек верхних дыхательных путей) стр. 14</li>
+                    </ul>
+                </div>
+
+                <!-- при бронхоспазме -->
+                <div class="condition-block">
+                    <div class="condition-title">▶ при бронхоспазме:</div>
+                    <ul class="list-styled" style="margin-top: 4px;">
+                        <li>Эпинефрин 0,5 мг (0,5 мл) в/мышечно</li>
+                        <li>Дополнительно см. подраздел данного раздела Бронхиальная астма стр. 37</li>
+                    </ul>
+                </div>
+
+                <!-- общая тактика для ситуаций, не указанных в п.1 -->
+                <div class="tactic-block">
+                    <div class="tactic-title">▶ В клинических ситуациях, не указанных в п. 1:</div>
+                    <ul class="list-styled" style="margin-top: 4px;">
+                        <li>Рекомендовать обратиться в поликлинику (34) если есть эффект от терапии</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const modal = document.getElementById('algorithmModal');
+    const openBtn = document.getElementById('openAlgorithmBtn');
+    const closeBtn = document.getElementById('closeModalBtn');
+
+    function openModal() {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    openBtn.addEventListener('click', openModal);
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            closeModal();
+        }
+    });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+            closeModal();
+        }
+    });
+</script>
 </body>
 </html>
