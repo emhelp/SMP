@@ -1,4 +1,4 @@
-const CACHE_NAME = 'emhelp-v35';
+const CACHE_NAME = 'emhelp-v36';
 
 const urlsToCache = [
   // Главная
