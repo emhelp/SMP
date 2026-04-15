@@ -2,8 +2,8 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Карта вызова скорой медицинской помощи | Роды 1 период</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Карта вызова скорой медицинской помощи | Домашние роды</title>
     <style>
         * {
             margin: 0;
@@ -134,45 +134,42 @@
             margin: 8px 0;
         }
 
-        .note {
-            background: #e7f1ff;
-            border-left: 4px solid #1a4d6f;
-            padding: 12px 16px;
-            margin-top: 16px;
-            border-radius: 12px;
-            font-size: 0.9rem;
-            color: #1e4663;
+        .assistance-block {
+            background: #e8f5e9;
+            padding: 14px 18px;
+            border-radius: 18px;
+            margin-top: 6px;
+            border-left: 4px solid #2e7d32;
+            font-size: 0.94rem;
         }
 
-        .note-list {
-            margin-top: 8px;
-            margin-left: 20px;
-            list-style-type: none;
-            padding-left: 0;
+        .assistance-step {
+            margin-bottom: 12px;
+            padding-left: 8px;
+            border-left: 2px solid #a5d6a7;
         }
 
-        .note-list li {
-            margin-bottom: 8px;
-            padding-left: 20px;
-            position: relative;
+        .assistance-step strong {
+            color: #1b5e20;
         }
 
-        .note-list li:before {
-            content: "•";
-            position: absolute;
-            left: 4px;
-            color: #1a4d6f;
-            font-weight: bold;
+        .assistance-time {
+            color: #2e7d32;
+            font-weight: 600;
         }
 
-        /* Кнопка алгоритма */
+        /* Кнопки */
         .algorithm-btn-container {
             margin-top: 32px;
             margin-bottom: 20px;
             text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
         }
 
-        .btn-algorithm {
+        .btn-algorithm-red {
             background-color: #dc2626;
             color: white;
             border: none;
@@ -191,13 +188,38 @@
             border: 1px solid rgba(255,255,255,0.3);
         }
 
-        .btn-algorithm:hover {
+        .btn-algorithm-red:hover {
             background-color: #b91c1c;
             transform: scale(1.02);
             box-shadow: 0 10px 20px rgba(185, 28, 28, 0.4);
         }
 
-        .btn-algorithm:active {
+        .btn-algorithm-orange {
+            background-color: #e67e22;
+            color: white;
+            border: none;
+            padding: 10px 28px;
+            font-size: 1.15rem;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 6px 14px rgba(230, 126, 34, 0.3);
+            transition: all 0.2s ease;
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            letter-spacing: 0.3px;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .btn-algorithm-orange:hover {
+            background-color: #d35400;
+            transform: scale(1.02);
+            box-shadow: 0 10px 20px rgba(211, 84, 0, 0.4);
+        }
+
+        .btn-algorithm-red:active, .btn-algorithm-orange:active {
             transform: scale(0.98);
         }
 
@@ -211,7 +233,7 @@
             margin-top: 2px;
         }
 
-        /* Модальное окно — точная копия стиля вагинита */
+        /* Модальные окна */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -237,7 +259,7 @@
 
         .modal-container {
             background-color: #fffef7;
-            max-width: 600px;
+            max-width: 850px;
             width: 100%;
             max-height: 85vh;
             border-radius: 28px;
@@ -303,9 +325,9 @@
             line-height: 1.5;
         }
 
-        /* Стили для алгоритма — как на скриншоте вагинита */
+        /* стили для алгоритма */
         .alg-section {
-            margin-bottom: 20px;
+            margin-bottom: 24px;
             border-left: 4px solid #dc2626;
             padding-left: 18px;
             background: #fff9f0;
@@ -345,19 +367,123 @@
             margin-bottom: 6px;
         }
 
-        .bullet-item {
-            margin: 8px 0;
-            padding-left: 24px;
-            position: relative;
+        .condition-block {
+            background: #fff0d4;
+            border-left: 5px solid #dc2626;
+            padding: 10px 16px;
+            margin: 10px 0;
+            border-radius: 12px;
         }
 
-        .bullet-item:before {
-            content: "•";
-            position: absolute;
-            left: 8px;
-            color: #212529;
-            font-weight: bold;
+        .condition-title {
+            font-weight: 700;
+            color: #a51c1c;
+            margin-bottom: 6px;
+        }
+
+        hr {
+            margin: 16px 0;
+            border-color: #f0dbb2;
+        }
+
+        /* Стили для модального окна акушерского пособия (оранжевое) */
+        .modal-obstetric {
+            max-width: 900px;
+        }
+        .modal-obstetric .modal-header {
+            background: #e67e22;
+        }
+        .obstetric-body {
+            background: #fefcf5;
+        }
+        .obstetric-title {
+            font-weight: 800;
             font-size: 1rem;
+            color: #a51c1c;
+            margin: 8px 0 8px 0;
+            display: inline-block;
+            background: #ffeeee;
+            padding: 4px 14px;
+            border-radius: 30px;
+        }
+        .obstetric-card {
+            background: white;
+            border-radius: 18px;
+            margin-bottom: 20px;
+            border: 1px solid #e2edf2;
+            overflow: hidden;
+        }
+        .obstetric-card-header {
+            padding: 14px 18px;
+            background: #fef9f0;
+            border-bottom: 2px solid #f0c9a0;
+        }
+        .obstetric-card-header h3 {
+            font-size: 1.3rem;
+            color: #a5260c;
+        }
+        .obstetric-step {
+            padding: 14px 18px;
+            border-bottom: 1px solid #e9ecef;
+        }
+        .obstetric-step:last-child {
+            border-bottom: none;
+        }
+        .obstetric-step-num {
+            display: inline-block;
+            background: #1b5a7a;
+            color: white;
+            width: 26px;
+            height: 26px;
+            text-align: center;
+            line-height: 26px;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 0.85rem;
+            margin-right: 12px;
+        }
+        .obstetric-step-title {
+            font-weight: 700;
+            font-size: 1.05rem;
+            margin-bottom: 8px;
+        }
+        .obstetric-step-desc {
+            margin-left: 38px;
+            color: #2c3e44;
+        }
+        .obstetric-warning {
+            background: #fbe9e7;
+            border-radius: 12px;
+            padding: 10px 14px;
+            margin: 10px 0 0 38px;
+            border-left: 4px solid #d9534f;
+            font-size: 0.85rem;
+        }
+        .obstetric-maneuver {
+            background: #eef2fa;
+            border-radius: 12px;
+            padding: 10px 14px;
+            margin: 10px 0 0 38px;
+            font-size: 0.85rem;
+        }
+        .solo-protocol {
+            background: #fff6ed;
+            border-radius: 20px;
+            padding: 18px;
+            margin: 15px 0;
+            border: 2px solid #e67e22;
+        }
+        .solo-step {
+            background: white;
+            border-radius: 16px;
+            padding: 14px;
+            margin-bottom: 15px;
+            border-left: 6px solid #e67e22;
+        }
+        .solo-step h4 {
+            color: #c0392b;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
         }
 
         @media (max-width: 700px) {
@@ -370,15 +496,18 @@
             .content {
                 padding: 20px;
             }
-            .modal-body {
-                padding: 16px;
-            }
-            .btn-algorithm {
+            .btn-algorithm-red, .btn-algorithm-orange {
                 padding: 8px 22px;
                 font-size: 1rem;
             }
             .btn-hint {
                 font-size: 0.65rem;
+            }
+            .obstetric-step-desc {
+                margin-left: 20px;
+            }
+            .obstetric-warning, .obstetric-maneuver {
+                margin-left: 20px;
             }
         }
     </style>
@@ -386,27 +515,27 @@
 <body>
 <div class="card">
     <div class="mkb-row">
-        📌 Код по МКБ-10: <span>O80.0</span> (Одноплодные роды, головное предлежание)
+        📌 Код по МКБ-10: <span>O83.9</span> (Другие виды родоразрешения неуточненные — роды вне медицинского учреждения)
     </div>
     <div class="diagnosis">
-        🧾 <strong>Диагноз:</strong> Первый период срочных одноплодных родов (головное предлежание). Беременность 39-40 недель. Своевременное отхождение околоплодных вод.
+        🧾 <strong>Диагноз:</strong> Роды вне медицинского учреждения (домашние роды). Беременность 39-40 недель. Срочные роды в головном предлежании. Период изгнания (потуги).
     </div>
 
     <div class="content">
         <!-- ЖАЛОБЫ -->
         <div class="section">
             <div class="section-title">📢 ЖАЛОБЫ</div>
-            <div class="full-width-text"><em>На момент осмотра предъявляет жалобы на появление регулярных схваток, отхождение околоплодных вод.</em></div>
+            <div class="full-width-text"><em>На момент осмотра предъявляет жалобы на появление потуг, отхождение околоплодных вод.</em></div>
         </div>
 
         <!-- АНАМНЕЗ -->
         <div class="section">
             <div class="section-title">📋 АНАМНЕЗ</div>
-            <div class="full-width-text"><strong>Anamnesis morbi:</strong> Сегодня с 00-30 отмечает появление схваток с периодичностью в среднем 8-9 минут, отхождение околоплодных вод.</div>
-            <div class="full-width-text"><strong>Акушерский анамнез:</strong> Беременность вторая, дата последней менструации 5 декабря 2019. 2019 год - неразвивающаяся беременность. Другие хронические заболевания отрицает.</div>
-            <div class="full-width-text"><strong>Гинекологический анамнез:</strong> Менструация с 12 лет, установились сразу, по 5 дней через 28 дней, в срок, без задержек, кровотечение умеренное. Половой жизнью живёт с 20 лет. Состоит на учете в ЖК. По данным ЕМИАС не развивающаяся беременность.</div>
-            <div class="full-width-text"><strong>Аллергологический анамнез:</strong> Аллергии на лекарственные препараты, продукты питания и пр. отрицает. Не отягощена.</div>
-            <div class="full-width-text"><strong>Эпидемиологический анамнез:</strong> За пределы РФ не выезжала, контакт с прибывшими из других стран, контакт с больными, температурящими отрицает. Последние 2 недели температура не повышалась. Прививочный анамнез не известен.</div>
+            <div class="full-width-text"><strong>Anamnesis morbi:</strong> Со слов роженицы схватки начались 24.10.2017г, с 03:00 ночи, постепенно усиливались, отошли прозрачные воды, общим объемом около 300 мл. Бригада СМП вызвана в связи с появлением потуг в 08:35.</div>
+            <div class="full-width-text"><strong>Гинекологический анамнез:</strong> Гинекологические заболевания отрицает. Данная беременность - 2, роды - 1 (от 30.09.2016г., естественным путем в срок), аборты - 0. Данная беременность протекала без осложнений, на учете в ЖК не стоит, обменной карты нет. Самостоятельно делала УЗИ (39 неделя). Дату последней менструации не помнит.</div>
+            <div class="full-width-text"><strong>Аллергологический анамнез:</strong> Аллергии нет. Аллергические реакции на лекарственные препараты, пищевые продукты и бытовые аллергены отрицает.</div>
+            <div class="full-width-text"><strong>Эпидемиологический анамнез:</strong> Контакты с инфекционными больными отрицает, за пределы РФ последние 3 месяца не выезжала. Прививочный анамнез не известен.</div>
+            <div class="full-width-text"><strong>Хронические заболевания:</strong> Отрицает.</div>
         </div>
 
         <!-- ОБЪЕКТИВНО -->
@@ -417,14 +546,14 @@
                 <div class="field-item"><strong>Сознание:</strong> <span class="value">ясное.</span></div>
                 <div class="field-item"><strong>Шкала комы Глазго (GCS):</strong> <span class="value">15 баллов.</span></div>
                 <div class="field-item"><strong>Положение:</strong> <span class="value">активное.</span></div>
-                <div class="field-item"><strong>Кожные покровы:</strong> <span class="value">чистые, обычной окраски, умеренной влажности. Бледности, гиперемии, цианоза, желтушности нет.</span></div>
-                <div class="field-item"><strong>Сыпь:</strong> <span class="value">нет.</span></div>
-                <div class="field-item"><strong>Зев:</strong> <span class="value">чистый, бледно-розовый.</span></div>
-                <div class="field-item"><strong>Миндалины:</strong> <span class="value">не увеличены, налетов нет.</span></div>
-                <div class="field-item"><strong>Лимфоузлы:</strong> <span class="value">не увеличены, безболезненны.</span></div>
-                <div class="field-item"><strong>Пролежни:</strong> <span class="value">нет.</span></div>
-                <div class="field-item"><strong>Отеки:</strong> <span class="value">нет.</span></div>
-                <div class="field-item"><strong>t°:</strong> <span class="value">36.5 °C (аксиллярно).</span></div>
+                <div class="field-item"><strong>Кожные покровы:</strong> <span class="value">обычной окраски, чистые, умеренной влажности. Бледности, гиперемии, цианоза, желтушности нет.</span></div>
+                <div class="field-item"><strong>Сыпь:</strong> <span class="value">не обнаружена.</span></div>
+                <div class="field-item"><strong>Зев:</strong> <span class="value">не гиперемирован.</span></div>
+                <div class="field-item"><strong>Миндалины:</strong> <span class="value">не увеличены, в устьях налета нет.</span></div>
+                <div class="field-item"><strong>Лимфоузлы:</strong> <span class="value">не увеличены.</span></div>
+                <div class="field-item"><strong>Пролежни:</strong> <span class="value">не обнаружены.</span></div>
+                <div class="field-item"><strong>Отеки:</strong> <span class="value">не обнаружены.</span></div>
+                <div class="field-item"><strong>t°:</strong> <span class="value">36.1 °C (аксиллярно).</span></div>
             </div>
         </div>
 
@@ -435,14 +564,10 @@
                 <div class="field-item"><strong>ЧДД в мин:</strong> <span class="value">18.</span></div>
                 <div class="field-item"><strong>Одышка:</strong> <span class="value">нет.</span></div>
                 <div class="field-item"><strong>Патологическое дыхание:</strong> <span class="value">нет.</span></div>
-                <div class="field-item"><strong>Аускультативно:</strong> <span class="value">везикулярное дыхание, выслушивается с обеих сторон во всех отделах.</span></div>
-                <div class="field-item"><strong>Хрипы сухие:</strong> <span class="value">отсутствуют.</span></div>
-                <div class="field-item"><strong>Влажные хрипы:</strong> <span class="value">отсутствуют.</span></div>
-                <div class="field-item"><strong>Крепитация:</strong> <span class="value">нет.</span></div>
-                <div class="field-item"><strong>Шум трения плевры:</strong> <span class="value">нет.</span></div>
-                <div class="field-item"><strong>Перкуторный звук:</strong> <span class="value">ясный легочный над всей поверхностью легких с обеих сторон.</span></div>
+                <div class="field-item"><strong>Аускультативно:</strong> <span class="value">везикулярное дыхание, проводится во все отделы симметрично.</span></div>
+                <div class="field-item"><strong>Хрипы:</strong> <span class="value">не выслушиваются.</span></div>
+                <div class="field-item"><strong>Перкуторный звук:</strong> <span class="value">легочный над всей поверхностью легких.</span></div>
                 <div class="field-item"><strong>Кашель:</strong> <span class="value">нет.</span></div>
-                <div class="field-item"><strong>Мокрота:</strong> <span class="value">нет.</span></div>
             </div>
         </div>
 
@@ -450,15 +575,13 @@
         <div class="section">
             <div class="section-title">❤️ ОРГАНЫ КРОВООБРАЩЕНИЯ</div>
             <div class="field-list">
-                <div class="field-item"><strong>Пульс в мин:</strong> <span class="value">80 (удовлетворительного наполнения и напряжения).</span></div>
-                <div class="field-item"><strong>Ритмичный, аритмичный, наполнение пульса:</strong> <span class="value">ритмичный, удовлетворительное.</span></div>
-                <div class="field-item"><strong>ЧСС:</strong> <span class="value">80 ударов в минуту.</span></div>
+                <div class="field-item"><strong>Пульс в мин:</strong> <span class="value">85, наполнение сильное.</span></div>
+                <div class="field-item"><strong>Ритмичный, аритмичный, наполнение пульса:</strong> <span class="value">ритмичный.</span></div>
+                <div class="field-item"><strong>ЧСС:</strong> <span class="value">85 ударов в минуту.</span></div>
                 <div class="field-item"><strong>Дефицит пульса:</strong> <span class="value">нет.</span></div>
-                <div class="field-item"><strong>АД мм.рт.ст.:</strong> <span class="value">на момент осмотра 110/70. Привычное АД: 110/70 (со слов). Максимальное АД: нет данных.</span></div>
+                <div class="field-item"><strong>АД мм.рт.ст.:</strong> <span class="value">на момент осмотра 130/70. Привычное АД: 110/70 (со слов).</span></div>
                 <div class="field-item"><strong>Тоны сердца:</strong> <span class="value">звучные, ритмичные.</span></div>
-                <div class="field-item"><strong>Шум:</strong> <span class="value">нет (систолический, диастолический шумы не выслушиваются).</span></div>
-                <div class="field-item"><strong>Шум трения перикарда:</strong> <span class="value">нет.</span></div>
-                <div class="field-item"><strong>Акцент какого тона на:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Шум:</strong> <span class="value">не выслушивается.</span></div>
             </div>
         </div>
 
@@ -466,15 +589,13 @@
         <div class="section">
             <div class="section-title">🍽️ ОРГАНЫ ПИЩЕВАРЕНИЯ</div>
             <div class="field-list">
-                <div class="field-item"><strong>Язык:</strong> <span class="value">чистый, влажный, розовый.</span></div>
-                <div class="field-item"><strong>Живот:</strong> <span class="value">овоидной формы, увеличен за счет беременности. Мягкий, не вздут. Участвует в акте дыхания.</span></div>
-                <div class="field-item"><strong>Болезненный в:</strong> <span class="value">безболезненный при пальпации во всех отделах.</span></div>
-                <div class="field-item"><strong>Положительные симптомы:</strong> <span class="value">Симптомы раздражения брюшины (Образцова, Ровзинга, Ситковского, Ортнера, Мерфи, Мейо-Робсона, Щёткина-Блюмберга, Валя) — отрицательные.</span></div>
-                <div class="field-item"><strong>Перистальтика:</strong> <span class="value">выслушивается, активная.</span></div>
-                <div class="field-item"><strong>Печень:</strong> <span class="value">у края реберной дуги, не увеличена, безболезненна.</span></div>
-                <div class="field-item"><strong>Селезенка:</strong> <span class="value">не увеличена, не пальпируется.</span></div>
-                <div class="field-item"><strong>Рвота:</strong> <span class="value">не было.</span></div>
-                <div class="field-item"><strong>Стул:</strong> <span class="value">оформленный, коричневый, 1 раз в день. Газы отходят.</span></div>
+                <div class="field-item"><strong>Язык:</strong> <span class="value">чистый.</span></div>
+                <div class="field-item"><strong>Живот:</strong> <span class="value">овоидной формы, мягкий, безболезненный при пальпации во всех отделах.</span></div>
+                <div class="field-item"><strong>Болезненный в:</strong> <span class="value">безболезненный.</span></div>
+                <div class="field-item"><strong>Перистальтика:</strong> <span class="value">выслушивается.</span></div>
+                <div class="field-item"><strong>Печень:</strong> <span class="value">не увеличена.</span></div>
+                <div class="field-item"><strong>Селезенка:</strong> <span class="value">не пальпируется.</span></div>
+                <div class="field-item"><strong>Стул:</strong> <span class="value">оформлен, 1 раз в день, регулярный.</span></div>
             </div>
         </div>
 
@@ -482,17 +603,15 @@
         <div class="section">
             <div class="section-title">🧠 НЕРВНАЯ СИСТЕМА</div>
             <div class="field-list">
-                <div class="field-item"><strong>Поведение:</strong> <span class="value">спокойное, адекватное.</span></div>
-                <div class="field-item"><strong>Контакт:</strong> <span class="value">доступен, продуктивный.</span></div>
-                <div class="field-item"><strong>Чувствительность:</strong> <span class="value">сохранена.</span></div>
-                <div class="field-item"><strong>Речь:</strong> <span class="value">не нарушена, внятная.</span></div>
-                <div class="field-item"><strong>Зрачки (OD, OS):</strong> <span class="value">D=S, обычные, округлые.</span></div>
-                <div class="field-item"><strong>Фотореакция:</strong> <span class="value">живая, прямая и содружественная.</span></div>
-                <div class="field-item"><strong>Нистагм:</strong> <span class="value">нет.</span></div>
-                <div class="field-item"><strong>Асимметрия лица:</strong> <span class="value">нет.</span></div>
-                <div class="field-item"><strong>Менингеальные симптомы:</strong> <span class="value">ригидность затылочных мышц, Кернига, Брудзинского — отрицательные.</span></div>
-                <div class="field-item"><strong>Очаговые симптомы:</strong> <span class="value">не выявлены.</span></div>
-                <div class="field-item"><strong>Координаторные пробы:</strong> <span class="value">пальце-носовую пробу (ПНП) выполняет с обеих сторон уверенно. Устойчива в позе Ромберга.</span></div>
+                <div class="field-item"><strong>Поведение:</strong> <span class="value">спокойное.</span></div>
+                <div class="field-item"><strong>Контакт:</strong> <span class="value">контактна.</span></div>
+                <div class="field-item"><strong>Чувствительность:</strong> <span class="value">не нарушена.</span></div>
+                <div class="field-item"><strong>Речь:</strong> <span class="value">внятная.</span></div>
+                <div class="field-item"><strong>Зрачки:</strong> <span class="value">OD = OS, обычные, фотореакция живая.</span></div>
+                <div class="field-item"><strong>Нистагм:</strong> <span class="value">не обнаружен.</span></div>
+                <div class="field-item"><strong>Асимметрия лица:</strong> <span class="value">не обнаружена.</span></div>
+                <div class="field-item"><strong>Менингеальные симптомы:</strong> <span class="value">отрицательные.</span></div>
+                <div class="field-item"><strong>Очаговые симптомы:</strong> <span class="value">не обнаружены.</span></div>
             </div>
         </div>
 
@@ -500,23 +619,23 @@
         <div class="section">
             <div class="section-title">🚽 МОЧЕПОЛОВАЯ СИСТЕМА</div>
             <div class="field-list">
-                <div class="field-item"><strong>Мочеиспускание:</strong> <span class="value">свободное, безболезненное. Моча желтая, прозрачная, без примесей.</span></div>
-                <div class="field-item"><strong>Симптом поколачивания:</strong> <span class="value">отрицательный с обеих сторон.</span></div>
+                <div class="field-item"><strong>Мочеиспускание:</strong> <span class="value">свободное, безболезненное, до 16 раз в сутки, моча желтого цвета.</span></div>
+                <div class="field-item"><strong>Симптом поколачивания:</strong> <span class="value">отрицателен с обеих сторон.</span></div>
             </div>
         </div>
 
-        <!-- STATUS LOCALIS (АКУШЕРСКИЙ СТАТУС) -->
+        <!-- STATUS LOCALIS -->
         <div class="section">
             <div class="section-title">🔍 STATUS LOCALIS</div>
             <div class="status-local">
-                <strong>Объективный акушерский осмотр (влагалищное исследование на догоспитальном этапе не проводится):</strong><br>
-                • Травм и повреждений кожных покровов нет.<br>
-                • Живот увеличен за счет беременной матки. Высота дна матки (ВДМ) — 37 см. Окружность живота — 97 см. Матка соответствует 39-40 неделям беременности.<br>
-                • Положение плода: продольное. Предлежание: головное. Шевеление плода чувствует хорошо в данный момент.<br>
-                • Сердцебиение плода: 148 ударов в минуту, ясное, ритмичное.<br>
-                • Схватки: через 10 минут по 25-30 секунд, слабые.<br>
-                • Околоплодные воды: текут светлые воды.<br>
-                • Наружные половые органы: развиты правильно. Слизистые розовые, чистые. Травм, гематом, варикозного расширения вен нет.
+                <strong>Объективный акушерский осмотр:</strong><br>
+                • Живот овоидной формы, увеличен за счет беременной матки. Высота стояния дна матки 36 см.<br>
+                • Матка в повышенном тонусе, расслабляется между схватками.<br>
+                • Потуги через 1-2 мин., по 46-60 сек., хорошей силы, регулярные.<br>
+                • Положение плода продольное, предлежит головка, на тазовом дне.<br>
+                • Сердцебиение плода ясное, ритмичное 140 в мин.<br>
+                • Выделения из половых путей: подтекают светлые околоплодные воды.<br>
+                • Влагалищное исследование на догоспитальном этапе не проводилось.
             </div>
         </div>
 
@@ -524,9 +643,8 @@
         <div class="section">
             <div class="section-title">📊 ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ</div>
             <div class="scales-list">
-                <p>✔ <strong>ЭКГ:</strong> не проводилась (нет кардиальных жалоб, показаний нет).</p>
-                <p>✔ <strong>Пульсоксиметрия:</strong> SpO2 – 98% (ориентировочно, в норме для беременных).</p>
-                <p>✔ <strong>Глюкометрия:</strong> не проводилась (нет показаний).</p>
+                <p>✔ <strong>Пульсоксиметрия (мать):</strong> SpO2 – 96% (норма).</p>
+                <p>✔ <strong>Пульсоксиметрия (новорожденная):</strong> SpO2 – 98%.</p>
             </div>
         </div>
 
@@ -534,63 +652,62 @@
         <div class="section">
             <div class="section-title">📊 ОЦЕНКА ПО ШКАЛАМ</div>
             <div class="scales-list">
-                <p>✔ <strong>Шкала NEWS2:</strong> ЧДД 18 (0), SpO2 98% (0), t° 36.5 (0), АД сист. 110 (0), ЧСС 80 (0), сознание ясное (0). Сумма: 0 баллов (низкий риск, состояние стабильное).</p>
-                <p>✔ <strong>Шкала ОДН по Кассиль:</strong> не применима (дыхательной недостаточности нет).</p>
-                <p>✔ <strong>Индекс Альговера (шоковый индекс):</strong> ЧСС/АДсист = 80/110 = 0.73 (в пределах нормы, гемодинамика стабильна).</p>
-                <p>✔ <strong>Шкала боли ВАШ:</strong> 2-3 балла (схватки слабые, умеренной интенсивности).</p>
-                <p>✔ <strong>Шкала риска ТЭЛА:</strong> не применимо.</p>
-                <p>✔ <strong>Шкала ШОКС (ХСН):</strong> не применимо.</p>
-                <p>✔ <strong>Состояние алкогольного опьянения:</strong> запах алкоголя не определяется. Поведение адекватное.</p>
-                <p>✔ <strong>Шкала LAMS (инсульт):</strong> не применимо.</p>
-                <p>✔ <strong>Признаки ДЭП:</strong> не применимо.</p>
+                <p>✔ <strong>Шкала NEWS2:</strong> 0 баллов (АД 130/70, ЧСС 85, ЧДД 18, t° 36,1) — состояние стабильное.</p>
+                <p>✔ <strong>Индекс Альговера:</strong> 85 / 130 = 0,65 (в пределах нормы).</p>
+                <p>✔ <strong>Шкала Апгар:</strong> на 1-й минуте — 8 баллов, на 5-й минуте — 9 баллов (новорожденная).</p>
+                <p>✔ <strong>Алкогольное опьянение:</strong> не применимо.</p>
             </div>
         </div>
 
         <!-- ОКАЗАННАЯ ПОМОЩЬ И ЕЕ ЭФФЕКТ -->
         <div class="section">
-            <div class="section-title">🩺 ОКАЗАННАЯ ПОМОЩЬ И ЕЕ ЭФФЕКТ</div>
-            <div class="status-local">
-                <strong>Проведенные мероприятия:</strong><br>
-                • В соответствии с разделом алгоритмов Акушерство, код диагноза O80.0, графа Тактика, принято решение о медицинской эвакуации.<br>
-                • Транспортировка без отрицательной динамики.<br>
-                • Состояние удовлетворительное, АД 110/70, ЧСС-80, пульс-80 уд. в мин. ЧДД-18.
+            <div class="section-title">🩺 ОКАЗАННАЯ ПОМОЩЬ И ЕЕ ЭФФЕКТ (в т.ч. результаты инструментальных исследований в динамике)</div>
+            <div class="assistance-block">
+                <div class="assistance-step">
+                    <strong>1. Принятие решения о ведении родов на месте:</strong> Учитывая акушерскую ситуацию, принято решение вести роды на месте. Оказано акушерское пособие.
+                </div>
+                <div class="assistance-step">
+                    <strong>2. Рождение ребенка:</strong> <span class="assistance-time">В 09:00</span> родилась живая, доношенная девочка. Закричала сразу. Крик громкий. Кожные покровы розовые.
+                </div>
+                <div class="assistance-step">
+                    <strong>3. Первичная обработка новорожденной:</strong> Санация ротоглотки и носа новорожденной с помощью стерильной резиновой "груши". Оценка по шкале Апгар: на 1-й минуте — 8 баллов, на 5-й минуте — 9 баллов.
+                </div>
+                <div class="assistance-step">
+                    <strong>4. Обработка пуповины:</strong> После предварительной обработки пуповины 70% этиловым спиртом, пуповина пересечена, на остаток пуповины наложен стерильный зажим, поверхность среза обработана 70% этиловым спиртом, наложена асептическая повязка. Новорожденная завернута в теплые пеленки, согрета.
+                </div>
+                <div class="assistance-step">
+                    <strong>5. Катетеризация мочевого пузыря роженицы:</strong> Проведена катетеризация мочевого пузыря у роженицы. Моча соломенно-желтая, около 100 мл.
+                </div>
+                <div class="assistance-step">
+                    <strong>6. Рождение последа:</strong> <span class="assistance-time">В 09:10</span> самостоятельно отделилась плацента и выделился послед. Осмотрен послед: дольки, оболочки целы, дефектов не выявлено. Матка сократилась, плотная, кровопотеря 150 мл. Состояние родильницы удовлетворительное. <em>АД 120/70 мм.рт.ст., ЧСС 84 в мин., ЧДД 18 в мин.</em>
+                </div>
+                <div class="assistance-step">
+                    <strong>7. Инфузионная и утеротоническая терапия:</strong> Катетеризация периферической вены: Sol. Oxitocini 5ME в разведении Sol. Natrii Chloridi 0,9% - 10 ml внутривенно. Sol. Natrii Chloridi 0,9% - 200 ml внутривенно-капельно. Через 20 мин. состояние родильницы удовлетворительное.
+                </div>
+                <div class="assistance-step">
+                    <strong>8. Передача новорожденной:</strong> <span class="assistance-time">В 09:15</span> новорожденная передана бригаде № 41 подстанции № 9 (наряд), в удовлетворительном состоянии: ЧД 50 в мин., ЧСС 140 в мин., тоны сердца ритмичные, звучные. SpO2 - 98%.
+                </div>
+                <div class="assistance-step">
+                    <strong>9. Транспортировка в стационар:</strong> Пациентка доставлена в род.дом и передана врачу приемного отделения в удовлетворительном состоянии. <em>АД 120/70 мм.рт.ст., ЧСС 84 в мин., ЧДД 18 в мин.</em> Матка плотная, лохии умеренные. Послед доставлен в стационар.
+                </div>
             </div>
         </div>
 
-        <!-- ПРИМЕЧАНИЕ ДЛЯ БРИГАДЫ СМП -->
-        <div class="note">
-            <strong>📌 Примечание для бригады СМП (дифференциальная диагностика):</strong><br>
-            Дифференциальный диагноз проведен с:
-            <ul class="note-list">
-                <li><strong>Преждевременными родами:</strong> (срок беременности менее 37 недель. У пациентки срок 39-40 недель — доношенная беременность).</li>
-                <li><strong>Отслойкой плаценты:</strong> (кровянистые выделения, гипертонус матки, боль в животе, гипоксия плода. У пациентки выделения светлые воды, матка без гипертонуса, сердцебиение плода удовлетворительное).</li>
-                <li><strong>Предлежанием плаценты:</strong> (безболезненные кровянистые выделения. У пациентки подтекают светлые воды, кровотечения нет).</li>
-                <li><strong>Ложными схватками (предвестники родов):</strong> (нерегулярные, безболезненные, не приводят к раскрытию шейки матки. У пациентки схватки регулярные, есть отхождение вод — истинные роды).</li>
-                <li><strong>Аномалиями родовой деятельности:</strong> (дискоординация, слабость схваток. У пациентки схватки через 10 минут по 25-30 сек, слабые — возможно, первичная слабость родовой деятельности, но это не противопоказание к эвакуации).</li>
-            </ul>
-            <strong>Ключевые признаки первого периода срочных родов (головное предлежание):</strong><br>
-            – Доношенная беременность (39-40 недель).<br>
-            – Регулярная родовая деятельность (схватки с 00:30, периодичностью 8-9 минут, к моменту осмотра через 10 минут).<br>
-            – Отхождение светлых околоплодных вод (своевременное).<br>
-            – Головное предлежание плода, продольное положение.<br>
-            – Удовлетворительное состояние плода (сердцебиение 148 уд/мин, ясное, ритмичное).<br>
-            – Отсутствие патологических выделений из половых путей.<br>
-            – Стабильная гемодинамика матери (АД 110/70, ЧСС 80).<br>
-            – В анамнезе: неразвивающаяся беременность в 2019 году (фактор риска).<br>
-            – Тактика: экстренная госпитализация в родильный дом.
-        </div>
-
-        <!-- КРАСНАЯ КНОПКА -->
+        <!-- КНОПКИ -->
         <div class="algorithm-btn-container">
-            <button class="btn-algorithm" id="openAlgorithmBtn">
+            <button class="btn-algorithm-red" id="openAlgorithmBtn">
                 <span>🚨 Оказание помощи в соответствии с Алгоритмами МСК</span>
+                <span class="btn-hint">▼ нажмите для открытия ▼</span>
+            </button>
+            <button class="btn-algorithm-orange" id="openObstetricBtn">
+                <span>📖 Алгоритм акушерского пособия</span>
                 <span class="btn-hint">▼ нажмите для открытия ▼</span>
             </button>
         </div>
     </div>
 </div>
 
-<!-- МОДАЛЬНОЕ ОКНО — ТОЧНАЯ КОПИЯ ВАГИНИТА -->
+<!-- МОДАЛЬНОЕ ОКНО 1: АЛГОРИТМ ПРИ ДОМАШНИХ РОДАХ -->
 <div class="modal-overlay" id="algorithmModal">
     <div class="modal-container">
         <div class="modal-header">
@@ -599,13 +716,208 @@
         </div>
         <div class="modal-body">
             <div class="alg-section">
-                <div class="alg-title">🔹 Одноплодные роды, головное предлежание (O80.0)</div>
-                <div class="bullet-item">Не требует лечения на этапе оказания скорой медицинской помощи</div>
+                <div class="alg-title">🔹 Роды в головном предлежании («Домашние роды» / «Роды вне роддома») (080)</div>
+                
+                <ul class="list-styled">
+                    <li>Аускультация ЧСС плода в течение 1 минуты после схватки каждые 15–30 минут; в потужном периоде — после каждой потуги</li>
+                    <li>Катетеризация вены или внутрикостный доступ</li>
+                    <li><strong>Акушерское пособие (смотри алгоритм)</strong></li>
+                    <li>Под половые пути родильницы после рождения ребенка поместить лоток для оценки объема кровопотери</li>
+                </ul>
+
+                <hr>
+
+                <div class="alg-title">👶 Неонатальные мероприятия</div>
+                <ul class="list-styled">
+                    <li>Оценить необходимость проведения ребенку реанимационных мероприятий (см. «Приложение 8»)</li>
+                    <li><strong>Санация ротоглотки и носа у новорожденного с помощью стерильной резиновой «груши» проводится только при отсутствии самостоятельного дыхания</strong></li>
+                    <li>Оценка состояния новорожденного по шкале Апгар (см. «Приложение 7»)</li>
+                    <li>Новорожденного обсушить пеленкой, мокрую пеленку утилизировать, завернуть в теплые сухие пеленки, согреть, выложить на живот и грудь матери, обеспечить контакт «кожа к коже», убедившись, что голова повернута набок (нос не упирается в грудь матери)</li>
+                    <li><strong>Первичная обработка пуповины:</strong> Наложить 2 стерильных зажима: один — на расстоянии 10 см от пупочного кольца, второй — на 2 см дистальнее от него; участок пуповины между зажимами обработать 70° этиловым спиртом и пересечь; поверхность среза пуповины обработать 70° этиловым спиртом</li>
+                    <li><strong>Вторичная обработка пуповины:</strong> Пластмассовый зажим наложить на пуповинный остаток не ближе 2 см к коже живота ребенка, ткань пуповины отсечь и на культю пуповины наложить стерильную повязку</li>
+                </ul>
+
+                <hr>
+
+                <div class="alg-title">🤱 После рождения ребенка родильнице</div>
+                <ul class="list-styled">
+                    <li><strong>Окситоцин</strong> 10 МЕ (2 мл) в/мышечно в боковую поверхность бедра <strong>или</strong> (5 МЕ (1 мл) в разведении Натрия хлорида 0,9% — 50 мл со скоростью 16,2 мл/ч через шприцевой дозатор)</li>
+                    <li>Осмотр последа и доставка его в родильный дом</li>
+                    <li>Контроль состояния пациентки каждые 15 минут в течение первых двух часов после родов: АД, пульс, тонус матки, объем кровянистых выделений из влагалища</li>
+                    <li><strong>При отсутствии признаков отделения плаценты:</strong> Натрия хлорид 0,9% — 250-500 мл в/венно капельно</li>
+                </ul>
+
+                <hr>
+
+                <div class="alg-title blue-title">⚠️ Роды в тазовом предлежании</div>
+                <ul class="list-styled">
+                    <li>Аускультация ЧСС плода в течение 1 минуты после схватки каждые 15–30 минут, в потужном периоде после каждой потуги</li>
+                    <li>После излития околоплодных вод — влагалищное исследование для исключения выпадения петель пуповины (для АГБ)</li>
+                    <li>Катетеризация вены или внутрикостный доступ</li>
+                    <li>Не оказывать акушерское пособие ранее самостоятельного рождения ребенка до уровня пупка</li>
+                    <li>После рождения ножек и появления пупочного кольца необходимо небольшую петлю пуповины вытянуть вниз для предотвращения компрессии натянутой пуповины</li>
+                    <li>Контролировать поворот плода в передний вид, избегая заднего вида</li>
+                    <li>Пособие по Цовьянову в зависимости от вида тазового предлежания</li>
+                    <li>После рождения ребенка до уровня нижнего угла лопаток при запрокидывании ручек выполнить классическое ручное пособие по выведению ручек или прием Ловсета</li>
+                    <li>При отсутствии самостоятельного рождения головки выполнить прием Морисо-Смелли-Вайта</li>
+                    <li>Тянуть ребенка на себя запрещено</li>
+                    <li>Под половые пути родильницы после рождения ребенка поместить лоток для оценки объема кровопотери</li>
+                </ul>
+                
+                <div class="condition-block">
+                    <div class="condition-title">✅ Далее для новорожденного при тазовом предлежании:</div>
+                    <ul class="list-styled" style="margin-top: 4px;">
+                        <li>Оценить необходимость проведения ребенку реанимационных мероприятий (см. «Приложение 8»)</li>
+                        <li><strong>Санация ротоглотки и носа у новорожденного с помощью стерильной резиновой «груши» проводится только при отсутствии самостоятельного дыхания</strong></li>
+                        <li>Оценка состояния новорожденного по шкале Апгар (см. «Приложение 7»)</li>
+                        <li>Новорожденного обсушить пеленкой, мокрую пеленку утилизировать, завернуть в теплые сухие пеленки, согреть, выложить на живот и грудь матери, обеспечить контакт «кожа к коже», убедившись, что голова повернута набок (нос не упирается в грудь матери)</li>
+                        <li><strong>Первичная обработка пуповины:</strong> Наложить 2 стерильных зажима: один — на расстоянии 10 см от пупочного кольца, второй — на 2 см дистальнее от него; участок пуповины между зажимами обработать 70° этиловым спиртом и пересечь; поверхность среза пуповины обработать 70° этиловым спиртом</li>
+                        <li><strong>Вторичная обработка пуповины:</strong> Пластмассовый зажим наложить на пуповинный остаток не ближе 2 см к коже живота ребенка, ткань пуповины отсечь и на культю пуповины наложить стерильную повязку</li>
+                        <li>Родильнице: Окситоцин 10 МЕ (2 мл) в/мышечно в боковую поверхность бедра или (5 МЕ (1 мл) в разведении Натрия хлорида 0,9% — 50 мл со скоростью 16,2 мл/ч через шприцевой дозатор)</li>
+                        <li>Контроль состояния пациентки каждые 15 минут в течение первых двух часов после родов: АД, пульс, тонус матки, объем кровянистых выделений из влагалища</li>
+                    </ul>
+                </div>
+
+                <hr>
+
+                <div class="alg-title">📌 Контроль и инфузионная поддержка</div>
+                <ul class="list-styled">
+                    <li>Контроль состояния пациентки каждые 15 минут в течение первых двух часов после родов: АД, пульс, тонус матки, объем кровянистых выделений из влагалища</li>
+                    <li><strong>При отсутствии признаков отделения плаценты:</strong> Натрия хлорид 0,9% – 250–500 мл в/венно капельно</li>
+                </ul>
+
+                <hr>
+
                 <div class="tactic-block">
                     <div class="tactic-title">▶ Тактика ведения:</div>
-                    <ul class="list-styled">
-                        <li>1. Медицинская эвакуация в больницу (13)</li>
-                        <li>2. При отказе от медицинской эвакуации – рекомендовать обратиться в ЖК (35)</li>
+                    <ul class="list-styled" style="margin-top: 4px;">
+                        <li>Медицинская эвакуация в больницу (13). Транспортировка родильницы на носилках</li>
+                        <li>При отказе от медицинской эвакуации: активный аудиоконтроль (55)</li>
+                        <li>При повторном отказе – рекомендовать обратиться в ЖК (35)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- МОДАЛЬНОЕ ОКНО 2: АКУШЕРСКОЕ ПОСОБИЕ -->
+<div class="modal-overlay" id="obstetricModal">
+    <div class="modal-container modal-obstetric">
+        <div class="modal-header">
+            <h2>📖 Акушерское пособие при родах</h2>
+            <button class="modal-close" id="closeObstetricBtn">&times;</button>
+        </div>
+        <div class="modal-body obstetric-body">
+            <div class="alert-banner" style="background: #fff3e0; border-left: 6px solid #e67e22; padding: 12px 16px; border-radius: 12px; margin-bottom: 20px;">
+                ⚠️ <strong>Первоочередные действия при начале родов вне стационара:</strong> оценить состояние роженицы и плода, вызвать акушерскую бригаду, подготовить стерильные перчатки, пеленки, набор для новорожденного, окситоцин. Обеспечить психологическую поддержку, исключить потуги во время транспортировки — принять роды на месте!
+            </div>
+
+            <!-- ГОЛОВНОЕ ПРЕДЛЕЖАНИЕ -->
+            <div class="obstetric-card">
+                <div class="obstetric-card-header">
+                    <h3>🧠 Головное предлежание</h3>
+                </div>
+                <div class="obstetric-step">
+                    <div class="obstetric-step-title"><span class="obstetric-step-num">1</span> Оценка & подготовка</div>
+                    <div class="obstetric-step-desc">👉 Уложить роженицу на спину, ноги согнуты в коленях, разведены. Подкрестцово — валик. Обработать наружные половые органы. Контроль сердцебиения плода каждые 5 минут. При полном открытии маточного зева (потуги) — начать прием.</div>
+                </div>
+                <div class="obstetric-step">
+                    <div class="obstetric-step-title"><span class="obstetric-step-num">2</span> Прорезывание головки</div>
+                    <div class="obstetric-step-desc">🔹 Во время потуги поддерживать промежность стерильной салфеткой. <strong>Прием защиты промежности:</strong> большим и указательным пальцами растягивать вульварное кольцо над головкой, способствуя медленному рождению затылка. Между потугами — дать тканям адаптироваться.</div>
+                </div>
+                <div class="obstetric-step">
+                    <div class="obstetric-step-title"><span class="obstetric-step-num">3</span> Рождение головки</div>
+                    <div class="obstetric-step-desc">✔ После рождения затылка попросить женщину не тужиться (дыхание «собачкой»). Осторожно удалить слизь из носоглотки. Проверить обвитие пуповиной — при необходимости скинуть через головку или пережать.</div>
+                </div>
+                <div class="obstetric-step">
+                    <div class="obstetric-step-title"><span class="obstetric-step-num">4</span> Выведение плечиков (ключевой этап)</div>
+                    <div class="obstetric-step-desc">📌 Головка повернута лицом к бедру матери. Обеими ладонями захватить головку (не давя на роднички!). Аккуратно потянуть головку книзу (к крестцу матери) до рождения переднего плечика под лоном, затем — кверху для выведения заднего плечика над промежностью.</div>
+                    <div class="obstetric-maneuver">💡 <strong>Техника Морисо-Левре (при затруднении):</strong> если плечики не выходят, указательный палец ввести во влагалище по задней ручке плода, согнуть плод в грудном отделе и вывести заднюю ручку. Либо прием МакРобертса + надлобковое давление (не на дно матки!).</div>
+                </div>
+                <div class="obstetric-step">
+                    <div class="obstetric-step-title"><span class="obstetric-step-num">5</span> Рождение туловища и ножек</div>
+                    <div class="obstetric-step-desc">➡ После выхода плечевого пояса — туловище рождается легко. Подхватить ребенка, уложить на живот матери, насухо вытереть, оценить по Апгар. Пережать пуповину через 60 секунд.</div>
+                    <div class="obstetric-warning">⚠️ <strong>Риск дистоции плечиков:</strong> при задержке переднего плечика более 60 секунд — НЕ тянуть за головку! Применить прием МакРобертса + супрапубическое давление. Категорически запрещён нажим на дно матки!</div>
+                </div>
+                <div class="obstetric-step">
+                    <div class="obstetric-step-title"><span class="obstetric-step-num">6</span> Третий период (рождение последа)</div>
+                    <div class="obstetric-step-desc">🧾 Контроль признаков отделения плаценты. При появлении — осторожная тракция за пуповину. Осмотр последа на целостность. Массаж матки, окситоцин 10 ЕД в/м. Профилактика гипотонического кровотечения.</div>
+                </div>
+            </div>
+
+            <!-- ТАЗОВОЕ ПРЕДЛЕЖАНИЕ -->
+            <div class="obstetric-card">
+                <div class="obstetric-card-header">
+                    <h3>🦶 Ягодичное предлежание</h3>
+                </div>
+                <div class="obstetric-step">
+                    <div class="obstetric-step-title"><span class="obstetric-step-num">1</span> Распознавание и тактика</div>
+                    <div class="obstetric-step-desc">🔎 При влагалищном исследовании — пальпируются ягодицы, крестец. <strong>НЕЛЬЗЯ:</strong> потягивать за тазовый конец. Вызвать реанимационную бригаду. Контроль сердцебиения плода каждые 2-3 минуты.</div>
+                </div>
+                <div class="obstetric-step">
+                    <div class="obstetric-step-title"><span class="obstetric-step-num">2</span> Рождение ягодиц до пупка</div>
+                    <div class="obstetric-step-desc">✨ При потугах ягодицы показываются в половой щели. Обхватить ягодицы стерильной пеленкой. По мере рождения не мешать. Как только ягодицы родились до уровня пупка — начинается ответственный этап.</div>
+                </div>
+                <div class="obstetric-step">
+                    <div class="obstetric-step-title"><span class="obstetric-step-num">3</span> Пособие при рождении плечевого пояса</div>
+                    <div class="obstetric-step-desc">⚠️ <strong>Метод Цовьянова:</strong> туловище плода обхватывается так, чтобы большие пальцы легли вдоль крестца, а остальные — на бедра. Аккуратно потянуть книзу до появления передней подмышечной впадины. Затем — поднять кверху для выведения задней ручки.</div>
+                    <div class="obstetric-maneuver">🧤 <strong>При задержке ручек:</strong> указательный палец вводится по спинке плода до локтевого сгиба и ручка сгибается, выводится с передней поверхности грудной клетки.</div>
+                </div>
+                <div class="obstetric-step">
+                    <div class="obstetric-step-title"><span class="obstetric-step-num">4</span> Выведение головки (самый опасный момент)</div>
+                    <div class="obstetric-step-desc">🧠 Прием Морисо-Левре для головки: плод «садится верхом» на предплечье, указательный и средний пальцы вводятся во влагалище к личику плода, создавая давление на верхнюю челюсть. Одновременно — надлобковое давление. Осторожно сгибаем головку и выводим.</div>
+                    <div class="obstetric-warning">🚨 <strong>Ключевое правило:</strong> максимальное время от рождения пупка до полного рождения головки не должно превышать 3-5 минут. Запрещено тянуть за туловище резко!</div>
+                </div>
+                <div class="obstetric-step">
+                    <div class="obstetric-step-title"><span class="obstetric-step-num">5</span> Завершение родов</div>
+                    <div class="obstetric-step-desc">👶 После рождения головки — ребенок полностью извлечен. Оценить состояние, отсасывание слизи, согревание. Пуповина пересекается через 1 минуту. Далее — ведение последового периода, мониторинг кровотечения.</div>
+                </div>
+            </div>
+
+            <!-- ДИСТОЦИЯ ПЛЕЧИКОВ ДЛЯ ОДНОГО ФЕЛЬДШЕРА -->
+            <div class="solo-protocol">
+                <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 15px;">
+                    <span style="background: #c0392b; color: white; padding: 4px 18px; border-radius: 40px; font-weight: bold; font-size: 1rem;">👤 ОДИН ФЕЛЬДШЕР НА ВЫЗОВЕ</span>
+                    <h3 style="color: #a5260c; margin: 0;">Дистоция плечиков: пошаговый алгоритм</h3>
+                </div>
+                <div class="solo-step">
+                    <h4>🔴 ШАГ 1. Остановитесь и оцените (первые 0–30 секунд)</h4>
+                    <ul style="margin-left: 20px;">
+                        <li>✅ Скажите роженице: «Не тужиться! Дышите часто-часто»</li>
+                        <li>✅ Примите положение <strong>«МакРобертса»</strong>: согните бёдра роженицы к животу</li>
+                    </ul>
+                </div>
+                <div class="solo-step">
+                    <h4>🟠 ШАГ 2. Супрапубическое давление (30–60 секунд)</h4>
+                    <ul style="margin-left: 20px;">
+                        <li>👉 Одной рукой надавите над лоном вниз и назад</li>
+                        <li>👉 Второй рукой аккуратно тяните головку книзу (к анусу матери)</li>
+                    </ul>
+                </div>
+                <div class="solo-step">
+                    <h4>🟡 ШАГ 3. Прием Вудса (ротация плечиков) — 60–120 секунд</h4>
+                    <ul style="margin-left: 20px;">
+                        <li>1️⃣ Введите два пальца во влагалище до заднего плечика</li>
+                        <li>2️⃣ Надавите на заднее плечико, поворачивая его</li>
+                        <li>3️⃣ Одновременно поворачивайте головку плода в ту же сторону</li>
+                    </ul>
+                    <div class="obstetric-warning">🚨 Никогда не давите на дно матки! Все манипуляции — только влагалищные и надлобковые.</div>
+                </div>
+                <div class="solo-step">
+                    <h4>🟢 ШАГ 4. Выведение задней ручки (прием Рубина) — 120–180 секунд</h4>
+                    <ul style="margin-left: 20px;">
+                        <li>• Полностью введите руку во влагалище по спинке плода</li>
+                        <li>• Найдите локтевой сгиб задней ручки и выведите её</li>
+                        <li>• Рассмотрите переворот на четвереньки (коленно-локтевое положение)</li>
+                    </ul>
+                </div>
+                <div class="solo-step">
+                    <h4>📌 ШАГ 5. После рождения плечиков — экстренная помощь новорожденному</h4>
+                    <ul style="margin-left: 20px;">
+                        <li>✔ Отсасывайте слизь изо рта и носа</li>
+                        <li>✔ Оцените по Апгар, при необходимости — ИВЛ мешком Амбу</li>
+                        <li>✔ Матери — окситоцин 10 ЕД в/м для профилактики кровотечения</li>
                     </ul>
                 </div>
             </div>
@@ -614,9 +926,15 @@
 </div>
 
 <script>
+    // Модальное окно 1 (алгоритмы МСК)
     const modal = document.getElementById('algorithmModal');
     const openBtn = document.getElementById('openAlgorithmBtn');
     const closeBtn = document.getElementById('closeModalBtn');
+
+    // Модальное окно 2 (акушерское пособие)
+    const obstetricModal = document.getElementById('obstetricModal');
+    const openObstetricBtn = document.getElementById('openObstetricBtn');
+    const closeObstetricBtn = document.getElementById('closeObstetricBtn');
 
     function openModal() {
         modal.classList.add('active');
@@ -628,6 +946,16 @@
         document.body.style.overflow = '';
     }
 
+    function openObstetricModal() {
+        obstetricModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeObstetricModal() {
+        obstetricModal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
     openBtn.addEventListener('click', openModal);
     closeBtn.addEventListener('click', closeModal);
     modal.addEventListener('click', (e) => {
@@ -635,9 +963,23 @@
             closeModal();
         }
     });
+
+    openObstetricBtn.addEventListener('click', openObstetricModal);
+    closeObstetricBtn.addEventListener('click', closeObstetricModal);
+    obstetricModal.addEventListener('click', (e) => {
+        if (e.target === obstetricModal) {
+            closeObstetricModal();
+        }
+    });
+
     document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && modal.classList.contains('active')) {
-            closeModal();
+        if (e.key === 'Escape') {
+            if (modal.classList.contains('active')) {
+                closeModal();
+            }
+            if (obstetricModal.classList.contains('active')) {
+                closeObstetricModal();
+            }
         }
     });
 </script>
