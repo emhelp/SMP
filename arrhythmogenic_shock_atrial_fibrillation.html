@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Карта вызова скорой медицинской помощи | Фибрилляция предсердий, аритмогенный шок</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #e9ecef;
+            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+            padding: 40px 20px;
+            color: #212529;
+            line-height: 1.45;
+        }
+
+        .card {
+            max-width: 1100px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            border: 1px solid #dee2e6;
+        }
+
+        .mkb-row {
+            background: linear-gradient(135deg, #0b3b5f 0%, #1a4d6f 100%);
+            color: white;
+            padding: 20px 32px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border-bottom: 4px solid #ffc107;
+        }
+
+        .mkb-row span {
+            font-weight: 700;
+            color: #ffc107;
+        }
+
+        .diagnosis {
+            background: #fef9e6;
+            padding: 12px 32px;
+            border-left: 6px solid #ffc107;
+            font-weight: 500;
+            font-size: 0.98rem;
+            color: #2d3e50;
+            border-bottom: 1px solid #f0e2b6;
+        }
+
+        .content {
+            padding: 24px 32px 40px 32px;
+        }
+
+        .section {
+            margin-bottom: 32px;
+            break-inside: avoid;
+            page-break-inside: avoid;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #1a4d6f;
+            border-left: 6px solid #ffc107;
+            padding-left: 16px;
+            margin-bottom: 18px;
+            margin-top: 8px;
+            background: #f4f9ff;
+            border-radius: 0 12px 12px 0;
+            line-height: 1.3;
+        }
+
+        .field-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .field-item {
+            padding: 6px 0 4px 8px;
+            border-bottom: 1px dotted #e0e6ed;
+            font-size: 0.94rem;
+            line-height: 1.45;
+        }
+
+        .field-item strong {
+            font-weight: 700;
+            color: #1e4663;
+            display: inline-block;
+            min-width: 240px;
+        }
+
+        .field-item .value {
+            color: #2c3e4e;
+            font-weight: 500;
+        }
+
+        .full-width-text {
+            padding: 8px 0 8px 8px;
+            border-bottom: 1px dotted #e0e6ed;
+            font-size: 0.94rem;
+        }
+
+        .full-width-text strong {
+            font-weight: 700;
+            color: #1e4663;
+            display: inline-block;
+            min-width: 240px;
+        }
+
+        .status-local {
+            background: #fef7e0;
+            padding: 14px 18px;
+            border-radius: 18px;
+            margin-top: 6px;
+            border: 1px solid #ffe3a4;
+            font-size: 0.94rem;
+        }
+
+        .scales-list {
+            background: #f1f4f9;
+            padding: 12px 20px;
+            border-radius: 20px;
+            margin-top: 10px;
+        }
+
+        .scales-list p {
+            margin: 8px 0;
+        }
+
+        .assistance-block {
+            background: #e8f5e9;
+            padding: 14px 18px;
+            border-radius: 18px;
+            margin-top: 6px;
+            border-left: 4px solid #2e7d32;
+            font-size: 0.94rem;
+        }
+
+        .assistance-step {
+            margin-bottom: 12px;
+            padding-left: 8px;
+            border-left: 2px solid #a5d6a7;
+        }
+
+        .assistance-step strong {
+            color: #1b5e20;
+        }
+
+        .note {
+            background: #e7f1ff;
+            border-left: 4px solid #1a4d6f;
+            padding: 12px 16px;
+            margin-top: 16px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            color: #1e4663;
+        }
+
+        .note-list {
+            margin-top: 8px;
+            margin-left: 20px;
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .note-list li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .note-list li:before {
+            content: "•";
+            position: absolute;
+            left: 4px;
+            color: #1a4d6f;
+            font-weight: bold;
+        }
+
+        /* Кнопка алгоритма */
+        .algorithm-btn-container {
+            margin-top: 32px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .btn-algorithm {
+            background-color: #dc2626;
+            color: white;
+            border: none;
+            padding: 10px 28px;
+            font-size: 1.15rem;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 6px 14px rgba(220, 38, 38, 0.3);
+            transition: all 0.2s ease;
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            letter-spacing: 0.3px;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .btn-algorithm:hover {
+            background-color: #b91c1c;
+            transform: scale(1.02);
+            box-shadow: 0 10px 20px rgba(185, 28, 28, 0.4);
+        }
+
+        .btn-algorithm:active {
+            transform: scale(0.98);
+        }
+
+        .btn-hint {
+            font-size: 0.7rem;
+            font-weight: normal;
+            opacity: 0.9;
+            letter-spacing: normal;
+            border-top: 1px dashed rgba(255,255,255,0.5);
+            padding-top: 4px;
+            margin-top: 2px;
+        }
+
+        /* Модальное окно */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0.2s, opacity 0.2s;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .modal-container {
+            background-color: #fffef7;
+            max-width: 850px;
+            width: 100%;
+            max-height: 85vh;
+            border-radius: 28px;
+            box-shadow: 0 25px 45px -12px black;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            animation: modalFadeIn 0.25s ease-out;
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            background: #b91c1c;
+            color: white;
+            padding: 18px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid #ffc107;
+        }
+
+        .modal-header h2 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+            line-height: 1;
+            transition: 0.2s;
+            padding: 0 8px;
+            border-radius: 40px;
+        }
+
+        .modal-close:hover {
+            background-color: rgba(255,255,255,0.2);
+            transform: scale(1.1);
+        }
+
+        .modal-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px 28px;
+            background: #fefcf5;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* стили для алгоритма */
+        .alg-section {
+            margin-bottom: 24px;
+            border-left: 4px solid #dc2626;
+            padding-left: 18px;
+            background: #fff9f0;
+            border-radius: 0 14px 14px 0;
+        }
+
+        .alg-title {
+            font-weight: 800;
+            font-size: 1rem;
+            color: #a51c1c;
+            margin: 8px 0 8px 0;
+            display: inline-block;
+            background: #ffeeee;
+            padding: 4px 14px;
+            border-radius: 30px;
+        }
+
+        .list-styled {
+            margin: 8px 0 10px 24px;
+        }
+
+        .list-styled li {
+            margin: 6px 0;
+        }
+
+        .tactic-block {
+            background: #eef2fa;
+            border-radius: 16px;
+            padding: 12px 18px;
+            margin-top: 12px;
+            margin-bottom: 8px;
+        }
+
+        .tactic-title {
+            font-weight: 700;
+            color: #1e4663;
+            margin-bottom: 6px;
+        }
+
+        .condition-block {
+            background: #fff0d4;
+            border-left: 5px solid #dc2626;
+            padding: 10px 16px;
+            margin: 10px 0;
+            border-radius: 12px;
+        }
+
+        .condition-title {
+            font-weight: 700;
+            color: #a51c1c;
+            margin-bottom: 6px;
+        }
+
+        .warning-block {
+            background: #ffe6e6;
+            border-left: 5px solid #dc2626;
+            padding: 10px 16px;
+            margin: 10px 0;
+            border-radius: 12px;
+        }
+        .warning-title {
+            font-weight: 700;
+            color: #b91c1c;
+            margin-bottom: 6px;
+        }
+
+        hr {
+            margin: 16px 0;
+            border-color: #f0dbb2;
+        }
+
+        @media (max-width: 700px) {
+            .field-item strong {
+                min-width: 170px;
+            }
+            .full-width-text strong {
+                min-width: 170px;
+            }
+            .content {
+                padding: 20px;
+            }
+            .modal-body {
+                padding: 16px;
+            }
+            .btn-algorithm {
+                padding: 8px 22px;
+                font-size: 1rem;
+            }
+            .btn-hint {
+                font-size: 0.65rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="card">
+    <div class="mkb-row">
+        📌 Код по МКБ-10: <span>I48.9</span> (Фибрилляция предсердий неуточненная)
+    </div>
+    <div class="diagnosis">
+        🧾 <strong>Диагноз:</strong> Фибрилляция предсердий впервые выявленная, пароксизм неизвестной давности. Аритмогенный шок.
+    </div>
+
+    <div class="content">
+        <!-- ЖАЛОБЫ -->
+        <div class="section">
+            <div class="section-title">📢 ЖАЛОБЫ</div>
+            <div class="full-width-text"><em>На общую слабость, головокружение, чувство нехватки воздуха, учащенное сердцебиение, отеки нижних конечностей, одышка при минимальной физической нагрузке.</em></div>
+        </div>
+
+        <!-- АНАМНЕЗ -->
+        <div class="section">
+            <div class="section-title">📋 АНАМНЕЗ</div>
+            <div class="full-width-text"><strong>Anamnesis morbi:</strong> Со слов жены: Ухудшение состояния отмечает в течение последних 2-х недель, когда появились жалобы и начали прогрессировать на общую слабость, отеки нижних конечностей, появление одышки ( сначала при обычной физической нагрузке, позже одышка стала появляться при минимальной физической нагрузке ), нарастающая общая слабость, учащенное сердцебиение ( перебоев в работе сердца не отмечал ). 08.09.2020 г присоединилось головокружение, общее состояние резко ухудшилось. Вызвана 103. После осмотра, ЭКГ – исследования, глюкометрии ( 8,2 ммоль/л ), пульсоксиметрии ( SpO2 – 86% ) выявлены признаки декомпенсации ХСН, впервые выявленная ФП, тахисистолия, признаки шока. Начата О2 – терапия, произведена катетеризация периферической вены, начата инфузионная терапия р-ром натрия хлорида 0,9%-250 мл в/венно капельно. Вызвана бригада АиР на себя. На момент прибытия бригады АиР пациент в сознании, предъявляет вышеуказанные жалобы.</div>
+            <div class="full-width-text"><strong>Аллергоанамнез:</strong> аллергические реакции на лекарственные препараты ранее не отмечались</div>
+            <div class="full-width-text"><strong>Анамнез (со слов жены. Мед.документация не предоставлена):</strong> ЦВБ. ХИГМ. Трофические нарушения н/конечностей</div>
+            <div class="full-width-text"><strong>Эпиданамнез:</strong> за пределы границы РФ не выезжал. Контакт с инфекционными и лихорадящими больными отрицают. Повышение температуры тела, насморк, диспептическиских расстройств не отмечалось</div>
+            <div class="full-width-text"><strong>ЕМИАС:</strong> данных нет</div>
+            <div class="full-width-text"><strong>Гинекологический анамнез:</strong> Не применимо (пациент мужского пола).</div>
+        </div>
+
+        <!-- ОБЪЕКТИВНО -->
+        <div class="section">
+            <div class="section-title">🩺 ОБЪЕКТИВНО</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Общее состояние:</strong> <span class="value">тяжелое</span></div>
+                <div class="field-item"><strong>Сознание:</strong> <span class="value">оглушение</span></div>
+                <div class="field-item"><strong>Шкала комы Глазго (GCS):</strong> <span class="value">14</span></div>
+                <div class="field-item"><strong>Положение:</strong> <span class="value">в пределах постели</span></div>
+                <div class="field-item"><strong>Кожные покровы:</strong> <span class="value">умеренной влажности, бледные</span></div>
+                <div class="field-item"><strong>Сыпь:</strong> <span class="value">нет</span></div>
+                <div class="field-item"><strong>Зев:</strong> <span class="value">чистый</span></div>
+                <div class="field-item"><strong>Миндалины:</strong> <span class="value">не увеличены</span></div>
+                <div class="field-item"><strong>Лимфоузлы:</strong> <span class="value">не увеличены</span></div>
+                <div class="field-item"><strong>Пролежни:</strong> <span class="value">нет</span></div>
+                <div class="field-item"><strong>Отеки:</strong> <span class="value">голеней и стоп</span></div>
+                <div class="field-item"><strong>t°:</strong> <span class="value">36,6</span></div>
+            </div>
+        </div>
+
+        <!-- ОРГАНЫ ДЫХАНИЯ -->
+        <div class="section">
+            <div class="section-title">🌬️ ОРГАНЫ ДЫХАНИЯ</div>
+            <div class="field-list">
+                <div class="field-item"><strong>ЧДД в мин:</strong> <span class="value">22</span></div>
+                <div class="field-item"><strong>Одышка:</strong> <span class="value">смешанная</span></div>
+                <div class="field-item"><strong>Патологическое дыхание:</strong> <span class="value">нет</span></div>
+                <div class="field-item"><strong>Аускультативно:</strong> <span class="value">везикулярное, ослаблено во всех отделах легких</span></div>
+                <div class="field-item"><strong>Хрипы сухие:</strong> <span class="value">не выслушиваются</span></div>
+                <div class="field-item"><strong>Влажные хрипы:</strong> <span class="value">не выслушиваются</span></div>
+                <div class="field-item"><strong>Крепитация:</strong> <span class="value">не выслушивается</span></div>
+                <div class="field-item"><strong>Шум трения плевры:</strong> <span class="value">не выслушивается</span></div>
+                <div class="field-item"><strong>Перкуторный звук:</strong> <span class="value">легочный над всеми отделами легких</span></div>
+                <div class="field-item"><strong>Кашель:</strong> <span class="value">нет</span></div>
+                <div class="field-item"><strong>Мокрота:</strong> <span class="value">нет</span></div>
+            </div>
+        </div>
+
+        <!-- ОРГАНЫ КРОВООБРАЩЕНИЯ -->
+        <div class="section">
+            <div class="section-title">❤️ ОРГАНЫ КРОВООБРАЩЕНИЯ</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Пульс в мин:</strong> <span class="value">170</span></div>
+                <div class="field-item"><strong>Ритмичный, аритмичный, наполнение пульса:</strong> <span class="value">аритмичный, наполнение пустое</span></div>
+                <div class="field-item"><strong>ЧСС:</strong> <span class="value">180</span></div>
+                <div class="field-item"><strong>Дефицит пульса:</strong> <span class="value">10</span></div>
+                <div class="field-item"><strong>АД мм.рт.ст.:</strong> <span class="value">50/20, привычное не известно, максимальное не известно</span></div>
+                <div class="field-item"><strong>Тоны сердца:</strong> <span class="value">приглушены</span></div>
+                <div class="field-item"><strong>Шум:</strong> <span class="value">нет</span></div>
+                <div class="field-item"><strong>Шум трения перикарда:</strong> <span class="value">нет</span></div>
+                <div class="field-item"><strong>Акцент какого тона на:</strong> <span class="value">нет</span></div>
+            </div>
+        </div>
+
+        <!-- ОРГАНЫ ПИЩЕВАРЕНИЯ -->
+        <div class="section">
+            <div class="section-title">🍽️ ОРГАНЫ ПИЩЕВАРЕНИЯ</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Язык:</strong> <span class="value">влажный, обложен белым налетом, находится по средней линии</span></div>
+                <div class="field-item"><strong>Живот:</strong> <span class="value">увеличен за счет ПЖК, мягкий, не напряжен во всех отделах</span></div>
+                <div class="field-item"><strong>Болезненный в:</strong> <span class="value">безболезненный</span></div>
+                <div class="field-item"><strong>Положительные симптомы:</strong> <span class="value">нет</span></div>
+                <div class="field-item"><strong>Перистальтика:</strong> <span class="value">выслушивается</span></div>
+                <div class="field-item"><strong>Печень:</strong> <span class="value">+5 см от края реберной дуги</span></div>
+                <div class="field-item"><strong>Селезенка:</strong> <span class="value">не пальпируется</span></div>
+                <div class="field-item"><strong>Рвота:</strong> <span class="value">при бригаде АиР не было</span></div>
+                <div class="field-item"><strong>Стул:</strong> <span class="value">1 раз от 07.09., коричневый, без патологических примесей, газы отходят</span></div>
+            </div>
+        </div>
+
+        <!-- НЕРВНАЯ СИСТЕМА -->
+        <div class="section">
+            <div class="section-title">🧠 НЕРВНАЯ СИСТЕМА</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Поведение:</strong> <span class="value">спокойное</span></div>
+                <div class="field-item"><strong>Контакт:</strong> <span class="value">контакту доступен</span></div>
+                <div class="field-item"><strong>Чувствительность:</strong> <span class="value">не нарушена</span></div>
+                <div class="field-item"><strong>Речь:</strong> <span class="value">замедленная</span></div>
+                <div class="field-item"><strong>Зрачки (OD, OS):</strong> <span class="value">OD = OS, обычные</span></div>
+                <div class="field-item"><strong>Фотореакция:</strong> <span class="value">живая</span></div>
+                <div class="field-item"><strong>Нистагм:</strong> <span class="value">нет</span></div>
+                <div class="field-item"><strong>Асимметрия лица:</strong> <span class="value">нет</span></div>
+                <div class="field-item"><strong>Менингеальные симптомы:</strong> <span class="value">нет</span></div>
+                <div class="field-item"><strong>Очаговые симптомы:</strong> <span class="value">нет</span></div>
+                <div class="field-item"><strong>Координаторные пробы:</strong> <span class="value">выполняет ПНП не уверенно</span></div>
+            </div>
+        </div>
+
+        <!-- МОЧЕПОЛОВАЯ СИСТЕМА -->
+        <div class="section">
+            <div class="section-title">🚽 МОЧЕПОЛОВАЯ СИСТЕМА</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Мочеиспускание:</strong> <span class="value">свободное, безболезненное, моча светло-желтого цвета (со слов жены)</span></div>
+                <div class="field-item"><strong>Симптом поколачивания:</strong> <span class="value">отрицательный с обеих сторон</span></div>
+            </div>
+        </div>
+
+        <!-- STATUS LOCALIS -->
+        <div class="section">
+            <div class="section-title">🔍 STATUS LOCALIS</div>
+            <div class="status-local">
+                При внешнем осмотре видимых повреждений кожного покрова не обнаружено. На голенях обеих конечностей наложены асептические повязки. Масса пациента около 100 кг., Mallampati класс 2, RASS "-1". Кисти рук и стопы ног холодные на ощупь. ШОКС 11 баллов.
+            </div>
+        </div>
+
+        <!-- ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ -->
+        <div class="section">
+            <div class="section-title">📊 ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ</div>
+            <div class="scales-list">
+                <p>✔ <strong>ЭКГ (14:55):</strong> ФП с ЧСЖср 190 уд.в мин., тахисистолический вариант. ЭОС резко влево. Неспецифические изменения сегмента ST-T в грудных отведениях. БПНПГ. Признаки перегрузки правых отделов. Признаки ГМЛЖ ( сдано в ОРиТ )</p>
+                <p>✔ <strong>ЭКГ (15:15):</strong> ФП с ЧСЖср 102 уд.в мин., тахисистолический вариант. ЭОС резко влево. Неспецифические изменения сегмента ST-T в грудных отведениях. БПНПГ. Признаки перегрузки правых отделов. Признаки ГМЛЖ ( сдано в ОРиТ )</p>
+                <p>✔ <strong>Пульсоксиметрия:</strong> SpO2-95% на фоне проведения ингаляции кислородно – воздушной смеси аппаратом КРИ – 1 10 л/мин БСМП.</p>
+                <p>✔ <strong>Глюкометрия:</strong> 8,2 ммоль/л</p>
+            </div>
+        </div>
+
+        <!-- ОЦЕНКА ПО ШКАЛАМ -->
+        <div class="section">
+            <div class="section-title">📊 ОЦЕНКА ПО ШКАЛАМ</div>
+            <div class="scales-list">
+                <p>✔ <strong>Шкала NEWS2:</strong> ЧДД 22 (2), SpO2 86% (3), t° 36.6 (0), АД сист. 50 (3), ЧСС 170 (3), сознание оглушение (3). Сумма: 14 баллов (критический риск).</p>
+                <p>✔ <strong>Индекс Альговера (шоковый индекс):</strong> ЧСС/АДсист = 170/50 = 3.4 (тяжелый шок).</p>
+                <p>✔ <strong>Шкала ШОКС (ХСН):</strong> 11 баллов.</p>
+                <p>✔ <strong>Шкала ОДН по Кассиль:</strong> I степени.</p>
+                <p>✔ <strong>RASS (Richmond Agitation-Sedation Scale):</strong> "-1" (начально), позже "-5" (медикаментозная седация).</p>
+                <p>✔ <strong>Состояние алкогольного опьянения:</strong> Больной и родственники ранее введение и употребление наркотических средств и психотропных веществ отрицают.</p>
+                <p>✔ <strong>Шкала LAMS (инсульт):</strong> 0 баллов.</p>
+                <p>✔ <strong>Признаки ДЭП:</strong> не применимо.</p>
+            </div>
+        </div>
+
+        <!-- ОКАЗАННАЯ ПОМОЩЬ И ЕЕ ЭФФЕКТ -->
+        <div class="section">
+            <div class="section-title">🩺 ОКАЗАННАЯ ПОМОЩЬ И ЕЕ ЭФФЕКТ (в т.ч. результаты инструментальных исследований в динамике)</div>
+            <div class="assistance-block">
+                <div class="assistance-step">• Кардиомониторирование аппаратом LP 15</div>
+                <div class="assistance-step">• Катетеризация второй периферической вены</div>
+                <div class="assistance-step">• Преоксигенация 100% О2 аппаратом ИВЛ/ВВЛ 4/40 ТМТ в объеме 9 л/мин в течение 3 мин., под контролем SpO2-99%</div>
+                <div class="assistance-step">• Пациент спокоен, отмечается умеренная сонливость, ориентирован в месте, времени, пространстве. АД 60/20 мм.рт.ст., ЧСЖср (по монитору) 175 уд. в мин., ЧД 20 в мин.</div>
+                <div class="assistance-step">• Больной и родственники ранее введение и употребление наркотических средств и психотропных веществ отрицают.</div>
+                <div class="assistance-step">• 15:00 - с целью вводного наркоза перед проведением ЭИТ внутривенно введено: Sol. Midazolami 5 mg/1 ml – 1 ml + Sol. Natrii Chloridi 0,9 % - 10 ml в/венно; Sol. Ketamini 50 mg/ml – 2 ml – 2 ml + Sol. Natrii Chloridi 0,9 % - 10 ml в/венно. Врач АиР СВБ СМП АиР Иванов И.И. М/с анестезист СВБ СМП АиР Иванов А.Р.</div>
+                <div class="assistance-step">• 15:02 - достигнут необходимый эффект, пациент находится в состояние медикаментозной седации, RASS "-5", АД 65/20 мм.рт.ст., ЧСЖср по ЭКМ LP15 167 уд. в мин., ЧД 20 в мин, SpO2-99%.</div>
+                <div class="assistance-step">• Дефибриллятором LIFEPAK 15 произведена чрезкожная кардиоверсия однократным синхронизированным разрядом 100 Дж - по ЭКМ LP 15 – сохраняется ФП с ЧСЖср 135 в мин, АД 65/30 мм.рт.ст., ЧД 18 в мин, SpO2 99% на фоне ингаляции 50 % О2 аппаратом ИВЛ/ВВЛ 4/40 ТМТ 12 л/мин, состояние тяжелое, RASS "-5"</div>
+                <div class="assistance-step">• Дефибриллятором LIFEPAK 15 произведена повторная чрезкожная кардиоверсия синхронизированным разрядом 150 Дж - по ЭКМ LP 15 – сохраняется ФП с ЧСЖср 128 в мин, АД 65/30 мм.рт.ст., ЧД 18 в мин, SpO2 99% на фоне ингаляции 50 % О2 аппаратом ИВЛ/ВВЛ 4/40 ТМТ 12 л/мин, состояние тяжелое, RASS "-5"</div>
+                <div class="assistance-step">• Дефибриллятором LIFEPAK 15 произведена повторная чрезкожная кардиоверсия синхронизированным разрядом 200 Дж - по ЭКМ LP 15 – сохраняется ФП с ЧСЖср 102 в мин, АД 65/30 мм.рт.ст., ЧД 18 в мин, SpO2 99% на фоне ингаляции 50 % О2 аппаратом ИВЛ/ВВЛ 4/40 ТМТ 12 л/мин, состояние тяжелое, RASS "-5"</div>
+                <div class="assistance-step">• Sol. Noradrenalini 16 mg + Sol. Natrii Chloridi 0,9 % - 250 ml в/венно капельно 30 кап/мин</div>
+                <div class="assistance-step">• Sol. KMA 250 ml в/венно капельно</div>
+                <div class="assistance-step">• На фоне проводимой терапии: состояние тяжелое, сознание оглушение, ШКГ 14 баллов, отмечается умеренная сонливость, АД 100/60 мм.рт.ст., ЧСЖср по ЭКМ LP 15 - ФП 100 уд. в мин., ЧД 18 в мин, SpO2-99%</div>
+                <div class="assistance-step">• В соответствии с разделом «Алгоритмов»: «Кардиология», код диагноза I48.9, графа «Тактика», принято решение о медицинской эвакуации в стационар. Во время транспортировки проводилось кардиомониторирование аппаратом LP 15 – ФП с ЧСЖср 100 уд. в мин., пульсоксиметрия – SpO2 98%, Транспортировку перенес удовлетворительно. Во время транспортировки и после нее: Состояние тяжелое, сознание оглушение, ШКГ 14 баллов, АД 100/60 мм.рт.ст., ЧСЖср по ЭКМ LP 15 – ФП 100 уд.в мин,, ЧД 18 в мин., SpO2 98%</div>
+            </div>
+        </div>
+
+        <!-- ПРИМЕЧАНИЕ ДЛЯ БРИГАДЫ СМП -->
+        <div class="note">
+            <strong>📌 Примечание для бригады СМП (дифференциальная диагностика):</strong><br>
+            Дифференциальный диагноз проведен с:
+            <ul class="note-list">
+                <li><strong>ТЭЛА (массивная):</strong> (внезапная одышка, боль в грудной клетке, тахикардия, признаки перегрузки правых отделов на ЭКГ. У пациента: постепенное нарастание симптомов в течение 2 недель, ФП, аритмогенный шок).</li>
+                <li><strong>Острым инфарктом миокарда (с ФП):</strong> (боли в грудной клетке, изменения ST-T на ЭКГ. У пациента: ЭКГ-признаки ГМЛЖ, неспецифические изменения ST-T).</li>
+                <li><strong>Острой сердечной недостаточностью (отек легких):</strong> (влажные хрипы, клокочущее дыхание. У пациента: дыхание ослаблено, влажных хрипов нет).</li>
+                <li><strong>Гиповолемическим шоком:</strong> (дегидратация, кровопотеря. У пациента: отеки, признаки ХСН).</li>
+            </ul>
+            <strong>Ключевые признаки фибрилляции предсердий, аритмогенного шока:</strong><br>
+            – Впервые выявленная фибрилляция предсердий (пароксизм неизвестной давности, тахисистолический вариант, ЧСЖ до 190).<br>
+            – Признаки сердечной недостаточности (отеки, одышка, гепатомегалия).<br>
+            – Аритмогенный шок (АД 50/20, индекс Альговера 3.4, холодные конечности).<br>
+            – Дефицит пульса 10.<br>
+            – ЭКГ-признаки: ФП, БПНПГ, перегрузка правых отделов, ГМЛЖ.<br>
+            – Положительный эффект от кардиоверсии (ЧСЖ снижено до 100) и введения норадреналина (АД повышено до 100/60).<br>
+            – Сопутствующая патология: ЦВБ, ХИГМ, трофические нарушения.
+        </div>
+
+        <!-- КРАСНАЯ КНОПКА -->
+        <div class="algorithm-btn-container">
+            <button class="btn-algorithm" id="openAlgorithmBtn">
+                <span>🚨 Оказание помощи в соответствии с Алгоритмами МСК</span>
+                <span class="btn-hint">▼ нажмите для открытия ▼</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- МОДАЛЬНОЕ ОКНО: АЛГОРИТМ ФИБРИЛЛЯЦИЯ И ТРЕПЕТАНИЕ ПРЕДСЕРДИЙ (I48) -->
+<div class="modal-overlay" id="algorithmModal">
+    <div class="modal-container">
+        <div class="modal-header">
+            <h2>📋 Алгоритм оказания помощи (МСК)</h2>
+            <button class="modal-close" id="closeModalBtn">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="alg-section">
+                <div class="alg-title">🔹 I48 — Фибрилляция — трепетание предсердий</div>
+                
+                <ul class="list-styled">
+                    <li>ЭКГ(ЭКП)</li>
+                    <li>ЭКГ-мониторинг</li>
+                </ul>
+
+                <div class="condition-block">
+                    <div class="condition-title">▶ Пароксизм давностью менее 48 часов, в том числе впервые возникший</div>
+                    <div class="warning-block" style="margin-top: 4px;">
+                        <div class="warning-title">⚠ При приеме антикоагулянтных препаратов — Гепарин не вводить!</div>
+                    </div>
+                    <ul class="list-styled">
+                        <li>Катетеризация вены или внутрикостный доступ</li>
+                        <li>Гепарин натрия 5000 МЕ (1 мл) в/венно или Эноксапарин натрия 1 мг/кг подкожно</li>
+                    </ul>
+                    <div class="tactic-block" style="margin-top: 8px;">
+                        <div class="tactic-title">▶ Тактика ведения:</div>
+                        <ul class="list-styled">
+                            <li>1. Рекомендовать обратиться в поликлинику (35) (при восстановлении синусового ритма или малосимптомном пароксизме и стабильной гемодинамике у пациентов получающих антикоагулянтную терапию)</li>
+                            <li>2. Медицинская эвакуация в больницу (13) в клинических ситуациях, не указанных в п. 1</li>
+                            <li>3. При отказе от медицинской эвакуации — рекомендовать обратиться в поликлинику (35)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="condition-block">
+                    <div class="condition-title">▶ при отсутствии сердечной недостаточности, QRS &lt; 0,12 секунд</div>
+                    <ul class="list-styled">
+                        <li>Пропафенон 1,5–2 мг/кг (0,4–0,6 мл/кг) в/венно капельно или через шприцевой дозатор в разведении Декстрозы 5% в течение 10 минут или Прокаинамид 500–1000 мг (5–10 мл) в/венно капельно или через шприцевой дозатор в разведении 0,9% Натрия хлорида в течение 20 минут</li>
+                    </ul>
+                    <div class="tactic-block" style="margin-top: 8px;">
+                        <ul class="list-styled">
+                            <li>Амиодарон 5 мг/кг (max – 450 мг (9 мл)) в/венно в разведении раствора Декстрозы 5% – 250 мл в/венно капельно (при наличии противопоказаний к применению пропафенона или прокаинамида)</li>
+                        </ul>
+                        <div class="warning-block" style="margin-top: 4px;">
+                            <div class="warning-title">⚠ Ожидание эффекта не более 20 минут</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="condition-block">
+                    <div class="condition-title">▶ Фибрилляция — трепетание предсердий давностью более 48 часов или неуточненной давности без клинических проявлений</div>
+                    <ul class="list-styled">
+                        <li>Не требует лечения на этапе оказания скорой медицинской помощи</li>
+                    </ul>
+                    <div class="tactic-block" style="margin-top: 8px;">
+                        <div class="tactic-title">▶ Тактика ведения:</div>
+                        <ul class="list-styled">
+                            <li>1. Медицинская эвакуация в больницу (13) при впервые выявленном пароксизме</li>
+                            <li>2. Рекомендовать обратиться в поликлинику (34) при наличии пароксизма в анамнезе</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="condition-block">
+                    <div class="condition-title">▶ при неосложненной тахисистолии без гипотонии и признаков застойной сердечной недостаточности</div>
+                    <ul class="list-styled">
+                        <li>Катетеризация вены или внутрикостный доступ</li>
+                        <li>Метопролол 12,5–25 мг внутрь или 5–15 мг в/венно (5–15 мл) или Эсмолол 0,5 мг/кг/мин (0,05 мл/кг/мин) за 1 минуту, затем 0,05 мг/кг/мин (0,005 мл/кг/мин) за 4 минуты в/венно (для бригад АиР) или Пропранолол 10–20 мг внутрь или Верапамил 5 мг (2 мл) в/венно</li>
+                    </ul>
+                    <div class="tactic-block" style="margin-top: 8px;">
+                        <div class="tactic-title">▶ Тактика ведения:</div>
+                        <ul class="list-styled">
+                            <li>1. Медицинская эвакуация в больницу (13) при частоте желудочковых сокращений ≥ 130 ударов в минуту после проведенной терапии</li>
+                            <li>2. При отказе от медицинской эвакуации в больницу – рекомендовать обратиться в поликлинику (35)</li>
+                            <li>3. Рекомендовать обратиться в поликлинику (34) в клинических ситуациях, не указанных в п. 1</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="condition-block">
+                    <div class="condition-title">▶ при неосложненной тахисистолии на фоне застойной сердечной недостаточности без гипотонии</div>
+                    <ul class="list-styled">
+                        <li>Катетеризация вены или внутрикостный доступ</li>
+                        <li>Амиодарон 300–450 мг (6–9 мл) в разведении Декстрозы 5% – 20 мл в/венно капельно с помощью шприцевого насоса в течение 20 минут</li>
+                    </ul>
+                    <div class="tactic-block" style="margin-top: 8px;">
+                        <div class="tactic-title">▶ Тактика ведения:</div>
+                        <ul class="list-styled">
+                            <li>1. Медицинская эвакуация в больницу (13) при частоте желудочковых сокращений ≥ 130 ударов в минуту после проведенной терапии</li>
+                            <li>2. При отказе от медицинской эвакуации в больницу – рекомендовать обратиться в поликлинику (35)</li>
+                            <li>3. Рекомендовать обратиться в поликлинику (34) в клинических ситуациях, не указанных в п. 1</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="condition-block">
+                    <div class="condition-title">▶ при тахисистолии, осложнившейся гипотонией, острой левожелудочковой недостаточностью или затяжным ангинозным приступом (независимо от давности возникновения нарушения ритма)</div>
+                    <ul class="list-styled">
+                        <li>Катетеризация вены или внутрикостный доступ</li>
+                        <li>Гепарин натрия 5000 МЕ (1 мл) в/венно или Эноксапарин натрия 1 мг/кг подкожно</li>
+                    </ul>
+                    <div class="condition-title" style="margin-top: 8px;">▶ Премедикация для ЭИТ:</div>
+                    <ul class="list-styled">
+                        <li>Мидазолам 5 мг (1 мл) (для бригад АиР) или Диазепам 10 мг (2 мл) в/венно</li>
+                        <li>Кетамин 1–2 мг/кг (0,02–0,04 мл/кг) в/венно или Пропофол 2,0–2,5 мг/кг (0,2–0,25 мл/кг) массы тела, по 40 мг (4 мл) каждые 10 секунд до эффекта (для бригад АиР)</li>
+                    </ul>
+                    <ul class="list-styled" style="margin-top: 8px;">
+                        <li>Электроимпульсная терапия разрядом 100 Дж, при неэффективности увеличить мощность заряда до 200 Дж (провести не более 5 разрядов)</li>
+                    </ul>
+                    <div class="tactic-block" style="margin-top: 8px;">
+                        <div class="tactic-title">Дополнительно при отеке легких:</div>
+                        <ul class="list-styled">
+                            <li>см. подраздел данного раздела «Острая левожелудочковая недостаточность» стр. 40</li>
+                        </ul>
+                    </div>
+                    <div class="tactic-block" style="margin-top: 8px;">
+                        <div class="tactic-title">▶ Тактика ведения:</div>
+                        <ul class="list-styled">
+                            <li>1. Медицинская эвакуация в больницу (13). Транспортировка на носилках с приподнятым головным концом</li>
+                            <li>2. При отказе от медицинской эвакуации в больницу:<br>
+                                – активный аудиоконтроль (55)<br>
+                                </li>
+                            <li>3. При повторном отказе – рекомендовать обратиться в поликлинику (35)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const modal = document.getElementById('algorithmModal');
+    const openBtn = document.getElementById('openAlgorithmBtn');
+    const closeBtn = document.getElementById('closeModalBtn');
+
+    function openModal() {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    openBtn.addEventListener('click', openModal);
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            closeModal();
+        }
+    });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+            closeModal();
+        }
+    });
+</script>
+</body>
+</html>
