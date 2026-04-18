@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Карта вызова скорой медицинской помощи | Кома неясной этиологии, ИВЛ</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #e9ecef;
+            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+            padding: 40px 20px;
+            color: #212529;
+            line-height: 1.45;
+        }
+
+        .card {
+            max-width: 1100px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            border: 1px solid #dee2e6;
+        }
+
+        .mkb-row {
+            background: linear-gradient(135deg, #0b3b5f 0%, #1a4d6f 100%);
+            color: white;
+            padding: 20px 32px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border-bottom: 4px solid #ffc107;
+        }
+
+        .mkb-row span {
+            font-weight: 700;
+            color: #ffc107;
+        }
+
+        .diagnosis {
+            background: #fef9e6;
+            padding: 12px 32px;
+            border-left: 6px solid #ffc107;
+            font-weight: 500;
+            font-size: 0.98rem;
+            color: #2d3e50;
+            border-bottom: 1px solid #f0e2b6;
+        }
+
+        .content {
+            padding: 24px 32px 40px 32px;
+        }
+
+        .section {
+            margin-bottom: 32px;
+            break-inside: avoid;
+            page-break-inside: avoid;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #1a4d6f;
+            border-left: 6px solid #ffc107;
+            padding-left: 16px;
+            margin-bottom: 18px;
+            margin-top: 8px;
+            background: #f4f9ff;
+            border-radius: 0 12px 12px 0;
+            line-height: 1.3;
+        }
+
+        .field-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .field-item {
+            padding: 6px 0 4px 8px;
+            border-bottom: 1px dotted #e0e6ed;
+            font-size: 0.94rem;
+            line-height: 1.45;
+        }
+
+        .field-item strong {
+            font-weight: 700;
+            color: #1e4663;
+            display: inline-block;
+            min-width: 240px;
+        }
+
+        .field-item .value {
+            color: #2c3e4e;
+            font-weight: 500;
+        }
+
+        .full-width-text {
+            padding: 8px 0 8px 8px;
+            border-bottom: 1px dotted #e0e6ed;
+            font-size: 0.94rem;
+        }
+
+        .full-width-text strong {
+            font-weight: 700;
+            color: #1e4663;
+            display: inline-block;
+            min-width: 240px;
+        }
+
+        .status-local {
+            background: #fef7e0;
+            padding: 14px 18px;
+            border-radius: 18px;
+            margin-top: 6px;
+            border: 1px solid #ffe3a4;
+            font-size: 0.94rem;
+        }
+
+        .scales-list {
+            background: #f1f4f9;
+            padding: 12px 20px;
+            border-radius: 20px;
+            margin-top: 10px;
+        }
+
+        .scales-list p {
+            margin: 8px 0;
+        }
+
+        .assistance-block {
+            background: #e8f5e9;
+            padding: 14px 18px;
+            border-radius: 18px;
+            margin-top: 6px;
+            border-left: 4px solid #2e7d32;
+            font-size: 0.94rem;
+        }
+
+        .assistance-step {
+            margin-bottom: 12px;
+            padding-left: 8px;
+            border-left: 2px solid #a5d6a7;
+        }
+
+        .assistance-step strong {
+            color: #1b5e20;
+        }
+
+        .note {
+            background: #e7f1ff;
+            border-left: 4px solid #1a4d6f;
+            padding: 12px 16px;
+            margin-top: 16px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            color: #1e4663;
+        }
+
+        .note-list {
+            margin-top: 8px;
+            margin-left: 20px;
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .note-list li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .note-list li:before {
+            content: "•";
+            position: absolute;
+            left: 4px;
+            color: #1a4d6f;
+            font-weight: bold;
+        }
+
+        /* Кнопка алгоритма */
+        .algorithm-btn-container {
+            margin-top: 32px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .btn-algorithm {
+            background-color: #dc2626;
+            color: white;
+            border: none;
+            padding: 10px 28px;
+            font-size: 1.15rem;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 6px 14px rgba(220, 38, 38, 0.3);
+            transition: all 0.2s ease;
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            letter-spacing: 0.3px;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .btn-algorithm:hover {
+            background-color: #b91c1c;
+            transform: scale(1.02);
+            box-shadow: 0 10px 20px rgba(185, 28, 28, 0.4);
+        }
+
+        .btn-algorithm:active {
+            transform: scale(0.98);
+        }
+
+        .btn-hint {
+            font-size: 0.7rem;
+            font-weight: normal;
+            opacity: 0.9;
+            letter-spacing: normal;
+            border-top: 1px dashed rgba(255,255,255,0.5);
+            padding-top: 4px;
+            margin-top: 2px;
+        }
+
+        /* Модальное окно */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0.2s, opacity 0.2s;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .modal-container {
+            background-color: #fffef7;
+            max-width: 850px;
+            width: 100%;
+            max-height: 85vh;
+            border-radius: 28px;
+            box-shadow: 0 25px 45px -12px black;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            animation: modalFadeIn 0.25s ease-out;
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            background: #b91c1c;
+            color: white;
+            padding: 18px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid #ffc107;
+        }
+
+        .modal-header h2 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+            line-height: 1;
+            transition: 0.2s;
+            padding: 0 8px;
+            border-radius: 40px;
+        }
+
+        .modal-close:hover {
+            background-color: rgba(255,255,255,0.2);
+            transform: scale(1.1);
+        }
+
+        .modal-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px 28px;
+            background: #fefcf5;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* стили для алгоритма */
+        .alg-section {
+            margin-bottom: 24px;
+            border-left: 4px solid #dc2626;
+            padding-left: 18px;
+            background: #fff9f0;
+            border-radius: 0 14px 14px 0;
+        }
+
+        .alg-title {
+            font-weight: 800;
+            font-size: 1rem;
+            color: #a51c1c;
+            margin: 8px 0 8px 0;
+            display: inline-block;
+            background: #ffeeee;
+            padding: 4px 14px;
+            border-radius: 30px;
+        }
+
+        .list-styled {
+            margin: 8px 0 10px 24px;
+        }
+
+        .list-styled li {
+            margin: 6px 0;
+        }
+
+        .tactic-block {
+            background: #eef2fa;
+            border-radius: 16px;
+            padding: 12px 18px;
+            margin-top: 12px;
+            margin-bottom: 8px;
+        }
+
+        .tactic-title {
+            font-weight: 700;
+            color: #1e4663;
+            margin-bottom: 6px;
+        }
+
+        .condition-block {
+            background: #fff0d4;
+            border-left: 5px solid #dc2626;
+            padding: 10px 16px;
+            margin: 10px 0;
+            border-radius: 12px;
+        }
+
+        .condition-title {
+            font-weight: 700;
+            color: #a51c1c;
+            margin-bottom: 6px;
+        }
+
+        .warning-block {
+            background: #ffe6e6;
+            border-left: 5px solid #dc2626;
+            padding: 10px 16px;
+            margin: 10px 0;
+            border-radius: 12px;
+        }
+        .warning-title {
+            font-weight: 700;
+            color: #b91c1c;
+            margin-bottom: 6px;
+        }
+
+        hr {
+            margin: 16px 0;
+            border-color: #f0dbb2;
+        }
+
+        @media (max-width: 700px) {
+            .field-item strong {
+                min-width: 170px;
+            }
+            .full-width-text strong {
+                min-width: 170px;
+            }
+            .content {
+                padding: 20px;
+            }
+            .modal-body {
+                padding: 16px;
+            }
+            .btn-algorithm {
+                padding: 8px 22px;
+                font-size: 1rem;
+            }
+            .btn-hint {
+                font-size: 0.65rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="card">
+    <div class="mkb-row">
+        📌 Код по МКБ-10: <span>R40.2</span> (Кома неуточненная)
+    </div>
+    <div class="diagnosis">
+        🧾 <strong>Диагноз:</strong> Кома неясной этиологии. Искусственная вентиляция легких.
+    </div>
+
+    <div class="content">
+        <!-- ЖАЛОБЫ -->
+        <div class="section">
+            <div class="section-title">📢 ЖАЛОБЫ</div>
+            <div class="full-width-text"><em>Жалоб не предъявляет из-за тяжести состояния.</em></div>
+        </div>
+
+        <!-- АНАМНЕЗ -->
+        <div class="section">
+            <div class="section-title">📋 АНАМНЕЗ</div>
+            <div class="full-width-text"><strong>Anamnesis morbi:</strong> Данных ЕМИАС нет. Анамнез жизни и болезни собран со слов жены. Хронические заболевания отрицают. 28.01.23., вернувшись из ночного клуба, пациент остался примерно на два часа дома один. Супруга, вернувшись домой примерно в 13:30 обнаружила пациента без сознания. Вызвала СМП.</div>
+            <div class="full-width-text"><strong>Аллергологический анамнез:</strong> Аллергические реакции на лекарства ранее не отмечались.</div>
+            <div class="full-width-text"><strong>Эпидемиологический анамнез:</strong> Не известен.</div>
+            <div class="full-width-text"><strong>Гинекологический анамнез:</strong> Не применимо (пациент мужского пола).</div>
+        </div>
+
+        <!-- ОБЪЕКТИВНО -->
+        <div class="section">
+            <div class="section-title">🩺 ОБЪЕКТИВНО</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Общее состояние:</strong> <span class="value">тяжелое</span></div>
+                <div class="field-item"><strong>Сознание:</strong> <span class="value">кома</span></div>
+                <div class="field-item"><strong>Шкала комы Глазго (GCS):</strong> <span class="value">8 баллов</span></div>
+                <div class="field-item"><strong>Положение:</strong> <span class="value">лежа на спине</span></div>
+                <div class="field-item"><strong>Кожные покровы:</strong> <span class="value">обычной окраски, бледные</span></div>
+                <div class="field-item"><strong>Сыпь:</strong> <span class="value">нет</span></div>
+                <div class="field-item"><strong>Зев:</strong> <span class="value">не гиперемирован, чистый</span></div>
+                <div class="field-item"><strong>Миндалины:</strong> <span class="value">не увеличены, без налета</span></div>
+                <div class="field-item"><strong>Лимфоузлы:</strong> <span class="value">не увеличены</span></div>
+                <div class="field-item"><strong>Пролежни:</strong> <span class="value">нет</span></div>
+                <div class="field-item"><strong>Отеки:</strong> <span class="value">нет</span></div>
+                <div class="field-item"><strong>t°:</strong> <span class="value">36,6 °C</span></div>
+            </div>
+        </div>
+
+        <!-- ОРГАНЫ ДЫХАНИЯ -->
+        <div class="section">
+            <div class="section-title">🌬️ ОРГАНЫ ДЫХАНИЯ</div>
+            <div class="field-list">
+                <div class="field-item"><strong>ЧДД в мин:</strong> <span class="value">14 (до интубации), 18 (на ИВЛ)</span></div>
+                <div class="field-item"><strong>Одышка:</strong> <span class="value">нет</span></div>
+                <div class="field-item"><strong>Патологическое дыхание:</strong> <span class="value">нет</span></div>
+                <div class="field-item"><strong>Аускультативно:</strong> <span class="value">везикулярное дыхание, ослаблено во всех отделах с двух сторон</span></div>
+                <div class="field-item"><strong>Хрипы сухие:</strong> <span class="value">не выслушиваются</span></div>
+                <div class="field-item"><strong>Влажные хрипы:</strong> <span class="value">не выслушиваются</span></div>
+                <div class="field-item"><strong>Крепитация:</strong> <span class="value">не выслушивается</span></div>
+                <div class="field-item"><strong>Шум трения плевры:</strong> <span class="value">не выслушивается</span></div>
+                <div class="field-item"><strong>Перкуторный звук:</strong> <span class="value">легочный во всех отделах с двух сторон</span></div>
+                <div class="field-item"><strong>Кашель:</strong> <span class="value">нет</span></div>
+                <div class="field-item"><strong>Мокрота:</strong> <span class="value">нет</span></div>
+            </div>
+        </div>
+
+        <!-- ОРГАНЫ КРОВООБРАЩЕНИЯ -->
+        <div class="section">
+            <div class="section-title">❤️ ОРГАНЫ КРОВООБРАЩЕНИЯ</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Пульс в мин:</strong> <span class="value">84</span></div>
+                <div class="field-item"><strong>Ритмичный, аритмичный, наполнение пульса:</strong> <span class="value">ритмичный, удовлетворительное</span></div>
+                <div class="field-item"><strong>ЧСС:</strong> <span class="value">84</span></div>
+                <div class="field-item"><strong>Дефицит пульса:</strong> <span class="value">нет</span></div>
+                <div class="field-item"><strong>АД мм.рт.ст.:</strong> <span class="value">140/80, привычное неизвестно, максимальное неизвестно</span></div>
+                <div class="field-item"><strong>Тоны сердца:</strong> <span class="value">звучные</span></div>
+                <div class="field-item"><strong>Шум:</strong> <span class="value">не выслушивается</span></div>
+                <div class="field-item"><strong>Шум трения перикарда:</strong> <span class="value">нет</span></div>
+                <div class="field-item"><strong>Акцент какого тона на:</strong> <span class="value">нет</span></div>
+            </div>
+        </div>
+
+        <!-- ОРГАНЫ ПИЩЕВАРЕНИЯ -->
+        <div class="section">
+            <div class="section-title">🍽️ ОРГАНЫ ПИЩЕВАРЕНИЯ</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Язык:</strong> <span class="value">влажный, обложен белым налетом</span></div>
+                <div class="field-item"><strong>Живот:</strong> <span class="value">правильной формы, мягкий, не напряжен</span></div>
+                <div class="field-item"><strong>Болезненный в:</strong> <span class="value">без реакции пациента</span></div>
+                <div class="field-item"><strong>Положительные симптомы:</strong> <span class="value">Симптомы Образцова, Ровзинга, Ситковского, Ортнера, Мерфи, Мейо-Робсона, Щёткина-Блюмберга, Валя — не информативны</span></div>
+                <div class="field-item"><strong>Перистальтика:</strong> <span class="value">выслушивается</span></div>
+                <div class="field-item"><strong>Печень:</strong> <span class="value">у края реберной дуги</span></div>
+                <div class="field-item"><strong>Селезенка:</strong> <span class="value">не пальпируется</span></div>
+                <div class="field-item"><strong>Рвота:</strong> <span class="value">нет</span></div>
+                <div class="field-item"><strong>Стул:</strong> <span class="value">неизвестно, следов непроизвольной дефекации нет</span></div>
+            </div>
+        </div>
+
+        <!-- НЕРВНАЯ СИСТЕМА -->
+        <div class="section">
+            <div class="section-title">🧠 НЕРВНАЯ СИСТЕМА</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Поведение:</strong> <span class="value">спокойное</span></div>
+                <div class="field-item"><strong>Контакт:</strong> <span class="value">недоступен</span></div>
+                <div class="field-item"><strong>Чувствительность:</strong> <span class="value">на болевые раздражители реагирует</span></div>
+                <div class="field-item"><strong>Речь:</strong> <span class="value">не общается</span></div>
+                <div class="field-item"><strong>Зрачки (OD, OS):</strong> <span class="value">OD = OS, обычные</span></div>
+                <div class="field-item"><strong>Фотореакция:</strong> <span class="value">вялая</span></div>
+                <div class="field-item"><strong>Нистагм:</strong> <span class="value">не проверялся</span></div>
+                <div class="field-item"><strong>Асимметрия лица:</strong> <span class="value">нет</span></div>
+                <div class="field-item"><strong>Менингеальные симптомы:</strong> <span class="value">нет</span></div>
+                <div class="field-item"><strong>Очаговые симптомы:</strong> <span class="value">нет</span></div>
+                <div class="field-item"><strong>Координаторные пробы:</strong> <span class="value">не проводятся (пациент в коме)</span></div>
+            </div>
+        </div>
+
+        <!-- МОЧЕПОЛОВАЯ СИСТЕМА -->
+        <div class="section">
+            <div class="section-title">🚽 МОЧЕПОЛОВАЯ СИСТЕМА</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Мочеиспускание:</strong> <span class="value">данных нет, следов непроизвольного мочеиспускания нет</span></div>
+                <div class="field-item"><strong>Симптом поколачивания:</strong> <span class="value">не проверялся</span></div>
+            </div>
+        </div>
+
+        <!-- STATUS LOCALIS (ДОПОЛНЕННЫЙ) -->
+        <div class="section">
+            <div class="section-title">🔍 STATUS LOCALIS</div>
+            <div class="status-local">
+                <strong>Антропометрические данные:</strong> Рост 180 см, вес 90 кг. ИМТ = 27,8 кг/м² (избыточная масса тела, предожирение).<br><br>
+                <strong>Голова и лицо:</strong> При внешнем осмотре видимых повреждений кожного покрова не выявлено. Кровоподтеков, ссадин, ран нет. Кости черепа при пальпации безболезненны, патологической подвижности и крепитации нет. Истечения крови и ликвора из носовых ходов и наружных слуховых проходов нет. Кости носа без деформации. Глазные щели симметричны. Зрачки OD = OS, диаметр 3 мм, фотореакция вялая, роговичный рефлекс сохранен. Глотательный рефлекс отсутствует.<br><br>
+                <strong>Шейный отдел позвоночника:</strong> Пальпация остистых отростков шейных позвонков безболезненна. Иммобилизация воротником Шанца не проводилась (не показана, травмы шеи нет).<br><br>
+                <strong>Туловище и конечности:</strong> Грудная клетка симметрична, участвует в акте дыхания. Пальпация грудины и ребер безболезненна. Живот правильной формы, мягкий, безболезненный при пальпации (пациент в коме, реакция на глубокую пальпацию отсутствует). Печень у края реберной дуги, безболезненна. Селезенка не пальпируется. Перистальтика выслушивается.<br><br>
+                <strong>Неврологический статус (соматический осмотр):</strong> Пациент в коме (ШКГ 8 баллов). Мышечный тонус в конечностях снижен диффузно. Сухожильные рефлексы с рук и ног оживлены, симметричны. Патологические стопные рефлексы (Бабинского) не вызываются. Менингеальные симптомы: ригидность затылочных мышц, Кернига, Брудзинского — отрицательные. Чувствительность: на болевые раздражители (укол, сдавление ногтевого ложа) пациент реагирует одергиванием конечностей, локализованных защитных движений нет.<br><br>
+                <strong>Кожные покровы:</strong> Бледные, умеренной влажности, теплые на ощупь. Сыпи, пролежней, трофических нарушений нет. Отеков нет. Тургор тканей сохранен.
+            </div>
+        </div>
+
+        <!-- ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ -->
+        <div class="section">
+            <div class="section-title">📊 ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ</div>
+            <div class="scales-list">
+                <p>✔ <strong>Пульсоксиметрия:</strong> SpO2 – 94%; PS – 84 в мин.</p>
+                <p>✔ <strong>Глюкометрия:</strong> 7,2 ммоль/л.</p>
+                <p>✔ <strong>ЭКГ (14:09):</strong> Синусовый ритм. ЧСС – 84 в минуту. Нормальное положение ЭОС.</p>
+                <p>✔ <strong>Капнография:</strong> EtCO2 – 34 мм Hg (после интубации).</p>
+            </div>
+        </div>
+
+        <!-- ОЦЕНКА ПО ШКАЛАМ -->
+        <div class="section">
+            <div class="section-title">📊 ОЦЕНКА ПО ШКАЛАМ</div>
+            <div class="scales-list">
+                <p>✔ <strong>Шкала комы Глазго (GCS):</strong> 8 баллов (кома).</p>
+                <p>✔ <strong>Шкала NEWS2:</strong> ЧДД 14 (0), SpO2 94% (1 балл, на кислороде), t° 36.6 (0), АД сист. 140 (0), ЧСС 84 (0), сознание кома (3 балла). Сумма: 4 балла (средний риск).</p>
+                <p>✔ <strong>Индекс Альговера (шоковый индекс):</strong> ЧСС/АДсист = 84/140 = 0.6 (в пределах нормы).</p>
+                <p>✔ <strong>RASS (Richmond Agitation-Sedation Scale):</strong> "-5" (медикаментозная седация).</p>
+                <p>✔ <strong>Шкала LAMS (инсульт):</strong> не применимо.</p>
+                <p>✔ <strong>Состояние алкогольного опьянения:</strong> данных нет (со слов жены — вернулся из ночного клуба, возможно употребление алкоголя).</p>
+                <p>✔ <strong>Признаки ДЭП:</strong> не применимо.</p>
+            </div>
+        </div>
+
+        <!-- ОКАЗАННАЯ ПОМОЩЬ И ЕЕ ЭФФЕКТ -->
+        <div class="section">
+            <div class="section-title">🩺 ОКАЗАННАЯ ПОМОЩЬ И ЕЕ ЭФФЕКТ (в т.ч. результаты инструментальных исследований в динамике)</div>
+            <div class="assistance-block">
+                <div class="assistance-step">• Ингаляция О2 через маску-КРИ 1-10л/мин.</div>
+                <div class="assistance-step">• ЭКМ ZOLL для контроля витальных функций.</div>
+                <div class="assistance-step">• Катетеризация периферической вены интравенозным катетером 18 G</div>
+                <div class="assistance-step">• Ввиду того что уровень сознания пациента на уровне комы принято решение о переводе на ИВЛ.</div>
+                <div class="assistance-step">• Анамнез ранее получаемых наркотических средств и психотропных вещества выяснить не возможно.</div>
+                <div class="assistance-step">• С целью введения пациента в наркоз для последующей интубации трахеи и перевода на ИВЛ показано введение препаратов для проведения вводной анестезии.</div>
+                <div class="assistance-step">• 14:20 Sol. Midazolami 5mg/ml-1 ml + Sol. Natrii сhloridi 0.9%-10 ml внутривенно медленно под контролем самостоятельного дыхания. Врач АИР Иванов Фельдшер АИР Иванов</div>
+                <div class="assistance-step">• 14:21 Sol. Ketamini 50mg/ml-2 ml + Sol. Natrii сhloridi 0.9%-10 ml внутривенно медленно под контролем самостоятельного дыхания. Врач АИР Иванов Фельдшер АИР Иванов</div>
+                <div class="assistance-step">• Состояние пациента после терапии через 1 минуту без отрицательной динамики. Уровень седации достаточный. RASS -5 АД 120/70 мм рт.ст. ЧСС 80</div>
+                <div class="assistance-step">• Проведена санация ВДП электрическим аспиратором</div>
+                <div class="assistance-step">• После преоксигенации пациенту выполнена интубация трахей трубкой 8.0 с 1 попытки, без технических трудностей. Трубка предварительно обработана средством Катеджель. При контрольной аускультации лёгких- дыхание проводится с 2-ух сторон на симметричных участках. Трубка фиксирована в полости рта фиксатором Thomas. К трубке подключен респиратор Pulmonetik LTV1200. Начата ИВЛ с параметрами вентиляции: PSIMV, Fi O2-50%, Pinsp 15cm H2O, ЧД 18, ДО 550мл, PEEP 5см вод.ст. EtCO2-34мм Hg</div>
+                <div class="assistance-step">• Sol. Reamberini 500ml внутривенно, капельно 80кап/мин.</div>
+                <div class="assistance-step">• АД 120/70 мм рт.ст. ЧСС 80, ЧД 18-ИВЛ, SpO2-99%.</div>
+                <div class="assistance-step">• Ввиду тяжести пациента, код диагноза: R40.2 пациент эвакуируется в стационар.</div>
+                <div class="assistance-step">• Пациент доставлен в ГКБ им. Ерамишанцева в тяжёлом состоянии. С аппаратом ИВЛ синхронен. RASS "-5" АД 120/80 мм рт.ст. ЧСС 80, ЧД 18-ИВЛ, SpO2-99%.</div>
+            </div>
+        </div>
+
+        <!-- ПРИМЕЧАНИЕ ДЛЯ БРИГАДЫ СМП -->
+        <div class="note">
+            <strong>📌 Примечание для бригады СМП (дифференциальная диагностика):</strong><br>
+            Дифференциальный диагноз проведен с:
+            <ul class="note-list">
+                <li><strong>Отравлением (алкоголь, наркотики, медикаменты):</strong> (пациент вернулся из ночного клуба, возможна передозировка. У пациента: кома 8 баллов, данные о приеме уточнить невозможно).</li>
+                <li><strong>Черепно-мозговой травмой:</strong> (падение, удар головой. У пациента: без сознания, но видимых повреждений головы нет).</li>
+                <li><strong>Метаболической комой (диабетической, печеночной, уремической):</strong> (гипергликемия 7,2 ммоль/л, но этого недостаточно для комы).</li>
+                <li><strong>Геморрагическим инсультом:</strong> (внезапная потеря сознания, очаговая симптоматика. У пациента: очаговых симптомов нет).</li>
+                <li><strong>Постгипоксической комой (после остановки дыхания):</strong> (длительное нахождение без сознания).</li>
+            </ul>
+        </div>
+
+        <!-- КРАСНАЯ КНОПКА -->
+        <div class="algorithm-btn-container">
+            <button class="btn-algorithm" id="openAlgorithmBtn">
+                <span>🚨 Оказание помощи в соответствии с Алгоритмами МСК</span>
+                <span class="btn-hint">▼ нажмите для открытия ▼</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- МОДАЛЬНОЕ ОКНО: АЛГОРИТМ КОМА (R40) — скопировано из карты "Кома неясной этиологии" -->
+<div class="modal-overlay" id="algorithmModal">
+    <div class="modal-container">
+        <div class="modal-header">
+            <h2>📋 Алгоритм оказания помощи (МСК)</h2>
+            <button class="modal-close" id="closeModalBtn">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="alg-section">
+                <div class="alg-title">🔹 R40 — Кома (в том числе неустановленного генеза)</div>
+                
+                <ul class="list-styled">
+                    <li>Санация верхних дыхательных путей</li>
+                    <li>Постановка воздуховода до выполнения интубации трахеи или применения надгортанного герметизирующего устройства</li>
+                    <li>Пульсоксиметрия</li>
+                    <li>Ингаляция кислорода</li>
+                    <li>Глюкометрия</li>
+                    <li>Термометрия</li>
+                    <li>Катетеризация вены или внутрикостный доступ</li>
+                    <li>Интубация трахеи или применение надгортанного герметизирующего устройства (см. «Приложение 4»)</li>
+                    <li>ИВЛ/ВВЛ (см. «Приложение 6»)</li>
+                    <li>Капнометрия-капнография (для бригад АиР). Целевые значения EtCO₂ – 35–40 мм рт. ст.</li>
+                    <li>Раствор Стерифундин (Натрия хлорид+калия хлорид+кальция хлорида дигидрат+магния хлорида гексагидрат+натрия ацетата тригидрат+яблочная кислота) 500 мл или Натрия хлорид 0,9% – 500 мл в/венно капельно</li>
+                    <li>ЭКГ(ЭКП)</li>
+                    <li>ЭКГ-мониторинг</li>
+                </ul>
+
+                <div class="condition-block">
+                    <div class="condition-title">▶ при САД &lt; 90 мм рт. ст. или снижении более чем на 30 мм рт. ст. от привычного уровня</div>
+                    <ul class="list-styled">
+                        <li>Установка второго в/венного катетера</li>
+                    </ul>
+                    <div class="condition-title" style="margin-top: 8px;">Одновременно с инфузией солевого раствора:</div>
+                    <ul class="list-styled">
+                        <li>Норэпинефрин 0,5–5 мкг/кг/мин в разведении Декстрозы 5% или Допамин 5–10 мкг/кг/мин (при брадикардии) в разведении Натрия хлорида 0,9% в/венно через шприцевой дозатор или капельно (см. «Приложения 35, 31»)</li>
+                    </ul>
+                </div>
+
+                <div class="condition-block">
+                    <div class="condition-title">▶ при судорогах</div>
+                    <ul class="list-styled">
+                        <li>Диазепам 10 мг (2 мл) в/венно</li>
+                    </ul>
+                    <div class="condition-title" style="margin-top: 8px;">При сохранении судорог:</div>
+                    <ul class="list-styled">
+                        <li>Диазепам 10–20 мг (2–4 мл) в/венно или Мидазолам 0,2 мг/кг болюсно, затем 0,02–0,1 мкг/кг/мин в разведении Натрия хлорида 0,9% до 20–50 мл через шприцевой дозатор (для бригад АиР) или Пропофол 2 мг/кг болюсно, затем 2–6 мг/кг/час (для бригад АиР) или Тиопентал натрия 3–5 мг/кг в/венно (для бригад АиР)</li>
+                    </ul>
+                    <div class="condition-title" style="margin-top: 8px;">При сохранении судорог:</div>
+                    <ul class="list-styled">
+                        <li>Пипекурония бромид 4 мг в/венно (для бригад АиР)</li>
+                    </ul>
+                </div>
+
+                <!-- Тактика ведения -->
+                <div class="tactic-block">
+                    <div class="tactic-title">▶ Тактика ведения:</div>
+                    <ul class="list-styled" style="margin-top: 4px;">
+                        <li>1. Медицинская эвакуация в больницу ()13. Транспортировка на носилках</li>
+                        <li>2. При отказе от медицинской эвакуации в больницу – активный аудиоконтроль (55)</li>
+                        <li>3. При повторном отказе – рекомендовать обратиться в поликлинику (35)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const modal = document.getElementById('algorithmModal');
+    const openBtn = document.getElementById('openAlgorithmBtn');
+    const closeBtn = document.getElementById('closeModalBtn');
+
+    function openModal() {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    openBtn.addEventListener('click', openModal);
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            closeModal();
+        }
+    });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+            closeModal();
+        }
+    });
+</script>
+</body>
+</html>
