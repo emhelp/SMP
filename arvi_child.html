@@ -2,9 +2,10 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Карта вызова скорой медицинской помощи | ОРВИ у ребенка</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Карта вызова скорой медицинской помощи | ОРВИ у ребенка 10 лет</title>
     <style>
+        /* ----- ОБЩИЕ СТИЛИ (как в шаблонах) ----- */
         * {
             margin: 0;
             padding: 0;
@@ -165,6 +166,218 @@
             font-weight: bold;
         }
 
+        /* ----- КНОПКА АЛГОРИТМА ----- */
+        .algorithm-btn-container {
+            margin-top: 32px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .btn-algorithm {
+            background-color: #dc2626;
+            color: white;
+            border: none;
+            padding: 10px 28px;
+            font-size: 1.15rem;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 6px 14px rgba(220, 38, 38, 0.3);
+            transition: all 0.2s ease;
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            letter-spacing: 0.3px;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .btn-algorithm:hover {
+            background-color: #b91c1c;
+            transform: scale(1.02);
+            box-shadow: 0 10px 20px rgba(185, 28, 28, 0.4);
+        }
+
+        .btn-algorithm:active {
+            transform: scale(0.98);
+        }
+
+        .btn-hint {
+            font-size: 0.7rem;
+            font-weight: normal;
+            opacity: 0.9;
+            letter-spacing: normal;
+            border-top: 1px dashed rgba(255,255,255,0.5);
+            padding-top: 4px;
+            margin-top: 2px;
+        }
+
+        /* ----- МОДАЛЬНОЕ ОКНО ----- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0.2s, opacity 0.2s;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .modal-container {
+            background-color: #fffef7;
+            max-width: 850px;
+            width: 100%;
+            max-height: 85vh;
+            border-radius: 28px;
+            box-shadow: 0 25px 45px -12px black;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            animation: modalFadeIn 0.25s ease-out;
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            background: #b91c1c;
+            color: white;
+            padding: 18px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid #ffc107;
+        }
+
+        .modal-header h2 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+            line-height: 1;
+            transition: 0.2s;
+            padding: 0 8px;
+            border-radius: 40px;
+        }
+
+        .modal-close:hover {
+            background-color: rgba(255,255,255,0.2);
+            transform: scale(1.1);
+        }
+
+        .modal-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px 28px;
+            background: #fefcf5;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* стили для алгоритма */
+        .alg-section {
+            margin-bottom: 24px;
+            border-left: 4px solid #dc2626;
+            padding-left: 18px;
+            background: #fff9f0;
+            border-radius: 0 14px 14px 0;
+        }
+
+        .alg-title {
+            font-weight: 800;
+            font-size: 1rem;
+            color: #a51c1c;
+            margin: 8px 0 8px 0;
+            display: inline-block;
+            background: #ffeeee;
+            padding: 4px 14px;
+            border-radius: 30px;
+        }
+
+        .list-styled {
+            margin: 8px 0 10px 24px;
+        }
+
+        .list-styled li {
+            margin: 6px 0;
+        }
+
+        .tactic-block {
+            background: #eef2fa;
+            border-radius: 16px;
+            padding: 12px 18px;
+            margin-top: 12px;
+            margin-bottom: 8px;
+        }
+
+        .tactic-title {
+            font-weight: 700;
+            color: #1e4663;
+            margin-bottom: 6px;
+        }
+
+        .condition-block {
+            background: #fff0d4;
+            border-left: 5px solid #dc2626;
+            padding: 10px 16px;
+            margin: 10px 0;
+            border-radius: 12px;
+        }
+
+        .condition-title {
+            font-weight: 700;
+            color: #a51c1c;
+            margin-bottom: 6px;
+        }
+
+        .warning-block {
+            background: #ffe6e6;
+            border-left: 5px solid #dc2626;
+            padding: 10px 16px;
+            margin: 10px 0;
+            border-radius: 12px;
+        }
+        .warning-title {
+            font-weight: 700;
+            color: #b91c1c;
+            margin-bottom: 6px;
+        }
+
+        hr {
+            margin: 16px 0;
+            border-color: #f0dbb2;
+        }
+
         @media (max-width: 700px) {
             .field-item strong {
                 min-width: 170px;
@@ -174,6 +387,16 @@
             }
             .content {
                 padding: 20px;
+            }
+            .modal-body {
+                padding: 16px;
+            }
+            .btn-algorithm {
+                padding: 8px 22px;
+                font-size: 1rem;
+            }
+            .btn-hint {
+                font-size: 0.65rem;
             }
         }
     </style>
@@ -191,16 +414,16 @@
         <!-- ЖАЛОБЫ -->
         <div class="section">
             <div class="section-title">📢 ЖАЛОБЫ</div>
-            <div class="full-width-text"><em>На момент осмотра пациентка предъявляет жалобы на повышение температуры тела до 38,3 °C, познабливание, общую слабость, головную боль, заложенность носа, слизистые выделения из носа, першение в горле, сухой кашель.</em></div>
+            <div class="full-width-text"><em>На момент осмотра пациент (ребенок 10 лет) предъявляет жалобы (со слов матери) на повышение температуры тела до 38,3 °C, познабливание, общую слабость, головную боль, заложенность носа, слизистые выделения из носа, першение в горле, сухой кашель.</em></div>
         </div>
 
         <!-- АНАМНЕЗ -->
         <div class="section">
             <div class="section-title">📋 АНАМНЕЗ</div>
-            <div class="full-width-text"><strong>Anamnesis morbi:</strong> Со слов пациентки (и матери), заболела остро 3 дня назад, когда появились познабливание, слабость, заложенность носа, першение в горле. Температура тела повышалась до 38,0 °C. Самостоятельно принимала парацетамол при температуре, промывала нос. Сегодня самочувствие несколько ухудшилось: температура сохраняется на уровне 38,3 °C, кашель усилился. Вызвала бригаду СМП для осмотра и рекомендаций. Контакт с инфекционными больными был в школе (одноклассники болеют ОРВИ).</div>
+            <div class="full-width-text"><strong>Anamnesis morbi:</strong> Со слов матери, ребенок заболел остро 3 дня назад, когда появились познабливание, слабость, заложенность носа, першение в горле. Температура тела повышалась до 38,0 °C. Самостоятельно принимали парацетамол при температуре, промывали нос. Сегодня самочувствие несколько ухудшилось: температура сохраняется на уровне 38,3 °C, кашель усилился. Вызвана бригада СМП для осмотра и рекомендаций. Контакт с инфекционными больными был в школе (одноклассники болеют ОРВИ).</div>
             <div class="full-width-text"><strong>Аллергологический анамнез:</strong> Не отягощен. Аллергии на лекарственные препараты, пищевые продукты не отмечает.</div>
-            <div class="full-width-text"><strong>Гинекологический анамнез:</strong> Менструации с 13 лет, установились в течение первого года, цикл регулярный (28–30 дней), по 5 дней, умеренные, безболезненные. Последняя менструация была 2 недели назад, протекала обычно. Выделения из половых путей в настоящее время отсутствуют.</div>
-            <div class="full-width-text"><strong>Эпидемиологический анамнез:</strong> Контакт с больными ОРВИ в школе. За пределы города не выезжала, укусы насекомых отрицает. Привита по календарю.</div>
+            <div class="full-width-text"><strong>Гинекологический анамнез:</strong> Не применимо (пациент мужского пола, 10 лет).</div>
+            <div class="full-width-text"><strong>Эпидемиологический анамнез:</strong> Контакт с больными ОРВИ в школе. За пределы города не выезжал, укусы насекомых отрицает. Привит по календарю.</div>
         </div>
 
         <!-- ОБЪЕКТИВНО -->
@@ -247,7 +470,7 @@
                 <div class="field-item"><strong>Ритмичный, аритмичный, наполнение пульса:</strong> <span class="value">ритмичный, удовлетворительного наполнения и напряжения.</span></div>
                 <div class="field-item"><strong>ЧСС:</strong> <span class="value">84</span></div>
                 <div class="field-item"><strong>Дефицит пульса:</strong> <span class="value">нет.</span></div>
-                <div class="field-item"><strong>АД мм.рт.ст. на момент осмотра:</strong> <span class="value">110/70, привычное АД мм.рт.ст.: 110/70 (со слов), максимальное АД мм.рт.ст.: неизвестно.</span></div>
+                <div class="field-item"><strong>АД мм.рт.ст. на момент осмотра:</strong> <span class="value">100/65, привычное АД мм.рт.ст.: 100/65 (со слов матери), максимальное АД мм.рт.ст.: неизвестно.</span></div>
                 <div class="field-item"><strong>Тоны сердца:</strong> <span class="value">ясные, звучные, ритмичные.</span></div>
                 <div class="field-item"><strong>Шум:</strong> <span class="value">нет.</span></div>
                 <div class="field-item"><strong>Шум трения перикарда:</strong> <span class="value">нет.</span></div>
@@ -292,7 +515,7 @@
         <div class="section">
             <div class="section-title">🚽 МОЧЕПОЛОВАЯ СИСТЕМА</div>
             <div class="field-list">
-                <div class="field-item"><strong>Мочеиспускание:</strong> <span class="value">свободное, безболезненное. Цвет мочи — соломенно-желтый, прозрачная (со слов).</span></div>
+                <div class="field-item"><strong>Мочеиспускание:</strong> <span class="value">свободное, безболезненное. Цвет мочи — соломенно-желтый, прозрачная (со слов матери).</span></div>
                 <div class="field-item"><strong>Симптом поколачивания:</strong> <span class="value">отрицательный с обеих сторон.</span></div>
             </div>
         </div>
@@ -301,6 +524,7 @@
         <div class="section">
             <div class="section-title">🔍 STATUS LOCALIS</div>
             <div class="status-local">
+                <strong>Антропометрические данные:</strong> Возраст 10 лет, рост около 140 см, вес около 32 кг.<br><br>
                 <strong>ЛОР-органы:</strong> Носовое дыхание затруднено умеренно, отделяемое слизистое. Зев гиперемирован, зернистость задней стенки глотки. Миндалины чистые.<br><br>
                 <strong>Дыхательная система:</strong> Грудная клетка обычной формы, участвует в акте дыхания симметрично. Перкуторно – ясный легочный звук. Аускультативно – везикулярное дыхание, хрипов нет.
             </div>
@@ -310,16 +534,16 @@
         <div class="section">
             <div class="section-title">📊 ОЦЕНКА ПО ШКАЛАМ</div>
             <div class="scales-list">
-                <p>✔ <strong>Шкала NEWS2 (педиатрическая):</strong> ЧДД 18 (0), SpO2 98% (0), температура 38.3 (1 балл), АД сист. 110 (0), ЧСС 84 (0), сознание ясное (0). Сумма: 1 балл (низкий риск, наблюдение).</p>
+                <p>✔ <strong>Шкала NEWS2 (педиатрическая):</strong> ЧДД 18 (0), SpO2 98% (0), температура 38.3 (1 балл), АД сист. 100 (0), ЧСС 84 (0), сознание ясное (0). Сумма: 1 балл (низкий риск, наблюдение).</p>
                 <p>✔ <strong>Степень дыхательной недостаточности:</strong> ОДН 0 (SpO2 >95%, ЧДД &lt;20).</p>
-                <p>✔ <strong>Индекс Альговера:</strong> ЧСС/АДсист = 84/110 = 0.76 (норма).</p>
+                <p>✔ <strong>Индекс Альговера:</strong> ЧСС/АДсист = 84/100 = 0.84 (норма).</p>
                 <p>✔ <strong>Шкала ОДН по Кассиль:</strong> не применима.</p>
                 <p>✔ <strong>Шкала боли ВАШ при травме:</strong> не применимо.</p>
                 <p>✔ <strong>Шкала ШОКС:</strong> не применимо.</p>
                 <p>✔ <strong>Шкала риска ТЭЛА:</strong> не применимо.</p>
                 <p>✔ <strong>Шкала LAMS:</strong> не применимо.</p>
                 <p>✔ <strong>Признаки ДЭП:</strong> не применимо.</p>
-                <p>✔ <strong>Состояние алкогольного опьянения:</strong> не употребляла, запаха алкоголя нет.</p>
+                <p>✔ <strong>Состояние алкогольного опьянения:</strong> не употреблял, запаха алкоголя нет.</p>
             </div>
         </div>
 
@@ -332,7 +556,7 @@
                 <li><strong>парагриппом</strong> (преимущественное поражение гортани – ларингит (грубый «лающий» кашель, осиплость голоса). Лихорадка умеренная, интоксикация слабая);</li>
                 <li><strong>аденовирусной инфекцией</strong> (лихорадка, фарингит, конъюнктивит (пленчатый, катаральный), ринит, увеличение лимфоузлов, возможна диарея. Длительное течение);</li>
                 <li><strong>риновирусной инфекцией</strong> (преимущественно насморк, обильные серозные выделения, чихание, общее состояние страдает мало);</li>
-                <li><strong>респираторно-синцитиальной инфекцией (РС-инфекция)</strong> (поражение нижних дыхательных путей (бронхиолит) у детей, сухой приступообразный кашель, экспираторная одышка. У подростков может протекать как бронхит);</li>
+                <li><strong>респираторно-синцитиальной инфекцией (РС-инфекция)</strong> (поражение нижних дыхательных путей (бронхиолит) у детей, сухой приступообразный кашель, экспираторная одышка. У детей 10 лет может протекать как бронхит);</li>
                 <li><strong>ангиной (острым тонзиллитом)</strong> (боль в горле, усиливающаяся при глотании, налеты на миндалинах, гиперемия, увеличение подчелюстных лимфоузлов. НЕТ кашля, насморка (могут быть, но не ведущие));</li>
                 <li><strong>коклюшем</strong> (приступообразный кашель с репризами, длительное течение, нормальная температура. В начальном периоде может быть похож на ОРВИ, но кашель нарастает);</li>
                 <li><strong>аллергическим ринитом</strong> (зуд в носу, чихание, водянистые выделения, заложенность носа без лихорадки, интоксикации, сезонность, связь с аллергеном);</li>
@@ -347,7 +571,136 @@
             – Отсутствие локальных изменений в легких (при неосложненном течении).<br>
             – Склонность к самоизлечению в течение 5–7 дней.
         </div>
+
+        <!-- КРАСНАЯ КНОПКА (АЛГОРИТМ) -->
+        <div class="algorithm-btn-container">
+            <button class="btn-algorithm" id="openAlgorithmBtn">
+                <span>🚨 Оказание помощи в соответствии с Алгоритмами МСК</span>
+                <span class="btn-hint">▼ нажмите для открытия ▼</span>
+            </button>
+        </div>
     </div>
 </div>
+
+<!-- МОДАЛЬНОЕ ОКНО: ОРВИ / ГРИПП У ДЕТЕЙ -->
+<div class="modal-overlay" id="algorithmModal">
+    <div class="modal-container">
+        <div class="modal-header">
+            <h2>📋 Алгоритм оказания помощи (МСК)</h2>
+            <button class="modal-close" id="closeModalBtn">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="alg-section">
+                <div class="alg-title">🔹 J00–J06, J10–J11 — Острая респираторная вирусная инфекция / Грипп (дети)</div>
+                
+                <div class="tactic-block">
+                    <div class="tactic-title">▶ Общая тактика:</div>
+                    <ul class="list-styled" style="margin-top: 4px;">
+                        <li>Пульсоксиметрия</li>
+                    </ul>
+                </div>
+
+                <div class="condition-block">
+                    <div class="condition-title">▶ при температуре тела ≥ 38,5°С</div>
+                    <ul class="list-styled">
+                        <li>Физические методы охлаждения детям до 12 лет</li>
+                        <li>Парацетамол 15 мг/кг внутрь или суппозитории или Кеторолак 30 мг (1 мл) в/венно или в/мышечно (с 16 лет)</li>
+                    </ul>
+                </div>
+
+                <div class="warning-block">
+                    <div class="warning-title">▶ ВНИМАНИЕ</div>
+                    <ul class="list-styled">
+                        <li>При гриппе Метамизол натрия и ацетилсалициловая кислота противопоказаны!</li>
+                        <li>Детям с отягощенным преморбидным фоном и/или судорожным синдромом в анамнезе, детям до 3 месяцев жизни – жаропонижающие препараты назначают при температуре тела ≥ 38°С</li>
+                        <li>Физические методы охлаждения противопоказаны при бледной гипертермии!</li>
+                    </ul>
+                </div>
+
+                <div class="condition-block">
+                    <div class="condition-title">▶ при судорогах</div>
+                    <ul class="list-styled">
+                        <li>Диазепам в/венно (см. «Приложение 43») или 0,3 мг/кг (0,06 мл/кг) в/мышечно</li>
+                        <li>Дополнительно: см. раздел «Неврология»</li>
+                    </ul>
+                </div>
+
+                <div class="condition-block">
+                    <div class="condition-title">▶ при тяжелом течении (наличии любого проявления): при нарушении сознания, ЧДД ≥ 20% от возрастной нормы в мин., SpO₂ &lt; 95%</div>
+                    <ul class="list-styled">
+                        <li>Ингаляция кислорода</li>
+                        <li>Катетеризация вены или внутрикостный доступ</li>
+                        <li>Дисоль (Калия хлорид + натрия ацетат + натрия хлорид) 15–20 мл/кг или Хлосоль/Ацесоль (Калия хлорид + кальция хлорид + натрия хлорид) 15–20 мл/кг в/венно капельно 20–30 капель в минуту</li>
+                    </ul>
+                </div>
+
+                <div class="condition-block">
+                    <div class="condition-title">▶ при ДН III–IV ст.</div>
+                    <ul class="list-styled">
+                        <li>Санация верхних дыхательных путей</li>
+                        <li>Интубация трахеи или применение надгортанного герметизирующего устройства (см. «Приложение 3»)</li>
+                        <li>ИВЛ/ВВЛ (см. «Приложение 6»)</li>
+                        <li>Капнометрия-капнография (для бригад АиР)</li>
+                    </ul>
+                </div>
+
+                <div class="warning-block">
+                    <div class="warning-title">▶ при шоке</div>
+                    <ul class="list-styled">
+                        <li>См. раздел «Детская анестезиология и реаниматология» (Инфекционно-токсический шок)</li>
+                    </ul>
+                </div>
+
+                <div class="tactic-block">
+                    <div class="tactic-title">▶ Тактика ведения:</div>
+                    <ul class="list-styled" style="margin-top: 4px;">
+                        <li>1. Медицинская эвакуация в больницу:<br>
+                            – детей в возрасте до 1 месяца жизни<br>
+                            – детей с отягощенным преморбидным фоном<br>
+                            – при тяжелом или осложненном течении (пневмонии)<br>
+                            – при судорогах<br>
+                            – при лихорадке ≥ 5 суток подряд и/или при отсутствии эффекта от проводимой амбулаторной терапии<br>
+                            – из организованных закрытых коллективов</li>
+                        <li>2. При отказе от медицинской эвакуации в больницу – актив в поликлинику</li>
+                        <li>3. Рекомендовать обратиться в поликлинику в клинических ситуациях, не указанных в п. 1</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function() {
+        const modal = document.getElementById('algorithmModal');
+        const openBtn = document.getElementById('openAlgorithmBtn');
+        const closeBtn = document.getElementById('closeModalBtn');
+
+        if (!modal || !openBtn || !closeBtn) return;
+
+        function openModal() {
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        openBtn.addEventListener('click', openModal);
+        closeBtn.addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                closeModal();
+            }
+        });
+    })();
+</script>
 </body>
 </html>
