@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Карта вызова скорой медицинской помощи | Клещевой вирусный энцефалит</title>
     <style>
+        /* ----- ОБЩИЕ СТИЛИ (как в шаблонах) ----- */
         * {
             margin: 0;
             padding: 0;
@@ -165,7 +166,7 @@
             font-weight: bold;
         }
 
-        /* Кнопка алгоритма */
+        /* ----- КНОПКА АЛГОРИТМА ----- */
         .algorithm-btn-container {
             margin-top: 32px;
             margin-bottom: 20px;
@@ -211,7 +212,7 @@
             margin-top: 2px;
         }
 
-        /* Модальное окно */
+        /* ----- МОДАЛЬНОЕ ОКНО ----- */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -311,6 +312,12 @@
             background: #fff9f0;
             border-radius: 0 14px 14px 0;
         }
+        
+        /* ОТДЕЛЬНЫЙ КЛАСС ДЛЯ ДЕТСКОЙ СЕКЦИИ (ЗЕЛЕНАЯ ГАММА) */
+        .alg-section.child-section {
+            border-left: 4px solid #2e7d32;
+            background: #f1f8e9;
+        }
 
         .alg-title {
             font-weight: 800;
@@ -321,6 +328,11 @@
             background: #ffeeee;
             padding: 4px 14px;
             border-radius: 30px;
+        }
+        
+        .alg-section.child-section .alg-title {
+            color: #1b5e20;
+            background: #e8f5e9;
         }
 
         .list-styled {
@@ -352,11 +364,21 @@
             margin: 10px 0;
             border-radius: 12px;
         }
+        
+        /* ДЕТСКИЕ УСЛОВИЯ - ЗЕЛЕНЫЙ АКЦЕНТ */
+        .alg-section.child-section .condition-block {
+            background: #e8f5e9;
+            border-left: 5px solid #2e7d32;
+        }
 
         .condition-title {
             font-weight: 700;
             color: #a51c1c;
             margin-bottom: 6px;
+        }
+        
+        .alg-section.child-section .condition-title {
+            color: #1b5e20;
         }
 
         .warning-block {
@@ -366,6 +388,12 @@
             margin: 10px 0;
             border-radius: 12px;
         }
+        
+        .alg-section.child-section .warning-block {
+            background: #ffebee;
+            border-left: 5px solid #c62828;
+        }
+        
         .warning-title {
             font-weight: 700;
             color: #b91c1c;
@@ -534,22 +562,7 @@
                 <p>✔ <strong>Шкала NEWS2:</strong> ЧДД 18 (0), SpO2 97% (0), температура 38.8 (2 балла), АД сист. 125 (0), ЧСС 88 (0), сознание ясное (0). Сумма: 2 балла (низкий риск, требует наблюдения).</p>
                 <p>✔ <strong>Индекс Альговера:</strong> ЧСС/АДсист = 88/125 = 0.7 (норма).</p>
                 <p>✔ <strong>Степень дыхательной недостаточности:</strong> ОДН 0 (SpO2 >95%, ЧДД <20).</p>
-                <p>✔ <strong>Степень тяжести энцефалита:</strong><br>
-                Легкая: лихорадка &lt;38°С, менингеальные симптомы слабо выражены, очаговой симптоматики нет, сознание ясное.<br>
-                Средняя: лихорадка 38–39°С, менингеальный синдром выражен, умеренные очаговые симптомы (парезы, поражение ЧН), оглушение.<br>
-                Тяжелая: лихорадка >39°С, резко выраженный менингеальный синдром, грубые очаговые симптомы, бульбарные нарушения, нарушение сознания до сопора/комы, судороги. ДА.</p>
-                <p>✔ <strong>Оценка дислокационного синдрома:</strong><br>
-                Нарушение сознания.<br>
-                Анизокория.<br>
-                Патологическое дыхание.<br>
-                Брадикардия, гипертензия (симптом Кушинга).<br>
-                Децеребрационная/декортикационная ригидность.<br>
-                На момент осмотра: есть/нет.</p>
-                <p>✔ <strong>Степень дыхательной недостаточности:</strong><br>
-                ОДН 0: SpO2 >95%, ЧДД <20.<br>
-                ОДН I: SpO2 90–94%, ЧДД 20–24.<br>
-                ОДН II: SpO2 75–89%, ЧДД 25–30.<br>
-                ОДН III: SpO2 <75%, ЧДД >30, патологическое дыхание.</p>
+                <p>✔ <strong>Степень тяжести энцефалита:</strong> Средняя (лихорадка 38–39°С, менингеальный синдром выражен, умеренные очаговые симптомы, оглушение).</p>
                 <p>✔ <strong>Шкала ОДН по Кассиль:</strong> не применима.</p>
                 <p>✔ <strong>Шкала боли ВАШ при травме:</strong> не применимо.</p>
                 <p>✔ <strong>Шкала ШОКС:</strong> не применимо.</p>
@@ -594,7 +607,7 @@
     </div>
 </div>
 
-<!-- МОДАЛЬНОЕ ОКНО: АЛГОРИТМ СЕРОЗНЫЙ МЕНИНГИТ И МЕНИНГОЭНЦЕФАЛИТ. КЛЕЩЕВОЙ ЭНЦЕФАЛИТ -->
+<!-- МОДАЛЬНОЕ ОКНО: СЕРОЗНЫЙ МЕНИНГИТ И МЕНИНГОЭНЦЕФАЛИТ - ДЛЯ ВЗРОСЛЫХ И ДЕТЕЙ -->
 <div class="modal-overlay" id="algorithmModal">
     <div class="modal-container">
         <div class="modal-header">
@@ -602,14 +615,17 @@
             <button class="modal-close" id="closeModalBtn">&times;</button>
         </div>
         <div class="modal-body">
+            <!-- Раздел для взрослых (ОРАНЖЕВО-КРАСНО-ГОЛУБОЙ) -->
             <div class="alg-section">
-                <div class="alg-title">🔹 A87 — Серозный менингит и менингоэнцефалит. Клещевой энцефалит</div>
+                <div class="alg-title">🔹 A87 — Серозный менингит и менингоэнцефалит. Клещевой энцефалит (взрослые)</div>
                 
-                <ul class="list-styled">
-                    <li>Пульсоксиметрия</li>
-                    <li>Катетеризация вены или внутрикостный доступ</li>
-                    <li>Ацесоль (Калия хлорид + натрия ацетат + натрия хлорид) 400 мл или Калия хлорид + кальция хлорид + натрия хлорид 500 мл в/венно капельно</li>
-                </ul>
+                <div class="condition-block">
+                    <ul class="list-styled">
+                        <li>Пульсоксиметрия</li>
+                        <li>Катетеризация вены или внутрикостный доступ</li>
+                        <li>Дисоль (Калия хлорид + натрия ацетат + натрия хлорид) 400 мл или Хлосоль/Ацесоль (Калия хлорид + кальция хлорид + натрия хлорид) 500 мл в/венно капельно</li>
+                    </ul>
+                </div>
 
                 <div class="condition-block">
                     <div class="condition-title">▶ при температуре тела > 38°С</div>
@@ -632,19 +648,77 @@
                     </ul>
                 </div>
 
-                <div class="condition-block">
-                    <div class="condition-title">▶ при отеке головного мозга</div>
-                    <div class="condition-title" style="margin-top: 4px;">▶ при коме</div>
+                <div class="warning-block">
+                    <div class="warning-title">▶ при отеке головного мозга / при коме</div>
                     <ul class="list-styled">
-                        <li>См. раздел «Анестезиология и реаниматология» (Отек головного мозга) стр. 26</li>
+                        <li>См. раздел «Анестезиология и реаниматология» (Отек головного мозга)</li>
                     </ul>
                 </div>
 
                 <div class="tactic-block">
                     <div class="tactic-title">▶ Тактика ведения:</div>
                     <ul class="list-styled" style="margin-top: 4px;">
-                        <li>1. Медицинская эвакуация в больницу (13). Транспортировка на носилках</li>
-                        <li>2. При отказе от медицинской эвакуации в больницу – актив в поликлинику (35)</li>
+                        <li>1. Медицинская эвакуация в больницу. Транспортировка на носилках</li>
+                        <li>2. При отказе от медицинской эвакуации в больницу – актив в поликлинику</li>
+                    </ul>
+                </div>
+            </div>
+
+            <hr>
+
+            <!-- Раздел для детей (ЗЕЛЕНО-КРАСНО-ГОЛУБОЙ) -->
+            <div class="alg-section child-section">
+                <div class="alg-title">🔹 A87 — Вирусный менингит и менингоэнцефалит. Клещевой вирусный энцефалит (дети)</div>
+                
+                <div class="condition-block">
+                    <ul class="list-styled">
+                        <li>Пульсоксиметрия</li>
+                        <li>Катетеризация вены или внутрикостный доступ</li>
+                        <li>Дисоль (Калия хлорид + натрия ацетат + натрия хлорид) 15–20 мл/кг или Хлосоль/Ацесоль (Калия хлорид + кальция хлорид + натрия хлорид) 20–30 мл/кг в/венно капельно 20–30 капель в минуту</li>
+                    </ul>
+                </div>
+
+                <div class="condition-block">
+                    <div class="condition-title">▶ при температуре тела ≥ 38,5°С и/или при головной боли</div>
+                    <ul class="list-styled">
+                        <li>Физические методы охлаждения детям до 12 лет</li>
+                        <li>Парацетамол 15 мг/кг внутрь или суппозитории ректально или Кеторолак 30 мг (1 мл) в/мышечно (с 16 лет)</li>
+                    </ul>
+                </div>
+
+                <div class="condition-block">
+                    <div class="condition-title">▶ при рвоте</div>
+                    <ul class="list-styled">
+                        <li>Метоклопрамид 0,02 мл/кг в/мышечно, не более 1 мл до 12 лет, с 12 лет – 2 мл</li>
+                    </ul>
+                </div>
+
+                <div class="condition-block">
+                    <div class="condition-title">▶ при SpO₂ ≤ 95%</div>
+                    <ul class="list-styled">
+                        <li>Ингаляция кислорода</li>
+                    </ul>
+                </div>
+
+                <div class="warning-block">
+                    <div class="warning-title">▶ при отеке головного мозга</div>
+                    <ul class="list-styled">
+                        <li>См. раздел «Детская анестезиология и реаниматология» (Отек головного мозга)</li>
+                    </ul>
+                </div>
+
+                <div class="warning-block">
+                    <div class="warning-title">▶ при коме</div>
+                    <ul class="list-styled">
+                        <li>(Кома неустановленного генеза)</li>
+                    </ul>
+                </div>
+
+                <div class="tactic-block">
+                    <div class="tactic-title">▶ Тактика ведения:</div>
+                    <ul class="list-styled" style="margin-top: 4px;">
+                        <li>1. Медицинская эвакуация в больницу. Транспортировка на носилках</li>
+                        <li>2. При отказе от медицинской эвакуации в больницу – актив в поликлинику</li>
                     </ul>
                 </div>
             </div>
