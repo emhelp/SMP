@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Карта вызова скорой медицинской помощи | Вирусный гепатит неуточненный</title>
     <style>
+        /* ----- ОБЩИЕ СТИЛИ (как в шаблонах) ----- */
         * {
             margin: 0;
             padding: 0;
@@ -165,7 +166,7 @@
             font-weight: bold;
         }
 
-        /* Кнопка алгоритма */
+        /* ----- КНОПКА АЛГОРИТМА ----- */
         .algorithm-btn-container {
             margin-top: 32px;
             margin-bottom: 20px;
@@ -211,7 +212,7 @@
             margin-top: 2px;
         }
 
-        /* Модальное окно */
+        /* ----- МОДАЛЬНОЕ ОКНО ----- */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -311,6 +312,12 @@
             background: #fff9f0;
             border-radius: 0 14px 14px 0;
         }
+        
+        /* ОТДЕЛЬНЫЙ КЛАСС ДЛЯ ДЕТСКОЙ СЕКЦИИ (ЗЕЛЕНАЯ ГАММА) */
+        .alg-section.child-section {
+            border-left: 4px solid #2e7d32;
+            background: #f1f8e9;
+        }
 
         .alg-title {
             font-weight: 800;
@@ -321,6 +328,11 @@
             background: #ffeeee;
             padding: 4px 14px;
             border-radius: 30px;
+        }
+        
+        .alg-section.child-section .alg-title {
+            color: #1b5e20;
+            background: #e8f5e9;
         }
 
         .list-styled {
@@ -352,11 +364,21 @@
             margin: 10px 0;
             border-radius: 12px;
         }
+        
+        /* ДЕТСКИЕ УСЛОВИЯ - ЗЕЛЕНЫЙ АКЦЕНТ */
+        .alg-section.child-section .condition-block {
+            background: #e8f5e9;
+            border-left: 5px solid #2e7d32;
+        }
 
         .condition-title {
             font-weight: 700;
             color: #a51c1c;
             margin-bottom: 6px;
+        }
+        
+        .alg-section.child-section .condition-title {
+            color: #1b5e20;
         }
 
         .warning-block {
@@ -366,6 +388,12 @@
             margin: 10px 0;
             border-radius: 12px;
         }
+        
+        .alg-section.child-section .warning-block {
+            background: #ffebee;
+            border-left: 5px solid #c62828;
+        }
+        
         .warning-title {
             font-weight: 700;
             color: #b91c1c;
@@ -532,16 +560,8 @@
             <div class="section-title">📊 ОЦЕНКА ПО ШКАЛАМ</div>
             <div class="scales-list">
                 <p>✔ <strong>Шкала NEWS2:</strong> ЧДД 16 (0), SpO2 98% (0), температура 36.6 (0), АД сист. 115 (0), ЧСС 72 (0), сознание ясное (0). Сумма: 0 баллов (низкий риск).</p>
-                <p>✔ <strong>Степень тяжести острого гепатита:</strong><br>
-                Легкая: слабо выраженная интоксикация, желтуха легкая, билирубин < 100 мкмоль/л, протромбиновый индекс > 60%.<br>
-                Средняя: интоксикация умеренная, желтуха яркая, билирубин 100–200 мкмоль/л, протромбиновый индекс 50–60%. ДА/НЕТ.<br>
-                Тяжелая: резко выраженная интоксикация, геморрагический синдром, билирубин > 200 мкмоль/л, протромбиновый индекс < 50%, признаки печеночной энцефалопатии.</p>
-                <p>✔ <strong>Стадия острой печеночной недостаточности (энцефалопатии):</strong><br>
-                Стадия 0: нет нарушений сознания, легкие изменения личности.<br>
-                Стадия 1: нарушение сна, эйфория, легкая спутанность.<br>
-                Стадия 2: сонливость, дезориентация, неадекватное поведение, астериксис.<br>
-                Стадия 3: сопор, резкая спутанность, гиперрефлексия.<br>
-                Стадия 4: кома.</p>
+                <p>✔ <strong>Степень тяжести острого гепатита:</strong> Средняя (интоксикация умеренная, желтуха яркая, билирубин 100–200 мкмоль/л).</p>
+                <p>✔ <strong>Стадия острой печеночной недостаточности (энцефалопатии):</strong> Стадия 0 (нет нарушений сознания).</p>
                 <p>✔ <strong>Индекс Альговера:</strong> ЧСС/АДсист = 72/115 = 0.63 (норма).</p>
                 <p>✔ <strong>Шкала ОДН по Кассиль:</strong> не применима.</p>
                 <p>✔ <strong>Шкала боли ВАШ при травме:</strong> не применимо.</p>
@@ -589,7 +609,7 @@
     </div>
 </div>
 
-<!-- МОДАЛЬНОЕ ОКНО: АЛГОРИТМ B19 — ВИРУСНЫЙ ГЕПАТИТ НЕУТОЧНЕННЫЙ -->
+<!-- МОДАЛЬНОЕ ОКНО: ВИРУСНЫЙ ГЕПАТИТ - ДЛЯ ВЗРОСЛЫХ И ДЕТЕЙ -->
 <div class="modal-overlay" id="algorithmModal">
     <div class="modal-container">
         <div class="modal-header">
@@ -597,12 +617,15 @@
             <button class="modal-close" id="closeModalBtn">&times;</button>
         </div>
         <div class="modal-body">
+            <!-- Раздел для взрослых (ОРАНЖЕВО-КРАСНО-ГОЛУБОЙ) -->
             <div class="alg-section">
-                <div class="alg-title">🔹 B19 — Вирусный гепатит неуточненный</div>
+                <div class="alg-title">🔹 B19 — Вирусный гепатит неуточненный (взрослые)</div>
                 
-                <ul class="list-styled">
-                    <li>ЭКГ(ЭКП) при подозрении на наличие сопутствующей кардиальной патологии</li>
-                </ul>
+                <div class="condition-block">
+                    <ul class="list-styled">
+                        <li>ЭКГ(ЭКП) при подозрении на наличие сопутствующей кардиальной патологии</li>
+                    </ul>
+                </div>
 
                 <div class="condition-block">
                     <div class="condition-title">▶ при острой печеночной энцефалопатии (заторможенность, сонливость, икота)</div>
@@ -612,10 +635,53 @@
                     </ul>
                 </div>
 
-                <div class="condition-block">
-                    <div class="condition-title">▶ при коме</div>
+                <div class="warning-block">
+                    <div class="warning-title">▶ при коме</div>
                     <ul class="list-styled">
-                        <li>См. раздел «Анестезиология и реаниматология» (Кома, в том числе неустановленного генеза) стр. 19</li>
+                        <li>См. раздел «Анестезиология и реаниматология» (Кома, в том числе неустановленного генеза)</li>
+                    </ul>
+                </div>
+
+                <div class="tactic-block">
+                    <div class="tactic-title">▶ Тактика ведения:</div>
+                    <ul class="list-styled" style="margin-top: 4px;">
+                        <li>1. Медицинская эвакуация в больницу (13)</li>
+                        <li>2. При отказе от медицинской эвакуации в больницу – актив в поликлинику (35)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <hr>
+
+            <!-- Раздел для детей (ЗЕЛЕНО-КРАСНО-ГОЛУБОЙ) -->
+            <div class="alg-section child-section">
+                <div class="alg-title">🔹 B19 — Вирусный гепатит (дети)</div>
+                
+                <div class="condition-block">
+                    <ul class="list-styled">
+                        <li>ЭКГ(ЭКП) при подозрении на наличие сопутствующей кардиальной патологии</li>
+                    </ul>
+                </div>
+
+                <div class="condition-block">
+                    <div class="condition-title">▶ при рвоте</div>
+                    <ul class="list-styled">
+                        <li>Метоклопрамид 0,02 мл/кг, не более 1 мл до 12 лет, с 12 лет – 2 мл в/мышечно</li>
+                    </ul>
+                </div>
+
+                <div class="condition-block">
+                    <div class="condition-title">▶ при острой печеночной энцефалопатии (заторможенность, сонливость, икота)</div>
+                    <ul class="list-styled">
+                        <li>Катетеризация вены или внутрикостный доступ</li>
+                        <li>Декстроза 5% – 10–20 мл/кг или Натрия хлорид 0,9% – 10–20 мл/кг в/венно капельно 20–30 капель в минуту</li>
+                    </ul>
+                </div>
+
+                <div class="warning-block">
+                    <div class="warning-title">▶ при коме</div>
+                    <ul class="list-styled">
+                        <li>См. раздел «Детская анестезиология и реаниматология» (Отек головного мозга)</li>
                     </ul>
                 </div>
 
