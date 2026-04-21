@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Карта вызова скорой медицинской помощи | Ботулизм</title>
     <style>
+        /* ----- ОБЩИЕ СТИЛИ (как в шаблонах) ----- */
         * {
             margin: 0;
             padding: 0;
@@ -165,7 +166,7 @@
             font-weight: bold;
         }
 
-        /* Кнопка алгоритма */
+        /* ----- КНОПКА АЛГОРИТМА ----- */
         .algorithm-btn-container {
             margin-top: 32px;
             margin-bottom: 20px;
@@ -211,7 +212,7 @@
             margin-top: 2px;
         }
 
-        /* Модальное окно */
+        /* ----- МОДАЛЬНОЕ ОКНО ----- */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -311,6 +312,12 @@
             background: #fff9f0;
             border-radius: 0 14px 14px 0;
         }
+        
+        /* ОТДЕЛЬНЫЙ КЛАСС ДЛЯ ДЕТСКОЙ СЕКЦИИ (ЗЕЛЕНАЯ ГАММА) */
+        .alg-section.child-section {
+            border-left: 4px solid #2e7d32;
+            background: #f1f8e9;
+        }
 
         .alg-title {
             font-weight: 800;
@@ -321,6 +328,11 @@
             background: #ffeeee;
             padding: 4px 14px;
             border-radius: 30px;
+        }
+        
+        .alg-section.child-section .alg-title {
+            color: #1b5e20;
+            background: #e8f5e9;
         }
 
         .list-styled {
@@ -352,11 +364,21 @@
             margin: 10px 0;
             border-radius: 12px;
         }
+        
+        /* ДЕТСКИЕ УСЛОВИЯ - ЗЕЛЕНЫЙ АКЦЕНТ */
+        .alg-section.child-section .condition-block {
+            background: #e8f5e9;
+            border-left: 5px solid #2e7d32;
+        }
 
         .condition-title {
             font-weight: 700;
             color: #a51c1c;
             margin-bottom: 6px;
+        }
+        
+        .alg-section.child-section .condition-title {
+            color: #1b5e20;
         }
 
         .warning-block {
@@ -366,6 +388,12 @@
             margin: 10px 0;
             border-radius: 12px;
         }
+        
+        .alg-section.child-section .warning-block {
+            background: #ffebee;
+            border-left: 5px solid #c62828;
+        }
+        
         .warning-title {
             font-weight: 700;
             color: #b91c1c;
@@ -582,7 +610,7 @@
     </div>
 </div>
 
-<!-- МОДАЛЬНОЕ ОКНО: АЛГОРИТМ A05.1 — БОТУЛИЗМ -->
+<!-- МОДАЛЬНОЕ ОКНО: БОТУЛИЗМ - ДЛЯ ВЗРОСЛЫХ И ДЕТЕЙ -->
 <div class="modal-overlay" id="algorithmModal">
     <div class="modal-container">
         <div class="modal-header">
@@ -590,22 +618,25 @@
             <button class="modal-close" id="closeModalBtn">&times;</button>
         </div>
         <div class="modal-body">
+            <!-- Раздел для взрослых (ОРАНЖЕВО-КРАСНО-ГОЛУБОЙ) -->
             <div class="alg-section">
-                <div class="alg-title">🔹 A05.1 — Ботулизм</div>
+                <div class="alg-title">🔹 A05.1 — Ботулизм (взрослые)</div>
                 
-                <ul class="list-styled">
-                    <li>ЭКГ(ЭКП)</li>
-                    <li>Промывание желудка через зонд</li>
-                    <li>Активированный уголь 5000–10000 мг размешать в воде и ввести через желудочный зонд</li>
-                    <li>Катетеризация вены или внутрикостный доступ</li>
-                    <li>Ацесоль (Калия хлорид + натрия ацетат + натрия хлорид) 400 мл или Натрия хлорид 0,9% – 500 мл в/венно капельно</li>
-                    <li>Реамберин (Меглюмина натрия сукцинат) 400 мл в/венно капельно 60–80 капель в минуту</li>
-                </ul>
-
                 <div class="condition-block">
-                    <div class="condition-title">▶ при нарушении дыхания (ДН III–IV ст.)</div>
                     <ul class="list-styled">
-                        <li>См. раздел «Анестезиология и реаниматология» (Дыхательная недостаточность) стр. 25</li>
+                        <li>ЭКГ(ЭКП)</li>
+                        <li>Промывание желудка через зонд</li>
+                        <li>Активированный уголь 5000–10000 мг размешать в воде и ввести через желудочный зонд</li>
+                        <li>Катетеризация вены или внутрикостный доступ</li>
+                        <li>Дисоль (Калия хлорид + натрия ацетат + натрия хлорид) 400 мл или Натрия хлорид 0,9% – 500 мл в/венно капельно</li>
+                        <li>Реамберин (Меглюмина натрия сукцинат) 400 мл в/венно капельно 60–80 капель в минуту</li>
+                    </ul>
+                </div>
+
+                <div class="warning-block">
+                    <div class="warning-title">▶ при нарушении дыхания (ДН III–IV ст.)</div>
+                    <ul class="list-styled">
+                        <li>См. раздел «Анестезиология и реаниматология» (Дыхательная недостаточность)</li>
                     </ul>
                 </div>
 
@@ -614,6 +645,42 @@
                     <ul class="list-styled" style="margin-top: 4px;">
                         <li>1. Медицинская эвакуация в больницу (13). Транспортировка на носилках</li>
                         <li>2. При отказе от медицинской эвакуации в больницу – активный аудиоконтроль (55)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <hr>
+
+            <!-- Раздел для детей (ЗЕЛЕНО-КРАСНО-ГОЛУБОЙ) -->
+            <div class="alg-section child-section">
+                <div class="alg-title">🔹 A05.1 — Ботулизм (дети)</div>
+                
+                <div class="condition-block">
+                    <ul class="list-styled">
+                        <li>ЭКГ(ЭКП)</li>
+                        <li>Промывание желудка через зонд</li>
+                        <li>Активированный уголь 0,05 г/кг размешать в воде и ввести через желудочный зонд или внутрь</li>
+                    </ul>
+                </div>
+
+                <div class="warning-block">
+                    <div class="warning-title">▶ при нарушении дыхания (ДН III–IV ст.)</div>
+                    <ul class="list-styled">
+                        <li>Катетеризация вены или внутрикостный доступ</li>
+                        <li>Дисоль (Калия хлорид + натрия ацетат + натрия хлорид) 15–20 мл/кг или Натрия хлорид 0,9% – 10–20 мл/кг в/венно капельно</li>
+                        <li>Меглюмина натрия сукцинат 6–10 мл/кг в/венно 3–4 мл/мин, но не более 400 мл (с 1 года)</li>
+                        <li>Санация верхних дыхательных путей</li>
+                        <li>Интубация трахеи или применение надгортанного герметизирующего устройства (см. «Приложение 3»)</li>
+                        <li>ИВЛ/ВВЛ (см. «Приложение 6»)</li>
+                        <li>Капнометрия-капнография (для бригад АиР)</li>
+                    </ul>
+                </div>
+
+                <div class="tactic-block">
+                    <div class="tactic-title">▶ Тактика ведения:</div>
+                    <ul class="list-styled" style="margin-top: 4px;">
+                        <li>1. Медицинская эвакуация в больницу (13). Транспортировка на носилках</li>
+                        <li>2. При отказе от медицинской эвакуации в больницу – актив в ОНМПВиДН (31)</li>
                     </ul>
                 </div>
             </div>
