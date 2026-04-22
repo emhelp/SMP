@@ -23,9 +23,35 @@
 
     h1 {
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 8px;  /* уменьшили отступ снизу */
       color: #0f1446;
       font-size: 28px;
+    }
+
+    /* НОВАЯ ПОДСКАЗКА */
+    .scroll-hint {
+      text-align: center;
+      margin-top: 0;
+      margin-bottom: 20px;
+      color: #5e6f8c;
+      font-size: 16px;
+      font-weight: 400;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      opacity: 0.85;
+      letter-spacing: 0.3px;
+    }
+    
+    .scroll-hint span {
+      font-size: 20px;
+      animation: subtleBounce 1.8s infinite ease-in-out;
+    }
+    
+    @keyframes subtleBounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(5px); }
     }
 
     .calc-section {
@@ -96,12 +122,21 @@
       h1 {
         font-size: 24px;
       }
+      .scroll-hint {
+        font-size: 15px;
+        margin-bottom: 16px;
+      }
     }
   </style>
 </head>
 <body>
 
   <h1>📱 Калькуляторы СМП</h1>
+  
+  <!-- 👇 ДОБАВЛЕННАЯ СТРОКА С ПОДСКАЗКОЙ -->
+  <div class="scroll-hint">
+    Листайте вниз <span>👇</span>
+  </div>
 
   <!-- Шкалы, индексы, манипуляции -->
   <div class="calc-section">
