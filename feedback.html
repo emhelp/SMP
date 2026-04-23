@@ -172,7 +172,7 @@
   </div>
 
   <script>
-    // Google Apps Script URL (замените на свой)
+    // Google Apps Script URL (ВСТАВЬТЕ СВОЙ URL)
     const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbynkQe1Ujx_OjLiTqlj1bASMPPf-U4YxaODU4I2In2ayqyVMTTHyIQnjAAA7AorsZxr/exec';
     
     document.getElementById('feedbackForm').addEventListener('submit', async function(e) {
@@ -184,7 +184,6 @@
       const message = document.getElementById('message').value;
       const messageDiv = document.getElementById('formMessage');
       
-      // Сохраняем в localStorage для отправки позже при отсутствии интернета
       const feedbackData = {
         name: name,
         contact: contact,
@@ -194,31 +193,30 @@
         userAgent: navigator.userAgent
       };
       
-      // Получаем существующие сохраненные сообщения
       let pendingMessages = JSON.parse(localStorage.getItem('pendingFeedback') || '[]');
       
       try {
-        // Пытаемся отправить
         const response = await fetch(SCRIPT_URL, {
           method: 'POST',
-          mode: 'no-cors',
+          mode: 'cors',        // ← ИСПРАВЛЕНО: no-cors → cors
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify(feedbackData)
         });
         
-        // При mode: 'no-cors' мы не можем прочитать ответ
-        // Поэтому считаем, что отправка успешна
-        messageDiv.className = 'message success';
-        messageDiv.textContent = '✅ Спасибо! Ваше сообщение отправлено. Мы ответим в ближайшее время.';
-        document.getElementById('feedbackForm').reset();
+        const result = await response.json();
         
-        // Очищаем сохраненные сообщения
-        localStorage.removeItem('pendingFeedback');
+        if (result.status === 'ok') {
+          messageDiv.className = 'message success';
+          messageDiv.textContent = '✅ Спасибо! Ваше сообщение отправлено. Мы ответим в ближайшее время.';
+          document.getElementById('feedbackForm').reset();
+          localStorage.removeItem('pendingFeedback');
+        } else {
+          throw new Error(result.message || 'Ошибка сервера');
+        }
         
       } catch (error) {
-        // Если нет интернета, сохраняем в localStorage
         pendingMessages.push(feedbackData);
         localStorage.setItem('pendingFeedback', JSON.stringify(pendingMessages));
         
@@ -227,14 +225,12 @@
         document.getElementById('feedbackForm').reset();
       }
       
-      // Скрываем сообщение через 5 секунд
       setTimeout(() => {
         messageDiv.className = 'message';
         messageDiv.textContent = '';
       }, 5000);
     });
     
-    // Функция для отправки сохраненных сообщений при восстановлении интернета
     async function sendPendingMessages() {
       const pendingMessages = JSON.parse(localStorage.getItem('pendingFeedback') || '[]');
       if (pendingMessages.length === 0) return;
@@ -243,7 +239,7 @@
         try {
           await fetch(SCRIPT_URL, {
             method: 'POST',
-            mode: 'no-cors',
+            mode: 'cors',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(msg)
           });
@@ -255,10 +251,8 @@
       localStorage.removeItem('pendingFeedback');
     }
     
-    // Слушаем событие восстановления интернета
     window.addEventListener('online', sendPendingMessages);
     
-    // Проверяем при загрузке страницы
     if (navigator.onLine) {
       sendPendingMessages();
     }
