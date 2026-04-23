@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Карта вызова скорой медицинской помощи | Генитальный герпес</title>
+    <style>
+        /* ----- ОБЩИЕ СТИЛИ (как в шаблонах) ----- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #e9ecef;
+            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+            padding: 40px 20px;
+            color: #212529;
+            line-height: 1.45;
+        }
+
+        .card {
+            max-width: 1100px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            border: 1px solid #dee2e6;
+        }
+
+        .mkb-row {
+            background: linear-gradient(135deg, #0b3b5f 0%, #1a4d6f 100%);
+            color: white;
+            padding: 20px 32px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border-bottom: 4px solid #ffc107;
+        }
+
+        .mkb-row span {
+            font-weight: 700;
+            color: #ffc107;
+        }
+
+        .diagnosis {
+            background: #fef9e6;
+            padding: 12px 32px;
+            border-left: 6px solid #ffc107;
+            font-weight: 500;
+            font-size: 0.98rem;
+            color: #2d3e50;
+            border-bottom: 1px solid #f0e2b6;
+        }
+
+        .content {
+            padding: 24px 32px 40px 32px;
+        }
+
+        .section {
+            margin-bottom: 32px;
+            break-inside: avoid;
+            page-break-inside: avoid;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #1a4d6f;
+            border-left: 6px solid #ffc107;
+            padding-left: 16px;
+            margin-bottom: 18px;
+            margin-top: 8px;
+            background: #f4f9ff;
+            border-radius: 0 12px 12px 0;
+            line-height: 1.3;
+        }
+
+        .field-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .field-item {
+            padding: 6px 0 4px 8px;
+            border-bottom: 1px dotted #e0e6ed;
+            font-size: 0.94rem;
+            line-height: 1.45;
+        }
+
+        .field-item strong {
+            font-weight: 700;
+            color: #1e4663;
+            display: inline-block;
+            min-width: 240px;
+        }
+
+        .field-item .value {
+            color: #2c3e4e;
+            font-weight: 500;
+        }
+
+        .full-width-text {
+            padding: 8px 0 8px 8px;
+            border-bottom: 1px dotted #e0e6ed;
+            font-size: 0.94rem;
+        }
+
+        .full-width-text strong {
+            font-weight: 700;
+            color: #1e4663;
+            display: inline-block;
+            min-width: 240px;
+        }
+
+        .status-local {
+            background: #fef7e0;
+            padding: 14px 18px;
+            border-radius: 18px;
+            margin-top: 6px;
+            border: 1px solid #ffe3a4;
+            font-size: 0.94rem;
+        }
+
+        .scales-list {
+            background: #f1f4f9;
+            padding: 12px 20px;
+            border-radius: 20px;
+            margin-top: 10px;
+        }
+
+        .scales-list p {
+            margin: 8px 0;
+        }
+
+        .note {
+            background: #e7f1ff;
+            border-left: 4px solid #1a4d6f;
+            padding: 12px 16px;
+            margin-top: 16px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            color: #1e4663;
+        }
+
+        .note-list {
+            margin-top: 8px;
+            margin-left: 20px;
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .note-list li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .note-list li:before {
+            content: "•";
+            position: absolute;
+            left: 4px;
+            color: #1a4d6f;
+            font-weight: bold;
+        }
+
+        /* ----- КНОПКА АЛГОРИТМА ----- */
+        .algorithm-btn-container {
+            margin-top: 32px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .btn-algorithm {
+            background-color: #dc2626;
+            color: white;
+            border: none;
+            padding: 10px 28px;
+            font-size: 1.15rem;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 6px 14px rgba(220, 38, 38, 0.3);
+            transition: all 0.2s ease;
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            letter-spacing: 0.3px;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .btn-algorithm:hover {
+            background-color: #b91c1c;
+            transform: scale(1.02);
+            box-shadow: 0 10px 20px rgba(185, 28, 28, 0.4);
+        }
+
+        .btn-algorithm:active {
+            transform: scale(0.98);
+        }
+
+        .btn-hint {
+            font-size: 0.7rem;
+            font-weight: normal;
+            opacity: 0.9;
+            letter-spacing: normal;
+            border-top: 1px dashed rgba(255,255,255,0.5);
+            padding-top: 4px;
+            margin-top: 2px;
+        }
+
+        /* ----- МОДАЛЬНОЕ ОКНО ----- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0.2s, opacity 0.2s;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .modal-container {
+            background-color: #fffef7;
+            max-width: 850px;
+            width: 100%;
+            max-height: 85vh;
+            border-radius: 28px;
+            box-shadow: 0 25px 45px -12px black;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            animation: modalFadeIn 0.25s ease-out;
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            background: #b91c1c;
+            color: white;
+            padding: 18px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid #ffc107;
+        }
+
+        .modal-header h2 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+            line-height: 1;
+            transition: 0.2s;
+            padding: 0 8px;
+            border-radius: 40px;
+        }
+
+        .modal-close:hover {
+            background-color: rgba(255,255,255,0.2);
+            transform: scale(1.1);
+        }
+
+        .modal-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px 28px;
+            background: #fefcf5;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* стили для алгоритма */
+        .alg-section {
+            margin-bottom: 24px;
+            border-left: 4px solid #dc2626;
+            padding-left: 18px;
+            background: #fff9f0;
+            border-radius: 0 14px 14px 0;
+        }
+        
+        /* ОТДЕЛЬНЫЙ КЛАСС ДЛЯ ДЕТСКОЙ СЕКЦИИ (ЗЕЛЕНАЯ ГАММА) */
+        .alg-section.child-section {
+            border-left: 4px solid #2e7d32;
+            background: #f1f8e9;
+        }
+
+        .alg-title {
+            font-weight: 800;
+            font-size: 1rem;
+            color: #a51c1c;
+            margin: 8px 0 8px 0;
+            display: inline-block;
+            background: #ffeeee;
+            padding: 4px 14px;
+            border-radius: 30px;
+        }
+        
+        .alg-section.child-section .alg-title {
+            color: #1b5e20;
+            background: #e8f5e9;
+        }
+
+        .list-styled {
+            margin: 8px 0 10px 24px;
+        }
+
+        .list-styled li {
+            margin: 6px 0;
+        }
+
+        .tactic-block {
+            background: #eef2fa;
+            border-radius: 16px;
+            padding: 12px 18px;
+            margin-top: 12px;
+            margin-bottom: 8px;
+        }
+
+        .tactic-title {
+            font-weight: 700;
+            color: #1e4663;
+            margin-bottom: 6px;
+        }
+
+        .condition-block {
+            background: #fff0d4;
+            border-left: 5px solid #dc2626;
+            padding: 10px 16px;
+            margin: 10px 0;
+            border-radius: 12px;
+        }
+        
+        /* ДЕТСКИЕ УСЛОВИЯ - ЗЕЛЕНЫЙ АКЦЕНТ */
+        .alg-section.child-section .condition-block {
+            background: #e8f5e9;
+            border-left: 5px solid #2e7d32;
+        }
+
+        .condition-title {
+            font-weight: 700;
+            color: #a51c1c;
+            margin-bottom: 6px;
+        }
+        
+        .alg-section.child-section .condition-title {
+            color: #1b5e20;
+        }
+
+        .warning-block {
+            background: #ffe6e6;
+            border-left: 5px solid #dc2626;
+            padding: 10px 16px;
+            margin: 10px 0;
+            border-radius: 12px;
+        }
+        
+        .alg-section.child-section .warning-block {
+            background: #ffebee;
+            border-left: 5px solid #c62828;
+        }
+        
+        .warning-title {
+            font-weight: 700;
+            color: #b91c1c;
+            margin-bottom: 6px;
+        }
+
+        .info-block {
+            background: #e8f0fe;
+            border-left: 5px solid #1a4d6f;
+            padding: 10px 16px;
+            margin: 10px 0;
+            border-radius: 12px;
+        }
+        
+        .alg-section.child-section .info-block {
+            background: #e8f5e9;
+            border-left: 5px solid #2e7d32;
+        }
+        
+        .info-title {
+            font-weight: 700;
+            color: #1a4d6f;
+            margin-bottom: 6px;
+        }
+
+        hr {
+            margin: 16px 0;
+            border-color: #f0dbb2;
+        }
+
+        @media (max-width: 700px) {
+            .field-item strong {
+                min-width: 170px;
+            }
+            .full-width-text strong {
+                min-width: 170px;
+            }
+            .content {
+                padding: 20px;
+            }
+            .modal-body {
+                padding: 16px;
+            }
+            .btn-algorithm {
+                padding: 8px 22px;
+                font-size: 1rem;
+            }
+            .btn-hint {
+                font-size: 0.65rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="card">
+    <div class="mkb-row">
+        📌 Код по МКБ-10: <span>A60.0</span> (Герпетическая инфекция половых органов и мочеполового тракта)
+    </div>
+    <div class="diagnosis">
+        🧾 <strong>Диагноз:</strong> Генитальный герпес, первичный эпизод, средней степени тяжести. Герпетический вульвит.
+    </div>
+
+    <div class="content">
+        <!-- ЖАЛОБЫ -->
+        <div class="section">
+            <div class="section-title">📢 ЖАЛОБЫ</div>
+            <div class="full-width-text"><em>На момент осмотра пациентка предъявляет жалобы на зуд, жжение и болезненность в области наружных половых органов. Наличие множественных пузырьковых высыпаний на половых губах. Отмечает общее недомогание, слабость, озноб, повышение температуры тела до 37,4°C.</em></div>
+        </div>
+
+        <!-- АНАМНЕЗ -->
+        <div class="section">
+            <div class="section-title">📋 АНАМНЕЗ</div>
+            <div class="full-width-text"><strong>Anamnesis morbi:</strong> Со слов больной, с вечера 24.08.2018г. отметила появление недомогания, озноба. Затем возникли зудящие, болезненные высыпания в области малых и больших половых губ. Подобные высыпания ранее не отмечала (дебют). За медицинской помощью не обращалась, самостоятельно обрабатывала высыпания раствором Хлоргексидина. В связи с ухудшением общего самочувствия и нарастанием болевого синдрома вызвана бригада СМП.</div>
+            <div class="full-width-text"><strong>Анамнез жизни:</strong> Хронические заболевания отрицает. Аллергологический анамнез не отягощен.</div>
+            <div class="full-width-text"><strong>Эпидемиологический анамнез:</strong> Контакт с инфекционными больными отрицает, за последние три года в эпидемически опасные зоны не выезжала.</div>
+            <div class="full-width-text"><strong>Гинекологический анамнез:</strong> Менструации с 11 лет, регулярные, безболезненные, по 4-5 дней, через 28 дней. В анамнезе одни самостоятельные срочные роды. Беременность в настоящий момент отрицает.</div>
+        </div>
+
+        <!-- ОБЪЕКТИВНО -->
+        <div class="section">
+            <div class="section-title">🩺 ОБЪЕКТИВНО</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Общее состояние:</strong> <span class="value">средней тяжести (обусловлено болевым синдромом и интоксикацией).</span></div>
+                <div class="field-item"><strong>Сознание:</strong> <span class="value">ясное.</span></div>
+                <div class="field-item"><strong>Шкала комы Глазго (GCS):</strong> <span class="value">15 баллов (E4, V5, M6).</span></div>
+                <div class="field-item"><strong>Положение:</strong> <span class="value">активное.</span></div>
+                <div class="field-item"><strong>Кожные покровы:</strong> <span class="value">обычной окраски, чистые, умеренно влажные, горячие на ощупь.</span></div>
+                <div class="field-item"><strong>Сыпь:</strong> <span class="value">см. STATUS LOCALIS.</span></div>
+                <div class="field-item"><strong>Зев:</strong> <span class="value">розовый, чистый.</span></div>
+                <div class="field-item"><strong>Миндалины:</strong> <span class="value">не увеличены, не обложены.</span></div>
+                <div class="field-item"><strong>Лимфоузлы:</strong> <span class="value">не увеличены (регионарные паховые — без особенностей).</span></div>
+                <div class="field-item"><strong>Пролежни:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Отеки:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>t°:</strong> <span class="value">37.4 °C (аксиллярно).</span></div>
+            </div>
+        </div>
+
+        <!-- ОРГАНЫ ДЫХАНИЯ -->
+        <div class="section">
+            <div class="section-title">🌬️ ОРГАНЫ ДЫХАНИЯ</div>
+            <div class="field-list">
+                <div class="field-item"><strong>ЧДД в мин:</strong> <span class="value">17</span></div>
+                <div class="field-item"><strong>Одышка:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Патологическое дыхание:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Аускультативно:</strong> <span class="value">везикулярное, проводится во все отделы.</span></div>
+                <div class="field-item"><strong>Хрипы:</strong> <span class="value">отсутствуют.</span></div>
+                <div class="field-item"><strong>Крепитация:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Шум трения плевры:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Перкуторный звук:</strong> <span class="value">ясный легочный, симметричный.</span></div>
+                <div class="field-item"><strong>Кашель:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Мокрота:</strong> <span class="value">нет.</span></div>
+            </div>
+        </div>
+
+        <!-- ОРГАНЫ КРОВООБРАЩЕНИЯ -->
+        <div class="section">
+            <div class="section-title">❤️ ОРГАНЫ КРОВООБРАЩЕНИЯ</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Пульс в мин:</strong> <span class="value">82</span></div>
+                <div class="field-item"><strong>Ритмичный, аритмичный, наполнение пульса:</strong> <span class="value">ритмичный, удовлетворительного наполнения и напряжения.</span></div>
+                <div class="field-item"><strong>ЧСС:</strong> <span class="value">82</span></div>
+                <div class="field-item"><strong>Дефицит пульса:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>АД мм.рт.ст. на момент осмотра:</strong> <span class="value">110/70, привычное АД мм.рт.ст.: 110/70 (со слов).</span></div>
+                <div class="field-item"><strong>Тоны сердца:</strong> <span class="value">звучные, ритмичные.</span></div>
+                <div class="field-item"><strong>Шум:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Шум трения перикарда:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Акцент какого тона на:</strong> <span class="value">нет.</span></div>
+            </div>
+        </div>
+
+        <!-- ОРГАНЫ ПИЩЕВАРЕНИЯ -->
+        <div class="section">
+            <div class="section-title">🍽️ ОРГАНЫ ПИЩЕВАРЕНИЯ</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Язык:</strong> <span class="value">чистый, влажный, розовый.</span></div>
+                <div class="field-item"><strong>Живот:</strong> <span class="value">правильной формы, мягкий, не вздут, участвует в акте дыхания.</span></div>
+                <div class="field-item"><strong>Болезненный в:</strong> <span class="value">безболезненный при пальпации во всех отделах.</span></div>
+                <div class="field-item"><strong>Положительные симптомы:</strong> <span class="value">Симптомы раздражения брюшины — отрицательные.</span></div>
+                <div class="field-item"><strong>Перистальтика:</strong> <span class="value">выслушивается, активная.</span></div>
+                <div class="field-item"><strong>Печень:</strong> <span class="value">не увеличена, край эластичный, безболезненный.</span></div>
+                <div class="field-item"><strong>Селезенка:</strong> <span class="value">не пальпируется.</span></div>
+                <div class="field-item"><strong>Стул:</strong> <span class="value">оформленный, 1 раз в день, коричневый (со слов).</span></div>
+            </div>
+        </div>
+
+        <!-- НЕРВНАЯ СИСТЕМА -->
+        <div class="section">
+            <div class="section-title">🧠 НЕРВНАЯ СИСТЕМА</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Поведение:</strong> <span class="value">спокойное.</span></div>
+                <div class="field-item"><strong>Контакт:</strong> <span class="value">доступен, продуктивный.</span></div>
+                <div class="field-item"><strong>Чувствительность:</strong> <span class="value">сохранена.</span></div>
+                <div class="field-item"><strong>Речь:</strong> <span class="value">внятная.</span></div>
+                <div class="field-item"><strong>Зрачки (OD, OS):</strong> <span class="value">D=S, обычные.</span></div>
+                <div class="field-item"><strong>Фотореакция:</strong> <span class="value">живая, содружественная.</span></div>
+                <div class="field-item"><strong>Нистагм:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Асимметрия лица:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Менингеальные симптомы:</strong> <span class="value">ригидность затылочных мышц, Кернига, Брудзинского — не выявлены.</span></div>
+                <div class="field-item"><strong>Очаговые симптомы:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Координаторные пробы:</strong> <span class="value">выполняет в полном объеме, правильно.</span></div>
+            </div>
+        </div>
+
+        <!-- МОЧЕПОЛОВАЯ СИСТЕМА -->
+        <div class="section">
+            <div class="section-title">🚽 МОЧЕПОЛОВАЯ СИСТЕМА</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Мочеиспускание:</strong> <span class="value">свободное, безболезненное, моча светлая, желтая. Дизурии нет.</span></div>
+                <div class="field-item"><strong>Симптом поколачивания:</strong> <span class="value">отрицательный с обеих сторон.</span></div>
+            </div>
+        </div>
+
+        <!-- STATUS LOCALIS (ПОДРОБНО, ПРОФЕССИОНАЛЬНО) -->
+        <div class="section">
+            <div class="section-title">🔍 STATUS LOCALIS</div>
+            <div class="status-local">
+                <strong>Наружные половые органы:</strong> При осмотре в области малых и больших половых губ, а также преддверия влагалища, визуализируются множественные сгруппированные везикулы на эритематозно-отечном фоне. Элементы сыпи расположены асимметрично, преимущественно справа.<br>
+                <strong>Характеристика элементов:</strong> Везикулы размерами 0.2–0.3 мм, полушаровидной формы, с округлыми очертаниями. Покрышка пузырьков плотная, поверхность гладкая. Содержимое везикул — прозрачное серозное. Везикулы не вскрыты, эрозий не сформировано. При пальпации элементы резко болезненны.<br>
+                <strong>Выделения:</strong> Патологических выделений из половых путей на момент осмотра нет.<br>
+                <strong>Регионарные лимфоузлы:</strong> Паховые лимфоузлы не пальпируются (или единичные, мягкие, безболезненные).<br>
+                <strong>Травмы, повреждения:</strong> Видимых травм, расчесов, нагноений не обнаружено.
+            </div>
+        </div>
+
+        <!-- ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ -->
+        <div class="section">
+            <div class="section-title">📊 ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ</div>
+            <div class="scales-list">
+                <p>✔ <strong>Пульсоксиметрия (SpO2):</strong> 98% (норма).</p>
+                <p>✔ <strong>Глюкометрия (экспресс-метод):</strong> Не проводилась (нет показаний).</p>
+                <p>✔ <strong>ЭКГ:</strong> Не проводилась (нет кардиальных жалоб).</p>
+            </div>
+        </div>
+
+        <!-- ОЦЕНКА ПО ШКАЛАМ -->
+        <div class="section">
+            <div class="section-title">📊 ОЦЕНКА ПО ШКАЛАМ</div>
+            <div class="scales-list">
+                <p>✔ <strong>Шкала NEWS2:</strong> ЧДД 17 (0), SpO2 98% (0), температура 37.4 (1 балл), АД сист. 110 (0), ЧСС 82 (0), сознание ясное (0). Сумма: 1 балл (низкий риск, наблюдение).</p>
+                <p>✔ <strong>Шкала боли ВАШ:</strong> 5-6 баллов (умеренная/выраженная боль в области высыпаний).</p>
+                <p>✔ <strong>Индекс Альговера:</strong> ЧСС/АДсист = 82/110 = 0.74 (норма).</p>
+                <p>✔ <strong>Степень тяжести герпетической инфекции:</strong> Средней тяжести (наличие интоксикации, лихорадки, выраженного болевого синдрома).</p>
+                <p>✔ <strong>Состояние алкогольного опьянения:</strong> запах алкоголя не определяется.</p>
+            </div>
+        </div>
+
+        <!-- ОКАЗАННАЯ ПОМОЩЬ И ЕЕ ЭФФЕКТ -->
+        <div class="section">
+            <div class="section-title">🩺 ОКАЗАННАЯ ПОМОЩЬ И ЕЕ ЭФФЕКТ</div>
+            <div class="full-width-text">
+                1. Sol. Ketorolaci 30 mg/ml – 1 ml внутримышечно.<br>
+                После проведенной терапии состояние больной удовлетворительное, болевой синдром купирован.<br>
+                АД - 110/70 мм.рт.ст., PS - 80 уд. в мин., ЧСС - 80 в мин., ЧДД - 17 в мин., t° - 37.2°С.<br>
+                Оставлена на месте + актив в поликлинику (рекомендовано: консультация дерматовенеролога, гинеколога, ПЦР-диагностика, противовирусная терапия).
+            </div>
+        </div>
+
+        <!-- ПРИМЕЧАНИЕ ДЛЯ БРИГАДЫ СМП -->
+        <div class="note">
+            <strong>📌 Примечание для бригады СМП (дифференциальная диагностика):</strong><br>
+            Дифференциальная диагностика везикулезных высыпаний в области гениталий проведена с:
+            <ul class="note-list">
+                <li><strong>Твердым шанкром (сифилис):</strong> (безболезненная язва с плотным основанием, увеличенные плотные паховые узлы. НЕТ группировки пузырьков, зуда, острой воспалительной реакции);</li>
+                <li><strong>Мягким шанкром (Haemophilus ducreyi):</strong> (множественные болезненные язвы с мягким дном, гнойные выделения. НЕТ везикулезной стадии);</li>
+                <li><strong>Остроконечными кондиломами (ВПЧ):</strong> (бородавчатые разрастания, безболезненные. НЕТ пузырьков, воспаления);</li>
+                <li><strong>Болезнью Фурнье (некротизирующий фасциит):</strong> (нестерпимая боль, отек, крепитация, черные участки некроза, тяжелая интоксикация);</li>
+                <li><strong>Контактным дерматитом:</strong> (четкая связь с раздражителем, эритема, отек, мокнутие. НЕТ характерных группированных пузырьков);</li>
+                <li><strong>Пузырчаткой (пемфигус):</strong> (хроническое течение, вялые пузыри с тонкой покрышкой, симптом Никольского (+), афты во рту);</li>
+                <li><strong>Опоясывающим лишаем (Zoster):</strong> (высыпания по ходу нерва, резкая боль, одностороннее поражение);</li>
+                <li><strong>Болезнью Бехчета:</strong> (рецидивирующие афты во рту, язвы на гениталиях, увеит, поражение суставов. НЕТ пузырьков, есть язвы);</li>
+                <li><strong>Лихен склерозом (крауроз):</strong> (хроническое течение, зуд, атрофия, белесоватые бляшки, трещины. НЕТ пузырьков);</li>
+                <li><strong>Аллергической реакцией:</strong> (отек, зуд, волдыри (крапивница). НЕТ везикул с серозным содержимым).</li>
+            </ul>
+            <strong>Ключевые признаки генитального герпеса:</strong><br>
+            – Продромальные явления (жжение, зуд, парестезии) за 6-24 часа до высыпаний.<br>
+            – Типичная сыпь: группированные везикулы на гиперемированном основании.<br>
+            – Регионарный лимфаденит (увеличенные, болезненные паховые узлы).<br>
+            – Симптомы общей интоксикации (лихорадка, миалгия, недомогание).<br>
+            – Рецидивирующее течение (в анамнезе или впервые в жизни — первичный эпизод).<br>
+            – Вирус пожизненно персистирует в нервных ганглиях (крестцовое сплетение).<br>
+            – Провоцирующие факторы: переохлаждение, ОРВИ, стресс, менструация, половой акт.
+        </div>
+
+        <!-- КРАСНАЯ КНОПКА -->
+        <div class="algorithm-btn-container">
+            <button class="btn-algorithm" id="openAlgorithmBtn">
+                <span>🚨 Оказание помощи в соответствии с Алгоритмами МСК</span>
+                <span class="btn-hint">▼ нажмите для открытия ▼</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- МОДАЛЬНОЕ ОКНО: ГЕНИТАЛЬНЫЙ ГЕРПЕС - ДЛЯ ВЗРОСЛЫХ И ДЕТЕЙ -->
+<div class="modal-overlay" id="algorithmModal">
+    <div class="modal-container">
+        <div class="modal-header">
+            <h2>📋 Алгоритм оказания помощи (МСК)</h2>
+            <button class="modal-close" id="closeModalBtn">&times;</button>
+        </div>
+        <div class="modal-body">
+            <!-- ПРЕДУПРЕЖДЕНИЕ О КОНСИЛИУМЕ -->
+            <div class="warning-block" style="margin-bottom: 20px; text-align: center;">
+                <div class="warning-title">⚠ Диагноза нет в Алгоритмах - консилиум с ОВС</div>
+                <div style="margin-top: 8px; font-weight: 500;">Терапия после консилиума (симптоматическая)</div>
+            </div>
+
+            <!-- Раздел для взрослых (ОРАНЖЕВО-КРАСНО-ГОЛУБОЙ) -->
+            <div class="alg-section">
+                <div class="alg-title">🔹 A60 — Генитальный герпес (взрослые)</div>
+                
+                <div class="condition-block">
+                    <div class="condition-title">▶ при обильных свежих высыпаниях и боли</div>
+                    <ul class="list-styled">
+                        <li>Кеторолак 30 мг (1 мл) в/мышечно</li>
+                    </ul>
+                </div>
+
+                <div class="tactic-block">
+                    <div class="tactic-title">▶ Тактика ведения:</div>
+                    <ul class="list-styled" style="margin-top: 4px;">
+                        <li>1. Медицинская эвакуация в больницу (13):<br>
+                            – беременных<br>
+                            – при тяжелом течении<br>
+                            – при осложнениях</li>
+                        <li>2. При отказе от медицинской эвакуации в больницу – рекомендовать обратиться в поликлинику (35)</li>
+                        <li>3. Рекомендовать обратиться в поликлинику в клинических ситуациях, не указанных в п. 1 (34)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <hr>
+
+            <!-- Раздел для детей (ЗЕЛЕНО-КРАСНО-ГОЛУБОЙ) -->
+            <div class="alg-section child-section">
+                <div class="alg-title">🔹 A60 — Генитальный герпес (дети)</div>
+                
+                <div class="condition-block">
+                    <div class="condition-title">▶ при обильных свежих высыпаниях и боли</div>
+                    <ul class="list-styled">
+                        <li>Парацетамол 15 мг/кг внутрь или суппозитории ректально или Кеторолак 30 мг (1 мл) в/мышечно (с 16 лет)</li>
+                    </ul>
+                </div>
+
+                <div class="condition-block">
+                    <div class="condition-title">▶ при температуре тела ≥ 38,5°С</div>
+                    <ul class="list-styled">
+                        <li>Парацетамол 15 мг/кг внутрь или суппозитории ректально</li>
+                    </ul>
+                </div>
+
+                <div class="tactic-block">
+                    <div class="tactic-title">▶ Тактика ведения:</div>
+                    <ul class="list-styled" style="margin-top: 4px;">
+                        <li>1. Медицинская эвакуация в больницу (13):<br>
+                            – при тяжелом течении<br>
+                            – при осложнениях</li>
+                        <li>2. При отказе от медицинской эвакуации в больницу – рекомендовать обратиться в поликлинику (35)</li>
+                        <li>3. Рекомендовать обратиться в поликлинику в клинических ситуациях, не указанных в п. 1 (34)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const modal = document.getElementById('algorithmModal');
+    const openBtn = document.getElementById('openAlgorithmBtn');
+    const closeBtn = document.getElementById('closeModalBtn');
+
+    function openModal() {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    openBtn.addEventListener('click', openModal);
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            closeModal();
+        }
+    });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+            closeModal();
+        }
+    });
+</script>
+</body>
+</html>
