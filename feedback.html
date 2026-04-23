@@ -1,23 +1,252 @@
-try {
-  // Упрощённая отправка без режима cors
-  await fetch(SCRIPT_URL, {
-    method: 'POST',
-    mode: 'no-cors',
-    body: JSON.stringify(feedbackData)
-  });
-  
-  // При no-cors мы не можем прочитать ответ, но считаем отправку успешной
-  messageDiv.className = 'message success';
-  messageDiv.textContent = '✅ Спасибо! Ваше сообщение отправлено. Мы ответим в ближайшее время.';
-  document.getElementById('feedbackForm').reset();
-  localStorage.removeItem('pendingFeedback');
-  
-} catch (error) {
-  // Если нет интернета, сохраняем в localStorage
-  pendingMessages.push(feedbackData);
-  localStorage.setItem('pendingFeedback', JSON.stringify(pendingMessages));
-  
-  messageDiv.className = 'message success';
-  messageDiv.textContent = '📱 Сообщение сохранено локально и будет отправлено при подключении к интернету.';
-  document.getElementById('feedbackForm').reset();
-}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Обратная связь</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Дополнительные стили для формы */
+    .feedback-container {
+      max-width: 500px;
+      width: 100%;
+      margin: 20px auto;
+      padding: 0 15px;
+      box-sizing: border-box;
+    }
+    
+    .feedback-card {
+      background: #ffffff;
+      border: 1px solid #d0d0d0;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    
+    .feedback-title {
+      font-size: 24px;
+      font-weight: bold;
+      color: #0f1446;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    
+    .form-group {
+      margin-bottom: 15px;
+    }
+    
+    .form-group label {
+      display: block;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 5px;
+    }
+    
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #d0d0d0;
+      border-radius: 6px;
+      font-size: 14px;
+      font-family: Arial, sans-serif;
+      box-sizing: border-box;
+    }
+    
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #0f1446;
+      box-shadow: 0 0 0 2px rgba(15,20,70,0.1);
+    }
+    
+    .form-group textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+    
+    .submit-btn {
+      width: 100%;
+      padding: 14px;
+      font-size: 18px;
+      font-weight: bold;
+      background: linear-gradient(135deg, #0f1446 0%, #800000 100%);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    
+    .submit-btn:hover {
+      opacity: 0.9;
+    }
+    
+    .back-btn {
+      display: block;
+      text-align: center;
+      margin-top: 15px;
+      color: #0f1446;
+      text-decoration: none;
+      font-size: 14px;
+    }
+    
+    .back-btn:hover {
+      text-decoration: underline;
+    }
+    
+    .message {
+      padding: 12px;
+      border-radius: 6px;
+      margin-bottom: 20px;
+      text-align: center;
+      display: none;
+    }
+    
+    .message.success {
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+      display: block;
+    }
+    
+    .message.error {
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+      display: block;
+    }
+    
+    .required {
+      color: #e53935;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <img src="1712743647196.png" alt="Логотип" class="logo">
+    <h1>Обратная связь</h1>
+    <p>Задайте вопрос или оставьте предложение</p>
+  </div>
+
+  <div class="feedback-container">
+    <div class="feedback-card">
+      <div class="feedback-title">✉️ Напишите нам</div>
+      
+      <div id="formMessage" class="message"></div>
+      
+      <form id="feedbackForm">
+        <div class="form-group">
+          <label>Ваше имя <span class="required">*</span></label>
+          <input type="text" id="name" required>
+        </div>
+        
+        <div class="form-group">
+          <label>Email или телефон <span class="required">*</span></label>
+          <input type="text" id="contact" required>
+        </div>
+        
+        <div class="form-group">
+          <label>Тема обращения</label>
+          <select id="subject">
+            <option value="question">Вопрос</option>
+            <option value="suggestion">Предложение</option>
+            <option value="bug">Сообщить об ошибке</option>
+            <option value="other">Другое</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label>Сообщение <span class="required">*</span></label>
+          <textarea id="message" required placeholder="Опишите ваш вопрос или предложение..."></textarea>
+        </div>
+        
+        <button type="submit" class="submit-btn">📩 Отправить</button>
+      </form>
+      
+      <a href="index.html" class="back-btn">← Вернуться на главную</a>
+    </div>
+  </div>
+
+  <script>
+    // Google Apps Script URL
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwgbG0sndi-MSGHluiboiVbSW-qJDzN8gNOuQxSupsc51hbOGwD0SOafGlhW_0ve0CZ/exec';
+    
+    document.getElementById('feedbackForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const name = document.getElementById('name').value;
+      const contact = document.getElementById('contact').value;
+      const subject = document.getElementById('subject').value;
+      const message = document.getElementById('message').value;
+      const messageDiv = document.getElementById('formMessage');
+      
+      const feedbackData = {
+        name: name,
+        contact: contact,
+        subject: subject,
+        message: message,
+        timestamp: new Date().toISOString(),
+        userAgent: navigator.userAgent
+      };
+      
+      let pendingMessages = JSON.parse(localStorage.getItem('pendingFeedback') || '[]');
+      
+      try {
+        await fetch(SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          body: JSON.stringify(feedbackData)
+        });
+        
+        messageDiv.className = 'message success';
+        messageDiv.textContent = '✅ Спасибо! Ваше сообщение отправлено. Мы ответим в ближайшее время.';
+        document.getElementById('feedbackForm').reset();
+        localStorage.removeItem('pendingFeedback');
+        
+      } catch (error) {
+        pendingMessages.push(feedbackData);
+        localStorage.setItem('pendingFeedback', JSON.stringify(pendingMessages));
+        
+        messageDiv.className = 'message success';
+        messageDiv.textContent = '📱 Сообщение сохранено локально и будет отправлено при подключении к интернету.';
+        document.getElementById('feedbackForm').reset();
+      }
+      
+      setTimeout(() => {
+        messageDiv.className = 'message';
+        messageDiv.textContent = '';
+      }, 5000);
+    });
+    
+    async function sendPendingMessages() {
+      const pendingMessages = JSON.parse(localStorage.getItem('pendingFeedback') || '[]');
+      if (pendingMessages.length === 0) return;
+      
+      for (const msg of pendingMessages) {
+        try {
+          await fetch(SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            body: JSON.stringify(msg)
+          });
+        } catch (e) {
+          console.log('Ошибка отправки сохраненного сообщения');
+          return;
+        }
+      }
+      localStorage.removeItem('pendingFeedback');
+    }
+    
+    window.addEventListener('online', sendPendingMessages);
+    
+    if (navigator.onLine) {
+      sendPendingMessages();
+    }
+  </script>
+
+</body>
+</html>
