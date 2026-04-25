@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Карта вызова скорой медицинской помощи | Чума, бубонная форма</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #e9ecef;
+            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+            padding: 40px 20px;
+            color: #212529;
+            line-height: 1.45;
+        }
+
+        .card {
+            max-width: 1100px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            border: 1px solid #dee2e6;
+        }
+
+        .mkb-row {
+            background: linear-gradient(135deg, #0b3b5f 0%, #1a4d6f 100%);
+            color: white;
+            padding: 20px 32px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border-bottom: 4px solid #ffc107;
+        }
+
+        .mkb-row span {
+            font-weight: 700;
+            color: #ffc107;
+        }
+
+        .diagnosis {
+            background: #fef9e6;
+            padding: 12px 32px;
+            border-left: 6px solid #ffc107;
+            font-weight: 500;
+            font-size: 0.98rem;
+            color: #2d3e50;
+            border-bottom: 1px solid #f0e2b6;
+        }
+
+        .content {
+            padding: 24px 32px 40px 32px;
+        }
+
+        .section {
+            margin-bottom: 32px;
+            break-inside: avoid;
+            page-break-inside: avoid;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #1a4d6f;
+            border-left: 6px solid #ffc107;
+            padding-left: 16px;
+            margin-bottom: 18px;
+            margin-top: 8px;
+            background: #f4f9ff;
+            border-radius: 0 12px 12px 0;
+            line-height: 1.3;
+        }
+
+        .field-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .field-item {
+            padding: 6px 0 4px 8px;
+            border-bottom: 1px dotted #e0e6ed;
+            font-size: 0.94rem;
+            line-height: 1.45;
+        }
+
+        .field-item strong {
+            font-weight: 700;
+            color: #1e4663;
+            display: inline-block;
+            min-width: 240px;
+        }
+
+        .field-item .value {
+            color: #2c3e4e;
+            font-weight: 500;
+        }
+
+        .full-width-text {
+            padding: 8px 0 8px 8px;
+            border-bottom: 1px dotted #e0e6ed;
+            font-size: 0.94rem;
+        }
+
+        .full-width-text strong {
+            font-weight: 700;
+            color: #1e4663;
+            display: inline-block;
+            min-width: 240px;
+        }
+
+        .status-local {
+            background: #fef7e0;
+            padding: 14px 18px;
+            border-radius: 18px;
+            margin-top: 6px;
+            border: 1px solid #ffe3a4;
+            font-size: 0.94rem;
+        }
+
+        .scales-list {
+            background: #f1f4f9;
+            padding: 12px 20px;
+            border-radius: 20px;
+            margin-top: 10px;
+        }
+
+        .scales-list p {
+            margin: 8px 0;
+        }
+
+        .note {
+            background: #e7f1ff;
+            border-left: 4px solid #1a4d6f;
+            padding: 12px 16px;
+            margin-top: 16px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            color: #1e4663;
+        }
+
+        .note-list {
+            margin-top: 8px;
+            margin-left: 20px;
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .note-list li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .note-list li:before {
+            content: "•";
+            position: absolute;
+            left: 4px;
+            color: #1a4d6f;
+            font-weight: bold;
+        }
+
+        /* ----- КНОПКА АЛГОРИТМА ----- */
+        .algorithm-btn-container {
+            margin-top: 32px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .btn-algorithm {
+            background-color: #dc2626;
+            color: white;
+            border: none;
+            padding: 10px 28px;
+            font-size: 1.15rem;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 6px 14px rgba(220, 38, 38, 0.3);
+            transition: all 0.2s ease;
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            letter-spacing: 0.3px;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .btn-algorithm:hover {
+            background-color: #b91c1c;
+            transform: scale(1.02);
+            box-shadow: 0 10px 20px rgba(185, 28, 28, 0.4);
+        }
+
+        .btn-algorithm:active {
+            transform: scale(0.98);
+        }
+
+        .btn-hint {
+            font-size: 0.7rem;
+            font-weight: normal;
+            opacity: 0.9;
+            letter-spacing: normal;
+            border-top: 1px dashed rgba(255,255,255,0.5);
+            padding-top: 4px;
+            margin-top: 2px;
+        }
+
+        /* ----- МОДАЛЬНОЕ ОКНО ----- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0.2s, opacity 0.2s;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .modal-container {
+            background-color: #fffef7;
+            max-width: 900px;
+            width: 100%;
+            max-height: 85vh;
+            border-radius: 28px;
+            box-shadow: 0 25px 45px -12px black;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            animation: modalFadeIn 0.25s ease-out;
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            background: #b91c1c;
+            color: white;
+            padding: 18px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid #ffc107;
+        }
+
+        .modal-header h2 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+            line-height: 1;
+            transition: 0.2s;
+            padding: 0 8px;
+            border-radius: 40px;
+        }
+
+        .modal-close:hover {
+            background-color: rgba(255,255,255,0.2);
+            transform: scale(1.1);
+        }
+
+        .modal-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px 28px;
+            background: #fefcf5;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* стили для алгоритма */
+        .alg-section {
+            margin-bottom: 24px;
+            border-left: 4px solid #dc2626;
+            padding-left: 18px;
+            background: #fff9f0;
+            border-radius: 0 14px 14px 0;
+        }
+        
+        /* ОТДЕЛЬНЫЙ КЛАСС ДЛЯ ДЕТСКОЙ СЕКЦИИ (ЗЕЛЕНАЯ ГАММА) */
+        .alg-section.child-section {
+            border-left: 4px solid #2e7d32;
+            background: #f1f8e9;
+        }
+
+        .alg-title {
+            font-weight: 800;
+            font-size: 1rem;
+            color: #a51c1c;
+            margin: 8px 0 8px 0;
+            display: inline-block;
+            background: #ffeeee;
+            padding: 4px 14px;
+            border-radius: 30px;
+        }
+        
+        .alg-section.child-section .alg-title {
+            color: #1b5e20;
+            background: #e8f5e9;
+        }
+
+        .list-styled {
+            margin: 8px 0 10px 24px;
+        }
+
+        .list-styled li {
+            margin: 6px 0;
+        }
+
+        .tactic-block {
+            background: #eef2fa;
+            border-radius: 16px;
+            padding: 12px 18px;
+            margin-top: 12px;
+            margin-bottom: 8px;
+        }
+
+        .tactic-title {
+            font-weight: 700;
+            color: #1e4663;
+            margin-bottom: 6px;
+        }
+
+        .condition-block {
+            background: #fff0d4;
+            border-left: 5px solid #dc2626;
+            padding: 10px 16px;
+            margin: 10px 0;
+            border-radius: 12px;
+        }
+        
+        /* ДЕТСКИЕ УСЛОВИЯ - ЗЕЛЕНЫЙ АКЦЕНТ */
+        .alg-section.child-section .condition-block {
+            background: #e8f5e9;
+            border-left: 5px solid #2e7d32;
+        }
+
+        .condition-title {
+            font-weight: 700;
+            color: #a51c1c;
+            margin-bottom: 6px;
+        }
+        
+        .alg-section.child-section .condition-title {
+            color: #1b5e20;
+        }
+
+        .warning-block {
+            background: #ffe6e6;
+            border-left: 5px solid #dc2626;
+            padding: 10px 16px;
+            margin: 10px 0;
+            border-radius: 12px;
+        }
+        
+        .alg-section.child-section .warning-block {
+            background: #ffebee;
+            border-left: 5px solid #c62828;
+        }
+        
+        .warning-title {
+            font-weight: 700;
+            color: #b91c1c;
+            margin-bottom: 6px;
+        }
+
+        hr {
+            margin: 16px 0;
+            border-color: #f0dbb2;
+        }
+
+        @media (max-width: 700px) {
+            .field-item strong {
+                min-width: 170px;
+            }
+            .full-width-text strong {
+                min-width: 170px;
+            }
+            .content {
+                padding: 20px;
+            }
+            .modal-body {
+                padding: 16px;
+            }
+            .btn-algorithm {
+                padding: 8px 22px;
+                font-size: 1rem;
+            }
+            .btn-hint {
+                font-size: 0.65rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="card">
+    <div class="mkb-row">
+        📌 Код по МКБ-10: <span>A20.0</span> (Бубонная чума)
+    </div>
+    <div class="diagnosis">
+        🧾 <strong>Диагноз:</strong> Чума, бубонная форма, первичная, среднетяжелое течение.
+    </div>
+
+    <div class="content">
+        <!-- ЖАЛОБЫ -->
+        <div class="section">
+            <div class="section-title">📢 ЖАЛОБЫ</div>
+            <div class="full-width-text"><em>На момент осмотра пациент предъявляет жалобы на резкую боль в правой подмышечной области, где появилось болезненное уплотнение. Также беспокоят головная боль, повышение температуры тела до 38,9°С, озноб, выраженная слабость, тошнота. Кашля, болей в грудной клетке, одышки нет.</em></div>
+        </div>
+
+        <!-- АНАМНЕЗ -->
+        <div class="section">
+            <div class="section-title">📋 АНАМНЕЗ</div>
+            <div class="full-width-text"><strong>Anamnesis morbi:</strong> Со слов пациента, заболел остро 2 дня назад, когда появились озноб, головная боль, температура 38,5°С. Принимал парацетамол – с временным эффектом. Сегодня утром заметил болезненную припухлость в правой подмышечной впадине, которая быстро увеличилась. Вызвал СМП.</div>
+            <div class="full-width-text"><strong>Эпидемиологический анамнез (ключевой!):</strong> За 4–5 дней до заболевания (инкубационный период при чуме 2–6 дней) находился в эндемичном регионе (Горный Алтай, Республика Тыва). Отмечает предположительно укус блохи (работа на стоянке, где обитают грызуны – сурки, тарбаганы). Контакт с больными людьми, грызунами отрицает. Разделку туш, употребление мяса диких животных отрицает.</div>
+            <div class="full-width-text"><strong>Анамнез жизни:</strong> Хронические заболевания отрицает. Травмы, операции отсутствуют. Вредные привычки: курит.</div>
+            <div class="full-width-text"><strong>Аллергологический анамнез:</strong> Не отягощен.</div>
+            <div class="full-width-text"><strong>Гинекологический анамнез:</strong> Не применимо (пациент мужского пола).</div>
+        </div>
+
+        <!-- ОБЪЕКТИВНО -->
+        <div class="section">
+            <div class="section-title">🩺 ОБЪЕКТИВНО</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Общее состояние:</strong> <span class="value">средней тяжести</span></div>
+                <div class="field-item"><strong>Сознание:</strong> <span class="value">ясное, возбужден (психомоторное возбуждение на ранней стадии)</span></div>
+                <div class="field-item"><strong>Шкала комы Глазго (GCS):</strong> <span class="value">15 баллов</span></div>
+                <div class="field-item"><strong>Положение:</strong> <span class="value">активное (беспокойное)</span></div>
+                <div class="field-item"><strong>Кожные покровы:</strong> <span class="value">лицо гиперемировано, одутловато, склеры инъецированы («кроличьи глаза»). Кожа горячая, сухая. В правой подмышечной области – отек, гиперемия.</span></div>
+                <div class="field-item"><strong>Сыпь:</strong> <span class="value">нет (при среднетяжелом течении геморрагической сыпи может не быть)</span></div>
+                <div class="field-item"><strong>Зев:</strong> <span class="value">гиперемия, зернистость задней стенки глотки</span></div>
+                <div class="field-item"><strong>Миндалины:</strong> <span class="value">без особенностей</span></div>
+                <div class="field-item"><strong>Лимфоузлы:</strong> <span class="value">правый подмышечный лимфоузел увеличен до 3–4 см, резко болезнен, спаян с окружающей тканью, без флюктуации. Кожа над ним горячая, гиперемирована. Другие группы не увеличены.</span></div>
+                <div class="field-item"><strong>Пролежни:</strong> <span class="value">нет</span></div>
+                <div class="field-item"><strong>Отеки:</strong> <span class="value">нет</span></div>
+                <div class="field-item"><strong>t°:</strong> <span class="value">39,0 °C</span></div>
+            </div>
+        </div>
+
+        <!-- ОРГАНЫ ДЫХАНИЯ -->
+        <div class="section">
+            <div class="section-title">🌬️ ОРГАНЫ ДЫХАНИЯ</div>
+            <div class="field-list">
+                <div class="field-item"><strong>ЧДД в мин:</strong> <span class="value">22</span></div>
+                <div class="field-item"><strong>Одышка:</strong> <span class="value">нет (небольшое тахипноэ за счет лихорадки)</span></div>
+                <div class="field-item"><strong>Патологическое дыхание:</strong> <span class="value">нет</span></div>
+                <div class="field-item"><strong>Аускультативно:</strong> <span class="value">дыхание везикулярное, хрипов нет (исключает легочную форму)</span></div>
+                <div class="field-item"><strong>Хрипы сухие:</strong> <span class="value">нет</span></div>
+                <div class="field-item"><strong>Влажные хрипы:</strong> <span class="value">нет</span></div>
+                <div class="field-item"><strong>Крепитация:</strong> <span class="value">нет</span></div>
+                <div class="field-item"><strong>Шум трения плевры:</strong> <span class="value">нет</span></div>
+                <div class="field-item"><strong>Перкуторный звук:</strong> <span class="value">ясный легочный, симметричный</span></div>
+                <div class="field-item"><strong>Кашель:</strong> <span class="value">нет</span></div>
+                <div class="field-item"><strong>Мокрота:</strong> <span class="value">нет</span></div>
+            </div>
+        </div>
+
+        <!-- ОРГАНЫ КРОВООБРАЩЕНИЯ -->
+        <div class="section">
+            <div class="section-title">❤️ ОРГАНЫ КРОВООБРАЩЕНИЯ</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Пульс в мин:</strong> <span class="value">110</span></div>
+                <div class="field-item"><strong>Ритмичный, аритмичный, наполнение пульса:</strong> <span class="value">ритмичный, удовлетворительного наполнения</span></div>
+                <div class="field-item"><strong>ЧСС:</strong> <span class="value">110</span></div>
+                <div class="field-item"><strong>Дефицит пульса:</strong> <span class="value">нет</span></div>
+                <div class="field-item"><strong>АД мм.рт.ст.:</strong> <span class="value">105/65, привычное неизвестно, максимальное неизвестно</span></div>
+                <div class="field-item"><strong>Тоны сердца:</strong> <span class="value">приглушены, тахикардия</span></div>
+                <div class="field-item"><strong>Шум:</strong> <span class="value">не выслушивается</span></div>
+                <div class="field-item"><strong>Шум трения перикарда:</strong> <span class="value">нет</span></div>
+                <div class="field-item"><strong>Акцент какого тона на:</strong> <span class="value">нет</span></div>
+            </div>
+        </div>
+
+        <!-- ОРГАНЫ ПИЩЕВАРЕНИЯ -->
+        <div class="section">
+            <div class="section-title">🍽️ ОРГАНЫ ПИЩЕВАРЕНИЯ</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Язык:</strong> <span class="value">сухой, обложен белым налетом («меловой»)</span></div>
+                <div class="field-item"><strong>Живот:</strong> <span class="value">правильной формы, мягкий, безболезненный</span></div>
+                <div class="field-item"><strong>Болезненный в:</strong> <span class="value">безболезненный при пальпации</span></div>
+                <div class="field-item"><strong>Положительные симптомы:</strong> <span class="value">симптомы раздражения брюшины — отрицательные</span></div>
+                <div class="field-item"><strong>Перистальтика:</strong> <span class="value">выслушивается, обычная</span></div>
+                <div class="field-item"><strong>Печень:</strong> <span class="value">не увеличена</span></div>
+                <div class="field-item"><strong>Селезенка:</strong> <span class="value">не пальпируется</span></div>
+                <div class="field-item"><strong>Рвота:</strong> <span class="value">нет</span></div>
+                <div class="field-item"><strong>Стул:</strong> <span class="value">без особенностей (со слов)</span></div>
+            </div>
+        </div>
+
+        <!-- НЕРВНАЯ СИСТЕМА -->
+        <div class="section">
+            <div class="section-title">🧠 НЕРВНАЯ СИСТЕМА</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Поведение:</strong> <span class="value">возбужден, эйфоричен, нарушение координации (шаткая походка)</span></div>
+                <div class="field-item"><strong>Контакт:</strong> <span class="value">доступен</span></div>
+                <div class="field-item"><strong>Чувствительность:</strong> <span class="value">сохранена</span></div>
+                <div class="field-item"><strong>Речь:</strong> <span class="value">внятная</span></div>
+                <div class="field-item"><strong>Зрачки (OD, OS):</strong> <span class="value">D=S, обычные</span></div>
+                <div class="field-item"><strong>Фотореакция:</strong> <span class="value">живая</span></div>
+                <div class="field-item"><strong>Нистагм:</strong> <span class="value">нет</span></div>
+                <div class="field-item"><strong>Асимметрия лица:</strong> <span class="value">нет</span></div>
+                <div class="field-item"><strong>Менингеальные симптомы:</strong> <span class="value">отрицательные</span></div>
+                <div class="field-item"><strong>Очаговые симптомы:</strong> <span class="value">не выявлены</span></div>
+                <div class="field-item"><strong>Координаторные пробы:</strong> <span class="value">выполняет с трудом (шаткость)</span></div>
+            </div>
+        </div>
+
+        <!-- МОЧЕПОЛОВАЯ СИСТЕМА -->
+        <div class="section">
+            <div class="section-title">🚽 МОЧЕПОЛОВАЯ СИСТЕМА</div>
+            <div class="field-list">
+                <div class="field-item"><strong>Мочеиспускание:</strong> <span class="value">свободное, безболезненное, моча светлая, без примесей</span></div>
+                <div class="field-item"><strong>Симптом поколачивания:</strong> <span class="value">отрицательный с обеих сторон</span></div>
+            </div>
+        </div>
+
+        <!-- STATUS LOCALIS -->
+        <div class="section">
+            <div class="section-title">🔍 STATUS LOCALIS</div>
+            <div class="status-local">
+                Правая подмышечная впадина: пальпируется плотный, резко болезненный лимфатический узел (бубон) размером 3,5 × 3,0 см, 
+                спаянный с окружающими тканями (выраженный периаденит). Кожа над бубоном гиперемирована, отечна, горячая на ощупь. 
+                Флюктуации нет (нагноение отсутствует). Другие группы лимфоузлов не увеличены. Видимых повреждений, расчесов, 
+                первичного аффекта не обнаружено.
+            </div>
+        </div>
+
+        <!-- ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ -->
+        <div class="section">
+            <div class="section-title">📊 ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ</div>
+            <div class="scales-list">
+                <p>✔ <strong>Пульсоксиметрия (SpO2):</strong> 96% (на атмосферном воздухе).</p>
+                <p>✔ <strong>Глюкометрия (экспресс-метод):</strong> 5,2 ммоль/л.</p>
+                <p>✔ <strong>ЭКГ:</strong> Синусовая тахикардия с ЧСС 110 в мин. ЭОС не отклонена. Признаков острой коронарной патологии нет.</p>
+            </div>
+        </div>
+
+        <!-- ОЦЕНКА ПО ШКАЛАМ -->
+        <div class="section">
+            <div class="section-title">📊 ОЦЕНКА ПО ШКАЛАМ</div>
+            <div class="scales-list">
+                <p>✔ <strong>Шкала боли ВАШ:</strong> интенсивность болей — 6-7 баллов (резкая боль в области бубона).</p>
+                <p>✔ <strong>Шкала NEWS2:</strong> ЧДД 22 (2 балла), SpO2 96% (0), t° 39,0 (1 балл), АД сист. 105 (0), ЧСС 110 (1 балл), сознание ясное (0). Сумма: <strong>4 балла</strong> (средний риск, требуется госпитализация).</p>
+                <p>✔ <strong>Индекс Альговера (шоковый индекс):</strong> ЧСС/АДсист = 110/105 = <strong>1,05</strong> (пограничное значение, шока нет, риск декомпенсации).</p>
+                <p>✔ <strong>Шкала ОДН по Кассиль:</strong> не применима (дыхательной недостаточности нет).</p>
+                <p>✔ <strong>Шкала ШОКС:</strong> не применима.</p>
+                <p>✔ <strong>Шкала риска ТЭЛА:</strong> не применима.</p>
+                <p>✔ <strong>Шкала LAMS (инсульт):</strong> 0 баллов.</p>
+                <p>✔ <strong>Признаки ДЭП:</strong> не применимо.</p>
+                <p>✔ <strong>Состояние алкогольного опьянения:</strong> запах алкоголя не определяется.</p>
+            </div>
+        </div>
+
+        <!-- ПРИМЕЧАНИЕ ДЛЯ БРИГАДЫ СМП -->
+        <div class="note">
+            <strong>📌 Примечание для бригады СМП (дифференциальная диагностика):</strong><br>
+            Дифференциальный диагноз проведен с:
+            <ul class="note-list">
+                <li><strong>Туляремией (бубонная форма):</strong> (бубон, лихорадка, эпидемиологическая связь с грызунами. Отличия: бубон при туляремии менее болезненный, медленнее нарастает, нагнаивается редко, интоксикация слабее. Первичный аффект часто на месте внедрения).</li>
+                <li><strong>Лимфаденитом стафилококковой/стрептококковой этиологии:</strong> (увеличение и болезненность узла, лихорадка. Отличия: наличие входных ворот (рана, фурункул). Отсутствие выраженного периаденита. Медленное нарастание лихорадки. Нет характерного эпиданамнеза).</li>
+                <li><strong>Бубонной формой сапа (редко):</strong> (бубон, лихорадка. Отличия: контакт с больными лошадьми. Тяжелое, септическое течение).</li>
+                <li><strong>Гнойным гидраденитом (подмышечной области):</strong> (болезненный инфильтрат. Отличия: воспаление потовых желез, а не лимфоузла. Множественные очаги, свищи. Лихорадка вторична).</li>
+                <li><strong>Лептоспирозом:</strong> (острое начало, лихорадка, гиперемия лица. Отличия: выраженная миалгия, поражение почек (олигурия), печени (желтуха), геморрагический синдром. Бубон отсутствует).</li>
+            </ul>
+            <strong>Ключевые признаки бубонной формы чумы (среднетяжелое течение):</strong><br>
+            – Эпиданамнез: пребывание в эндемичном очаге (Алтай, Тыва, Монголия) за 2–6 дней до болезни, возможный контакт с грызунами или укус блохи.<br>
+            – Внезапное острое начало с высокой лихорадки (до 39–40°С), озноба, головной боли, миалгии.<br>
+            – Появление резко болезненного лимфоузла (бубона) в типичном месте (чаще пах, подмышка, шея).<br>
+            – Характерная внешность: одутловатое лицо, гиперемия, инъекция сосудов склер («кроличьи глаза»).<br>
+            – Тахикардия, приглушенность тонов, тенденция к гипотензии.<br>
+            – Отсутствие симптомов легочной формы (кашля, мокроты, одышки).<br>
+            – Отсутствие менингеальных знаков (при неосложненной форме).<br>
+            – Психомоторное возбуждение, эйфория (в отличие от заторможенности при тяжелой форме).<br>
+            – Эффект от терапии: быстрый (в течение 24–48 ч) эффект от стрептомицина или доксициклина в стационаре.
+        </div>
+
+        <!-- КРАСНАЯ КНОПКА (ДОБАВЛЕНО) -->
+        <div class="algorithm-btn-container">
+            <button class="btn-algorithm" id="openAlgorithmBtn">
+                <span>🚨 Оказание помощи в соответствии с Алгоритмами МСК</span>
+                <span class="btn-hint">▼ нажмите для открытия ▼</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- МОДАЛЬНОЕ ОКНО: ЧУМА / ОСПА ОБЕЗЬЯН - ДЛЯ ВЗРОСЛЫХ И ДЕТЕЙ -->
+<div class="modal-overlay" id="algorithmModal">
+    <div class="modal-container">
+        <div class="modal-header">
+            <h2>📋 Алгоритм оказания помощи (МСК)</h2>
+            <button class="modal-close" id="closeModalBtn">&times;</button>
+        </div>
+        <div class="modal-body">
+            <!-- Раздел для взрослых (ОРАНЖЕВО-КРАСНО-ГОЛУБОЙ) -->
+            <div class="alg-section">
+                <div class="alg-title">🔹 Чума | Оспа обезьян (взрослые)</div>
+                
+                <div class="condition-block">
+                    <ul class="list-styled">
+                        <li>Катетеризация вены или внутрикостный доступ</li>
+                        <li>Дисоль (Калия хлорид + натрия ацетат + натрия хлорид) 400 мл или Хлосоль (Калия хлорид + кальция хлорид + натрия хлорид) 500 мл или Натрия хлорид 0,9% – 500 мл в/венно капельно</li>
+                    </ul>
+                </div>
+
+                <div class="condition-block">
+                    <div class="condition-title">▶ при температуре тела > 38°С</div>
+                    <ul class="list-styled">
+                        <li>Метамизол натрия 1000 мг (2 мл) в/венно или Парацетамол 500 мг внутрь</li>
+                    </ul>
+                </div>
+
+                <div class="warning-block">
+                    <div class="warning-title">▶ при ДН III–IV ст.</div>
+                    <ul class="list-styled">
+                        <li>См. раздел «Анестезиология и реаниматология» (Дыхательная недостаточность)</li>
+                    </ul>
+                </div>
+
+                <div class="warning-block">
+                    <div class="warning-title">▶ при шоке</div>
+                    <ul class="list-styled">
+                        <li>См. раздел «Анестезиология и реаниматология» (Инфекционно-токсический шок)</li>
+                    </ul>
+                </div>
+
+                <div class="tactic-block">
+                    <div class="tactic-title">▶ Тактика ведения:</div>
+                    <ul class="list-styled" style="margin-top: 4px;">
+                        <li>1. Медицинская эвакуация в больницу (13) независимо от формы болезни. Транспортировка в транспортировочном изолирующем боксе (для экстренной консультативной инфекционной выездной бригады)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <hr>
+
+            <!-- Раздел для детей (ЗЕЛЕНО-КРАСНО-ГОЛУБОЙ) -->
+            <div class="alg-section child-section">
+                <div class="alg-title">🔹 Чума | MPOX (оспа обезьян) (дети)</div>
+                
+                <div class="condition-block">
+                    <ul class="list-styled">
+                        <li>Катетеризация вены или внутрикостный доступ</li>
+                        <li>Дисоль (Калия хлорид + натрия ацетат + натрия хлорид) 15–20 мл/кг или Хлосоль (Калия хлорид + кальция хлорид + натрия хлорид) 15–20 мл/кг или Натрия хлорид 0,9% – 15–20 мл/кг в/венно капельно 20–30 капель в минуту</li>
+                    </ul>
+                </div>
+
+                <div class="condition-block">
+                    <div class="condition-title">▶ при температуре тела ≥ 38,5°С</div>
+                    <ul class="list-styled">
+                        <li>Физические методы охлаждения детям до 12 лет</li>
+                        <li>Парацетамол 15 мг/кг внутрь или суппозитории ректально</li>
+                    </ul>
+                </div>
+
+                <div class="warning-block">
+                    <div class="warning-title">▶ при ДН III–IV ст.</div>
+                    <ul class="list-styled">
+                        <li>Санация верхних дыхательных путей</li>
+                        <li>Интубация трахеи или применение надгортанного герметизирующего устройства (см. «Приложение 3»)</li>
+                        <li>ИВЛ/ВВЛ (см. «Приложение 6»)</li>
+                        <li>Капнометрия-капнография (для бригад АиР)</li>
+                    </ul>
+                </div>
+
+                <div class="warning-block">
+                    <div class="warning-title">▶ при шоке</div>
+                    <ul class="list-styled">
+                        <li>См. раздел «Детская анестезиология и реаниматология» (Инфекционно-токсический шок)</li>
+                    </ul>
+                </div>
+
+                <div class="tactic-block">
+                    <div class="tactic-title">▶ Тактика ведения:</div>
+                    <ul class="list-styled" style="margin-top: 4px;">
+                        <li>1. Медицинская эвакуация в больницу (13) независимо от формы болезни. Транспортировка в транспортировочном изолирующем боксе (для экстренной консультативной инфекционной выездной бригады)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function() {
+        const modal = document.getElementById('algorithmModal');
+        const openBtn = document.getElementById('openAlgorithmBtn');
+        const closeBtn = document.getElementById('closeModalBtn');
+
+        if (!modal || !openBtn || !closeBtn) return;
+
+        function openModal() {
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        openBtn.addEventListener('click', openModal);
+        closeBtn.addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                closeModal();
+            }
+        });
+    })();
+</script>
+</body>
+</html>
