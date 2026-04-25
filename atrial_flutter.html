@@ -165,6 +165,276 @@
             font-weight: bold;
         }
 
+        /* ----- КНОПКА АЛГОРИТМА ----- */
+        .algorithm-btn-container {
+            margin-top: 32px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .btn-algorithm {
+            background-color: #dc2626;
+            color: white;
+            border: none;
+            padding: 10px 28px;
+            font-size: 1.15rem;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 6px 14px rgba(220, 38, 38, 0.3);
+            transition: all 0.2s ease;
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            letter-spacing: 0.3px;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .btn-algorithm:hover {
+            background-color: #b91c1c;
+            transform: scale(1.02);
+            box-shadow: 0 10px 20px rgba(185, 28, 28, 0.4);
+        }
+
+        .btn-algorithm:active {
+            transform: scale(0.98);
+        }
+
+        .btn-hint {
+            font-size: 0.7rem;
+            font-weight: normal;
+            opacity: 0.9;
+            letter-spacing: normal;
+            border-top: 1px dashed rgba(255,255,255,0.5);
+            padding-top: 4px;
+            margin-top: 2px;
+        }
+
+        /* ----- МОДАЛЬНОЕ ОКНО ----- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0.2s, opacity 0.2s;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .modal-container {
+            background-color: #fffef7;
+            max-width: 900px;
+            width: 100%;
+            max-height: 85vh;
+            border-radius: 28px;
+            box-shadow: 0 25px 45px -12px black;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            animation: modalFadeIn 0.25s ease-out;
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            background: #b91c1c;
+            color: white;
+            padding: 18px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid #ffc107;
+        }
+
+        .modal-header h2 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+            line-height: 1;
+            transition: 0.2s;
+            padding: 0 8px;
+            border-radius: 40px;
+        }
+
+        .modal-close:hover {
+            background-color: rgba(255,255,255,0.2);
+            transform: scale(1.1);
+        }
+
+        .modal-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px 28px;
+            background: #fefcf5;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* стили для алгоритма */
+        .alg-section {
+            margin-bottom: 24px;
+            border-left: 4px solid #dc2626;
+            padding-left: 18px;
+            background: #fff9f0;
+            border-radius: 0 14px 14px 0;
+        }
+        
+        /* ОТДЕЛЬНЫЙ КЛАСС ДЛЯ ДЕТСКОЙ СЕКЦИИ (ЗЕЛЕНАЯ ГАММА) */
+        .alg-section.child-section {
+            border-left: 4px solid #2e7d32;
+            background: #f1f8e9;
+        }
+
+        .alg-title {
+            font-weight: 800;
+            font-size: 1rem;
+            color: #a51c1c;
+            margin: 8px 0 8px 0;
+            display: inline-block;
+            background: #ffeeee;
+            padding: 4px 14px;
+            border-radius: 30px;
+        }
+        
+        .alg-section.child-section .alg-title {
+            color: #1b5e20;
+            background: #e8f5e9;
+        }
+
+        .list-styled {
+            margin: 8px 0 10px 24px;
+        }
+
+        .list-styled li {
+            margin: 6px 0;
+        }
+
+        .tactic-block {
+            background: #eef2fa;
+            border-radius: 16px;
+            padding: 12px 18px;
+            margin-top: 12px;
+            margin-bottom: 8px;
+        }
+
+        .tactic-title {
+            font-weight: 700;
+            color: #1e4663;
+            margin-bottom: 6px;
+        }
+
+        .condition-block {
+            background: #fff0d4;
+            border-left: 5px solid #dc2626;
+            padding: 10px 16px;
+            margin: 10px 0;
+            border-radius: 12px;
+        }
+        
+        /* ДЕТСКИЕ УСЛОВИЯ - ЗЕЛЕНЫЙ АКЦЕНТ */
+        .alg-section.child-section .condition-block {
+            background: #e8f5e9;
+            border-left: 5px solid #2e7d32;
+        }
+
+        .condition-title {
+            font-weight: 700;
+            color: #a51c1c;
+            margin-bottom: 6px;
+        }
+        
+        .alg-section.child-section .condition-title {
+            color: #1b5e20;
+        }
+
+        .warning-block {
+            background: #ffe6e6;
+            border-left: 5px solid #dc2626;
+            padding: 10px 16px;
+            margin: 10px 0;
+            border-radius: 12px;
+        }
+        
+        .alg-section.child-section .warning-block {
+            background: #ffebee;
+            border-left: 5px solid #c62828;
+        }
+        
+        .warning-title {
+            font-weight: 700;
+            color: #b91c1c;
+            margin-bottom: 6px;
+        }
+
+        /* ВЫДЕЛЕНИЕ ВРЕМЕННЫХ РАМОК */
+        .time-highlight {
+            font-weight: 800;
+            font-size: 1.05rem;
+            color: #b91c1c;
+            background-color: #fff0f0;
+            padding: 2px 8px;
+            border-radius: 6px;
+            white-space: nowrap;
+        }
+        
+        .alg-section.child-section .time-highlight {
+            color: #1b5e20;
+            background-color: #e8f5e9;
+        }
+
+        /* СИНИЙ БЛОК ДЛЯ "НЕ ТРЕБУЕТ ЛЕЧЕНИЯ" */
+        .no-treatment-block {
+            background: #eef2fa;
+            border-radius: 16px;
+            padding: 12px 18px;
+            margin-top: 12px;
+            margin-bottom: 8px;
+            border-left: 5px solid #1e4663;
+        }
+        
+        .no-treatment-text {
+            font-weight: 700;
+            color: #1e4663;
+        }
+
+        hr {
+            margin: 16px 0;
+            border-color: #f0dbb2;
+        }
+
         @media (max-width: 700px) {
             .field-item strong {
                 min-width: 170px;
@@ -174,6 +444,16 @@
             }
             .content {
                 padding: 20px;
+            }
+            .modal-body {
+                padding: 16px;
+            }
+            .btn-algorithm {
+                padding: 8px 22px;
+                font-size: 1rem;
+            }
+            .btn-hint {
+                font-size: 0.65rem;
             }
         }
     </style>
@@ -329,7 +609,7 @@
                 <li><strong>пароксизмальной наджелудочковой тахикардией (АВ-узловая реципрокная, предсердная)</strong> (ритм правильный, ЧСС обычно 150–250, внезапное начало и конец. На ЭКГ – узкие комплексы QRS, регулярный ритм, отсутствие зубцов P или их изменение. При трепетании с проведением 2:1 частота предсердий 250–350, желудочков – 125–175, на ЭКГ видны пилообразные волны F);</li>
                 <li><strong>фибрилляцией предсердий</strong> (хаотичный нерегулярный ритм желудочков, отсутствие зубцов P, мерцание изолинии. При трепетании ритм может быть регулярным (при постоянном проведении) или нерегулярным (при переменном проведении));</li>
                 <li><strong>желудочковой тахикардией</strong> (на ЭКГ – широкие комплексы QRS, возможна АВ-диссоциация. Состояние часто тяжелое, гемодинамика нарушена. В отличие от трепетания с аберрацией, где комплексы узкие или широкие, но есть предсердная активность);</li>
-                <li><strong>синусовой тахикардией</strong> (ритм правильный, ЧСС &lt;160, постепенное начало, зубцы P синусовые (положительные в I, II, aVF). Связь с нагрузкой, лихорадкой, анемией);</li>
+                <li><strong>синусовой тахикардией</strong> (ритм правильный, ЧСС <160, постепенное начало, зубцы P синусовые (положительные в I, II, aVF). Связь с нагрузкой, лихорадкой, анемией);</li>
                 <li><strong>тиреотоксическим кризом</strong> (тахикардия, аритмия, возбуждение, потливость, тремор, гипертермия, пучеглазие. В анамнезе – тиреотоксикоз);</li>
                 <li><strong>синдромом WPW с тахиаритмией</strong> (на ЭКГ в синусовом ритме – дельта-волна, короткий PQ. При тахикардии – широкие комплексы или узкие, возможна имитация трепетания).</li>
             </ul>
@@ -340,7 +620,234 @@
             – Ритм желудочков может быть регулярным (если проводимость постоянная) или нерегулярным (если меняется степень блокады).<br>
             – Гемодинамика может быть стабильной или нарушенной (гипотония, сердечная недостаточность).
         </div>
+
+        <!-- КРАСНАЯ КНОПКА (ДОБАВЛЕНО) -->
+        <div class="algorithm-btn-container">
+            <button class="btn-algorithm" id="openAlgorithmBtn">
+                <span>🚨 Оказание помощи в соответствии с Алгоритмами МСК</span>
+                <span class="btn-hint">▼ нажмите для открытия ▼</span>
+            </button>
+        </div>
     </div>
 </div>
+
+<!-- МОДАЛЬНОЕ ОКНО: ФИБРИЛЛЯЦИЯ-ТРЕПЕТАНИЕ ПРЕДСЕРДИЙ - ДЛЯ ВЗРОСЛЫХ И ДЕТЕЙ -->
+<div class="modal-overlay" id="algorithmModal">
+    <div class="modal-container">
+        <div class="modal-header">
+            <h2>📋 Алгоритм оказания помощи (МСК)</h2>
+            <button class="modal-close" id="closeModalBtn">&times;</button>
+        </div>
+        <div class="modal-body">
+            <!-- Раздел для взрослых (ОРАНЖЕВО-КРАСНО-ГОЛУБОЙ) -->
+            <div class="alg-section">
+                <div class="alg-title">🔹 Фибрилляция – трепетание предсердий (взрослые)</div>
+                
+                <div class="condition-block">
+                    <ul class="list-styled">
+                        <li>ЭКГ (ЭКП)</li>
+                        <li>ЭКГ-мониторинг</li>
+                    </ul>
+                </div>
+
+                <div class="condition-block">
+                    <div class="condition-title">▶ Пароксизм давностью <span class="time-highlight">менее 48 часов</span>, в том числе впервые возникший</div>
+                    <div class="warning-title" style="margin-top: 8px;">▶ При приеме антикоагулянтных препаратов – Гепарин не вводить!</div>
+                    <ul class="list-styled">
+                        <li>Катетеризация вены или внутрикостный доступ</li>
+                        <li>Гепарин натрия 5000 МЕ (1 мл) в/венно или Эноксапарин натрия 1 мг/кг подкожно</li>
+                    </ul>
+                    <div class="condition-title" style="margin-top: 8px;">▶ при отсутствии сердечной недостаточности, QRS < 0,12 секунд</div>
+                    <ul class="list-styled">
+                        <li>Пропафенон 1,5–2 мг/кг (0,4–0,6 мл/кг) в/венно капельно или через шприцевой дозатор в разведении Декстрозы 5% в течении 10 минут или Прокаинамид 500–1000 мг (5–10 мл) в/венно капельно или через шприцевой дозатор в разведении 0,9% Натрия хлорида в течение 20 минут</li>
+                    </ul>
+                    <div class="condition-title" style="margin-top: 8px;">▶ при наличии противопоказаний к применению пропафенона или прокаинамида</div>
+                    <ul class="list-styled">
+                        <li>Амиодарон 5 мг/кг (max – 450 мг (9 мл)) в/венно в разведении раствора Декстрозы 5% – 250 мл в/венно капельно</li>
+                        <li>Ожидание эффекта не более 20 минут</li>
+                    </ul>
+                </div>
+
+                <div class="tactic-block">
+                    <div class="tactic-title">▶ Тактика ведения:</div>
+                    <ul class="list-styled" style="margin-top: 4px;">
+                        <li>1. Рекомендовать обратиться в поликлинику (34) (при восстановлении синусового ритма или малосимптомном пароксизме и стабильной гемодинамике у пациентов получающих антикоагулянтную терапию)</li>
+                        <li>2. Медицинская эвакуация в больницу в клинических ситуациях, не указанных в п. 1 (13)</li>
+                        <li>3. При отказе от медицинской эвакуации – рекомендовать обратиться в поликлинику (35)</li>
+                    </ul>
+                </div>
+
+                <div class="condition-block">
+                    <div class="condition-title">▶ Фибрилляция – трепетание предсердий давностью <span class="time-highlight">более 48 часов</span> или <span class="time-highlight">неуточненной давности</span></div>
+                    <div class="condition-title" style="margin-top: 8px;">▶ без клинических проявлений</div>
+                </div>
+                <div class="no-treatment-block">
+                    <div class="no-treatment-text">▶ Не требует лечения на этапе оказания скорой медицинской помощи</div>
+                </div>
+
+                <div class="tactic-block">
+                    <div class="tactic-title">▶ Тактика ведения:</div>
+                    <ul class="list-styled" style="margin-top: 4px;">
+                        <li>1. Медицинская эвакуация в больницу при впервые выявленном пароксизме (13)</li>
+                        <li>2. Рекомендовать обратиться в поликлинику при наличии пароксизма в анамнезе (34)</li>
+                    </ul>
+                </div>
+
+                <div class="condition-block">
+                    <div class="condition-title">▶ при неосложненной тахисистолии без гипотонии и признаков застойной сердечной недостаточности</div>
+                    <ul class="list-styled">
+                        <li>Катетеризация вены или внутрикостный доступ</li>
+                        <li>Метопролол 12,5–25 мг внутрь или 5–15 мг в/венно (5–15 мл) или Эсмолол 0,5 мг/кг/мин (0,05 мл/кг/мин) за 1 минуту, затем 0,05 мг/кг/мин (0,005 мл/кг/мин) за 4 минуты в/венно (для бригад АиР) или Пропранолол 10–20 мг внутрь или Верапамил 5 мг (2 мл) в/венно</li>
+                    </ul>
+                </div>
+
+                <div class="condition-block">
+                    <div class="condition-title">▶ при неосложненной тахисистолии на фоне застойной сердечной недостаточности без гипотонии</div>
+                    <ul class="list-styled">
+                        <li>Катетеризация вены или внутрикостный доступ</li>
+                        <li>Амиодарон 300–450 мг (6–9 мл) в разведении Декстрозы 5% – 20 мл в/венно капельно с помощью шприцевого насоса в течение 20 минут</li>
+                    </ul>
+                </div>
+
+                <div class="tactic-block">
+                    <div class="tactic-title">▶ Тактика ведения:</div>
+                    <ul class="list-styled" style="margin-top: 4px;">
+                        <li>1. Медицинская эвакуация в больницу при частоте желудочковых сокращений ≥ 130 ударов в минуту после проведенной терапии (13)</li>
+                        <li>2. При отказе от медицинской эвакуации в больницу – рекомендовать обратиться в поликлинику (35)</li>
+                        <li>3. Рекомендовать обратиться в поликлинику в клинических ситуациях, не указанных в п. 1 (34)</li>
+                    </ul>
+                </div>
+
+                <div class="warning-block">
+                    <div class="warning-title">▶ при тахисистолии, осложнившейся гипотонией, острой левожелудочковой недостаточностью или затяжным ангинозным приступом (независимо от давности возникновения нарушения ритма)</div>
+                    <ul class="list-styled">
+                        <li>Катетеризация вены или внутрикостный доступ</li>
+                        <li>Гепарин натрия 5000 МЕ (1 мл) в/венно или Эноксапарин натрия 1 мг/кг подкожно</li>
+                    </ul>
+                    <div class="condition-title" style="margin-top: 8px;">▶ Премедикация для ЭИТ:</div>
+                    <ul class="list-styled">
+                        <li>Мидазолам 5 мг (1 мл) (для бригад АиР) или Диазепам 10 мг (2 мл) в/венно</li>
+                        <li>Кетамин 1–2 мг/кг (0,02–0,04 мл/кг) в/венно или Пропофол 2,0–2,5 мг/кг (0,2–0,25 мл/кг) массы тела, по 40 мг (4 мл) каждые 10 секунд до эффекта (для бригад АиР)</li>
+                    </ul>
+                    <div class="condition-title" style="margin-top: 8px;">▶ Электроимпульсная терапия:</div>
+                    <ul class="list-styled">
+                        <li>Разряд 100 Дж, при неэффективности увеличить мощность заряда до 200 Дж (провести не более 5 разрядов)</li>
+                        <li>Дополнительно при отеке легких: см. подраздел данного раздела «Острая левожелудочковая недостаточность»</li>
+                    </ul>
+                </div>
+
+                <div class="tactic-block">
+                    <div class="tactic-title">▶ Тактика ведения:</div>
+                    <ul class="list-styled" style="margin-top: 4px;">
+                        <li>1. Медицинская эвакуация в больницу (13). Транспортировка на носилках с приподнятым головным концом</li>
+                        <li>2. При отказе от медицинской эвакуации в больницу – активный аудиоконтроль (55)</li>
+                        <li>3. При повторном отказе – рекомендовать обратиться в поликлинику (35)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <hr>
+
+            <!-- Раздел для детей (ЗЕЛЕНО-КРАСНО-ГОЛУБОЙ) -->
+            <div class="alg-section child-section">
+                <div class="alg-title">🔹 Фибрилляция-трепетание предсердий (дети)</div>
+                
+                <div class="condition-block">
+                    <div class="condition-title">▶ Фибрилляция-трепетание предсердий (пароксизмальная форма, приступ продолжительностью <span class="time-highlight">до 48 часов</span>)</div>
+                    <div class="condition-title" style="margin-top: 8px;">▶ Состояние средней тяжести, гемодинамика стабильная</div>
+                    <ul class="list-styled">
+                        <li>ЭКГ (ЭКП)</li>
+                        <li>ЭКГ-мониторинг</li>
+                        <li>Пульсоксиметрия</li>
+                        <li>Оксигенотерапия при SpO2 ≤ 94% – FiO2 0.5</li>
+                        <li>Катетеризация вены или внутрикостный доступ</li>
+                        <li>Диазепам в/венно (см. «Приложение 43») или 0,3 мг/кг (0,06 мл/кг) в/мышечно</li>
+                        <li>Прокаинамид 10 мг/кг (0,1 мл/кг) и Фенилэфрин 0,1 мл в одном шприце (вне зависимости от возраста) в/венно медленно</li>
+                    </ul>
+                    <div class="warning-title" style="margin-top: 8px;">▶ При QRS > 0,12 сек. Прокаинамид противопоказан</div>
+                </div>
+
+                <div class="condition-block">
+                    <div class="condition-title">▶ Фибрилляция-трепетание предсердий:</div>
+                    <div class="condition-title" style="margin-top: 8px;">▶ пароксизмальная форма, приступ продолжительностью <span class="time-highlight">более 48 часов</span> или <span class="time-highlight">продолжительность приступа неизвестна</span></div>
+                    <div class="condition-title" style="margin-top: 8px;">▶ тахисистолическая (персистирующая, постоянная форма)</div>
+                    <div class="condition-title" style="margin-top: 8px;">▶ Состояние средней тяжести, гемодинамика стабильная</div>
+                </div>
+                <div class="no-treatment-block">
+                    <div class="no-treatment-text">▶ Не требует лечения на этапе оказания скорой медицинской помощи</div>
+                </div>
+
+                <div class="warning-block">
+                    <div class="warning-title">▶ Фибрилляция-трепетание предсердий (пароксизмальная форма с проведением по дополнительному предсердно-желудочковому соединению)</div>
+                    <div class="warning-title" style="margin-top: 8px;">▶ Состояние тяжелое, гемодинамика нестабильная – при снижении САД > 20% от возрастной нормы</div>
+                    <ul class="list-styled">
+                        <li>ЭКГ-мониторинг</li>
+                        <li>Катетеризация вены или внутрикостный доступ</li>
+                    </ul>
+                    <div class="condition-title" style="margin-top: 8px;">▶ Вводная анестезия комбинацией препаратов:</div>
+                    <ul class="list-styled">
+                        <li>Мидазолам 0,3 мг/кг (0,06 мл/кг) в/венно (для бригад АиР) и Фентанил 1–4 мкг/кг (0,02–0,08 мл/кг) в/венно или Диазепам 0,3–0,5 мг/кг (0,06–0,1 мл/кг) в/венно и Фентанил 1–4 мкг/кг (0,02–0,08 мл/кг) в/венно или Пропофол 2–4 мг/кг (0,2–0,4 мл/кг) (для бригад АиР)</li>
+                    </ul>
+                    <div class="condition-title" style="margin-top: 8px;">▶ Синхронизированная электрокардиоверсия:</div>
+                    <ul class="list-styled">
+                        <li>1–2 Дж/кг</li>
+                        <li>При отсутствии эффекта не ранее, чем через 2–3 минуты: Синхронизированная электрокардиоверсия 4 Дж/кг</li>
+                        <li>При отсутствии эффекта: Амиодарон 5 мг/кг (0,1 мл/кг) в/венно капельно в течение не менее 30 минут или через шприцевой дозатор во время медицинской эвакуации (см. «Приложение 40»)</li>
+                        <li>Синхронизированная электрокардиоверсия 4 Дж/кг (на фоне инфузии Амиодарона)</li>
+                    </ul>
+                </div>
+
+                <div class="condition-block">
+                    <div class="condition-title">▶ Фибрилляция-трепетание предсердий нормо- или брадисистолическая, персистирущая, постоянная форма, гемодинамика стабильная</div>
+                </div>
+                <div class="no-treatment-block">
+                    <div class="no-treatment-text">▶ Не требует лечения на этапе оказания скорой медицинской помощи</div>
+                </div>
+
+                <div class="tactic-block">
+                    <div class="tactic-title">▶ Тактика ведения:</div>
+                    <ul class="list-styled" style="margin-top: 4px;">
+                        <li>1. Медицинская эвакуация в больницу (13). Транспортировка на носилках</li>
+                        <li>2. При отказе от медицинской эвакуации – актив на «103» через 2 часа (28)</li>
+                        <li>3. При повторном отказе – актив в ОНМПВиДН (31)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function() {
+        const modal = document.getElementById('algorithmModal');
+        const openBtn = document.getElementById('openAlgorithmBtn');
+        const closeBtn = document.getElementById('closeModalBtn');
+
+        if (!modal || !openBtn || !closeBtn) return;
+
+        function openModal() {
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        openBtn.addEventListener('click', openModal);
+        closeBtn.addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                closeModal();
+            }
+        });
+    })();
+</script>
 </body>
 </html>
