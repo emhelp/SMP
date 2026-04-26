@@ -23,9 +23,22 @@
 
   h1 {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     color: #0f1446;
     font-size: 28px;
+  }
+
+  .subtitle {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 16px;
+    color: #0f1446;
+  }
+
+  .subtitle a {
+    color: #0f1446;
+    text-decoration: underline;
+    font-weight: bold;
   }
 
   .apps-menu {
@@ -78,29 +91,70 @@
     h1 {
       font-size: 22px;
     }
+    .subtitle {
+      font-size: 14px;
+    }
+  }
+
+  /* Модальное окно для просмотра изображений */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.9);
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .modal-content {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+  }
+
+  .close-modal {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    color: #fff;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    background: none;
+    border: none;
+  }
+
+  .close-modal:hover {
+    color: #ccc;
   }
 </style>
 </head>
 <body>
 
 <h1>📋 Приложения к алгоритмам</h1>
+<div class="subtitle">Так же смотрите раздел <a href="calculators.html">"Калькуляторы"</a></div>
 
 <div class="apps-menu">
-  <!-- Активные кнопки 1-11 -->
-  <button class="apps-btn" onclick="window.location.href='slr_parameters.html'">1) Параметры проведения СЛР</button>
-  <button class="apps-btn" onclick="window.location.href='tube_sizes.html'">2) Размеры эндотрахеальных, ларингеальных трубок и катетеров для аспирации</button>
-  <button class="apps-btn" onclick="window.location.href='airway_children.html'">3) Тактика обеспечения проходимости дыхательных путей у детей</button>
-  <button class="apps-btn" onclick="window.location.href='airway_adults.html'">4) Тактика обеспечения проходимости дыхательных путей у взрослых</button>
-  <button class="apps-btn" onclick="window.location.href='difficult_intubation.html'">5) Порядок действий при "трудной" интубации трахеи у пациента с сохраненной сердечной деятельностью</button>
-  <button class="apps-btn" onclick="window.location.href='respiratory_support.html'">6) Параметры респираторной поддержки при сохраненном самостоятельном кровообращении</button>
-  <button class="apps-btn" onclick="window.location.href='apgar_score.html'">7) Критерии оценки новорожденного по шкале Апгар</button>
-  <button class="apps-btn" onclick="window.location.href='newborn_resuscitation.html'">8) Алгоритм первичной реанимации новорожденного (при рождении)</button>
-  <button class="apps-btn" onclick="window.location.href='newborn_ventilation.html'">9) Начальные параметры ИВЛ у новорожденных</button>
-  <button class="apps-btn" onclick="window.location.href='children_norms.html'">10) Физиологические возрастные нормы у детей (в покое)</button>
-  <button class="apps-btn" onclick="window.location.href='gastric_lavage_children.html'">11) Промывание желудка у детей</button>
+  <!-- Активные кнопки 1-12 -->
+  <button class="apps-btn" onclick="openImage('Параметры проведения СЛР.jpg')">1) Параметры проведения СЛР</button>
+  <button class="apps-btn" onclick="openImage('Размеры эндотрахеальных трубок и катетеров.png')">2) Размеры эндотрахеальных, ларингеальных трубок и катетеров для аспирации</button>
+  <button class="apps-btn" onclick="openImage('Физиологические возрастные нормы у детей.jpg')">3) Тактика обеспечения проходимости дыхательных путей у детей</button>
+  <button class="apps-btn" onclick="openImage('Тактика обеспечения проходимости дыхательных путей у взрослых.png')">4) Тактика обеспечения проходимости дыхательных путей у взрослых</button>
+  <button class="apps-btn" onclick="openImage('Порядок действия при «трудной» интубации трахеи.png')">5) Порядок действий при "трудной" интубации трахеи у пациента с сохраненной сердечной деятельностью</button>
+  <button class="apps-btn" onclick="openImage('Параметры респираторной поддержки при сохраненном самостоятельном кровообращении.jpg')">6) Параметры респираторной поддержки при сохраненном самостоятельном кровообращении</button>
+  <button class="apps-btn" onclick="openImage('Критерии оценки новорождённого по Апгар.jpg')">7) Критерии оценки новорожденного по шкале Апгар</button>
+  <button class="apps-btn" onclick="openImage('Алгоритм первичной реанимации новорождённого при рождении.png')">8) Алгоритм первичной реанимации новорожденного (при рождении)</button>
+  <button class="apps-btn" onclick="openImage('Начальные параметры ИВЛ у новорожденных.jpg')">9) Начальные параметры ИВЛ у новорожденных</button>
+  <button class="apps-btn" onclick="openImage('Физиологические возрастные нормы у детей.jpg')">10) Физиологические возрастные нормы у детей (в покое)</button>
+  <button class="apps-btn" onclick="openImage('Промывание желудка у детей.png')">11) Промывание желудка у детей</button>
+  <button class="apps-btn" onclick="openImage('Определение площади ожогов у детей.png')">12) Определение площади ожогов у детей (по Lund и Browder)</button>
 
-  <!-- Неактивные кнопки 12-43 -->
-  <button class="apps-btn disabled">12) Определение площади ожогов у детей (по Lund и Browder)</button>
+  <!-- Неактивные кнопки 13-43 -->
   <button class="apps-btn disabled">13) Шкалы для оценки интенсивности боли</button>
   <button class="apps-btn disabled">14) Острая дыхательная недостаточность</button>
   <button class="apps-btn disabled">15) Шкала оценки вероятности ТЭЛА (Revised Geneva Score)</button>
@@ -134,7 +188,33 @@
   <button class="apps-btn disabled">43) Внутривенное введение раствора Диазепама у детей</button>
 </div>
 
+<!-- Модальное окно для изображений -->
+<div id="imageModal" class="modal">
+  <button class="close-modal" onclick="closeModal()">&times;</button>
+  <img id="modalImage" class="modal-content">
+</div>
+
 <script>
+  // Функция открытия изображения в модальном окне
+  function openImage(imagePath) {
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImage');
+    modal.style.display = 'flex';
+    modalImg.src = imagePath;
+  }
+
+  // Функция закрытия модального окна
+  function closeModal() {
+    document.getElementById('imageModal').style.display = 'none';
+  }
+
+  // Закрытие по клику вне изображения
+  document.getElementById('imageModal').addEventListener('click', function(e) {
+    if (e.target === this) {
+      closeModal();
+    }
+  });
+
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/SMP/sw.js')
       .then(reg => console.log('✅ SW зарегистрирован:', reg))
