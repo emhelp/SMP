@@ -129,7 +129,7 @@
 
   .modal-content {
     max-width: 90%;
-    max-height: 90%;
+    max-height: 80%;
     object-fit: contain;
   }
 
@@ -143,10 +143,57 @@
     cursor: pointer;
     background: none;
     border: none;
+    z-index: 1001;
   }
 
   .close-modal:hover {
     color: #ccc;
+  }
+
+  /* Навигационные кнопки для карусели */
+  .nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0,0,0,0.6);
+    color: white;
+    font-size: 36px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    padding: 12px 18px;
+    border-radius: 50%;
+    transition: all 0.2s;
+    z-index: 1001;
+  }
+
+  .nav-btn:hover {
+    background-color: rgba(0,0,0,0.8);
+  }
+
+  .nav-btn:active {
+    transform: translateY(-50%) scale(0.95);
+  }
+
+  .prev-btn {
+    left: 20px;
+  }
+
+  .next-btn {
+    right: 20px;
+  }
+
+  .counter {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    background-color: rgba(0,0,0,0.6);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+    z-index: 1001;
   }
 </style>
 </head>
@@ -170,8 +217,10 @@
   <button class="apps-btn" onclick="openImage('Промывание желудка у детей.png')">11) Промывание желудка у детей</button>
   <button class="apps-btn" onclick="openImage('Определение площади ожогов у детей.png')">12) Определение площади ожогов у детей (по Lund и Browder)</button>
 
-  <!-- Неактивные кнопки 13-43 -->
-  <button class="apps-btn disabled">13) Шкалы для оценки интенсивности боли</button>
+  <!-- Активная кнопка 13 с каруселью -->
+  <button class="apps-btn" onclick="openImageGallery(['Шкалы оценки боли взрослая.png', 'Шкалы оценки боли детская.png'])">13) Шкалы для оценки интенсивности боли</button>
+
+  <!-- Неактивные кнопки 14-43 -->
   <button class="apps-btn disabled">14) Острая дыхательная недостаточность</button>
   <button class="apps-btn disabled">15) Шкала оценки вероятности ТЭЛА (Revised Geneva Score)</button>
   <button class="apps-btn disabled">16) ШОКС</button>
@@ -207,24 +256,100 @@
 <!-- Модальное окно для изображений -->
 <div id="imageModal" class="modal">
   <button class="close-modal" onclick="closeModal()">&times;</button>
+  <button class="nav-btn prev-btn" id="prevBtn" style="display: none;">&#10094;</button>
+  <button class="nav-btn next-btn" id="nextBtn" style="display: none;">&#10095;</button>
   <img id="modalImage" class="modal-content">
+  <div id="imageCounter" class="counter" style="display: none;"></div>
 </div>
 
 <script>
-  // Функция открытия изображения в модальном окне
+  // Переменные для карусели
+  let currentGallery = [];
+  let currentIndex = 0;
+  let isGalleryMode = false;
+
+  // Функция открытия одного изображения
   function openImage(imagePath) {
+    isGalleryMode = false;
+    currentGallery = [];
     const modal = document.getElementById('imageModal');
     const modalImg = document.getElementById('modalImage');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const counter = document.getElementById('imageCounter');
+    
+    prevBtn.style.display = 'none';
+    nextBtn.style.display = 'none';
+    counter.style.display = 'none';
+    
     modal.style.display = 'flex';
     modalImg.src = imagePath;
+  }
+
+  // Функция открытия галереи изображений
+  function openImageGallery(images) {
+    isGalleryMode = true;
+    currentGallery = images;
+    currentIndex = 0;
+    
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImage');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const counter = document.getElementById('imageCounter');
+    
+    prevBtn.style.display = 'flex';
+    nextBtn.style.display = 'flex';
+    counter.style.display = 'block';
+    
+    modal.style.display = 'flex';
+    updateGalleryImage();
+  }
+
+  // Обновление текущего изображения в галерее
+  function updateGalleryImage() {
+    const modalImg = document.getElementById('modalImage');
+    const counter = document.getElementById('imageCounter');
+    modalImg.src = currentGallery[currentIndex];
+    counter.textContent = `${currentIndex + 1} / ${currentGallery.length}`;
+    
+    // Управление видимостью кнопок навигации
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    prevBtn.style.opacity = currentIndex === 0 ? '0.3' : '1';
+    nextBtn.style.opacity = currentIndex === currentGallery.length - 1 ? '0.3' : '1';
+  }
+
+  // Следующее изображение
+  function nextImage() {
+    if (!isGalleryMode) return;
+    if (currentIndex < currentGallery.length - 1) {
+      currentIndex++;
+      updateGalleryImage();
+    }
+  }
+
+  // Предыдущее изображение
+  function prevImage() {
+    if (!isGalleryMode) return;
+    if (currentIndex > 0) {
+      currentIndex--;
+      updateGalleryImage();
+    }
   }
 
   // Функция закрытия модального окна
   function closeModal() {
     document.getElementById('imageModal').style.display = 'none';
+    isGalleryMode = false;
+    currentGallery = [];
   }
 
-  // Закрытие по клику вне изображения
+  // Обработчики для кнопок навигации
+  document.getElementById('prevBtn').addEventListener('click', prevImage);
+  document.getElementById('nextBtn').addEventListener('click', nextImage);
+
+  // Закрытие по клику вне изображения (но не по кнопкам навигации)
   document.getElementById('imageModal').addEventListener('click', function(e) {
     if (e.target === this) {
       closeModal();
