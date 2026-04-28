@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Карта вызова скорой медицинской помощи | Эктопическая тахикардия, аритмогенный шок</title>
     <style>
         * {
@@ -10,7 +10,6 @@
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
             background-color: #e9ecef;
             font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
@@ -18,7 +17,6 @@
             color: #212529;
             line-height: 1.45;
         }
-
         .card {
             max-width: 1100px;
             margin: 0 auto;
@@ -28,7 +26,6 @@
             overflow: hidden;
             border: 1px solid #dee2e6;
         }
-
         .mkb-row {
             background: linear-gradient(135deg, #0b3b5f 0%, #1a4d6f 100%);
             color: white;
@@ -37,12 +34,10 @@
             font-size: 1.1rem;
             border-bottom: 4px solid #ffc107;
         }
-
         .mkb-row span {
             font-weight: 700;
             color: #ffc107;
         }
-
         .diagnosis {
             background: #fef9e6;
             padding: 12px 32px;
@@ -52,17 +47,14 @@
             color: #2d3e50;
             border-bottom: 1px solid #f0e2b6;
         }
-
         .content {
             padding: 24px 32px 40px 32px;
         }
-
         .section {
             margin-bottom: 32px;
             break-inside: avoid;
             page-break-inside: avoid;
         }
-
         .section-title {
             font-size: 1.4rem;
             font-weight: 700;
@@ -75,45 +67,38 @@
             border-radius: 0 12px 12px 0;
             line-height: 1.3;
         }
-
         .field-list {
             display: flex;
             flex-direction: column;
             gap: 10px;
         }
-
         .field-item {
             padding: 6px 0 4px 8px;
             border-bottom: 1px dotted #e0e6ed;
             font-size: 0.94rem;
             line-height: 1.45;
         }
-
         .field-item strong {
             font-weight: 700;
             color: #1e4663;
             display: inline-block;
             min-width: 240px;
         }
-
         .field-item .value {
             color: #2c3e4e;
             font-weight: 500;
         }
-
         .full-width-text {
             padding: 8px 0 8px 8px;
             border-bottom: 1px dotted #e0e6ed;
             font-size: 0.94rem;
         }
-
         .full-width-text strong {
             font-weight: 700;
             color: #1e4663;
             display: inline-block;
             min-width: 240px;
         }
-
         .status-local {
             background: #fef7e0;
             padding: 14px 18px;
@@ -122,18 +107,15 @@
             border: 1px solid #ffe3a4;
             font-size: 0.94rem;
         }
-
         .scales-list {
             background: #f1f4f9;
             padding: 12px 20px;
             border-radius: 20px;
             margin-top: 10px;
         }
-
         .scales-list p {
             margin: 8px 0;
         }
-
         .assistance-block {
             background: #e8f5e9;
             padding: 14px 18px;
@@ -142,17 +124,14 @@
             border-left: 4px solid #2e7d32;
             font-size: 0.94rem;
         }
-
         .assistance-step {
             margin-bottom: 12px;
             padding-left: 8px;
             border-left: 2px solid #a5d6a7;
         }
-
         .assistance-step strong {
             color: #1b5e20;
         }
-
         .note {
             background: #e7f1ff;
             border-left: 4px solid #1a4d6f;
@@ -162,20 +141,17 @@
             font-size: 0.9rem;
             color: #1e4663;
         }
-
         .note-list {
             margin-top: 8px;
             margin-left: 20px;
             list-style-type: none;
             padding-left: 0;
         }
-
         .note-list li {
             margin-bottom: 8px;
             padding-left: 20px;
             position: relative;
         }
-
         .note-list li:before {
             content: "•";
             position: absolute;
@@ -183,17 +159,200 @@
             color: #1a4d6f;
             font-weight: bold;
         }
-
+        .algorithm-btn-container {
+            margin-top: 32px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .btn-algorithm {
+            background-color: #dc2626;
+            color: white;
+            border: none;
+            padding: 10px 28px;
+            font-size: 1.15rem;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 6px 14px rgba(220, 38, 38, 0.3);
+            transition: all 0.2s ease;
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            letter-spacing: 0.3px;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        .btn-algorithm:hover {
+            background-color: #b91c1c;
+            transform: scale(1.02);
+            box-shadow: 0 10px 20px rgba(185, 28, 28, 0.4);
+        }
+        .btn-algorithm:active {
+            transform: scale(0.98);
+        }
+        .btn-hint {
+            font-size: 0.7rem;
+            font-weight: normal;
+            opacity: 0.9;
+            letter-spacing: normal;
+            border-top: 1px dashed rgba(255,255,255,0.5);
+            padding-top: 4px;
+            margin-top: 2px;
+        }
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0.2s, opacity 0.2s;
+            padding: 20px;
+        }
+        .modal-overlay.active {
+            visibility: visible;
+            opacity: 1;
+        }
+        .modal-container {
+            background-color: #fffef7;
+            max-width: 900px;
+            width: 100%;
+            max-height: 85vh;
+            border-radius: 28px;
+            box-shadow: 0 25px 45px -12px black;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            animation: modalFadeIn 0.25s ease-out;
+        }
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .modal-header {
+            background: #b91c1c;
+            color: white;
+            padding: 18px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid #ffc107;
+        }
+        .modal-header h2 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .modal-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+            line-height: 1;
+            transition: 0.2s;
+            padding: 0 8px;
+            border-radius: 40px;
+        }
+        .modal-close:hover {
+            background-color: rgba(255,255,255,0.2);
+            transform: scale(1.1);
+        }
+        .modal-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px 28px;
+            background: #fefcf5;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        .alg-section {
+            margin-bottom: 24px;
+            border-left: 4px solid #dc2626;
+            padding-left: 18px;
+            background: #fff9f0;
+            border-radius: 0 14px 14px 0;
+        }
+        .alg-section.child-section {
+            border-left: 4px solid #2e7d32;
+            background: #f1f8e9;
+        }
+        .alg-title {
+            font-weight: 800;
+            font-size: 1rem;
+            color: #a51c1c;
+            margin: 8px 0 8px 0;
+            display: inline-block;
+            background: #ffeeee;
+            padding: 4px 14px;
+            border-radius: 30px;
+        }
+        .alg-section.child-section .alg-title {
+            color: #1b5e20;
+            background: #e8f5e9;
+        }
+        .list-styled {
+            margin: 8px 0 10px 24px;
+        }
+        .list-styled li {
+            margin: 6px 0;
+        }
+        .tactic-block {
+            background: #eef2fa;
+            border-radius: 16px;
+            padding: 12px 18px;
+            margin-top: 12px;
+            margin-bottom: 8px;
+        }
+        .tactic-title {
+            font-weight: 700;
+            color: #1e4663;
+            margin-bottom: 6px;
+        }
+        .condition-block {
+            background: #fff0d4;
+            border-left: 5px solid #dc2626;
+            padding: 10px 16px;
+            margin: 10px 0;
+            border-radius: 12px;
+        }
+        .condition-title {
+            font-weight: 700;
+            color: #a51c1c;
+            margin-bottom: 6px;
+        }
+        .warning-block {
+            background: #ffe6e6;
+            border-left: 5px solid #dc2626;
+            padding: 10px 16px;
+            margin: 10px 0;
+            border-radius: 12px;
+        }
+        .warning-title {
+            font-weight: 700;
+            color: #b91c1c;
+            margin-bottom: 6px;
+        }
+        hr {
+            margin: 16px 0;
+            border-color: #f0dbb2;
+        }
         @media (max-width: 700px) {
-            .field-item strong {
-                min-width: 170px;
-            }
-            .full-width-text strong {
-                min-width: 170px;
-            }
-            .content {
-                padding: 20px;
-            }
+            .field-item strong { min-width: 170px; }
+            .full-width-text strong { min-width: 170px; }
+            .content { padding: 20px; }
+            .modal-body { padding: 16px; }
+            .btn-algorithm { padding: 8px 22px; font-size: 1rem; }
+            .btn-hint { font-size: 0.65rem; }
         }
     </style>
 </head>
@@ -205,15 +364,11 @@
     <div class="diagnosis">
         🧾 <strong>Диагноз:</strong> Эктопическая тахикардия, пароксизмальная форма. Аритмогенный шок. Употребление алкоголя?
     </div>
-
     <div class="content">
-        <!-- ЖАЛОБЫ -->
         <div class="section">
             <div class="section-title">📢 ЖАЛОБЫ</div>
             <div class="full-width-text"><em>На момент осмотра пациент предъявляет жалобы на давящие боли в груди без иррадиации, чувство нехватки воздуха, общую слабость.</em></div>
         </div>
-
-        <!-- АНАМНЕЗ -->
         <div class="section">
             <div class="section-title">📋 АНАМНЕЗ</div>
             <div class="full-width-text"><strong>Anamnesis morbi:</strong> Со слов родственников, данные жалобы возникли сегодня, около 09:00. Самостоятельно ничего не принимал. Боли усилились, вызвали СМП. В течение последней недели отмечает появление одышки при физической нагрузке, давящие боли продолжительностью не более 5 минут.</div>
@@ -222,8 +377,6 @@
             <div class="full-width-text"><strong>Эпидемиологический анамнез:</strong> Контактов с инфекциями нет. За пределы РФ не выезжал. ЕМИАС недоступен.</div>
             <div class="full-width-text"><strong>Гинекологический анамнез:</strong> Не применимо (пациент мужского пола).</div>
         </div>
-
-        <!-- ОБЪЕКТИВНО -->
         <div class="section">
             <div class="section-title">🩺 ОБЪЕКТИВНО</div>
             <div class="field-list">
@@ -241,8 +394,6 @@
                 <div class="field-item"><strong>t°:</strong> <span class="value">36,6 °C</span></div>
             </div>
         </div>
-
-        <!-- ОРГАНЫ ДЫХАНИЯ -->
         <div class="section">
             <div class="section-title">🌬️ ОРГАНЫ ДЫХАНИЯ</div>
             <div class="field-list">
@@ -259,8 +410,6 @@
                 <div class="field-item"><strong>Мокрота:</strong> <span class="value">нет</span></div>
             </div>
         </div>
-
-        <!-- ОРГАНЫ КРОВООБРАЩЕНИЯ -->
         <div class="section">
             <div class="section-title">❤️ ОРГАНЫ КРОВООБРАЩЕНИЯ</div>
             <div class="field-list">
@@ -275,8 +424,6 @@
                 <div class="field-item"><strong>Акцент какого тона на:</strong> <span class="value">нет</span></div>
             </div>
         </div>
-
-        <!-- ОРГАНЫ ПИЩЕВАРЕНИЯ -->
         <div class="section">
             <div class="section-title">🍽️ ОРГАНЫ ПИЩЕВАРЕНИЯ</div>
             <div class="field-list">
@@ -291,8 +438,6 @@
                 <div class="field-item"><strong>Стул:</strong> <span class="value">оформленный, 1 раз в сутки, без примесей</span></div>
             </div>
         </div>
-
-        <!-- НЕРВНАЯ СИСТЕМА -->
         <div class="section">
             <div class="section-title">🧠 НЕРВНАЯ СИСТЕМА</div>
             <div class="field-list">
@@ -309,8 +454,6 @@
                 <div class="field-item"><strong>Координаторные пробы:</strong> <span class="value">выполняет</span></div>
             </div>
         </div>
-
-        <!-- МОЧЕПОЛОВАЯ СИСТЕМА -->
         <div class="section">
             <div class="section-title">🚽 МОЧЕПОЛОВАЯ СИСТЕМА</div>
             <div class="field-list">
@@ -318,16 +461,12 @@
                 <div class="field-item"><strong>Симптом поколачивания:</strong> <span class="value">отрицательный</span></div>
             </div>
         </div>
-
-        <!-- STATUS LOCALIS -->
         <div class="section">
             <div class="section-title">🔍 STATUS LOCALIS</div>
             <div class="status-local">
                 Видимых повреждений кожных покровов не выявлено.
             </div>
         </div>
-
-        <!-- ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ -->
         <div class="section">
             <div class="section-title">📊 ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ</div>
             <div class="scales-list">
@@ -338,8 +477,6 @@
                 <p>✔ <strong>Дистанционный консилиум:</strong> с ответственным врачом подстанции № Ивановой Л.Ю. по дальнейшей тактике. Согласована ЭИТ.</p>
             </div>
         </div>
-
-        <!-- ОЦЕНКА ПО ШКАЛАМ -->
         <div class="section">
             <div class="section-title">📊 ОЦЕНКА ПО ШКАЛАМ</div>
             <div class="scales-list">
@@ -355,8 +492,6 @@
                 <p>✔ <strong>Шкала RASS (Richmond Agitation-Sedation Scale):</strong> до седации — возбуждение, после седации — "-5".</p>
             </div>
         </div>
-
-        <!-- ОКАЗАННАЯ ПОМОЩЬ И ЕЕ ЭФФЕКТ -->
         <div class="section">
             <div class="section-title">🩺 ОКАЗАННАЯ ПОМОЩЬ И ЕЕ ЭФФЕКТ (в т.ч. результаты инструментальных исследований в динамике)</div>
             <div class="assistance-block">
@@ -372,8 +507,6 @@
                 <div class="assistance-step">• В 10:45 передан прибывшей бригаде 5/2. Наряд 9574 в состоянии средней степени тяжести. АД 110/70 мм.рт.ст., ЧСС 102 в мин, ЧДД 17 в мин, SpO2 98%</div>
             </div>
         </div>
-
-        <!-- ПРИМЕЧАНИЕ ДЛЯ БРИГАДЫ СМП -->
         <div class="note">
             <strong>📌 Примечание для бригады СМП (дифференциальная диагностика):</strong><br>
             Дифференциальный диагноз проведен с:
@@ -393,7 +526,165 @@
             – Факторы риска: ГБ 2 ст., длительное употребление алкоголя.<br>
             – Эффективная кардиоверсия: восстановление синусового ритма разрядом 100 Дж.<br>
         </div>
+        <div class="algorithm-btn-container">
+            <button class="btn-algorithm" id="openAlgorithmBtn">
+                <span>🚨 Оказание помощи в соответствии с Алгоритмами МСК</span>
+                <span class="btn-hint">▼ нажмите для открытия ▼</span>
+            </button>
+        </div>
     </div>
 </div>
+<div class="modal-overlay" id="algorithmModal">
+    <div class="modal-container">
+        <div class="modal-header">
+            <h2>📋 Алгоритм оказания помощи (МСК)</h2>
+            <button class="modal-close" id="closeModalBtn">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="alg-section">
+                <div class="alg-title">🔹 Пароксизмы эктопической тахикардии (взрослые)</div>
+                <div class="condition-block">
+                    <div class="condition-title">▶ QRS < 0,12 секунд (тахикардии с узким комплексом) – при стабильной гемодинамике без признаков СН</div>
+                    <ul class="list-styled">
+                        <li>ЭКГ/ЭКП</li>
+                        <li>• ЭКГ-мониторинг</li>
+                        <li>• Вагусные приемы</li>
+                    </ul>
+                    <div class="condition-title" style="margin-top: 8px;">▶ При отсутствии эффекта:</div>
+                    <ul class="list-styled">
+                        <li>– Трифосаденин 1–2 мл в/венно болюсом быстро, предварительно без разведения</li>
+                    </ul>
+                    <div class="condition-title" style="margin-top: 8px;">▶ При отсутствии эффекта:</div>
+                    <ul class="list-styled">
+                        <li>– Метопролол 12,5–25 мг в/венно (12,5–25 мл) или Верапамил 5–10 мг (2–4 мл) в/венно или Эсмолол 0,5 мг/кг/мин (0,05 мл/кг/мин) за 1 минуту, затем 0,05 мг/кг/мин (0,005 мл/кг/мин) за 4 минуты в/венно (для бригад АиР)</li>
+                    </ul>
+                    <div class="condition-title" style="margin-top: 8px;">▶ – при явлениях ХСН</div>
+                    <ul class="list-styled">
+                        <li>• Катетеризация вены или внутрикостный доступ</li>
+                        <li>– Амиодарон 300–450 мг (6–9 мл) в разведении Декстрозы 5% – 250 мл в/венно капельно</li>
+                    </ul>
+                </div>
+                <div class="tactic-block">
+                    <div class="tactic-title">▶ Тактика ведения:</div>
+                    <ul class="list-styled" style="margin-top: 4px;">
+                        <li>1. Медицинская эвакуация в больницу при отсутствии эффекта от проведенной терапии (13)</li>
+                        <li>2. При отказе от медицинской эвакуации в больницу – рекомендовать обратиться в поликлинику (35)</li>
+                        <li>3. Рекомендовать обратиться в поликлинику при купировании приступа (34)</li>
+                    </ul>
+                </div>
+                <div class="warning-block">
+                    <div class="warning-title">▶ QRS < 0,12 сек (тахикардии с узким комплексом) – при нестабильной гемодинамике, острой сердечной недостаточности, острой ишемии миокарда, синкопальном состоянии</div>
+                    <ul class="list-styled">
+                        <li>• ЭКГ-мониторинг</li>
+                        <li>• Катетеризация вены или внутрикостный доступ</li>
+                    </ul>
+                    <div class="condition-title" style="margin-top: 8px;">▶ Премедикация для ЭИТ:</div>
+                    <ul class="list-styled">
+                        <li>– Диазепам 10 мг в/венно (2 мл) или Мидазолам 5 мг (1 мл) в/венно (для бригад АиР)</li>
+                        <li>– Кетамин 1–2 мг/кг (0,02–0,04 мл/кг) в/венно или Пропофол 2,0–2,5 мг/кг (0,2–0,25 мл/кг) массы тела, по 40 мг (4 мл) каждые 10 секунд до эффекта (для бригад АиР)</li>
+                    </ul>
+                    <div class="condition-title" style="margin-top: 8px;">▶ Электроимпульсная терапия:</div>
+                    <ul class="list-styled">
+                        <li>• Разряд 50 Дж</li>
+                        <li>При отсутствии эффекта:</li>
+                        <li>• Разряд 200 Дж (провести не более 5 разрядов)</li>
+                    </ul>
+                </div>
+                <div class="tactic-block">
+                    <div class="tactic-title">▶ Тактика ведения:</div>
+                    <ul class="list-styled" style="margin-top: 4px;">
+                        <li>1. Медицинская эвакуация в больницу (13). Транспортировка на носилках</li>
+                        <li>2. При отказе от медицинской эвакуации в больницу:</li>
+                        <li>активный аудиоконтроль (55)</li>
+                        <li>3. При повторном отказе – рекомендовать обратиться в поликлинику (35)</li>
+                    </ul>
+                </div>
+                <div class="condition-block">
+                    <div class="condition-title">▶ QRS > 0,12 сек (тахикардии с широким комплексом) – при стабильной гемодинамике без признаков СН</div>
+                    <ul class="list-styled">
+                        <li>• ЭКГ-мониторинг</li>
+                        <li>• Катетеризация вены или внутрикостный доступ</li>
+                        <li>– Амиодарон 150–300 мг (3–6 мл) в разведении Декстрозы 5 % до 20 мл в/венно струйно</li>
+                    </ul>
+                    <div class="condition-title" style="margin-top: 8px;">▶ При стойком пароксизме или рецидивировании эпизодов тахикардии с широкими комплексами без ОКС:</div>
+                    <ul class="list-styled">
+                        <li>– Лидокаин 100 мг (5 мл) в/венно</li>
+                    </ul>
+                    <div class="condition-title" style="margin-top: 8px;">▶ При стойком пароксизме или рецидивировании эпизодов тахикардии с широкими комплексами на фоне ОКС:</div>
+                    <ul class="list-styled">
+                        <li>– Метопролол 12,5–25 мг (12,5–25 мл) в/венно или Эсмолол 0,5 мг/кг/мин (0,05 мл/кг/мин) за 1 минуту, затем 0,05 мг/кг/мин (0,005 мл/кг/мин) за 4 минуты в/венно (для бригад АиР)</li>
+                    </ul>
+                </div>
+                <div class="tactic-block">
+                    <div class="tactic-title">▶ Тактика ведения:</div>
+                    <ul class="list-styled" style="margin-top: 4px;">
+                        <li>1. Медицинская эвакуация в больницу при неэффективности проведенной терапии (13)</li>
+                        <li>2. При отказе от медицинской эвакуации в больницу – рекомендовать обратиться в поликлинику (35)</li>
+                        <li>3. Рекомендовать обратиться в поликлинику при купировании приступа (34)</li>
+                    </ul>
+                </div>
+                <div class="warning-block">
+                    <div class="warning-title">▶ QRS > 0,12 сек – при нестабильной гемодинамике, острой сердечной недостаточности, острой ишемии миокарда, синкопальном состоянии</div>
+                    <ul class="list-styled">
+                        <li>• ЭКГ-мониторинг</li>
+                        <li>• Катетеризация вены или внутрикостный доступ</li>
+                        <li>– Амиодарон 150 мг (3 мл) в разведении Декстрозы 5 % – 250 мл в/венно капельно (инфузия проводится фоном до купирования пароксизма)</li>
+                    </ul>
+                    <div class="condition-title" style="margin-top: 8px;">▶ Премедикация для ЭИТ:</div>
+                    <ul class="list-styled">
+                        <li>– Диазепам 10 мг (2 мл) в/венно или Мидазолам 5 мг (1 мл) в/венно (для бригад АиР)</li>
+                        <li>– Кетамин 1–2 мг/кг (0,02–0,04 мл/кг) в/венно или Пропофол 2,0–2,5 мг/кг (0,2–0,25 мл/кг) массы тела, по 40 мг (4 мл) каждые 10 секунд до эффекта (для бригад АиР)</li>
+                    </ul>
+                    <div class="condition-title" style="margin-top: 8px;">▶ Электроимпульсная терапия:</div>
+                    <ul class="list-styled">
+                        <li>• Разряд 50 Дж, при неэффективности увеличить мощность заряда до 200 Дж (провести не более 5 разрядов)</li>
+                        <li>При повторных эпизодах желудочковой тахикардии или неэффективности Электроимпульсной терапии:</li>
+                        <li>• Временная кардиостимуляция (для бригад АиР)</li>
+                    </ul>
+                </div>
+                <div class="tactic-block">
+                    <div class="tactic-title">▶ Тактика ведения:</div>
+                    <ul class="list-styled" style="margin-top: 4px;">
+                        <li>1. Медицинская эвакуация в больницу (13). Транспортировка на носилках</li>
+                        <li>2. При отказе от медицинской эвакуации в больницу:</li>
+                        <li>активный аудиоконтроль (55)</li>
+                        <li>3. При повторном отказе – рекомендовать обратиться в поликлинику (35)</li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <div class="alg-section child-section">
+                <div class="alg-title">🔹 Пароксизмы эктопической тахикардии (дети)</div>
+                <div class="tactic-block">
+                    <div class="tactic-title">▶ У детей не применимо</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    (function() {
+        const modal = document.getElementById('algorithmModal');
+        const openBtn = document.getElementById('openAlgorithmBtn');
+        const closeBtn = document.getElementById('closeModalBtn');
+        if (!modal || !openBtn || !closeBtn) return;
+        function openModal() {
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeModal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        openBtn.addEventListener('click', openModal);
+        closeBtn.addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('active')) closeModal();
+        });
+    })();
+</script>
 </body>
 </html>
