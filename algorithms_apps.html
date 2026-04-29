@@ -129,7 +129,7 @@
 
   .modal-content {
     max-width: 90%;
-    max-height: 80%;
+    max-height: 70%;
     object-fit: contain;
   }
 
@@ -150,50 +150,49 @@
     color: #ccc;
   }
 
-  /* Навигационные кнопки для карусели */
-  .nav-btn {
+  /* Контейнер для кнопок навигации под изображением */
+  .nav-container {
     position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: rgba(0,0,0,0.6);
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0,0,0,0.5);
+    padding: 6px 20px;
+    border-radius: 40px;
+    z-index: 1001;
+  }
+
+  .nav-btn {
+    background-color: transparent;
     color: white;
-    font-size: 36px;
+    font-size: 28px;
     font-weight: bold;
     border: none;
     cursor: pointer;
-    padding: 12px 18px;
-    border-radius: 50%;
+    padding: 0 12px;
     transition: all 0.2s;
-    z-index: 1001;
   }
 
   .nav-btn:hover {
-    background-color: rgba(0,0,0,0.8);
+    color: #ccc;
+    transform: scale(1.1);
   }
 
   .nav-btn:active {
-    transform: translateY(-50%) scale(0.95);
-  }
-
-  .prev-btn {
-    left: 20px;
-  }
-
-  .next-btn {
-    right: 20px;
+    transform: scale(0.95);
   }
 
   .counter {
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
     color: white;
     background-color: rgba(0,0,0,0.6);
-    padding: 6px 12px;
+    padding: 4px 12px;
     border-radius: 20px;
     font-size: 14px;
-    z-index: 1001;
+    font-weight: bold;
   }
 </style>
 </head>
@@ -258,10 +257,12 @@
 <!-- Модальное окно для изображений -->
 <div id="imageModal" class="modal">
   <button class="close-modal" onclick="closeModal()">&times;</button>
-  <button class="nav-btn prev-btn" id="prevBtn" style="display: none;">&#10094;</button>
-  <button class="nav-btn next-btn" id="nextBtn" style="display: none;">&#10095;</button>
   <img id="modalImage" class="modal-content">
-  <div id="imageCounter" class="counter" style="display: none;"></div>
+  <div id="navContainer" class="nav-container" style="display: none;">
+    <button class="nav-btn" id="prevBtn">❮</button>
+    <span id="imageCounter" class="counter">1 / 2</span>
+    <button class="nav-btn" id="nextBtn">❯</button>
+  </div>
 </div>
 
 <script>
@@ -276,13 +277,9 @@
     currentGallery = [];
     const modal = document.getElementById('imageModal');
     const modalImg = document.getElementById('modalImage');
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
-    const counter = document.getElementById('imageCounter');
+    const navContainer = document.getElementById('navContainer');
     
-    prevBtn.style.display = 'none';
-    nextBtn.style.display = 'none';
-    counter.style.display = 'none';
+    navContainer.style.display = 'none';
     
     modal.style.display = 'flex';
     modalImg.src = imagePath;
@@ -296,16 +293,28 @@
     
     const modal = document.getElementById('imageModal');
     const modalImg = document.getElementById('modalImage');
+    const navContainer = document.getElementById('navContainer');
+    const counter = document.getElementById('imageCounter');
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
-    const counter = document.getElementById('imageCounter');
     
-    prevBtn.style.display = 'flex';
-    nextBtn.style.display = 'flex';
-    counter.style.display = 'block';
-    
+    navContainer.style.display = 'flex';
     modal.style.display = 'flex';
-    updateGalleryImage();
+    
+    // Обновляем изображение и счетчик
+    modalImg.src = currentGallery[currentIndex];
+    counter.textContent = `${currentIndex + 1} / ${currentGallery.length}`;
+    
+    // Обновляем состояние кнопок
+    updateNavButtons();
+  }
+
+  // Обновление состояния кнопок навигации
+  function updateNavButtons() {
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    prevBtn.style.opacity = currentIndex === 0 ? '0.4' : '1';
+    nextBtn.style.opacity = currentIndex === currentGallery.length - 1 ? '0.4' : '1';
   }
 
   // Обновление текущего изображения в галерее
@@ -314,12 +323,7 @@
     const counter = document.getElementById('imageCounter');
     modalImg.src = currentGallery[currentIndex];
     counter.textContent = `${currentIndex + 1} / ${currentGallery.length}`;
-    
-    // Управление видимостью кнопок навигации
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
-    prevBtn.style.opacity = currentIndex === 0 ? '0.3' : '1';
-    nextBtn.style.opacity = currentIndex === currentGallery.length - 1 ? '0.3' : '1';
+    updateNavButtons();
   }
 
   // Следующее изображение
@@ -351,7 +355,7 @@
   document.getElementById('prevBtn').addEventListener('click', prevImage);
   document.getElementById('nextBtn').addEventListener('click', nextImage);
 
-  // Закрытие по клику вне изображения (но не по кнопкам навигации)
+  // Закрытие по клику на фон (но не на кнопки)
   document.getElementById('imageModal').addEventListener('click', function(e) {
     if (e.target === this) {
       closeModal();
