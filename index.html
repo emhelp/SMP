@@ -10,13 +10,29 @@
   <!-- PWA (ПРОГРЕССИВНОЕ ВЕБ-ПРИЛОЖЕНИЕ) -->
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#0f1446">
+  
+  <!-- Font Awesome для иконок -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
 
   <div class="header">
-    <img src="1712743647196.png" alt="Логотип" class="logo">
-    <h1>Скорая помощь</h1>
-    <p>Проект EMHelp Group '2026</p>
+    <!-- Левая кнопка "Написать нам" -->
+    <a href="feedback.html" class="header-btn header-btn-left" id="contact-btn">
+      <i class="fas fa-envelope"></i>
+    </a>
+    
+    <!-- Центральный блок с логотипом и названием -->
+    <div class="header-center">
+      <img src="1712743647196.png" alt="Логотип" class="logo">
+      <h1>Скорая помощь</h1>
+      <p>Проект EMHelp Group '2026</p>
+    </div>
+    
+    <!-- Правая кнопка "Поделиться" -->
+    <button class="header-btn header-btn-right" id="share-btn">
+      <i class="fas fa-share-alt"></i>
+    </button>
   </div>
 
   <nav class="menu">
@@ -37,7 +53,6 @@
 
     <div class="main-actions">
       <button class="main-btn" id="max-btn">Наш канал в MAX</button>
-      <a href="feedback.html" class="main-btn" id="contact-btn" style="text-decoration: none;">Написать нам</a>
     </div>
   </nav>
 
@@ -71,7 +86,32 @@
     updateVisitCounter();
   </script>
 
-  <!-- РЕГИСТРАЦИЯ СЕРВИС-ВОРКЕРА ДЛЯ PWA (РАБОТА ОФФЛАЙН) -->
+  <!-- КНОПКА "ПОДЕЛИТЬСЯ" - НАТИВНЫЙ ШЕРИНГ -->
+  <script>
+    document.getElementById('share-btn').addEventListener('click', async () => {
+      const shareData = {
+        title: 'EMHelp - Скорая помощь',
+        text: 'Справочник для специалистов скорой помощи. Алгоритмы, калькуляторы, шаблоны карт!',
+        url: window.location.href
+      };
+      
+      try {
+        if (navigator.share) {
+          await navigator.share(shareData);
+          console.log('✅ Поделились успешно');
+        } else {
+          alert('Поделиться можно так: скопируйте ссылку и отправьте друзьям:\n' + window.location.href);
+        }
+      } catch (err) {
+        if (err.name !== 'AbortError') {
+          console.error('❌ Ошибка шеринга:', err);
+          alert('Не удалось открыть окно поделиться');
+        }
+      }
+    });
+  </script>
+
+  <!-- РЕГИСТРАЦИЯ СЕРВИС-ВОРКЕРА ДЛЯ PWA -->
   <script>
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/SMP/sw.js')
