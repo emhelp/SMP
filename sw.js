@@ -1,4 +1,4 @@
-const CACHE_NAME = 'emhelp-v53';
+const CACHE_NAME = 'emhelp-v54';
 
 const urlsToCache = [
   // Главная
@@ -125,6 +125,7 @@ const urlsToCache = [
   // CSS и основные файлы
   '/SMP/style.css',
   '/SMP/manifest.json',
+  '/SMP/icon-192.png',
   '/SMP/icon-512.png',
   '/SMP/1712743647196.png',
   '/SMP/55_swipe.png',
