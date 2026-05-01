@@ -6,26 +6,67 @@ body {
   color: #000;
 }
 
+/* ==== НОВЫЙ HEADER С КНОПКАМИ ==== */
 .header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 15px;
+  background-color: #f8f8f8;
+  min-height: 80px;
+}
+
+.header-center {
   text-align: center;
-  padding: 20px 20px 5px 20px;
+  flex: 1;
 }
 
 .header .logo {
-  width: 120px;
-  display: block;
+  width: 60px;
   margin: 0 auto 5px auto;
 }
 
 .header h1 {
-  margin: 0 0 5px 0;
-  font-size: 28px;
+  margin: 0;
+  font-size: 20px;
 }
 
 .header p {
   margin: 0;
-  font-size: 16px;
+  font-size: 12px;
   color: #666;
+}
+
+/* Кнопки в шапке (круглые, компактные) */
+.header-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-color: #0f1446;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  flex-shrink: 0;
+}
+
+.header-btn i {
+  color: white;
+  font-size: 22px;
+}
+
+.header-btn:hover {
+  transform: scale(1.05);
+  background-color: #1a2060;
+}
+
+.header-btn:active {
+  transform: scale(0.95);
 }
 
 /* ==== МЕНЮ ==== */
@@ -163,6 +204,31 @@ body {
 
 /* ==== АДАПТИВ ==== */
 @media (max-width: 600px) {
+  .header {
+    padding: 8px 10px;
+  }
+  
+  .header-btn {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .header-btn i {
+    font-size: 20px;
+  }
+  
+  .header .logo {
+    width: 45px;
+  }
+  
+  .header h1 {
+    font-size: 16px;
+  }
+  
+  .header p {
+    font-size: 10px;
+  }
+  
   .menu-btn,
   .main-btn {
     font-size: 16px;
@@ -194,13 +260,5 @@ body {
     font-weight: 600;
     font-style: italic;
     text-shadow: none;
-  }
-
-  .header h1 {
-    font-size: 24px;
-  }
-
-  .header p {
-    font-size: 14px;
   }
 }
