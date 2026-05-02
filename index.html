@@ -39,7 +39,7 @@
     <div class="news-block">
       <div class="news-label">ЧТО НОВОГО:</div>
       <div class="news-text">
-        <p>Улучшение дизайна: добавили иконку обратной связи и иконку "Поделиться приложением с другом". Продолжаем добавлять алгоритмы и новые карты в НЕВРОЛОГИЮ. Нашли ошибку? - напишите нам, нажав на кнопку.</p>
+        <p>Добавляем алгоритмы и новые карты в НЕВРОЛОГИЮ. Нашли ошибку? - напишите нам, нажав на кнопку.</p>
       </div>
     </div>
 
@@ -56,34 +56,10 @@
     </div>
   </nav>
 
-  <!-- Глобальный счетчик посещений -->
-  <div class="visit-counter" id="visitCounter">Загрузка...</div>
-
   <script>
     document.getElementById('max-btn').addEventListener('click', () => {
       window.open('https://max.ru/EMHelp_Channel', '_blank');
     });
-  </script>
-
-  <script>
-    const url = 'https://script.google.com/macros/s/AKfycbzhRi96QOhpFJq0lY72IPmLwICXPCg0Mhb0twuF5R_ZZOUn0vUB6SUk54VUlyTMIQYw/exec';
-    
-    async function updateVisitCounter() {
-      try {
-        const response = await fetch(url);
-        const data = await response.json();
-        
-        if (data.error) {
-          document.getElementById('visitCounter').textContent = 'Ошибка: ' + data.error;
-        } else {
-          document.getElementById('visitCounter').textContent = `Посещений в этом месяце: ${data.count} (${data.month})`;
-        }
-      } catch (err) {
-        document.getElementById('visitCounter').textContent = 'Ошибка загрузки: ' + err.message;
-      }
-    }
-    
-    updateVisitCounter();
   </script>
 
   <!-- КНОПКА "ПОДЕЛИТЬСЯ" - НАТИВНЫЙ ШЕРИНГ -->
