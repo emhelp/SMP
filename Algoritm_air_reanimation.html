@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Алгоритм МСК: Остановка сердца (взрослые + дети)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #eef2f5;
+            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+            padding: 32px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .modal-container {
+            max-width: 1200px;
+            width: 100%;
+            background-color: #fffef7;
+            border-radius: 28px;
+            box-shadow: 0 25px 45px -12px rgba(0,0,0,0.25);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            border: 1px solid #ffd7a5;
+        }
+        .modal-header {
+            background: #c2410c;
+            color: white;
+            padding: 18px 28px;
+            border-bottom: 4px solid #ffb347;
+        }
+        .modal-header h2 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+        .modal-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 28px 32px;
+            background: #fefcf5;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        /* ВЗРОСЛЫЙ блок */
+        .adult-block {
+            border-left: 5px solid #dc2626;
+            padding-left: 20px;
+            background: #fff9f0;
+            border-radius: 0 18px 18px 0;
+            margin-bottom: 40px;
+        }
+        /* ДЕТСКИЙ блок */
+        .child-block {
+            border-left: 5px solid #2e7d32;
+            padding-left: 20px;
+            background: #ecf7ec;
+            border-radius: 0 18px 18px 0;
+            margin-bottom: 20px;
+        }
+        .child-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 10px 0 20px 0;
+        }
+        .child-header h3 {
+            color: #1b5e20;
+            font-size: 1.4rem;
+            font-weight: 800;
+        }
+        .badge-child {
+            background: #2e7d32;
+            color: white;
+            padding: 6px 14px;
+            border-radius: 40px;
+            font-weight: bold;
+        }
+        .alg-title {
+            font-weight: 800;
+            font-size: 1.1rem;
+            color: #a51c1c;
+            margin: 10px 0 12px 0;
+            display: inline-block;
+            background: #ffeeee;
+            padding: 6px 18px;
+            border-radius: 40px;
+        }
+        .list-styled {
+            margin: 12px 0 14px 28px;
+        }
+        .list-styled li {
+            margin: 8px 0;
+        }
+        .general-action-block {
+            background: #fff9f0;
+            padding: 6px 0;
+        }
+        .tactic-block {
+            background: #d9effa;
+            border-radius: 20px;
+            padding: 14px 20px;
+            margin: 18px 0 16px 0;
+            border-left: 4px solid #0284c7;
+        }
+        .tactic-title {
+            font-weight: 800;
+            color: #0369a1;
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+        .condition-block {
+            background: #ffe6cc;
+            border-left: 6px solid #e03a3a;
+            padding: 14px 20px;
+            margin: 20px 0;
+            border-radius: 16px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+        .child-condition-block {
+            background: #d9f0d9;
+            border-left: 6px solid #2e7d32;
+        }
+        .condition-title {
+            font-weight: 800;
+            color: #b91c1c;
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+        .important-red {
+            background: #ffc4c4;
+            border-left: 6px solid #dc2626;
+            padding: 12px 18px;
+            margin: 14px 0;
+            border-radius: 14px;
+            font-weight: 800;
+            color: #9b1c1c;
+            font-size: 0.98rem;
+        }
+        .warning-red-bg {
+            background: #ffb3b3;
+            border-left: 6px solid #b91c1c;
+            padding: 14px 20px;
+            margin: 20px 0;
+            border-radius: 16px;
+            font-weight: 800;
+            color: #7a1a1a;
+        }
+        .warning-title {
+            font-weight: 800;
+            color: #b91c1c;
+            margin-bottom: 8px;
+        }
+        .highlight-number {
+            font-weight: 800;
+            color: #c2410c;
+            background: #fff0d0;
+            padding: 0 4px;
+            border-radius: 10px;
+        }
+        .bold-black {
+            font-weight: 800;
+            color: #000000;
+            background: transparent;
+        }
+        .drug-name {
+            background: #f3f3f3;
+            font-family: monospace;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-weight: 800;
+            color: #1a3c4a;
+            display: inline-block;
+        }
+        .italic-bold-ref {
+            font-weight: 800;
+            font-style: italic;
+            background: transparent;
+            color: #0a2f44;
+        }
+        hr {
+            margin: 22px 0;
+            border-color: #f0dbb2;
+        }
+        @media (max-width: 700px) {
+            .modal-body { padding: 20px; }
+            .list-styled { margin-left: 20px; }
+            .modal-header h2 { font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="modal-container">
+    <div class="modal-header">
+        <h2>I46.1, I46.9, I47.2 — Остановка сердца неуточненная. Фибрилляция и трепетание желудочков. Желудочковая тахикардия. Внезапная сердечная смерть</h2>
+    </div>
+    <div class="modal-body">
+        
+        <!-- ========= ВЗРОСЛЫЙ БЛОК ========= -->
+        <div class="adult-block">
+            <ul class="list-styled">
+                <li>Компрессии грудной клетки (ручные) с частотой <span class="highlight-number">100–120 в минуту</span></li>
+            </ul>
+            
+            <div class="condition-title" style="margin-top: 8px;">При отсутствии ранее установленной интубационной трубки или надгортанного герметизирующего устройства:</div>
+            <ul class="list-styled">
+                <li>Санация верхних дыхательных путей</li>
+                <li>ИВЛ масочная дыхательным мешком (<span class="bold-black">30:2</span> в сочетании с компрессией грудной клетки)</li>
+                <li>Оценка электрической активности сердца с использованием электродов дефибриллятора <span class="highlight-number">каждые 2 минуты</span> (ЭКГ-мониторинг)</li>
+            </ul>
+            
+            <div class="condition-title">При наличии ранее установленной интубационной трубки или надгортанного герметизирующего устройства:</div>
+            <ul class="list-styled">
+                <li>ИВЛ дыхательным мешком <span class="bold-black">10 в минуту</span> или аппаратная (ДО – <span class="highlight-number">6 мл/кг</span>, ЧД – <span class="highlight-number">10 в минуту</span>, FiO2 1.0)</li>
+                <li>Оценка электрической активности сердца с использованием электродов дефибриллятора <span class="highlight-number">каждые 2 минуты</span> (ЭКГ-мониторинг)</li>
+            </ul>
+            
+            <div class="tactic-block">
+                <div class="tactic-title">▶ Тактика:</div>
+                <ul class="list-styled">
+                    <li>1. Для фельдшерской бригады – вызов врачебной бригады, оснащенной УАК или бригады АиР (20)</li>
+                    <li>2. Для врачебных бригад, не оснащенных УАК – вызов бригады, оснащенной УАК (20)</li>
+                </ul>
+            </div>
+            
+            <div class="condition-block">
+                <div class="condition-title">▶ при асистолии, электрической активности сердца без пульса (электромеханической диссоциации)</div>
+                <div class="important-red"><strong>Дефибрилляция противопоказана</strong></div>
+                <ul class="list-styled">
+                    <li>Катетеризация вены или внутрикостный доступ</li>
+                    <li><span class="drug-name">Эпинефрин 1 мг (1 мл)</span> в/венно <span class="highlight-number">каждые 3–5 минут</span></li>
+                </ul>
+                <div class="condition-title" style="margin-top: 8px;">При отсутствии ранее установленной интубационной трубки или надгортанного герметизирующего устройства:</div>
+                <ul class="list-styled">
+                    <li>Интубация трахеи или применение надгортанного герметизирующего устройства</li>
+                    <li>ИВЛ дыхательным мешком <span class="bold-black">10 в минуту</span> или аппаратная (ДО – <span class="highlight-number">6 мл/кг</span>, ЧД – <span class="highlight-number">10 в минуту</span>, FiO2 – 1.0)</li>
+                    <li>Капнометрия-капнография (для бригад АиР)</li>
+                    <li>Повторная оценка электрической активности сердца <span class="highlight-number">каждые 2 минуты</span> (ЭКГ-мониторинг)</li>
+                </ul>
+            </div>
+            
+            <div class="general-action-block">
+                <div class="condition-title">▶ при восстановлении электрической активности сердца</div>
+                <ul><li><span class="italic-bold-ref">См. подраздел данного раздела (Успешная сердечно-легочная реанимация)</span></li></ul>
+            </div>
+            
+            <div class="condition-block">
+                <div class="condition-title">▶ при фибрилляции желудочков или желудочковой тахикардии без пульса</div>
+                <ul class="list-styled">
+                    <li>Дефибрилляция энергией <span class="highlight-number">150 Дж</span> или энергией, предустановленной на АНД, затем</li>
+                    <li>Компрессии грудной клетки в сочетании с ИВЛ в течение <span class="highlight-number">2 минут</span> одновременно:</li>
+                    <li>Катетеризация вены или внутрикостный доступ</li>
+                    <li>Применение УАК (для бригад, оснащенных УАК)</li>
+                    <li>Повторная оценка электрической активности сердца <span class="highlight-number">каждые 2 минуты</span> (ЭКГ-мониторинг)</li>
+                </ul>
+                <div class="tactic-block">
+                    <div class="tactic-title">▶ Тактика:</div>
+                    <ul class="list-styled">
+                        <li>1. Вызов бригады, оснащенной УАК, для медицинской эвакуации в больницу (20)</li>
+                        <li>2. Для бригад, оснащенных УАК, медицинская эвакуация в больницу с регистрацией электрической активности сердца на бумажном носителе (13)</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="condition-block">
+                <div class="condition-title">▶ при сохраняющейся фибрилляции желудочков или желудочковой тахикардии без пульса</div>
+                <ul class="list-styled">
+                    <li>Дефибрилляция максимальной энергией или энергией, предустановленной на АНД, затем одновременно:</li>
+                </ul>
+                <div class="condition-title">При отсутствии ранее установленной интубационной трубки или надгортанного герметизирующего устройства:</div>
+                <ul class="list-styled">
+                    <li>Санация верхних дыхательных путей</li>
+                    <li>Интубация трахеи или применение надгортанного герметизирующего устройства</li>
+                    <li>ИВЛ дыхательным мешком <span class="bold-black">10 в минуту</span> или аппаратная (ДО – <span class="highlight-number">6 мл/кг</span>, ЧД – <span class="highlight-number">10 в минуту</span>, FiO2 – 1.0)</li>
+                    <li>Капнометрия-капнография (для бригад АиР)</li>
+                    <li>Компрессии грудной клетки в сочетании с ИВЛ в течение <span class="highlight-number">2 минут</span></li>
+                    <li>Повторная оценка электрической активности сердца <span class="highlight-number">каждые 2 минуты</span> (ЭКГ-мониторинг)</li>
+                </ul>
+            </div>
+            
+            <div class="condition-block">
+                <div class="condition-title">▶ при сохраняющейся фибрилляции желудочков или желудочковой тахикардии без пульса</div>
+                <ul class="list-styled">
+                    <li>Дефибрилляция максимальной энергией или энергией, предустановленной на АНД, затем</li>
+                    <li>Компрессии грудной клетки в сочетании с ИВЛ в течение <span class="highlight-number">2 минут</span>, одновременно:</li>
+                    <li><span class="drug-name">Эпинефрин 1 мг (1 мл)</span> в/венно</li>
+                    <li><span class="drug-name">Амиодарон 300 мг (6 мл)</span> в/венно или <span class="drug-name">Лидокаин 100 мг (5 мл)</span> в/венно</li>
+                    <li>Повторная оценка электрической активности сердца через <span class="highlight-number">2 минуты</span> (ЭКГ-мониторинг)</li>
+                </ul>
+            </div>
+            
+            <div class="condition-block">
+                <div class="condition-title">▶ при сохраняющейся фибрилляции желудочков или желудочковой тахикардии без пульса</div>
+                <ul class="list-styled">
+                    <li>Дефибрилляция максимальной энергией или энергией, предустановленной на АНД, затем</li>
+                    <li>Компрессии грудной клетки в сочетании с ИВЛ в течение <span class="highlight-number">2 минут</span></li>
+                    <li>Повторная оценка электрической активности сердца <span class="highlight-number">каждые 2 минуты</span> (ЭКГ-мониторинг)</li>
+                </ul>
+            </div>
+            
+            <div class="condition-block">
+                <div class="condition-title">▶ при сохраняющейся фибрилляции желудочков или желудочковой тахикардии без пульса</div>
+                <ul class="list-styled">
+                    <li>Дефибрилляция максимальной энергией или энергией, предустановленной на АНД, затем</li>
+                    <li>Компрессии грудной клетки в сочетании с ИВЛ в течение <span class="highlight-number">2 минут</span>, одновременно:</li>
+                    <li><span class="drug-name">Эпинефрин 1 мг (1 мл)</span> в/венно (далее повторять <span class="highlight-number">каждые 3–5 минут</span>)</li>
+                    <li>Повторно: <span class="drug-name">Амиодарон 150 мг в/венно (3 мл)</span> (однократно) или <span class="drug-name">Лидокаин 50 мг (2,5 мл)</span> (однократно)</li>
+                    <li>Повторная оценка электрической активности сердца <span class="highlight-number">каждые 2 минуты</span></li>
+                </ul>
+            </div>
+            
+            <div class="general-action-block">
+                <div class="condition-title">▶ при восстановлении электрической активности сердца</div>
+                <ul><li><span class="italic-bold-ref">См. подраздел данного раздела (Успешная сердечно-легочная реанимация)</span></li></ul>
+            </div>
+            
+            <div class="condition-block">
+                <div class="condition-title">▶ при напряженном пневмотораксе</div>
+                <ul><li>Немедленный перевод напряженного пневмоторакса в открытый путем пункции плевральной полости во 2-м межреберье по средне-ключичной линии <strong>по верхнему краю нижележащего ребра</strong></li></ul>
+            </div>
+            
+            <div class="condition-block">
+                <div class="condition-title">▶ при отравлении трициклическими антидепрессантами, кислотами, алкоголем и его суррогатами</div>
+                <ul class="list-styled">
+                    <li>Применение УАК (для бригад, оснащенных УАК)</li>
+                    <li><span class="drug-name">Натрия гидрокарбонат 5% – 100 мл</span> в/венно капельно (для бригад АиР)</li>
+                </ul>
+            </div>
+            
+            <div class="condition-block">
+                <div class="condition-title">▶ при гиперкалиемии</div>
+                <ul class="list-styled">
+                    <li>Применение УАК (для бригад, оснащенных УАК)</li>
+                    <li><span class="drug-name">Кальция глюконат 2000 мг (20 мл)</span> в/венно</li>
+                    <li><span class="drug-name">Натрия гидрокарбонат 5% – 100 мл</span> в/венно капельно (для бригад АиР)</li>
+                </ul>
+            </div>
+            
+            <div class="condition-block">
+                <div class="condition-title">▶ при гипермагниемии (в том числе на фоне терапии магния сульфатом) или отравлении антагонистами кальция, дротаверином</div>
+                <ul class="list-styled">
+                    <li>Применение УАК (для бригад, оснащенных УАК)</li>
+                    <li><span class="drug-name">Кальция глюконат 1000–2000 мг (10–20 мл)</span> в/венно</li>
+                </ul>
+            </div>
+            
+            <div class="condition-block">
+                <div class="condition-title">▶ при гиповолемии (инфекционной дегидратации или острой кровопотере)</div>
+                <ul class="list-styled">
+                    <li>Применение УАК (для бригад, оснащенных УАК)</li>
+                    <li><span class="drug-name">Стерофундин (Натрия хлорид+калия хлорид+кальция хлорида дигидрат+магния хлорида гексагидрат+натрия ацетата тригидрат+яблочная кислота) 500 мл</span> в/венно или <span class="drug-name">Натрия хлорид 0,9% – 500 мл</span> в/венно</li>
+                </ul>
+            </div>
+            
+            <div class="condition-block">
+                <div class="condition-title">▶ при гипокалиемии</div>
+                <ul class="list-styled">
+                    <li>Применение УАК (для бригад, оснащенных УАК)</li>
+                    <li><span class="drug-name">КМА (Калия и магния аспарагинат) 250 мл</span> в/венно капельно</li>
+                </ul>
+            </div>
+            
+            <div class="condition-block">
+                <div class="condition-title">▶ при диагностированном ОКС, ТЭЛА</div>
+                <ul><li>Применение УАК (для бригад, оснащенных УАК)</li></ul>
+            </div>
+            
+            <div class="condition-block">
+                <div class="condition-title">▶ при проведении СЛР у беременных в третьем триместре</div>
+                <ul class="list-styled">
+                    <li>Помещение валика под правую ягодицу или ручное смещение матки влево</li>
+                    <li>Применение УАК (для бригад, оснащенных УАК)</li>
+                </ul>
+            </div>
+            
+            <div class="condition-block">
+                <div class="condition-title">▶ при общем охлаждении организма (гипотермии)</div>
+                <ul class="list-styled">
+                    <li>Применение УАК (для бригад, оснащенных УАК)</li>
+                    <li>Термометрия в наружном слуховом проходе</li>
+                </ul>
+                <div class="warning-red-bg">
+                    <span class="warning-title">⚠ Важно:</span><br>
+                    Сердечно-легочная реанимация проводится непрерывно до передачи пациента в стационаре!<br>
+                    Прекращение СЛР возможно при ее неэффективности через 30 минут после согревания пациента при температуре тела > 32–35°С
+                </div>
+            </div>
+            
+            <div class="condition-block">
+                <div class="condition-title">▶ при центральной температуре тела &lt; 30°С</div>
+                <div class="condition-title">▶ при стойкой фибрилляции желудочков или желудочковой тахикардии без пульса</div>
+                <div class="important-red"><strong>Лекарственные препараты не вводятся (в том числе Эпинефрин)</strong></div>
+                <ul class="list-styled">
+                    <li>Дефибрилляция максимальной энергией или энергией, предустановленной на АНД, но не более трех последовательных разрядов</li>
+                </ul>
+            </div>
+            
+            <div class="condition-block">
+                <div class="condition-title">▶ при центральной температуре тела > 30°С</div>
+                <div class="condition-title">▶ при фибрилляции желудочков или желудочковой тахикардии без пульса</div>
+                <ul class="list-styled">
+                    <li><span class="drug-name">Эпинефрин 1 мг (1 мл)</span> в/венно <span class="highlight-number">каждые 6–10 минут</span></li>
+                    <li>Дефибрилляция максимальной энергией или энергией, предустановленной на АНД – нет ограничений по проведению дефибрилляции</li>
+                </ul>
+            </div>
+            
+            <div class="tactic-block">
+                <div class="tactic-title">▶ Тактика:</div>
+                <ul class="list-styled">
+                    <li>1. Вызов бригады, оснащенной УАК, для медицинской эвакуации в больницу (20)</li>
+                    <li>2. Для бригад, оснащенных УАК, медицинская эвакуация в больницу в условиях продолжающейся СЛР с регистрацией электрической активности сердца на бумажном носителе (13)</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- ========= ДЕТСКИЙ БЛОК ========= -->
+        <div class="child-block">
+            <div class="child-header">
+                <span class="badge-child">ДЕТСКИЙ ПРОТОКОЛ</span>
+                <h3>I46.1, I46.9, I47.2 — Остановка сердца неуточненная. Фибрилляция и трепетание желудочков. Желудочковая тахикардия. Внезапная сердечная смерть</h3>
+            </div>
+            
+            <ul class="list-styled">
+                <li>Оценить сознание</li>
+                <li>Оценить проходимость дыхательных путей и наличие дыхания – <span class="bold-black">не более 10 секунд!</span></li>
+                <li>При наличии инородного тела – <span class="italic-bold-ref">см. подраздел данного раздела Инородное тело в дыхательных путях</span></li>
+                <li>При отсутствии или неэффективности дыхания выполнить масочную ИВЛ <span class="bold-black">5 вдохов</span> дыхательным мешком</li>
+                <li>При необходимости провести санацию верхних дыхательных путей.</li>
+                <li>Провести оценку электрической активности сердца с использованием электродов дефибриллятора</li>
+                <li>Одновременно начать компрессии грудной клетки и масочную ИВЛ в соотношении <span class="bold-black">15:2</span> при отсутствии пульса или брадикардии менее <span class="highlight-number">60 ударов в минуту</span> у детей <span class="bold-black">старше 1 года</span>, у <span class="bold-black">новорожденных детей</span> при ЧСС менее <span class="highlight-number">80 ударов в минуту</span></li>
+            </ul>
+            
+            <div class="condition-block child-condition-block">
+                <div class="condition-title">– при асистолии, электромеханической диссоциации, а также при отсутствии данных об электрической активности сердца</div>
+                <ul class="list-styled">
+                    <li>До интубации трахеи или применения надгортанного устройства:<br>– соотношение компрессий к вдуваниям <span class="bold-black">15:2</span> независимо от количества реанимирующих, <span class="bold-black">3:1</span> у новорожденных детей при рождении</li>
+                    <li>Интубация трахеи или применение надгортанного герметизирующего устройства</li>
+                </ul>
+                <div class="condition-title" style="margin-top: 8px;">После интубации трахеи или применения надгортанного устройства</div>
+                <ul class="list-styled">
+                    <li>Частота компрессий у новорожденных и детей до 1 года – <span class="highlight-number">120 в минуту</span>, у детей с 1 года и старше – <span class="highlight-number">100–120 в минуту</span></li>
+                    <li>Катетеризация вены или внутрикостный доступ</li>
+                    <li><span class="drug-name">Эпинефрин 0,01 мг/кг (0,01 мл/кг)</span> в разведении Натрия хлорид 0,9% 1:10000 в/венно или внутрикостно <span class="highlight-number">каждые 3–5 минут</span></li>
+                    <li>При невозможности обеспечения указанного пути введения:<br><span class="drug-name">Эпинефрин 0,1 мг/кг (0,1 мл/кг)</span> в разведении Натрия хлорид 0,9% 1:1000 эндотрахеально <span class="highlight-number">каждые 3–5 минут</span></li>
+                    <li>Повторная оценка электрической активности сердца <span class="highlight-number">каждые 2 минуты</span> (ЭКГ-мониторинг)</li>
+                    <li>Капнометрия - капнография (для бригад АиР)</li>
+                </ul>
+            </div>
+            
+            <div class="condition-block child-condition-block">
+                <div class="condition-title">– при фибрилляции желудочков или желудочковой тахикардии без пульса</div>
+                <ul class="list-styled">
+                    <li>Дефибрилляция <span class="highlight-number">2 Дж/кг</span> (до 1 года) и <span class="highlight-number">4 Дж/кг</span> массы тела (с 1 года)</li>
+                    <li>Компрессии грудной клетки в сочетании с ИВЛ в течение <span class="highlight-number">2 минут</span> одновременно:</li>
+                    <li>Катетеризация вены или внутрикостный доступ</li>
+                    <li>Повторная оценка электрической активности сердца <span class="highlight-number">каждые 2 минуты</span> (ЭКГ-мониторинг)</li>
+                </ul>
+            </div>
+            
+            <div class="condition-block child-condition-block">
+                <div class="condition-title">– при сохраняющейся фибрилляции желудочков или желудочковой тахикардии без пульса</div>
+                <ul class="list-styled">
+                    <li>Дефибрилляция <span class="highlight-number">4 Дж/кг</span> затем одновременно:</li>
+                </ul>
+                <div class="condition-title">При отсутствии ранее установленной интубационной трубки или надгортанного устройства:</div>
+                <ul class="list-styled">
+                    <li>Санация верхних дыхательных путей</li>
+                    <li>Интубация трахеи или применение надгортанного герметизирующего устройства</li>
+                    <li>ИВЛ дыхательным мешком или аппаратная FiO2–1.0</li>
+                    <li>Капнометрия - капнография (для бригад АиР)</li>
+                    <li>Компрессии грудной клетки в сочетании с ИВЛ в течение <span class="highlight-number">2 минут</span></li>
+                    <li>Повторная оценка электрической активности сердца <span class="highlight-number">каждые 2 минуты</span> (ЭКГ-мониторинг)</li>
+                </ul>
+            </div>
+            
+            <div class="condition-block child-condition-block">
+                <div class="condition-title">– при сохраняющейся фибрилляции желудочков или желудочковой тахикардии без пульса</div>
+                <ul class="list-styled">
+                    <li>Дефибрилляция <span class="highlight-number">4 Дж/кг</span></li>
+                    <li>Компрессии грудной клетки в сочетании с ИВЛ в течение <span class="highlight-number">2 минут</span></li>
+                    <li>Повторная оценка электрической активности сердца <span class="highlight-number">каждые 2 минуты</span> (ЭКГ-мониторинг)</li>
+                    <li><span class="drug-name">Эпинефрин 0,01 мг/кг (0,01 мл/кг)</span> в разведении Натрия хлорид 0,9% 1:10000 в/венно или внутрикостно <span class="highlight-number">каждые 3–5 минут</span></li>
+                    <li>При невозможности обеспечения указанного пути введения:<br><span class="drug-name">Эпинефрин 0,1 мг/кг (0,1 мл/кг)</span> в разведении Натрия хлорид 0,9% 1:1000 эндотрахеально <span class="highlight-number">каждые 3–5 минут</span></li>
+                    <li><span class="drug-name">Амиодарон 5 мг/кг (0,1 мл/кг)</span> в/венно через шприцевой дозатор</li>
+                    <li>При непереносимости Амиодарона:<br><span class="drug-name">Лидокаин 1 мг/кг (0,05 мл/кг)</span> в/венно вводить только 1% раствор (разведение 2% раствора в соотношении 1:1)</li>
+                    <li>Применение УАК при соответствующих массо-габаритных характеристик ребенка и технической возможности (для бригад оснащенных УАК)</li>
+                </ul>
+            </div>
+            
+            <div class="general-action-block" style="background: #ecf7ec;">
+                <div class="condition-title">– при восстановлении электрической активности сердца</div>
+                <ul><li><span class="italic-bold-ref">См. подраздел данного раздела (Успешная сердечно-легочная реанимация)</span></li></ul>
+            </div>
+            
+            <div class="condition-block child-condition-block">
+                <div class="condition-title">– при напряженном пневмотораксе</div>
+                <ul class="list-styled">
+                    <li>Немедленный перевод напряженного пневмоторакса в открытый путем пункции плевральной полости во 2-м межреберье по средне-ключичной линии затем</li>
+                    <li>Применение УАК при соответствующих массо-габаритных характеристик ребенка и технической возможности (для бригад оснащенных УАК)</li>
+                </ul>
+            </div>
+            
+            <div class="condition-block child-condition-block">
+                <div class="condition-title">– при отравлении трициклическими антидепрессантами, кислотами</div>
+                <ul class="list-styled">
+                    <li><span class="drug-name">Натрия гидрокарбонат 5% – 2–4 мл/кг</span> в/венно капельно или 1,6–3,2 мл/кг в/венно через шприцевой дозатор 40 мл/час (для бригад АиР)</li>
+                    <li>Применение УАК при соответствующих массо-габаритных характеристик ребенка и технической возможности (для бригад оснащенных УАК)</li>
+                </ul>
+            </div>
+            
+            <div class="condition-block child-condition-block">
+                <div class="condition-title">– при гипермагниемии по данным ЭКГ-диагностики или портативного анализатора (в том числе на фоне терапии магния сульфатом) или отравлении антагонистами кальция, дротаверином</div>
+                <ul class="list-styled">
+                    <li><span class="drug-name">Натрия гидрокарбонат 5% – 2–4 мл/кг</span> в/венно капельно или 1,6–3,2 мл/кг в/венно через шприцевой дозатор 40 мл/час (для бригад АиР)</li>
+                    <li><span class="drug-name">Кальция глюконат 0,2 мл/кг</span> в/венно</li>
+                    <li>Применение УАК при соответствующих массо-габаритных характеристик ребенка и технической возможности (для бригад оснащенных УАК)</li>
+                </ul>
+            </div>
+            
+            <div class="condition-block child-condition-block">
+                <div class="condition-title">– при гиперкалиемии по данным ЭКГ-диагностики или портативного анализатора (в том числе отравлении калийсберегающими диуретиками)</div>
+                <ul class="list-styled">
+                    <li><span class="drug-name">Кальция глюконат 0,2 мл/кг</span> в/венно</li>
+                    <li><span class="drug-name">Натрия гидрокарбонат 5% – 2–4 мл/кг</span> в/венно капельно или 1,6–3,2 мл/кг в/венно через шприцевой дозатор 40 мл/час (для бригад АиР)</li>
+                    <li>Применение УАК при соответствующих массо-габаритных характеристик ребенка и технической возможности (для бригад оснащенных УАК)</li>
+                </ul>
+            </div>
+            
+            <div class="condition-block child-condition-block">
+                <div class="condition-title">– при гипокалиемии по данным ЭКГ-диагностики или портативного анализатора (в том числе на фоне применения диуретиков (петлевых, тиазидных и осмотических), кортикостероидов, бронхолитиков, при гиперинсулинемии, длительной рвоте и диареи)</div>
+                <ul class="list-styled">
+                    <li><span class="drug-name">Калия хлорид + натрия ацетат + натрия хлорид 15–20 мл/кг</span> в/венно капельно</li>
+                    <li>Применение УАК при соответствующих массо-габаритных характеристик ребенка и технической возможности (для бригад оснащенных УАК)</li>
+                </ul>
+            </div>
+            
+            <div class="condition-block child-condition-block">
+                <div class="condition-title">При общем охлаждении организма (гипотермии):</div>
+                <ul class="list-styled">
+                    <li>Термометрия в наружном слуховом проходе</li>
+                    <li>Применение УАК при соответствующих массо-габаритных характеристик ребенка и технической возможности (для бригад оснащенных УАК)</li>
+                </ul>
+                <div class="important-red" style="margin-top: 12px;">
+                    <strong>– при центральной температуре тела &lt; 30°С</strong><br>
+                    – Лекарственные препараты не вводятся (в том числе Эпинефрин)<br>
+                    Дефибрилляция <span class="highlight-number">4 Дж/кг</span> массы тела, не более трех последовательных неэффективных разрядов
+                </div>
+                <div class="condition-title" style="margin-top: 12px;">– при фибрилляции желудочков или желудочковой тахикардии без пульса<br>– при центральной температуре тела > 30°С</div>
+                <ul class="list-styled">
+                    <li><span class="drug-name">Эпинефрин 0,01 мг/кг (0,01 мл/кг)</span> в разведении Натрия хлорид 0,9% 1:10000 в/венно или внутрикостно <span class="highlight-number">каждые 6–10 минут</span></li>
+                    <li>При невозможности обеспечения указанного пути введения:<br><span class="drug-name">Эпинефрин 0,1 мг/кг (0,1 мл/кг)</span> в разведении Натрия хлорид 0,9% 1:1000 эндотрахеально <span class="highlight-number">каждые 6–10 минут</span></li>
+                    <li>Дефибрилляция <span class="highlight-number">4 Дж/кг</span> массы тела – нет ограничений по проведению дефибрилляции (количеству разрядов)</li>
+                </ul>
+            </div>
+            
+            <div class="condition-block child-condition-block">
+                <div class="condition-title">– при гиповолемии (инфекционной дегидратации или острой кровопотере)</div>
+                <ul class="list-styled">
+                    <li><span class="drug-name">Натрия хлорид 0,9%</span> или <span class="drug-name">Стерофундин (Натрия хлорид+калия хлорид+кальция хлорида дигидрат+магния хлорида гексагидрат+натрия ацетата тригидрат+яблочная кислота) 20 мл/кг</span> в/венно капельно</li>
+                    <li>Применение УАК при соответствующих массо-габаритных характеристик ребенка и технической возможности (для бригад оснащенных УАК)</li>
+                </ul>
+            </div>
+            
+            <div class="tactic-block">
+                <div class="tactic-title">▶ Тактика:</div>
+                <ul class="list-styled">
+                    <li>1. Для общепрофильной бригады – вызов бригады АиР</li>
+                    <li>2. Для бригад, оснащенных УАК, медицинская эвакуация в больницу в условиях продолжающейся СЛР и регистрацией электрической активности сердца на бумажном носителе</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
