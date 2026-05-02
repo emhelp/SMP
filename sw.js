@@ -1,4 +1,4 @@
-const CACHE_NAME = 'emhelp-v56';
+const CACHE_NAME = 'emhelp-v57';
 
 const urlsToCache = [
   // Главная
@@ -133,7 +133,8 @@ const urlsToCache = [
   
   // Скриншоты для установки PWA
   '/SMP/screenshot-mobile-1.png',
-  '/SMP/screenshot-mobile-2.png'
+  '/SMP/screenshot-mobile-2.png',
+  '/SMP/screenshot-desktop-1.png'
 ];
 
 self.addEventListener('install', event => {
