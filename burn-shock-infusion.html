@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Калькулятор инфузии при ожоговом шоке</title>
+    
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1e2f47">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(145deg, #eef2f7 0%, #dce3ec 100%);
+            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, 'Helvetica Neue', sans-serif;
+            padding: 2rem 1rem;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .calculator-card {
+            max-width: 1300px;
+            width: 100%;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 48px;
+            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .card-header {
+            background: #1e2f47;
+            background-image: linear-gradient(115deg, #142a3b, #1d3f55);
+            padding: 1.8rem 2rem;
+            color: white;
+        }
+        .card-header h1 {
+            font-size: 1.9rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .card-header h1 span {
+            background: rgba(255,255,255,0.2);
+            font-size: 0.9rem;
+            padding: 5px 14px;
+            border-radius: 60px;
+            font-weight: 500;
+        }
+        .card-header p {
+            margin-top: 12px;
+            opacity: 0.85;
+            font-size: 0.95rem;
+            border-left: 3px solid #5f9bc2;
+            padding-left: 16px;
+        }
+
+        .card-content {
+            padding: 2rem;
+        }
+
+        .tabs-wrapper {
+            margin-bottom: 1.5rem;
+        }
+
+        .tabs-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #1f4a66;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tabs-label::before {
+            content: "🔥";
+            font-size: 1rem;
+        }
+
+        .nav-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .tab-btn {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border: 2px solid #cbdde6;
+            padding: 10px 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #1f4a66;
+            cursor: pointer;
+            border-radius: 60px;
+            transition: all 0.25s ease;
+            font-family: inherit;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            flex: 0 0 auto;
+        }
+
+        .tab-btn:hover {
+            background: linear-gradient(135deg, #e8f0f5 0%, #dfeaf0 100%);
+            border-color: #1f6e9c;
+            transform: translateY(-2px);
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, #1f6e9c 0%, #155a80 100%);
+            border-color: #ffc107;
+            color: white;
+            box-shadow: 0 4px 12px rgba(31,110,156,0.4);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fade 0.25s ease;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        @keyframes fade {
+            from { opacity: 0; transform: translateY(8px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 28px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+            border: 1px solid #d4e2f0;
+            transition: all 0.2s;
+        }
+        .card:hover {
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1f4a66;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-left: 4px solid #1f6e9c;
+            padding-left: 16px;
+        }
+
+        .param-group {
+            margin-bottom: 24px;
+        }
+
+        .param-label {
+            font-weight: 600;
+            color: #1f4a66;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+
+        .input-row {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .input-field {
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .input-field label {
+            font-size: 0.75rem;
+            color: #6f8eaa;
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+
+        .input-field input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #d4e2f0;
+            border-radius: 18px;
+            font-size: 0.95rem;
+            font-family: inherit;
+            transition: all 0.25s ease;
+            background: white;
+            color: #1f3a4b;
+        }
+
+        .input-field input:hover {
+            border-color: #1f6e9c;
+        }
+
+        .input-field input:focus {
+            outline: none;
+            border-color: #1f6e9c;
+            box-shadow: 0 0 0 3px rgba(31,110,156,0.1);
+        }
+
+        .result-table-wrapper {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        .result-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+            min-width: 600px;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .result-table th, .result-table td {
+            padding: 12px 10px;
+            text-align: center;
+            border: 1px solid #d4e2f0;
+        }
+
+        .result-table th {
+            background: #1f4a66;
+            color: white;
+            font-weight: 700;
+            font-size: 0.85rem;
+            position: sticky;
+            top: 0;
+        }
+
+        .result-table td {
+            font-weight: 500;
+            color: #1f3a4b;
+            transition: all 0.2s ease;
+        }
+
+        .result-table td:hover {
+            transform: scale(1.02);
+            font-weight: 700;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Градиентная заливка для таблицы взрослых */
+        .gradient-table-adult td {
+            background: linear-gradient(135deg, #ffffff 0%, #f0f7ff 100%);
+        }
+        .gradient-table-adult tr:hover td {
+            background: linear-gradient(135deg, #e8f0ff 0%, #d4e8ff 100%);
+        }
+
+        /* Градиентная заливка для таблицы детей */
+        .gradient-table-child td {
+            background: linear-gradient(135deg, #ffffff 0%, #fff5ee 100%);
+        }
+        .gradient-table-child tr:hover td {
+            background: linear-gradient(135deg, #ffe8dc 0%, #ffddcc 100%);
+        }
+
+        .result-table td.highlight-cell {
+            background: linear-gradient(135deg, #fff8e7 0%, #ffe4b5 100%);
+            color: #e68a2e;
+            font-weight: 700;
+            position: relative;
+        }
+
+        .result-table td.highlight-cell::after {
+            content: "⭐";
+            position: absolute;
+            top: 2px;
+            right: 4px;
+            font-size: 10px;
+        }
+
+        .info-note {
+            background: #eef7ff;
+            border-left: 4px solid #1f6e9c;
+            padding: 12px 16px;
+            border-radius: 16px;
+            margin: 16px 0;
+            font-size: 0.8rem;
+            color: #1f3a4b;
+        }
+
+        .warning-note {
+            background: #fff8e7;
+            border-left: 4px solid #f0b849;
+            padding: 12px 16px;
+            border-radius: 16px;
+            margin: 16px 0;
+            font-size: 0.8rem;
+            color: #a56b00;
+        }
+
+        .danger-note {
+            background: #ffebee;
+            border-left: 4px solid #c62828;
+            padding: 12px 16px;
+            border-radius: 16px;
+            margin: 16px 0;
+            font-size: 0.8rem;
+            color: #c62828;
+        }
+
+        .btn-reset {
+            background: linear-gradient(135deg, #ecf3f8 0%, #e6edf4 100%);
+            border: 2px solid #cbdae6;
+            padding: 10px 20px;
+            border-radius: 60px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            color: #1f4a66;
+            transition: all 0.25s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .btn-reset:hover {
+            background: linear-gradient(135deg, #e2eaf2 0%, #d8e2ec 100%);
+            border-color: #1f6e9c;
+            transform: translateY(-2px);
+        }
+
+        .footnote {
+            font-size: 0.7rem;
+            color: #6f8eaa;
+            text-align: center;
+            margin-top: 24px;
+            padding-top: 16px;
+            border-top: 1px solid #e2ecf3;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+            .card-header {
+                padding: 1.2rem;
+            }
+            .card-header h1 {
+                font-size: 1.3rem;
+            }
+            .card-header p {
+                font-size: 0.8rem;
+            }
+            .card-content {
+                padding: 1rem;
+            }
+            .tab-btn {
+                padding: 8px 12px;
+                font-size: 0.7rem;
+                flex: 1;
+                justify-content: center;
+            }
+            .card {
+                padding: 1.2rem;
+            }
+            .card-title {
+                font-size: 1.1rem;
+            }
+            .input-field input {
+                padding: 10px 14px;
+                font-size: 0.85rem;
+            }
+            .result-table th, .result-table td {
+                padding: 8px 6px;
+                font-size: 0.7rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="calculator-card">
+    <div class="card-header">
+        <h1>
+            💧 Калькулятор инфузии растворов
+            <span>при ожоговом шоке</span>
+        </h1>
+        <p>Расчет объема инфузионной терапии при ожоговом шоке (формула Паркленда). Скорость инфузии указана в мл/час.</p>
+    </div>
+    <div class="card-content">
+        <div class="tabs-wrapper">
+            <div class="tabs-label">Пациент:</div>
+            <div class="nav-tabs">
+                <button class="tab-btn active" data-tab="adult">🧑 Взрослые</button>
+                <button class="tab-btn" data-tab="child">👶 Дети</button>
+            </div>
+        </div>
+
+        <!-- Взрослые -->
+        <div id="adult" class="tab-content active">
+            <div class="card">
+                <div class="card-title">📊 Инфузионная терапия при ожоговом шоке | Взрослые</div>
+                <div class="param-group">
+                    <div class="param-label">📝 Данные пациента</div>
+                    <div class="input-row">
+                        <div class="input-field">
+                            <label>Масса тела (кг)</label>
+                            <input type="number" id="weightAdult" value="70" step="1" min="40" max="120">
+                        </div>
+                        <div class="input-field">
+                            <label>Площадь ожога (%)</label>
+                            <input type="number" id="burnAreaAdult" value="30" step="5" min="0" max="100">
+                        </div>
+                    </div>
+                </div>
+                <div class="info-note">
+                    <strong>📌 Расчет по формуле Паркленда (модифицированная):</strong><br>
+                    Объем за 8 часов = 2 мл × вес (кг) × площадь ожога (%)<br>
+                    Скорость инфузии (мл/час) = (2 × вес × площадь) / 8 = (вес × площадь) / 4<br>
+                    <strong>⚙️ Единица измерения:</strong> мл/час (скорость введения в первые 8 часов)
+                </div>
+                
+                <div class="result-table-wrapper">
+                    <table class="result-table">
+                        <thead>
+                            <tr><th>Параметр</th><th>Значение</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td style="font-weight: 600;">Вес пациента</td><td id="adultWeightDisplay">70 кг</td></tr>
+                            <tr><td style="font-weight: 600;">Площадь ожога</td><td id="adultBurnDisplay">30%</td></tr>
+                            <tr style="background: #fff8e7;"><td style="font-weight: 600;">📌 Скорость инфузии (мл/час)</td><td id="adultRateDisplay" style="font-weight: 700; font-size: 1.2rem;">— мл/час</td></tr>
+                            <tr><td style="font-weight: 600;">Объем за 8 часов</td><td id="adultVolume8h">— мл</td></tr>
+                            <tr><td style="font-weight: 600;">Объем за 24 часа (всего)</td><td id="adultVolume24h">— мл</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="result-table-wrapper">
+                    <div class="param-label">📊 Справочная таблица (скорость инфузии, мл/час) — первые 8 часов</div>
+                    <table class="result-table gradient-table-adult" id="adultTable">
+                        <thead>
+                            <tr><th>Вес (кг)</th><th>10%</th><th>20%</th><th>30%</th><th>40%</th><th>50%</th><th>60%</th><th>70%</th><th>80%</th><th>90%</th><th>100%</th></tr>
+                        </thead>
+                        <tbody id="adultTableBody"></tbody>
+                    </table>
+                </div>
+                <div class="warning-note">
+                    ⚠️ <strong>Важно:</strong> Расчет основан на формуле Паркленда. Скорость инфузии рассчитана для первых 8 часов после ожога. Затем скорость корректируется в зависимости от диуреза и гемодинамики. Использовать растворы: Рингер лактат, натрия хлорид 0,9%.
+                </div>
+            </div>
+        </div>
+
+        <!-- Дети -->
+        <div id="child" class="tab-content">
+            <div class="card">
+                <div class="card-title">📊 Инфузионная терапия при ожоговом шоке | Дети</div>
+                <div class="param-group">
+                    <div class="param-label">📝 Данные пациента</div>
+                    <div class="input-row">
+                        <div class="input-field">
+                            <label>Масса тела (кг)</label>
+                            <input type="number" id="weightChild" value="20" step="1" min="2" max="50">
+                        </div>
+                        <div class="input-field">
+                            <label>Площадь ожога (%)</label>
+                            <input type="number" id="burnAreaChild" value="30" step="5" min="0" max="100">
+                        </div>
+                    </div>
+                </div>
+                <div class="info-note">
+                    <strong>📌 Расчет по формуле Паркленда для детей (модифицированная):</strong><br>
+                    Объем за 8 часов = 3 мл × вес (кг) × площадь ожога (%)<br>
+                    Скорость инфузии (мл/час) = (3 × вес × площадь) / 8<br>
+                    <strong>⚙️ Единица измерения:</strong> мл/час (скорость введения в первые 8 часов)<br>
+                    <strong>👶 У детей также добавляется поддерживающая инфузия!</strong>
+                </div>
+                
+                <div class="result-table-wrapper">
+                    <table class="result-table">
+                        <thead>
+                            <tr><th>Параметр</th><th>Значение</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td style="font-weight: 600;">Вес пациента</td><td id="childWeightDisplay">20 кг</td></tr>
+                            <tr><td style="font-weight: 600;">Площадь ожога</td><td id="childBurnDisplay">30%</td></tr>
+                            <tr style="background: #fff8e7;"><td style="font-weight: 600;">📌 Скорость инфузии (мл/час) — ожоговая</td><td id="childRateDisplay" style="font-weight: 700; font-size: 1.2rem;">— мл/час</td></tr>
+                            <tr><td style="font-weight: 600;">Объем за 8 часов (ожоговая)</td><td id="childVolume8h">— мл</td></tr>
+                            <tr><td style="font-weight: 600;">Поддерживающая инфузия (мл/час)</td><td id="childMaintenanceDisplay">— мл/час</td></tr>
+                            <tr style="background: #e8f0ff;"><td style="font-weight: 600;">Общая скорость (первые 8 часов)</td><td id="childTotalRateDisplay" style="font-weight: 700;">— мл/час</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="result-table-wrapper">
+                    <div class="param-label">📊 Справочная таблица (скорость инфузии, мл/час, только ожоговая часть)</div>
+                    <table class="result-table gradient-table-child" id="childTable">
+                        <thead>
+                            <tr><th>Вес (кг)</th><th>10%</th><th>20%</th><th>30%</th><th>40%</th><th>50%</th><th>60%</th><th>70%</th><th>80%</th><th>90%</th><th>100%</th></tr>
+                        </thead>
+                        <tbody id="childTableBody"></tbody>
+                    </table>
+                </div>
+                <div class="warning-note">
+                    ⚠️ <strong>Важно:</strong> У детей дополнительно рассчитывается поддерживающая инфузия по правилу 4-2-1 (4 мл/кг/час для первых 10 кг, +2 мл/кг/час для вторых 10 кг, +1 мл/кг/час для оставшихся кг). Общая скорость = ожоговая инфузия + поддерживающая.
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">⚠️ Клинические рекомендации (ожоговый шок)</div>
+            <div class="danger-note">
+                <strong>🔥 Алгоритм инфузионной терапии при ожоговом шоке:</strong><br>
+                • <strong>Первые 8 часов:</strong> вводится ½ расчетного объема<br>
+                • <strong>Следующие 16 часов:</strong> вводится оставшаяся ½ объема<br>
+                • <strong>Целевой диурез:</strong> взрослые 0,5–1 мл/кг/час; дети 1–1,5 мл/кг/час<br>
+                • <strong>Препараты выбора:</strong> Рингер лактат (предпочтительнее), натрия хлорид 0,9%<br>
+                • <strong>Контроль:</strong> АД, ЧСС, диурез, сознание, лабораторные показатели
+            </div>
+            <div class="warning-note">
+                <strong>💊 Формула Паркленда (классическая):</strong> 2–4 мл × вес (кг) × площадь ожога (%)<br>
+                В данном калькуляторе используется:<br>
+                • Взрослые: 2 мл/кг/% → скорость = (вес × площадь) / 4<br>
+                • Дети: 3 мл/кг/% → скорость = (вес × площадь × 3) / 8
+            </div>
+            <button class="btn-reset" id="resetBtn">⟳ Сбросить значения по умолчанию</button>
+        </div>
+
+        <div class="footnote">
+            ⚕️ Расчеты основаны на формуле Паркленда для инфузионной терапии ожогового шока.<br>
+            <strong>📌 Формулы расчета:</strong><br>
+            • Взрослые: скорость (мл/час) = (2 × вес кг × площадь %) / 8 = (вес × площадь) / 4<br>
+            • Дети: скорость (мл/час) = (3 × вес кг × площадь %) / 8<br>
+            • Поддерживающая инфузия у детей (правило 4-2-1):<br>
+              — первые 10 кг: 4 мл/кг/час<br>
+              — вторые 10 кг: 2 мл/кг/час<br>
+              — оставшиеся кг: 1 мл/кг/час
+        </div>
+    </div>
+</div>
+
+<script>
+    // Табличные данные для взрослых (из изображения)
+    const adultTableData = {
+        weights: [50, 60, 70, 80, 90, 100],
+        burns: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
+        values: {
+            50: [125, 250, 375, 500, 625, 750, 875, 1000, 1125, 1250],
+            60: [150, 300, 450, 600, 375, 450, 525, 600, 675, 750],
+            70: [175, 350, 525, 700, 437.5, 525, 612.5, 700, 787.5, 875],
+            80: [200, 400, 600, 800, 500, 600, 700, 800, 900, 1000],
+            90: [225, 450, 675, 900, 562.5, 675, 787.5, 900, 1012.5, 1125],
+            100: [250, 500, 750, 1000, 625, 750, 875, 1000, 1125, 1250]
+        }
+    };
+
+    // Табличные данные для детей (из изображения)
+    const childTableData = {
+        weights: [2.5, 5, 10, 15, 20, 25, 30, 35, 40, 45],
+        burns: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
+        values: {
+            2.5: [23, 28, 33, 38, 42, 47, 52, 56, 61, 66],
+            5: [47, 56, 66, 75, 84, 94, 103, 113, 122, 131],
+            10: [81, 100, 119, 138, 156, 175, 194, 213, 231, 250],
+            15: [103, 131, 159, 188, 216, 244, 272, 300, 328, 356],
+            20: [113, 150, 188, 225, 263, 300, 338, 375, 413, 450],
+            25: [141, 188, 234, 281, 328, 375, 422, 469, 516, 563],
+            30: [150, 206, 263, 319, 375, 431, 488, 544, 600, 656],
+            35: [175, 241, 306, 372, 438, 503, 569, 634, 700, 766],
+            40: [200, 275, 350, 425, 500, 575, 650, 725, 800, 875],
+            45: [225, 309, 394, 478, 563, 647, 731, 816, 900, 984]
+        }
+    };
+
+    function findClosestWeight(weight, weights) {
+        return weights.reduce((prev, curr) => {
+            return (Math.abs(curr - weight) < Math.abs(prev - weight) ? curr : prev);
+        });
+    }
+
+    function formatValue(value) {
+        if (value === undefined || isNaN(value)) return '—';
+        const rounded = Math.round(value * 10) / 10;
+        if (Number.isInteger(rounded)) return rounded;
+        return rounded.toFixed(1);
+    }
+
+    // Расчет для взрослых
+    function calculateAdult() {
+        let weight = parseFloat(document.getElementById('weightAdult').value);
+        let burnArea = parseFloat(document.getElementById('burnAreaAdult').value);
+        
+        if (isNaN(weight)) weight = 70;
+        if (isNaN(burnArea)) burnArea = 30;
+        weight = Math.min(Math.max(weight, 40), 120);
+        burnArea = Math.min(Math.max(burnArea, 0), 100);
+        
+        const rate = (weight * burnArea) / 4;
+        const volume8h = rate * 8;
+        const volume24h = volume8h * 3;
+        
+        document.getElementById('adultWeightDisplay').textContent = `${weight} кг`;
+        document.getElementById('adultBurnDisplay').textContent = `${burnArea}%`;
+        document.getElementById('adultRateDisplay').textContent = `${Math.round(rate)} мл/час`;
+        document.getElementById('adultVolume8h').textContent = `${Math.round(volume8h)} мл`;
+        document.getElementById('adultVolume24h').textContent = `${Math.round(volume24h)} мл`;
+    }
+
+    // Расчет для детей
+    function calculateChild() {
+        let weight = parseFloat(document.getElementById('weightChild').value);
+        let burnArea = parseFloat(document.getElementById('burnAreaChild').value);
+        
+        if (isNaN(weight)) weight = 20;
+        if (isNaN(burnArea)) burnArea = 30;
+        weight = Math.min(Math.max(weight, 2), 50);
+        burnArea = Math.min(Math.max(burnArea, 0), 100);
+        
+        const burnRate = (3 * weight * burnArea) / 8;
+        const volume8h = burnRate * 8;
+        
+        let maintenance = 0;
+        if (weight <= 10) {
+            maintenance = 4 * weight;
+        } else if (weight <= 20) {
+            maintenance = 40 + 2 * (weight - 10);
+        } else {
+            maintenance = 40 + 20 + 1 * (weight - 20);
+        }
+        
+        const totalRate = burnRate + maintenance;
+        
+        document.getElementById('childWeightDisplay').textContent = `${weight} кг`;
+        document.getElementById('childBurnDisplay').textContent = `${burnArea}%`;
+        document.getElementById('childRateDisplay').textContent = `${Math.round(burnRate)} мл/час`;
+        document.getElementById('childVolume8h').textContent = `${Math.round(volume8h)} мл`;
+        document.getElementById('childMaintenanceDisplay').textContent = `${Math.round(maintenance)} мл/час`;
+        document.getElementById('childTotalRateDisplay').textContent = `${Math.round(totalRate)} мл/час`;
+    }
+
+    // Заполнение таблицы для взрослых с градиентом
+    function updateAdultTable() {
+        const tbody = document.getElementById('adultTableBody');
+        tbody.innerHTML = '';
+        
+        for (const weight of adultTableData.weights) {
+            const row = document.createElement('tr');
+            row.innerHTML = `<td style="font-weight: 600; background: #1f4a66; color: white;">${weight}</td>`;
+            const values = adultTableData.values[weight];
+            for (let i = 0; i < adultTableData.burns.length; i++) {
+                const td = document.createElement('td');
+                td.textContent = formatValue(values[i]);
+                row.appendChild(td);
+            }
+            tbody.appendChild(row);
+        }
+    }
+
+    // Заполнение таблицы для детей с градиентом
+    function updateChildTable() {
+        const tbody = document.getElementById('childTableBody');
+        tbody.innerHTML = '';
+        
+        for (const weight of childTableData.weights) {
+            const row = document.createElement('tr');
+            row.innerHTML = `<td style="font-weight: 600; background: #d9534f; color: white;">${weight}</td>`;
+            const values = childTableData.values[weight];
+            for (let i = 0; i < childTableData.burns.length; i++) {
+                const td = document.createElement('td');
+                td.textContent = formatValue(values[i]);
+                row.appendChild(td);
+            }
+            tbody.appendChild(row);
+        }
+    }
+
+    function resetAll() {
+        document.getElementById('weightAdult').value = '70';
+        document.getElementById('burnAreaAdult').value = '30';
+        document.getElementById('weightChild').value = '20';
+        document.getElementById('burnAreaChild').value = '30';
+        calculateAdult();
+        calculateChild();
+    }
+
+    function activateTab(tabId) {
+        const contents = document.querySelectorAll('.tab-content');
+        contents.forEach(content => {
+            content.classList.remove('active');
+            if (content.id === tabId) content.classList.add('active');
+        });
+        const tabs = document.querySelectorAll('.tab-btn');
+        tabs.forEach(btn => {
+            btn.classList.remove('active');
+            if (btn.getAttribute('data-tab') === tabId) btn.classList.add('active');
+        });
+    }
+
+    document.getElementById('weightAdult').addEventListener('input', calculateAdult);
+    document.getElementById('burnAreaAdult').addEventListener('input', calculateAdult);
+    document.getElementById('weightChild').addEventListener('input', calculateChild);
+    document.getElementById('burnAreaChild').addEventListener('input', calculateChild);
+    document.getElementById('resetBtn').addEventListener('click', resetAll);
+
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            activateTab(btn.getAttribute('data-tab'));
+        });
+    });
+    
+    updateAdultTable();
+    updateChildTable();
+    calculateAdult();
+    calculateChild();
+    
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/SMP/sw.js')
+            .then(reg => console.log('✅ Сервис-воркер зарегистрирован:', reg))
+            .catch(err => console.error('❌ Ошибка регистрации:', err));
+    }
+</script>
+</body>
+</html>
