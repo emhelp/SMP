@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>Калькулятор инфузии норэпинефрина | Дети</title>
+    <title>Калькулятор инфузии норэпинефрина | Дети (на 5% декстрозе)</title>
     
     <!-- PWA -->
     <link rel="manifest" href="manifest.json">
@@ -213,6 +213,37 @@
             box-shadow: 0 0 0 3px rgba(31,110,156,0.1);
         }
 
+        /* ВАЖНОЕ ПРЕДУПРЕЖДЕНИЕ - КРАСНЫЙ ЖИРНЫЙ */
+        .important-red {
+            background: #fff0f0;
+            border-left: 4px solid #d32f2f;
+            padding: 14px 18px;
+            border-radius: 16px;
+            margin: 16px 0;
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: #b71c1c;
+        }
+        .important-red strong {
+            color: #d32f2f;
+            font-size: 1rem;
+        }
+        .red-text {
+            color: #d32f2f;
+            font-weight: bold;
+        }
+        .dilution-warning {
+            background: #ffebee;
+            border: 2px solid #d32f2f;
+            border-radius: 20px;
+            padding: 12px 16px;
+            margin: 12px 0;
+            color: #b71c1c;
+            font-weight: 800;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
         .result-table-wrapper {
             overflow-x: auto;
             margin: 20px 0;
@@ -389,11 +420,18 @@
     <div class="card-header">
         <h1>
             👶 Калькулятор инфузии норэпинефрина
-            <span>для детей</span>
+            <span>для детей | 5% ДЕКСТРОЗА!</span>
         </h1>
         <p>Расчет скорости введения норэпинефрина у детей (капельная инфузия). ⭐ — выделены наиболее часто используемые в практике вазопрессорные дозы (0,1–2 мкг/кг/мин).</p>
     </div>
     <div class="card-content">
+        <!-- КРАСНОЕ ПРЕДУПРЕЖДЕНИЕ ВВЕРХУ -->
+        <div class="important-red">
+            <strong>⚠️ КРИТИЧЕСКИ ВАЖНО ⚠️</strong><br>
+            🚨 <strong>НОРЭПИНЕФРИН РАЗВОДИТЬ ТОЛЬКО 5% ДЕКСТРОЗОЙ (5% ГЛЮКОЗОЙ)!</strong> 🚨<br>
+            👇 ВСЕ РАЗВЕДЕНИЯ НИЖЕ ВЫПОЛНЕНЫ НА 5% ДЕКСТРОЗЕ 👇
+        </div>
+
         <div class="tabs-wrapper">
             <div class="tabs-label">Способ введения:</div>
             <div class="nav-tabs">
@@ -405,6 +443,9 @@
         <div id="low" class="tab-content active">
             <div class="card">
                 <div class="card-title">📊 Капельная инфузия | Низкая концентрация</div>
+                <div class="dilution-warning">
+                    🔴 <strong>РАЗВЕДЕНИЕ НА 5% ДЕКСТРОЗЕ (ГЛЮКОЗА):</strong> Норэпинефрин 1 мг (0,5 мл) + <strong class="red-text">5% ДЕКСТРОЗА</strong> 250 мл → концентрация 0,004 мг/мл
+                </div>
                 <div class="param-group">
                     <div class="param-label">👶 Данные ребенка</div>
                     <div class="input-row">
@@ -415,10 +456,11 @@
                     </div>
                 </div>
                 <div class="info-note">
-                    <strong>📌 Разведение:</strong> Норэпинефрин 1 мг (0,5 мл) + Натрия хлорид 0,9% 250 мл (0,004 мг/мл)<br>
+                    <strong>📌 Разведение (5% декстроза):</strong> Норэпинефрин 1 мг (0,5 мл) + <strong class="red-text">5% Декстроза (Глюкоза)</strong> 250 мл → концентрация 0,004 мг/мл<br>
                     <strong>⚙️ Единица измерения:</strong> капли в минуту (20 капель = 1 мл)<br>
                     <strong>👥 Весовая категория:</strong> 2,5–45 кг<br>
-                    <strong>💊 Терапевтический диапазон:</strong> 0,1–0,5 мкг/кг/мин
+                    <strong>💊 Терапевтический диапазон:</strong> 0,1–0,5 мкг/кг/мин<br>
+                    <span class="red-text">✅ Разрешено: ТОЛЬКО 5% ДЕКСТРОЗА!</span>
                 </div>
                 <div class="result-table-wrapper">
                     <table class="result-table" id="tableLow">
@@ -437,6 +479,9 @@
         <div id="high" class="tab-content">
             <div class="card">
                 <div class="card-title">📊 Капельная инфузия | Высокая концентрация</div>
+                <div class="dilution-warning">
+                    🔴 <strong>РАЗВЕДЕНИЕ НА 5% ДЕКСТРОЗЕ (ГЛЮКОЗА):</strong> Норэпинефрин 8 мг (4 мл) + <strong class="red-text">5% ДЕКСТРОЗА</strong> 250 мл → концентрация 0,032 мг/мл
+                </div>
                 <div class="param-group">
                     <div class="param-label">👶 Данные ребенка</div>
                     <div class="input-row">
@@ -447,10 +492,11 @@
                     </div>
                 </div>
                 <div class="info-note">
-                    <strong>📌 Разведение:</strong> Норэпинефрин 8 мг (4 мл) + Натрия хлорид 0,9% 250 мл (0,032 мг/мл)<br>
+                    <strong>📌 Разведение (5% декстроза):</strong> Норэпинефрин 8 мг (4 мл) + <strong class="red-text">5% Декстроза (Глюкоза)</strong> 250 мл → концентрация 0,032 мг/мл<br>
                     <strong>⚙️ Единица измерения:</strong> капли в минуту (20 капель = 1 мл)<br>
                     <strong>👥 Весовая категория:</strong> 2,5–45 кг<br>
-                    <strong>💊 Терапевтический диапазон:</strong> 1–5 мкг/кг/мин
+                    <strong>💊 Терапевтический диапазон:</strong> 1–5 мкг/кг/мин<br>
+                    <span class="red-text">✅ Разрешено: ТОЛЬКО 5% ДЕКСТРОЗА!</span>
                 </div>
                 <div class="result-table-wrapper">
                     <table class="result-table" id="tableHigh">
@@ -482,8 +528,8 @@
         </div>
 
         <div class="footnote">
-            ⚕️ Расчеты основаны на стандартных протоколах инфузии норэпинефрина у детей. Скорость введения титруется под контролем гемодинамики (целевое АД). ⭐ — выделены наиболее часто применяемые в клинической практике дозы.<br>
-            <strong>📌 Концентрации:</strong> Низкая — 0,004 мг/мл (1 мг в 250 мл); Высокая — 0,032 мг/мл (8 мг в 250 мл)<br>
+            ⚕️ Расчеты основаны на стандартных протоколах инфузии норэпинефрина у детей с разведением ТОЛЬКО на 5% ДЕКСТРОЗЕ (ГЛЮКОЗА). Скорость введения титруется под контролем гемодинамики (целевое АД). ⭐ — выделены наиболее часто применяемые в клинической практике дозы.<br>
+            <strong>📌 Концентрации на 5% декстрозе:</strong> Низкая — 0,004 мг/мл (1 мг в 250 мл 5% декстрозы); Высокая — 0,032 мг/мл (8 мг в 250 мл 5% декстрозы)<br>
             <strong>📌 Формула расчета:</strong> капли/мин = (доза мкг/кг/мин × вес кг × 60) / (концентрация мг/мл × 1000) × 20
         </div>
     </div>
