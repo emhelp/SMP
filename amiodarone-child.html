@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Калькулятор инфузии амиодарона | Дети</title>
+    
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1e2f47">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(145deg, #eef2f7 0%, #dce3ec 100%);
+            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, 'Helvetica Neue', sans-serif;
+            padding: 2rem 1rem;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .calculator-card {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 48px;
+            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .card-header {
+            background: #1e2f47;
+            background-image: linear-gradient(115deg, #142a3b, #1d3f55);
+            padding: 1.8rem 2rem;
+            color: white;
+        }
+        .card-header h1 {
+            font-size: 1.9rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .card-header h1 span {
+            background: rgba(255,255,255,0.2);
+            font-size: 0.9rem;
+            padding: 5px 14px;
+            border-radius: 60px;
+            font-weight: 500;
+        }
+        .card-header p {
+            margin-top: 12px;
+            opacity: 0.85;
+            font-size: 0.95rem;
+            border-left: 3px solid #5f9bc2;
+            padding-left: 16px;
+        }
+
+        .card-content {
+            padding: 2rem;
+        }
+
+        .tabs-wrapper {
+            margin-bottom: 1.5rem;
+        }
+
+        .tabs-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #1f4a66;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tabs-label::before {
+            content: "👶";
+            font-size: 1rem;
+        }
+
+        .nav-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .tab-btn {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border: 2px solid #cbdde6;
+            padding: 10px 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #1f4a66;
+            cursor: pointer;
+            border-radius: 60px;
+            transition: all 0.25s ease;
+            font-family: inherit;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            flex: 0 0 auto;
+        }
+
+        .tab-btn:hover {
+            background: linear-gradient(135deg, #e8f0f5 0%, #dfeaf0 100%);
+            border-color: #1f6e9c;
+            transform: translateY(-2px);
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, #1f6e9c 0%, #155a80 100%);
+            border-color: #ffc107;
+            color: white;
+            box-shadow: 0 4px 12px rgba(31,110,156,0.4);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fade 0.25s ease;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        @keyframes fade {
+            from { opacity: 0; transform: translateY(8px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 28px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+            border: 1px solid #d4e2f0;
+            transition: all 0.2s;
+        }
+        .card:hover {
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1f4a66;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-left: 4px solid #1f6e9c;
+            padding-left: 16px;
+        }
+
+        .param-group {
+            margin-bottom: 24px;
+        }
+
+        .param-label {
+            font-weight: 600;
+            color: #1f4a66;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+
+        .input-row {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .input-field {
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .input-field label {
+            font-size: 0.75rem;
+            color: #6f8eaa;
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+
+        .input-field input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #d4e2f0;
+            border-radius: 18px;
+            font-size: 0.95rem;
+            font-family: inherit;
+            transition: all 0.25s ease;
+            background: white;
+            color: #1f3a4b;
+        }
+
+        .input-field input:hover {
+            border-color: #1f6e9c;
+        }
+
+        .input-field input:focus {
+            outline: none;
+            border-color: #1f6e9c;
+            box-shadow: 0 0 0 3px rgba(31,110,156,0.1);
+        }
+
+        .result-table-wrapper {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        .result-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+            min-width: 400px;
+        }
+
+        .result-table th, .result-table td {
+            padding: 12px 10px;
+            text-align: center;
+            border-bottom: 1px solid #e2ecf3;
+        }
+
+        .result-table th {
+            background: #eef7ff;
+            color: #1f4a66;
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+
+        .result-table td {
+            font-weight: 500;
+            color: #1f3a4b;
+        }
+
+        .result-table td.highlight-speed {
+            background: #fff8e7;
+            color: #e68a2e;
+            font-weight: 700;
+            position: relative;
+        }
+
+        .result-table td.highlight-speed::after {
+            content: "⭐";
+            position: absolute;
+            top: 2px;
+            right: 4px;
+            font-size: 10px;
+        }
+
+        .speed-note {
+            background: #fff8e7;
+            border-left: 4px solid #e68a2e;
+            padding: 10px 14px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            margin-top: 12px;
+            color: #a56b00;
+        }
+
+        .info-note {
+            background: #eef7ff;
+            border-left: 4px solid #1f6e9c;
+            padding: 12px 16px;
+            border-radius: 16px;
+            margin: 16px 0;
+            font-size: 0.8rem;
+            color: #1f3a4b;
+        }
+
+        .warning-note {
+            background: #fff8e7;
+            border-left: 4px solid #f0b849;
+            padding: 12px 16px;
+            border-radius: 16px;
+            margin: 16px 0;
+            font-size: 0.8rem;
+            color: #a56b00;
+        }
+
+        .danger-note {
+            background: #ffebee;
+            border-left: 4px solid #c62828;
+            padding: 12px 16px;
+            border-radius: 16px;
+            margin: 16px 0;
+            font-size: 0.8rem;
+            color: #c62828;
+        }
+
+        .important-red {
+            background: #fff0f0;
+            border-left: 4px solid #d32f2f;
+            padding: 14px 18px;
+            border-radius: 16px;
+            margin: 16px 0;
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: #b71c1c;
+        }
+        .important-red strong {
+            color: #d32f2f;
+            font-size: 1rem;
+        }
+        .red-text {
+            color: #d32f2f;
+            font-weight: bold;
+        }
+        .dilution-warning {
+            background: #ffebee;
+            border: 2px solid #d32f2f;
+            border-radius: 20px;
+            padding: 12px 16px;
+            margin: 12px 0;
+            color: #b71c1c;
+            font-weight: 800;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .btn-reset {
+            background: linear-gradient(135deg, #ecf3f8 0%, #e6edf4 100%);
+            border: 2px solid #cbdae6;
+            padding: 10px 20px;
+            border-radius: 60px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            color: #1f4a66;
+            transition: all 0.25s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .btn-reset:hover {
+            background: linear-gradient(135deg, #e2eaf2 0%, #d8e2ec 100%);
+            border-color: #1f6e9c;
+            transform: translateY(-2px);
+        }
+
+        .footnote {
+            font-size: 0.7rem;
+            color: #6f8eaa;
+            text-align: center;
+            margin-top: 24px;
+            padding-top: 16px;
+            border-top: 1px solid #e2ecf3;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+            .card-header {
+                padding: 1.2rem;
+            }
+            .card-header h1 {
+                font-size: 1.3rem;
+            }
+            .card-header p {
+                font-size: 0.8rem;
+            }
+            .card-content {
+                padding: 1rem;
+            }
+            .tab-btn {
+                padding: 8px 12px;
+                font-size: 0.7rem;
+                flex: 1;
+                justify-content: center;
+            }
+            .card {
+                padding: 1.2rem;
+            }
+            .card-title {
+                font-size: 1.1rem;
+            }
+            .input-field input {
+                padding: 10px 14px;
+                font-size: 0.85rem;
+            }
+            .result-table th, .result-table td {
+                padding: 8px 6px;
+                font-size: 0.7rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .input-row {
+                flex-direction: column;
+                gap: 12px;
+            }
+            .tab-btn {
+                padding: 8px 8px;
+                font-size: 0.65rem;
+            }
+            .result-table td.highlight-speed::after {
+                font-size: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="calculator-card">
+    <div class="card-header">
+        <h1>
+            👶 Калькулятор инфузии амиодарона
+            <span>для детей | 5% ДЕКСТРОЗА!</span>
+        </h1>
+        <p>Расчет скорости введения амиодарона у детей с использованием шприцевого насоса (шприц 20 мл и 50 мл). ⭐ — выделены стандартные дозы 5, 10, 15 мкг/кг/мин.</p>
+    </div>
+    <div class="card-content">
+        <!-- КРАСНОЕ ПРЕДУПРЕЖДЕНИЕ ВВЕРХУ -->
+        <div class="important-red">
+            <strong>⚠️ ВАЖНО ⚠️</strong><br>
+            🚨 <strong>АМИОДАРОН РАЗВОДИТЬ ТОЛЬКО 5% ДЕКСТРОЗОЙ (5% ГЛЮКОЗОЙ)!</strong> 🚨
+        </div>
+
+        <div class="tabs-wrapper">
+            <div class="tabs-label">Способ введения:</div>
+            <div class="nav-tabs">
+                <button class="tab-btn active" data-tab="syringe20">💉 Шприц 20 мл</button>
+                <button class="tab-btn" data-tab="syringe50">💊 Шприц 50 мл</button>
+            </div>
+        </div>
+
+        <!-- Шприц 20 мл -->
+        <div id="syringe20" class="tab-content active">
+            <div class="card">
+                <div class="card-title">📊 Шприцевой насос | Шприц 20 мл</div>
+                <div class="dilution-warning">
+                    🔴 <strong>РАЗВЕДЕНИЕ НА 5% ДЕКСТРОЗЕ (ГЛЮКОЗА):</strong><br>
+                    Амиодарон 150 мг (5% – 3 мл) + <strong class="red-text">5% ДЕКСТРОЗА</strong> до 20 мл → концентрация 7,5 мг/мл
+                </div>
+                <div class="param-group">
+                    <div class="param-label">👶 Данные ребенка</div>
+                    <div class="input-row">
+                        <div class="input-field">
+                            <label>Масса тела (кг)</label>
+                            <input type="number" id="weight20" value="10" step="0.5" min="2" max="50">
+                        </div>
+                    </div>
+                </div>
+                <div class="info-note">
+                    <strong>📌 Разведение (5% декстроза):</strong> Амиодарон 150 мг (5% – 3 мл) + <strong class="red-text">5% Декстроза (Глюкоза)</strong> до 20 мл → концентрация 7,5 мг/мл (7500 мкг/мл).<br>
+                    <strong>⚙️ Единица измерения:</strong> мл/час (устанавливается на шприцевом насосе)<br>
+                    <strong>👥 Весовая категория:</strong> 2,5–45 кг<br>
+                    <span class="red-text">✅ Разрешено: ТОЛЬКО 5% ДЕКСТРОЗА!</span>
+                </div>
+                <div class="result-table-wrapper">
+                    <table class="result-table" id="table20">
+                        <thead>
+                            <tr><th>Вес (кг)</th><th>5 мкг/кг/мин</th><th>10 мкг/кг/мин</th><th>15 мкг/кг/мин</th></tr>
+                        </thead>
+                        <tbody id="table20Body"></tbody>
+                    </table>
+                </div>
+                <div class="speed-note">
+                    ⭐ <strong>Стандартные дозы амиодарона у детей:</strong> 5, 10, 15 мкг/кг/мин.
+                </div>
+            </div>
+        </div>
+
+        <!-- Шприц 50 мл -->
+        <div id="syringe50" class="tab-content">
+            <div class="card">
+                <div class="card-title">📊 Шприцевой насос | Шприц 50 мл</div>
+                <div class="dilution-warning">
+                    🔴 <strong>РАЗВЕДЕНИЕ НА 5% ДЕКСТРОЗЕ (ГЛЮКОЗА):</strong><br>
+                    Амиодарон 150 мг (5% – 3 мл) + <strong class="red-text">5% ДЕКСТРОЗА</strong> до 50 мл → концентрация 3 мг/мл
+                </div>
+                <div class="param-group">
+                    <div class="param-label">👶 Данные ребенка</div>
+                    <div class="input-row">
+                        <div class="input-field">
+                            <label>Масса тела (кг)</label>
+                            <input type="number" id="weight50" value="10" step="0.5" min="2" max="50">
+                        </div>
+                    </div>
+                </div>
+                <div class="info-note">
+                    <strong>📌 Разведение (5% декстроза):</strong> Амиодарон 150 мг (5% – 3 мл) + <strong class="red-text">5% Декстроза (Глюкоза)</strong> до 50 мл → концентрация 3 мг/мл (3000 мкг/мл).<br>
+                    <strong>⚙️ Единица измерения:</strong> мл/час (устанавливается на шприцевом насосе)<br>
+                    <strong>👥 Весовая категория:</strong> 3–45 кг<br>
+                    <span class="red-text">✅ Разрешено: ТОЛЬКО 5% ДЕКСТРОЗА!</span>
+                </div>
+                <div class="result-table-wrapper">
+                    <table class="result-table" id="table50">
+                        <thead>
+                            <tr><th>Вес (кг)</th><th>5 мкг/кг/мин</th><th>10 мкг/кг/мин</th><th>15 мкг/кг/мин</th></tr>
+                        </thead>
+                        <tbody id="table50Body"></tbody>
+                    </table>
+                </div>
+                <div class="speed-note">
+                    ⭐ <strong>Стандартные дозы амиодарона у детей:</strong> 5, 10, 15 мкг/кг/мин.
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">⚠️ Клинические рекомендации (амиодарон у детей)</div>
+            <div class="warning-note">
+                <strong>💊 Дозы амиодарона при внутривенной инфузии у детей:</strong><br>
+                • <strong>Нагрузочная доза:</strong> 5 мг/кг в течение 20–60 минут (максимум 300 мг)<br>
+                • <strong>Поддерживающая инфузия:</strong> 5–15 мкг/кг/мин (обычно начинают с 5 мкг/кг/мин)<br>
+                • <strong>Максимальная суточная доза:</strong> 15 мг/кг/сутки<br>
+                • <strong>Титрование:</strong> увеличивать дозу под контролем ЭКГ и АД
+            </div>
+            <div class="danger-note">
+                <strong>⚠️ Важно!</strong> Амиодарон может вызывать брадикардию, гипотензию, удлинение интервала QT. Инфузию проводить под контролем ЭКГ и АД. Не смешивать с другими препаратами в одном инфузионном контуре. Использовать только 5% декстрозу в качестве растворителя!
+            </div>
+            <button class="btn-reset" id="resetBtn">⟳ Сбросить все значения к 10 кг</button>
+        </div>
+
+        <div class="footnote">
+            ⚕️ Расчеты основаны на стандартных протоколах инфузии амиодарона у детей с разведением ТОЛЬКО на 5% ДЕКСТРОЗЕ (ГЛЮКОЗА).<br>
+            <strong>📌 Концентрации на 5% декстрозе:</strong> Шприц 20 мл — 7,5 мг/мл (150 мг в 20 мл 5% декстрозы); Шприц 50 мл — 3 мг/мл (150 мг в 50 мл 5% декстрозы)<br>
+            <strong>📌 Формула расчета:</strong> мл/час = (доза мкг/кг/мин × вес кг × 60) / (концентрация мкг/мл)
+        </div>
+    </div>
+</div>
+
+<script>
+    // Данные для шприца 20 мл (из изображения)
+    // Концентрация: 150 мг в 20 мл = 7,5 мг/мл = 7500 мкг/мл
+    const syringe20Data = {
+        doses: [5, 10, 15],
+        dosesLabel: ["5 мкг/кг/мин", "10 мкг/кг/мин", "15 мкг/кг/мин"],
+        weights: [2.5, 5, 10, 15, 20, 25, 30, 35, 40, 45],
+        unit: "мл/час",
+        values: {
+            2.5: [0.1, 0.2, 0.3],
+            5: [0.2, 0.4, 0.6],
+            10: [0.4, 0.8, 1.2],
+            15: [0.6, 1.2, 1.8],
+            20: [0.8, 1.6, 2.4],
+            25: [1.0, 2.0, 3.0],
+            30: [1.2, 2.4, 3.6],
+            35: [1.4, 2.8, 4.2],
+            40: [1.6, 3.2, 4.8],
+            45: [1.8, 3.6, 5.4]
+        }
+    };
+
+    // Данные для шприца 50 мл (из изображения)
+    // Концентрация: 150 мг в 50 мл = 3 мг/мл = 3000 мкг/мл
+    const syringe50Data = {
+        doses: [5, 10, 15],
+        dosesLabel: ["5 мкг/кг/мин", "10 мкг/кг/мин", "15 мкг/кг/мин"],
+        weights: [3, 5, 10, 15, 20, 25, 30, 35, 40, 45],
+        unit: "мл/час",
+        values: {
+            3: [0.3, 0.6, 0.9],
+            5: [0.5, 1.0, 1.5],
+            10: [1.0, 2.0, 3.0],
+            15: [1.5, 3.0, 4.5],
+            20: [2.0, 4.0, 6.0],
+            25: [2.5, 5.0, 7.5],
+            30: [3.0, 6.0, 9.0],
+            35: [3.5, 7.0, 10.5],
+            40: [4.0, 8.0, 12.0],
+            45: [4.5, 9.0, 13.5]
+        }
+    };
+
+    function formatValue(value, unit) {
+        if (value === undefined || isNaN(value)) return '—';
+        // Округляем до 1 десятичного знака, если не целое
+        const rounded = Math.round(value * 10) / 10;
+        if (Number.isInteger(rounded)) {
+            return `${Math.round(rounded)} ${unit}`;
+        }
+        return `${rounded} ${unit}`;
+    }
+
+    function findClosestWeight(weight, weights) {
+        return weights.reduce((prev, curr) => {
+            return (Math.abs(curr - weight) < Math.abs(prev - weight) ? curr : prev);
+        });
+    }
+
+    function updateTable20() {
+        let weight = parseFloat(document.getElementById('weight20').value);
+        if (isNaN(weight)) weight = 10;
+        weight = Math.min(Math.max(weight, 2), 50);
+        
+        let closestWeight = findClosestWeight(weight, syringe20Data.weights);
+        const values = syringe20Data.values[closestWeight];
+        const unit = syringe20Data.unit;
+        const tbody = document.getElementById('table20Body');
+        tbody.innerHTML = '';
+        
+        const row = document.createElement('tr');
+        row.innerHTML = `<td style="font-weight: 600;">${closestWeight} кг</td>`;
+        for (let i = 0; i < syringe20Data.doses.length; i++) {
+            const td = document.createElement('td');
+            td.textContent = formatValue(values[i], unit);
+            // Выделяем все стандартные дозы
+            td.classList.add('highlight-speed');
+            row.appendChild(td);
+        }
+        tbody.appendChild(row);
+        
+        if (Math.abs(weight - closestWeight) > 0.1 && !syringe20Data.weights.includes(weight)) {
+            const note = document.createElement('tr');
+            note.style.backgroundColor = '#fff8e7';
+            note.innerHTML = `<td colspan="4" style="text-align: center; font-size: 0.7rem; padding: 8px;">
+                ⚠️ Ближайшее табличное значение для веса ${weight} кг — ${closestWeight} кг.
+            </td>`;
+            tbody.appendChild(note);
+        }
+    }
+
+    function updateTable50() {
+        let weight = parseFloat(document.getElementById('weight50').value);
+        if (isNaN(weight)) weight = 10;
+        weight = Math.min(Math.max(weight, 3), 50);
+        
+        let closestWeight = findClosestWeight(weight, syringe50Data.weights);
+        const values = syringe50Data.values[closestWeight];
+        const unit = syringe50Data.unit;
+        const tbody = document.getElementById('table50Body');
+        tbody.innerHTML = '';
+        
+        const row = document.createElement('tr');
+        row.innerHTML = `<td style="font-weight: 600;">${closestWeight} кг</td>`;
+        for (let i = 0; i < syringe50Data.doses.length; i++) {
+            const td = document.createElement('td');
+            td.textContent = formatValue(values[i], unit);
+            td.classList.add('highlight-speed');
+            row.appendChild(td);
+        }
+        tbody.appendChild(row);
+        
+        if (Math.abs(weight - closestWeight) > 0.1 && !syringe50Data.weights.includes(weight)) {
+            const note = document.createElement('tr');
+            note.style.backgroundColor = '#fff8e7';
+            note.innerHTML = `<td colspan="4" style="text-align: center; font-size: 0.7rem; padding: 8px;">
+                ⚠️ Ближайшее табличное значение для веса ${weight} кг — ${closestWeight} кг.
+            </td>`;
+            tbody.appendChild(note);
+        }
+    }
+
+    function resetAllWeights() {
+        document.getElementById('weight20').value = '10';
+        document.getElementById('weight50').value = '10';
+        updateTable20();
+        updateTable50();
+    }
+
+    function activateTab(tabId) {
+        const contents = document.querySelectorAll('.tab-content');
+        contents.forEach(content => {
+            content.classList.remove('active');
+            if (content.id === tabId) content.classList.add('active');
+        });
+        const tabs = document.querySelectorAll('.tab-btn');
+        tabs.forEach(btn => {
+            btn.classList.remove('active');
+            if (btn.getAttribute('data-tab') === tabId) btn.classList.add('active');
+        });
+    }
+
+    document.getElementById('weight20').addEventListener('input', updateTable20);
+    document.getElementById('weight50').addEventListener('input', updateTable50);
+    document.getElementById('resetBtn').addEventListener('click', resetAllWeights);
+
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            activateTab(btn.getAttribute('data-tab'));
+        });
+    });
+    
+    updateTable20();
+    updateTable50();
+    
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/SMP/sw.js')
+            .then(reg => console.log('✅ Сервис-воркер зарегистрирован:', reg))
+            .catch(err => console.error('❌ Ошибка регистрации:', err));
+    }
+</script>
+</body>
+</html>
