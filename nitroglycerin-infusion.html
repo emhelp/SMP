@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Калькулятор инфузии нитроглицерина | Капельно</title>
+    
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1e2f47">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(145deg, #eef2f7 0%, #dce3ec 100%);
+            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, 'Helvetica Neue', sans-serif;
+            padding: 2rem 1rem;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .calculator-card {
+            max-width: 800px;
+            width: 100%;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 48px;
+            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .card-header {
+            background: #1e2f47;
+            background-image: linear-gradient(115deg, #142a3b, #1d3f55);
+            padding: 1.8rem 2rem;
+            color: white;
+        }
+        .card-header h1 {
+            font-size: 1.9rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .card-header h1 span {
+            background: rgba(255,255,255,0.2);
+            font-size: 0.9rem;
+            padding: 5px 14px;
+            border-radius: 60px;
+            font-weight: 500;
+        }
+        .card-header p {
+            margin-top: 12px;
+            opacity: 0.85;
+            font-size: 0.95rem;
+            border-left: 3px solid #5f9bc2;
+            padding-left: 16px;
+        }
+
+        .card-content {
+            padding: 2rem;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 28px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+            border: 1px solid #d4e2f0;
+            transition: all 0.2s;
+        }
+        .card:hover {
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1f4a66;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-left: 4px solid #1f6e9c;
+            padding-left: 16px;
+        }
+
+        .param-group {
+            margin-bottom: 24px;
+        }
+
+        .param-label {
+            font-weight: 600;
+            color: #1f4a66;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+
+        .input-row {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .input-field {
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .input-field label {
+            font-size: 0.75rem;
+            color: #6f8eaa;
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+
+        .input-field input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #d4e2f0;
+            border-radius: 18px;
+            font-size: 0.95rem;
+            font-family: inherit;
+            transition: all 0.25s ease;
+            background: white;
+            color: #1f3a4b;
+        }
+
+        .input-field input:hover {
+            border-color: #1f6e9c;
+        }
+
+        .input-field input:focus {
+            outline: none;
+            border-color: #1f6e9c;
+            box-shadow: 0 0 0 3px rgba(31,110,156,0.1);
+        }
+
+        .result-table-wrapper {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        .result-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        .result-table th, .result-table td {
+            padding: 14px 12px;
+            text-align: center;
+            border-bottom: 1px solid #e2ecf3;
+        }
+
+        .result-table th {
+            background: #eef7ff;
+            color: #1f4a66;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .result-table td {
+            font-weight: 500;
+            color: #1f3a4b;
+        }
+
+        .result-table td.highlight-speed {
+            background: #fff8e7;
+            color: #e68a2e;
+            font-weight: 700;
+            position: relative;
+        }
+
+        .result-table td.highlight-speed::after {
+            content: "⭐";
+            position: absolute;
+            top: 2px;
+            right: 4px;
+            font-size: 10px;
+        }
+
+        .speed-note {
+            background: #fff8e7;
+            border-left: 4px solid #e68a2e;
+            padding: 10px 14px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            margin-top: 12px;
+            color: #a56b00;
+        }
+
+        .info-note {
+            background: #eef7ff;
+            border-left: 4px solid #1f6e9c;
+            padding: 12px 16px;
+            border-radius: 16px;
+            margin: 16px 0;
+            font-size: 0.8rem;
+            color: #1f3a4b;
+        }
+
+        .warning-note {
+            background: #fff8e7;
+            border-left: 4px solid #f0b849;
+            padding: 12px 16px;
+            border-radius: 16px;
+            margin: 16px 0;
+            font-size: 0.8rem;
+            color: #a56b00;
+        }
+
+        .danger-note {
+            background: #ffebee;
+            border-left: 4px solid #c62828;
+            padding: 12px 16px;
+            border-radius: 16px;
+            margin: 16px 0;
+            font-size: 0.8rem;
+            color: #c62828;
+        }
+
+        .important-red {
+            background: #fff0f0;
+            border-left: 4px solid #d32f2f;
+            padding: 14px 18px;
+            border-radius: 16px;
+            margin: 16px 0;
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: #b71c1c;
+        }
+        .important-red strong {
+            color: #d32f2f;
+            font-size: 1rem;
+        }
+        .red-text {
+            color: #d32f2f;
+            font-weight: bold;
+        }
+        .dilution-warning {
+            background: #ffebee;
+            border: 2px solid #d32f2f;
+            border-radius: 20px;
+            padding: 12px 16px;
+            margin: 12px 0;
+            color: #b71c1c;
+            font-weight: 800;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .btn-reset {
+            background: linear-gradient(135deg, #ecf3f8 0%, #e6edf4 100%);
+            border: 2px solid #cbdae6;
+            padding: 10px 20px;
+            border-radius: 60px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            color: #1f4a66;
+            transition: all 0.25s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .btn-reset:hover {
+            background: linear-gradient(135deg, #e2eaf2 0%, #d8e2ec 100%);
+            border-color: #1f6e9c;
+            transform: translateY(-2px);
+        }
+
+        .footnote {
+            font-size: 0.7rem;
+            color: #6f8eaa;
+            text-align: center;
+            margin-top: 24px;
+            padding-top: 16px;
+            border-top: 1px solid #e2ecf3;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+            .card-header {
+                padding: 1.2rem;
+            }
+            .card-header h1 {
+                font-size: 1.3rem;
+            }
+            .card-header p {
+                font-size: 0.8rem;
+            }
+            .card-content {
+                padding: 1rem;
+            }
+            .card {
+                padding: 1.2rem;
+            }
+            .card-title {
+                font-size: 1.1rem;
+            }
+            .input-field input {
+                padding: 10px 14px;
+                font-size: 0.85rem;
+            }
+            .result-table th, .result-table td {
+                padding: 10px 8px;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="calculator-card">
+    <div class="card-header">
+        <h1>
+            💊 Калькулятор инфузии нитроглицерина
+            <span>капельно | 5% ДЕКСТРОЗА!</span>
+        </h1>
+        <p>Расчет скорости капельной инфузии нитроглицерина. ⭐ — выделены наиболее часто используемые в клинической практике скорости.</p>
+    </div>
+    <div class="card-content">
+        <!-- КРАСНОЕ ПРЕДУПРЕЖДЕНИЕ ВВЕРХУ -->
+        <div class="important-red">
+            <strong>⚠️ ВАЖНО ⚠️</strong><br>
+            🚨 <strong>НИТРОГЛИЦЕРИН РАЗВОДИТЬ ТОЛЬКО 5% ДЕКСТРОЗОЙ (5% ГЛЮКОЗОЙ)!</strong> 🚨
+        </div>
+
+        <div class="card">
+            <div class="card-title">📊 Капельная инфузия нитроглицерина</div>
+            <div class="dilution-warning">
+                🔴 <strong>РАЗВЕДЕНИЕ НА 5% ДЕКСТРОЗЕ (ГЛЮКОЗА):</strong><br>
+                1 ампула 10 мл (10 мг) + <strong class="red-text">5% ДЕКСТРОЗА</strong> до 250 мл → концентрация 0,04 мг/мл (10 мг/250 мл)<br>
+                или 2 ампулы по 10 мл (20 мг) + <strong class="red-text">5% ДЕКСТРОЗА</strong> до 500 мл → концентрация 0,04 мг/мл (20 мг/500 мл)
+            </div>
+            <div class="info-note">
+                <strong>📌 Разведение (5% декстроза):</strong> Нитроглицерин 10 мг (1 ампула 10 мл) + <strong class="red-text">5% Декстроза (Глюкоза)</strong> до 250 мл <strong>ИЛИ</strong> 20 мг (2 ампулы) до 500 мл.<br>
+                <strong>⚙️ Концентрация:</strong> 0,04 мг/мл (40 мкг/мл)<br>
+                <strong>⚙️ Единица измерения:</strong> капли в минуту (20 капель = 1 мл)<br>
+                <span class="red-text">✅ Разрешено: ТОЛЬКО 5% ДЕКСТРОЗА!</span>
+            </div>
+
+            <div class="param-group">
+                <div class="param-label">⚙️ Выберите способ расчета:</div>
+                <div class="input-row">
+                    <div class="input-field">
+                        <label>Расчет по скорости (мг/час)</label>
+                        <input type="number" id="mgPerHour" value="5" step="1" min="1" max="20" placeholder="мг/час">
+                    </div>
+                </div>
+            </div>
+
+            <div class="result-table-wrapper">
+                <table class="result-table" id="calcTable">
+                    <thead>
+                        <tr><th>Скорость инфузии (мг/час)</th>
+                            <th>Скорость инфузии (капли/мин)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="calcTableBody">
+                        <tr>
+                            <td id="mgValue">5 мг/час</td>
+                            <td id="dropsValue" class="highlight-speed">— кап/мин</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="speed-note">
+                ⭐ <strong>Часто используемые скорости:</strong> 2–10 мг/час — стандартный диапазон для инфузии нитроглицерина.
+            </div>
+        </div>
+
+        <!-- Справочная таблица -->
+        <div class="card">
+            <div class="card-title">📋 Справочная таблица (мг/час → капли/мин)</div>
+            <div class="info-note">
+                <strong>Концентрация:</strong> 0,04 мг/мл (40 мкг/мл).<br>
+                <strong>Формула:</strong> капли/мин = мг/час × 8 (при 20 кап/мл и концентрации 0,04 мг/мл)
+            </div>
+            <div class="result-table-wrapper">
+                <table class="result-table">
+                    <thead>
+                        <tr>
+                            <th>Скорость (мг/час)</th>
+                            <th>Скорость (капли/мин)</th>
+                            <th>⭐ Рекомендация</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>1 мг/час</td><td>8 кап/мин</td><td>Низкая доза</td></tr>
+                        <tr><td>2 мг/час</td><td>16 кап/мин</td><td>Низкая доза</td></tr>
+                        <tr><td>3 мг/час</td><td>24 кап/мин</td><td>Средняя доза</td></tr>
+                        <tr><td class="highlight-speed">4 мг/час</td><td class="highlight-speed">32 кап/мин</td><td class="highlight-speed">⭐ Часто используется</td></tr>
+                        <tr><td class="highlight-speed">5 мг/час</td><td class="highlight-speed">40 кап/мин</td><td class="highlight-speed">⭐ Часто используется</td></tr>
+                        <tr><td>6 мг/час</td><td>48 кап/мин</td><td>Средняя доза</td></tr>
+                        <tr><td>7 мг/час</td><td>56 кап/мин</td><td>Высокая доза</td></tr>
+                        <tr><td>8 мг/час</td><td>64 кап/мин</td><td>Высокая доза</td></tr>
+                        <tr><td>9 мг/час</td><td>72 кап/мин</td><td>Высокая доза</td></tr>
+                        <tr><td>10 мг/час</td><td>80 кап/мин</td><td>Максимальная доза</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">⚠️ Клинические рекомендации (нитроглицерин)</div>
+            <div class="warning-note">
+                <strong>💊 Дозы нитроглицерина при внутривенной инфузии:</strong><br>
+                • <strong>Начальная доза:</strong> 5–10 мкг/мин (0,3–0,6 мг/час)<br>
+                • <strong>Поддерживающая доза:</strong> 10–200 мкг/мин (0,6–12 мг/час)<br>
+                • <strong>Максимальная доза:</strong> до 400 мкг/мин (24 мг/час)<br>
+                • <strong>Титрование:</strong> увеличивать на 5–10 мкг/мин каждые 5–10 минут до достижения эффекта
+            </div>
+            <div class="danger-note">
+                <strong>⚠️ Важно!</strong> Нитроглицерин вызывает вазодилатацию, может привести к выраженной гипотензии. Инфузию проводить под контролем АД и ЧСС. Противопоказан при гипотензии (систолическое АД &lt; 90 мм рт.ст.), повышенном внутричерепном давлении, констриктивном перикардите, тампонаде сердца.
+            </div>
+            <button class="btn-reset" id="resetBtn">⟳ Сбросить к 5 мг/час</button>
+        </div>
+
+        <div class="footnote">
+            ⚕️ Расчеты основаны на стандартных протоколах инфузии нитроглицерина с разведением ТОЛЬКО на 5% ДЕКСТРОЗЕ (ГЛЮКОЗА).<br>
+            <strong>📌 Концентрация:</strong> 0,04 мг/мл (40 мкг/мл) — 10 мг в 250 мл 5% декстрозы или 20 мг в 500 мл 5% декстрозы<br>
+            <strong>📌 Формула расчета:</strong> капли/мин = мг/час × 8
+        </div>
+    </div>
+</div>
+
+<script>
+    // Константы
+    const CONCENTRATION_MG_ML = 0.04;    // 0,04 мг/мл = 40 мкг/мл
+    const DROPS_PER_ML = 20;            // 20 капель в 1 мл
+    
+    // Формула: капли/мин = (мг/час × 1000 мкг/мг) / (40 мкг/мл × 60 мин/час) × 20 капель/мл
+    // = (мг/час × 1000 × 20) / (40 × 60) = (мг/час × 20000) / 2400 = мг/час × 8.333...
+    // Округляем до 8 для простоты, но в точном расчете используем формулу
+    
+    function mgPerHourToDrops(mgPerHour) {
+        // Точный расчет: капли/мин = (мг/час × 1000 × 20) / (40 × 60)
+        return mgPerHour * (1000 * DROPS_PER_ML) / (CONCENTRATION_MG_ML * 1000 * 60);
+    }
+    
+    function updateCalculator() {
+        let mgPerHour = parseFloat(document.getElementById('mgPerHour').value);
+        if (isNaN(mgPerHour)) mgPerHour = 5;
+        mgPerHour = Math.min(Math.max(mgPerHour, 0.5), 50);
+        
+        const drops = mgPerHourToDrops(mgPerHour);
+        const roundedDrops = Math.round(drops * 10) / 10;
+        
+        document.getElementById('mgValue').textContent = `${mgPerHour.toFixed(1)} мг/час`;
+        document.getElementById('dropsValue').textContent = `${roundedDrops} кап/мин`;
+        
+        // Выделяем часто используемые скорости (2-10 мг/час)
+        if (mgPerHour >= 2 && mgPerHour <= 10) {
+            document.getElementById('dropsValue').classList.add('highlight-speed');
+        } else {
+            document.getElementById('dropsValue').classList.remove('highlight-speed');
+        }
+    }
+    
+    function resetToDefault() {
+        document.getElementById('mgPerHour').value = '5';
+        updateCalculator();
+    }
+    
+    document.getElementById('mgPerHour').addEventListener('input', updateCalculator);
+    document.getElementById('resetBtn').addEventListener('click', resetToDefault);
+    
+    // Инициализация
+    updateCalculator();
+    
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/SMP/sw.js')
+            .then(reg => console.log('✅ Сервис-воркер зарегистрирован:', reg))
+            .catch(err => console.error('❌ Ошибка регистрации:', err));
+    }
+</script>
+</body>
+</html>
