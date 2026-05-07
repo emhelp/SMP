@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Алгоритм МСК: Ожоговый шок, термоингаляционная травма (взрослые + дети)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #eef2f5;
+            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+            padding: 32px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .modal-container {
+            max-width: 1200px;
+            width: 100%;
+            background-color: #fffef7;
+            border-radius: 28px;
+            box-shadow: 0 25px 45px -12px rgba(0,0,0,0.25);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            border: 1px solid #ffd7a5;
+        }
+        .modal-header {
+            background: #c2410c;
+            color: white;
+            padding: 18px 28px;
+            border-bottom: 4px solid #ffb347;
+        }
+        .modal-header h2 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+        .modal-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 28px 32px;
+            background: #fefcf5;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        /* ВЗРОСЛЫЙ блок */
+        .adult-block {
+            border-left: 5px solid #dc2626;
+            padding-left: 20px;
+            background: #fff9f0;
+            border-radius: 0 18px 18px 0;
+            margin-bottom: 40px;
+        }
+        .adult-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 10px 0 20px 0;
+        }
+        .badge-adult {
+            background: #c2410c;
+            color: white;
+            padding: 6px 14px;
+            border-radius: 40px;
+            font-weight: bold;
+        }
+        /* ДЕТСКИЙ блок */
+        .child-block {
+            border-left: 5px solid #2e7d32;
+            padding-left: 20px;
+            background: #ecf7ec;
+            border-radius: 0 18px 18px 0;
+            margin-bottom: 20px;
+        }
+        .child-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 10px 0 20px 0;
+        }
+        .badge-child {
+            background: #2e7d32;
+            color: white;
+            padding: 6px 14px;
+            border-radius: 40px;
+            font-weight: bold;
+        }
+        .list-styled {
+            margin: 12px 0 14px 28px;
+        }
+        .list-styled li {
+            margin: 8px 0;
+        }
+        .tactic-block {
+            background: #d9effa;
+            border-radius: 20px;
+            padding: 14px 20px;
+            margin: 18px 0 16px 0;
+            border-left: 4px solid #0284c7;
+        }
+        .tactic-title {
+            font-weight: 800;
+            color: #0369a1;
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+        .condition-block {
+            background: #ffe6cc;
+            border-left: 6px solid #e03a3a;
+            padding: 14px 20px;
+            margin: 20px 0;
+            border-radius: 16px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+        .child-condition-block {
+            background: #d9f0d9;
+            border-left: 6px solid #2e7d32;
+        }
+        .condition-title {
+            font-weight: 800;
+            color: #b91c1c;
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+        .important-red {
+            background: #ffc4c4;
+            border-left: 6px solid #dc2626;
+            padding: 12px 18px;
+            margin: 14px 0;
+            border-radius: 14px;
+            font-weight: 800;
+            color: #9b1c1c;
+            font-size: 0.98rem;
+        }
+        .highlight-number {
+            font-weight: 800;
+            color: #c2410c;
+            background: #fff0d0;
+            padding: 0 4px;
+            border-radius: 10px;
+        }
+        .bold-black {
+            font-weight: 800;
+            color: #000000;
+            background: transparent;
+        }
+        .drug-name {
+            background: #f3f3f3;
+            font-family: monospace;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-weight: 800;
+            color: #1a3c4a;
+            display: inline-block;
+        }
+        .italic-bold-ref {
+            font-weight: 800;
+            font-style: italic;
+            background: transparent;
+            color: #0a2f44;
+        }
+        .warning-red {
+            background: #ffb3b3;
+            border-left: 6px solid #b91c1c;
+            padding: 10px 16px;
+            margin: 12px 0;
+            border-radius: 14px;
+            font-weight: 800;
+            color: #9b1c1c;
+        }
+        @media (max-width: 700px) {
+            .modal-body { padding: 20px; }
+            .list-styled { margin-left: 20px; }
+            .modal-header h2 { font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="modal-container">
+    <div class="modal-header">
+        <h2>R57.8, Т27 Ожоговый шок, термоингаляционная травма</h2>
+    </div>
+    <div class="modal-body">
+        
+        <!-- ========= ВЗРОСЛЫЙ БЛОК ========= -->
+        <div class="adult-block">
+            <div class="adult-header">
+                <span class="badge-adult">ВЗРОСЛЫЙ ПРОТОКОЛ</span>
+            </div>
+            
+            <ul class="list-styled">
+                <li>Пульсоксиметрия</li>
+                <li>Ингаляция кислорода</li>
+                <li>ЭКГ-мониторинг</li>
+                <li>Катетеризация вены или внутрикостный доступ</li>
+                <li><span class="drug-name">Фентанил 0,05–0,1 мг (1–2 мл)</span> в/венно и <span class="drug-name">Диазепам 10 мг (2 мл)</span> в/венно или <span class="drug-name">Морфин 10 мг (1 мл)</span> в/венно и <span class="drug-name">Диазепам 10 мг (2 мл)</span> в/венно или <span class="drug-name">Кетамин 1–2 мг/кг (0,02–0,04 мл/кг)</span> в/венно и <span class="drug-name">Диазепам 10 мг (2 мл)</span> в/венно</li>
+                <li><span class="drug-name">Натрия хлорид 0,9% – 250–1000 мл</span> в/венно капельно <span class="italic-bold-ref">(см. «Приложение 41» Инфузия растворов при ожоговом шоке)</span></li>
+                <li><span class="drug-name">Аскорбиновая кислота 500 мг (10 мл)</span> в/венно</li>
+                <li>ЭКГ/ЭКП при подозрении на коронарную патологию (в комплексе диагностического поиска)</li>
+            </ul>
+            
+            <div class="condition-block">
+                <div class="condition-title">При сохранении САД &lt; 90 мм рт.ст.:</div>
+                <ul class="list-styled">
+                    <li><span class="drug-name">Норэпинефрин 0,5–5 мкг/кг/мин</span> в разведении Декстрозы 5% или <span class="drug-name">Допамин 5–10 мкг/кг/мин</span> (при брадикардии) в разведении Натрия хлорида 0,9% в/венно через шприцевой дозатор или капельно <span class="italic-bold-ref">(см. «Приложения 35, 31»)</span></li>
+                </ul>
+            </div>
+            
+            <div class="condition-block">
+                <div class="condition-title">– при возбуждении по шкале RASS &gt; 0 баллов</div>
+                <ul class="list-styled">
+                    <li><span class="drug-name">Диазепам 10 мг (2 мл)</span> в/венно</li>
+                </ul>
+            </div>
+            
+            <div class="condition-block">
+                <div class="condition-title">– при бронхоспазме</div>
+                <ul class="list-styled">
+                    <li><span class="drug-name">Сальбутамол 2,5 мг (2,5 мл)</span> в разведении Натрия хлорида 0,9% – 3 мл через небулайзер</li>
+                </ul>
+            </div>
+            
+            <div class="condition-block">
+                <div class="condition-title">– при ожогах III степени на лице и шее с признаками отека гортани</div>
+                <div class="condition-title">– при нарушении дыхания (ДН III–IV ст.) или обструкции дыхательных путей</div>
+                <div class="condition-title">– при уровне сознания ≤ 8 баллов по шкале комы ГЛАЗГО или стойком уровне седации по шкале RASS ≤ –3</div>
+                <ul class="list-styled">
+                    <li>Санация верхних дыхательных путей</li>
+                    <li>Интубация трахеи или применение надгортанного герметизирующего устройства <span class="italic-bold-ref">(см. «Приложение 4»)</span></li>
+                    <li><span class="warning-red"><strong>Применение надгортанного герметизирующего устройства противопоказано при термоингаляционной травме</strong></span></li>
+                    <li>ИВЛ/ВВЛ <span class="italic-bold-ref">(см. «Приложение 6»)</span></li>
+                    <li>Капнометрия-капнография (для бригад АиР). Целевые значения EtCO2 – <span class="highlight-number">35–40 мм рт.ст.</span></li>
+                </ul>
+                <div class="condition-title" style="margin-top: 10px;">При невозможности интубации трахеи при термоингаляционной травме:</div>
+                <ul class="list-styled">
+                    <li>Коникотомия</li>
+                    <li>ИВЛ/ВВЛ <span class="italic-bold-ref">(см. «Приложение 6»)</span></li>
+                    <li>Капнометрия-капнография (для бригад АиР). Целевые значения EtCO2 – <span class="highlight-number">35–40 мм рт.ст.</span></li>
+                </ul>
+            </div>
+            
+            <div class="tactic-block">
+                <div class="tactic-title">▶ Тактика:</div>
+                <ul class="list-styled">
+                    <li>1. Медицинская эвакуация в больницу (13). Транспортировка на носилках</li>
+                    <li>2. При отказе от медицинской эвакуации в больницу – активный аудиоконтроль (55)</li>
+                    <li>3. При повторном отказе от медицинской эвакуации в больницу – рекомендовать обратиться в поликлинику (35)</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- ========= ДЕТСКИЙ БЛОК ========= -->
+        <div class="child-block">
+            <div class="child-header">
+                <span class="badge-child">ДЕТСКИЙ ПРОТОКОЛ</span>
+            </div>
+            
+            <ul class="list-styled">
+                <li>Пульсоксиметрия</li>
+                <li>Ингаляция кислорода</li>
+                <li>ЭКГ-мониторинг</li>
+                <li>Укрыть металлизированным покрывалом – золотистой стороной к больному</li>
+                <li>Катетеризация вены или внутрикостный доступ</li>
+                <li><span class="drug-name">Фентанил 1–4 мкг/кг (0,02–0,08 мл/кг)</span> в/венно и <span class="drug-name">Диазепам 0,3–0,5 мг/кг (0,06–0,1 мл/кг)</span> в/венно или 0,5 мг/кг (0,1 мл/кг) в/мышечно (максимальная доза до 5 лет – <span class="highlight-number">5 мг – 1 мл</span>, с 5 лет – <span class="highlight-number">10 мг – 2 мл</span>)<br>или <span class="drug-name">Морфин 0,1–0,2 мг/кг (0,01–0,02 мл/кг)</span> в/венно и <span class="drug-name">Диазепам 0,3–0,5 мг/кг (0,06–0,1 мл/кг)</span> в/венно или 0,5 мг/кг (0,1 мл/кг) в/мышечно (максимальная доза – до 5 лет – <span class="highlight-number">5 мг – 1 мл</span>, с 5 лет – <span class="highlight-number">10 мг – 2 мл</span>)<br>или <span class="drug-name">Кетамин 1–2 мг/кг (0,02–0,04 мл/кг)</span> в/венно</li>
+                <li><span class="drug-name">Стерофундин (Натрия хлорид+калия хлорид+кальция хлорида дигидрат+магния хлорида гексагидрат+натрия ацетата тригидрат+яблочная кислота)</span> или <span class="drug-name">Калия хлорид + кальция хлорид + натрия хлорид</span> в/венно капельно <span class="italic-bold-ref">(см. «Приложение 42» (Инфузия при ожоговом шоке))</span></li>
+                <li><span class="drug-name">Аскорбиновая кислота 5 мг/кг</span> в/венно</li>
+            </ul>
+            
+            <div class="condition-block child-condition-block">
+                <div class="condition-title">При сохранении снижения САД &gt; 30% от возрастной нормы:</div>
+                <ul class="list-styled">
+                    <li><span class="drug-name">Норэпинефрин 0,05–0,5 мкг/кг/мин</span> или <span class="drug-name">Допамин 5–25 мкг/кг/мин</span> в/венно через шприцевой дозатор или капельно (при брадикардии) <span class="italic-bold-ref">(см. «Приложения 36, 32»)</span></li>
+                </ul>
+            </div>
+            
+            <div class="condition-block child-condition-block">
+                <div class="condition-title">– при возбуждении по шкале RASS &gt; 0 баллов</div>
+                <ul class="list-styled">
+                    <li><span class="drug-name">Диазепам 0,3–0,5 мг/кг (0,06–0,1 мл/кг)</span> в/венно (если не введен ранее) или <span class="drug-name">Мидазолам 0,3–0,5 мг/кг (0,06–0,1 мл/кг)</span> в/венно (если не введен ранее) (для бригад АиР)</li>
+                </ul>
+            </div>
+            
+            <div class="condition-block child-condition-block">
+                <div class="condition-title">– при бронхоспазме</div>
+                <ul class="list-styled">
+                    <li><span class="drug-name">Сальбутамол 1–2 мг (1–2 мл)</span> в разведении Натрия хлорида 0,9% – 3 мл через небулайзер</li>
+                </ul>
+            </div>
+            
+            <div class="condition-block child-condition-block">
+                <div class="condition-title">– при коме</div>
+                <div class="condition-title">– при ожогах III степени на лице и шее с признаками отека гортани</div>
+                <div class="condition-title">– при нарушении дыхания (ДН III–IV ст.) или обструкции дыхательных путей</div>
+                <ul class="list-styled">
+                    <li>Санация верхних дыхательных путей</li>
+                    <li>Интубация трахеи или применение надгортанного герметизирующего устройства <span class="italic-bold-ref">(см. «Приложение 3»)</span></li>
+                    <li><span class="warning-red"><strong>Применение надгортанного герметизирующего устройства противопоказано при термоингаляционной травме</strong></span></li>
+                    <li>ИВЛ/ВВЛ <span class="italic-bold-ref">(см. «Приложение 6»)</span></li>
+                    <li>Капнометрия-капнография (для бригад АиР). Целевые значения EtCO2 – <span class="highlight-number">35–40 мм рт.ст.</span></li>
+                </ul>
+                <div class="condition-title" style="margin-top: 10px;">При невозможности интубации трахеи при термоингаляционной травме:</div>
+                <ul class="list-styled">
+                    <li>Коникотомия</li>
+                    <li>ИВЛ/ВВЛ <span class="italic-bold-ref">(см. «Приложение 6»)</span></li>
+                    <li>Капнометрия-капнография (для бригад АиР). Целевые значения EtCO2 – <span class="highlight-number">35–40 мм рт.ст.</span></li>
+                </ul>
+            </div>
+            
+            <div class="tactic-block">
+                <div class="tactic-title">▶ Тактика:</div>
+                <ul class="list-styled">
+                    <li>1. Медицинская эвакуация в больницу (13). Транспортировка на носилках</li>
+                    <li>2. При отказе от медицинской эвакуации в больницу – актив на «103» через 2 часа (28)</li>
+                    <li>3. При повторном отказе от медицинской эвакуации в больницу – актив в поликлинику (27)</li>
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+</div>
+</body>
+</html>
