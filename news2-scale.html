@@ -70,7 +70,6 @@
             padding: 2rem 2rem 1.8rem;
         }
 
-        /* сетка параметров */
         .parameters-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -78,7 +77,6 @@
             margin-bottom: 2rem;
         }
 
-        /* карточка параметра */
         .param-card {
             background: #f6fafd;
             border-radius: 24px;
@@ -142,14 +140,30 @@
             background: #eef2f7;
             border-color: #b9cfdf;
         }
-        .subnote {
-            font-size: 0.7rem;
-            color: #6f8eaa;
-            margin-top: 8px;
-            text-align: right;
+        .oxygen-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        .oxygen-btn {
+            flex: 1;
+            background: #ffffff;
+            border: 1px solid #cbdae6;
+            padding: 8px 14px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.15s;
+            color: #1f3a4b;
+            text-align: center;
+        }
+        .oxygen-btn.active {
+            background: #1f6e9c;
+            border-color: #0f557c;
+            color: white;
         }
 
-        /* результат */
         .result-panel {
             background: #f6fafd;
             border-radius: 28px;
@@ -298,21 +312,6 @@
             ],
             defaultIdx: 2
         },
-        spo2: {
-            name: "SpO₂ (сатурация) и кислород",
-            options: [
-                { label: "≤91% (на воздухе)", value: 3, isNormal: false, condition: (oxygen) => !oxygen },
-                { label: "92–93% (на воздухе)", value: 2, isNormal: false, condition: (oxygen) => !oxygen },
-                { label: "94–95% (на воздухе)", value: 1, isNormal: false, condition: (oxygen) => !oxygen },
-                { label: "≥96% (на воздухе)", value: 0, isNormal: true, condition: (oxygen) => !oxygen },
-                { label: "≤83% (на кислороде)", value: 3, isNormal: false, condition: (oxygen) => oxygen },
-                { label: "84–85% (на кислороде)", value: 2, isNormal: false, condition: (oxygen) => oxygen },
-                { label: "86–87% (на кислороде)", value: 1, isNormal: false, condition: (oxygen) => oxygen },
-                { label: "≥88% (на кислороде)", value: 0, isNormal: true, condition: (oxygen) => oxygen }
-            ],
-            defaultIdx: 3,
-            oxygenSupport: false
-        },
         systolicBP: {
             name: "Систолическое АД (мм рт. ст.)",
             options: [
@@ -359,47 +358,42 @@
         }
     };
 
+    // Параметры SpO₂ и кислорода
+    const spo2Options = [
+        { label: "≤91%", value: 3, isNormal: false },
+        { label: "92–93%", value: 2, isNormal: false },
+        { label: "94–95%", value: 1, isNormal: false },
+        { label: "≥96%", value: 0, isNormal: true }
+    ];
+
     let selectedIndices = {
         respiratory: parameters.respiratory.defaultIdx,
-        spo2: parameters.spo2.defaultIdx,
+        spo2: 3, // по умолчанию ≥96%
         systolicBP: parameters.systolicBP.defaultIdx,
         pulse: parameters.pulse.defaultIdx,
         consciousness: parameters.consciousness.defaultIdx,
         temperature: parameters.temperature.defaultIdx
     };
-    let oxygenFlag = false;
-
-    function getVisibleSpo2Options() {
-        return parameters.spo2.options.filter(opt => opt.condition ? opt.condition(oxygenFlag) : true);
-    }
+    let oxygenFlag = false; // false - нет кислорода, true - есть (+1 балл)
 
     function getParamScore(paramKey) {
-        if (paramKey === 'spo2') {
-            const visibleOptions = getVisibleSpo2Options();
-            const idx = selectedIndices.spo2;
-            if (idx >= 0 && idx < visibleOptions.length) {
-                return visibleOptions[idx].value;
-            }
-            return 0;
-        } else {
-            const param = parameters[paramKey];
-            const idx = selectedIndices[paramKey];
-            if (idx >= 0 && idx < param.options.length) {
-                return param.options[idx].value;
-            }
-            return 0;
+        const param = parameters[paramKey];
+        const idx = selectedIndices[paramKey];
+        if (idx >= 0 && idx < param.options.length) {
+            return param.options[idx].value;
         }
+        return 0;
     }
 
     function updateTotalScore() {
         let total = 0;
         total += getParamScore('respiratory');
-        total += getParamScore('spo2');
+        total += spo2Options[selectedIndices.spo2].value;
         total += getParamScore('systolicBP');
         total += getParamScore('pulse');
         total += getParamScore('consciousness');
         total += getParamScore('temperature');
-        if (oxygenFlag) total += 2;
+        if (oxygenFlag) total += 1;
 
         document.getElementById('totalScore').innerText = total;
 
@@ -428,72 +422,148 @@
         const container = document.getElementById('paramsGrid');
         container.innerHTML = '';
 
-        for (const [key, param] of Object.entries(parameters)) {
-            if (key === 'spo2') continue;
-            const card = document.createElement('div');
-            card.className = 'param-card';
-            card.innerHTML = `<div class="param-title">${param.name}</div><div class="param-buttons" id="buttons-${key}"></div>`;
-            container.appendChild(card);
-            const btnContainer = card.querySelector(`.param-buttons`);
-            param.options.forEach((opt, idx) => {
-                const btn = document.createElement('button');
-                btn.className = 'param-btn';
-                if (opt.isNormal) btn.classList.add('normal-value');
-                if (selectedIndices[key] === idx) btn.classList.add('active');
-                btn.innerText = opt.label;
-                btn.addEventListener('click', () => {
-                    selectedIndices[key] = idx;
-                    document.querySelectorAll(`#buttons-${key} .param-btn`).forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                    updateTotalScore();
-                });
-                btnContainer.appendChild(btn);
+        // Карточка частоты дыхания
+        const respCard = document.createElement('div');
+        respCard.className = 'param-card';
+        respCard.innerHTML = `<div class="param-title">${parameters.respiratory.name}</div><div class="param-buttons" id="buttons-respiratory"></div>`;
+        container.appendChild(respCard);
+        const respContainer = respCard.querySelector('#buttons-respiratory');
+        parameters.respiratory.options.forEach((opt, idx) => {
+            const btn = document.createElement('button');
+            btn.className = 'param-btn';
+            if (opt.isNormal) btn.classList.add('normal-value');
+            if (selectedIndices.respiratory === idx) btn.classList.add('active');
+            btn.innerText = opt.label;
+            btn.addEventListener('click', () => {
+                selectedIndices.respiratory = idx;
+                document.querySelectorAll('#buttons-respiratory .param-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                updateTotalScore();
             });
-        }
+            respContainer.appendChild(btn);
+        });
 
+        // Создаем карточку для SpO₂ и кислорода
         const spo2Card = document.createElement('div');
         spo2Card.className = 'param-card';
         spo2Card.innerHTML = `
-            <div class="param-title">${parameters.spo2.name}</div>
-            <div style="margin-bottom: 8px;">
-                <span style="font-weight:500; font-size:0.85rem;">Кислородная поддержка:</span>
-                <div style="display: flex; gap: 10px; margin-top: 6px;">
-                    <button id="oxygenNoBtn" class="param-btn" style="flex:0 1 auto;">Нет</button>
-                    <button id="oxygenYesBtn" class="param-btn" style="flex:0 1 auto;">Да (+2 балла)</button>
+            <div class="param-title">SpO₂ (сатурация) и кислородная поддержка</div>
+            <div style="margin-bottom: 12px;">
+                <div style="font-weight:500; font-size:0.8rem; margin-bottom: 6px;">Необходимость ингаляции кислорода:</div>
+                <div class="oxygen-group">
+                    <button id="oxygenNoBtn" class="oxygen-btn">Нет (+0)</button>
+                    <button id="oxygenYesBtn" class="oxygen-btn">Да (+1)</button>
                 </div>
             </div>
+            <div style="font-weight:500; font-size:0.8rem; margin-bottom: 6px;">SpO₂ (сатурация):</div>
             <div class="param-buttons" id="buttons-spo2"></div>
         `;
         container.appendChild(spo2Card);
+        
         const spo2BtnContainer = spo2Card.querySelector('#buttons-spo2');
-
-        function renderSpo2Buttons() {
-            spo2BtnContainer.innerHTML = '';
-            const visibleOpts = getVisibleSpo2Options();
-            visibleOpts.forEach((opt, idx) => {
-                const btn = document.createElement('button');
-                btn.className = 'param-btn';
-                if (opt.isNormal) btn.classList.add('normal-value');
-                let currentIdx = selectedIndices.spo2;
-                if (currentIdx >= visibleOpts.length) currentIdx = 0;
-                if (currentIdx === idx) btn.classList.add('active');
-                btn.innerText = opt.label;
-                btn.addEventListener('click', () => {
-                    selectedIndices.spo2 = idx;
-                    document.querySelectorAll('#buttons-spo2 .param-btn').forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                    updateTotalScore();
-                });
-                spo2BtnContainer.appendChild(btn);
+        
+        spo2Options.forEach((opt, idx) => {
+            const btn = document.createElement('button');
+            btn.className = 'param-btn';
+            if (opt.isNormal) btn.classList.add('normal-value');
+            if (selectedIndices.spo2 === idx) btn.classList.add('active');
+            btn.innerText = opt.label;
+            btn.addEventListener('click', () => {
+                selectedIndices.spo2 = idx;
+                document.querySelectorAll('#buttons-spo2 .param-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                updateTotalScore();
             });
-            if (selectedIndices.spo2 >= visibleOpts.length) {
-                selectedIndices.spo2 = 0;
-                renderSpo2Buttons();
-            }
-        }
+            spo2BtnContainer.appendChild(btn);
+        });
+
+        // Карточка АД
+        const bpCard = document.createElement('div');
+        bpCard.className = 'param-card';
+        bpCard.innerHTML = `<div class="param-title">${parameters.systolicBP.name}</div><div class="param-buttons" id="buttons-systolicBP"></div>`;
+        container.appendChild(bpCard);
+        const bpContainer = bpCard.querySelector('#buttons-systolicBP');
+        parameters.systolicBP.options.forEach((opt, idx) => {
+            const btn = document.createElement('button');
+            btn.className = 'param-btn';
+            if (opt.isNormal) btn.classList.add('normal-value');
+            if (selectedIndices.systolicBP === idx) btn.classList.add('active');
+            btn.innerText = opt.label;
+            btn.addEventListener('click', () => {
+                selectedIndices.systolicBP = idx;
+                document.querySelectorAll('#buttons-systolicBP .param-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                updateTotalScore();
+            });
+            bpContainer.appendChild(btn);
+        });
+
+        // Карточка пульса
+        const pulseCard = document.createElement('div');
+        pulseCard.className = 'param-card';
+        pulseCard.innerHTML = `<div class="param-title">${parameters.pulse.name}</div><div class="param-buttons" id="buttons-pulse"></div>`;
+        container.appendChild(pulseCard);
+        const pulseContainer = pulseCard.querySelector('#buttons-pulse');
+        parameters.pulse.options.forEach((opt, idx) => {
+            const btn = document.createElement('button');
+            btn.className = 'param-btn';
+            if (opt.isNormal) btn.classList.add('normal-value');
+            if (selectedIndices.pulse === idx) btn.classList.add('active');
+            btn.innerText = opt.label;
+            btn.addEventListener('click', () => {
+                selectedIndices.pulse = idx;
+                document.querySelectorAll('#buttons-pulse .param-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                updateTotalScore();
+            });
+            pulseContainer.appendChild(btn);
+        });
+
+        // Карточка сознания
+        const consciousnessCard = document.createElement('div');
+        consciousnessCard.className = 'param-card';
+        consciousnessCard.innerHTML = `<div class="param-title">${parameters.consciousness.name}</div><div class="param-buttons" id="buttons-consciousness"></div>`;
+        container.appendChild(consciousnessCard);
+        const consciousnessContainer = consciousnessCard.querySelector('#buttons-consciousness');
+        parameters.consciousness.options.forEach((opt, idx) => {
+            const btn = document.createElement('button');
+            btn.className = 'param-btn';
+            if (opt.isNormal) btn.classList.add('normal-value');
+            if (selectedIndices.consciousness === idx) btn.classList.add('active');
+            btn.innerText = opt.label;
+            btn.addEventListener('click', () => {
+                selectedIndices.consciousness = idx;
+                document.querySelectorAll('#buttons-consciousness .param-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                updateTotalScore();
+            });
+            consciousnessContainer.appendChild(btn);
+        });
+
+        // Карточка температуры
+        const tempCard = document.createElement('div');
+        tempCard.className = 'param-card';
+        tempCard.innerHTML = `<div class="param-title">${parameters.temperature.name}</div><div class="param-buttons" id="buttons-temperature"></div>`;
+        container.appendChild(tempCard);
+        const tempContainer = tempCard.querySelector('#buttons-temperature');
+        parameters.temperature.options.forEach((opt, idx) => {
+            const btn = document.createElement('button');
+            btn.className = 'param-btn';
+            if (opt.isNormal) btn.classList.add('normal-value');
+            if (selectedIndices.temperature === idx) btn.classList.add('active');
+            btn.innerText = opt.label;
+            btn.addEventListener('click', () => {
+                selectedIndices.temperature = idx;
+                document.querySelectorAll('#buttons-temperature .param-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                updateTotalScore();
+            });
+            tempContainer.appendChild(btn);
+        });
 
         const oxygenNo = spo2Card.querySelector('#oxygenNoBtn');
         const oxygenYes = spo2Card.querySelector('#oxygenYesBtn');
+        
         function updateOxygenUI() {
             if (oxygenFlag) {
                 oxygenYes.classList.add('active');
@@ -502,9 +572,9 @@
                 oxygenNo.classList.add('active');
                 oxygenYes.classList.remove('active');
             }
-            renderSpo2Buttons();
             updateTotalScore();
         }
+        
         oxygenNo.addEventListener('click', () => {
             oxygenFlag = false;
             updateOxygenUI();
@@ -514,14 +584,13 @@
             updateOxygenUI();
         });
 
-        renderSpo2Buttons();
         updateOxygenUI();
     }
 
     function resetAll() {
         selectedIndices = {
             respiratory: parameters.respiratory.defaultIdx,
-            spo2: parameters.spo2.defaultIdx,
+            spo2: 3,
             systolicBP: parameters.systolicBP.defaultIdx,
             pulse: parameters.pulse.defaultIdx,
             consciousness: parameters.consciousness.defaultIdx,
@@ -537,7 +606,6 @@
 
     document.getElementById('resetBtn').addEventListener('click', resetAll);
 
-    // Регистрация Service Worker для PWA
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('/SMP/sw.js')
             .then(reg => console.log('✅ Сервис-воркер зарегистрирован:', reg))
