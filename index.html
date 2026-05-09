@@ -13,161 +13,6 @@
   
   <!-- Font Awesome для иконок -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  
-  <style>
-    /* Стили для модального окна благодарности */
-    .modal-donate {
-      display: none;
-      position: fixed;
-      z-index: 2000;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0,0,0,0.7);
-      justify-content: center;
-      align-items: center;
-    }
-    
-    .modal-donate-content {
-      background: linear-gradient(145deg, #ffffff 0%, #f5f7fa 100%);
-      margin: auto;
-      padding: 25px;
-      width: 90%;
-      max-width: 400px;
-      border-radius: 28px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-      position: relative;
-      animation: fadeInUp 0.3s ease;
-      text-align: center;
-    }
-    
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-    
-    .close-donate {
-      position: absolute;
-      top: 15px;
-      right: 20px;
-      color: #6f8eaa;
-      font-size: 28px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    
-    .close-donate:hover {
-      color: #c62828;
-    }
-    
-    .donate-icon {
-      font-size: 50px;
-      margin-bottom: 15px;
-    }
-    
-    .donate-title {
-      font-size: 22px;
-      font-weight: bold;
-      color: #1f4a66;
-      margin-bottom: 10px;
-    }
-    
-    .donate-subtitle {
-      font-size: 14px;
-      color: #6f8eaa;
-      margin-bottom: 20px;
-    }
-    
-    .card-details {
-      background: linear-gradient(135deg, #1e2f47 0%, #142a3b 100%);
-      border-radius: 20px;
-      padding: 20px;
-      margin: 15px 0;
-      color: white;
-    }
-    
-    .card-number {
-      font-size: 22px;
-      font-weight: bold;
-      letter-spacing: 2px;
-      word-break: break-all;
-      margin: 10px 0;
-    }
-    
-    .card-label {
-      font-size: 12px;
-      opacity: 0.8;
-      margin-bottom: 5px;
-    }
-    
-    .copy-btn {
-      background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 30px;
-      font-size: 14px;
-      font-weight: bold;
-      cursor: pointer;
-      margin-top: 10px;
-      transition: all 0.2s;
-    }
-    
-    .copy-btn:hover {
-      transform: scale(1.02);
-      background: linear-gradient(135deg, #1a2060 0%, #2a2f7e 100%);
-    }
-    
-    .copy-btn:active {
-      transform: scale(0.98);
-    }
-    
-    .copy-success {
-      color: #4caf50;
-      font-size: 12px;
-      margin-top: 8px;
-      display: none;
-    }
-    
-    .donate-footer {
-      font-size: 12px;
-      color: #6f8eaa;
-      margin-top: 15px;
-    }
-    
-    /* Стили для блока ЧТО НОВОГО */
-    .news-text p {
-      margin-bottom: 5px;
-      line-height: 1.3;
-    }
-    
-    /* Обновлённый стиль для ссылки благодарности */
-    .thanks-link {
-      display: block;
-      text-align: center;
-      color: #e53935 !important;
-      font-weight: bold !important;
-      font-size: 15px !important;
-      text-decoration: none !important;
-      cursor: pointer;
-      margin-top: 4px !important;
-      padding: 5px 0;
-      transition: all 0.2s;
-    }
-    
-    .thanks-link:hover {
-      color: #c62828 !important;
-      transform: scale(1.02);
-    }
-  </style>
 </head>
 <body>
 
@@ -192,7 +37,6 @@
       <div class="news-label">ЧТО НОВОГО:</div>
       <div class="news-text">
         <p>Делаем "Алгоритмы", работа колоссальная, поэтому не торопите, будем работать по наличию свободного времени и по желанию! Нашли ошибку? - напишите нам, нажав на кнопку.</p>
-        <div class="thanks-link" id="donateBtn">Вы можете поддержать проект, нажав сюда</div>
       </div>
     </div>
 
@@ -209,32 +53,6 @@
       <button class="main-btn" id="max-btn">Наш канал в MAX</button>
     </div>
   </nav>
-
-  <!-- Модальное окно для благодарности -->
-  <div id="donateModal" class="modal-donate">
-    <div class="modal-donate-content">
-      <span class="close-donate" id="closeDonate">&times;</span>
-      <div class="donate-icon">❤️</div>
-      <div class="donate-title">Спасибо за поддержку!</div>
-      <div class="donate-subtitle">Ваша благодарность вдохновляет нас на развитие проекта</div>
-      
-      <div class="card-details">
-        <div class="card-label">💳 Банковская карта (МИР)</div>
-        <div class="card-number" id="cardNumber">2204 3101 7901 9388</div>
-        <button class="copy-btn" id="copyCardBtn">
-          <i class="fas fa-copy"></i> Скопировать номер карты
-        </button>
-        <div id="copySuccess" class="copy-success">
-          ✅ Номер карты скопирован!
-        </div>
-      </div>
-      
-      <div class="donate-footer">
-        Вы можете перевести любую удобную для вас сумму.<br>
-        Спасибо, что помогаете проекту расти! 🙏
-      </div>
-    </div>
-  </div>
 
   <script>
     document.getElementById('max-btn').addEventListener('click', () => {
@@ -262,43 +80,6 @@
           console.error('❌ Ошибка шеринга:', err);
           alert('Не удалось открыть окно поделиться');
         }
-      }
-    });
-  </script>
-
-  <!-- Скрипт для модального окна благодарности -->
-  <script>
-    const modal = document.getElementById('donateModal');
-    const donateBtn = document.getElementById('donateBtn');
-    const closeBtn = document.getElementById('closeDonate');
-    const copyBtn = document.getElementById('copyCardBtn');
-    const copySuccess = document.getElementById('copySuccess');
-    
-    const fullCardNumber = '2204310179019388';
-    
-    donateBtn.addEventListener('click', () => {
-      modal.style.display = 'flex';
-    });
-    
-    closeBtn.addEventListener('click', () => {
-      modal.style.display = 'none';
-    });
-    
-    window.addEventListener('click', (e) => {
-      if (e.target === modal) {
-        modal.style.display = 'none';
-      }
-    });
-    
-    copyBtn.addEventListener('click', async () => {
-      try {
-        await navigator.clipboard.writeText(fullCardNumber);
-        copySuccess.style.display = 'block';
-        setTimeout(() => {
-          copySuccess.style.display = 'none';
-        }, 2000);
-      } catch (err) {
-        alert('Не удалось скопировать номер карты');
       }
     });
   </script>
