@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>Несостоятельность нефростомы | Описание локального статуса</title>
+    <title>Нефростома | Описание статуса (норма, несостоятельность, окклюзия)</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -82,6 +82,47 @@
             box-shadow: 0 1px 2px rgba(0,0,0,0.04);
         }
 
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin: 1.5rem 0 1rem 0;
+            padding: 0.6rem 0.8rem;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title:first-of-type {
+            margin-top: 0;
+        }
+
+        .section-title i {
+            font-size: 1.2rem;
+        }
+
+        /* Цветовые схемы для разных состояний */
+        .normal-section {
+            background: #e8f5e9;
+            border-left: 4px solid #2e7d32;
+            color: #1b5e20;
+        }
+
+        .normal-section i {
+            color: #2e7d32;
+        }
+
+        /* КРАСНЫЙ БЛОК — для несостоятельности и окклюзии */
+        .insufficiency-section {
+            background: #ffebee;
+            border-left: 4px solid #c62828;
+            color: #b71c1c;
+        }
+
+        .insufficiency-section i {
+            color: #c62828;
+        }
+
         .exam-section {
             display: flex;
             flex-direction: column;
@@ -136,15 +177,6 @@
             display: inline-block;
         }
 
-        .deficit {
-            font-weight: 600;
-            color: #c0392b;
-            background: #ffe6e0;
-            padding: 0 5px;
-            border-radius: 8px;
-            display: inline-block;
-        }
-
         .normal-sign {
             font-weight: 600;
             color: #2c7a4a;
@@ -163,6 +195,15 @@
             display: inline-block;
         }
 
+        .danger-sign {
+            font-weight: 600;
+            color: #c0392b;
+            background: #ffe6e0;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
         .bullet-list {
             margin: 0.25rem 0 0 0;
             padding-left: 1.2rem;
@@ -170,33 +211,6 @@
         
         .bullet-list li {
             margin-bottom: 0.3rem;
-        }
-
-        .grid-2col {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0.75rem;
-            margin-top: 0.5rem;
-        }
-
-        .info-card {
-            background: #fefcf9;
-            border-radius: 12px;
-            padding: 0.6rem 0.8rem;
-            border: 1px solid #f0e3d4;
-        }
-
-        .info-label {
-            font-size: 0.7rem;
-            color: #8b6b4a;
-            letter-spacing: 0.5px;
-            margin-bottom: 0.2rem;
-        }
-
-        .info-value {
-            font-weight: 600;
-            font-size: 0.9rem;
-            color: #2f5342;
         }
 
         @media (max-width: 600px) {
@@ -239,9 +253,10 @@
                 margin-bottom: 1rem;
             }
             
-            .grid-2col {
-                grid-template-columns: 1fr;
-                gap: 0.5rem;
+            .section-title {
+                font-size: 1rem;
+                margin: 1.2rem 0 0.8rem 0;
+                padding: 0.4rem 0.6rem;
             }
         }
     </style>
@@ -250,31 +265,36 @@
 <div class="medical-card">
     <div class="card-header">
         <div class="title-section">
-            <h1>Несостоятельность нефростомы</h1>
+            <h1>Нефростома</h1>
             <div class="sub">
-                <i class="fas fa-ambulance"></i> Нефункционирующая нефростома · T82.8
+                <i class="fas fa-kidneys"></i> Чрескожный нефростомический дренаж · Оценка состояния
             </div>
         </div>
     </div>
     
     <div class="card-body">
         <div class="diagnosis-tag">
-            <i class="fas fa-kidney"></i> Нефростома слева · Отсутствие оттока мочи по дренажу
+            <i class="fas fa-stethoscope"></i> Нефростома · Осмотр · Оценка состояния
         </div>
 
+        <!-- НОРМА — зеленый блок -->
+        <div class="section-title normal-section">
+            <i class="fas fa-check-circle"></i>
+            <span>Нефростома (норма)</span>
+        </div>
+        
         <div class="exam-section">
-            <!-- Локализация -->
             <div class="info-row">
                 <div class="row-header">
                     <i class="fas fa-map-marker-alt"></i>
                     <span>📍 Локализация</span>
                 </div>
                 <div class="row-content">
-                    В проекции <span class="highlight">левой поясничной области</span> (анатомическая зона расположения левой почки) определяется чрескожный нефростомический дренаж.
+                    В проекции <span class="highlight">левой/правой поясничной области</span> (анатомическая зона расположения почки) определяется чрескожный нефростомический дренаж.
+                    Катетер фиксирован к коже <span class="normal-sign">липким пластырем / шовным материалом</span>, положение его визуально не изменено.
                 </div>
             </div>
             
-            <!-- Данные осмотра -->
             <div class="info-row">
                 <div class="row-header">
                     <i class="fas fa-eye"></i>
@@ -282,7 +302,6 @@
                 </div>
                 <div class="row-content">
                     <ul class="bullet-list">
-                        <li>Нефростомический катетер фиксирован к коже (липким пластырем / шовным материалом), положение его визуально <span class="normal-sign">не изменено</span>.</li>
                         <li>Повязка в области стомы <span class="normal-sign">сухая, чистая</span>, промокания мочой <span class="normal-sign">нет</span>.</li>
                         <li>Кожные покровы вокруг места выхода дренажа <span class="normal-sign">не изменены</span>: гиперемии, отека, инфильтрации, гнойного или серозного отделяемого <span class="normal-sign">не отмечается</span> (признаки воспаления отсутствуют).</li>
                         <li>Послеоперационная рана (место пункции) <span class="normal-sign">без признаков мацерации, грануляций, налета фибрина</span>.</li>
@@ -290,7 +309,6 @@
                 </div>
             </div>
             
-            <!-- Пальпаторные данные -->
             <div class="info-row">
                 <div class="row-header">
                     <i class="fas fa-hand-peace"></i>
@@ -305,7 +323,6 @@
                 </div>
             </div>
             
-            <!-- Функциональный статус -->
             <div class="info-row">
                 <div class="row-header">
                     <i class="fas fa-tint"></i>
@@ -313,13 +330,27 @@
                 </div>
                 <div class="row-content">
                     <ul class="bullet-list">
-                        <li>Отток мочи по нефростомическому катетеру <span class="deficit">отсутствует</span> (мочеприемник пуст, повязка сухая).</li>
-                        <li>При попытке аспирации шприцем (или промывания) — моча <span class="deficit">не поступает</span>, ощущается сопротивление (промывание затруднено / без эффекта).</li>
+                        <li>Отток мочи по нефростомическому катетеру <span class="normal-sign">адекватный</span>, мочеприемник заполняется порционно.</li>
+                        <li>Моча <span class="normal-sign">прозрачная, соломенно-желтого цвета</span>, без примесей крови, хлопьев фибрина, гноя.</li>
+                        <li>Система <span class="normal-sign">герметична</span>, признаков подтекания мочи мимо дренажа нет.</li>
                     </ul>
                 </div>
             </div>
             
-            <!-- Дополнительные данные -->
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-trash-alt"></i>
+                    <span>🚽 Мочеприемник</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>Мочеприемник <span class="normal-sign">прозрачный, герметичный</span>.</li>
+                        <li>Заполнен мочой на ___ мл.</li>
+                        <li>Запаха мочи в помещении <span class="normal-sign">нет</span>.</li>
+                    </ul>
+                </div>
+            </div>
+            
             <div class="info-row">
                 <div class="row-header">
                     <i class="fas fa-thermometer-half"></i>
@@ -332,44 +363,161 @@
                     </ul>
                 </div>
             </div>
-            
-            <!-- Возможные причины (справочный блок) -->
+        </div>
+
+        <!-- НЕСОСТОЯТЕЛЬНОСТЬ НЕФРОСТОМЫ — красный блок -->
+        <div class="section-title insufficiency-section">
+            <i class="fas fa-exclamation-triangle"></i>
+            <span>Несостоятельность нефростомы (нарушение фиксации, миграция, подтекание)</span>
+        </div>
+        
+        <div class="exam-section">
             <div class="info-row">
                 <div class="row-header">
-                    <i class="fas fa-question-circle"></i>
-                    <span>🔍 Возможные причины нефункционирования дренажа</span>
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>📍 Локализация</span>
                 </div>
                 <div class="row-content">
-                    <div class="grid-2col">
-                        <div class="info-card">
-                            <div class="info-label"><i class="fas fa-ban"></i> Обструкция катетера</div>
-                            <div class="info-value">Закупорка солями, сгустками крови, детритом</div>
-                        </div>
-                        <div class="info-card">
-                            <div class="info-label"><i class="fas fa-arrow-right"></i> Миграция / дислокация</div>
-                            <div class="info-value">Смещение дренажа из лоханки почки</div>
-                        </div>
-                        <div class="info-card">
-                            <div class="info-label"><i class="fas fa-angle-double-right"></i> Перегиб катетера</div>
-                            <div class="info-value">Механическое препятствие оттоку</div>
-                        </div>
-                        <div class="info-card">
-                            <div class="info-label"><i class="fas fa-cube"></i> Обтурация</div>
-                            <div class="info-value">Закрытие отверстий катетера тканями</div>
-                        </div>
-                    </div>
+                    В проекции <span class="highlight">левой/правой поясничной области</span> определяется чрескожный нефростомический дренаж.
+                    Наружная фиксация катетера <span class="danger-sign">ослаблена / отсутствует</span>, возможно <span class="warning-sign">смещение дренажа кнаружи или внутрь</span>.
+                </div>
+            </div>
+            
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-eye"></i>
+                    <span>🔍 Данные осмотра</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>Повязка в области стомы <span class="danger-sign">влажная, пропитана мочой</span>.</li>
+                        <li>Кожные покровы вокруг места выхода дренажа <span class="danger-sign">гиперемированы, отечны</span>.</li>
+                        <li>Признаки <span class="warning-sign">мацерации кожи</span> (размягчение, покраснение, возможны эрозии и изъязвления).</li>
+                        <li><strong>Отделяемое из раны:</strong> серозное / гнойное / с примесью мочи.</li>
+                        <li>Возможно наличие <span class="warning-sign">грануляций или налета фибрина</span> в области стомы.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-hand-peace"></i>
+                    <span>🖐 Пальпаторные данные</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>Пальпация области нефростомы <span class="warning-sign">болезненна</span>.</li>
+                        <li>Возможно наличие <span class="danger-sign">инфильтрации мягких тканей</span> вокруг дренажа.</li>
+                        <li>Флюктуация (признак скопления жидкости/гноя) в паранефральной области <span class="warning-sign">может определяться / не определяется</span>.</li>
+                        <li>При пальпации по ходу катетера — <span class="warning-sign">умеренная болезненность</span>.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-tint"></i>
+                    <span>💧 Функциональный статус</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>Отток мочи по нефростомическому катетеру <span class="danger-sign">снижен / отсутствует</span>.</li>
+                        <li>Мочеприемник <span class="danger-sign">пуст / заполняется незначительно</span>.</li>
+                        <li>Отмечается <span class="danger-sign">подтекание мочи мимо дренажа</span> на повязку и кожу.</li>
+                        <li><strong>Характер мочи:</strong> может быть мутная, с хлопьями, с примесью крови (признак воспаления или травмы).</li>
+                        <li>При попытке аспирации шприцем — моча <span class="warning-sign">не поступает / поступает в малом количестве</span>.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-thermometer-half"></i>
+                    <span>🌡️ Дополнительные данные</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>Возможна <span class="warning-sign">субфебрильная / фебрильная температура</span>, озноб (признаки системной воспалительной реакции).</li>
+                        <li>Пациент может предъявлять жалобы на <span class="warning-sign">боли в поясничной области</span>.</li>
+                    </ul>
                 </div>
             </div>
         </div>
+
+        <!-- ОККЛЮЗИЯ НЕФРОСТОМЫ — красный блок -->
+        <div class="section-title insufficiency-section">
+            <i class="fas fa-ban"></i>
+            <span>Окклюзия нефростомы (закупорка дренажа, отсутствие оттока мочи)</span>
+        </div>
         
-        <!-- Заключение -->
-        <div class="info-row" style="margin-top: 0;">
-            <div class="row-header">
-                <i class="fas fa-stethoscope"></i>
-                <span>📋 Заключение</span>
+        <div class="exam-section">
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>📍 Локализация</span>
+                </div>
+                <div class="row-content">
+                    В проекции <span class="highlight">левой/правой поясничной области</span> определяется чрескожный нефростомический дренаж.
+                    Катетер фиксирован к коже <span class="warning-sign">удовлетворительно</span>, положение его <span class="normal-sign">визуально не изменено</span>.
+                </div>
             </div>
-            <div class="row-content">
-                Клиническая картина соответствует <span class="highlight">нефункционирующей нефростоме слева (отсутствие оттока мочи по дренажу)</span> без признаков местного инфекционно-воспалительного процесса. Кожные покровы вокруг стомы не изменены, гиперемии, отека, инфильтрации нет. Пальпация области безболезненна, признаков затека мочи или абсцедирования не выявлено. Пациент афебрилен. Требуется уточнение причины обструкции (закупорка катетера, миграция, дислокация, перегиб, обтурация солями).
+            
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-eye"></i>
+                    <span>🔍 Данные осмотра</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>Повязка в области стомы <span class="normal-sign">сухая, чистая</span>, промокания мочой <span class="normal-sign">нет</span>!</li>
+                        <li>Кожные покровы вокруг места выхода дренажа <span class="normal-sign">не изменены</span> (признаков воспаления нет).</li>
+                        <li><strong>Важно:</strong> Отсутствие подтекания мочи при отсутствии оттока по дренажу указывает на <span class="danger-sign">окклюзию (закупорку) катетера</span>.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-hand-peace"></i>
+                    <span>🖐 Пальпаторные данные</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>Пальпация области нефростомы <span class="warning-sign">может быть умеренно болезненной</span>.</li>
+                        <li>При глубокой пальпации в поясничной области — <span class="warning-sign">возможно напряжение мышц</span>.</li>
+                        <li>Флюктуации, инфильтрации, крепитации в паранефральной области <span class="warning-sign">может не быть / может определяться гидронефроз</span>.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-tint"></i>
+                    <span>💧 Функциональный статус</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>Отток мочи по нефростомическому катетеру <span class="danger-sign">отсутствует</span> (мочеприемник пуст).</li>
+                        <li>При попытке аспирации шприцем — <span class="danger-sign">моча не поступает</span>, ощущается <span class="danger-sign">выраженное сопротивление</span>.</li>
+                        <li>Промывание катетера физиологическим раствором <span class="danger-sign">затруднено или невозможно</span> (раствор не проходит / идет обратным током).</li>
+                        <li><strong>Характер закупорки:</strong> возможно кровяными сгустками / гнойными массами / солями / детритом / сгустками слизи.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-thermometer-half"></i>
+                    <span>🌡️ Дополнительные данные</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li><span class="danger-sign">Лихорадка, озноб</span> (признаки обструктивного пиелонефрита / уросепсиса).</li>
+                        <li>Пациент предъявляет жалобы на <span class="warning-sign">интенсивные боли в поясничной области</span>.</li>
+                        <li>Возможны <span class="warning-sign">тошнота, рвота</span> (признаки интоксикации).</li>
+                        <li>При длительной окклюзии возможно развитие <span class="danger-sign">гидронефроза, пионефроза, уросепсиса</span>.</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
