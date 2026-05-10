@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Гастростома | Описание статуса (норма, несостоятельность, выпадение)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #eef2f7 0%, #e0e8f0 100%);
+            font-family: 'Inter', sans-serif;
+            padding: 1rem;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .medical-card {
+            max-width: 800px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 2rem;
+            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.12);
+            overflow: hidden;
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #4a2e1e 0%, #2e2218 100%);
+            padding: 1.25rem 1.5rem;
+            color: white;
+            border-bottom: 3px solid #e08e3a;
+        }
+
+        .title-section h1 {
+            font-weight: 700;
+            font-size: 1.5rem;
+            letter-spacing: -0.3px;
+            color: #fff5ea;
+            margin-bottom: 0.25rem;
+            line-height: 1.3;
+        }
+
+        .sub {
+            font-size: 0.85rem;
+            color: #e6cfb5;
+            font-weight: 400;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .sub i {
+            font-size: 0.9rem;
+            color: #e08e3a;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .diagnosis-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #fef3e6;
+            color: #b45a1c;
+            padding: 0.4rem 1.1rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.75rem;
+            margin-bottom: 1.5rem;
+            border-left: 3px solid #e67e22;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+        }
+
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin: 1.5rem 0 1rem 0;
+            padding: 0.6rem 0.8rem;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title:first-of-type {
+            margin-top: 0;
+        }
+
+        .section-title i {
+            font-size: 1.2rem;
+        }
+
+        .normal-section {
+            background: #e8f5e9;
+            border-left: 4px solid #2e7d32;
+            color: #1b5e20;
+        }
+
+        .normal-section i {
+            color: #2e7d32;
+        }
+
+        /* КРАСНЫЙ БЛОК — для несостоятельности и выпадения */
+        .insufficiency-section {
+            background: #ffebee;
+            border-left: 4px solid #c62828;
+            color: #b71c1c;
+        }
+
+        .insufficiency-section i {
+            color: #c62828;
+        }
+
+        .exam-section {
+            display: flex;
+            flex-direction: column;
+            gap: 1.35rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-row {
+            background: #ffffff;
+            border-radius: 1.25rem;
+            border: 1.5px solid #e5d5c2;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+
+        .row-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 700;
+            font-size: 1rem;
+            color: #2f5342;
+            padding: 1rem 1.2rem 0.5rem 1.2rem;
+            background: #fefcf9;
+            border-bottom: 2px solid #f0e3d4;
+        }
+
+        .row-header i {
+            font-size: 1.4rem;
+            width: 34px;
+            color: #c96f1e;
+            background: #fff2e6;
+            padding: 6px;
+            border-radius: 14px;
+            text-align: center;
+        }
+
+        .row-content {
+            font-size: 0.95rem;
+            line-height: 1.55;
+            color: #2c3e3a;
+            padding: 0 1.2rem 1rem 1.2rem;
+            background: #ffffff;
+        }
+
+        .highlight {
+            font-weight: 600;
+            color: #bf6019;
+            background: #fff2e6;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .normal-sign {
+            font-weight: 600;
+            color: #2c7a4a;
+            background: #e0f5e8;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .warning-sign {
+            font-weight: 600;
+            color: #c96f1e;
+            background: #fff0e2;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .danger-sign {
+            font-weight: 600;
+            color: #c0392b;
+            background: #ffe6e0;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .bullet-list {
+            margin: 0.25rem 0 0 0;
+            padding-left: 1.2rem;
+        }
+        
+        .bullet-list li {
+            margin-bottom: 0.3rem;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 0.75rem;
+            }
+            
+            .card-header {
+                padding: 1rem 1.2rem;
+            }
+            
+            .title-section h1 {
+                font-size: 1.25rem;
+            }
+            
+            .sub {
+                font-size: 0.75rem;
+            }
+            
+            .card-body {
+                padding: 1.2rem;
+            }
+            
+            .row-header {
+                padding: 0.8rem 1rem 0.3rem 1rem;
+            }
+            
+            .row-header i {
+                font-size: 1.2rem;
+                width: 30px;
+            }
+            
+            .row-content {
+                padding: 0 1rem 0.8rem 1rem;
+                font-size: 0.88rem;
+            }
+            
+            .diagnosis-tag {
+                font-size: 0.7rem;
+                margin-bottom: 1rem;
+            }
+            
+            .section-title {
+                font-size: 1rem;
+                margin: 1.2rem 0 0.8rem 0;
+                padding: 0.4rem 0.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="medical-card">
+    <div class="card-header">
+        <div class="title-section">
+            <h1>Гастростома</h1>
+            <div class="sub">
+                <i class="fas fa-stomach"></i> Гастростомический дренаж · Оценка состояния
+            </div>
+        </div>
+    </div>
+    
+    <div class="card-body">
+        <div class="diagnosis-tag">
+            <i class="fas fa-stethoscope"></i> Гастростома · Осмотр · Оценка состояния
+        </div>
+
+        <!-- НОРМА — зеленый блок -->
+        <div class="section-title normal-section">
+            <i class="fas fa-check-circle"></i>
+            <span>Гастростома (норма)</span>
+        </div>
+        
+        <div class="exam-section">
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>📍 Передняя брюшная стенка</span>
+                </div>
+                <div class="row-content">
+                    На коже передней брюшной стенки в <span class="highlight">левой/правой подреберной области</span> расположен гастростомический дренаж (трубка Фолея/Пеццера/пуговчатая гастростома).
+                    Катетер <span class="normal-sign">фиксирован к коже пластырем и/или внешним фиксатором</span>.
+                    Фиксатор у стомы стоит <span class="normal-sign">устойчиво</span>, признаков миграции <span class="normal-sign">нет</span>.
+                    Дренаж <span class="normal-sign">проходим</span>, положение баллона (если имеется) <span class="normal-sign">контролируется</span>.
+                </div>
+            </div>
+            
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-hand-peace"></i>
+                    <span>🖐 Кожные покровы и пальпация</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>Кожные покровы вокруг стомы <span class="normal-sign">чистые, сухие, обычной окраски</span>.</li>
+                        <li>Признаков воспаления, отека, инфильтрации, мацерации <span class="normal-sign">не выявлено</span>.</li>
+                        <li>Гнойного, серозного или геморрагического отделяемого из послеоперационной раны и вокруг дренажа <span class="normal-sign">не отмечается</span>.</li>
+                        <li>Область вокруг гастростомы при пальпации <span class="normal-sign">безболезненная</span>.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-utensils"></i>
+                    <span>🍽️ Функциональный статус и кормление</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>При проведении пробного кормления / введении раствора <span class="normal-sign">признаков подтекания вокруг трубки нет</span>.</li>
+                        <li>Смесь / вода вводится <span class="normal-sign">свободно, без сопротивления</span>.</li>
+                        <li>Пациент <span class="normal-sign">не предъявляет жалоб</span> на боли, тошноту, вздутие живота.</li>
+                        <li>Объем вводимого питания: ___ мл, переносимость <span class="normal-sign">удовлетворительная</span>.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- НЕСОСТОЯТЕЛЬНОСТЬ ГАСТРОСТОМЫ — красный блок -->
+        <div class="section-title insufficiency-section">
+            <i class="fas fa-exclamation-triangle"></i>
+            <span>Несостоятельность гастростомы</span>
+        </div>
+        
+        <div class="exam-section">
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>📍 Передняя брюшная стенка</span>
+                </div>
+                <div class="row-content">
+                    На коже передней брюшной стенки в <span class="highlight">левой/правой подреберной области</span> расположен гастростомический дренаж.
+                    Наружный фиксатор дренажа <span class="danger-sign">смещен / ослаблен / отсутствует</span>.
+                    Отмечается <span class="warning-sign">нестабильность трубки</span> в раневом канале.
+                </div>
+            </div>
+            
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-tint"></i>
+                    <span>🩸 Дренаж и функция</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>Дренаж <span class="danger-sign">частично функционирует / не функционирует</span>.</li>
+                        <li>При попытке введения питания / жидкости – раствор <span class="danger-sign">подтекает вокруг трубки</span>.</li>
+                        <li><strong>Признаки миграции:</strong> трубка <span class="warning-sign">введена глубже / частично извлечена</span> по сравнению с исходным уровнем (отметка на трубке смещена).</li>
+                        <li>При попытке аспирации — получение желудочного содержимого <span class="danger-sign">затруднено</span>.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-hand-peace"></i>
+                    <span>🖐 Кожные покровы и пальпация</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>Кожные покровы вокруг стомы <span class="danger-sign">гиперемированы, отечны</span>.</li>
+                        <li><span class="danger-sign">Выраженная влажность кожи</span> за счет подтекания желудочного содержимого мимо дренажной трубки.</li>
+                        <li>Признаки <span class="warning-sign">мацерации кожи</span> (размягчение, покраснение, эрозии, возможны изъязвления).</li>
+                        <li><strong>Отделяемое из раны:</strong> желудочное содержимое / серозное / гнойное (при инфицировании).</li>
+                        <li><strong>Запах:</strong> кислый (желудочное содержимое) / гнилостный (при инфицировании).</li>
+                        <li>Пальпация области вокруг гастростомы <span class="warning-sign">умеренно болезненна</span>.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-thermometer-half"></i>
+                    <span>🌡️ Дополнительные данные</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>Возможна <span class="warning-sign">субфебрильная температура</span> (признак воспаления).</li>
+                        <li>Пациент может предъявлять жалобы на <span class="warning-sign">боли в эпигастрии и вокруг стомы</span>.</li>
+                        <li>При длительном подтекании — <span class="danger-sign">риск развития флегмоны передней брюшной стенки и перитонита</span>.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ВЫПАДЕНИЕ ГАСТРОСТОМЫ — красный блок -->
+        <div class="section-title insufficiency-section">
+            <i class="fas fa-arrow-down"></i>
+            <span>Выпадение гастростомы</span>
+        </div>
+        
+        <div class="exam-section">
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>📍 Передняя брюшная стенка</span>
+                </div>
+                <div class="row-content">
+                    На коже передней брюшной стенки в <span class="highlight">левой/правой подреберной области</span> определяется <span class="danger-sign">ложе гастростомы</span>.
+                    Дренажная трубка <span class="danger-sign">полностью выпала / частично находится в раневом канале</span>.
+                </div>
+            </div>
+            
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-eye"></i>
+                    <span>🔍 Гастростомический канал</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>Гастростомический канал <span class="danger-sign">зияет</span>.</li>
+                        <li>Через свищевое отверстие <span class="danger-sign">выделяется желудочное содержимое</span> (пищевые массы, желудочный сок).</li>
+                        <li>Кожные покровы вокруг свищевого отверстия <span class="danger-sign">гиперемированы, отечны</span>.</li>
+                        <li>Признаки <span class="warning-sign">экскориации и мацерации кожи</span> желудочным содержимым.</li>
+                        <li><strong>Выделения:</strong> жидкие, с примесью съеденной пищи, кислой реакции.</li>
+                        <li>Возможно наличие <span class="warning-sign">грануляций</span> в области свищевого хода.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-hand-peace"></i>
+                    <span>🖐 Пальпация</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>Пальпация области вокруг свищевого отверстия <span class="danger-sign">резко болезненна</span>.</li>
+                        <li>При пальпации может определяться <span class="warning-sign">инфильтрация тканей вокруг свища</span>.</li>
+                        <li>Напряжение мышц передней брюшной стенки в эпигастрии <span class="warning-sign">может определяться / отсутствует</span>.</li>
+                        <li>Симптомы раздражения брюшины (Щёткина-Блюмберга) <span class="normal-sign">отрицательные</span> (при отсутствии перитонита).</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-thermometer-half"></i>
+                    <span>🌡️ Дополнительные данные</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li><span class="danger-sign">Лихорадка, озноб</span> (признаки перитонита или абсцедирования).</li>
+                        <li>Пациент предъявляет жалобы на <span class="danger-sign">интенсивные боли в эпигастрии</span>.</li>
+                        <li>Возможны <span class="warning-sign">тошнота, рвота, вздутие живота</span> (нарушение пассажа по ЖКТ).</li>
+                        <li><strong>Риск развития перитонита:</strong> при выпадении трубки желудочное содержимое может изливаться в свободную брюшную полость.</li>
+                        <li>Требуется <span class="danger-sign">экстренное хирургическое вмешательство</span> для реинтубации гастростомы или ушивания свища.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
