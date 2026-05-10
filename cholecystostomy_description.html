@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Холецистостома | Описание статуса (норма, несостоятельность, выпадение/окклюзия)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #eef2f7 0%, #e0e8f0 100%);
+            font-family: 'Inter', sans-serif;
+            padding: 1rem;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .medical-card {
+            max-width: 800px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 2rem;
+            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.12);
+            overflow: hidden;
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #4a2e1e 0%, #2e2218 100%);
+            padding: 1.25rem 1.5rem;
+            color: white;
+            border-bottom: 3px solid #e08e3a;
+        }
+
+        .title-section h1 {
+            font-weight: 700;
+            font-size: 1.5rem;
+            letter-spacing: -0.3px;
+            color: #fff5ea;
+            margin-bottom: 0.25rem;
+            line-height: 1.3;
+        }
+
+        .sub {
+            font-size: 0.85rem;
+            color: #e6cfb5;
+            font-weight: 400;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .sub i {
+            font-size: 0.9rem;
+            color: #e08e3a;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .diagnosis-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #fef3e6;
+            color: #b45a1c;
+            padding: 0.4rem 1.1rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.75rem;
+            margin-bottom: 1.5rem;
+            border-left: 3px solid #e67e22;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+        }
+
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin: 1.5rem 0 1rem 0;
+            padding: 0.6rem 0.8rem;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title:first-of-type {
+            margin-top: 0;
+        }
+
+        .section-title i {
+            font-size: 1.2rem;
+        }
+
+        .normal-section {
+            background: #e8f5e9;
+            border-left: 4px solid #2e7d32;
+            color: #1b5e20;
+        }
+
+        .normal-section i {
+            color: #2e7d32;
+        }
+
+        .insufficiency-section {
+            background: #ffebee;
+            border-left: 4px solid #c62828;
+            color: #b71c1c;
+        }
+
+        .insufficiency-section i {
+            color: #c62828;
+        }
+
+        .exam-section {
+            display: flex;
+            flex-direction: column;
+            gap: 1.35rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-row {
+            background: #ffffff;
+            border-radius: 1.25rem;
+            border: 1.5px solid #e5d5c2;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+
+        .row-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 700;
+            font-size: 1rem;
+            color: #2f5342;
+            padding: 1rem 1.2rem 0.5rem 1.2rem;
+            background: #fefcf9;
+            border-bottom: 2px solid #f0e3d4;
+        }
+
+        .row-header i {
+            font-size: 1.4rem;
+            width: 34px;
+            color: #c96f1e;
+            background: #fff2e6;
+            padding: 6px;
+            border-radius: 14px;
+            text-align: center;
+        }
+
+        .row-content {
+            font-size: 0.95rem;
+            line-height: 1.55;
+            color: #2c3e3a;
+            padding: 0 1.2rem 1rem 1.2rem;
+            background: #ffffff;
+        }
+
+        .highlight {
+            font-weight: 600;
+            color: #bf6019;
+            background: #fff2e6;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .normal-sign {
+            font-weight: 600;
+            color: #2c7a4a;
+            background: #e0f5e8;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .warning-sign {
+            font-weight: 600;
+            color: #c96f1e;
+            background: #fff0e2;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .danger-sign {
+            font-weight: 600;
+            color: #c0392b;
+            background: #ffe6e0;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .bullet-list {
+            margin: 0.25rem 0 0 0;
+            padding-left: 1.2rem;
+        }
+        
+        .bullet-list li {
+            margin-bottom: 0.3rem;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 0.75rem;
+            }
+            
+            .card-header {
+                padding: 1rem 1.2rem;
+            }
+            
+            .title-section h1 {
+                font-size: 1.25rem;
+            }
+            
+            .sub {
+                font-size: 0.75rem;
+            }
+            
+            .card-body {
+                padding: 1.2rem;
+            }
+            
+            .row-header {
+                padding: 0.8rem 1rem 0.3rem 1rem;
+            }
+            
+            .row-header i {
+                font-size: 1.2rem;
+                width: 30px;
+            }
+            
+            .row-content {
+                padding: 0 1rem 0.8rem 1rem;
+                font-size: 0.88rem;
+            }
+            
+            .diagnosis-tag {
+                font-size: 0.7rem;
+                margin-bottom: 1rem;
+            }
+            
+            .section-title {
+                font-size: 1rem;
+                margin: 1.2rem 0 0.8rem 0;
+                padding: 0.4rem 0.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="medical-card">
+    <div class="card-header">
+        <div class="title-section">
+            <h1>Холецистостома</h1>
+            <div class="sub">
+                <i class="fas fa-gallbladder"></i> Холецистостомический дренаж · Оценка состояния
+            </div>
+        </div>
+    </div>
+    
+    <div class="card-body">
+        <div class="diagnosis-tag">
+            <i class="fas fa-stethoscope"></i> Холецистостома · Осмотр · Оценка состояния
+        </div>
+
+        <!-- НОРМА — зеленый блок -->
+        <div class="section-title normal-section">
+            <i class="fas fa-check-circle"></i>
+            <span>Холецистостома (норма)</span>
+        </div>
+        
+        <div class="exam-section">
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>📍 Правое подреберье</span>
+                </div>
+                <div class="row-content">
+                    В проекции желчного пузыря (по среднеключичной линии на <span class="highlight">2 см ниже реберной дуги</span>) имеется холецистостома – силиконовый дренаж диаметром около <span class="normal-sign">5-8 мм</span>.
+                    Дренаж <span class="normal-sign">фиксирован к коже лейкопластырной повязкой / удерживающими швами</span>.
+                    Положение дренажа <span class="normal-sign">стабильное</span>, признаков миграции <span class="normal-sign">нет</span>.
+                </div>
+            </div>
+            
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-hand-peace"></i>
+                    <span>🖐 Кожные покровы вокруг стомы</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>Кожа вокруг стомы <span class="normal-sign">чистая, сухая, обычной окраски</span>.</li>
+                        <li>Признаков воспаления (гиперемии, отека, инфильтрации) <span class="normal-sign">не выявлено</span>.</li>
+                        <li>Гнойного, серозного или геморрагического отделяемого из раны <span class="normal-sign">не отмечается</span>.</li>
+                        <li>Признаков мацерации, экскориации, налета фибрина <span class="normal-sign">нет</span>.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-tint"></i>
+                    <span>🩸 Дренаж и функция</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>Дренаж соединен с мочеприемником типа «гармошка» / дренажным мешком.</li>
+                        <li>В приемнике находится около ___ мл желчи <span class="normal-sign">темно-желтого / оливково-зеленого цвета</span>.</li>
+                        <li>При легком надавливании на область стомы (после обработки рук антисептиком) и изменении положения дренажа из трубки выделяется дополнительное количество желчи, что свидетельствует о <span class="normal-sign">сохраненной проходимости дренажа</span>.</li>
+                        <li>Дренажная трубка <span class="normal-sign">не перегнута, просвет визуально не перекрыт</span>.</li>
+                        <li>Отток желчи <span class="normal-sign">адекватный, порционный</span>.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-hand-peace"></i>
+                    <span>🖐 Пальпация живота</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>Живот при пальпации <span class="normal-sign">мягкий, безболезненный</span>.</li>
+                        <li>Симптом Щёткина-Блюмберга <span class="normal-sign">отрицательный</span>.</li>
+                        <li>Пальпация в правом подреберье <span class="normal-sign">безболезненная</span>.</li>
+                        <li>Печень не увеличена / перкуторные границы в пределах нормы.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-thermometer-half"></i>
+                    <span>🌡️ Дополнительные данные</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>Температура тела <span class="normal-sign">нормальная</span>.</li>
+                        <li>Пациент <span class="normal-sign">не предъявляет жалоб</span> на боли, тошноту, рвоту, желтуху.</li>
+                        <li><strong>Характер желчи:</strong> жидкая, без хлопьев, сгустков, примеси гноя.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- НЕСОСТОЯТЕЛЬНОСТЬ ХОЛЕЦИСТОСТОМЫ — красный блок -->
+        <div class="section-title insufficiency-section">
+            <i class="fas fa-exclamation-triangle"></i>
+            <span>Несостоятельность холецистостомы (подтекание, воспаление)</span>
+        </div>
+        
+        <div class="exam-section">
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>📍 Правое подреберье</span>
+                </div>
+                <div class="row-content">
+                    В проекции желчного пузыря имеется холецистостома.
+                    Наружная фиксация дренажа <span class="danger-sign">ослаблена / пластырь отклеился / швы разошлись</span>.
+                    Отмечается <span class="warning-sign">нестабильность дренажной трубки</span> в раневом канале.
+                </div>
+            </div>
+            
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-hand-peace"></i>
+                    <span>🖐 Кожные покровы вокруг стомы</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>Кожа вокруг стомы <span class="danger-sign">гиперемирована, отечна, инфильтрирована</span>.</li>
+                        <li><span class="danger-sign">Выраженная влажность кожи</span> за счет подтекания желчи мимо дренажной трубки.</li>
+                        <li>Признаки <span class="warning-sign">мацерации кожи</span> (размягчение, покраснение, эрозии).</li>
+                        <li><strong>Отделяемое из раны:</strong> желчь / серозное / гнойное (при инфицировании).</li>
+                        <li><strong>Желтушное прокрашивание кожи</strong> вокруг стомы.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-tint"></i>
+                    <span>🩸 Дренаж и функция</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>Отток желчи по дренажу <span class="danger-sign">снижен / отсутствует</span>.</li>
+                        <li>Мочеприемник <span class="danger-sign">пуст / заполняется незначительно</span>.</li>
+                        <li>При попытке промывания дренажа – раствор <span class="danger-sign">подтекает вокруг трубки</span>.</li>
+                        <li><strong>Признаки миграции дренажа:</strong> трубка частично извлечена / введена глубже.</li>
+                        <li><strong>Характер желчи:</strong> мутная, с хлопьями, с примесью гноя (признак холангита / холецистита).</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-hand-peace"></i>
+                    <span>🖐 Пальпация живота</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>Пальпация в правом подреберье <span class="warning-sign">умеренно болезненна</span>.</li>
+                        <li>Возможно напряжение мышц передней брюшной стенки в правом подреберье.</li>
+                        <li>Симптом Щёткина-Блюмберга <span class="normal-sign">отрицательный</span> (при отсутствии перитонита).</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-thermometer-half"></i>
+                    <span>🌡️ Дополнительные данные</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>Температура тела <span class="warning-sign">субфебрильная / фебрильная</span> (признак холангита).</li>
+                        <li>Пациент предъявляет жалобы на <span class="warning-sign">боли в правом подреберье, тошноту</span>.</li>
+                        <li>Возможно <span class="warning-sign">желтушное прокрашивание склер и кожи</span> (при нарушении оттока желчи).</li>
+                        <li>При длительном подтекании — <span class="danger-sign">риск развития перитонита и абсцедирования</span>.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ВЫПАДЕНИЕ / ОККЛЮЗИЯ ХОЛЕЦИСТОСТОМЫ — красный блок -->
+        <div class="section-title insufficiency-section">
+            <i class="fas fa-arrow-down"></i>
+            <span>Выпадение / окклюзия холецистостомы (неотложное состояние)</span>
+        </div>
+        
+        <div class="exam-section">
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>📍 Правое подреберье</span>
+                </div>
+                <div class="row-content">
+                    В проекции желчного пузыря имеется холецистостома.
+                    Дренажная трубка <span class="danger-sign">полностью выпала / частично находится в раневом канале</span>.
+                    Наружная фиксация <span class="danger-sign">отсутствует</span>.
+                </div>
+            </div>
+            
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-eye"></i>
+                    <span>🔍 Холецистостомический канал</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>Холецистостомический канал <span class="danger-sign">зияет</span>.</li>
+                        <li>Через свищевое отверстие <span class="danger-sign">выделяется желчь</span> (постоянное подтекание).</li>
+                        <li>Кожные покровы вокруг свищевого отверстия <span class="danger-sign">гиперемированы, отечны</span>.</li>
+                        <li>Признаки <span class="warning-sign">экскориации и мацерации кожи</span> желчью.</li>
+                        <li>Возможно наличие <span class="warning-sign">грануляций</span> в области свищевого хода.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-tint"></i>
+                    <span>🩸 Функция и окклюзия</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>Отток желчи по дренажу <span class="danger-sign">отсутствует</span> (мочеприемник пуст).</li>
+                        <li>При попытке промывания / аспирации — <span class="danger-sign">выраженное сопротивление, раствор не проходит</span>.</li>
+                        <li><strong>Причина окклюзии:</strong> закупорка дренажа сгустками желчи / камнями / детритом / гноем.</li>
+                        <li>При выпадении трубки — желчь <span class="danger-sign">изливается в свободную брюшную полость</span> (риск развития желчного перитонита).</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-hand-peace"></i>
+                    <span>🖐 Пальпация живота</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>Пальпация в правом подреберье <span class="danger-sign">резко болезненна</span>.</li>
+                        <li>Напряжение мышц передней брюшной стенки в правом подреберье <span class="danger-sign">выражено</span>.</li>
+                        <li>Симптом Щёткина-Блюмберга <span class="danger-sign">положительный / сомнительный</span>.</li>
+                        <li>Возможно <span class="warning-sign">вздутие живота, задержка стула и газов</span>.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-thermometer-half"></i>
+                    <span>🌡️ Дополнительные данные и неотложная помощь</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li><span class="danger-sign">Лихорадка, озноб, тахикардия</span> (признаки холангита / перитонита).</li>
+                        <li>Пациент предъявляет жалобы на <span class="danger-sign">интенсивные боли в правом подреберье</span>.</li>
+                        <li>Возможно <span class="warning-sign">желтушное прокрашивание кожи и склер</span>.</li>
+                        <li><span class="danger-sign">Требуется экстренное вмешательство:</span></li>
+                        <li>— При окклюзии: попытка промывания дренажа, замена трубки.</li>
+                        <li>— При выпадении: попытка реинтубации холецистостомы, при неэффективности — экстренная холецистэктомия.</li>
+                        <li>— Антибактериальная терапия (цефалоспорины, метронидазол / карбапенемы).</li>
+                        <li><span class="danger-sign">Экстренная госпитализация в хирургический стационар</span>.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
