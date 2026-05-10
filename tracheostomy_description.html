@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Трахеостома | Описание статуса (норма, несостоятельность, обструкция/выпадение)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #eef2f7 0%, #e0e8f0 100%);
+            font-family: 'Inter', sans-serif;
+            padding: 1rem;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .medical-card {
+            max-width: 800px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 2rem;
+            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.12);
+            overflow: hidden;
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #4a2e1e 0%, #2e2218 100%);
+            padding: 1.25rem 1.5rem;
+            color: white;
+            border-bottom: 3px solid #e08e3a;
+        }
+
+        .title-section h1 {
+            font-weight: 700;
+            font-size: 1.5rem;
+            letter-spacing: -0.3px;
+            color: #fff5ea;
+            margin-bottom: 0.25rem;
+            line-height: 1.3;
+        }
+
+        .sub {
+            font-size: 0.85rem;
+            color: #e6cfb5;
+            font-weight: 400;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .sub i {
+            font-size: 0.9rem;
+            color: #e08e3a;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .diagnosis-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #fef3e6;
+            color: #b45a1c;
+            padding: 0.4rem 1.1rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.75rem;
+            margin-bottom: 1.5rem;
+            border-left: 3px solid #e67e22;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+        }
+
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin: 1.5rem 0 1rem 0;
+            padding: 0.6rem 0.8rem;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title:first-of-type {
+            margin-top: 0;
+        }
+
+        .section-title i {
+            font-size: 1.2rem;
+        }
+
+        .normal-section {
+            background: #e8f5e9;
+            border-left: 4px solid #2e7d32;
+            color: #1b5e20;
+        }
+
+        .normal-section i {
+            color: #2e7d32;
+        }
+
+        .insufficiency-section {
+            background: #ffebee;
+            border-left: 4px solid #c62828;
+            color: #b71c1c;
+        }
+
+        .insufficiency-section i {
+            color: #c62828;
+        }
+
+        .exam-section {
+            display: flex;
+            flex-direction: column;
+            gap: 1.35rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-row {
+            background: #ffffff;
+            border-radius: 1.25rem;
+            border: 1.5px solid #e5d5c2;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+
+        .row-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 700;
+            font-size: 1rem;
+            color: #2f5342;
+            padding: 1rem 1.2rem 0.5rem 1.2rem;
+            background: #fefcf9;
+            border-bottom: 2px solid #f0e3d4;
+        }
+
+        .row-header i {
+            font-size: 1.4rem;
+            width: 34px;
+            color: #c96f1e;
+            background: #fff2e6;
+            padding: 6px;
+            border-radius: 14px;
+            text-align: center;
+        }
+
+        .row-content {
+            font-size: 0.95rem;
+            line-height: 1.55;
+            color: #2c3e3a;
+            padding: 0 1.2rem 1rem 1.2rem;
+            background: #ffffff;
+        }
+
+        .highlight {
+            font-weight: 600;
+            color: #bf6019;
+            background: #fff2e6;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .normal-sign {
+            font-weight: 600;
+            color: #2c7a4a;
+            background: #e0f5e8;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .warning-sign {
+            font-weight: 600;
+            color: #c96f1e;
+            background: #fff0e2;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .danger-sign {
+            font-weight: 600;
+            color: #c0392b;
+            background: #ffe6e0;
+            padding: 0 5px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .bullet-list {
+            margin: 0.25rem 0 0 0;
+            padding-left: 1.2rem;
+        }
+        
+        .bullet-list li {
+            margin-bottom: 0.3rem;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 0.75rem;
+            }
+            
+            .card-header {
+                padding: 1rem 1.2rem;
+            }
+            
+            .title-section h1 {
+                font-size: 1.25rem;
+            }
+            
+            .sub {
+                font-size: 0.75rem;
+            }
+            
+            .card-body {
+                padding: 1.2rem;
+            }
+            
+            .row-header {
+                padding: 0.8rem 1rem 0.3rem 1rem;
+            }
+            
+            .row-header i {
+                font-size: 1.2rem;
+                width: 30px;
+            }
+            
+            .row-content {
+                padding: 0 1rem 0.8rem 1rem;
+                font-size: 0.88rem;
+            }
+            
+            .diagnosis-tag {
+                font-size: 0.7rem;
+                margin-bottom: 1rem;
+            }
+            
+            .section-title {
+                font-size: 1rem;
+                margin: 1.2rem 0 0.8rem 0;
+                padding: 0.4rem 0.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="medical-card">
+    <div class="card-header">
+        <div class="title-section">
+            <h1>Трахеостома</h1>
+            <div class="sub">
+                <i class="fas fa-lungs"></i> Трахеостомическая трубка · Оценка состояния и уход
+            </div>
+        </div>
+    </div>
+    
+    <div class="card-body">
+        <div class="diagnosis-tag">
+            <i class="fas fa-stethoscope"></i> Трахеостома · Осмотр · Оценка состояния · Уход
+        </div>
+
+        <!-- НОРМА — зеленый блок -->
+        <div class="section-title normal-section">
+            <i class="fas fa-check-circle"></i>
+            <span>Трахеостома (норма) · Уход</span>
+        </div>
+        
+        <div class="exam-section">
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>📍 Шея и положение трубки</span>
+                </div>
+                <div class="row-content">
+                    На передней поверхности шеи, в <span class="highlight">нижней трети</span>, имеется трахеостома.
+                    Трахеостомическая трубка (пластиковая, <span class="normal-sign">без манжеты / со спущенной манжетой</span>)
+                    <span class="normal-sign">фиксирована тесемками к шее</span>, положение стабильное.
+                    Фиксация <span class="normal-sign">надежная</span>, трубка не смещается при кашле и движении.
+                </div>
+            </div>
+            
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-hand-peace"></i>
+                    <span>🖐 Кожные покровы вокруг стомы</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>Кожа вокруг стомы <span class="normal-sign">чистая, сухая</span>, обычной окраски.</li>
+                        <li>Признаков <span class="normal-sign">мацерации, гиперемии, отека, инфильтрации нет</span>.</li>
+                        <li>Гнойного, серозного или геморрагического отделяемого <span class="normal-sign">не отмечается</span>.</li>
+                        <li>Стома <span class="normal-sign">сформирована</span>, края ровные, без грануляций и изъязвлений.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-lungs"></i>
+                    <span>🫁 Дыхание и проходимость</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>Дыхание через трахеостому <span class="normal-sign">свободное, эффективное</span>.</li>
+                        <li>Отделяемое из трахеи: слизистое, <span class="normal-sign">скудное, прозрачное или белесоватое</span>, без гноя.</li>
+                        <li>Аускультативно: дыхание <span class="normal-sign">везикулярное, проводится над обоими легкими</span>, хрипов нет.</li>
+                        <li>Сатурация кислорода (SpO₂) <span class="normal-sign">≥95%</span> на комнатном воздухе / на привычной оксигенотерапии.</li>
+                        <li>Пациент <span class="normal-sign">не предъявляет жалоб</span> на одышку, ощущение закупорки трубки.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-hand-sparkles"></i>
+                    <span>🧼 Уход за трахеостомой</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>Внутренняя канюля (если имеется) <span class="normal-sign">чистая, регулярно обрабатывается</span>.</li>
+                        <li>Повязка под трубкой <span class="normal-sign">сухая, чистая, меняется по мере загрязнения</span>.</li>
+                        <li>Туалет трахеостомы проводится <span class="normal-sign">регулярно, стерильными катетерами</span>.</li>
+                        <li>Признаков инфицирования, трахеита <span class="normal-sign">нет</span>.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- НЕСОСТОЯТЕЛЬНОСТЬ ТРАХЕОСТОМЫ / ИНФЕКЦИЯ — красный блок -->
+        <div class="section-title insufficiency-section">
+            <i class="fas fa-exclamation-triangle"></i>
+            <span>Несостоятельность трахеостомы (инфекция, мацерация, отделяемое)</span>
+        </div>
+        
+        <div class="exam-section">
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>📍 Шея и положение трубки</span>
+                </div>
+                <div class="row-content">
+                    На передней поверхности шеи, в <span class="highlight">нижней трети</span>, имеется трахеостома.
+                    Фиксация трубки тесемками <span class="warning-sign">ослаблена / тесемки загрязнены</span>.
+                    Отмечается <span class="warning-sign">нестабильность трубки</span> при дыхании и кашле.
+                </div>
+            </div>
+            
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-hand-peace"></i>
+                    <span>🖐 Кожные покровы вокруг стомы</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>Кожа вокруг стомы <span class="danger-sign">гиперемирована, отечна, болезненна</span>.</li>
+                        <li>Признаки <span class="danger-sign">мацерации, эрозии, изъязвления кожи</span>.</li>
+                        <li><strong>Отделяемое из раны:</strong> серозное / гнойное / с примесью слизи.</li>
+                        <li>Возможно наличие <span class="warning-sign">грануляций</span> в области стомы.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-lungs"></i>
+                    <span>🫁 Дыхание и проходимость</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>В просвете трубки и вокруг нее видна <span class="danger-sign">густая, гнойная мокрота желто-зеленого цвета</span>, затрудняющая дыхание.</li>
+                        <li>Слышно <span class="warning-sign">«хлюпанье» слизи</span> при дыхании.</li>
+                        <li>Дыхание через трахеостому <span class="danger-sign">затруднено / неэффективно</span>.</li>
+                        <li>Аускультативно: <span class="warning-sign">жесткое дыхание, рассеянные влажные хрипы</span>.</li>
+                        <li>Сатурация кислорода (SpO₂) <span class="danger-sign">снижена (≤90-92%)</span>.</li>
+                        <li>Пациент <span class="warning-sign">жалуется на одышку, чувство забитости трубки</span>.</li>
+                        <li><strong>Признаки трахеобронхита / пневмонии:</strong> лихорадка, кашель с гнойной мокротой.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-thermometer-half"></i>
+                    <span>🌡️ Дополнительные данные</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>Температура тела <span class="warning-sign">субфебрильная / фебрильная</span>.</li>
+                        <li>Признаки <span class="danger-sign">респираторного дистресса</span> (тахипноэ, втяжение межреберий, участие вспомогательной мускулатуры).</li>
+                        <li>Требуется <span class="warning-sign">срочная санация трахеостомы</span>, отсасывание мокроты, возможно промывание трубки.</li>
+                        <li>Показана <span class="danger-sign">антибактериальная терапия</span> (при гнойном трахеите / пневмонии).</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ВЫПАДЕНИЕ / ОБСТРУКЦИЯ ТРАХЕОСТОМЫ — красный блок -->
+        <div class="section-title insufficiency-section">
+            <i class="fas fa-arrow-down"></i>
+            <span>Выпадение / обструкция трахеостомы (неотложное состояние)</span>
+        </div>
+        
+        <div class="exam-section">
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>📍 Шея и положение трубки</span>
+                </div>
+                <div class="row-content">
+                    На передней поверхности шеи, в <span class="highlight">нижней трети</span>, трахеостома.
+                    Трахеостомическая трубка <span class="danger-sign">полностью выпала / частично находится в свищевом канале</span>.
+                    Фиксация <span class="danger-sign">отсутствует / нарушена</span>.
+                </div>
+            </div>
+            
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-eye"></i>
+                    <span>🔍 Стома и свищевой канал</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>Трахеостомический свищ <span class="danger-sign">зияет</span>.</li>
+                        <li>Кожные покровы вокруг свищевого отверстия <span class="danger-sign">гиперемированы, отечны</span>.</li>
+                        <li>Из свищевого отверстия выделяется <span class="danger-sign">гнойное / слизисто-гнойное отделяемое</span>.</li>
+                        <li>При попытке вдоха — <span class="danger-sign">слышен стридор (свистящее дыхание)</span> или дыхание отсутствует.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-lungs"></i>
+                    <span>🫁 Дыхание и проходимость</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>Дыхание через трахеостому <span class="danger-sign">отсутствует / резко затруднено</span>.</li>
+                        <li>Пациент <span class="danger-sign">не может дышать</span>, отмечается <span class="danger-sign">нарастающая асфиксия</span>.</li>
+                        <li>Аускультативно: дыхание <span class="danger-sign">резко ослаблено или не проводится</span> над легкими.</li>
+                        <li>Сатурация кислорода (SpO₂) <span class="danger-sign">критически снижена (≤85%)</span>.</li>
+                        <li><strong>Цианоз губ, акроцианоз, втяжение уступчивых мест грудной клетки</strong>.</li>
+                        <li>При обструкции трубки: <span class="danger-sign">полная закупорка просвета</span> густой мокротой или коркой.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="info-row">
+                <div class="row-header">
+                    <i class="fas fa-hand-peace"></i>
+                    <span>🖐 Дополнительные данные и неотложная помощь</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li><span class="danger-sign">Крайне тяжелое состояние</span>, угроза остановки дыхания.</li>
+                        <li><span class="danger-sign">Требуется экстренное вмешательство:</span></li>
+                        <li>— При выпадении трубки: попытка реинтубации трахеостомы (введение трахеостомической трубки меньшего размера).</li>
+                        <li>— При неэффективности — <span class="danger-sign">интубация трахеи через рот или коникотомия</span>.</li>
+                        <li>— При обструкции трубки: срочная замена трахеостомической трубки, отсасывание содержимого.</li>
+                        <li>— Оксигенотерапия (увлажненный кислород), при необходимости — ИВЛ.</li>
+                        <li><span class="danger-sign">Экстренная госпитализация в реанимационное отделение</span>.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
