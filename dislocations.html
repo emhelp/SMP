@@ -2,14 +2,19 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>ВЫВИХИ</title>
+
+<!-- PWA -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0f1446">
+
 <style>
   body {
     font-family: 'Segoe UI', 'Roboto', sans-serif;
     margin: 0;
     padding: 20px;
-    background: #f5f5f5;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -20,6 +25,7 @@
     text-align: center;
     margin-bottom: 20px;
     color: #0f1446;
+    font-size: 28px;
   }
 
   .dislocation-section {
@@ -27,9 +33,9 @@
     max-width: 500px;
     margin-bottom: 20px;
     background: white;
-    border-radius: 8px;
-    padding: 15px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border-radius: 12px;
+    padding: 18px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     box-sizing: border-box;
   }
 
@@ -37,7 +43,7 @@
     font-size: 18px;
     font-weight: bold;
     color: #e53935;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
     padding-bottom: 8px;
     border-bottom: 2px solid #e53935;
   }
@@ -51,22 +57,25 @@
   .dislocation-btn {
     text-decoration: none;
     color: white;
-    background: #0f1446;
-    padding: 12px 15px;
-    border-radius: 8px;
+    background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
+    padding: 14px 15px;
+    border-radius: 10px;
     font-weight: 600;
     text-align: center;
     width: 100%;
-    transition: background 0.2s;
+    transition: all 0.2s;
     border: none;
     cursor: pointer;
-    font-size: 1rem;
+    font-size: 16px;
     font-family: inherit;
     box-sizing: border-box;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    line-height: 1.4;
   }
 
   .dislocation-btn:hover {
-    background: #3949ab;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
   }
 
   .dislocation-btn:active {
@@ -75,25 +84,29 @@
 
   @media (max-width: 600px) {
     .dislocation-section {
-      max-width: 90%;
+      max-width: 95%;
+      padding: 14px;
     }
     .dislocation-btn {
-      font-size: 0.9rem;
-      padding: 10px 12px;
+      font-size: 15px;
+      padding: 12px 12px;
     }
     .section-title {
       font-size: 16px;
+    }
+    h1 {
+      font-size: 24px;
     }
   }
 </style>
 </head>
 <body>
 
-<h1>ВЫВИХИ</h1>
+<h1>🦴 Вывихи</h1>
 
 <!-- ПЛЕЧЕВОЙ ПОЯС И ГРУДНАЯ КЛЕТКА -->
 <div class="dislocation-section">
-  <div class="section-title">📌 ПЛЕЧЕВОЙ ПОЯС И ГРУДНАЯ КЛЕТКА</div>
+  <div class="section-title">💪 ПЛЕЧЕВОЙ ПОЯС И ГРУДНАЯ КЛЕТКА</div>
   <div class="dislocation-menu">
     <button class="dislocation-btn" onclick="window.location.href='dislocation_clavicle_status.html'">Ключица</button>
   </div>
@@ -101,7 +114,7 @@
 
 <!-- ПОЗВОНОЧНИК -->
 <div class="dislocation-section">
-  <div class="section-title">📌 ПОЗВОНОЧНИК</div>
+  <div class="section-title">🦴 ПОЗВОНОЧНИК</div>
   <div class="dislocation-menu">
     <button class="dislocation-btn" onclick="window.location.href='dislocation_vertebrae.html'">Позвонки</button>
   </div>
@@ -109,7 +122,7 @@
 
 <!-- ЧЕЛЮСТЬ -->
 <div class="dislocation-section">
-  <div class="section-title">📌 ЧЕЛЮСТЬ</div>
+  <div class="section-title">🦷 ЧЕЛЮСТЬ</div>
   <div class="dislocation-menu">
     <button class="dislocation-btn" onclick="window.location.href='dislocation_jaw_status.html'">Челюсть</button>
   </div>
@@ -117,7 +130,7 @@
 
 <!-- ВЕРХНЯЯ КОНЕЧНОСТЬ -->
 <div class="dislocation-section">
-  <div class="section-title">📌 ВЕРХНЯЯ КОНЕЧНОСТЬ</div>
+  <div class="section-title">💪 ВЕРХНЯЯ КОНЕЧНОСТЬ</div>
   <div class="dislocation-menu">
     <button class="dislocation-btn" onclick="window.location.href='dislocation_humeral_head.html'">Головка плечевой кости</button>
     <button class="dislocation-btn" onclick="window.location.href='dislocation_forearm.html'">Предплечье</button>
@@ -130,7 +143,7 @@
 
 <!-- НИЖНЯЯ КОНЕЧНОСТЬ -->
 <div class="dislocation-section">
-  <div class="section-title">📌 НИЖНЯЯ КОНЕЧНОСТЬ</div>
+  <div class="section-title">🦵 НИЖНЯЯ КОНЕЧНОСТЬ</div>
   <div class="dislocation-menu">
     <button class="dislocation-btn" onclick="window.location.href='dislocation_femoral_head.html'">Головка бедра</button>
     <button class="dislocation-btn" onclick="window.location.href='dislocation_hip_status.html'">Бедро</button>
@@ -141,6 +154,14 @@
     <button class="dislocation-btn" onclick="window.location.href='dislocation_toe.html'">Пальцы стопы</button>
   </div>
 </div>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/SMP/sw.js')
+      .then(reg => console.log('✅ SW зарегистрирован:', reg))
+      .catch(err => console.error('❌ Ошибка:', err));
+  }
+</script>
 
 </body>
 </html>
