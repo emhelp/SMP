@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>📋 Диагностическое значение экзантем</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(145deg, #eef2f9 0%, #d9e0ec 100%);
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            padding: 2rem 1rem;
+            color: #1a2c3e;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        /* шапка - цвет из травмы */
+        .hero {
+            background: linear-gradient(135deg, #0b2b3b, #123d4f);
+            color: white;
+            border-radius: 2rem;
+            padding: 2rem 2rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 20px 30px -12px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 2.6rem;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            margin-top: 0.8rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .badge {
+            background: #ffb347;
+            color: #2c2c2c;
+            padding: 0.3rem 1rem;
+            border-radius: 60px;
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .section-card {
+            background: rgba(255,255,255,0.92);
+            backdrop-filter: blur(2px);
+            border-radius: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 12px 25px -10px rgba(0,0,0,0.1);
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.5);
+        }
+        .section-header {
+            padding: 1.2rem 1.8rem;
+            background: #fff;
+            border-bottom: 4px solid;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .section-header h2 {
+            font-size: 1.7rem;
+            font-weight: 700;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-content {
+            padding: 1.6rem 2rem;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.6rem;
+        }
+        .info-block {
+            background: #f8fafd;
+            border-radius: 1.2rem;
+            padding: 1.2rem 1.4rem;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+            border-left: 6px solid;
+            position: relative;
+        }
+        .info-block h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .info-block p, .info-block li {
+            font-size: 0.98rem;
+            line-height: 1.45;
+            color: #1e2f3d;
+        }
+        .info-block ul, .info-block ol {
+            padding-left: 1.3rem;
+            margin: 0.5rem 0;
+        }
+        .info-block li {
+            margin: 0.4rem 0;
+        }
+
+        .photo-btn {
+            background: #0f1446;
+            color: white;
+            border: none;
+            padding: 5px 12px;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: inherit;
+        }
+        .photo-btn:hover {
+            background: #2a3f6e;
+            transform: scale(1.02);
+        }
+
+        .example-box {
+            background: #fff3e0;
+            border-radius: 1rem;
+            padding: 0.8rem 1.2rem;
+            margin-top: 1rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            border-left: 5px solid #f4a261;
+        }
+        .note {
+            background: #e6f4ea;
+            border-radius: 1rem;
+            padding: 0.8rem 1.2rem;
+            margin: 0.8rem 0;
+            border-left: 5px solid #2e7d32;
+        }
+        .table-mini {
+            background: white;
+            border-radius: 1rem;
+            padding: 0.8rem;
+            width: 100%;
+            font-size: 0.85rem;
+            border-collapse: collapse;
+        }
+        .table-mini td, .table-mini th {
+            padding: 0.5rem;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        /* модальное окно */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.85);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background: #1e2a3a;
+            margin: auto;
+            padding: 1rem;
+            border-radius: 1.5rem;
+            width: 90%;
+            max-width: 700px;
+            position: relative;
+            text-align: center;
+        }
+        .close-modal {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            color: white;
+            font-size: 32px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .carousel-img {
+            width: 100%;
+            max-height: 60vh;
+            object-fit: contain;
+            border-radius: 1rem;
+        }
+        .carousel-btn {
+            background: rgba(0,0,0,0.6);
+            border: none;
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+            padding: 8px 16px;
+            margin: 0 10px;
+            border-radius: 50%;
+        }
+        .carousel-buttons {
+            margin-top: 15px;
+        }
+
+        @media (max-width: 700px) {
+            .section-header h2 { font-size: 1.3rem; }
+            .section-content { padding: 1rem; }
+            .hero h1 { font-size: 1.8rem; }
+            .info-block { padding: 1rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="hero">
+        <h1><span>🩺🔬</span> ДИАГНОСТИЧЕСКОЕ ЗНАЧЕНИЕ ЭКЗАНТЕМ</h1>
+        <p>Инфекционные и неинфекционные сыпи: морфология, дифференциальная диагностика, клинические примеры</p>
+        <div class="badge">📖 Догоспитальная диагностика | Инфекционные болезни</div>
+    </div>
+
+    <!-- 1. Введение -->
+    <div class="section-card">
+        <div class="section-header" style="border-bottom-color: #2c7da0;">
+            <h2>🔍 1. Экзантема — ключ к диагнозу</h2>
+        </div>
+        <div class="section-content">
+            <div class="grid-2">
+                <div class="info-block" style="border-left-color: #2c7da0;">
+                    <h3>📌 Определения</h3>
+                    <p><strong>Экзантема</strong> – высыпания на коже. <strong>Энантема</strong> – высыпания на слизистых. Энантема часто предшествует экзантеме (пятна Филатова-Коплика при кори).</p>
+                    <p>✅ <strong>Заболевания с обязательной сыпью:</strong> корь, скарлатина, ветряная оспа.<br>
+                    ⚠️ <strong>Сыпь в 50–70%:</strong> псевдотуберкулез, сыпной тиф.<br>
+                    ❌ <strong>Сыпи нет:</strong> грипп, ОРВИ, дифтерия, коклюш, холера.</p>
+                </div>
+                <div class="info-block" style="border-left-color: #e76f51;">
+                    <h3>📐 Алгоритм описания сыпи</h3>
+                    <ul>
+                        <li><strong>Время появления</strong> (1-й день: скарлатина, краснуха; 4-5-й день: корь, сыпной тиф).</li>
+                        <li><strong>Последовательность, локализация, количество.</strong></li>
+                        <li><strong>Размеры, форма, цвет</strong> (исчезает при надавливании?).</li>
+                        <li><strong>Метаморфоз</strong> (пятно → папула → везикула → корочка).</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. Первичные элементы -->
+    <div class="section-card">
+        <div class="section-header" style="border-bottom-color: #bc6c25;">
+            <h2>🩺 2. Первичные элементы сыпи</h2>
+        </div>
+        <div class="section-content">
+            <div class="grid-2">
+                <div class="info-block" style="border-left-color: #bc6c25;"><h3>🔴 Бесполостные</h3><ul><li><strong>Розеола</strong> – до 5 мм, исчезает при надавливании (брюшной тиф).</li><li><strong>Пятно</strong> – 5-20 мм (корь, краснуха).</li><li><strong>Папула</strong> – возвышается, плотная.</li><li><strong>Волдырь</strong> – зудящий, быстро исчезает (крапивница).</li></ul></div>
+                <div class="info-block" style="border-left-color: #bc6c25;"><h3>💧 Полостные</h3><ul><li><strong>Пузырек (vesicula)</strong> – 1,5-5 мм, серозное (ветрянка, герпес).</li><li><strong>Пузырь (bulla)</strong> – >5 мм (рожа, ожоги).</li><li><strong>Гнойничок (pustula)</strong> – гнойное содержимое.</li><li><strong>Геморрагия</strong> – петехии, экхимозы (менингококкемия).</li></ul></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. Дифференциальная диагностика с фото-кнопками -->
+    <div class="section-card">
+        <div class="section-header" style="border-bottom-color: #d90429;">
+            <h2>⚕️ 4. Дифференциальная диагностика: корь, краснуха, скарлатина, ветрянка</h2>
+        </div>
+        <div class="section-content">
+            <div class="grid-2">
+                <!-- КОРЬ -->
+                <div class="info-block" style="border-left-color: #d90429;">
+                    <h3>🌡️ Корь <button class="photo-btn" onclick="openModal('measles', 0)">📸 См. фото</button></h3>
+                    <p>Катаральный период 3-5 дней. Пятна Филатова-Коплика. Сыпь крупнопятнистая, этапная (лицо→туловище→конечности), склонна к слиянию, после пигментация.</p>
+                    <div class="example-box">«Обильная крупнопятнистая сливная сыпь багрово-красного цвета, на слизистой щек пятна Филатова-Коплика.»</div>
+                </div>
+                <!-- КРАСНУХА -->
+                <div class="info-block" style="border-left-color: #d90429;">
+                    <h3>🌸 Краснуха <button class="photo-btn" onclick="openModal('rubella', 0)">📸 См. фото</button></h3>
+                    <p>Сыпь в 1-й день, мелкопятнистая, не сливается, увеличение затылочных лимфоузлов.</p>
+                    <div class="example-box">«Мелкопятнистая сыпь бледно-розового цвета, элементы 5-7 мм, затылочные лимфоузлы увеличены.»</div>
+                </div>
+                <!-- СКАРЛАТИНА -->
+                <div class="info-block" style="border-left-color: #d90429;">
+                    <h3>🔴 Скарлатина</h3>
+                    <p>Мелкоточечная сыпь на гиперемированном фоне, сгущение в складках, бледный носогубный треугольник, белый дермографизм, малиновый язык.</p>
+                    <div class="example-box">«Мелкоточечная сыпь, сгущается в локтевых сгибах, носогубный треугольник бледный, симптом жгута положительный.»</div>
+                </div>
+                <!-- ВЕТРЯНАЯ ОСПА -->
+                <div class="info-block" style="border-left-color: #d90429;">
+                    <h3>🌀 Ветряная оспа <button class="photo-btn" onclick="openModal('chickenpox', 0)">📸 См. фото</button></h3>
+                    <p>Ложный полиморфизм: пятно→папула→везикула→корочка. Волнообразное подсыпание, зуд. Везикулы однокамерные, «капельки росы».</p>
+                    <div class="example-box">«На коже элементы в разных стадиях: пятна, папулы, везикулы с прозрачным содержимым, часть с корочками, зуд.»</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 5. Геморрагические и иерсиниоз -->
+    <div class="section-card">
+        <div class="section-header" style="border-bottom-color: #5e548e;">
+            <h2>🩸 5. Геморрагические экзантемы и особые формы</h2>
+        </div>
+        <div class="section-content">
+            <div class="grid-2">
+                <div class="info-block" style="border-left-color: #5e548e;"><h3>⚫ Менингококкемия</h3><p>Геморрагическая сыпь «звездчатой» формы, некроз в центре, не исчезает при надавливании.</p><div class="example-box">«Множественные геморрагические элементы неправильной звездчатой формы, с некрозом в центре.»</div></div>
+                <div class="info-block" style="border-left-color: #5e548e;"><h3>💢 ГЛПС <button class="photo-btn" onclick="openModal('glps', 0)">📸 См. фото</button></h3><p>Петехиальная сыпь, симптом щипка/жгута, кровоизлияния в склеры.</p><div class="example-box">«Положительный симптом щипка, мелкоточечные геморрагии на туловище, гематомы в местах инъекций.»</div></div>
+                <div class="info-block" style="border-left-color: #5e548e;"><h3>🕷️ Сыпной тиф</h3><p>Розеолезно-петехиальная сыпь на 4-6 день, красный дермографизм, пятна Труссо.</p><div class="example-box">«Розеолы и петехии, красный стойкий дермографизм.»</div></div>
+                <div class="info-block" style="border-left-color: #5e548e;"><h3>🧴 Иерсиниоз / псевдотуберкулез <button class="photo-btn" onclick="openModal('yersinia', 0)">📸 См. фото</button></h3><p>Сыпь «капюшон», «перчатки», «носки», узловатая эритема.</p><div class="example-box">«Гиперемия шеи и лица («капюшон»), мелкоточечная сыпь на ладонях и подошвах.»</div></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 7. Рожа -->
+    <div class="section-card">
+        <div class="section-header" style="border-bottom-color: #3b7a6e;">
+            <h2>🔥 7. Рожистое воспаление</h2>
+        </div>
+        <div class="section-content">
+            <div class="grid-2">
+                <div class="info-block" style="border-left-color: #3b7a6e;">
+                    <h3>🦵 Рожа <button class="photo-btn" onclick="openModal('erysipelas', 0)">📸 См. фото</button></h3>
+                    <p>Эритема с четкими валикообразными краями («языки пламени»), отечность, лимфаденит, односторонняя локализация.</p>
+                    <div class="example-box">«На правой голени эритема 15×20 см с фестончатыми приподнятыми краями, кожа горячая, паховые лимфоузлы увеличены.»</div>
+                </div>
+                <div class="info-block" style="border-left-color: #3b7a6e;"><h3>🔴 Узловатая эритема</h3><p>Болезненные узлы на голенях, кожа красная, без изъязвлений (иерсиниоз, саркоидоз).</p><div class="example-box">«Плотные узлы 2-5 см на голенях, ярко-красные, болезненные.»</div></div>
+                <div class="info-block" style="border-left-color: #3b7a6e;"><h3>🌾 Крапивница</h3><p>Волдыри зудящие, бледный центр, розовый край, быстро исчезают.</p><div class="example-box">«Множественные волдыри неправильной формы, сильно зудят, элементы мигрируют.»</div></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 8. Таблица сроков -->
+    <div class="section-card">
+        <div class="section-header" style="border-bottom-color: #e9c46a;">
+            <h2>📅 8. Сроки появления сыпи — быстрый ориентир</h2>
+        </div>
+        <div class="section-content">
+            <div style="overflow-x: auto;">
+                <table class="table-mini" style="width:100%">
+                    <tr style="background:#f0f0f0;"><th>День болезни</th><th>Заболевания</th></tr>
+                    <tr><td>1-2 день</td><td>Скарлатина, краснуха, ветряная оспа, менингококкемия</td></tr>
+                    <tr><td>3-5 день</td><td>Корь (4-5), сыпной тиф (4-6), псевдотуберкулез</td></tr>
+                    <tr><td>8-10 день и позже</td><td>Брюшной тиф, паратифы, лептоспироз</td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- 9. Таблица дифдиагностики -->
+    <div class="section-card">
+        <div class="section-header" style="border-bottom-color: #2e8b57;">
+            <h2>📊 9. Экспресс-дифференциация: корь, краснуха, скарлатина</h2>
+        </div>
+        <div class="section-content">
+            <div style="overflow-x: auto;">
+                <table class="table-mini" style="background:#fef9e6;">
+                    <tr style="background:#c9e4c5;"><th>Признак</th><th>Корь</th><th>Краснуха</th><th>Скарлатина</th></tr>
+                    <tr><td>Продром</td><td>3-5 дней, пятна Коплика</td><td>Нет</td><td>Ангина</td></tr>
+                    <tr><td>Характер сыпи</td><td>Крупнопятнистая, сливная</td><td>Мелкопятнистая, не сливается</td><td>Мелкоточечная на гиперемированном фоне</td></tr>
+                    <tr><td>Этапность</td><td>Лицо→туловище→конечности</td><td>Одномоментно</td><td>Одномоментно</td></tr>
+                    <tr><td>Шелушение</td><td>Отрубевидное</td><td>Нет</td><td>Пластинчатое (ладони, стопы)</td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- 10. Примеры описания -->
+    <div class="section-card">
+        <div class="section-header" style="border-bottom-color: #b5651e;">
+            <h2>📝 10. Образцы описания экзантемы (для карты СМП)</h2>
+        </div>
+        <div class="section-content">
+            <div class="info-block" style="background:#f3f9f1; border-left-color: #b5651e;">
+                <h3>📌 Менингококкемия</h3>
+                <p>«На коже ягодиц, нижних конечностей множественные геморрагические элементы неправильной звездчатой формы, размером до 1,5 см, не исчезают при надавливании, в центре некроз.»</p>
+                <h3>📌 Корь</h3>
+                <p>«Сыпь этапная: на лице, шее крупные пятнисто-папулезные элементы до 10 мм, склонные к слиянию, на слизистой щек пятна Филатова-Коплика.»</p>
+                <h3>📌 Ветряная оспа</h3>
+                <p>«Полиморфная сыпь: пятна, папулы, везикулы с прозрачным содержимым, часть с корочками, зуд. Энантема на мягком небе.»</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 11. RED FLAGS -->
+    <div class="section-card">
+        <div class="section-header" style="border-bottom-color: #c44536;">
+            <h2>🚨 11. RED FLAGS — сыпи, требующие особого внимания</h2>
+        </div>
+        <div class="section-content">
+            <div class="grid-2">
+                <div class="info-block" style="border-left-color: #c44536;">
+                    <ul>
+                        <li>⭐ Геморрагическая сыпь «звездчатой» формы (менингококкемия).</li>
+                        <li>⭐ Сыпь, не исчезающая при надавливании + высокая лихорадка.</li>
+                        <li>⭐ Пузыри с отслойкой эпидермиса (синдром Лайелла).</li>
+                        <li>⭐ Сыпь на фоне нарушения сознания.</li>
+                        <li>⭐ Быстро прогрессирующая геморрагическая сыпь (ГЛПС, сепсис).</li>
+                    </ul>
+                </div>
+                <div class="info-block" style="border-left-color: #c44536;">
+                    <p><strong>Тактика:</strong> при подозрении на менингококкемию — немедленная госпитализация, профилактика ИТШ.</p>
+                    <div class="example-box">⚠️ <strong>Пример опасной сыпи:</strong> «Геморрагическая сыпь с некрозом, новые элементы на глазах, спутанность сознания.»</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- МОДАЛЬНОЕ ОКНО С КАРУСЕЛЬЮ -->
+<div id="imageModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeModal()">&times;</span>
+        <div id="modalCarousel">
+            <img id="modalImage" class="carousel-img" src="" alt="Фото">
+        </div>
+        <div class="carousel-buttons">
+            <button class="carousel-btn" onclick="prevImage()">❮</button>
+            <button class="carousel-btn" onclick="nextImage()">❯</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // База данных изображений
+    const imagesDB = {
+        measles:   ["Корь1.png", "Корь2.png", "Корь3.png"],
+        rubella:   ["Краснуха1.png"],
+        chickenpox: ["Ветрянка1.png", "Ветрянка2.png"],
+        glps:      ["ГЛПС1.png"],
+        yersinia:  ["Иерсинеоз1.png", "Иерсинеоз2.png"],
+        erysipelas: ["Рожа1.png", "Рожа2.png", "Рожа3.png"]
+    };
+
+    let currentType = null;
+    let currentIndex = 0;
+    let currentImages = [];
+
+    function openModal(type, idx) {
+        if (!imagesDB[type]) return;
+        currentType = type;
+        currentImages = imagesDB[type];
+        currentIndex = idx;
+        updateModalImage();
+        document.getElementById("imageModal").style.display = "flex";
+    }
+
+    function updateModalImage() {
+        const imgPath = currentImages[currentIndex];
+        document.getElementById("modalImage").src = imgPath;
+        document.getElementById("modalImage").alt = "Фото " + (currentIndex+1);
+    }
+
+    function nextImage() {
+        if (currentImages && currentImages.length > 0) {
+            currentIndex = (currentIndex + 1) % currentImages.length;
+            updateModalImage();
+        }
+    }
+
+    function prevImage() {
+        if (currentImages && currentImages.length > 0) {
+            currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
+            updateModalImage();
+        }
+    }
+
+    function closeModal() {
+        document.getElementById("imageModal").style.display = "none";
+        currentType = null;
+        currentImages = [];
+    }
+
+    window.onclick = function(event) {
+        const modal = document.getElementById("imageModal");
+        if (event.target === modal) closeModal();
+    };
+</script>
+</body>
+</html>
