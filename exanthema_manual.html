@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <title>📋 Диагностическое значение экзантем</title>
     <style>
         * {
@@ -13,106 +13,143 @@
 
         body {
             background: linear-gradient(145deg, #eef2f9 0%, #d9e0ec 100%);
-            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-            padding: 2rem 1rem;
+            font-family: system-ui, -apple-system, 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+            padding: 1rem;
             color: #1a2c3e;
+            line-height: 1.5;
         }
 
         .container {
-            max-width: 1300px;
+            max-width: 100%;
             margin: 0 auto;
         }
 
         .hero {
             background: linear-gradient(135deg, #0b2b3b, #123d4f);
             color: white;
-            border-radius: 2rem;
-            padding: 1.8rem 2rem;
-            margin-bottom: 2.5rem;
-            box-shadow: 0 20px 30px -12px rgba(0,0,0,0.2);
+            border-radius: 1.5rem;
+            padding: 1.2rem 1rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 10px 20px -8px rgba(0,0,0,0.15);
             text-align: center;
         }
         .hero h1 {
-            font-size: 2.6rem;
-            letter-spacing: -0.5px;
+            font-size: clamp(1.3rem, 6vw, 2.2rem);
+            letter-spacing: -0.3px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 15px;
+            gap: 8px;
             flex-wrap: wrap;
             margin: 0;
+            font-weight: 700;
         }
 
         .section-card {
-            background: rgba(255,255,255,0.92);
+            background: rgba(255,255,255,0.96);
             backdrop-filter: blur(2px);
-            border-radius: 2rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 12px 25px -10px rgba(0,0,0,0.1);
+            border-radius: 1.25rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 12px -6px rgba(0,0,0,0.08);
             overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.5);
+            border: 1px solid rgba(255,255,255,0.6);
         }
         .section-header {
-            padding: 1.2rem 1.8rem;
+            padding: 0.9rem 1.2rem;
             background: #fff;
-            border-bottom: 4px solid;
+            border-bottom: 3px solid;
             display: flex;
             align-items: center;
             justify-content: space-between;
             flex-wrap: wrap;
-            gap: 12px;
+            gap: 8px;
         }
         .section-header h2 {
-            font-size: 1.7rem;
+            font-size: 1.25rem;
             font-weight: 700;
             margin: 0;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
+            line-height: 1.3;
         }
         .section-content {
-            padding: 1.6rem 2rem;
+            padding: 1rem 1.2rem;
+        }
+
+        @media (min-width: 640px) {
+            body {
+                padding: 1.5rem;
+            }
+            .hero {
+                padding: 1.5rem 2rem;
+                margin-bottom: 2rem;
+            }
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .section-header {
+                padding: 1rem 1.5rem;
+            }
+            .section-header h2 {
+                font-size: 1.4rem;
+            }
+            .section-content {
+                padding: 1.2rem 1.5rem;
+            }
         }
 
         .grid-2 {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 1.6rem;
+            grid-template-columns: 1fr;
+            gap: 1rem;
         }
+
+        @media (min-width: 640px) {
+            .grid-2 {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.2rem;
+            }
+        }
+
         .info-block {
             background: #f8fafd;
-            border-radius: 1.2rem;
-            padding: 1.2rem 1.4rem;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
-            border-left: 6px solid;
-            position: relative;
+            border-radius: 1rem;
+            padding: 1rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+            border-left: 5px solid;
+            height: 100%;
         }
         .info-block h3 {
-            font-size: 1.3rem;
-            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+            margin-bottom: 0.6rem;
             display: flex;
             align-items: center;
             justify-content: space-between;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 8px;
+            font-weight: 700;
         }
         .info-block p, .info-block li {
-            font-size: 0.98rem;
+            font-size: 0.9rem;
             line-height: 1.45;
             color: #1e2f3d;
         }
         .info-block ul, .info-block ol {
-            padding-left: 1.3rem;
-            margin: 0.5rem 0;
+            padding-left: 1.2rem;
+            margin: 0.4rem 0;
+        }
+        .info-block li {
+            margin: 0.3rem 0;
         }
 
         .photo-btn {
             background: #0f1446;
             color: white;
             border: none;
-            padding: 5px 12px;
+            padding: 4px 10px;
             border-radius: 40px;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: 600;
             cursor: pointer;
             transition: 0.2s;
@@ -125,71 +162,113 @@
 
         .example-box {
             background: #fff3e0;
-            border-radius: 1rem;
-            padding: 0.8rem 1.2rem;
-            margin-top: 1rem;
-            font-family: 'Courier New', monospace;
-            font-size: 0.9rem;
-            border-left: 5px solid #f4a261;
+            border-radius: 0.9rem;
+            padding: 0.7rem 1rem;
+            margin-top: 0.8rem;
+            font-family: monospace;
+            font-size: 0.85rem;
+            border-left: 4px solid #f4a261;
+            word-break: break-word;
+            white-space: normal;
         }
+        
         .cheat-sheet {
             background: #e8f0fe;
-            border-radius: 1.2rem;
-            padding: 1.2rem;
-            margin: 1rem 0;
+            border-radius: 1rem;
+            padding: 1rem;
+            margin: 0.8rem 0;
             border: 1px solid #b9d0f0;
         }
         .cheat-sheet h3 {
             color: #0b2b3b;
             margin-bottom: 0.8rem;
-            font-size: 1.3rem;
+            font-size: 1.1rem;
+        }
+        
+        /* Таблицы — с горизонтальной прокруткой, но компактнее на мобильных */
+        .table-wrapper {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin: 0.5rem 0;
+            border-radius: 0.75rem;
         }
         .diff-table {
             width: 100%;
+            min-width: 600px;
             border-collapse: collapse;
             background: white;
-            border-radius: 1rem;
-            overflow: hidden;
-            font-size: 0.85rem;
+            font-size: 0.75rem;
         }
         .diff-table th {
             background: #0f1446;
             color: white;
-            padding: 10px 8px;
+            padding: 8px 6px;
             text-align: center;
+            font-size: 0.7rem;
         }
         .diff-table td {
             border: 1px solid #cbd5e1;
-            padding: 8px;
+            padding: 6px;
             vertical-align: top;
+            font-size: 0.7rem;
         }
-        .diff-table tr:nth-child(even) {
-            background: #f8fafc;
-        }
+        
         .timeline-table {
             width: 100%;
+            min-width: 300px;
             border-collapse: collapse;
             background: white;
-            border-radius: 1rem;
-            overflow: hidden;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
+            border-radius: 0.75rem;
         }
         .timeline-table th {
             background: #0f1446;
             color: white;
-            padding: 10px;
+            padding: 8px;
         }
         .timeline-table td {
             border: 1px solid #cbd5e1;
             padding: 8px;
         }
 
-        @media (max-width: 700px) {
-            .section-header h2 { font-size: 1.3rem; }
-            .section-content { padding: 1rem; }
-            .hero h1 { font-size: 1.8rem; }
-            .diff-table { font-size: 0.7rem; }
-            .diff-table th, .diff-table td { padding: 5px; }
+        .note {
+            background: #fff3e0;
+            border-radius: 0.9rem;
+            padding: 0.7rem 1rem;
+            margin: 0.8rem 0;
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 480px) {
+            .info-block h3 {
+                font-size: 1rem;
+            }
+            .info-block p, .info-block li, .example-box, .note {
+                font-size: 0.85rem;
+            }
+            .info-block {
+                padding: 0.8rem;
+            }
+            .section-content {
+                padding: 0.8rem 1rem;
+            }
+            .section-header {
+                padding: 0.7rem 1rem;
+            }
+            .section-header h2 {
+                font-size: 1.1rem;
+            }
+            .cheat-sheet h3 {
+                font-size: 1rem;
+            }
+            .diff-table th, .diff-table td {
+                padding: 4px;
+                font-size: 0.65rem;
+            }
+            .timeline-table th, .timeline-table td {
+                padding: 6px;
+                font-size: 0.75rem;
+            }
         }
 
         .modal {
@@ -286,7 +365,7 @@
         <div class="section-content">
             <div class="cheat-sheet">
                 <h3>📋 Экспресс-дифференциальная диагностика (крапивница, краснуха, ветряная оспа, скарлатина, корь)</h3>
-                <div style="overflow-x: auto;">
+                <div class="table-wrapper">
                     <table class="diff-table">
                         <thead>
                             <tr><th>Признак</th><th>🌾 Крапивница</th><th>🌸 Краснуха</th><th>🌀 Ветряная оспа</th><th>🔴 Скарлатина</th><th>🌡️ Корь</th></tr>
@@ -314,13 +393,13 @@
         </div>
     </div>
 
-    <!-- ========= БЛОК «СРОКИ ПОЯВЛЕНИЯ СЫПИ» (перенесён сюда) ========= -->
+    <!-- ========= БЛОК «СРОКИ ПОЯВЛЕНИЯ СЫПИ» ========= -->
     <div class="section-card">
         <div class="section-header" style="border-bottom-color: #e9c46a;">
             <h2>📅 3. Сроки появления сыпи — быстрый ориентир</h2>
         </div>
         <div class="section-content">
-            <div style="overflow-x: auto;">
+            <div class="table-wrapper">
                 <table class="timeline-table" style="width:100%">
                     <thead>
                         <tr><th>День болезни</th><th>Заболевания</th></tr>
@@ -332,7 +411,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="note" style="background:#fff3e0; padding:0.8rem; border-radius:1rem; margin-top:0.8rem;">
+            <div class="note" style="margin-top: 0.8rem;">
                 ⏱️ <strong>Важно:</strong> при брюшном тифе розеолы единичные (3-5 элементов) появляются на 8-10 день, кожа бледная, горячая и сухая.
             </div>
         </div>
