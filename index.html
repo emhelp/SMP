@@ -7,18 +7,72 @@
   <link rel="icon" href="1712743647196.png" type="image/png">
   <link rel="stylesheet" href="style.css">
   
-  <!-- PWA (ПРОГРЕССИВНОЕ ВЕБ-ПРИЛОЖЕНИЕ) -->
+  <!-- PWA -->
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#0f1446">
   
-  <!-- iOS (iPhone/iPad) PWA support -->
+  <!-- iOS PWA support -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="EMHelp">
   <link rel="apple-touch-icon" href="icon-192.png">
   
-  <!-- Font Awesome для иконок -->
+  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  
+  <style>
+    /* Вариант 7: Стрелка с эффектом «вверх-вниз» (поплавок) */
+    .share-arrow {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f1446;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      color: white;
+      font-size: 11px;
+      animation: floatUpDown 1s ease-in-out infinite;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      flex-shrink: 0;
+    }
+    
+    @keyframes floatUpDown {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-5px);
+      }
+    }
+    
+    /* Стили для двух строк */
+    .news-text {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    
+    .news-line {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    
+    .news-line-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .news-line-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+  </style>
 </head>
 <body>
 
@@ -41,8 +95,25 @@
   <nav class="menu">
     <div class="news-block">
       <div class="news-text">
-        <p>Нашли ошибку? - напишите нам, нажав на конверт.</p>
-        <p>Поделитесь приложением с коллегами!</p>
+        <!-- Первая строка: стрелка перед текстом -->
+        <div class="news-line">
+          <div class="news-line-left">
+            <span class="share-arrow">
+              <i class="fas fa-arrow-up"></i>
+            </span>
+            <span>Нашли ошибку? - напишите нам, нажав на конверт.</span>
+          </div>
+        </div>
+        
+        <!-- Вторая строка: стрелка после текста -->
+        <div class="news-line">
+          <div class="news-line-right" style="margin-left: auto;">
+            <span>Поделитесь приложением с коллегами!</span>
+            <span class="share-arrow">
+              <i class="fas fa-arrow-up"></i>
+            </span>
+          </div>
+        </div>
       </div>
     </div>
 
