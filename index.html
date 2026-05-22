@@ -34,36 +34,36 @@
       box-sizing: border-box;
     }
     
-    /* ВАРИАНТ 1: Пульсирующая стрелка в кружке (фон тёмно-синий, стрелка белая) */
+    /* ВАРИАНТ 12: Стрелка с эффектом «гравитация» (замедленный) */
     .share-arrow {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       background: #0f1446;
-      width: 26px;
-      height: 26px;
+      width: 28px;
+      height: 28px;
       border-radius: 50%;
       color: white;
-      animation: pulse 1.5s ease-in-out infinite;
-      box-shadow: 0 2px 8px rgba(15, 20, 70, 0.4);
+      animation: gravity 1.8s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
       flex-shrink: 0;
     }
     
-    /* Утолщение стрелки */
+    /* Максимальное утолщение стрелки */
     .share-arrow i {
       font-weight: 900;
-      font-size: 12px;
+      font-size: 16px;
       color: white;
+      text-shadow: 0 0 2px rgba(255,255,255,0.8);
+      -webkit-text-stroke: 0.5px white;
     }
     
-    @keyframes pulse {
+    @keyframes gravity {
       0%, 100% {
-        transform: scale(1);
-        box-shadow: 0 2px 8px rgba(15, 20, 70, 0.4);
+        transform: translateY(0);
       }
       50% {
-        transform: scale(1.1);
-        box-shadow: 0 4px 15px rgba(15, 20, 70, 0.6);
+        transform: translateY(-8px);
       }
     }
     
@@ -112,11 +112,11 @@
         font-size: 12px;
       }
       .share-arrow {
-        width: 22px;
-        height: 22px;
+        width: 24px;
+        height: 24px;
       }
       .share-arrow i {
-        font-size: 10px;
+        font-size: 14px;
       }
     }
   </style>
