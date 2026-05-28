@@ -210,9 +210,27 @@
   </script>
 
   <script>
+    // Автоматическое обновление страницы при активации нового Service Worker
+    let refreshing = false;
+    
     if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.addEventListener('controllerchange', () => {
+        if (refreshing) return;
+        refreshing = true;
+        console.log('🔄 Service Worker обновлён, перезагружаем страницу...');
+        window.location.reload();
+      });
+      
       navigator.serviceWorker.register('/SMP/sw.js')
-        .then(reg => console.log('✅ Сервис-воркер зарегистрирован:', reg))
+        .then(reg => {
+          console.log('✅ Сервис-воркер зарегистрирован:', reg);
+          
+          // Проверка обновлений каждые 60 секунд
+          setInterval(() => {
+            reg.update();
+            console.log('🔄 Проверка обновлений Service Worker...');
+          }, 60000);
+        })
         .catch(err => console.error('❌ Ошибка регистрации сервис-воркера:', err));
     }
   </script>
