@@ -21,31 +21,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   
   <style>
-    /* Анимация для логотипа - переворот по горизонтали */
-    @keyframes flipLogo {
-      0% {
-        transform: scaleX(1);
-      }
-      50% {
-        transform: scaleX(-1);
-      }
-      100% {
-        transform: scaleX(1);
-      }
-    }
-    
-    .animated-logo {
-      animation: flipLogo 2s ease-in-out;
-      animation-iteration-count: 1;
-      display: inline-block;
-    }
-    
-    /* Контейнер для логотипа с курсором */
-    .logo-container {
-      cursor: pointer;
-      display: inline-block;
-    }
-    
     /* Дополнительные стили для блока новостей */
     .news-block-custom {
       max-width: 500px;
@@ -59,50 +34,36 @@
       box-sizing: border-box;
     }
     
-    /* ЧЕТЫРЕ ГАЛОЧКИ ^ с анимацией эскалатора */
-    .share-arrows {
+    /* ВАРИАНТ 12: Стрелка с эффектом «гравитация» (замедленный) */
+    .share-arrow {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
+      background: #0f1446;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      color: white;
+      animation: gravity 1.8s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
       flex-shrink: 0;
     }
     
-    .check-mark {
-      display: inline-block;
-      font-size: 28px;
+    /* Максимальное утолщение стрелки */
+    .share-arrow i {
       font-weight: 900;
-      color: #0f1446;
-      line-height: 1;
-      animation: escalator 1.2s ease-in-out infinite;
+      font-size: 16px;
+      color: white;
+      text-shadow: 0 0 2px rgba(255,255,255,0.8);
+      -webkit-text-stroke: 0.5px white;
     }
     
-    /* Задержки для каждой галочки (эскалатор) */
-    .check-mark:nth-child(1) {
-      animation-delay: 0s;
-    }
-    .check-mark:nth-child(2) {
-      animation-delay: 0.2s;
-    }
-    .check-mark:nth-child(3) {
-      animation-delay: 0.4s;
-    }
-    .check-mark:nth-child(4) {
-      animation-delay: 0.6s;
-    }
-    
-    @keyframes escalator {
+    @keyframes gravity {
       0%, 100% {
         transform: translateY(0);
-        opacity: 0.4;
-      }
-      25% {
-        transform: translateY(-12px);
-        opacity: 1;
       }
       50% {
-        transform: translateY(0);
-        opacity: 0.6;
+        transform: translateY(-8px);
       }
     }
     
@@ -150,11 +111,12 @@
       .news-text-custom span {
         font-size: 12px;
       }
-      .check-mark {
-        font-size: 22px;
+      .share-arrow {
+        width: 24px;
+        height: 24px;
       }
-      .share-arrows {
-        gap: 6px;
+      .share-arrow i {
+        font-size: 14px;
       }
     }
   </style>
@@ -167,9 +129,7 @@
     </a>
     
     <div class="header-center">
-      <div class="logo-container" id="logoContainer">
-        <img src="1712743647196.png" alt="Логотип" class="logo" id="mainLogo">
-      </div>
+      <img src="1712743647196.png" alt="Логотип" class="logo">
       <h1>Скорая помощь</h1>
       <p>"EMHelp Group" 2012-2026</p>
     </div>
@@ -183,29 +143,23 @@
     <!-- Блок новостей с новым оформлением -->
     <div class="news-block-custom">
       <div class="news-text-custom">
-        <!-- Первая строка: галочки перед текстом -->
+        <!-- Первая строка: стрелка перед текстом -->
         <div class="news-line">
           <div class="news-line-left">
-            <div class="share-arrows">
-              <span class="check-mark">^</span>
-              <span class="check-mark">^</span>
-              <span class="check-mark">^</span>
-              <span class="check-mark">^</span>
-            </div>
+            <span class="share-arrow">
+              <i class="fas fa-arrow-up"></i>
+            </span>
             <span>Нашли ошибку? - напишите нам.</span>
           </div>
         </div>
         
-        <!-- Вторая строка: галочки после текста -->
+        <!-- Вторая строка: стрелка после текста -->
         <div class="news-line">
           <div class="news-line-right" style="margin-left: auto;">
             <span>Поделитесь приложением с коллегами!</span>
-            <div class="share-arrows">
-              <span class="check-mark">^</span>
-              <span class="check-mark">^</span>
-              <span class="check-mark">^</span>
-              <span class="check-mark">^</span>
-            </div>
+            <span class="share-arrow">
+              <i class="fas fa-arrow-up"></i>
+            </span>
           </div>
         </div>
       </div>
@@ -224,45 +178,6 @@
       <button class="main-btn" id="max-btn">Наш канал в MAX</button>
     </div>
   </nav>
-
-  <script>
-    // Анимация логотипа: переворот по горизонтали каждые 5 секунд
-    const logo = document.getElementById('mainLogo');
-    let animationTimeout = null;
-    let intervalId = null;
-    
-    function startLogoAnimation() {
-      logo.classList.add('animated-logo');
-      
-      // Удаляем класс после завершения анимации (2 секунды)
-      if (animationTimeout) clearTimeout(animationTimeout);
-      animationTimeout = setTimeout(() => {
-        logo.classList.remove('animated-logo');
-      }, 2000);
-    }
-    
-    // Запускаем анимацию с интервалом 5 секунд
-    intervalId = setInterval(() => {
-      startLogoAnimation();
-    }, 5000);
-    
-    // Дополнительно: при клике на логотип тоже запускаем анимацию
-    const logoContainer = document.getElementById('logoContainer');
-    logoContainer.addEventListener('click', () => {
-      // Сбрасываем текущую анимацию, если она идёт
-      logo.classList.remove('animated-logo');
-      // Запускаем заново
-      setTimeout(() => {
-        startLogoAnimation();
-      }, 10);
-    });
-    
-    // Очищаем интервал при выгрузке страницы
-    window.addEventListener('beforeunload', () => {
-      if (intervalId) clearInterval(intervalId);
-      if (animationTimeout) clearTimeout(animationTimeout);
-    });
-  </script>
 
   <script>
     document.getElementById('max-btn').addEventListener('click', () => {
