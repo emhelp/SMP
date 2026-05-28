@@ -1,4 +1,4 @@
-const CACHE_NAME = 'emhelp-v87';
+const CACHE_NAME = 'emhelp-v88';  // Увеличьте версию!
 
 const urlsToCache = [
   // Главная
@@ -154,32 +154,31 @@ self.addEventListener('install', event => {
   );
 });
 
+// ГЛАВНОЕ ИЗМЕНЕНИЕ: стратегия Stale-While-Revalidate
 self.addEventListener('fetch', event => {
   event.respondWith(
-    caches.match(event.request)
-      .then(response => {
-        if (response) {
-          return response;
+    caches.open(CACHE_NAME).then(cache => {
+      return cache.match(event.request).then(cachedResponse => {
+        // Сетевая загрузка для обновления кэша (в фоне)
+        const fetchPromise = fetch(event.request).then(networkResponse => {
+          if (networkResponse && networkResponse.status === 200) {
+            cache.put(event.request, networkResponse.clone());
+          }
+          return networkResponse;
+        }).catch(error => {
+          console.log('⚠️ Ошибка сети:', error);
+          return null;
+        });
+        
+        // Если есть в кэше — возвращаем сразу, сеть обновит фоном
+        if (cachedResponse) {
+          return cachedResponse;
         }
         
-        return fetch(event.request)
-          .then(response => {
-            if (!response || response.status !== 200) {
-              return response;
-            }
-            const responseClone = response.clone();
-            caches.open(CACHE_NAME).then(cache => {
-              cache.put(event.request, responseClone);
-            });
-            return response;
-          })
-          .catch(() => {
-            if (event.request.headers.get('accept') && event.request.headers.get('accept').includes('text/html')) {
-              return caches.match('/SMP/offline.html');
-            }
-            return new Response('Нет соединения с интернетом', { status: 503 });
-          });
-      })
+        // Если нет в кэше — ждём сеть
+        return fetchPromise;
+      });
+    })
   );
 });
 
