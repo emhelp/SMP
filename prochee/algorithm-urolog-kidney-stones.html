@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Алгоритм МСК: Камни почек и мочеточников. Почечная колика неуточненная</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #eef2f5; font-family: 'Segoe UI', 'Roboto', sans-serif; padding: 32px 20px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .modal-container { max-width: 1200px; width: 100%; background-color: #fffef7; border-radius: 28px; box-shadow: 0 25px 45px -12px rgba(0,0,0,0.25); display: flex; flex-direction: column; overflow: hidden; border: 1px solid #ffd7a5; }
+        .modal-header { background: #c2410c; color: white; padding: 18px 28px; border-bottom: 4px solid #ffb347; }
+        .modal-header h2 { font-size: 1.25rem; font-weight: 700; line-height: 1.3; }
+        .modal-body { flex: 1; overflow-y: auto; padding: 28px 32px; background: #fefcf5; font-size: 0.95rem; line-height: 1.5; }
+        .adult-block { border-left: 5px solid #dc2626; padding-left: 20px; background: #fff9f0; border-radius: 0 18px 18px 0; margin-bottom: 40px; }
+        .adult-header { display: flex; align-items: center; gap: 12px; margin: 10px 0 20px 0; }
+        .badge-adult { background: #c2410c; color: white; padding: 6px 14px; border-radius: 40px; font-weight: bold; }
+        .child-block { border-left: 5px solid #2e7d32; padding-left: 20px; background: #ecf7ec; border-radius: 0 18px 18px 0; margin-bottom: 20px; }
+        .child-header { display: flex; align-items: center; gap: 12px; margin: 10px 0 20px 0; }
+        .badge-child { background: #2e7d32; color: white; padding: 6px 14px; border-radius: 40px; font-weight: bold; }
+        .list-styled { margin: 12px 0 14px 28px; }
+        .list-styled li { margin: 8px 0; }
+        .tactic-block { background: #d9effa; border-radius: 20px; padding: 14px 20px; margin: 18px 0 16px 0; border-left: 4px solid #0284c7; }
+        .tactic-title { font-weight: 800; color: #0369a1; margin-bottom: 8px; font-size: 1rem; }
+        .no-bg-block { padding: 14px 20px; margin: 20px 0; border-radius: 16px; }
+        .light-block { background: #ffe6cc; border-left: 6px solid #e03a3a; padding: 14px 20px; margin: 20px 0; border-radius: 16px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
+        .red-block { background: #ffb3b3; border-left: 6px solid #b91c1c; padding: 14px 20px; margin: 20px 0; border-radius: 16px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+        .xsn-block { background: #ffd699; border-left: 6px solid #e67300; padding: 14px 20px; margin: 20px 0; border-radius: 16px; }
+        .child-condition-block { background: #d9f0d9; border-left: 6px solid #2e7d32; padding: 14px 20px; margin: 20px 0; border-radius: 16px; }
+        .child-red-block { background: #ffb3b3; border-left: 6px solid #b91c1c; padding: 14px 20px; margin: 20px 0; border-radius: 16px; }
+        .condition-title { font-weight: 800; color: #b91c1c; margin-bottom: 10px; font-size: 1rem; }
+        .important-red { background: #ffc4c4; border-left: 6px solid #dc2626; padding: 12px 18px; margin: 14px 0; border-radius: 14px; font-weight: 800; color: #9b1c1c; font-size: 0.98rem; }
+        .highlight-number { font-weight: 800; color: #c2410c; background: #fff0d0; padding: 0 4px; border-radius: 10px; }
+        .bold-black { font-weight: 800; color: #000000; background: transparent; }
+        .drug-name { background: #f3f3f3; font-family: monospace; padding: 2px 8px; border-radius: 20px; font-weight: 800; color: #1a3c4a; display: inline-block; }
+        .italic-bold-ref { font-weight: 800; font-style: italic; background: transparent; color: #0a2f44; }
+        @media (max-width: 700px) { .modal-body { padding: 20px; } .list-styled { margin-left: 20px; } .modal-header h2 { font-size: 1rem; } }
+    </style>
+</head>
+<body>
+<div class="modal-container">
+    <div class="modal-header">
+        <h2>N20, N23 Камни почек и мочеточников. Почечная колика неуточненная</h2>
+    </div>
+    <div class="modal-body">
+        <div class="adult-block">
+            <div class="adult-header">
+                <span class="badge-adult">ВЗРОСЛЫЙ ПРОТОКОЛ</span>
+            </div>
+            <div class="no-bg-block">
+                <ul class="list-styled">
+                    <li><span class="drug-name">Кеторолак</span> <span class="highlight-number">30 мг</span> (<span class="highlight-number">1 мл</span>) в/венно и <span class="drug-name">Дротаверин</span> <span class="highlight-number">40 мг</span> (<span class="highlight-number">2 мл</span>) в/венно или <span class="drug-name">Кетопрофен</span> <span class="highlight-number">100 мг</span> (<span class="highlight-number">2 мл</span>) в/венно и <span class="drug-name">Дротаверин</span> <span class="highlight-number">40 мг</span> (<span class="highlight-number">2 мл</span>) в/венно или <span class="drug-name">Спазмалгон (Метамизол натрия + питофенон + фенпивериния бромид)</span> <span class="highlight-number">5 мл</span> в/венно</li>
+                    <li>При невозможности применения НПВС или отсутствии эффекта:</li>
+                    <li><span class="drug-name">Трамадол</span> <span class="highlight-number">100 мг</span> (<span class="highlight-number">2 мл</span>) в/венно</li>
+                </ul>
+            </div>
+            <div class="light-block">
+                <div class="condition-title">– беременных и родильниц</div>
+                <ul class="list-styled">
+                    <li><span class="drug-name">Парацетамол</span> <span class="highlight-number">500 мг</span> внутрь</li>
+                </ul>
+            </div>
+            <div class="tactic-block">
+                <div class="tactic-title">▶ Тактика:</div>
+                <ul class="list-styled">
+                    <li>1. Медицинская эвакуация в больницу (13):
+                        <ul class="list-styled">
+                            <li>– беременных и родильниц,</li>
+                            <li>– пациентов с сахарным диабетом, единственной почкой или трансплантированной почкой, с наличием урологических имплантов (стентов), с иммунодефицитом, хронической сердечной недостаточностью и мочекаменной болезнью, при температуре тела <span class="highlight-number">≥ 37°C</span>,</li>
+                            <li>– при некупирующейся почечной колике или ее рецидиве в течении суток,</li>
+                            <li>– при олигоанурии,</li>
+                            <li>– при билатеральном уролитиазе,</li>
+                            <li>– при признаках мочевой инфекции,</li>
+                            <li>– при впервые возникшей почечной колике у лиц <span class="bold-black">&gt; 60 лет</span></li>
+                        </ul>
+                    </li>
+                    <li>2. При отказе от медицинской эвакуации в больницу – рекомендовать обратиться в поликлинику (35), беременным – в ЖК</li>
+                    <li>3. Рекомендовать обратиться в поликлинику (34) в клинических ситуациях, не указанных в п. 1</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="child-block">
+            <div class="child-header">
+                <span class="badge-child">ДЕТСКИЙ ПРОТОКОЛ</span>
+            </div>
+            <div class="no-bg-block">
+                <ul class="list-styled">
+                    <li><span class="drug-name">Анальгин (Метамизол натрия)</span> <span class="highlight-number">5–10 мг/кг</span> (<span class="highlight-number">0,01–0,02 мл/кг</span>) в/венно или в/мышечно или <span class="drug-name">Парацетамол</span> <span class="highlight-number">15 мг/кг</span> внутрь или ректально</li>
+                    <li>При отсутствии эффекта:</li>
+                    <li><span class="drug-name">Трамадол</span> <span class="highlight-number">1–2 мг/кг</span> (<span class="highlight-number">0,02–0,04 мл/кг</span>) в/венно <span class="bold-black">(с 1 года)</span></li>
+                </ul>
+            </div>
+            <div class="tactic-block">
+                <div class="tactic-title">▶ Тактика:</div>
+                <ul class="list-styled">
+                    <li>1. Медицинская эвакуация в больницу (13):
+                        <ul class="list-styled">
+                            <li>– пациентов с сахарным диабетом, единственной почкой или трансплантированной почкой, с наличием урологических имплантов (стентов), с иммунодефицитом, ХСН, МКБ,</li>
+                            <li>– при температуре тела <span class="highlight-number">≥ 37°C</span>,</li>
+                            <li>– при некупирующейся почечной колике или ее рецидиве в течении суток,</li>
+                            <li>– при олигоанурии,</li>
+                            <li>– при билатеральном уролитиазе,</li>
+                            <li>– при признаках мочевой инфекции</li>
+                        </ul>
+                    </li>
+                    <li>2. При отказе от медицинской эвакуации – рекомендовать обратиться в поликлинику (35)</li>
+                    <li>3. Рекомендовать обратиться в поликлинику (34) в клинических ситуациях, не указанных в п. 1</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Модальное окно для изображений -->
+<div id="imageModal" class="modal" style="display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.9); justify-content: center; align-items: center; flex-direction: column;">
+  <button onclick="document.getElementById('imageModal').style.display='none'; isGalleryMode=false; currentGallery=[];" style="position: absolute; top: 20px; right: 35px; color: #fff; font-size: 40px; font-weight: bold; cursor: pointer; background: none; border: none; z-index: 2001;">&times;</button>
+  <img id="modalImage" style="max-width: 90%; max-height: 70%; object-fit: contain;">
+  <div id="navContainer" style="position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); display: none; gap: 30px; align-items: center; justify-content: center; background-color: rgba(0,0,0,0.5); padding: 6px 20px; border-radius: 40px; z-index: 2001;">
+    <button id="prevBtn" style="background-color: transparent; color: white; font-size: 28px; font-weight: bold; border: none; cursor: pointer; padding: 0 12px;">❮</button>
+    <span id="imageCounter" style="color: white; background-color: rgba(0,0,0,0.6); padding: 4px 12px; border-radius: 20px; font-size: 14px; font-weight: bold;">1 / 2</span>
+    <button id="nextBtn" style="background-color: transparent; color: white; font-size: 28px; font-weight: bold; border: none; cursor: pointer; padding: 0 12px;">❯</button>
+  </div>
+</div>
+
+<script>
+  let currentGallery = [];
+  let currentIndex = 0;
+  let isGalleryMode = false;
+
+  function openImage(imagePath) {
+    isGalleryMode = false;
+    currentGallery = [];
+    document.getElementById('navContainer').style.display = 'none';
+    document.getElementById('imageModal').style.display = 'flex';
+    document.getElementById('modalImage').src = imagePath;
+  }
+
+  function openImageGallery(images) {
+    isGalleryMode = true;
+    currentGallery = images;
+    currentIndex = 0;
+    document.getElementById('navContainer').style.display = 'flex';
+    document.getElementById('imageModal').style.display = 'flex';
+    document.getElementById('modalImage').src = currentGallery[currentIndex];
+    document.getElementById('imageCounter').textContent = `${currentIndex + 1} / ${currentGallery.length}`;
+    updateNavButtons();
+  }
+
+  function updateNavButtons() {
+    document.getElementById('prevBtn').style.opacity = currentIndex === 0 ? '0.4' : '1';
+    document.getElementById('nextBtn').style.opacity = currentIndex === currentGallery.length - 1 ? '0.4' : '1';
+  }
+
+  document.getElementById('prevBtn').addEventListener('click', function() {
+    if (!isGalleryMode || currentIndex === 0) return;
+    currentIndex--;
+    document.getElementById('modalImage').src = currentGallery[currentIndex];
+    document.getElementById('imageCounter').textContent = `${currentIndex + 1} / ${currentGallery.length}`;
+    updateNavButtons();
+  });
+
+  document.getElementById('nextBtn').addEventListener('click', function() {
+    if (!isGalleryMode || currentIndex === currentGallery.length - 1) return;
+    currentIndex++;
+    document.getElementById('modalImage').src = currentGallery[currentIndex];
+    document.getElementById('imageCounter').textContent = `${currentIndex + 1} / ${currentGallery.length}`;
+    updateNavButtons();
+  });
+
+  document.getElementById('imageModal').addEventListener('click', function(e) {
+    if (e.target === this) {
+      this.style.display = 'none';
+      isGalleryMode = false;
+      currentGallery = [];
+    }
+  });
+</script>
+
+</body>
+</html>
