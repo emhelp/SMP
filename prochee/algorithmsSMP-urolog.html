@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Урология - Алгоритмы СМП</title>
+
+<!-- PWA -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0f1446">
+
+<style>
+  body {
+    font-family: 'Segoe UI', 'Roboto', sans-serif;
+    margin: 0;
+    padding: 20px;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+  }
+
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #0f1446;
+    font-size: 28px;
+  }
+
+  .algorithms-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    max-width: 500px;
+    box-sizing: border-box;
+  }
+
+  .algorithms-btn {
+    text-decoration: none;
+    color: white;
+    background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
+    padding: 14px 10px;
+    border-radius: 12px;
+    font-weight: bold;
+    text-align: center;
+    width: 100%;
+    transition: all 0.2s;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+    font-family: inherit;
+    box-sizing: border-box;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    line-height: 1.3;
+  }
+
+  .algorithms-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+  }
+
+  .algorithms-btn:active {
+    transform: scale(0.98);
+  }
+
+  @media (max-width: 600px) {
+    .algorithms-menu {
+      max-width: 95%;
+    }
+    .algorithms-btn {
+      font-size: 13px;
+      padding: 12px 8px;
+    }
+    h1 {
+      font-size: 22px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<h1>💧 Урология</h1>
+
+<div class="algorithms-menu">
+  <!-- Б -->
+  <button class="algorithms-btn" onclick="window.location.href='algorithm-urolog-balantitis.html'">
+    Баланопостит
+  </button>
+  
+  <!-- К -->
+  <button class="algorithms-btn" onclick="window.location.href='algorithm-urolog-kidney-stones.html'">
+    Камни почек и мочеточников. Почечная колика неуточненная
+  </button>
+  
+  <!-- М -->
+  <button class="algorithms-btn" onclick="window.location.href='algorithm-urolog-macrohematuria.html'">
+    Макрогематурия визуальная, безболевая
+  </button>
+  
+  <!-- Н -->
+  <button class="algorithms-btn" onclick="window.location.href='algorithm-urolog-nephrostomy-failure.html'">
+    Несостоятельность функции или выпадение (постоянного) нефростомического дренажа (катетера)
+  </button>
+  
+  <button class="algorithms-btn" onclick="window.location.href='algorithm-urolog-urinary-catheter-complications.html'">
+    Осложнения механического происхождения, связанное с мочевым (постоянным) уретральным катетером. Уход за цистостомой. Несостоятельность функции или выпадение цистостомического дренажа
+  </button>
+  
+  <!-- О -->
+  <button class="algorithms-btn" onclick="window.location.href='algorithm-urolog-acute-cystitis-women.html'">
+    Острый цистит у женщин
+  </button>
+  
+  <button class="algorithms-btn" onclick="window.location.href='algorithm-urolog-acute-epididymitis.html'">
+    Острый эпидидимоорхит
+  </button>
+  
+  <button class="algorithms-btn" onclick="window.location.href='algorithm-urolog-acute-prostatitis.html'">
+    Острый простатит, цистит у мужчин
+  </button>
+  
+  <button class="algorithms-btn" onclick="window.location.href='algorithm-urolog-urine-retention-women.html'">
+    Острая задержка мочеиспускания у женщин
+  </button>
+  
+  <button class="algorithms-btn" onclick="window.location.href='algorithm-urolog-urine-retention-men.html'">
+    Острая задержка мочеиспускания у мужчин первичная, неосложненная
+  </button>
+  
+  <!-- П -->
+  <button class="algorithms-btn" onclick="window.location.href='algorithm-urolog-paraphimosis.html'">
+    Парафимоз. Приапизм
+  </button>
+  
+  <button class="algorithms-btn" onclick="window.location.href='algorithm-urolog-testicular-torsion.html'">
+    Перекручивание яичка
+  </button>
+  
+  <button class="algorithms-btn" onclick="window.location.href='algorithm-urolog-pyelonephritis.html'">
+    Пиелонефрит (острый)
+  </button>
+</div>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/SMP/sw.js')
+      .then(reg => console.log('✅ Сервис-воркер зарегистрирован:', reg))
+      .catch(err => console.error('❌ Ошибка регистрации:', err));
+  }
+</script>
+
+</body>
+</html>
