@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <title>Грифам МСК - Скорая помощь</title>
   <link rel="icon" href="1712743647196.png" type="image/png">
   <link rel="stylesheet" href="style.css">
@@ -10,13 +10,94 @@
   <!-- PWA -->
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#0f1446">
+  
+  <style>
+    /* Дополнительные стили для страницы */
+    .header {
+      max-width: 500px;
+      margin: 0 auto;
+      text-align: center;
+      padding: 20px 20px 10px 20px;
+    }
+    
+    .header h1 {
+      margin: 0 0 5px 0;
+      font-size: 28px;
+      color: #0f1446;
+    }
+    
+    .menu {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .menu-btn {
+      display: block;
+      width: 100%;
+      max-width: 500px;
+      text-align: center;
+      padding: 16px 0;
+      font-size: 17px;
+      font-weight: bold;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      margin: 6px auto;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+    
+    .menu-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+    }
+    
+    .menu-btn:active {
+      transform: scale(0.98);
+    }
+    
+    /* Кнопка "КОНСИЛИУМЫ МСК" — тёмно-синяя */
+    .menu-btn.grify-item {
+      background-color: #0f1446 !important;
+      background-image: none !important;
+      color: white;
+    }
+    
+    /* Кнопка "ПРИКАЗЫ МСК" — градиент (сине-красный) */
+    .menu-btn.gradient {
+      background: linear-gradient(135deg, #0f1446 0%, #800000 100%) !important;
+      color: white;
+    }
+    
+    /* Кнопка "ПОДСТАНЦИИ МСК" — тёмно-красная */
+    .menu-btn.burgundy {
+      background-color: #800000 !important;
+      background-image: none !important;
+      color: white;
+    }
+    
+    @media (max-width: 600px) {
+      .header h1 {
+        font-size: 24px;
+      }
+      .menu-btn {
+        font-size: 16px;
+        padding: 14px 0;
+        max-width: 95%;
+      }
+    }
+  </style>
 </head>
 <body>
 
   <div class="header">
-    <img src="1712743647196.png" alt="Логотип" class="logo">
-    <h1>Скорая помощь</h1>
-    <p>Проект EMHelp Group '2026</p>
+    <h1>🚑 Грифам МСК</h1>
   </div>
 
   <nav class="menu">
@@ -24,25 +105,6 @@
     <a href="prikaz.html" class="menu-btn grify-item gradient">ПРИКАЗЫ МСК</a>
     <a href="stations.html" class="menu-btn grify-item burgundy">ПОДСТАНЦИИ МСК</a>
   </nav>
-
-  <style>
-    /* Кнопка "КОНСИЛИУМЫ МСК" — темно-синяя */
-    .grify-item {
-      background-color: #0f1446 !important;
-      background-image: none !important;
-    }
-    
-    /* Кнопка "ПРИКАЗЫ МСК" — градиент */
-    .grify-item.gradient {
-      background: linear-gradient(135deg, #0f1446 0%, #800000 100%) !important;
-    }
-    
-    /* Кнопка "ПОДСТАНЦИИ МСК" — темно-красная */
-    .grify-item.burgundy {
-      background-color: #800000 !important;
-      background-image: none !important;
-    }
-  </style>
 
   <!-- РЕГИСТРАЦИЯ СЕРВИС-ВОРКЕРА -->
   <script>
