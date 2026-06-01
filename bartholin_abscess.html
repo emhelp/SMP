@@ -205,15 +205,16 @@
         }
 
         .modal-container {
-            background-color: #fffef7;
-            max-width: 650px;
+            max-width: 1200px;
             width: 100%;
             max-height: 85vh;
+            background-color: #fffef7;
             border-radius: 28px;
-            box-shadow: 0 25px 45px -12px black;
+            box-shadow: 0 25px 45px -12px rgba(0,0,0,0.25);
             display: flex;
             flex-direction: column;
             overflow: hidden;
+            border: 1px solid #ffd7a5;
             animation: modalFadeIn 0.25s ease-out;
         }
 
@@ -229,21 +230,19 @@
         }
 
         .modal-header {
-            background: #b91c1c;
+            background: #c2410c;
             color: white;
-            padding: 18px 24px;
+            padding: 18px 28px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 3px solid #ffc107;
+            border-bottom: 4px solid #ffb347;
         }
 
         .modal-header h2 {
-            font-size: 1.4rem;
+            font-size: 1.25rem;
             font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 12px;
+            line-height: 1.3;
         }
 
         .modal-close {
@@ -266,47 +265,115 @@
         .modal-body {
             flex: 1;
             overflow-y: auto;
-            padding: 24px 28px;
+            padding: 28px 32px;
             background: #fefcf5;
             font-size: 0.95rem;
             line-height: 1.5;
         }
 
-        /* стили для алгоритма */
-        .alg-section {
-            margin-bottom: 28px;
-            border-left: 4px solid #dc2626;
-            padding-left: 18px;
+        /* стили для нового алгоритма */
+        .adult-block {
+            border-left: 5px solid #dc2626;
+            padding-left: 20px;
             background: #fff9f0;
-            border-radius: 0 14px 14px 0;
+            border-radius: 0 18px 18px 0;
+            margin-bottom: 40px;
         }
-        .alg-title {
-            font-weight: 800;
-            font-size: 1.1rem;
-            color: #a51c1c;
-            margin: 10px 0 8px 0;
-            display: inline-block;
-            background: #ffeeee;
-            padding: 4px 14px;
-            border-radius: 30px;
+        .adult-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 10px 0 20px 0;
+        }
+        .badge-adult {
+            background: #c2410c;
+            color: white;
+            padding: 6px 14px;
+            border-radius: 40px;
+            font-weight: bold;
+        }
+        .child-block {
+            border-left: 5px solid #2e7d32;
+            padding-left: 20px;
+            background: #ecf7ec;
+            border-radius: 0 18px 18px 0;
+            margin-bottom: 20px;
+        }
+        .child-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 10px 0 20px 0;
+        }
+        .badge-child {
+            background: #2e7d32;
+            color: white;
+            padding: 6px 14px;
+            border-radius: 40px;
+            font-weight: bold;
         }
         .list-styled {
-            margin: 8px 0 10px 24px;
+            margin: 12px 0 14px 28px;
         }
         .list-styled li {
-            margin: 6px 0;
+            margin: 8px 0;
         }
         .tactic-block {
-            background: #eef2fa;
-            border-radius: 16px;
-            padding: 12px 18px;
-            margin-top: 12px;
-            margin-bottom: 8px;
+            background: #d9effa;
+            border-radius: 20px;
+            padding: 14px 20px;
+            margin: 18px 0 16px 0;
+            border-left: 4px solid #0284c7;
         }
         .tactic-title {
-            font-weight: 700;
-            color: #1e4663;
-            margin-bottom: 6px;
+            font-weight: 800;
+            color: #0369a1;
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+        .no-bg-block {
+            padding: 14px 20px;
+            margin: 20px 0;
+            border-radius: 16px;
+        }
+        .light-block {
+            background: #ffe6cc;
+            border-left: 6px solid #e03a3a;
+            padding: 14px 20px;
+            margin: 20px 0;
+            border-radius: 16px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+        .condition-title {
+            font-weight: 800;
+            color: #b91c1c;
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+        .drug-name {
+            background: #f3f3f3;
+            font-family: monospace;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-weight: 800;
+            color: #1a3c4a;
+            display: inline-block;
+        }
+        .highlight-number {
+            font-weight: 800;
+            color: #c2410c;
+            background: #fff0d0;
+            padding: 0 4px;
+            border-radius: 10px;
+        }
+        .bold-black {
+            font-weight: 800;
+            color: #000000;
+            background: transparent;
+        }
+        .child-condition-block {
+            /* для детского протокола */
+            margin-bottom: 8px;
         }
 
         @media (max-width: 700px) {
@@ -320,7 +387,13 @@
                 padding: 20px;
             }
             .modal-body {
-                padding: 16px;
+                padding: 20px;
+            }
+            .list-styled {
+                margin-left: 20px;
+            }
+            .modal-header h2 {
+                font-size: 1rem;
             }
             .btn-algorithm {
                 padding: 8px 22px;
@@ -366,11 +439,11 @@
                 <div class="field-item"><strong>Сознание:</strong> <span class="value">ясное</span></div>
                 <div class="field-item"><strong>Шкала комы Глазго (GCS):</strong> <span class="value">15 баллов</span></div>
                 <div class="field-item"><strong>Положение:</strong> <span class="value">вынужденное (лежит на спине с разведенными ногами, при ходьбе щадит промежность)</span></div>
-                <div class="field-item"><strong>Кожные покровы:</strong> <span class="value">чистые, влажные, бледные. Цианоза, желтушности, сыпи нет.</span></div>
+                <div class="field-item"><strong>Кожные покровы:</strong> <span class="value">чистые, влажные, обычной окраски. Цианоза, желтушности, сыпи нет.</span></div>
                 <div class="field-item"><strong>Сыпь:</strong> <span class="value">нет</span></div>
                 <div class="field-item"><strong>Зев:</strong> <span class="value">слизистая розовая, чистая</span></div>
                 <div class="field-item"><strong>Миндалины:</strong> <span class="value">не увеличены</span></div>
-                <div class="field-item"><strong>Лимфоузлы:</strong> <span class="value">паховые лимфоузлы справа увеличены до 1,5 см, болезненные при пальпации, эластичной консистенции</span></div>
+                <div class="field-item"><strong>Лимфоузлы:</strong> <span class="value">паховые лимфоузлы справа увеличены до 1,5 см, болезненные при пальпации, эластичной консистенции, подвижные, не спаяны с окружающими тканями</span></div>
                 <div class="field-item"><strong>Пролежни:</strong> <span class="value">нет</span></div>
                 <div class="field-item"><strong>Отеки:</strong> <span class="value">локальный отек в области правой половой губы</span></div>
                 <div class="field-item"><strong>t°:</strong> <span class="value">38,4 °C</span></div>
@@ -418,10 +491,10 @@
                 <div class="field-item"><strong>Язык:</strong> <span class="value">влажный, обложен белым налетом</span></div>
                 <div class="field-item"><strong>Живот (форма, мягкий, напряжен):</strong> <span class="value">правильной формы, мягкий, не напряжен</span></div>
                 <div class="field-item"><strong>Болезненный в:</strong> <span class="value">безболезненный во всех отделах</span></div>
-                <div class="field-item"><strong>Положительные симптомы:</strong> <span class="value">Симптомы Образцова, Ровзинга, Ситковского, Ортнера, Мерфи, Мейо-Робсона, Щёткина-Блюмберга, Валя — отрицательные</span></div>
+                <div class="field-item"><strong>Положительные симптомы:</strong> <span class="value">нет (живот мягкий, безболезненный)</span></div>
                 <div class="field-item"><strong>Перистальтика:</strong> <span class="value">выслушивается, активная</span></div>
                 <div class="field-item"><strong>Печень:</strong> <span class="value">не увеличена, край эластичный, безболезненный</span></div>
-                <div class="field-item"><strong>Селезенка:</strong> <span class="value">не пальпируется</span></div>
+                <div class="field-item"><strong>Селезенка:</strong> <span class="value">не пальпируется (не увеличена)</span></div>
                 <div class="field-item"><strong>Стул (частота, консистенция):</strong> <span class="value">оформленный, регулярный, 1 раз в сутки</span></div>
             </div>
         </div>
@@ -440,7 +513,7 @@
                 <div class="field-item"><strong>Асимметрия лица:</strong> <span class="value">нет</span></div>
                 <div class="field-item"><strong>Менингеальные симптомы:</strong> <span class="value">отрицательные</span></div>
                 <div class="field-item"><strong>Очаговые симптомы:</strong> <span class="value">нет</span></div>
-                <div class="field-item"><strong>Координаторные пробы:</strong> <span class="value">выполняет удовлетворительно</span></div>
+                <div class="field-item"><strong>Координаторные пробы:</strong> <span class="value">пальце-носовую пробу выполняет верно, пяточно-коленная проба и проба в позе Ромберга не проводились (ввиду вынужденного положения пациентки и выраженного болевого синдрома)</span></div>
             </div>
         </div>
 
@@ -492,45 +565,101 @@
     </div>
 </div>
 
-<!-- МОДАЛЬНОЕ ОКНО: АЛГОРИТМ ПРИ ЗАБОЛЕВАНИЯХ БАРТОЛИНОВОЙ ЖЕЛЕЗЫ (тактика выделена) -->
+<!-- НОВОЕ МОДАЛЬНОЕ ОКНО (Киста бартолиновой железы. Абсцесс бартолиновой железы) -->
 <div class="modal-overlay" id="algorithmModal">
     <div class="modal-container">
         <div class="modal-header">
-            <h2>📋 Алгоритм оказания помощи (МСК)</h2>
+            <h2>N75 Киста бартолиновой железы. Абсцесс бартолиновой железы</h2>
             <button class="modal-close" id="closeModalBtn">&times;</button>
         </div>
         <div class="modal-body">
-            <!-- Киста бартолиновой железы -->
-            <div class="alg-section">
-                <div class="alg-title">🔹 Киста бартолиновой железы</div>
-                <ul class="list-styled">
-                    <li>Не требует лечения на этапе оказания скорой медицинской помощи</li>
-                </ul>
+            <div class="adult-block">
+                <div class="adult-header">
+                    <span class="badge-adult">ВЗРОСЛЫЙ ПРОТОКОЛ</span>
+                </div>
+                <div class="no-bg-block">
+                    <div class="condition-title">Киста бартолиновой железы</div>
+                    <ul class="list-styled">
+                        <li>Не требует лечения на этапе оказания скорой медицинской помощи</li>
+                    </ul>
+                </div>
                 <div class="tactic-block">
-                    <div class="tactic-title">▶ Тактика ведения:</div>
-                    <ul class="list-styled" style="margin-top: 4px;">
-                        <li>Рекомендовать обратиться в ЖК</li>
+                    <div class="tactic-title">▶ Тактика:</div>
+                    <ul class="list-styled">
+                        <li>1. Рекомендовать обратиться в ЖК (34)</li>
+                    </ul>
+                </div>
+                <div class="no-bg-block">
+                    <div class="condition-title">Абсцесс бартолиновой железы</div>
+                    <ul class="list-styled">
+                        <li>Не требует лечения на этапе оказания скорой медицинской помощи</li>
+                    </ul>
+                </div>
+                <div class="light-block">
+                    <div class="condition-title">– при температуре тела &gt; 38°С</div>
+                    <ul class="list-styled">
+                        <li><span class="drug-name">Кеторолак</span> <span class="highlight-number">30 мг</span> (<span class="highlight-number">1 мл</span>) или <span class="drug-name">Кетопрофен</span> <span class="highlight-number">100 мг</span> (<span class="highlight-number">2 мл</span>) в/венно или в/мышечно</li>
+                    </ul>
+                </div>
+                <div class="tactic-block">
+                    <div class="tactic-title">▶ Тактика:</div>
+                    <ul class="list-styled">
+                        <li>1. Медицинская эвакуация в больницу (13)</li>
+                        <li>2. При отказе от медицинской эвакуации в больницу – актив в ЖК (35)</li>
                     </ul>
                 </div>
             </div>
 
-            <!-- Абсцесс бартолиновой железы -->
-            <div class="alg-section">
-                <div class="alg-title">⚠️ Абсцесс бартолиновой железы</div>
-                <ul class="list-styled">
-                    <li>Не требует лечения на этапе оказания скорой медицинской помощи</li>
-                    <li><strong>– при температуре тела > 38°C</strong> → Кеторолак 30 мг (1 мл) или Кетопрофен 100 мг (2 мл) в/венно или в/мышечно</li>
-                </ul>
+            <div class="child-block">
+                <div class="child-header">
+                    <span class="badge-child">ДЕТСКИЙ ПРОТОКОЛ</span>
+                </div>
+                <div class="no-bg-block">
+                    <div class="condition-title">Киста бартолиновой железы</div>
+                    <ul class="list-styled">
+                        <li>Не требует лечения на этапе оказания скорой медицинской помощи</li>
+                    </ul>
+                </div>
                 <div class="tactic-block">
-                    <div class="tactic-title">▶ Тактика ведения:</div>
-                    <ul class="list-styled" style="margin-top: 4px;">
-                        <li>Медицинская эвакуация в больницу</li>
-                        <li>При отказе от медицинской эвакуации – актив в ЖК</li>
+                    <div class="tactic-title">▶ Тактика:</div>
+                    <ul class="list-styled">
+                        <li>1. Рекомендовать обратиться в ЖК (34)</li>
+                    </ul>
+                </div>
+                <div class="no-bg-block">
+                    <div class="condition-title">Абсцесс бартолиновой железы</div>
+                    <ul class="list-styled">
+                        <li>Не требует лечения на этапе оказания скорой медицинской помощи</li>
+                    </ul>
+                </div>
+                <div class="child-condition-block">
+                    <div class="condition-title">– при температуре тела ≥ 39°С</div>
+                    <div class="condition-title">– при боли</div>
+                    <ul class="list-styled">
+                        <li><span class="drug-name">Анальгин (Метамизол натрия)</span> <span class="highlight-number">10 мг/кг</span> (<span class="highlight-number">0,02 мл/кг</span>) или <span class="drug-name">Кеторолак</span> <span class="highlight-number">30 мг</span> (<span class="highlight-number">1 мл</span>) <span class="bold-black">(с 16 лет)</span> или <span class="drug-name">Кетопрофен</span> <span class="highlight-number">100 мг</span> (<span class="highlight-number">2 мл</span>) в/венно или в/мышечно <span class="bold-black">(с 16 лет)</span></li>
+                    </ul>
+                </div>
+                <div class="tactic-block">
+                    <div class="tactic-title">▶ Тактика:</div>
+                    <ul class="list-styled">
+                        <li>1. Медицинская эвакуация в больницу (13)</li>
+                        <li>2. При отказе от медицинской эвакуации – актив в ЖК (31)</li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
+</div>
+
+<!-- Модальное окно для изображений (оставлено на случай будущего использования) -->
+<div id="imageModal" class="modal" style="display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.9); justify-content: center; align-items: center; flex-direction: column;">
+  <button onclick="document.getElementById('imageModal').style.display='none'; isGalleryMode=false; currentGallery=[];" style="position: absolute; top: 20px; right: 35px; color: #fff; font-size: 40px; font-weight: bold; cursor: pointer; background: none; border: none; z-index: 2001;">&times;</button>
+  <img id="modalImage" style="max-width: 90%; max-height: 70%; object-fit: contain;">
+  <div id="navContainer" style="position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); display: none; gap: 30px; align-items: center; justify-content: center; background-color: rgba(0,0,0,0.5); padding: 6px 20px; border-radius: 40px; z-index: 2001;">
+    <button id="prevBtn" style="background-color: transparent; color: white; font-size: 28px; font-weight: bold; border: none; cursor: pointer; padding: 0 12px;">❮</button>
+    <span id="imageCounter" style="color: white; background-color: rgba(0,0,0,0.6); padding: 4px 12px; border-radius: 20px; font-size: 14px; font-weight: bold;">1 / 2</span>
+    <button id="nextBtn" style="background-color: transparent; color: white; font-size: 28px; font-weight: bold; border: none; cursor: pointer; padding: 0 12px;">❯</button>
+  </div>
 </div>
 
 <script>
@@ -558,6 +687,59 @@
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && modal.classList.contains('active')) {
             closeModal();
+        }
+    });
+
+    // Скрипт для галереи изображений (оставлен для совместимости)
+    let currentGallery = [];
+    let currentIndex = 0;
+    let isGalleryMode = false;
+
+    function openImage(imagePath) {
+        isGalleryMode = false;
+        currentGallery = [];
+        document.getElementById('navContainer').style.display = 'none';
+        document.getElementById('imageModal').style.display = 'flex';
+        document.getElementById('modalImage').src = imagePath;
+    }
+
+    function openImageGallery(images) {
+        isGalleryMode = true;
+        currentGallery = images;
+        currentIndex = 0;
+        document.getElementById('navContainer').style.display = 'flex';
+        document.getElementById('imageModal').style.display = 'flex';
+        document.getElementById('modalImage').src = currentGallery[currentIndex];
+        document.getElementById('imageCounter').textContent = `${currentIndex + 1} / ${currentGallery.length}`;
+        updateNavButtons();
+    }
+
+    function updateNavButtons() {
+        document.getElementById('prevBtn').style.opacity = currentIndex === 0 ? '0.4' : '1';
+        document.getElementById('nextBtn').style.opacity = currentIndex === currentGallery.length - 1 ? '0.4' : '1';
+    }
+
+    document.getElementById('prevBtn').addEventListener('click', function() {
+        if (!isGalleryMode || currentIndex === 0) return;
+        currentIndex--;
+        document.getElementById('modalImage').src = currentGallery[currentIndex];
+        document.getElementById('imageCounter').textContent = `${currentIndex + 1} / ${currentGallery.length}`;
+        updateNavButtons();
+    });
+
+    document.getElementById('nextBtn').addEventListener('click', function() {
+        if (!isGalleryMode || currentIndex === currentGallery.length - 1) return;
+        currentIndex++;
+        document.getElementById('modalImage').src = currentGallery[currentIndex];
+        document.getElementById('imageCounter').textContent = `${currentIndex + 1} / ${currentGallery.length}`;
+        updateNavButtons();
+    });
+
+    document.getElementById('imageModal').addEventListener('click', function(e) {
+        if (e.target === this) {
+            this.style.display = 'none';
+            isGalleryMode = false;
+            currentGallery = [];
         }
     });
 </script>
