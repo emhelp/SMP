@@ -23,7 +23,58 @@
         .highlight-number { font-weight: 800; color: #c2410c; background: #fff0d0; padding: 0 4px; border-radius: 10px; }
         .drug-name { background: #f3f3f3; font-family: monospace; padding: 2px 8px; border-radius: 20px; font-weight: 800; color: #1a3c4a; display: inline-block; }
         .italic-bold-ref { font-weight: 800; font-style: italic; background: transparent; color: #0a2f44; }
-        @media (max-width: 700px) { .modal-body { padding: 20px; } .list-styled { margin-left: 20px; } .modal-header h2 { font-size: 1rem; } }
+
+        .btn-algorithm-orange {
+            background-color: #e67e22;
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 6px 14px rgba(230, 126, 34, 0.3);
+            transition: all 0.2s ease;
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            letter-spacing: 0.3px;
+            border: 1px solid rgba(255,255,255,0.3);
+            margin: 20px auto;
+            text-align: center;
+        }
+        .btn-algorithm-orange:hover { background-color: #d35400; transform: scale(1.02); box-shadow: 0 10px 20px rgba(211, 84, 0, 0.4); }
+        .btn-hint { font-size: 0.7rem; font-weight: normal; opacity: 0.9; letter-spacing: normal; border-top: 1px dashed rgba(255,255,255,0.5); padding-top: 4px; margin-top: 2px; }
+
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.75); backdrop-filter: blur(4px);
+            z-index: 1000; display: flex; align-items: center; justify-content: center;
+            visibility: hidden; opacity: 0; transition: visibility 0.2s, opacity 0.2s; padding: 20px;
+        }
+        .modal-overlay.active { visibility: visible; opacity: 1; }
+        .modal-obstetric { max-width: 900px; width: 100%; max-height: 85vh; background-color: #fffef7; border-radius: 28px; display: flex; flex-direction: column; overflow: hidden; }
+        .modal-obstetric .modal-header { background: #e67e22; }
+        .modal-obstetric .modal-body { background: #fefcf5; }
+        .obstetric-card { background: white; border-radius: 18px; margin-bottom: 20px; border: 1px solid #e2edf2; overflow: hidden; }
+        .obstetric-card-header { padding: 14px 18px; background: #fef9f0; border-bottom: 2px solid #f0c9a0; }
+        .obstetric-card-header h3 { font-size: 1.3rem; color: #a5260c; }
+        .obstetric-step { padding: 14px 18px; border-bottom: 1px solid #e9ecef; }
+        .obstetric-step:last-child { border-bottom: none; }
+        .obstetric-step-num { display: inline-block; background: #1b5a7a; color: white; width: 26px; height: 26px; text-align: center; line-height: 26px; border-radius: 30px; font-weight: bold; font-size: 0.85rem; margin-right: 12px; }
+        .obstetric-step-title { font-weight: 700; font-size: 1.05rem; margin-bottom: 8px; }
+        .obstetric-step-desc { margin-left: 38px; color: #2c3e44; }
+        .obstetric-warning { background: #fbe9e7; border-radius: 12px; padding: 10px 14px; margin: 10px 0 0 38px; border-left: 4px solid #d9534f; font-size: 0.85rem; }
+        .obstetric-maneuver { background: #eef2fa; border-radius: 12px; padding: 10px 14px; margin: 10px 0 0 38px; font-size: 0.85rem; }
+        .solo-protocol { background: #fff6ed; border-radius: 20px; padding: 18px; margin: 15px 0; border: 2px solid #e67e22; }
+        .solo-step { background: white; border-radius: 16px; padding: 14px; margin-bottom: 15px; border-left: 6px solid #e67e22; }
+        .solo-step h4 { color: #c0392b; margin-bottom: 10px; font-size: 1.1rem; }
+
+        @media (max-width: 700px) {
+            .modal-body { padding: 20px; } .list-styled { margin-left: 20px; } .modal-header h2 { font-size: 1rem; }
+            .obstetric-step-desc { margin-left: 20px; } .obstetric-warning, .obstetric-maneuver { margin-left: 20px; }
+        }
     </style>
 </head>
 <body>
@@ -61,6 +112,103 @@
                     <li>2. При отказе от медицинской эвакуации в больницу – активный аудиоконтроль (55)</li>
                     <li>3. При повторном отказе – актив в ЖК (35)</li>
                 </ul>
+            </div>
+            <div style="text-align: center; margin-top: 24px;">
+                <button class="btn-algorithm-orange" id="openObstetricBtn">
+                    <span>📖 Алгоритм акушерского пособия</span>
+                    <span class="btn-hint">▼ нажмите для открытия ▼</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- МОДАЛЬНОЕ ОКНО: АКУШЕРСКОЕ ПОСОБИЕ -->
+<div class="modal-overlay" id="obstetricModal">
+    <div class="modal-obstetric">
+        <div class="modal-header">
+            <h2>📖 Акушерское пособие при родах</h2>
+            <button class="modal-close" id="closeObstetricBtn" style="background: none; border: none; color: white; font-size: 28px; cursor: pointer; line-height: 1; transition: 0.2s; padding: 0 8px; border-radius: 40px;">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div style="background: #fff3e0; border-left: 6px solid #e67e22; padding: 12px 16px; border-radius: 12px; margin-bottom: 20px;">
+                ⚠️ <strong>Первоочередные действия при начале родов вне стационара:</strong> оценить состояние роженицы и плода, вызвать акушерскую бригаду, подготовить стерильные перчатки, пеленки, набор для новорожденного, окситоцин. Обеспечить психологическую поддержку, исключить потуги во время транспортировки — принять роды на месте!
+            </div>
+            <div class="obstetric-card">
+                <div class="obstetric-card-header"><h3>🧠 Головное предлежание</h3></div>
+                <div class="obstetric-step">
+                    <div class="obstetric-step-title"><span class="obstetric-step-num">1</span> Оценка & подготовка</div>
+                    <div class="obstetric-step-desc">👉 Уложить роженицу на спину, ноги согнуты в коленях, разведены. Подкрестцово — валик. Обработать наружные половые органы. Контроль сердцебиения плода каждые 5 минут. При полном открытии маточного зева (потуги) — начать прием.</div>
+                </div>
+                <div class="obstetric-step">
+                    <div class="obstetric-step-title"><span class="obstetric-step-num">2</span> Прорезывание головки</div>
+                    <div class="obstetric-step-desc">🔹 Во время потуги поддерживать промежность стерильной салфеткой. <strong>Прием защиты промежности:</strong> большим и указательным пальцами растягивать вульварное кольцо над головкой, способствуя медленному рождению затылка.</div>
+                </div>
+                <div class="obstetric-step">
+                    <div class="obstetric-step-title"><span class="obstetric-step-num">3</span> Рождение головки</div>
+                    <div class="obstetric-step-desc">✔ После рождения затылка попросить женщину не тужиться (дыхание «собачкой»). Осторожно удалить слизь из носоглотки. Проверить обвитие пуповиной.</div>
+                </div>
+                <div class="obstetric-step">
+                    <div class="obstetric-step-title"><span class="obstetric-step-num">4</span> Выведение плечиков</div>
+                    <div class="obstetric-step-desc">📌 Головка повернута лицом к бедру матери. Аккуратно потянуть головку книзу до рождения переднего плечика под лоном, затем — кверху для выведения заднего плечика.</div>
+                    <div class="obstetric-maneuver">💡 <strong>Техника Морисо-Левре:</strong> при затруднении — указательный палец ввести во влагалище по задней ручке плода, вывести заднюю ручку.</div>
+                </div>
+                <div class="obstetric-step">
+                    <div class="obstetric-step-title"><span class="obstetric-step-num">5</span> Рождение туловища</div>
+                    <div class="obstetric-step-desc">➡ После выхода плечевого пояса — туловище рождается легко. Подхватить ребенка, уложить на живот матери.</div>
+                    <div class="obstetric-warning">⚠️ <strong>Риск дистоции плечиков:</strong> при задержке >60 секунд — НЕ тянуть за головку! Применить прием МакРобертса + супрапубическое давление.</div>
+                </div>
+                <div class="obstetric-step">
+                    <div class="obstetric-step-title"><span class="obstetric-step-num">6</span> Третий период родов</div>
+                    <div class="obstetric-step-desc">🧾 Контроль признаков отделения плаценты. Осторожная тракция за пуповину. Массаж матки, окситоцин 10 ЕД в/м.</div>
+                </div>
+            </div>
+            <div class="obstetric-card">
+                <div class="obstetric-card-header"><h3>🦶 Ягодичное предлежание</h3></div>
+                <div class="obstetric-step">
+                    <div class="obstetric-step-title"><span class="obstetric-step-num">1</span> Распознавание и тактика</div>
+                    <div class="obstetric-step-desc">🔎 При влагалищном исследовании — пальпируются ягодицы. <strong>НЕЛЬЗЯ потягивать за тазовый конец!</strong></div>
+                </div>
+                <div class="obstetric-step">
+                    <div class="obstetric-step-title"><span class="obstetric-step-num">2</span> Рождение ягодиц до пупка</div>
+                    <div class="obstetric-step-desc">✨ При потугах ягодицы показываются в половой щели. Обхватить ягодицы стерильной пеленкой.</div>
+                </div>
+                <div class="obstetric-step">
+                    <div class="obstetric-step-title"><span class="obstetric-step-num">3</span> Пособие при рождении плечевого пояса</div>
+                    <div class="obstetric-step-desc">⚠️ <strong>Метод Цовьянова:</strong> большие пальцы вдоль крестца плода, остальные на бедра. Аккуратно потянуть книзу до появления передней подмышечной впадины.</div>
+                </div>
+                <div class="obstetric-step">
+                    <div class="obstetric-step-title"><span class="obstetric-step-num">4</span> Выведение головки</div>
+                    <div class="obstetric-step-desc">🧠 Прием Морисо-Левре: плод «садится» на предплечье, пальцы на верхнюю челюсть.</div>
+                    <div class="obstetric-warning">🚨 Время от пупка до головки ≤ 3-5 минут!</div>
+                </div>
+            </div>
+            <div class="solo-protocol">
+                <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 15px;">
+                    <span style="background: #c0392b; color: white; padding: 4px 18px; border-radius: 40px; font-weight: bold;">👤 ОДИН ФЕЛЬДШЕР НА ВЫЗОВЕ</span>
+                    <h3 style="color: #a5260c; margin: 0;">Дистоция плечиков: пошаговый алгоритм</h3>
+                </div>
+                <div class="solo-step">
+                    <h4>🔴 ШАГ 1. 0–30 секунд</h4>
+                    <ul style="margin-left: 20px;"><li>✅ «Не тужиться! Дышите часто-часто»</li><li>✅ Положение МакРобертса (колени к животу)</li></ul>
+                </div>
+                <div class="solo-step">
+                    <h4>🟠 ШАГ 2. 30–60 секунд</h4>
+                    <ul style="margin-left: 20px;"><li>👉 Давление над лоном вниз и назад + тракция головки книзу</li></ul>
+                </div>
+                <div class="solo-step">
+                    <h4>🟡 ШАГ 3. 60–120 секунд</h4>
+                    <ul style="margin-left: 20px;"><li>1️⃣ Два пальца во влагалище до заднего плечика</li><li>2️⃣ Надавить на плечико, поворачивая его</li><li>3️⃣ Поворачивать головку в ту же сторону</li></ul>
+                    <div class="obstetric-warning">🚨 Никогда не давить на дно матки!</div>
+                </div>
+                <div class="solo-step">
+                    <h4>🟢 ШАГ 4. 120–180 секунд</h4>
+                    <ul style="margin-left: 20px;"><li>• Выведение задней ручки (прием Рубина)</li><li>• Переворот на четвереньки</li></ul>
+                </div>
+                <div class="solo-step">
+                    <h4>📌 ШАГ 5. После рождения</h4>
+                    <ul style="margin-left: 20px;"><li>✔ Отсасывание слизи, оценка по Апгар</li><li>✔ Окситоцин матери 10 ЕД в/м</li></ul>
+                </div>
             </div>
         </div>
     </div>
@@ -127,6 +275,37 @@
       this.style.display = 'none';
       isGalleryMode = false;
       currentGallery = [];
+    }
+  });
+
+  // Модальное окно акушерского пособия
+  const obstetricModal = document.getElementById('obstetricModal');
+  const openObstetricBtn = document.getElementById('openObstetricBtn');
+  const closeObstetricBtn = document.getElementById('closeObstetricBtn');
+
+  function openObstetricModal() {
+    obstetricModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeObstetricModal() {
+    obstetricModal.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  openObstetricBtn.addEventListener('click', openObstetricModal);
+  closeObstetricBtn.addEventListener('click', closeObstetricModal);
+  obstetricModal.addEventListener('click', function(e) {
+    if (e.target === obstetricModal) {
+      closeObstetricModal();
+    }
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      if (obstetricModal.classList.contains('active')) {
+        closeObstetricModal();
+      }
     }
   });
 </script>
