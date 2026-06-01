@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Карта вызова скорой медицинской помощи | Негнойный лактационный мастит</title>
     <style>
         * {
@@ -189,6 +189,7 @@
             gap: 4px;
             letter-spacing: 0.3px;
             border: 1px solid rgba(255,255,255,0.3);
+            max-width: 100%;
         }
 
         .btn-algorithm:hover {
@@ -236,15 +237,16 @@
         }
 
         .modal-container {
-            background-color: #fffef7;
-            max-width: 550px;
+            max-width: 1200px;
             width: 100%;
             max-height: 85vh;
+            background-color: #fffef7;
             border-radius: 28px;
-            box-shadow: 0 25px 45px -12px black;
+            box-shadow: 0 25px 45px -12px rgba(0,0,0,0.25);
             display: flex;
             flex-direction: column;
             overflow: hidden;
+            border: 1px solid #ffd7a5;
             animation: modalFadeIn 0.25s ease-out;
         }
 
@@ -260,21 +262,21 @@
         }
 
         .modal-header {
-            background: #b91c1c;
+            background: #c2410c;
             color: white;
-            padding: 18px 24px;
+            padding: 18px 28px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 3px solid #ffc107;
+            border-bottom: 4px solid #ffb347;
+            flex-shrink: 0;
         }
 
         .modal-header h2 {
-            font-size: 1.3rem;
+            font-size: 1.25rem;
             font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            line-height: 1.3;
+            word-break: break-word;
         }
 
         .modal-close {
@@ -287,6 +289,7 @@
             transition: 0.2s;
             padding: 0 8px;
             border-radius: 40px;
+            flex-shrink: 0;
         }
 
         .modal-close:hover {
@@ -297,84 +300,230 @@
         .modal-body {
             flex: 1;
             overflow-y: auto;
-            padding: 24px 28px;
+            padding: 28px 32px;
             background: #fefcf5;
             font-size: 0.95rem;
             line-height: 1.5;
         }
 
         /* стили для алгоритма */
-        .alg-section {
-            margin-bottom: 20px;
-            border-left: 4px solid #dc2626;
-            padding-left: 18px;
-            background: #fff9f0;
-            border-radius: 0 14px 14px 0;
-        }
-
-        .alg-title {
-            font-weight: 800;
-            font-size: 1rem;
-            color: #a51c1c;
-            margin: 8px 0 8px 0;
-            display: inline-block;
-            background: #ffeeee;
-            padding: 4px 14px;
-            border-radius: 30px;
-        }
-
-        .list-styled {
-            margin: 8px 0 10px 24px;
-        }
-
-        .list-styled li {
-            margin: 6px 0;
-        }
-
-        .tactic-block {
-            background: #eef2fa;
-            border-radius: 16px;
-            padding: 12px 18px;
-            margin-top: 12px;
-            margin-bottom: 8px;
-        }
-
-        .tactic-title {
-            font-weight: 700;
-            color: #1e4663;
-            margin-bottom: 6px;
-        }
-
-        .condition-block {
-            background: #fff0d4;
+        .adult-block {
             border-left: 5px solid #dc2626;
-            padding: 10px 16px;
-            margin: 10px 0;
-            border-radius: 12px;
+            padding-left: 20px;
+            background: #fff9f0;
+            border-radius: 0 18px 18px 0;
+            margin-bottom: 40px;
         }
-
+        .adult-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 10px 0 20px 0;
+        }
+        .badge-adult {
+            background: #c2410c;
+            color: white;
+            padding: 6px 14px;
+            border-radius: 40px;
+            font-weight: bold;
+        }
+        .child-block {
+            border-left: 5px solid #2e7d32;
+            padding-left: 20px;
+            background: #ecf7ec;
+            border-radius: 0 18px 18px 0;
+            margin-bottom: 20px;
+        }
+        .child-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 10px 0 20px 0;
+        }
+        .badge-child {
+            background: #2e7d32;
+            color: white;
+            padding: 6px 14px;
+            border-radius: 40px;
+            font-weight: bold;
+        }
+        .list-styled {
+            margin: 12px 0 14px 28px;
+        }
+        .list-styled li {
+            margin: 8px 0;
+        }
+        .tactic-block {
+            background: #d9effa;
+            border-radius: 20px;
+            padding: 14px 20px;
+            margin: 18px 0 16px 0;
+            border-left: 4px solid #0284c7;
+        }
+        .tactic-title {
+            font-weight: 800;
+            color: #0369a1;
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+        .no-bg-block {
+            padding: 14px 20px;
+            margin: 20px 0;
+            border-radius: 16px;
+        }
+        .light-block {
+            background: #ffe6cc;
+            border-left: 6px solid #e03a3a;
+            padding: 14px 20px;
+            margin: 20px 0;
+            border-radius: 16px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
         .condition-title {
-            font-weight: 700;
-            color: #a51c1c;
-            margin-bottom: 6px;
+            font-weight: 800;
+            color: #b91c1c;
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+        .drug-name {
+            background: #f3f3f3;
+            font-family: monospace;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-weight: 800;
+            color: #1a3c4a;
+            display: inline-block;
+        }
+        .highlight-number {
+            font-weight: 800;
+            color: #c2410c;
+            background: #fff0d0;
+            padding: 0 4px;
+            border-radius: 10px;
         }
 
         @media (max-width: 700px) {
-            .field-item strong {
-                min-width: 170px;
+            body {
+                padding: 16px 10px;
             }
-            .full-width-text strong {
-                min-width: 170px;
+
+            .mkb-row {
+                padding: 14px 18px;
+                font-size: 0.95rem;
             }
+
+            .diagnosis {
+                padding: 10px 18px;
+                font-size: 0.9rem;
+            }
+
             .content {
-                padding: 20px;
+                padding: 16px;
             }
+
+            .section {
+                margin-bottom: 20px;
+            }
+
+            .section-title {
+                font-size: 1.15rem;
+                padding-left: 12px;
+                margin-bottom: 12px;
+            }
+
+            .field-item {
+                font-size: 0.85rem;
+                padding: 4px 0 4px 4px;
+            }
+
+            .field-item strong {
+                min-width: 140px;
+            }
+
+            .full-width-text {
+                font-size: 0.85rem;
+                padding: 6px 0 6px 4px;
+            }
+
+            .full-width-text strong {
+                min-width: 140px;
+            }
+
+            .status-local {
+                padding: 10px 14px;
+                font-size: 0.85rem;
+            }
+
+            .scales-list {
+                padding: 10px 14px;
+            }
+
+            .scales-list p {
+                font-size: 0.85rem;
+                margin: 6px 0;
+            }
+
+            .note {
+                padding: 10px 14px;
+                font-size: 0.8rem;
+            }
+
+            .note-list {
+                margin-left: 14px;
+            }
+
             .btn-algorithm {
                 padding: 8px 22px;
                 font-size: 1rem;
             }
+
             .btn-hint {
                 font-size: 0.65rem;
+            }
+
+            .modal-overlay {
+                padding: 10px;
+            }
+
+            .modal-container {
+                max-height: 90vh;
+                border-radius: 20px;
+            }
+
+            .modal-header {
+                padding: 14px 18px;
+            }
+
+            .modal-header h2 {
+                font-size: 1rem;
+            }
+
+            .modal-body {
+                padding: 20px;
+            }
+
+            .list-styled {
+                margin-left: 20px;
+            }
+
+            .adult-block, .child-block {
+                padding-left: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .field-item strong {
+                min-width: 120px;
+            }
+
+            .full-width-text strong {
+                min-width: 120px;
+            }
+
+            .btn-algorithm {
+                padding: 10px 18px;
+                font-size: 0.9rem;
+                border-radius: 40px;
             }
         }
     </style>
@@ -459,6 +608,7 @@
                 <div class="field-item"><strong>Язык:</strong> <span class="value">влажный, обложен белым налетом</span></div>
                 <div class="field-item"><strong>Живот (форма, мягкий, напряжен):</strong> <span class="value">мягкий, не вздут, участвует в акте дыхания</span></div>
                 <div class="field-item"><strong>Болезненный в:</strong> <span class="value">безболезненный во всех отделах</span></div>
+                <div class="field-item"><strong>Положительные симптомы:</strong> <span class="value">нет (живот мягкий, безболезненный)</span></div>
                 <div class="field-item"><strong>Перистальтика:</strong> <span class="value">выслушивается, активная</span></div>
                 <div class="field-item"><strong>Печень:</strong> <span class="value">не пальпируется</span></div>
                 <div class="field-item"><strong>Селезенка:</strong> <span class="value">не пальпируется</span></div>
@@ -479,6 +629,7 @@
                 <div class="field-item"><strong>Асимметрия лица:</strong> <span class="value">нет</span></div>
                 <div class="field-item"><strong>Менингеальные симптомы:</strong> <span class="value">отрицательные</span></div>
                 <div class="field-item"><strong>Очаговые симптомы:</strong> <span class="value">нет</span></div>
+                <div class="field-item"><strong>Координаторные пробы:</strong> <span class="value">выполняет удовлетворительно (пальце-носовую пробу выполняет верно, в позе Ромберга устойчива, пяточно-коленная проба без атаксии)</span></div>
             </div>
         </div>
 
@@ -511,7 +662,7 @@
             <div class="scales-list">
                 <p>✔ <strong>Шкала NEWS2:</strong> 3 балла (ЧСС 95 — 1 балл, t° 38,2 — 1 балл, АД 110/70 — 0, ЧДД 18 — 0) — требуется наблюдение, возможна госпитализация при отсутствии эффекта от терапии.</p>
                 <p>✔ <strong>Индекс Альговера:</strong> 95 / 110 = 0,86 (пограничное значение, гемодинамика стабильна).</p>
-                <p>✔ <strong>Шкала боли ВАШ:</strong> 6 баллов из 10 (умеренная боль).</p>
+                <p>✔ <strong>Пациент с травмой, шкала боли ВАШ:</strong> не применимо.</p>
                 <p>✔ <strong>Алкогольное опьянение:</strong> не применимо.</p>
             </div>
         </div>
@@ -538,34 +689,54 @@
     </div>
 </div>
 
-<!-- МОДАЛЬНОЕ ОКНО: АЛГОРИТМ ПРИ ЛАКТАЦИОННОМ МАСТИТЕ -->
+<!-- НОВОЕ МОДАЛЬНОЕ ОКНО (Мастит лактационный) — как в предыдущей карте -->
 <div class="modal-overlay" id="algorithmModal">
     <div class="modal-container">
         <div class="modal-header">
-            <h2>📋 Алгоритм оказания помощи (МСК)</h2>
+            <h2>О91 Мастит лактационный</h2>
             <button class="modal-close" id="closeModalBtn">&times;</button>
         </div>
         <div class="modal-body">
-            <div class="alg-section">
-                <div class="alg-title">🔹 Мастит лактационный (O91)</div>
-                
-                <div class="condition-block">
-                    <div class="condition-title">▶ при температуре тела > 38°С:</div>
-                    <ul class="list-styled" style="margin-top: 4px;">
-                        <li>Парацетамол 500–1000 мг внутрь</li>
+            <div class="adult-block">
+                <div class="adult-header">
+                    <span class="badge-adult">ВЗРОСЛЫЙ ПРОТОКОЛ</span>
+                </div>
+                <div class="light-block">
+                    <div class="condition-title">– при температуре тела &gt; 38°С</div>
+                    <ul class="list-styled">
+                        <li><span class="drug-name">Парацетамол</span> <span class="highlight-number">500–1000 мг</span> внутрь</li>
                     </ul>
                 </div>
-
                 <div class="tactic-block">
-                    <div class="tactic-title">▶ Тактика ведения:</div>
-                    <ul class="list-styled" style="margin-top: 4px;">
-                        <li>Медицинская эвакуация в больницу (13)</li>
-                        <li>При отказе от медицинской эвакуации – рекомендовать обратиться в ЖК (35)</li>
+                    <div class="tactic-title">▶ Тактика:</div>
+                    <ul class="list-styled">
+                        <li>1. Медицинская эвакуация в больницу (13)</li>
+                        <li>2. При отказе от медицинской эвакуации в больницу – рекомендовать обратиться в ЖК (35)</li>
                     </ul>
+                </div>
+            </div>
+
+            <div class="child-block">
+                <div class="child-header">
+                    <span class="badge-child">ДЕТСКИЙ ПРОТОКОЛ</span>
+                </div>
+                <div class="no-bg-block">
+                    <p>Для детей не применимо.</p>
                 </div>
             </div>
         </div>
     </div>
+</div>
+
+<!-- Модальное окно для изображений (оставлено на случай будущего использования) -->
+<div id="imageModal" class="modal" style="display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.9); justify-content: center; align-items: center; flex-direction: column;">
+  <button onclick="document.getElementById('imageModal').style.display='none'; isGalleryMode=false; currentGallery=[];" style="position: absolute; top: 20px; right: 35px; color: #fff; font-size: 40px; font-weight: bold; cursor: pointer; background: none; border: none; z-index: 2001;">&times;</button>
+  <img id="modalImage" style="max-width: 90%; max-height: 70%; object-fit: contain;">
+  <div id="navContainer" style="position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); display: none; gap: 30px; align-items: center; justify-content: center; background-color: rgba(0,0,0,0.5); padding: 6px 20px; border-radius: 40px; z-index: 2001;">
+    <button id="prevBtn" style="background-color: transparent; color: white; font-size: 28px; font-weight: bold; border: none; cursor: pointer; padding: 0 12px;">❮</button>
+    <span id="imageCounter" style="color: white; background-color: rgba(0,0,0,0.6); padding: 4px 12px; border-radius: 20px; font-size: 14px; font-weight: bold;">1 / 2</span>
+    <button id="nextBtn" style="background-color: transparent; color: white; font-size: 28px; font-weight: bold; border: none; cursor: pointer; padding: 0 12px;">❯</button>
+  </div>
 </div>
 
 <script>
@@ -593,6 +764,59 @@
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && modal.classList.contains('active')) {
             closeModal();
+        }
+    });
+
+    // Скрипт для галереи изображений (оставлен для совместимости)
+    let currentGallery = [];
+    let currentIndex = 0;
+    let isGalleryMode = false;
+
+    function openImage(imagePath) {
+        isGalleryMode = false;
+        currentGallery = [];
+        document.getElementById('navContainer').style.display = 'none';
+        document.getElementById('imageModal').style.display = 'flex';
+        document.getElementById('modalImage').src = imagePath;
+    }
+
+    function openImageGallery(images) {
+        isGalleryMode = true;
+        currentGallery = images;
+        currentIndex = 0;
+        document.getElementById('navContainer').style.display = 'flex';
+        document.getElementById('imageModal').style.display = 'flex';
+        document.getElementById('modalImage').src = currentGallery[currentIndex];
+        document.getElementById('imageCounter').textContent = `${currentIndex + 1} / ${currentGallery.length}`;
+        updateNavButtons();
+    }
+
+    function updateNavButtons() {
+        document.getElementById('prevBtn').style.opacity = currentIndex === 0 ? '0.4' : '1';
+        document.getElementById('nextBtn').style.opacity = currentIndex === currentGallery.length - 1 ? '0.4' : '1';
+    }
+
+    document.getElementById('prevBtn').addEventListener('click', function() {
+        if (!isGalleryMode || currentIndex === 0) return;
+        currentIndex--;
+        document.getElementById('modalImage').src = currentGallery[currentIndex];
+        document.getElementById('imageCounter').textContent = `${currentIndex + 1} / ${currentGallery.length}`;
+        updateNavButtons();
+    });
+
+    document.getElementById('nextBtn').addEventListener('click', function() {
+        if (!isGalleryMode || currentIndex === currentGallery.length - 1) return;
+        currentIndex++;
+        document.getElementById('modalImage').src = currentGallery[currentIndex];
+        document.getElementById('imageCounter').textContent = `${currentIndex + 1} / ${currentGallery.length}`;
+        updateNavButtons();
+    });
+
+    document.getElementById('imageModal').addEventListener('click', function(e) {
+        if (e.target === this) {
+            this.style.display = 'none';
+            isGalleryMode = false;
+            currentGallery = [];
         }
     });
 </script>
