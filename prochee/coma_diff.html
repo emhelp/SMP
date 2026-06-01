@@ -68,7 +68,7 @@
             background: #ffffff;
         }
 
-        /* КРАСНАЯ ПОДСКАЗКА О ПРОКРУТКЕ (оставлена только верхняя, нижнюю убрали) */
+        /* КРАСНАЯ ПОДСКАЗКА О ПРОКРУТКЕ */
         .scroll-hint {
             text-align: center;
             margin-bottom: 12px;
@@ -96,7 +96,7 @@
             margin: 0 6px;
         }
 
-        /* Таблица */
+        /* Таблица — без красной полоски */
         .table-wrapper {
             overflow-x: auto;
             overflow-y: visible;
@@ -105,9 +105,6 @@
             border: 1px solid #e2dccf;
             background: #ffffff;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
-            background: linear-gradient(90deg, #fff 95%, #e6e0d4 100%);
-            background-attachment: local, scroll;
-            position: relative;
         }
 
         .table-wrapper::-webkit-scrollbar {
@@ -120,19 +117,6 @@
         .table-wrapper::-webkit-scrollbar-thumb {
             background: #b99e7c;
             border-radius: 10px;
-        }
-
-        /* визуальный намёк на прокрутку справа */
-        .table-wrapper::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            width: 30px;
-            background: linear-gradient(270deg, rgba(185,28,28,0.08), transparent);
-            pointer-events: none;
-            border-radius: 0 20px 20px 0;
         }
 
         .diagnostic-table {
@@ -222,7 +206,7 @@
 </head>
 <body>
 <div class="document-card">
-    <!-- Шапка: исправлено название (О дифдиагностике комы) -->
+    <!-- Шапка -->
     <div class="hero-header">
         <div class="doc-badge">ИНФОРМАЦИОННО-МЕТОДИЧЕСКОЕ ПИСЬМО</div>
         <div class="main-title">О дифдиагностике комы</div>
@@ -230,7 +214,7 @@
     </div>
 
     <div class="content">
-        <!-- КРАСНАЯ ПОДСКАЗКА — указывает, что таблицу можно прокручивать (только верхняя) -->
+        <!-- КРАСНАЯ ПОДСКАЗКА — указывает, что таблицу можно прокручивать -->
         <div class="scroll-hint">
             <span>👉</span> Прокрутите таблицу вправо → здесь больше столбцов <span>👈</span>
         </div>
@@ -382,7 +366,6 @@
             * Астериксис – «негативный миоклонус» – гиперкинез, возникающий в результате кратковременного, внезапного прерывания мышечного тонуса.<br>
             ** Катиноны – класс наркотических веществ, оказывающих стимулирующее действие на ЦНС.
         </div>
-        <!-- Нижняя подсказка "↔️ Горизонтальная прокрутка активна..." полностью убрана -->
     </div>
 </div>
 </body>
