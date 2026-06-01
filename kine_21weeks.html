@@ -665,7 +665,7 @@
     </div>
 </div>
 
-<!-- НОВОЕ МОДАЛЬНОЕ ОКНО (Острые кишечные инфекции) -->
+<!-- НОВОЕ МОДАЛЬНОЕ ОКНО (Острые кишечные инфекции) с активными ссылками на Приложения -->
 <div class="modal-overlay" id="algorithmModal">
     <div class="modal-container">
         <div class="modal-header">
@@ -681,7 +681,7 @@
                 </div>
 
                 <ul class="list-styled">
-                    <li>Оценка степени дегидратации <span class="italic-bold-ref">(см. «Приложение 28»)</span></li>
+                    <li>Оценка степени дегидратации <a href="#" class="italic-bold-ref" onclick="openImage('../Дегидратация взрослые.png'); return false;">(см. «Приложение 28»)</a></li>
                     <li><span class="drug-name">Активированный уголь 5000 мг</span> размешать в воде, принять внутрь</li>
                 </ul>
 
@@ -730,7 +730,7 @@
                 </div>
 
                 <ul class="list-styled">
-                    <li>Оценка степени дегидратации <span class="italic-bold-ref">(см. «Приложение 29»)</span></li>
+                    <li>Оценка степени дегидратации <a href="#" class="italic-bold-ref" onclick="openImage('../Дегидратация дети.png'); return false;">(см. «Приложение 29»)</a></li>
                     <li><span class="drug-name">Активированный уголь 0,05 г/кг</span> или <span class="drug-name">Лигнин гидролизный</span> <span class="bold-black">до 1 года</span> – по 1 ч.ложке на прием, <span class="bold-black">1–7 лет</span> – по 1 дес. ложке, <span class="bold-black">7 лет и старше</span> – по 1 ст. ложке размешать в воде, принять внутрь</li>
                 </ul>
 
@@ -776,6 +776,17 @@
     </div>
 </div>
 
+<!-- Модальное окно для изображений -->
+<div id="imageModal" class="modal" style="display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.9); justify-content: center; align-items: center; flex-direction: column;">
+  <button onclick="document.getElementById('imageModal').style.display='none'; isGalleryMode=false; currentGallery=[];" style="position: absolute; top: 20px; right: 35px; color: #fff; font-size: 40px; font-weight: bold; cursor: pointer; background: none; border: none; z-index: 2001;">&times;</button>
+  <img id="modalImage" style="max-width: 90%; max-height: 70%; object-fit: contain;">
+  <div id="navContainer" style="position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); display: none; gap: 30px; align-items: center; justify-content: center; background-color: rgba(0,0,0,0.5); padding: 6px 20px; border-radius: 40px; z-index: 2001;">
+    <button id="prevBtn" style="background-color: transparent; color: white; font-size: 28px; font-weight: bold; border: none; cursor: pointer; padding: 0 12px;">❮</button>
+    <span id="imageCounter" style="color: white; background-color: rgba(0,0,0,0.6); padding: 4px 12px; border-radius: 20px; font-size: 14px; font-weight: bold;">1 / 2</span>
+    <button id="nextBtn" style="background-color: transparent; color: white; font-size: 28px; font-weight: bold; border: none; cursor: pointer; padding: 0 12px;">❯</button>
+  </div>
+</div>
+
 <script>
     const modal = document.getElementById('algorithmModal');
     const openBtn = document.getElementById('openAlgorithmBtn');
@@ -801,6 +812,59 @@
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && modal.classList.contains('active')) {
             closeModal();
+        }
+    });
+
+    // Скрипт для галереи изображений
+    let currentGallery = [];
+    let currentIndex = 0;
+    let isGalleryMode = false;
+
+    function openImage(imagePath) {
+        isGalleryMode = false;
+        currentGallery = [];
+        document.getElementById('navContainer').style.display = 'none';
+        document.getElementById('imageModal').style.display = 'flex';
+        document.getElementById('modalImage').src = imagePath;
+    }
+
+    function openImageGallery(images) {
+        isGalleryMode = true;
+        currentGallery = images;
+        currentIndex = 0;
+        document.getElementById('navContainer').style.display = 'flex';
+        document.getElementById('imageModal').style.display = 'flex';
+        document.getElementById('modalImage').src = currentGallery[currentIndex];
+        document.getElementById('imageCounter').textContent = `${currentIndex + 1} / ${currentGallery.length}`;
+        updateNavButtons();
+    }
+
+    function updateNavButtons() {
+        document.getElementById('prevBtn').style.opacity = currentIndex === 0 ? '0.4' : '1';
+        document.getElementById('nextBtn').style.opacity = currentIndex === currentGallery.length - 1 ? '0.4' : '1';
+    }
+
+    document.getElementById('prevBtn').addEventListener('click', function() {
+        if (!isGalleryMode || currentIndex === 0) return;
+        currentIndex--;
+        document.getElementById('modalImage').src = currentGallery[currentIndex];
+        document.getElementById('imageCounter').textContent = `${currentIndex + 1} / ${currentGallery.length}`;
+        updateNavButtons();
+    });
+
+    document.getElementById('nextBtn').addEventListener('click', function() {
+        if (!isGalleryMode || currentIndex === currentGallery.length - 1) return;
+        currentIndex++;
+        document.getElementById('modalImage').src = currentGallery[currentIndex];
+        document.getElementById('imageCounter').textContent = `${currentIndex + 1} / ${currentGallery.length}`;
+        updateNavButtons();
+    });
+
+    document.getElementById('imageModal').addEventListener('click', function(e) {
+        if (e.target === this) {
+            this.style.display = 'none';
+            isGalleryMode = false;
+            currentGallery = [];
         }
     });
 </script>
