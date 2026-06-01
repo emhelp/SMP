@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>Калькулятор инфузии нитроглицерина | Капельно</title>
+    <title>Калькулятор инфузии нитроглицерина</title>
     
     <!-- PWA -->
     <link rel="manifest" href="manifest.json">
@@ -27,7 +27,7 @@
         }
 
         .calculator-card {
-            max-width: 800px;
+            max-width: 900px;
             width: 100%;
             margin: 0 auto;
             background: #ffffff;
@@ -67,6 +67,73 @@
 
         .card-content {
             padding: 2rem;
+        }
+
+        .tabs-wrapper {
+            margin-bottom: 1.5rem;
+        }
+
+        .tabs-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #1f4a66;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tabs-label::before {
+            content: "💊";
+            font-size: 1rem;
+        }
+
+        .nav-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .tab-btn {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border: 2px solid #cbdde6;
+            padding: 10px 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #1f4a66;
+            cursor: pointer;
+            border-radius: 60px;
+            transition: all 0.25s ease;
+            font-family: inherit;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            flex: 0 0 auto;
+        }
+
+        .tab-btn:hover {
+            background: linear-gradient(135deg, #e8f0f5 0%, #dfeaf0 100%);
+            border-color: #1f6e9c;
+            transform: translateY(-2px);
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, #1f6e9c 0%, #155a80 100%);
+            border-color: #ffc107;
+            color: white;
+            box-shadow: 0 4px 12px rgba(31,110,156,0.4);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fade 0.25s ease;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        @keyframes fade {
+            from { opacity: 0; transform: translateY(8px);}
+            to { opacity: 1; transform: translateY(0);}
         }
 
         .card {
@@ -134,16 +201,6 @@
             transition: all 0.25s ease;
             background: white;
             color: #1f3a4b;
-        }
-
-        .input-field input:hover {
-            border-color: #1f6e9c;
-        }
-
-        .input-field input:focus {
-            outline: none;
-            border-color: #1f6e9c;
-            box-shadow: 0 0 0 3px rgba(31,110,156,0.1);
         }
 
         .result-table-wrapper {
@@ -309,6 +366,12 @@
             .card-content {
                 padding: 1rem;
             }
+            .tab-btn {
+                padding: 8px 12px;
+                font-size: 0.7rem;
+                flex: 1;
+                justify-content: center;
+            }
             .card {
                 padding: 1.2rem;
             }
@@ -331,91 +394,164 @@
     <div class="card-header">
         <h1>
             💊 Калькулятор инфузии нитроглицерина
-            <span>капельно</span>
+            <span>капельно / шприцевой насос</span>
         </h1>
-        <p>Расчет скорости капельной инфузии нитроглицерина. ⭐ — выделены наиболее часто используемые в клинической практике скорости.</p>
+        <p>Расчет скорости инфузии нитроглицерина (шприц 10 мл, 20 мл, 50 мл и капельно). ⭐ — выделены наиболее часто используемые скорости.</p>
     </div>
     <div class="card-content">
-        <!-- КРАСНОЕ ПРЕДУПРЕЖДЕНИЕ ВВЕРХУ -->
         <div class="important-red">
             <strong>⚠️ ВАЖНО ⚠️</strong><br>
             🚨 <strong>НИТРОГЛИЦЕРИН РАЗВОДИТЬ ТОЛЬКО 0,9% РАСТВОРОМ НАТРИЯ ХЛОРИДА ИЛИ 5% ДЕКСТРОЗОЙ (5% ГЛЮКОЗОЙ)!</strong> 🚨
         </div>
 
-        <div class="card">
-            <div class="card-title">📊 Капельная инфузия нитроглицерина</div>
-            <div class="dilution-warning">
-                🔴 <strong>РАЗВЕДЕНИЕ С 5% ДЕКСТРОЗОЙ (ГЛЮКОЗА) ИЛИ 0,9% РАСТВОРОМ НАТРИЯ ХЛОРИДА:</strong><br>
-                1 ампула 10 мл (10 мг) + <strong class="red-text">5% ДЕКСТРОЗА ИЛИ 0,9% НАТРИЯ ХЛОРИД</strong> до 250 мл → концентрация 0,04 мг/мл (10 мг/250 мл)<br>
-                или 2 ампулы по 10 мл (20 мг) + <strong class="red-text">5% ДЕКСТРОЗА ИЛИ 0,9% НАТРИЯ ХЛОРИД</strong> до 500 мл → концентрация 0,04 мг/мл (20 мг/500 мл)
-            </div>
-            <div class="info-note">
-                <strong>📌 Разведение (с 5% декстрозой или 0,9% раствором натрия хлорида):</strong> Нитроглицерин 10 мг (1 ампула 10 мл) + 5% Декстроза (Глюкоза) или 0,9% Натрия хлорид до 250 мл <strong>ИЛИ</strong> 20 мг (2 ампулы) до 500 мл.<br>
-                <strong>⚙️ Концентрация:</strong> 0,04 мг/мл (40 мкг/мл)<br>
-                <strong>⚙️ Единица измерения:</strong> капли в минуту (20 капель = 1 мл)<br>
-                <span class="red-text">✅ Разрешено: 5% ДЕКСТРОЗА ИЛИ 0,9% РАСТВОР НАТРИЯ ХЛОРИДА!</span>
-            </div>
-
-            <div class="param-group">
-                <div class="param-label">⚙️ Выберите способ расчета:</div>
-                <div class="input-row">
-                    <div class="input-field">
-                        <label>Расчет по скорости (мг/час)</label>
-                        <input type="number" id="mgPerHour" value="5" step="1" min="1" max="20" placeholder="мг/час">
-                    </div>
-                </div>
-            </div>
-
-            <div class="result-table-wrapper">
-                <table class="result-table" id="calcTable">
-                    <thead>
-                        <tr><th>Скорость инфузии (мг/час)</th>
-                            <th>Скорость инфузии (капли/мин)</th>
-                        </tr>
-                    </thead>
-                    <tbody id="calcTableBody">
-                        <tr>
-                            <td id="mgValue">5 мг/час</td>
-                            <td id="dropsValue" class="highlight-speed">— кап/мин</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="speed-note">
-                ⭐ <strong>Часто используемые скорости:</strong> 2–10 мг/час — стандартный диапазон для инфузии нитроглицерина.
+        <div class="tabs-wrapper">
+            <div class="tabs-label">Способ введения:</div>
+            <div class="nav-tabs">
+                <button class="tab-btn active" data-tab="syringe10">💉 Шприц 10 мл</button>
+                <button class="tab-btn" data-tab="syringe20">💉 Шприц 20 мл</button>
+                <button class="tab-btn" data-tab="syringe50">💊 Шприц 50 мл</button>
+                <button class="tab-btn" data-tab="drip">💧 Капельная инфузия</button>
             </div>
         </div>
 
-        <!-- Справочная таблица -->
-        <div class="card">
-            <div class="card-title">📋 Справочная таблица (мг/час → капли/мин)</div>
-            <div class="info-note">
-                <strong>Концентрация:</strong> 0,04 мг/мл (40 мкг/мл).<br>
-                <strong>Формула:</strong> капли/мин = мг/час × 8 (при 20 кап/мл и концентрации 0,04 мг/мл)
+        <!-- Шприц 10 мл -->
+        <div id="syringe10" class="tab-content active">
+            <div class="card">
+                <div class="card-title">📊 Шприцевой насос | Шприц 10 мл</div>
+                <div class="dilution-warning">
+                    🔴 <strong>РАЗВЕДЕНИЕ:</strong> Нитроглицерин 5 мг (0,5 мл) + <strong class="red-text">5% ДЕКСТРОЗА ИЛИ 0,9% НАТРИЯ ХЛОРИД</strong> до 10 мл → концентрация 0,5 мг/мл (500 мкг/мл)
+                </div>
+                <div class="info-note">
+                    <strong>📌 Разведение:</strong> Нитроглицерин 5 мг (0,5 мл) + растворитель до 10 мл → концентрация 0,5 мг/мл (500 мкг/мл).<br>
+                    <strong>⚙️ Единица измерения:</strong> мл/час<br>
+                    <strong>📌 Диапазон доз:</strong> 0,6–12 мг/час (1–20 мкг/мин)
+                </div>
+                <div class="param-group">
+                    <div class="param-label">⚙️ Расчет скорости (мг/час)</div>
+                    <div class="input-row">
+                        <div class="input-field">
+                            <label>Скорость (мг/час)</label>
+                            <input type="number" id="mgPerHour10" value="5" step="1" min="0.5" max="24" placeholder="мг/час">
+                        </div>
+                    </div>
+                </div>
+                <div class="result-table-wrapper">
+                    <table class="result-table">
+                        <thead><tr><th>Скорость инфузии (мг/час)</th><th>Скорость инфузии (мл/час)</th></tr></thead>
+                        <tbody>
+                            <tr><td id="mgValue10">5 мг/час</td><td id="mlValue10" class="highlight-speed">— мл/час</td>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="speed-note">
+                    ⭐ <strong>Формула:</strong> мл/час = мг/час / 0,5
+                </div>
             </div>
-            <div class="result-table-wrapper">
-                <table class="result-table">
-                    <thead>
-                        <tr>
-                            <th>Скорость (мг/час)</th>
-                            <th>Скорость (капли/мин)</th>
-                            <th>⭐ Рекомендация</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>1 мг/час</td><td>8 кап/мин</td><td>Низкая доза</td></tr>
-                        <tr><td>2 мг/час</td><td>16 кап/мин</td><td>Низкая доза</td></tr>
-                        <tr><td>3 мг/час</td><td>24 кап/мин</td><td>Средняя доза</td></tr>
-                        <tr><td class="highlight-speed">4 мг/час</td><td class="highlight-speed">32 кап/мин</td><td class="highlight-speed">⭐ Часто используется</td></tr>
-                        <tr><td class="highlight-speed">5 мг/час</td><td class="highlight-speed">40 кап/мин</td><td class="highlight-speed">⭐ Часто используется</td></tr>
-                        <tr><td>6 мг/час</td><td>48 кап/мин</td><td>Средняя доза</td></tr>
-                        <tr><td>7 мг/час</td><td>56 кап/мин</td><td>Высокая доза</td></tr>
-                        <tr><td>8 мг/час</td><td>64 кап/мин</td><td>Высокая доза</td></tr>
-                        <tr><td>9 мг/час</td><td>72 кап/мин</td><td>Высокая доза</td></tr>
-                        <tr><td>10 мг/час</td><td>80 кап/мин</td><td>Максимальная доза</td></tr>
-                    </tbody>
-                </table>
+        </div>
+
+        <!-- Шприц 20 мл -->
+        <div id="syringe20" class="tab-content">
+            <div class="card">
+                <div class="card-title">📊 Шприцевой насос | Шприц 20 мл</div>
+                <div class="dilution-warning">
+                    🔴 <strong>РАЗВЕДЕНИЕ:</strong> Нитроглицерин 10 мг (1 мл) + <strong class="red-text">5% ДЕКСТРОЗА ИЛИ 0,9% НАТРИЯ ХЛОРИД</strong> до 20 мл → концентрация 0,5 мг/мл (500 мкг/мл)
+                </div>
+                <div class="info-note">
+                    <strong>📌 Разведение:</strong> Нитроглицерин 10 мг (1 мл) + растворитель до 20 мл → концентрация 0,5 мг/мл (500 мкг/мл).<br>
+                    <strong>⚙️ Единица измерения:</strong> мл/час<br>
+                    <strong>📌 Диапазон доз:</strong> 0,6–12 мг/час (1–20 мкг/мин)
+                </div>
+                <div class="param-group">
+                    <div class="param-label">⚙️ Расчет скорости (мг/час)</div>
+                    <div class="input-row">
+                        <div class="input-field">
+                            <label>Скорость (мг/час)</label>
+                            <input type="number" id="mgPerHour20" value="5" step="1" min="0.5" max="24" placeholder="мг/час">
+                        </div>
+                    </div>
+                </div>
+                <div class="result-table-wrapper">
+                    <table class="result-table">
+                        <thead><tr><th>Скорость инфузии (мг/час)</th><th>Скорость инфузии (мл/час)</th></tr></thead>
+                        <tbody>
+                            <tr><td id="mgValue20">5 мг/час</td><td id="mlValue20" class="highlight-speed">— мл/час</td>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="speed-note">
+                    ⭐ <strong>Формула:</strong> мл/час = мг/час / 0,5
+                </div>
+            </div>
+        </div>
+
+        <!-- Шприц 50 мл -->
+        <div id="syringe50" class="tab-content">
+            <div class="card">
+                <div class="card-title">📊 Шприцевой насос | Шприц 50 мл</div>
+                <div class="dilution-warning">
+                    🔴 <strong>РАЗВЕДЕНИЕ:</strong> Нитроглицерин 20 мг (2 мл) + <strong class="red-text">5% ДЕКСТРОЗА ИЛИ 0,9% НАТРИЯ ХЛОРИД</strong> до 50 мл → концентрация 0,4 мг/мл (400 мкг/мл)
+                </div>
+                <div class="info-note">
+                    <strong>📌 Разведение:</strong> Нитроглицерин 20 мг (2 мл) + растворитель до 50 мл → концентрация 0,4 мг/мл (400 мкг/мл).<br>
+                    <strong>⚙️ Единица измерения:</strong> мл/час<br>
+                    <strong>📌 Диапазон доз:</strong> 0,6–12 мг/час (1–20 мкг/мин)
+                </div>
+                <div class="param-group">
+                    <div class="param-label">⚙️ Расчет скорости (мг/час)</div>
+                    <div class="input-row">
+                        <div class="input-field">
+                            <label>Скорость (мг/час)</label>
+                            <input type="number" id="mgPerHour50" value="5" step="1" min="0.5" max="24" placeholder="мг/час">
+                        </div>
+                    </div>
+                </div>
+                <div class="result-table-wrapper">
+                    <table class="result-table">
+                        <thead><tr><th>Скорость инфузии (мг/час)</th><th>Скорость инфузии (мл/час)</th></tr></thead>
+                        <tbody>
+                            <tr><td id="mgValue50">5 мг/час</td><td id="mlValue50" class="highlight-speed">— мл/час</td>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="speed-note">
+                    ⭐ <strong>Формула:</strong> мл/час = мг/час / 0,4
+                </div>
+            </div>
+        </div>
+
+        <!-- Капельная инфузия -->
+        <div id="drip" class="tab-content">
+            <div class="card">
+                <div class="card-title">📊 Капельная инфузия</div>
+                <div class="dilution-warning">
+                    🔴 <strong>РАЗВЕДЕНИЕ:</strong> Нитроглицерин 10 мг (1 мл) + <strong class="red-text">5% ДЕКСТРОЗА ИЛИ 0,9% НАТРИЯ ХЛОРИД</strong> до 250 мл → концентрация 0,04 мг/мл (40 мкг/мл)<br>
+                    или 20 мг (2 мл) до 500 мл → концентрация 0,04 мг/мл (40 мкг/мл)
+                </div>
+                <div class="info-note">
+                    <strong>📌 Разведение:</strong> Нитроглицерин 10 мг (1 мл) + растворитель до 250 мл → концентрация 0,04 мг/мл (40 мкг/мл).<br>
+                    <strong>⚙️ Единица измерения:</strong> капли в минуту (20 капель = 1 мл)<br>
+                    <strong>📌 Диапазон доз:</strong> 0,6–12 мг/час (1–20 мкг/мин)
+                </div>
+                <div class="param-group">
+                    <div class="param-label">⚙️ Расчет скорости (мг/час)</div>
+                    <div class="input-row">
+                        <div class="input-field">
+                            <label>Скорость (мг/час)</label>
+                            <input type="number" id="mgPerHourDrip" value="5" step="1" min="1" max="20" placeholder="мг/час">
+                        </div>
+                    </div>
+                </div>
+                <div class="result-table-wrapper">
+                    <table class="result-table">
+                        <thead><tr><th>Скорость инфузии (мг/час)</th><th>Скорость инфузии (капли/мин)</th></tr></thead>
+                        <tbody>
+                            <tr><td id="mgValueDrip">5 мг/час</td><td id="dropsValue" class="highlight-speed">— кап/мин</td>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="speed-note">
+                    ⭐ <strong>Формула:</strong> капли/мин = мг/час × 8
+                </div>
             </div>
         </div>
 
@@ -436,31 +572,69 @@
 
         <div class="footnote">
             ⚕️ Расчеты основаны на стандартных протоколах инфузии нитроглицерина с разведением на 5% ДЕКСТРОЗЕ (ГЛЮКОЗА) ИЛИ 0,9% РАСТВОРЕ НАТРИЯ ХЛОРИДА.<br>
-            <strong>📌 Концентрация:</strong> 0,04 мг/мл (40 мкг/мл) — 10 мг в 250 мл 5% декстрозы или 0,9% Натрия хлорид, либо 20 мг в 500 мл 5% декстрозы или 0,9% Натрия хлорид<br>
-            <strong>📌 Формула расчета:</strong> капли/мин = мг/час × 8
+            <strong>📌 Концентрации:</strong> Шприц 10 мл — 0,5 мг/мл (5 мг в 10 мл); Шприц 20 мл — 0,5 мг/мл (10 мг в 20 мл); Шприц 50 мл — 0,4 мг/мл (20 мг в 50 мл); Капельно — 0,04 мг/мл (10 мг в 250 мл или 20 мг в 500 мл)<br>
+            <strong>📌 Формулы расчета:</strong> мл/час (шприц 10/20 мл) = мг/час / 0,5; мл/час (шприц 50 мл) = мг/час / 0,4; капли/мин = мг/час × 8
         </div>
     </div>
 </div>
 
 <script>
-    const CONCENTRATION_MG_ML = 0.04;
+    // Константы
+    const CONCENTRATION_SYRINGE_10_20 = 0.5;  // 0,5 мг/мл
+    const CONCENTRATION_SYRINGE_50 = 0.4;     // 0,4 мг/мл
+    const CONCENTRATION_DRIP = 0.04;          // 0,04 мг/мл
     const DROPS_PER_ML = 20;
     
-    function mgPerHourToDrops(mgPerHour) {
-        return mgPerHour * (1000 * DROPS_PER_ML) / (CONCENTRATION_MG_ML * 1000 * 60);
-    }
-    
-    function updateCalculator() {
-        let mgPerHour = parseFloat(document.getElementById('mgPerHour').value);
+    function updateSyringe10() {
+        let mgPerHour = parseFloat(document.getElementById('mgPerHour10').value);
         if (isNaN(mgPerHour)) mgPerHour = 5;
         mgPerHour = Math.min(Math.max(mgPerHour, 0.5), 50);
-        
-        const drops = mgPerHourToDrops(mgPerHour);
+        const mlPerHour = mgPerHour / CONCENTRATION_SYRINGE_10_20;
+        document.getElementById('mgValue10').textContent = `${mgPerHour.toFixed(1)} мг/час`;
+        document.getElementById('mlValue10').textContent = `${mlPerHour.toFixed(1)} мл/час`;
+        if (mgPerHour >= 2 && mgPerHour <= 10) {
+            document.getElementById('mlValue10').classList.add('highlight-speed');
+        } else {
+            document.getElementById('mlValue10').classList.remove('highlight-speed');
+        }
+    }
+    
+    function updateSyringe20() {
+        let mgPerHour = parseFloat(document.getElementById('mgPerHour20').value);
+        if (isNaN(mgPerHour)) mgPerHour = 5;
+        mgPerHour = Math.min(Math.max(mgPerHour, 0.5), 50);
+        const mlPerHour = mgPerHour / CONCENTRATION_SYRINGE_10_20;
+        document.getElementById('mgValue20').textContent = `${mgPerHour.toFixed(1)} мг/час`;
+        document.getElementById('mlValue20').textContent = `${mlPerHour.toFixed(1)} мл/час`;
+        if (mgPerHour >= 2 && mgPerHour <= 10) {
+            document.getElementById('mlValue20').classList.add('highlight-speed');
+        } else {
+            document.getElementById('mlValue20').classList.remove('highlight-speed');
+        }
+    }
+    
+    function updateSyringe50() {
+        let mgPerHour = parseFloat(document.getElementById('mgPerHour50').value);
+        if (isNaN(mgPerHour)) mgPerHour = 5;
+        mgPerHour = Math.min(Math.max(mgPerHour, 0.5), 50);
+        const mlPerHour = mgPerHour / CONCENTRATION_SYRINGE_50;
+        document.getElementById('mgValue50').textContent = `${mgPerHour.toFixed(1)} мг/час`;
+        document.getElementById('mlValue50').textContent = `${mlPerHour.toFixed(1)} мл/час`;
+        if (mgPerHour >= 2 && mgPerHour <= 10) {
+            document.getElementById('mlValue50').classList.add('highlight-speed');
+        } else {
+            document.getElementById('mlValue50').classList.remove('highlight-speed');
+        }
+    }
+    
+    function updateDrip() {
+        let mgPerHour = parseFloat(document.getElementById('mgPerHourDrip').value);
+        if (isNaN(mgPerHour)) mgPerHour = 5;
+        mgPerHour = Math.min(Math.max(mgPerHour, 0.5), 50);
+        const drops = mgPerHour * (1000 * DROPS_PER_ML) / (CONCENTRATION_DRIP * 1000 * 60);
         const roundedDrops = Math.round(drops * 10) / 10;
-        
-        document.getElementById('mgValue').textContent = `${mgPerHour.toFixed(1)} мг/час`;
+        document.getElementById('mgValueDrip').textContent = `${mgPerHour.toFixed(1)} мг/час`;
         document.getElementById('dropsValue').textContent = `${roundedDrops} кап/мин`;
-        
         if (mgPerHour >= 2 && mgPerHour <= 10) {
             document.getElementById('dropsValue').classList.add('highlight-speed');
         } else {
@@ -468,15 +642,46 @@
         }
     }
     
-    function resetToDefault() {
-        document.getElementById('mgPerHour').value = '5';
-        updateCalculator();
+    function resetAll() {
+        document.getElementById('mgPerHour10').value = '5';
+        document.getElementById('mgPerHour20').value = '5';
+        document.getElementById('mgPerHour50').value = '5';
+        document.getElementById('mgPerHourDrip').value = '5';
+        updateSyringe10();
+        updateSyringe20();
+        updateSyringe50();
+        updateDrip();
     }
     
-    document.getElementById('mgPerHour').addEventListener('input', updateCalculator);
-    document.getElementById('resetBtn').addEventListener('click', resetToDefault);
+    function activateTab(tabId) {
+        const contents = document.querySelectorAll('.tab-content');
+        contents.forEach(content => {
+            content.classList.remove('active');
+            if (content.id === tabId) content.classList.add('active');
+        });
+        const tabs = document.querySelectorAll('.tab-btn');
+        tabs.forEach(btn => {
+            btn.classList.remove('active');
+            if (btn.getAttribute('data-tab') === tabId) btn.classList.add('active');
+        });
+    }
     
-    updateCalculator();
+    document.getElementById('mgPerHour10').addEventListener('input', updateSyringe10);
+    document.getElementById('mgPerHour20').addEventListener('input', updateSyringe20);
+    document.getElementById('mgPerHour50').addEventListener('input', updateSyringe50);
+    document.getElementById('mgPerHourDrip').addEventListener('input', updateDrip);
+    document.getElementById('resetBtn').addEventListener('click', resetAll);
+    
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            activateTab(btn.getAttribute('data-tab'));
+        });
+    });
+    
+    updateSyringe10();
+    updateSyringe20();
+    updateSyringe50();
+    updateDrip();
     
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('/SMP/sw.js')
