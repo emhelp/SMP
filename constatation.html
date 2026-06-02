@@ -1,88 +1,108 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Констатация</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Констатация</title>
 
-  <style>
-    body {
-      font-family: 'Segoe UI', 'Roboto', sans-serif;
-      margin: 0;
-      padding: 20px;
-      background: #f5f5f5;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-height: 100vh;
+<!-- PWA -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0f1446">
+
+<style>
+  body {
+    font-family: 'Segoe UI', 'Roboto', sans-serif;
+    margin: 0;
+    padding: 20px;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+  }
+
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #0f1446;
+    font-size: 28px;
+  }
+
+  .constatation-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    max-width: 500px;
+    box-sizing: border-box;
+  }
+
+  .constatation-btn {
+    text-decoration: none;
+    color: white;
+    background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
+    padding: 14px 12px;
+    border-radius: 12px;
+    font-weight: 600;
+    text-align: center;
+    width: 100%;
+    transition: all 0.2s;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+    font-family: inherit;
+    box-sizing: border-box;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    line-height: 1.3;
+  }
+
+  .constatation-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+  }
+
+  .constatation-btn:active {
+    transform: scale(0.98);
+  }
+
+  @media (max-width: 600px) {
+    .constatation-menu {
+      max-width: 95%;
     }
-
+    .constatation-btn {
+      font-size: 13px;
+      padding: 12px 8px;
+    }
     h1 {
-      text-align: center;
-      margin-bottom: 20px;
-      color: #0f1446;
+      font-size: 24px;
     }
-
-    .container {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      width: 100%;
-      max-width: 500px;
-      box-sizing: border-box;
-    }
-
-    .btn {
-      text-decoration: none;
-      color: white;
-      background: #0f1446;
-      padding: 12px 15px;
-      border-radius: 8px;
-      font-weight: 600;
-      text-align: center;
-      width: 100%;
-      transition: background 0.2s;
-      border: none;
-      cursor: pointer;
-      font-size: 1rem;
-      font-family: inherit;
-      box-sizing: border-box;
-    }
-
-    .btn:hover {
-      background: #3949ab;
-    }
-
-    .btn:active {
-      transform: scale(0.98);
-    }
-
-    @media (max-width: 600px) {
-      .container {
-        max-width: 90%;
-      }
-      .btn {
-        font-size: 0.9rem;
-      }
-    }
-  </style>
+  }
+</style>
 </head>
 <body>
 
-<h1>Констатация смерти человека</h1>
+<h1>⚰️ Констатация смерти человека</h1>
 
-<div class="container">
-  <button class="btn" onclick="window.location.href='head-amputation.html'">Ампутация головы</button>
-  <button class="btn" onclick="window.location.href='body-amputation.html'">Ампутация туловища</button>
-  <button class="btn" onclick="window.location.href='more-than-week.html'">Более недели (в лесу)</button>
-  <button class="btn" onclick="window.location.href='more-than-hour.html'">Более 2 часов</button>
-  <button class="btn" onclick="window.location.href='less-than-hour.html'">Менее 2 часов</button>
-  <button class="btn" onclick="window.location.href='week-in-bath.html'">Неделю в ванне с водой</button>
-  <button class="btn" onclick="window.location.href='burned.html'">Обугленный (пожар)</button>
-  <button class="btn" onclick="window.location.href='fall-height.html'">Падение с высоты</button>
-  <button class="btn" onclick="window.location.href='hanging.html'">Повешение</button>
-  <button class="btn" onclick="window.location.href='train-injury.html'">Поездная (травма)</button>
+<div class="constatation-menu">
+  <button class="constatation-btn" onclick="window.location.href='head-amputation.html'">Ампутация головы</button>
+  <button class="constatation-btn" onclick="window.location.href='body-amputation.html'">Ампутация туловища</button>
+  <button class="constatation-btn" onclick="window.location.href='more-than-week.html'">Более недели (в лесу)</button>
+  <button class="constatation-btn" onclick="window.location.href='more-than-hour.html'">Более 2 часов</button>
+  <button class="constatation-btn" onclick="window.location.href='less-than-hour.html'">Менее 2 часов</button>
+  <button class="constatation-btn" onclick="window.location.href='week-in-bath.html'">Неделю в ванне с водой</button>
+  <button class="constatation-btn" onclick="window.location.href='burned.html'">Обугленный (пожар)</button>
+  <button class="constatation-btn" onclick="window.location.href='fall-height.html'">Падение с высоты</button>
+  <button class="constatation-btn" onclick="window.location.href='hanging.html'">Повешение</button>
+  <button class="constatation-btn" onclick="window.location.href='train-injury.html'">Поездная (травма)</button>
 </div>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/SMP/sw.js')
+      .then(reg => console.log('✅ SW зарегистрирован:', reg))
+      .catch(err => console.error('❌ Ошибка:', err));
+  }
+</script>
 
 </body>
 </html>
