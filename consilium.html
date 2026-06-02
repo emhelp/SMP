@@ -1,86 +1,105 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Консилиумы СМП</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', 'Roboto', sans-serif;
-      margin: 0;
-      padding: 20px;
-      background: #f5f5f5;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-height: 100vh;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Консилиумы СМП</title>
 
-    h1 {
-      text-align: center;
-      margin-bottom: 20px;
-      color: #0f1446;
-    }
+<!-- PWA -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0f1446">
 
-    .consilium-container {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      width: 100%;
-      max-width: 500px;
-      box-sizing: border-box;
-    }
+<style>
+  body {
+    font-family: 'Segoe UI', 'Roboto', sans-serif;
+    margin: 0;
+    padding: 20px;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+  }
 
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #0f1446;
+    font-size: 28px;
+  }
+
+  .consilium-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    max-width: 500px;
+    box-sizing: border-box;
+  }
+
+  .consilium-btn {
+    text-decoration: none;
+    color: white;
+    background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
+    padding: 14px 12px;
+    border-radius: 12px;
+    font-weight: 600;
+    text-align: center;
+    width: 100%;
+    transition: all 0.2s;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+    font-family: inherit;
+    box-sizing: border-box;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    line-height: 1.3;
+  }
+
+  .consilium-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+  }
+
+  .consilium-btn:active {
+    transform: scale(0.98);
+  }
+
+  @media (max-width: 600px) {
+    .consilium-menu {
+      max-width: 95%;
+    }
     .consilium-btn {
-      text-decoration: none;
-      color: white;
-      background: #0f1446;
-      padding: 16px 0;
-      border-radius: 8px;
-      font-weight: bold;
-      text-align: center;
-      width: 100%;
-      transition: background 0.2s;
-      border: none;
-      cursor: pointer;
-      font-size: 18px;
-      font-family: inherit;
-      box-sizing: border-box;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      font-size: 13px;
+      padding: 12px 8px;
     }
-
-    .consilium-btn:hover {
-      background: #3949ab;
+    h1 {
+      font-size: 24px;
     }
-
-    .consilium-btn:active {
-      transform: scale(0.98);
-    }
-
-    @media (max-width: 600px) {
-      .consilium-container {
-        max-width: 90%;
-      }
-      .consilium-btn {
-        font-size: 16px;
-        padding: 14px 0;
-      }
-    }
-  </style>
+  }
+</style>
 </head>
 <body>
 
-  <h1>Консилиумы СМП</h1>
+<h1>🏥 Консилиумы СМП</h1>
 
-  <div class="consilium-container">
-    <button class="consilium-btn" onclick="window.location.href='responsible-doctor.html'">С ответственным врачом смены</button>
-    <button class="consilium-btn" onclick="window.open('2026-03-21 18.08.19.jpg', '_blank')">При отказах от медэвакуации на ОКС/ОНМК</button>
-    <button class="consilium-btn" onclick="window.location.href='diagnosis-change.html'">При изменении диагноза на повторном вызове</button>
-    <button class="consilium-btn" onclick="window.location.href='obstetrician.html'">С акушером-гинекологом</button>
-    <button class="consilium-btn" onclick="window.location.href='psychiatrist.html'">С психиатром</button>
-    <button class="consilium-btn" onclick="window.location.href='toxicologist.html'">С токсикологом</button>
-    <button class="consilium-btn" onclick="window.location.href='resuscitator.html'">С реаниматологом</button>
-  </div>
+<div class="consilium-menu">
+  <button class="consilium-btn" onclick="window.location.href='responsible-doctor.html'">С ответственным врачом смены</button>
+  <button class="consilium-btn" onclick="window.open('2026-03-21 18.08.19.jpg', '_blank')">При отказах от медэвакуации на ОКС/ОНМК</button>
+  <button class="consilium-btn" onclick="window.location.href='diagnosis-change.html'">При изменении диагноза на повторном вызове</button>
+  <button class="consilium-btn" onclick="window.location.href='obstetrician.html'">С акушером-гинекологом</button>
+  <button class="consilium-btn" onclick="window.location.href='psychiatrist.html'">С психиатром</button>
+  <button class="consilium-btn" onclick="window.location.href='toxicologist.html'">С токсикологом</button>
+  <button class="consilium-btn" onclick="window.location.href='resuscitator.html'">С реаниматологом</button>
+</div>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/SMP/sw.js')
+      .then(reg => console.log('✅ SW зарегистрирован:', reg))
+      .catch(err => console.error('❌ Ошибка:', err));
+  }
+</script>
 
 </body>
 </html>
