@@ -162,9 +162,12 @@
             margin-top: 0.75rem;
             font-size: 0.95rem;
         }
-        .severity-severe { background: #c62828; color: white; }
-        .severity-moderate { background: #f57c00; color: white; }
-        .severity-mild { background: #2c7a4d; color: white; }
+        .severity-coma3 { background: #4a0000; color: white; }
+        .severity-coma2 { background: #8b0000; color: white; }
+        .severity-coma1 { background: #c62828; color: white; }
+        .severity-sopor { background: #e65100; color: white; }
+        .severity-stupor-deep { background: #f57c00; color: white; }
+        .severity-stupor-mild { background: #ef6c00; color: white; }
         .severity-normal { background: #1f6e9c; color: white; }
 
         .info-card {
@@ -207,11 +210,29 @@
             font-weight: 600;
             color: #b13e2d;
         }
-        hr {
-            margin: 1.5rem 0 0.5rem;
-            border: none;
-            height: 1px;
-            background: #e2e8f0;
+
+        /* Таблица интерпретации */
+        .interpretation-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 12px;
+            font-size: 0.9rem;
+        }
+        .interpretation-table th, .interpretation-table td {
+            padding: 10px 14px;
+            text-align: center;
+            border-bottom: 1px solid #e2ecf3;
+        }
+        .interpretation-table th {
+            background: #1e2f47;
+            color: white;
+            font-weight: 700;
+        }
+        .interpretation-table tr:nth-child(even) {
+            background: #f6fafd;
+        }
+        .interpretation-table tr:hover {
+            background: #eef7ff;
         }
 
         @media (max-width: 680px) {
@@ -229,6 +250,9 @@
             }
             .info-card, .warning-card {
                 padding: 1rem;
+            }
+            .interpretation-table {
+                font-size: 0.75rem;
             }
         }
     </style>
@@ -278,13 +302,20 @@
 
         <div class="info-card">
             <strong>📊 Интерпретация FOUR шкалы комы:</strong>
-            <ul>
-                <li><span class="highlight">16 баллов</span> — сознание ясное, пациент ориентирован</li>
-                <li><span class="highlight">13–15 баллов</span> — умеренное угнетение сознания</li>
-                <li><span class="highlight">9–12 баллов</span> — выраженное угнетение сознания (сопор)</li>
-                <li><span class="highlight">5–8 баллов</span> — глубокая кома</li>
-                <li><span class="highlight">0–4 балла</span> — запредельная кома, возможна смерть мозга</li>
-            </ul>
+            <table class="interpretation-table">
+                <thead>
+                    <tr><th>Количество баллов</th><th>Интерпретация</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>16</strong></td><td>Ясное сознание</td></tr>
+                    <tr><td><strong>15</strong></td><td>Умеренное оглушение</td></tr>
+                    <tr><td><strong>13–14</strong></td><td>Глубокое оглушение</td></tr>
+                    <tr><td><strong>9–12</strong></td><td>Сопор</td></tr>
+                    <tr><td><strong>7–8</strong></td><td>Кома I</td></tr>
+                    <tr><td><strong>1–6</strong></td><td>Кома II</td></tr>
+                    <tr><td><strong>0</strong></td><td>Кома III</td></tr>
+                </tbody>
+            </table>
         </div>
         
         <div class="warning-card">
@@ -294,16 +325,7 @@
                 <li>✅ <span class="highlight">Не зависит от вербального ответа</span> — можно использовать у интубированных пациентов</li>
                 <li>✅ <span class="highlight">Оценивает паттерн дыхания</span> — помогает в диагностике стволовых нарушений</li>
                 <li>✅ Более точная оценка у пациентов с <span class="highlight">афазией, ИВЛ, седацией</span></li>
-                <li>✅ <span class="highlight">0 баллов</span> по стволовым рефлексам + апноэ = признаки смерти мозга</li>
-            </ul>
-        </div>
-
-        <div class="info-card">
-            <strong>📋 Сравнение со шкалой Глазго:</strong>
-            <ul>
-                <li>FOUR <span class="highlight">0 баллов</span> ≈ GCS <span class="highlight">3 балла</span> (запредельная кома)</li>
-                <li>FOUR <span class="highlight">16 баллов</span> ≈ GCS <span class="highlight">15 баллов</span> (ясное сознание)</li>
-                <li>FOUR <span class="highlight">≤ 8</span> — показание к интубации (аналогично GCS ≤ 8)</li>
+                <li>✅ <span class="highlight">0 баллов</span> по стволовым рефлексам + апноэ = Кома III (признаки смерти мозга)</li>
             </ul>
         </div>
 
@@ -311,7 +333,6 @@
 </div>
 
 <script>
-    // Данные FOUR шкалы
     const eyeOptions = [
         { text: "Открывает глаза, следит взглядом за предметом/выполняет команду", score: 4 },
         { text: "Открывает глаза спонтанно, но не следит взглядом", score: 3 },
@@ -393,21 +414,27 @@
         const severityDiv = document.getElementById('severity-badge');
         let severityClass = '', severityText = '';
         
-        if (total <= 4) {
-            severityClass = 'severity-severe';
-            severityText = 'Запредельная кома (0–4) — возможна смерть мозга';
+        if (total === 0) {
+            severityClass = 'severity-coma3';
+            severityText = 'Кома III (0)';
+        } else if (total <= 6) {
+            severityClass = 'severity-coma2';
+            severityText = 'Кома II (1–6)';
         } else if (total <= 8) {
-            severityClass = 'severity-severe';
-            severityText = 'Глубокая кома (5–8) — показана интубация';
+            severityClass = 'severity-coma1';
+            severityText = 'Кома I (7–8)';
         } else if (total <= 12) {
-            severityClass = 'severity-moderate';
-            severityText = 'Выраженное угнетение (9–12) — сопор';
-        } else if (total <= 15) {
-            severityClass = 'severity-mild';
-            severityText = 'Умеренное угнетение (13–15) — оглушение';
+            severityClass = 'severity-sopor';
+            severityText = 'Сопор (9–12)';
+        } else if (total <= 14) {
+            severityClass = 'severity-stupor-deep';
+            severityText = 'Глубокое оглушение (13–14)';
+        } else if (total === 15) {
+            severityClass = 'severity-stupor-mild';
+            severityText = 'Умеренное оглушение (15)';
         } else {
             severityClass = 'severity-normal';
-            severityText = 'Ясное сознание (16) — норма';
+            severityText = 'Ясное сознание (16)';
         }
         
         severityDiv.className = `severity-badge ${severityClass}`;
