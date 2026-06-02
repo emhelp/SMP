@@ -407,7 +407,7 @@
                     <div class="input-row">
                         <div class="input-field">
                             <label>Скорость (мг/час)</label>
-                            <input type="number" id="mgPerHour10" value="5" step="1" min="0.5" max="24" placeholder="мг/час">
+                            <input type="number" id="mgPerHour10" value="5" step="0.1" min="0.6" max="24" placeholder="мг/час">
                         </div>
                     </div>
                 </div>
@@ -415,7 +415,7 @@
                     <table class="result-table">
                         <thead><tr><th>Скорость инфузии (мг/час)</th><th>Скорость инфузии (мл/час)</th></tr></thead>
                         <tbody>
-                            <tr><td id="mgValue10">5 мг/час</td><td id="mlValue10" class="highlight-speed">— мл/час</td>
+                            <tr><td id="mgValue10">5 мг/час</td><td id="mlValue10" class="highlight-speed">— мл/час</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -436,7 +436,7 @@
                     <div class="input-row">
                         <div class="input-field">
                             <label>Скорость (мг/час)</label>
-                            <input type="number" id="mgPerHour20" value="5" step="1" min="0.5" max="24" placeholder="мг/час">
+                            <input type="number" id="mgPerHour20" value="5" step="0.1" min="0.6" max="24" placeholder="мг/час">
                         </div>
                     </div>
                 </div>
@@ -444,7 +444,7 @@
                     <table class="result-table">
                         <thead><tr><th>Скорость инфузии (мг/час)</th><th>Скорость инфузии (мл/час)</th></tr></thead>
                         <tbody>
-                            <tr><td id="mgValue20">5 мг/час</td><td id="mlValue20" class="highlight-speed">— мл/час</td>
+                            <tr><td id="mgValue20">5 мг/час</td><td id="mlValue20" class="highlight-speed">— мл/час</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -465,7 +465,7 @@
                     <div class="input-row">
                         <div class="input-field">
                             <label>Скорость (мг/час)</label>
-                            <input type="number" id="mgPerHour50" value="5" step="1" min="0.5" max="24" placeholder="мг/час">
+                            <input type="number" id="mgPerHour50" value="5" step="0.1" min="0.6" max="24" placeholder="мг/час">
                         </div>
                     </div>
                 </div>
@@ -473,7 +473,7 @@
                     <table class="result-table">
                         <thead><tr><th>Скорость инфузии (мг/час)</th><th>Скорость инфузии (мл/час)</th></tr></thead>
                         <tbody>
-                            <tr><td id="mgValue50">5 мг/час</td><td id="mlValue50" class="highlight-speed">— мл/час</td>
+                            <tr><td id="mgValue50">5 мг/час</td><td id="mlValue50" class="highlight-speed">— мл/час</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -494,7 +494,7 @@
                     <div class="input-row">
                         <div class="input-field">
                             <label>Скорость (мг/час)</label>
-                            <input type="number" id="mgPerHourDrip" value="5" step="1" min="1" max="20" placeholder="мг/час">
+                            <input type="number" id="mgPerHourDrip" value="5" step="0.1" min="0.6" max="24" placeholder="мг/час">
                         </div>
                     </div>
                 </div>
@@ -502,7 +502,7 @@
                     <table class="result-table">
                         <thead><tr><th>Скорость инфузии (мг/час)</th><th>Скорость инфузии (капли/мин)</th></tr></thead>
                         <tbody>
-                            <tr><td id="mgValueDrip">5 мг/час</td><td id="dropsValue" class="highlight-speed">— кап/мин</td>
+                            <tr><td id="mgValueDrip">5 мг/час</td><td id="dropsValue" class="highlight-speed">— кап/мин</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -532,62 +532,37 @@
 </div>
 
 <script>
-    // Константы
-    const CONCENTRATION_SYRINGE_10_20 = 0.5;  // 0,5 мг/мл
-    const CONCENTRATION_SYRINGE_50 = 0.4;     // 0,4 мг/мл
-    const CONCENTRATION_DRIP = 0.04;          // 0,04 мг/мл
+    const CONC_10_20 = 0.5;   // мг/мл
+    const CONC_50 = 0.4;      // мг/мл
+    const CONC_DRIP = 0.04;   // мг/мл
     const DROPS_PER_ML = 20;
     
-    function updateSyringe10() {
-        let mgPerHour = parseFloat(document.getElementById('mgPerHour10').value);
-        if (isNaN(mgPerHour)) mgPerHour = 5;
-        mgPerHour = Math.min(Math.max(mgPerHour, 0.5), 50);
-        const mlPerHour = mgPerHour / CONCENTRATION_SYRINGE_10_20;
-        document.getElementById('mgValue10').textContent = `${mgPerHour.toFixed(1)} мг/час`;
-        document.getElementById('mlValue10').textContent = `${mlPerHour.toFixed(1)} мл/час`;
-        if (mgPerHour >= 2 && mgPerHour <= 10) {
-            document.getElementById('mlValue10').classList.add('highlight-speed');
-        } else {
-            document.getElementById('mlValue10').classList.remove('highlight-speed');
-        }
+    // Точная формула: кап/мин = (мг/час × 1000 × 20) / (концентрация × 1000 × 60)
+    function calcDrops(mgPerHour) {
+        return (mgPerHour * 1000 * DROPS_PER_ML) / (CONC_DRIP * 1000 * 60);
     }
     
-    function updateSyringe20() {
-        let mgPerHour = parseFloat(document.getElementById('mgPerHour20').value);
-        if (isNaN(mgPerHour)) mgPerHour = 5;
-        mgPerHour = Math.min(Math.max(mgPerHour, 0.5), 50);
-        const mlPerHour = mgPerHour / CONCENTRATION_SYRINGE_10_20;
-        document.getElementById('mgValue20').textContent = `${mgPerHour.toFixed(1)} мг/час`;
-        document.getElementById('mlValue20').textContent = `${mlPerHour.toFixed(1)} мл/час`;
+    function updateSyringe(id, concentration, mgId, mlId) {
+        let mgPerHour = parseFloat(document.getElementById(id).value);
+        if (isNaN(mgPerHour) || mgPerHour < 0.6) mgPerHour = 5;
+        mgPerHour = Math.min(Math.max(mgPerHour, 0.6), 24);
+        const result = mgPerHour / concentration;
+        document.getElementById(mgId).textContent = `${mgPerHour.toFixed(1)} мг/час`;
+        document.getElementById(mlId).textContent = `${result.toFixed(1)} мл/час`;
         if (mgPerHour >= 2 && mgPerHour <= 10) {
-            document.getElementById('mlValue20').classList.add('highlight-speed');
+            document.getElementById(mlId).classList.add('highlight-speed');
         } else {
-            document.getElementById('mlValue20').classList.remove('highlight-speed');
-        }
-    }
-    
-    function updateSyringe50() {
-        let mgPerHour = parseFloat(document.getElementById('mgPerHour50').value);
-        if (isNaN(mgPerHour)) mgPerHour = 5;
-        mgPerHour = Math.min(Math.max(mgPerHour, 0.5), 50);
-        const mlPerHour = mgPerHour / CONCENTRATION_SYRINGE_50;
-        document.getElementById('mgValue50').textContent = `${mgPerHour.toFixed(1)} мг/час`;
-        document.getElementById('mlValue50').textContent = `${mlPerHour.toFixed(1)} мл/час`;
-        if (mgPerHour >= 2 && mgPerHour <= 10) {
-            document.getElementById('mlValue50').classList.add('highlight-speed');
-        } else {
-            document.getElementById('mlValue50').classList.remove('highlight-speed');
+            document.getElementById(mlId).classList.remove('highlight-speed');
         }
     }
     
     function updateDrip() {
         let mgPerHour = parseFloat(document.getElementById('mgPerHourDrip').value);
-        if (isNaN(mgPerHour)) mgPerHour = 5;
-        mgPerHour = Math.min(Math.max(mgPerHour, 0.5), 50);
-        const drops = mgPerHour * (1000 * DROPS_PER_ML) / (CONCENTRATION_DRIP * 1000 * 60);
-        const roundedDrops = Math.round(drops * 10) / 10;
+        if (isNaN(mgPerHour) || mgPerHour < 0.6) mgPerHour = 5;
+        mgPerHour = Math.min(Math.max(mgPerHour, 0.6), 24);
+        const drops = calcDrops(mgPerHour);
         document.getElementById('mgValueDrip').textContent = `${mgPerHour.toFixed(1)} мг/час`;
-        document.getElementById('dropsValue').textContent = `${roundedDrops} кап/мин`;
+        document.getElementById('dropsValue').textContent = `${drops.toFixed(1)} кап/мин`;
         if (mgPerHour >= 2 && mgPerHour <= 10) {
             document.getElementById('dropsValue').classList.add('highlight-speed');
         } else {
@@ -600,40 +575,33 @@
         document.getElementById('mgPerHour20').value = '5';
         document.getElementById('mgPerHour50').value = '5';
         document.getElementById('mgPerHourDrip').value = '5';
-        updateSyringe10();
-        updateSyringe20();
-        updateSyringe50();
+        updateSyringe('mgPerHour10', CONC_10_20, 'mgValue10', 'mlValue10');
+        updateSyringe('mgPerHour20', CONC_10_20, 'mgValue20', 'mlValue20');
+        updateSyringe('mgPerHour50', CONC_50, 'mgValue50', 'mlValue50');
         updateDrip();
     }
     
     function activateTab(tabId) {
-        const contents = document.querySelectorAll('.tab-content');
-        contents.forEach(content => {
-            content.classList.remove('active');
-            if (content.id === tabId) content.classList.add('active');
-        });
-        const tabs = document.querySelectorAll('.tab-btn');
-        tabs.forEach(btn => {
-            btn.classList.remove('active');
-            if (btn.getAttribute('data-tab') === tabId) btn.classList.add('active');
-        });
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        document.getElementById(tabId).classList.add('active');
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelector(`[data-tab="${tabId}"]`).classList.add('active');
     }
     
-    document.getElementById('mgPerHour10').addEventListener('input', updateSyringe10);
-    document.getElementById('mgPerHour20').addEventListener('input', updateSyringe20);
-    document.getElementById('mgPerHour50').addEventListener('input', updateSyringe50);
+    document.getElementById('mgPerHour10').addEventListener('input', () => updateSyringe('mgPerHour10', CONC_10_20, 'mgValue10', 'mlValue10'));
+    document.getElementById('mgPerHour20').addEventListener('input', () => updateSyringe('mgPerHour20', CONC_10_20, 'mgValue20', 'mlValue20'));
+    document.getElementById('mgPerHour50').addEventListener('input', () => updateSyringe('mgPerHour50', CONC_50, 'mgValue50', 'mlValue50'));
     document.getElementById('mgPerHourDrip').addEventListener('input', updateDrip);
     document.getElementById('resetBtn').addEventListener('click', resetAll);
     
     document.querySelectorAll('.tab-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            activateTab(btn.getAttribute('data-tab'));
-        });
+        btn.addEventListener('click', () => activateTab(btn.getAttribute('data-tab')));
     });
     
-    updateSyringe10();
-    updateSyringe20();
-    updateSyringe50();
+    // Инициализация
+    updateSyringe('mgPerHour10', CONC_10_20, 'mgValue10', 'mlValue10');
+    updateSyringe('mgPerHour20', CONC_10_20, 'mgValue20', 'mlValue20');
+    updateSyringe('mgPerHour50', CONC_50, 'mgValue50', 'mlValue50');
     updateDrip();
     
     if ('serviceWorker' in navigator) {
