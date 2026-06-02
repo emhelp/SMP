@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>FOUR шкала комы — интерактивная оценка</title>
+    
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1e2f47">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(145deg, #eef2f7 0%, #dce3ec 100%);
+            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, 'Helvetica Neue', sans-serif;
+            padding: 2rem 1rem;
+            min-height: 100vh;
+        }
+
+        .calculator-card {
+            max-width: 880px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 48px;
+            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .card-header {
+            background: #1e2f47;
+            background-image: linear-gradient(115deg, #142a3b, #1d3f55);
+            padding: 1.8rem 2rem;
+            color: white;
+        }
+        .card-header h1 {
+            font-size: 1.9rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .card-header h1 span {
+            background: rgba(255,255,255,0.2);
+            font-size: 0.9rem;
+            padding: 5px 14px;
+            border-radius: 60px;
+            font-weight: 500;
+        }
+        .card-header p {
+            margin-top: 12px;
+            opacity: 0.85;
+            font-size: 0.95rem;
+            border-left: 3px solid #5f9bc2;
+            padding-left: 16px;
+        }
+
+        .card-body {
+            padding: 2rem 2rem 1.8rem;
+        }
+
+        .scale-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .category-card {
+            background: #f6fafd;
+            border-radius: 28px;
+            border: 1px solid #d4e2f0;
+            overflow: hidden;
+            transition: box-shadow 0.2s;
+        }
+        .category-card:hover {
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+        }
+        .category-title {
+            background: linear-gradient(115deg, #142a3b, #1d3f55);
+            color: white;
+            padding: 0.9rem 1.3rem;
+            font-weight: 700;
+            font-size: 1.1rem;
+            letter-spacing: 0.3px;
+        }
+        .options-list {
+            padding: 0.8rem 1.2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+        .option-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.5rem 0.8rem;
+            border-radius: 16px;
+            background: #ffffff;
+            transition: background 0.15s;
+            cursor: pointer;
+        }
+        .option-item:hover {
+            background: #eef7ff;
+        }
+        .option-radio {
+            width: 18px;
+            height: 18px;
+            accent-color: #1f6e9c;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+        .option-text {
+            flex: 1;
+            font-weight: 500;
+            color: #1f3a4b;
+        }
+        .option-score {
+            font-weight: 800;
+            background: #eef2f7;
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            color: #c0422b;
+            font-size: 0.9rem;
+            min-width: 45px;
+            text-align: center;
+        }
+
+        .result-panel {
+            background: #f6fafd;
+            border-radius: 32px;
+            padding: 1.4rem 1.6rem;
+            margin: 1rem 0 1rem;
+            border-left: 6px solid #1f6e9c;
+            text-align: center;
+            transition: all 0.2s;
+        }
+        .total-score {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: #1a4d6b;
+            line-height: 1;
+        }
+        .total-label {
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+            color: #1f4a66;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        .severity-badge {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            border-radius: 60px;
+            font-weight: 700;
+            margin-top: 0.75rem;
+            font-size: 0.95rem;
+        }
+        .severity-severe { background: #c62828; color: white; }
+        .severity-moderate { background: #f57c00; color: white; }
+        .severity-mild { background: #2c7a4d; color: white; }
+        .severity-normal { background: #1f6e9c; color: white; }
+
+        .info-card {
+            background: #eef7ff;
+            border-left: 5px solid #1f6e9c;
+            border-radius: 24px;
+            padding: 1.2rem 1.5rem;
+            margin: 1.5rem 0 1rem;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        .warning-card {
+            background: #fff4e8;
+            border-left: 5px solid #e67e22;
+            border-radius: 24px;
+            padding: 1.2rem 1.5rem;
+            margin: 1rem 0 1rem;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        .info-card ul, .warning-card ul {
+            margin-top: 0.5rem;
+            margin-left: 1.5rem;
+            margin-bottom: 0;
+        }
+        .info-card li, .warning-card li {
+            margin: 0.4rem 0;
+        }
+        .highlight {
+            background: #fff3b0;
+            padding: 0 4px;
+            border-radius: 8px;
+            font-weight: 600;
+            color: #a56b00;
+        }
+        .important-text {
+            background: #f8d7da;
+            padding: 0 4px;
+            border-radius: 8px;
+            font-weight: 600;
+            color: #b13e2d;
+        }
+        hr {
+            margin: 1.5rem 0 0.5rem;
+            border: none;
+            height: 1px;
+            background: #e2e8f0;
+        }
+
+        @media (max-width: 680px) {
+            .card-body {
+                padding: 1.5rem;
+            }
+            .total-score {
+                font-size: 2.2rem;
+            }
+            .category-title {
+                font-size: 1rem;
+            }
+            .option-text {
+                font-size: 0.85rem;
+            }
+            .info-card, .warning-card {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="calculator-card">
+    <div class="card-header">
+        <h1>
+            🧠 FOUR шкала комы
+            <span>оценка сознания</span>
+        </h1>
+        <p>FOUR (Full Outline of UnResponsiveness) — шкала оценки уровня сознания. Оценивает 4 параметра: глазные реакции, моторный ответ, стволовые рефлексы и паттерн дыхания. Диапазон: 0–16 баллов.</p>
+    </div>
+    <div class="card-body">
+        
+        <div class="scale-grid">
+            <!-- Глазные реакции -->
+            <div class="category-card">
+                <div class="category-title">👁️ Глазные реакции (E)</div>
+                <div class="options-list" id="eye-list"></div>
+            </div>
+            
+            <!-- Моторный ответ -->
+            <div class="category-card">
+                <div class="category-title">💪 Моторный ответ (M)</div>
+                <div class="options-list" id="motor-list"></div>
+            </div>
+            
+            <!-- Стволовые рефлексы -->
+            <div class="category-card">
+                <div class="category-title">🧬 Стволовые рефлексы (B)</div>
+                <div class="options-list" id="brainstem-list"></div>
+            </div>
+            
+            <!-- Дыхание -->
+            <div class="category-card">
+                <div class="category-title">🫁 Дыхание (R)</div>
+                <div class="options-list" id="respiration-list"></div>
+            </div>
+        </div>
+
+        <div class="result-panel">
+            <div class="total-label">ОБЩАЯ СУММА БАЛЛОВ (0–16)</div>
+            <div class="total-score" id="total-score">0</div>
+            <div id="severity-badge" class="severity-badge"></div>
+        </div>
+
+        <div class="info-card">
+            <strong>📊 Интерпретация FOUR шкалы комы:</strong>
+            <ul>
+                <li><span class="highlight">16 баллов</span> — сознание ясное, пациент ориентирован</li>
+                <li><span class="highlight">13–15 баллов</span> — умеренное угнетение сознания</li>
+                <li><span class="highlight">9–12 баллов</span> — выраженное угнетение сознания (сопор)</li>
+                <li><span class="highlight">5–8 баллов</span> — глубокая кома</li>
+                <li><span class="highlight">0–4 балла</span> — запредельная кома, возможна смерть мозга</li>
+            </ul>
+        </div>
+        
+        <div class="warning-card">
+            <strong>⚠️ Преимущества FOUR перед шкалой Глазго:</strong>
+            <ul>
+                <li>✅ <span class="highlight">Оценивает стволовые рефлексы</span> — критически важно при подозрении на смерть мозга</li>
+                <li>✅ <span class="highlight">Не зависит от вербального ответа</span> — можно использовать у интубированных пациентов</li>
+                <li>✅ <span class="highlight">Оценивает паттерн дыхания</span> — помогает в диагностике стволовых нарушений</li>
+                <li>✅ Более точная оценка у пациентов с <span class="highlight">афазией, ИВЛ, седацией</span></li>
+                <li>✅ <span class="highlight">0 баллов</span> по стволовым рефлексам + апноэ = признаки смерти мозга</li>
+            </ul>
+        </div>
+
+        <div class="info-card">
+            <strong>📋 Сравнение со шкалой Глазго:</strong>
+            <ul>
+                <li>FOUR <span class="highlight">0 баллов</span> ≈ GCS <span class="highlight">3 балла</span> (запредельная кома)</li>
+                <li>FOUR <span class="highlight">16 баллов</span> ≈ GCS <span class="highlight">15 баллов</span> (ясное сознание)</li>
+                <li>FOUR <span class="highlight">≤ 8</span> — показание к интубации (аналогично GCS ≤ 8)</li>
+            </ul>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    // Данные FOUR шкалы
+    const eyeOptions = [
+        { text: "Открывает глаза, следит взглядом за предметом/выполняет команду", score: 4 },
+        { text: "Открывает глаза спонтанно, но не следит взглядом", score: 3 },
+        { text: "Открывает глаза только на громкий звук/команду", score: 2 },
+        { text: "Открывает глаза только на болевое раздражение", score: 1 },
+        { text: "Глаза не открывает, веки неподвижны", score: 0 }
+    ];
+
+    const motorOptions = [
+        { text: "Выполняет команды (показывает большой палец, знак V, сжимает кулак)", score: 4 },
+        { text: "Локализует боль (тянется к месту раздражения)", score: 3 },
+        { text: "Сгибательный ответ на боль (декортикационная поза — сгибание рук)", score: 2 },
+        { text: "Разгибательный ответ на боль (децеребрационная поза — разгибание)", score: 1 },
+        { text: "Двигательная реакция отсутствует", score: 0 }
+    ];
+
+    const brainstemOptions = [
+        { text: "Зрачковый и корнеальный рефлексы сохранены", score: 4 },
+        { text: "Один зрачок широкий и не реагирует на свет (анизокория)", score: 3 },
+        { text: "Зрачковый рефлекс отсутствует с обеих сторон", score: 2 },
+        { text: "Зрачковый и корнеальный рефлексы отсутствуют (арефлексия)", score: 1 },
+        { text: "Зрачковый, корнеальный и кашлевой рефлексы отсутствуют", score: 0 }
+    ];
+
+    const respirationOptions = [
+        { text: "Самостоятельное дыхание, ритмичное, не нуждается в поддержке", score: 4 },
+        { text: "Самостоятельное дыхание, типа Чейна-Стокса (периодическое)", score: 3 },
+        { text: "Самостоятельное дыхание, нерегулярное (атактическое, гаспинг)", score: 2 },
+        { text: "Самостоятельное дыхание с частотой выше аппаратной (попытки вдоха)", score: 1 },
+        { text: "Апноэ (дыхание отсутствует, работает только аппарат ИВЛ)", score: 0 }
+    ];
+
+    function renderOptions(containerId, options, groupName, callback) {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+        container.innerHTML = '';
+        options.forEach((opt, idx) => {
+            const radioId = `${groupName}_${idx}`;
+            const div = document.createElement('div');
+            div.className = 'option-item';
+            div.innerHTML = `
+                <input type="radio" name="${groupName}" id="${radioId}" value="${opt.score}" class="option-radio">
+                <label for="${radioId}" class="option-text" style="flex:1; cursor:pointer;">${opt.text}</label>
+                <span class="option-score">${opt.score}</span>
+            `;
+            container.appendChild(div);
+            if (idx === 0) {
+                const radio = div.querySelector('input');
+                radio.checked = true;
+            }
+            div.querySelector('input').addEventListener('change', () => {
+                if (callback) callback();
+            });
+            div.querySelector('label').addEventListener('click', (e) => {
+                const radio = div.querySelector('input');
+                if (!radio.checked) radio.checked = true;
+                if (callback) callback();
+            });
+        });
+    }
+
+    function getSelectedScore(groupName) {
+        const radios = document.querySelectorAll(`input[name="${groupName}"]`);
+        for (let radio of radios) {
+            if (radio.checked) return parseInt(radio.value, 10);
+        }
+        return 0;
+    }
+
+    function updateResult() {
+        const eye = getSelectedScore('eye');
+        const motor = getSelectedScore('motor');
+        const brainstem = getSelectedScore('brainstem');
+        const respiration = getSelectedScore('respiration');
+        const total = eye + motor + brainstem + respiration;
+        
+        document.getElementById('total-score').innerText = total;
+        
+        const severityDiv = document.getElementById('severity-badge');
+        let severityClass = '', severityText = '';
+        
+        if (total <= 4) {
+            severityClass = 'severity-severe';
+            severityText = 'Запредельная кома (0–4) — возможна смерть мозга';
+        } else if (total <= 8) {
+            severityClass = 'severity-severe';
+            severityText = 'Глубокая кома (5–8) — показана интубация';
+        } else if (total <= 12) {
+            severityClass = 'severity-moderate';
+            severityText = 'Выраженное угнетение (9–12) — сопор';
+        } else if (total <= 15) {
+            severityClass = 'severity-mild';
+            severityText = 'Умеренное угнетение (13–15) — оглушение';
+        } else {
+            severityClass = 'severity-normal';
+            severityText = 'Ясное сознание (16) — норма';
+        }
+        
+        severityDiv.className = `severity-badge ${severityClass}`;
+        severityDiv.innerText = severityText;
+    }
+
+    function init() {
+        renderOptions('eye-list', eyeOptions, 'eye', updateResult);
+        renderOptions('motor-list', motorOptions, 'motor', updateResult);
+        renderOptions('brainstem-list', brainstemOptions, 'brainstem', updateResult);
+        renderOptions('respiration-list', respirationOptions, 'respiration', updateResult);
+        updateResult();
+    }
+
+    init();
+
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/SMP/sw.js')
+            .then(reg => console.log('✅ Сервис-воркер зарегистрирован:', reg))
+            .catch(err => console.error('❌ Ошибка регистрации:', err));
+    }
+</script>
+</body>
+</html>
