@@ -2,14 +2,19 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>Инфекционные заболевания</title>
+
+<!-- PWA -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0f1446">
+
 <style>
   body {
     font-family: 'Segoe UI', 'Roboto', sans-serif;
     margin: 0;
     padding: 20px;
-    background: #f5f5f5;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -20,109 +25,125 @@
     text-align: center;
     margin-bottom: 20px;
     color: #0f1446;
+    font-size: 28px;
   }
 
-  .inf-menu {
+  .infectious-menu {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
     width: 100%;
     max-width: 500px;
     box-sizing: border-box;
   }
 
-  .inf-btn {
+  .infectious-btn {
     text-decoration: none;
     color: white;
-    background: #0f1446;
-    padding: 12px 15px;
-    border-radius: 8px;
+    background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
+    padding: 14px 12px;
+    border-radius: 12px;
     font-weight: 600;
     text-align: center;
     width: 100%;
-    transition: background 0.2s;
+    transition: all 0.2s;
     border: none;
     cursor: pointer;
-    font-size: 1rem;
+    font-size: 15px;
     font-family: inherit;
     box-sizing: border-box;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    line-height: 1.3;
   }
 
-  .inf-btn:hover {
-    background: #3949ab;
+  .infectious-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.15);
   }
 
-  .inf-btn:active {
+  .infectious-btn:active {
     transform: scale(0.98);
   }
 
   @media (max-width: 600px) {
-    .inf-menu {
-      max-width: 90%;
+    .infectious-menu {
+      max-width: 95%;
     }
-    .inf-btn {
-      font-size: 0.9rem;
+    .infectious-btn {
+      font-size: 13px;
+      padding: 12px 8px;
+    }
+    h1 {
+      font-size: 24px;
     }
   }
 </style>
 </head>
 <body>
 
-<h1>Инфекционные заболевания</h1>
+<h1>🦠 Инфекционные заболевания</h1>
 
-<div class="inf-menu">
-  <button class="inf-btn" onclick="window.location.href='lacunar_angina.html'">Ангина лакунарная</button>
-  <button class="inf-btn" onclick="window.location.href='follicular_angina.html'">Ангина фолликулярная</button>
-  <button class="inf-btn" onclick="window.location.href='rabies.html'">Бешенство</button>
-  <button class="inf-btn" onclick="window.location.href='lyme_disease.html'">Боррелиоз (болезнь Лайма)</button>
-  <button class="inf-btn" onclick="window.location.href='botulism.html'">Ботулизм</button>
-  <button class="inf-btn" onclick="window.location.href='bronchitis.html'">Бронхит</button>
-  <button class="inf-btn" onclick="window.location.href='bronchopneumonia.html'">Бронхопневмония</button>
-  <button class="inf-btn" onclick="window.location.href='typhoid_fever.html'">Брюшной тиф</button>
-  <button class="inf-btn" onclick="window.location.href='chickenpox.html'">Ветряная оспа</button>
-  <button class="inf-btn" onclick="window.location.href='viral_hepatitis.html'">Вирусный гепатит</button>
-  <button class="inf-btn" onclick="window.location.href='viral_pneumonia.html'">Вирусная пневмония</button>
-  <button class="inf-btn" onclick="window.location.href='mosquito_encephalitis.html'">Вирусный энцефалит клещевой</button>
-  <button class="inf-btn" onclick="window.location.href='tick_encephalitis.html'">Вирусный энцефалит комариный</button>
-  <button class="inf-btn" onclick="window.location.href='viral_encephalitis_unspecified.html'">Вирусный энцефалит (неуточненный)</button>
-  <button class="inf-btn" onclick="window.location.href='sinusitis.html'">Гайморит</button>
-  <button class="inf-btn" onclick="window.location.href='genital_herpes.html'">Генитальный герпес</button>
-  <button class="inf-btn" onclick="window.location.href='influenza_adult.html'">Грипп у взрослого</button>
-  <button class="inf-btn" onclick="window.location.href='diphtheria_throat.html'">Дифтерия глотки</button>
-  <button class="inf-btn" onclick="window.location.href='jaundice_unknown_genesis.html'">Желтуха неясного генеза</button>
-  <button class="inf-btn" onclick="window.location.href='kine_unspecified.html'">КИНЭ</button>
-  <button class="inf-btn" onclick="window.location.href='kine_hemocolitis.html'">КИНЭ гемоколит</button>
-  <button class="inf-btn" onclick="window.location.href='kine_exsicosis2.html'">КИНЭ эксикоз 2 степени</button>
-  <button class="inf-btn" onclick="window.location.href='kine_exsicosis3.html'">КИНЭ эксикоз 3 степени</button>
-  <button class="inf-btn" onclick="window.location.href='pertussis.html'">Коклюш</button>
-  <button class="inf-btn" onclick="window.location.href='coxsackie.html'">Коксаки</button>
-  <button class="inf-btn" onclick="window.location.href='conjunctivitis.html'">Конъюнктивит</button>
-  <button class="inf-btn" onclick="window.location.href='measles_child.html'">Корь у ребенка</button>
-  <button class="inf-btn" onclick="window.location.href='measles_adult.html'">Корь у взрослого</button>
-  <button class="inf-btn" onclick="window.location.href='rubella_3.html'">Краснуха</button>
-  <button class="inf-btn" onclick="window.location.href='dengue_fever.html'">Лихорадка Денге</button>
-  <button class="inf-btn" onclick="window.location.href='fever_unknown.html'">Лихорадка неясной этиологии</button>
-  <button class="inf-btn" onclick="window.location.href='leptospirosis.html'">Лептоспироз</button>
-  <button class="inf-btn" onclick="window.location.href='malaria.html'">Малярия</button>
-  <button class="inf-btn" onclick="window.location.href='meningococcal_infection.html'">Менингококковая инфекция</button>
-  <button class="inf-btn" onclick="window.location.href='meningitis_serous.html'">Менингит серозный</button>
-  <button class="inf-btn" onclick="window.location.href='meningitis_bacterial.html'">Менингит бактериальный</button>
-  <button class="inf-btn" onclick="window.location.href='mononucleosis.html'">Мононуклеоз</button>
-  <button class="inf-btn" onclick="window.location.href='herpes_zoster.html'">Опоясывающий лишай</button>
-  <button class="inf-btn" onclick="window.location.href='arvi_child.html'">ОРВИ у ребенка</button>
-  <button class="inf-btn" onclick="window.location.href='monkeypox.html'">Оспа обезьян</button>
-  <button class="inf-btn" onclick="window.location.href='pediculosis_adult.html'">Педикулез у асоциального взрослого</button>
-  <button class="inf-btn" onclick="window.location.href='pediculosis_child.html'">Педикулез у ребенка</button>
-  <button class="inf-btn" onclick="window.location.href='poliomyelitis.html'">Полиомиелит</button>
-  <button class="inf-btn" onclick="window.location.href='erysipelas.html'">Рожистое воспаление</button>
-  <button class="inf-btn" onclick="window.location.href='salmonellosis.html'">Сальмонеллез</button>
-  <button class="inf-btn" onclick="window.location.href='scarlet_fever.html'">Скарлатина</button>
-  <button class="inf-btn" onclick="window.location.href='tetanus.html'">Столбняк</button>
-  <button class="inf-btn" onclick="window.location.href='scabies.html'">Чесотка</button>
-  <button class="inf-btn" onclick="window.location.href='cholera_moderate_exsicosis2.html'">Холера средне-тяжелая, эксикоз 2</button>
-  <button class="inf-btn" onclick="window.location.href='cholera_severe_exsicosis3.html'">Холера тяжелая, эксикоз 3</button>
-  <button class="inf-btn" onclick="window.location.href='plague.html'">Чума</button>
+<div class="infectious-menu">
+  <button class="infectious-btn" onclick="window.location.href='lacunar_angina.html'">Ангина лакунарная</button>
+  <button class="infectious-btn" onclick="window.location.href='follicular_angina.html'">Ангина фолликулярная</button>
+  <button class="infectious-btn" onclick="window.location.href='rabies.html'">Бешенство</button>
+  <button class="infectious-btn" onclick="window.location.href='lyme_disease.html'">Боррелиоз (болезнь Лайма)</button>
+  <button class="infectious-btn" onclick="window.location.href='botulism.html'">Ботулизм</button>
+  <button class="infectious-btn" onclick="window.location.href='bronchitis.html'">Бронхит</button>
+  <button class="infectious-btn" onclick="window.location.href='bronchopneumonia.html'">Бронхопневмония</button>
+  <button class="infectious-btn" onclick="window.location.href='typhoid_fever.html'">Брюшной тиф</button>
+  <button class="infectious-btn" onclick="window.location.href='chickenpox.html'">Ветряная оспа</button>
+  <button class="infectious-btn" onclick="window.location.href='viral_hepatitis.html'">Вирусный гепатит</button>
+  <button class="infectious-btn" onclick="window.location.href='viral_pneumonia.html'">Вирусная пневмония</button>
+  <button class="infectious-btn" onclick="window.location.href='mosquito_encephalitis.html'">Вирусный энцефалит клещевой</button>
+  <button class="infectious-btn" onclick="window.location.href='tick_encephalitis.html'">Вирусный энцефалит комариный</button>
+  <button class="infectious-btn" onclick="window.location.href='viral_encephalitis_unspecified.html'">Вирусный энцефалит (неуточненный)</button>
+  <button class="infectious-btn" onclick="window.location.href='sinusitis.html'">Гайморит</button>
+  <button class="infectious-btn" onclick="window.location.href='genital_herpes.html'">Генитальный герпес</button>
+  <button class="infectious-btn" onclick="window.location.href='influenza_adult.html'">Грипп у взрослого</button>
+  <button class="infectious-btn" onclick="window.location.href='diphtheria_throat.html'">Дифтерия глотки</button>
+  <button class="infectious-btn" onclick="window.location.href='jaundice_unknown_genesis.html'">Желтуха неясного генеза</button>
+  <button class="infectious-btn" onclick="window.location.href='kine_unspecified.html'">КИНЭ</button>
+  <button class="infectious-btn" onclick="window.location.href='kine_hemocolitis.html'">КИНЭ гемоколит</button>
+  <button class="infectious-btn" onclick="window.location.href='kine_exsicosis2.html'">КИНЭ эксикоз 2 степени</button>
+  <button class="infectious-btn" onclick="window.location.href='kine_exsicosis3.html'">КИНЭ эксикоз 3 степени</button>
+  <button class="infectious-btn" onclick="window.location.href='pertussis.html'">Коклюш</button>
+  <button class="infectious-btn" onclick="window.location.href='coxsackie.html'">Коксаки</button>
+  <button class="infectious-btn" onclick="window.location.href='conjunctivitis.html'">Конъюнктивит</button>
+  <button class="infectious-btn" onclick="window.location.href='measles_child.html'">Корь у ребенка</button>
+  <button class="infectious-btn" onclick="window.location.href='measles_adult.html'">Корь у взрослого</button>
+  <button class="infectious-btn" onclick="window.location.href='rubella_3.html'">Краснуха</button>
+  <button class="infectious-btn" onclick="window.location.href='dengue_fever.html'">Лихорадка Денге</button>
+  <button class="infectious-btn" onclick="window.location.href='fever_unknown.html'">Лихорадка неясной этиологии</button>
+  <button class="infectious-btn" onclick="window.location.href='leptospirosis.html'">Лептоспироз</button>
+  <button class="infectious-btn" onclick="window.location.href='malaria.html'">Малярия</button>
+  <button class="infectious-btn" onclick="window.location.href='meningococcal_infection.html'">Менингококковая инфекция</button>
+  <button class="infectious-btn" onclick="window.location.href='meningitis_serous.html'">Менингит серозный</button>
+  <button class="infectious-btn" onclick="window.location.href='meningitis_bacterial.html'">Менингит бактериальный</button>
+  <button class="infectious-btn" onclick="window.location.href='mononucleosis.html'">Мононуклеоз</button>
+  <button class="infectious-btn" onclick="window.location.href='herpes_zoster.html'">Опоясывающий лишай</button>
+  <button class="infectious-btn" onclick="window.location.href='arvi_child.html'">ОРВИ у ребенка</button>
+  <button class="infectious-btn" onclick="window.location.href='monkeypox.html'">Оспа обезьян</button>
+  <button class="infectious-btn" onclick="window.location.href='pediculosis_adult.html'">Педикулез у асоциального взрослого</button>
+  <button class="infectious-btn" onclick="window.location.href='pediculosis_child.html'">Педикулез у ребенка</button>
+  <button class="infectious-btn" onclick="window.location.href='poliomyelitis.html'">Полиомиелит</button>
+  <button class="infectious-btn" onclick="window.location.href='erysipelas.html'">Рожистое воспаление</button>
+  <button class="infectious-btn" onclick="window.location.href='salmonellosis.html'">Сальмонеллез</button>
+  <button class="infectious-btn" onclick="window.location.href='scarlet_fever.html'">Скарлатина</button>
+  <button class="infectious-btn" onclick="window.location.href='tetanus.html'">Столбняк</button>
+  <button class="infectious-btn" onclick="window.location.href='scabies.html'">Чесотка</button>
+  <button class="infectious-btn" onclick="window.location.href='cholera_moderate_exsicosis2.html'">Холера средне-тяжелая, эксикоз 2</button>
+  <button class="infectious-btn" onclick="window.location.href='cholera_severe_exsicosis3.html'">Холера тяжелая, эксикоз 3</button>
+  <button class="infectious-btn" onclick="window.location.href='plague.html'">Чума</button>
 </div>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/SMP/sw.js')
+      .then(reg => console.log('✅ SW зарегистрирован:', reg))
+      .catch(err => console.error('❌ Ошибка:', err));
+  }
+</script>
 
 </body>
 </html>
