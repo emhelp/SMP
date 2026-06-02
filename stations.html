@@ -3,16 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Подстанции СМП им. А.С. Пучкова - интерактивный справочник</title>
+    <title>Подстанции СМП им. А.С. Пучкова</title>
+    
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0f1446">
+    
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+        
         body {
-            background: linear-gradient(135deg, #1a3a3a 0%, #0e2a2a 100%);
-            font-family: 'Segoe UI', 'Inter', 'Roboto', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            font-family: 'Segoe UI', 'Roboto', system-ui, -apple-system, sans-serif;
             line-height: 1.5;
             color: #1e2a3e;
             padding: 20px;
@@ -21,34 +27,36 @@
             justify-content: center;
             align-items: flex-start;
         }
+        
         .container {
             max-width: 1300px;
             width: 100%;
             background: #ffffff;
             border-radius: 32px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
             overflow: hidden;
         }
+        
         .header {
-            background: linear-gradient(135deg, #c62828 0%, #8b0000 100%);
+            background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
             color: white;
             padding: 1.5rem 2rem;
             text-align: center;
-            border-bottom: 4px solid #ffc107;
         }
         .header h1 {
             font-size: 1.8rem;
-            font-weight: 800;
+            font-weight: 700;
             margin-bottom: 0.25rem;
         }
         .header p {
             font-size: 0.9rem;
-            opacity: 0.9;
+            opacity: 0.85;
         }
+        
         .content {
             padding: 2rem;
         }
-        /* Сетка кнопок — только номера подстанций на главном экране */
+        
         .stations-grid {
             display: flex;
             flex-wrap: wrap;
@@ -57,27 +65,33 @@
             margin-bottom: 0;
             padding-bottom: 0;
         }
+        
         .station-btn {
-            background: #e2e8f0;
-            border: none;
+            background: linear-gradient(135deg, #ffffff 0%, #e8edf5 100%);
+            color: #0f1446;
+            border: 2px solid #0f1446;
             padding: 0.7rem 1.2rem;
-            border-radius: 40px;
+            border-radius: 12px;
             font-size: 0.9rem;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
             transition: all 0.2s ease;
-            color: #2c3e66;
             min-width: 70px;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+            font-family: inherit;
         }
         .station-btn:hover {
-            background: #cbd5e1;
+            background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
+            color: white;
+            border-color: #0f1446;
             transform: translateY(-2px);
+            box-shadow: 0 6px 14px rgba(0,0,0,0.15);
         }
         .station-btn:active {
-            transform: translateY(1px);
+            transform: scale(0.98);
         }
-        /* Модальное окно (всплывающая карточка) */
+        
+        /* Модальное окно */
         .modal {
             display: none;
             position: fixed;
@@ -91,33 +105,27 @@
             justify-content: center;
             align-items: center;
             padding: 20px;
-            transition: all 0.2s ease;
         }
         .modal.active {
             display: flex;
         }
+        
         .modal-card {
             background: #ffffff;
             max-width: 550px;
             width: 100%;
-            border-radius: 36px;
+            border-radius: 24px;
             box-shadow: 0 30px 50px rgba(0, 0, 0, 0.3);
             overflow: hidden;
             animation: fadeSlideUp 0.25s ease-out;
-            position: relative;
         }
         @keyframes fadeSlideUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
+        
         .modal-header {
-            background: linear-gradient(135deg, #c62828 0%, #9b2c2c 100%);
+            background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
             padding: 1.2rem 1.5rem;
             color: white;
             display: flex;
@@ -129,6 +137,7 @@
             font-weight: 700;
             margin: 0;
         }
+        
         .close-modal {
             background: rgba(255,255,255,0.2);
             border: none;
@@ -138,7 +147,7 @@
             color: white;
             width: 36px;
             height: 36px;
-            border-radius: 40px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -147,10 +156,12 @@
         .close-modal:hover {
             background: rgba(255,255,255,0.35);
         }
+        
         .modal-body {
             padding: 1.5rem 1.8rem;
             background: #fefefe;
         }
+        
         .info-row-modal {
             margin: 1rem 0;
             display: flex;
@@ -159,9 +170,9 @@
             align-items: flex-start;
         }
         .info-label-modal {
-            font-weight: 800;
+            font-weight: 700;
             min-width: 95px;
-            color: #b91c1c;
+            color: #0f1446;
             font-size: 0.95rem;
         }
         .info-value-modal {
@@ -169,6 +180,7 @@
             color: #1f2937;
             word-break: break-word;
         }
+        
         .phone-list-modal {
             list-style: none;
             padding-left: 0;
@@ -178,19 +190,21 @@
             margin-bottom: 0.4rem;
         }
         .phone-list-modal a {
-            color: #c62828;
+            color: #0f1446;
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 600;
             font-size: 1rem;
         }
         .phone-list-modal a:hover {
             text-decoration: underline;
         }
+        
         .divider-modal {
             height: 1px;
-            background: #e5e7eb;
+            background: #e2ecf3;
             margin: 1rem 0;
         }
+        
         .map-links-modal {
             display: flex;
             flex-wrap: wrap;
@@ -201,49 +215,47 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            background: #fff8e7;
+            background: #eef7ff;
             padding: 0.5rem 1rem;
-            border-radius: 40px;
-            color: #ea580c;
+            border-radius: 12px;
+            color: #0f1446;
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 600;
             transition: all 0.2s;
-            border: 1px solid #fed7aa;
+            border: 1px solid #d4e2f0;
             font-size: 0.9rem;
         }
         .map-link-modal.app-link-modal {
-            background: #e8f0fe;
-            border-color: #b9d6fe;
-            color: #1e5f7a;
+            background: #eef7ff;
+            border-color: #d4e2f0;
+            color: #0f1446;
         }
         .map-link-modal:hover {
-            background: #ffe6cc;
+            background: #d4e2f0;
             transform: translateY(-1px);
         }
-        .map-link-modal.app-link-modal:hover {
-            background: #d9e9ff;
-        }
-        /* подсказка на главном экране (лаконичная) */
+        
         .hint-text {
             text-align: center;
             margin-top: 2rem;
             padding: 1rem;
-            background: #f1f5f9;
-            border-radius: 60px;
-            color: #2d3e6e;
+            background: #eef7ff;
+            border-radius: 12px;
+            color: #0f1446;
             font-size: 0.85rem;
-            font-weight: 500;
-            border: 1px solid #e2e8f0;
+            font-weight: 600;
+            border: 1px solid #d4e2f0;
         }
         .hint-text span {
             display: inline-block;
-            background: #c62828;
+            background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
             color: white;
-            border-radius: 30px;
+            border-radius: 8px;
             padding: 0.1rem 0.7rem;
             margin: 0 0.2rem;
             font-size: 0.75rem;
         }
+        
         @media (max-width: 700px) {
             .content {
                 padding: 1.2rem;
@@ -264,18 +276,6 @@
                 font-size: 1.2rem;
             }
         }
-        /* плавный скролл */
-        html {
-            scroll-behavior: smooth;
-        }
-        footer {
-            font-size: 0.7rem;
-            text-align: center;
-            padding: 1rem;
-            color: #6c757d;
-            border-top: 1px solid #e9ecef;
-            background: #fff;
-        }
     </style>
 </head>
 <body>
@@ -285,18 +285,14 @@
         <p>ГБУ «Станция скорой и неотложной медицинской помощи им. А.С. Пучкова»</p>
     </div>
     <div class="content">
-        <!-- Только номера подстанций (кнопки) -->
         <div class="stations-grid" id="stations-buttons"></div>
         <div class="hint-text">
             💡 Нажмите на <span>номер</span> подстанции — откроется карточка с полной информацией (адрес, телефоны, карта)
         </div>
     </div>
-    <footer>
-        Данные актуальны на 2025 год • Для вызова скорой помощи звоните 103 или 112
-    </footer>
 </div>
 
-<!-- Модальное окно (всплывающая карточка) -->
+<!-- Модальное окно -->
 <div id="stationModal" class="modal">
     <div class="modal-card">
         <div class="modal-header">
@@ -304,24 +300,18 @@
             <button class="close-modal" id="closeModalBtn">&times;</button>
         </div>
         <div class="modal-body" id="modalBody">
-            <!-- Динамическое содержимое будет вставлено сюда -->
             <div style="text-align: center; padding: 20px;">Загрузка...</div>
         </div>
     </div>
 </div>
 
 <script>
-    // ====================== ВСЕ ДАННЫЕ ПОДСТАНЦИЙ И ПОСТА ======================
-    // Функция для извлечения geoId из ссылки 2gis.ru (последний числовой сегмент)
     function extractGeoId(url) {
         if (!url || !url.includes('2gis.ru')) return null;
-        // Пример: https://2gis.ru/moscow/geo/70000001025062716
-        // или с координатами: .../geo/70000001027659985/37.422478,55.824287
         const match = url.match(/\/geo\/(\d+)/);
         return match ? match[1] : null;
     }
 
-    // Полный список всех объектов (подстанции и пост 31)
     const stationsList = [
         { id: "1", name: "Подстанция №1", address: "ГКБ №1 им. Н.И. Пирогова, Ленинский проспект, 8 к15, 119049, Москва, Якиманка", phones: ["+7(495)9592730", "+7(495)6204140"], mapLink: "https://2gis.ru/moscow/geo/70000001025062716" },
         { id: "2", name: "Подстанция №2", address: "улица Поликарпова, 4, 125284, Москва, Беговой", phones: ["+7(495)9459130"], mapLink: "https://2gis.ru/moscow/geo/70000001020810259" },
@@ -389,17 +379,14 @@
         { id: "63", name: "Подстанция №63", address: "улица Маршала Савицкого, 19, 117148, Москва, Щербинка", phones: [], mapLink: "https://2gis.ru/moscow/geo/70000001079644346/37.596070,55.506334" }
     ];
 
-    // Обогащаем каждую станцию geoId
     stationsList.forEach(station => {
         station.geoId = extractGeoId(station.mapLink);
     });
 
-    // Генерируем кнопки (только номера / пометка для поста)
     const buttonsContainer = document.getElementById('stations-buttons');
     stationsList.forEach(station => {
         const btn = document.createElement('button');
         btn.className = 'station-btn';
-        // Отображаем номер: для подстанции просто id, для поста "31п"
         if (station.id === '31post') {
             btn.textContent = '31п';
         } else {
@@ -414,7 +401,6 @@
         buttonsContainer.appendChild(btn);
     });
 
-    // Функция открытия модального окна с детальной информацией
     function openModal(stationId) {
         const station = stationsList.find(s => s.id === stationId);
         if (!station) return;
@@ -423,15 +409,13 @@
         const modalTitle = document.getElementById('modalTitle');
         const modalBody = document.getElementById('modalBody');
 
-        // Устанавливаем заголовок
         modalTitle.textContent = station.name;
 
-        // Формируем блок телефонов
         let phonesHtml = '';
         if (station.phones && station.phones.length > 0) {
             if (station.phones.length === 1) {
                 const cleanPhone = station.phones[0].replace(/[^0-9+]/g, '');
-                phonesHtml = `<a href="tel:${cleanPhone}" style="color:#c62828; font-weight:600; text-decoration:none;">${station.phones[0]}</a>`;
+                phonesHtml = `<a href="tel:${cleanPhone}" style="color:#0f1446; font-weight:600; text-decoration:none;">${station.phones[0]}</a>`;
             } else {
                 phonesHtml = '<ul class="phone-list-modal">';
                 station.phones.forEach(phone => {
@@ -444,7 +428,6 @@
             phonesHtml = '<span style="color:#8a99b0;">телефон не указан</span>';
         }
 
-        // Ссылки на карту
         let mapLinksHtml = '';
         if (station.geoId) {
             const webLink = station.mapLink;
@@ -456,7 +439,6 @@
                 </div>
             `;
         } else {
-            // если ссылка не 2ГИС (Google Maps или иная)
             mapLinksHtml = `
                 <div class="map-links-modal">
                     <a href="${station.mapLink}" target="_blank" rel="noopener noreferrer" class="map-link-modal">🗺️ Открыть на карте</a>
@@ -464,7 +446,6 @@
             `;
         }
 
-        // Наполняем контент модалки
         modalBody.innerHTML = `
             <div class="info-row-modal">
                 <div class="info-label-modal">📍 Адрес:</div>
@@ -479,36 +460,39 @@
                 <div class="info-label-modal">🗺️ Как добраться:</div>
                 <div class="info-value-modal">${mapLinksHtml}</div>
             </div>
-            ${station.id === '31post' ? '<div style="margin-top:12px; font-size:0.8rem; color:#6c757d;">ℹ️ Пост является дополнительной точкой базирования бригад.</div>' : ''}
+            ${station.id === '31post' ? '<div style="margin-top:12px; font-size:0.8rem; color:#6f8eaa;">ℹ️ Пост является дополнительной точкой базирования бригад.</div>' : ''}
         `;
 
-        // Показываем модальное окно
         modal.classList.add('active');
-        document.body.style.overflow = 'hidden'; // предотвращаем скролл фона
+        document.body.style.overflow = 'hidden';
     }
 
-    // Закрытие модального окна
     function closeModal() {
         const modal = document.getElementById('stationModal');
         modal.classList.remove('active');
         document.body.style.overflow = '';
     }
 
-    // Обработчики закрытия
     document.getElementById('closeModalBtn').addEventListener('click', closeModal);
-    // Закрытие по клику на фон (оверлей)
+    
     const modalOverlay = document.getElementById('stationModal');
     modalOverlay.addEventListener('click', (e) => {
         if (e.target === modalOverlay) {
             closeModal();
         }
     });
-    // Закрытие по Escape
+    
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && modalOverlay.classList.contains('active')) {
             closeModal();
         }
     });
+
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/SMP/sw.js')
+            .then(reg => console.log('✅ SW зарегистрирован:', reg))
+            .catch(err => console.error('❌ Ошибка:', err));
+    }
 </script>
 </body>
 </html>
