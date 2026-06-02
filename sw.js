@@ -1,4 +1,7 @@
-const CACHE_NAME = 'emhelp-v94';  // Увеличьте версию!
+// sw.js — Service Worker для EMHelp PWA
+// Версия: v95 (улучшенная оффлайн-поддержка + Persistent Storage)
+
+const CACHE_NAME = 'emhelp-v95';
 
 const urlsToCache = [
   // Главная
@@ -41,54 +44,17 @@ const urlsToCache = [
   '/SMP/Kody_19.html',
   '/SMP/Kody_20.html',
   
-  // STATUS LOCALIS - основные страницы
+  // STATUS LOCALIS
   '/SMP/other_local_status.html',
-  '/SMP/dislocations.html',
-  '/SMP/fractures_upper_limb.html',
-  '/SMP/fractures_lower_limb.html',
-  '/SMP/fractures_ribs.html',
-  '/SMP/spine_fractures.html',
-  '/SMP/facial_fractures.html',
-  '/SMP/ligament_muscle_injuries.html',
-  '/SMP/contusions_and_abrasions.html',
-  '/SMP/wounds_including_infected.html',
-  '/SMP/head_injury.html',
-  
-  // Калькуляторы
-  '/SMP/algovera-shock.html',
-  '/SMP/glasgow-scale.html',
+  '/SMP/status2.html',
+  '/SMP/trauma_manual.html',
+  '/SMP/exanthema_manual.html',
+  '/SMP/surgery_symptoms.html',
+  '/SMP/vascular_symptoms.html',
+  '/SMP/dorsalgia_symptoms.html',
   '/SMP/itls-trauma.html',
-  '/SMP/lams-scale.html',
-  '/SMP/news2-scale.html',
-  '/SMP/odn-kassil.html',
-  '/SMP/pain-vas.html',
-  '/SMP/burn-area.html',
-  '/SMP/gastric-lavage-adult.html',
-  '/SMP/rass-scale.html',
-  '/SMP/shocks-scale.html',
-  '/SMP/pediatric-norms.html',
-  '/SMP/fontanelle.html',
-  '/SMP/gastric-lavage-child.html',
-  '/SMP/dobutamine-adult.html',
-  '/SMP/dobutamine-child.html',
-  '/SMP/dopamine-adult.html',
-  '/SMP/dopamine-child.html',
-  '/SMP/norepinephrine-adult.html',
-  '/SMP/norepinephrine-child.html',
-  '/SMP/mg-conversion.html',
-  '/SMP/iv-infusion-rate.html',
-  '/SMP/ett-size.html',
-  '/SMP/laryngeal-tube-size.html',
-  '/SMP/ventilation-parameters.html',
-  '/SMP/ventilation-modes.html',
-  '/SMP/intubation.html',
-  '/SMP/oxylog-modes.html',
-  '/SMP/due-date.html',
-  '/SMP/fundal-height.html',
-  '/SMP/dental-formula.html',
-  '/SMP/qt-interval-norms.html',
   
-  // Шаблоны карт
+  // Шаблоны карт (15 разделов)
   '/SMP/obstetrics.html',
   '/SMP/anesthesiology.html',
   '/SMP/infectious.html',
@@ -104,6 +70,43 @@ const urlsToCache = [
   '/SMP/traumatology.html',
   '/SMP/urology.html',
   '/SMP/surgery.html',
+  
+  // Калькуляторы
+  '/SMP/algovera-shock.html',
+  '/SMP/glasgow-scale.html',
+  '/SMP/lams-scale.html',
+  '/SMP/news2-scale.html',
+  '/SMP/odn-kassil.html',
+  '/SMP/pain-vas.html',
+  '/SMP/burn-area.html',
+  '/SMP/gastric-lavage-adult.html',
+  '/SMP/rass-scale.html',
+  '/SMP/shocks-scale.html',
+  '/SMP/pediatric-norms.html',
+  '/SMP/fontanelle.html',
+  '/SMP/gastric-lavage-child.html',
+  '/SMP/dobutamine-adult.html',
+  '/SMP/dobutamine-child.html',
+  '/SMP/dopamine-adult.html',
+  '/SMP/dopamine-child.html',
+  '/SMP/nitroglycerin-infusion.html',
+  '/SMP/norepinephrine-adult.html',
+  '/SMP/norepinephrine-child.html',
+  '/SMP/epinephrine-adult.html',
+  '/SMP/epinephrine-child.html',
+  '/SMP/burn-shock-infusion.html',
+  '/SMP/mg-conversion.html',
+  '/SMP/iv-infusion-rate.html',
+  '/SMP/ett-size.html',
+  '/SMP/laryngeal-tube-size.html',
+  '/SMP/ventilation-parameters.html',
+  '/SMP/ventilation-modes.html',
+  '/SMP/intubation.html',
+  '/SMP/oxylog-modes.html',
+  '/SMP/due-date.html',
+  '/SMP/fundal-height.html',
+  '/SMP/dental-formula.html',
+  '/SMP/qt-interval-norms.html',
   
   // Консилиумы
   '/SMP/responsible-doctor.html',
@@ -122,6 +125,23 @@ const urlsToCache = [
   '/SMP/routing.html',
   '/SMP/nsipv.html',
   
+  // Папка prochee
+  '/SMP/prochee/coma_diff.html',
+  '/SMP/prochee/four-scale.html',
+  '/SMP/prochee/oxybutyrate_poisoning.html',
+  '/SMP/prochee/marijuana_consumption.html',
+  '/SMP/prochee/unspecified_toxic_effect.html',
+  '/SMP/prochee/fracture_metacarpal.html',
+  '/SMP/prochee/algorithmsSMP-lor.html',
+  '/SMP/prochee/algorithmsSMP-travma.html',
+  '/SMP/prochee/algorithmsSMP-hirurg.html',
+  '/SMP/prochee/algorithmsSMP-urolog.html',
+  '/SMP/prochee/algorithmsSMP-ginecol.html',
+  '/SMP/prochee/algorithmsSMP-oftalmo.html',
+  '/SMP/prochee/algorithmsSMP-toxic.html',
+  '/SMP/prochee/Шкалы оценки боли взрослая.png',
+  '/SMP/prochee/Шкалы оценки боли детская.png',
+  
   // CSS и основные файлы
   '/SMP/style.css',
   '/SMP/manifest.json',
@@ -131,57 +151,38 @@ const urlsToCache = [
   '/SMP/55_swipe.png',
   '/SMP/2026-03-21 18.08.19.jpg',
   
-  // Скриншоты для установки PWA
+  // Скриншоты PWA
   '/SMP/screenshot-mobile-1.png',
   '/SMP/screenshot-mobile-2.png',
   '/SMP/screenshot-desktop-1.png'
 ];
 
+// ============================================
+// УСТАНОВКА: кэшируем все файлы по одному
+// ============================================
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(cache => {
-        console.log('📦 Кэширование файлов...');
-        return cache.addAll(urlsToCache);
+        console.log('📦 Кэширование ' + urlsToCache.length + ' файлов...');
+        return Promise.allSettled(
+          urlsToCache.map(url =>
+            cache.add(url).catch(err => {
+              console.warn('⚠️ Не удалось закэшировать:', url, err);
+            })
+          )
+        );
       })
       .then(() => {
-        console.log('✅ Все файлы закэшированы');
-        self.skipWaiting();
-      })
-      .catch(err => {
-        console.error('❌ Ошибка кэширования:', err);
+        console.log('✅ Установка завершена');
+        return self.skipWaiting();
       })
   );
 });
 
-// ГЛАВНОЕ ИЗМЕНЕНИЕ: стратегия Stale-While-Revalidate
-self.addEventListener('fetch', event => {
-  event.respondWith(
-    caches.open(CACHE_NAME).then(cache => {
-      return cache.match(event.request).then(cachedResponse => {
-        // Сетевая загрузка для обновления кэша (в фоне)
-        const fetchPromise = fetch(event.request).then(networkResponse => {
-          if (networkResponse && networkResponse.status === 200) {
-            cache.put(event.request, networkResponse.clone());
-          }
-          return networkResponse;
-        }).catch(error => {
-          console.log('⚠️ Ошибка сети:', error);
-          return null;
-        });
-        
-        // Если есть в кэше — возвращаем сразу, сеть обновит фоном
-        if (cachedResponse) {
-          return cachedResponse;
-        }
-        
-        // Если нет в кэше — ждём сеть
-        return fetchPromise;
-      });
-    })
-  );
-});
-
+// ============================================
+// АКТИВАЦИЯ: удаляем старый кэш
+// ============================================
 self.addEventListener('activate', event => {
   event.waitUntil(
     caches.keys().then(cacheNames => {
@@ -194,8 +195,66 @@ self.addEventListener('activate', event => {
         })
       );
     }).then(() => {
-      console.log('✅ Новый сервис-воркер активирован');
+      console.log('✅ Service Worker активирован (v95)');
       return self.clients.claim();
     })
   );
+});
+
+// ============================================
+// ЗАПРОСЫ: Stale-While-Revalidate + оффлайн-заглушка
+// ============================================
+self.addEventListener('fetch', event => {
+  if (event.request.method !== 'GET') return;
+  
+  event.respondWith(
+    caches.open(CACHE_NAME).then(cache => {
+      return cache.match(event.request).then(cachedResponse => {
+        
+        const networkPromise = fetch(event.request)
+          .then(networkResponse => {
+            if (networkResponse && networkResponse.status === 200) {
+              cache.put(event.request, networkResponse.clone());
+            }
+            return networkResponse;
+          })
+          .catch(() => {
+            console.log('📡 Оффлайн:', event.request.url);
+            return null;
+          });
+        
+        // Есть в кэше — возвращаем мгновенно
+        if (cachedResponse) {
+          event.waitUntil(networkPromise);
+          return cachedResponse;
+        }
+        
+        // Нет в кэше — ждём сеть
+        return networkPromise.then(networkResponse => {
+          if (networkResponse) return networkResponse;
+          
+          // HTML-запрос без кэша и сети → оффлайн-заглушка
+          if (event.request.mode === 'navigate' || 
+              event.request.headers.get('accept')?.includes('text/html')) {
+            return caches.match('/SMP/offline.html');
+          }
+          
+          return new Response('Оффлайн — данные недоступны', { 
+            status: 503,
+            statusText: 'Service Unavailable',
+            headers: { 'Content-Type': 'text/plain; charset=utf-8' }
+          });
+        });
+      });
+    })
+  );
+});
+
+// ============================================
+// СООБЩЕНИЯ от страниц
+// ============================================
+self.addEventListener('message', event => {
+  if (event.data === 'skipWaiting') {
+    self.skipWaiting();
+  }
 });
