@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Карта вызова скорой медицинской помощи | Клиническая смерть, повешение</title>
     <style>
         * {
@@ -165,11 +165,14 @@
             font-weight: bold;
         }
 
-        /* Кнопка алгоритма */
         .algorithm-btn-container {
             margin-top: 32px;
             margin-bottom: 20px;
             text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
         }
 
         .btn-algorithm {
@@ -188,7 +191,8 @@
             align-items: center;
             gap: 4px;
             letter-spacing: 0.3px;
-            border: 1px solid rgba(255,255,255,0.3);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            max-width: 100%;
         }
 
         .btn-algorithm:hover {
@@ -206,9 +210,39 @@
             font-weight: normal;
             opacity: 0.9;
             letter-spacing: normal;
-            border-top: 1px dashed rgba(255,255,255,0.5);
+            border-top: 1px dashed rgba(255, 255, 255, 0.5);
             padding-top: 4px;
             margin-top: 2px;
+        }
+
+        .btn-asphyxia {
+            background-color: #7c3aed;
+            color: white;
+            border: none;
+            padding: 10px 28px;
+            font-size: 1.15rem;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 6px 14px rgba(124, 58, 237, 0.3);
+            transition: all 0.2s ease;
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            letter-spacing: 0.3px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            max-width: 100%;
+        }
+
+        .btn-asphyxia:hover {
+            background-color: #5b21b6;
+            transform: scale(1.02);
+            box-shadow: 0 10px 20px rgba(91, 33, 182, 0.4);
+        }
+
+        .btn-asphyxia:active {
+            transform: scale(0.98);
         }
 
         /* Модальное окно */
@@ -237,15 +271,16 @@
 
         .modal-container {
             background-color: #fffef7;
-            max-width: 850px;
+            max-width: 1200px;
             width: 100%;
             max-height: 85vh;
             border-radius: 28px;
-            box-shadow: 0 25px 45px -12px black;
+            box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.25);
             display: flex;
             flex-direction: column;
             overflow: hidden;
             animation: modalFadeIn 0.25s ease-out;
+            border: 1px solid #ffd7a5;
         }
 
         @keyframes modalFadeIn {
@@ -260,21 +295,21 @@
         }
 
         .modal-header {
-            background: #b91c1c;
+            background: #c2410c;
             color: white;
-            padding: 18px 24px;
+            padding: 18px 28px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 3px solid #ffc107;
+            border-bottom: 4px solid #ffb347;
+            flex-shrink: 0;
         }
 
         .modal-header h2 {
-            font-size: 1.3rem;
+            font-size: 1.25rem;
             font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            line-height: 1.3;
+            word-break: break-word;
         }
 
         .modal-close {
@@ -287,611 +322,1199 @@
             transition: 0.2s;
             padding: 0 8px;
             border-radius: 40px;
+            flex-shrink: 0;
         }
 
         .modal-close:hover {
-            background-color: rgba(255,255,255,0.2);
+            background-color: rgba(255, 255, 255, 0.2);
             transform: scale(1.1);
         }
 
         .modal-body {
             flex: 1;
             overflow-y: auto;
-            padding: 24px 28px;
+            padding: 28px 32px;
             background: #fefcf5;
             font-size: 0.95rem;
             line-height: 1.5;
         }
 
-        /* стили для алгоритма */
-        .alg-section {
-            margin-bottom: 24px;
-            border-left: 4px solid #dc2626;
-            padding-left: 18px;
+        .adult-block {
+            border-left: 5px solid #dc2626;
+            padding-left: 20px;
             background: #fff9f0;
-            border-radius: 0 14px 14px 0;
+            border-radius: 0 18px 18px 0;
+            margin-bottom: 40px;
         }
 
-        .alg-title {
-            font-weight: 800;
-            font-size: 1rem;
-            color: #a51c1c;
-            margin: 8px 0 8px 0;
-            display: inline-block;
-            background: #ffeeee;
-            padding: 4px 14px;
-            border-radius: 30px;
+        .adult-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 10px 0 20px 0;
+        }
+
+        .badge-adult {
+            background: #c2410c;
+            color: white;
+            padding: 6px 14px;
+            border-radius: 40px;
+            font-weight: bold;
+        }
+
+        .child-block {
+            border-left: 5px solid #2e7d32;
+            padding-left: 20px;
+            background: #ecf7ec;
+            border-radius: 0 18px 18px 0;
+            margin-bottom: 20px;
+        }
+
+        .child-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 10px 0 20px 0;
+        }
+
+        .badge-child {
+            background: #2e7d32;
+            color: white;
+            padding: 6px 14px;
+            border-radius: 40px;
+            font-weight: bold;
         }
 
         .list-styled {
-            margin: 8px 0 10px 24px;
+            margin: 12px 0 14px 28px;
         }
 
         .list-styled li {
-            margin: 6px 0;
+            margin: 8px 0;
+        }
+
+        .general-action-block {
+            background: #fff9f0;
+            padding: 6px 0;
         }
 
         .tactic-block {
-            background: #eef2fa;
-            border-radius: 16px;
-            padding: 12px 18px;
-            margin-top: 12px;
-            margin-bottom: 8px;
+            background: #d9effa;
+            border-radius: 20px;
+            padding: 14px 20px;
+            margin: 18px 0 16px 0;
+            border-left: 4px solid #0284c7;
         }
 
         .tactic-title {
-            font-weight: 700;
-            color: #1e4663;
-            margin-bottom: 6px;
+            font-weight: 800;
+            color: #0369a1;
+            margin-bottom: 8px;
+            font-size: 1rem;
         }
 
         .condition-block {
-            background: #fff0d4;
-            border-left: 5px solid #dc2626;
-            padding: 10px 16px;
-            margin: 10px 0;
-            border-radius: 12px;
+            background: #ffe6cc;
+            border-left: 6px solid #e03a3a;
+            padding: 14px 20px;
+            margin: 20px 0;
+            border-radius: 16px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .child-condition-block {
+            background: #d9f0d9;
+            border-left: 6px solid #2e7d32;
         }
 
         .condition-title {
-            font-weight: 700;
-            color: #a51c1c;
-            margin-bottom: 6px;
+            font-weight: 800;
+            color: #b91c1c;
+            margin-bottom: 10px;
+            font-size: 1rem;
         }
 
-        .warning-block {
-            background: #ffe6e6;
-            border-left: 5px solid #dc2626;
-            padding: 10px 16px;
-            margin: 10px 0;
-            border-radius: 12px;
+        .important-red {
+            background: #ffc4c4;
+            border-left: 6px solid #dc2626;
+            padding: 12px 18px;
+            margin: 14px 0;
+            border-radius: 14px;
+            font-weight: 800;
+            color: #9b1c1c;
+            font-size: 0.98rem;
         }
+
+        .warning-red-bg {
+            background: #ffb3b3;
+            border-left: 6px solid #b91c1c;
+            padding: 14px 20px;
+            margin: 20px 0;
+            border-radius: 16px;
+            font-weight: 800;
+            color: #7a1a1a;
+        }
+
         .warning-title {
-            font-weight: 700;
+            font-weight: 800;
             color: #b91c1c;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
+        }
+
+        .highlight-number {
+            font-weight: 800;
+            color: #c2410c;
+            background: #fff0d0;
+            padding: 0 4px;
+            border-radius: 10px;
+        }
+
+        .bold-black {
+            font-weight: 800;
+            color: #000000;
+            background: transparent;
+        }
+
+        .drug-name {
+            background: #f3f3f3;
+            font-family: monospace;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-weight: 800;
+            color: #1a3c4a;
+            display: inline-block;
+        }
+
+        .italic-bold-ref {
+            font-weight: 800;
+            font-style: italic;
+            background: transparent;
+            color: #0a2f44;
         }
 
         hr {
-            margin: 16px 0;
+            margin: 22px 0;
             border-color: #f0dbb2;
         }
 
+        /* Модальное окно для изображений */
+        #imageModal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        #imageModal .modal-close-img {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            background: none;
+            border: none;
+            z-index: 2001;
+        }
+
+        #modalImage {
+            max-width: 90%;
+            max-height: 70%;
+            object-fit: contain;
+        }
+
+        #navContainer {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: none;
+            gap: 30px;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 6px 20px;
+            border-radius: 40px;
+            z-index: 2001;
+        }
+
+        #prevBtn,
+        #nextBtn {
+            background-color: transparent;
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            padding: 0 12px;
+        }
+
+        #imageCounter {
+            color: white;
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
         @media (max-width: 700px) {
-            .field-item strong {
-                min-width: 170px;
+            body {
+                padding: 16px 10px;
             }
-            .full-width-text strong {
-                min-width: 170px;
+            .mkb-row {
+                padding: 14px 18px;
+                font-size: 0.95rem;
+            }
+            .diagnosis {
+                padding: 10px 18px;
+                font-size: 0.9rem;
             }
             .content {
-                padding: 20px;
-            }
-            .modal-body {
                 padding: 16px;
             }
-            .btn-algorithm {
+            .section {
+                margin-bottom: 20px;
+            }
+            .section-title {
+                font-size: 1.15rem;
+                padding-left: 12px;
+                margin-bottom: 12px;
+            }
+            .field-item {
+                font-size: 0.85rem;
+                padding: 4px 0 4px 4px;
+            }
+            .field-item strong {
+                min-width: 140px;
+            }
+            .full-width-text {
+                font-size: 0.85rem;
+                padding: 6px 0 6px 4px;
+            }
+            .full-width-text strong {
+                min-width: 140px;
+            }
+            .status-local {
+                padding: 10px 14px;
+                font-size: 0.85rem;
+            }
+            .scales-list {
+                padding: 10px 14px;
+            }
+            .scales-list p {
+                font-size: 0.85rem;
+                margin: 6px 0;
+            }
+            .btn-algorithm,
+            .btn-asphyxia {
                 padding: 8px 22px;
                 font-size: 1rem;
             }
             .btn-hint {
                 font-size: 0.65rem;
             }
+            .modal-overlay {
+                padding: 10px;
+            }
+            .modal-container {
+                max-height: 90vh;
+                border-radius: 20px;
+            }
+            .modal-header {
+                padding: 14px 18px;
+            }
+            .modal-header h2 {
+                font-size: 1rem;
+            }
+            .modal-body {
+                padding: 20px;
+            }
+            .list-styled {
+                margin-left: 20px;
+            }
+            .adult-block {
+                padding-left: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .field-item strong {
+                min-width: 120px;
+            }
+            .full-width-text strong {
+                min-width: 120px;
+            }
+            .btn-algorithm,
+            .btn-asphyxia {
+                padding: 10px 18px;
+                font-size: 0.9rem;
+                border-radius: 40px;
+            }
         }
     </style>
 </head>
 <body>
-<div class="card">
-    <div class="mkb-row">
-        📌 Код по МКБ-10: <span>I46.9</span> (Остановка сердца неуточненная)
-    </div>
-    <div class="diagnosis">
-        🧾 <strong>Диагноз:</strong> Механическая асфиксия вследствие повешения. Острая странгуляционная асфиксия. Суицидальная попытка.<br>
-        Осложнения: Клиническая смерть.
-    </div>
-
-    <div class="content">
-        <!-- ЖАЛОБЫ -->
-        <div class="section">
-            <div class="section-title">📢 ЖАЛОБЫ</div>
-            <div class="full-width-text"><em>Собрать не представляется возможным, ввиду тяжести состояния (клиническая смерть).</em></div>
+    <div class="card">
+        <div class="mkb-row">
+            📌 Код по МКБ-10: <span>I46.9</span> (Остановка сердца неуточненная)
+        </div>
+        <div class="diagnosis">
+            🧾 <strong>Диагноз:</strong> Механическая асфиксия вследствие повешения. Острая странгуляционная асфиксия. Суицидальная попытка.<br>
+            Осложнения: Клиническая смерть.
         </div>
 
-        <!-- АНАМНЕЗ -->
-        <div class="section">
-            <div class="section-title">📋 АНАМНЕЗ</div>
-            <div class="full-width-text"><strong>Анамнез заболевания:</strong> Со слов родственника: в ______ (время) обнаружили пациента в своей комнате, повесившегося на ремне халата, фиксированного к спортивному турнику. Родственники незамедлительно срезали пояс от халата и освободили шею, начали непрямой массаж сердца до прибытия бригады СМП. Последний раз контактировали с пациентом около 1,5 часа назад. Пациент последнее время вел себя грубо, на контакт не шел. На учете в ПНД не состоял. Суицидальные мысли/попытки в анамнезе отрицает.</div>
-            <div class="full-width-text"><strong>Эпидемиологический анамнез:</strong> Не оценивался.</div>
-            <div class="full-width-text"><strong>Аллергологический анамнез:</strong> Не известен.</div>
-            <div class="full-width-text"><strong>Гинекологический анамнез:</strong> Не применимо (пациент мужского пола).</div>
-        </div>
-
-        <!-- ОБЪЕКТИВНО -->
-        <div class="section">
-            <div class="section-title">🩺 ОБЪЕКТИВНО</div>
-            <div class="field-list">
-                <div class="field-item"><strong>Общее состояние:</strong> <span class="value">Клиническая смерть.</span></div>
-                <div class="field-item"><strong>Сознание:</strong> <span class="value">Отсутствует.</span></div>
-                <div class="field-item"><strong>Шкала комы Глазго (GCS):</strong> <span class="value">3 балла (не оценивалась, но соответствует 3 баллам – E1, V1, M1).</span></div>
-                <div class="field-item"><strong>Положение:</strong> <span class="value">Пассивное, горизонтальное, на спине.</span></div>
-                <div class="field-item"><strong>Кожные покровы:</strong> <span class="value">Бледные, выраженный цианоз головы (лица, шеи, верхней части груди) – «асфиктическая маска». Акроцианоз. Трупные пятна не определяются. Холодный липкий пот.</span></div>
-                <div class="field-item"><strong>Сыпь:</strong> <span class="value">Нет.</span></div>
-                <div class="field-item"><strong>Зев:</strong> <span class="value">Не осматривался.</span></div>
-                <div class="field-item"><strong>Миндалины:</strong> <span class="value">Не осматривались.</span></div>
-                <div class="field-item"><strong>Лимфоузлы:</strong> <span class="value">Не пальпировались.</span></div>
-                <div class="field-item"><strong>Пролежни:</strong> <span class="value">Нет.</span></div>
-                <div class="field-item"><strong>Отеки:</strong> <span class="value">Нет.</span></div>
-                <div class="field-item"><strong>t°:</strong> <span class="value">Не измерялась.</span></div>
+        <div class="content">
+            <!-- ЖАЛОБЫ -->
+            <div class="section">
+                <div class="section-title">📢 ЖАЛОБЫ</div>
+                <div class="full-width-text"><em>Собрать не представляется возможным, ввиду тяжести состояния (клиническая смерть).</em></div>
             </div>
-        </div>
 
-        <!-- ОРГАНЫ ДЫХАНИЯ -->
-        <div class="section">
-            <div class="section-title">🌬️ ОРГАНЫ ДЫХАНИЯ</div>
-            <div class="field-list">
-                <div class="field-item"><strong>ЧДД:</strong> <span class="value">Спонтанное дыхание отсутствует (апноэ).</span></div>
-                <div class="field-item"><strong>Одышка:</strong> <span class="value">Нет.</span></div>
-                <div class="field-item"><strong>Патологическое дыхание:</strong> <span class="value">Нет.</span></div>
-                <div class="field-item"><strong>Аускультативно:</strong> <span class="value">Дыхательные шумы не выслушиваются.</span></div>
-                <div class="field-item"><strong>Хрипы сухие:</strong> <span class="value">Нет.</span></div>
-                <div class="field-item"><strong>Влажные:</strong> <span class="value">Нет.</span></div>
-                <div class="field-item"><strong>Крепитация:</strong> <span class="value">Нет.</span></div>
-                <div class="field-item"><strong>Шум трения плевры:</strong> <span class="value">Нет.</span></div>
-                <div class="field-item"><strong>Перкуторный звук:</strong> <span class="value">Не определялся.</span></div>
-                <div class="field-item"><strong>Кашель:</strong> <span class="value">Нет.</span></div>
-                <div class="field-item"><strong>Мокрота:</strong> <span class="value">Нет.</span></div>
+            <!-- АНАМНЕЗ -->
+            <div class="section">
+                <div class="section-title">📋 АНАМНЕЗ</div>
+                <div class="full-width-text"><strong>Анамнез заболевания:</strong> Со слов родственника: в ______ (время) обнаружили пациента в своей комнате, повесившегося на ремне халата, фиксированного к спортивному турнику. Родственники незамедлительно срезали пояс от халата и освободили шею, начали непрямой массаж сердца до прибытия бригады СМП. Последний раз контактировали с пациентом около 1,5 часа назад. Пациент последнее время вел себя грубо, на контакт не шел. На учете в ПНД не состоял. Суицидальные мысли/попытки в анамнезе отрицает.</div>
+                <div class="full-width-text"><strong>Эпидемиологический анамнез:</strong> Не оценивался.</div>
+                <div class="full-width-text"><strong>Аллергологический анамнез:</strong> Не известен.</div>
+                <div class="full-width-text"><strong>Гинекологический анамнез:</strong> Не применимо (пациент мужского пола).</div>
             </div>
-        </div>
 
-        <!-- ОРГАНЫ КРОВООБРАЩЕНИЯ -->
-        <div class="section">
-            <div class="section-title">❤️ ОРГАНЫ КРОВООБРАЩЕНИЯ</div>
-            <div class="field-list">
-                <div class="field-item"><strong>Пульс:</strong> <span class="value">Не определяется на сонных, бедренных и периферических артериях.</span></div>
-                <div class="field-item"><strong>Ритмичный, аритмичный, наполнение пульса:</strong> <span class="value">Не определяется.</span></div>
-                <div class="field-item"><strong>ЧСС:</strong> <span class="value">Не определяется аускультативно.</span></div>
-                <div class="field-item"><strong>Дефицит пульса:</strong> <span class="value">Не определяется.</span></div>
-                <div class="field-item"><strong>АД:</strong> <span class="value">Не определяется.</span></div>
-                <div class="field-item"><strong>Тоны сердца:</strong> <span class="value">Не выслушиваются.</span></div>
-                <div class="field-item"><strong>Шум:</strong> <span class="value">Нет.</span></div>
-                <div class="field-item"><strong>Шум трения перикарда:</strong> <span class="value">Нет.</span></div>
-                <div class="field-item"><strong>Акцент какого тона:</strong> <span class="value">Не выявлен.</span></div>
-            </div>
-        </div>
-
-        <!-- ОРГАНЫ ПИЩЕВАРЕНИЯ -->
-        <div class="section">
-            <div class="section-title">🍽️ ОРГАНЫ ПИЩЕВАРЕНИЯ</div>
-            <div class="field-list">
-                <div class="field-item"><strong>Язык:</strong> <span class="value">Не осматривался (тризм жевательной мускулатуры/невозможность осмотра в связи с реанимационными мероприятиями).</span></div>
-                <div class="field-item"><strong>Живот:</strong> <span class="value">Пальпация не информативна в связи с проводимой СЛР. Видимых повреждений нет.</span></div>
-                <div class="field-item"><strong>Болезненный в:</strong> <span class="value">Не оценивалось.</span></div>
-                <div class="field-item"><strong>Положительные симптомы:</strong> <span class="value">Не оценивались.</span></div>
-                <div class="field-item"><strong>Перистальтика:</strong> <span class="value">Не выслушивалась.</span></div>
-                <div class="field-item"><strong>Печень:</strong> <span class="value">Не пальпировалась.</span></div>
-                <div class="field-item"><strong>Селезенка:</strong> <span class="value">Не пальпировалась.</span></div>
-                <div class="field-item"><strong>Стул:</strong> <span class="value">За время осмотра дефекации не было, следов непроизвольной дефекации нет.</span></div>
-            </div>
-        </div>
-
-        <!-- НЕРВНАЯ СИСТЕМА -->
-        <div class="section">
-            <div class="section-title">🧠 НЕРВНАЯ СИСТЕМА</div>
-            <div class="field-list">
-                <div class="field-item"><strong>Поведение:</strong> <span class="value">Контакт невозможен из-за тяжести состояния пациента (клиническая смерть).</span></div>
-                <div class="field-item"><strong>Контакт:</strong> <span class="value">Отсутствует.</span></div>
-                <div class="field-item"><strong>Чувствительность:</strong> <span class="value">Не определяется.</span></div>
-                <div class="field-item"><strong>Речь:</strong> <span class="value">Отсутствует.</span></div>
-                <div class="field-item"><strong>Зрачки (OD, OS):</strong> <span class="value">Широкие, мидриаз, фотореакция отсутствует.</span></div>
-                <div class="field-item"><strong>Фотореакция:</strong> <span class="value">Отсутствует.</span></div>
-                <div class="field-item"><strong>Нистагм:</strong> <span class="value">Нет.</span></div>
-                <div class="field-item"><strong>Асимметрия лица:</strong> <span class="value">Нет.</span></div>
-                <div class="field-item"><strong>Менингеальные симптомы:</strong> <span class="value">Не определяются.</span></div>
-                <div class="field-item"><strong>Очаговые симптомы:</strong> <span class="value">Не определяются.</span></div>
-                <div class="field-item"><strong>Координаторные пробы:</strong> <span class="value">Не выполняются.</span></div>
-                <div class="field-item"><strong>Роговичные рефлексы:</strong> <span class="value">Отсутствуют.</span></div>
-            </div>
-        </div>
-
-        <!-- МОЧЕПОЛОВАЯ СИСТЕМА -->
-        <div class="section">
-            <div class="section-title">🚽 МОЧЕПОЛОВАЯ СИСТЕМА</div>
-            <div class="field-list">
-                <div class="field-item"><strong>Мочеиспускание:</strong> <span class="value">За время осмотра мочеиспускания не было, следов непроизвольного мочеиспускания нет.</span></div>
-                <div class="field-item"><strong>Симптом поколачивания:</strong> <span class="value">Не определялся.</span></div>
-            </div>
-        </div>
-
-        <!-- STATUS LOCALIS -->
-        <div class="section">
-            <div class="section-title">🔍 STATUS LOCALIS</div>
-            <div class="status-local">
-                <strong>Шея:</strong><br>
-                При осмотре на передней поверхности шеи, ниже щитовидного хряща, расположена косовосходящая, спереди назад, одиночная, незамкнутая по задней поверхности шеи, странгуляционная борозда. Ширина борозды от 1,5 до 2 см, глубина до 0,5 см. Дно борозды представлено кожей пергаментной плотности, темно-красного цвета. Края борозды четкие, валикообразные. Направление борозды косовосходящее (слева направо/справа налево – уточнить) – соответствует типичному расположению при повешении с типичной локализацией узла (сзади/сбоку). Замкнутое кольцо борозды не определяется (незамкнута по задней поверхности шеи – узел сбоку/спереди?).<br><br>
-                <strong>Другие области:</strong><br>
-                Кожные покровы туловища и конечностей бледные, цианоз головы и шеи. Видимых травматических повреждений, гематом, ссадин, ран, следов инъекций не выявлено. Костно-суставных деформаций нет.<br><br>
-                <strong>Положение пациента:</strong> горизонтальное на спине, на ровной поверхности.
-            </div>
-        </div>
-
-        <!-- ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ -->
-        <div class="section">
-            <div class="section-title">📊 ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ</div>
-            <div class="scales-list">
-                <p>✔ <strong>ЭКГ-мониторинг (дефибриллятор):</strong> На мониторе регистрируется асистолия – изолиния, отсутствие электрической активности сердца.</p>
-                <p>✔ <strong>Пульсоксиметрия:</strong> Не определяется (отсутствие периферического кровотока).</p>
-            </div>
-        </div>
-
-        <!-- ОКАЗАННАЯ ПОМОЩЬ И ЕЁ ЭФФЕКТ -->
-        <div class="section">
-            <div class="section-title">🚑 ОКАЗАННАЯ ПОМОЩЬ И ЕЁ ЭФФЕКТ</div>
-            <div class="status-local">
-                <strong>На догоспитальном этапе (родственники):</strong><br>
-                Освобождение шеи от странгуляционной петли (ремень халата срезан).<br>
-                Начало непрямого массажа сердца до прибытия бригады СМП.<br><br>
-                <strong>На этапе СМП (бригада):</strong><br>
-                ______ (время): Пациент перенесен на ровную жесткую поверхность (пол).<br>
-                ______ (время): Незамедлительно начато проведение сердечно-легочной реанимации в полном объеме в соответствии с действующими клиническими рекомендациями (смотри прилагаемый протокол сердечно-легочной реанимации).<br>
-                ______ (время): На себя вызвана врачебная бригада / реанимационная бригада.
-            </div>
-        </div>
-
-        <!-- ОЦЕНКА ПО ШКАЛАМ -->
-        <div class="section">
-            <div class="section-title">📊 ОЦЕНКА ПО ШКАЛАМ</div>
-            <div class="scales-list">
-                <p>✔ <strong>Шкала комы Глазго (GCS):</strong> 3 балла (глубокая кома).</p>
-                <p>✔ <strong>Шкала NEWS2:</strong> не применимо (терминальное состояние, оценка по шкале не проводится).</p>
-                <p>✔ <strong>Индекс Альговера:</strong> не определяется (отсутствие гемодинамики).</p>
-                <p>✔ <strong>Шкала ОДН по Кассиль:</strong> не применима.</p>
-                <p>✔ <strong>Шкала боли ВАШ при травме:</strong> не применимо.</p>
-                <p>✔ <strong>Шкала ШОКС:</strong> не применимо.</p>
-                <p>✔ <strong>Шкала риска ТЭЛА:</strong> не применимо.</p>
-                <p>✔ <strong>Шкала LAMS:</strong> не применимо.</p>
-                <p>✔ <strong>Признаки ДЭП:</strong> не применимо.</p>
-                <p>✔ <strong>Состояние алкогольного опьянения:</strong> запах алкоголя не определяется. Экспресс-тест на алкоголь в выдыхаемом воздухе не проводился.</p>
-            </div>
-        </div>
-
-        <!-- КРАСНАЯ КНОПКА -->
-        <div class="algorithm-btn-container">
-            <button class="btn-algorithm" id="openAlgorithmBtn">
-                <span>🚨 Оказание помощи в соответствии с Алгоритмами МСК</span>
-                <span class="btn-hint">▼ нажмите для открытия ▼</span>
-            </button>
-        </div>
-    </div>
-</div>
-
-<!-- МОДАЛЬНОЕ ОКНО: АЛГОРИТМ ОСТАНОВКИ СЕРДЦА, ФИБРИЛЛЯЦИИ ЖЕЛУДОЧКОВ, ЖТ, ВСС (I46.1, I46.9, I47.2) -->
-<div class="modal-overlay" id="algorithmModal">
-    <div class="modal-container">
-        <div class="modal-header">
-            <h2>📋 Алгоритм оказания помощи (МСК)</h2>
-            <button class="modal-close" id="closeModalBtn">&times;</button>
-        </div>
-        <div class="modal-body">
-            <div class="alg-section">
-                <div class="alg-title">🔹 I46.1, I46.9, I47.2 — Остановка сердца неуточненная. Фибрилляция и трепетание желудочков. Желудочковая тахикардия. Внезапная сердечная смерть</div>
-                
-                <ul class="list-styled">
-                    <li>Компрессии грудной клетки (ручные) с частотой 100–120 в минуту</li>
-                </ul>
-                <div class="condition-title" style="margin-top: 4px;">При отсутствии ранее установленной интубационной трубки или надгортанного герметизирующего устройства:</div>
-                <ul class="list-styled">
-                    <li>Санация верхних дыхательных путей</li>
-                    <li>ИВЛ масочная дыхательным мешком (30:2 в сочетании с компрессией грудной клетки)</li>
-                    <li>Оценка электрической активности сердца с использованием электродов дефибриллятора каждые 2 минуты (ЭКГ-мониторинг)</li>
-                </ul>
-                <div class="condition-title" style="margin-top: 8px;">При наличии ранее установленной интубационной трубки или надгортанного герметизирующего устройства:</div>
-                <ul class="list-styled">
-                    <li>ИВЛ дыхательным мешком 10 в минуту или аппаратная (ДО – 6 мл/кг, ЧД – 10 в минуту, FiO2 1.0)</li>
-                    <li>Оценка электрической активности сердца с использованием электродов дефибриллятора каждые 2 минуты (ЭКГ-мониторинг)</li>
-                </ul>
-
-                <div class="tactic-block">
-                    <div class="tactic-title">▶ Тактика:</div>
-                    <ul class="list-styled">
-                        <li>1. Для фельдшерской бригады – вызов врачебной бригады, оснащенной УАК или бригады АиР (20)</li>
-                        <li>2. Для врачебных бригад, не оснащенных УАК – вызов бригады, оснащенной УАК (20)</li>
-                    </ul>
+            <!-- ОБЪЕКТИВНО -->
+            <div class="section">
+                <div class="section-title">🩺 ОБЪЕКТИВНО</div>
+                <div class="field-list">
+                    <div class="field-item"><strong>Общее состояние:</strong> <span class="value">Клиническая смерть.</span></div>
+                    <div class="field-item"><strong>Сознание:</strong> <span class="value">Отсутствует.</span></div>
+                    <div class="field-item"><strong>Шкала комы Глазго (GCS):</strong> <span class="value">3 балла (E1, V1, M1).</span></div>
+                    <div class="field-item"><strong>Положение:</strong> <span class="value">Пассивное, горизонтальное, на спине.</span></div>
+                    <div class="field-item"><strong>Кожные покровы:</strong> <span class="value">Бледные, выраженный цианоз головы (лица, шеи, верхней части груди) — «асфиктическая маска». Акроцианоз. Трупные пятна не определяются. Холодный липкий пот.</span></div>
+                    <div class="field-item"><strong>Сыпь:</strong> <span class="value">Нет.</span></div>
+                    <div class="field-item"><strong>Зев:</strong> <span class="value">Не осматривался.</span></div>
+                    <div class="field-item"><strong>Миндалины:</strong> <span class="value">Не осматривались.</span></div>
+                    <div class="field-item"><strong>Лимфоузлы:</strong> <span class="value">Не пальпировались.</span></div>
+                    <div class="field-item"><strong>Пролежни:</strong> <span class="value">Нет.</span></div>
+                    <div class="field-item"><strong>Отеки:</strong> <span class="value">Нет.</span></div>
+                    <div class="field-item"><strong>t°:</strong> <span class="value">Не измерялась.</span></div>
                 </div>
+            </div>
 
-                <div class="condition-block">
-                    <div class="condition-title">▶ при асистолии, электрической активности сердца без пульса (электромеханической диссоциации)</div>
-                    <div class="warning-block" style="margin-top: 4px;">
-                        <div class="warning-title">Дефибрилляция противопоказана</div>
+            <!-- ОРГАНЫ ДЫХАНИЯ -->
+            <div class="section">
+                <div class="section-title">🌬️ ОРГАНЫ ДЫХАНИЯ</div>
+                <div class="field-list">
+                    <div class="field-item"><strong>ЧДД:</strong> <span class="value">Спонтанное дыхание отсутствует (апноэ).</span></div>
+                    <div class="field-item"><strong>Одышка:</strong> <span class="value">Нет.</span></div>
+                    <div class="field-item"><strong>Патологическое дыхание:</strong> <span class="value">Нет.</span></div>
+                    <div class="field-item"><strong>Аускультативно:</strong> <span class="value">Дыхательные шумы не выслушиваются.</span></div>
+                    <div class="field-item"><strong>Хрипы сухие:</strong> <span class="value">Нет.</span></div>
+                    <div class="field-item"><strong>Влажные:</strong> <span class="value">Нет.</span></div>
+                    <div class="field-item"><strong>Крепитация:</strong> <span class="value">Нет.</span></div>
+                    <div class="field-item"><strong>Шум трения плевры:</strong> <span class="value">Нет.</span></div>
+                    <div class="field-item"><strong>Перкуторный звук:</strong> <span class="value">Не определялся.</span></div>
+                    <div class="field-item"><strong>Кашель:</strong> <span class="value">Нет.</span></div>
+                    <div class="field-item"><strong>Мокрота:</strong> <span class="value">Нет.</span></div>
+                </div>
+            </div>
+
+            <!-- ОРГАНЫ КРОВООБРАЩЕНИЯ -->
+            <div class="section">
+                <div class="section-title">❤️ ОРГАНЫ КРОВООБРАЩЕНИЯ</div>
+                <div class="field-list">
+                    <div class="field-item"><strong>Пульс:</strong> <span class="value">Не определяется на сонных, бедренных и периферических артериях.</span></div>
+                    <div class="field-item"><strong>Ритмичный, аритмичный, наполнение пульса:</strong> <span class="value">Не определяется.</span></div>
+                    <div class="field-item"><strong>ЧСС:</strong> <span class="value">Не определяется аускультативно.</span></div>
+                    <div class="field-item"><strong>Дефицит пульса:</strong> <span class="value">Не определяется.</span></div>
+                    <div class="field-item"><strong>АД:</strong> <span class="value">Не определяется.</span></div>
+                    <div class="field-item"><strong>Тоны сердца:</strong> <span class="value">Не выслушиваются.</span></div>
+                    <div class="field-item"><strong>Шум:</strong> <span class="value">Нет.</span></div>
+                    <div class="field-item"><strong>Шум трения перикарда:</strong> <span class="value">Нет.</span></div>
+                    <div class="field-item"><strong>Акцент какого тона:</strong> <span class="value">Не выявлен.</span></div>
+                </div>
+            </div>
+
+            <!-- ОРГАНЫ ПИЩЕВАРЕНИЯ -->
+            <div class="section">
+                <div class="section-title">🍽️ ОРГАНЫ ПИЩЕВАРЕНИЯ</div>
+                <div class="field-list">
+                    <div class="field-item"><strong>Язык:</strong> <span class="value">Не осматривался (тризм жевательной мускулатуры/невозможность осмотра в связи с реанимационными мероприятиями).</span></div>
+                    <div class="field-item"><strong>Живот:</strong> <span class="value">Пальпация не информативна в связи с проводимой СЛР. Видимых повреждений нет.</span></div>
+                    <div class="field-item"><strong>Болезненный в:</strong> <span class="value">Не оценивалось.</span></div>
+                    <div class="field-item"><strong>Положительные симптомы:</strong> <span class="value">Не оценивались (пациент в состоянии клинической смерти).</span></div>
+                    <div class="field-item"><strong>Перистальтика:</strong> <span class="value">Не выслушивалась.</span></div>
+                    <div class="field-item"><strong>Печень:</strong> <span class="value">Не пальпировалась.</span></div>
+                    <div class="field-item"><strong>Селезенка:</strong> <span class="value">Не пальпировалась.</span></div>
+                    <div class="field-item"><strong>Стул:</strong> <span class="value">За время осмотра дефекации не было, следов непроизвольной дефекации нет.</span></div>
+                </div>
+            </div>
+
+            <!-- НЕРВНАЯ СИСТЕМА -->
+            <div class="section">
+                <div class="section-title">🧠 НЕРВНАЯ СИСТЕМА</div>
+                <div class="field-list">
+                    <div class="field-item"><strong>Поведение:</strong> <span class="value">Контакт невозможен из-за тяжести состояния пациента (клиническая смерть).</span></div>
+                    <div class="field-item"><strong>Контакт:</strong> <span class="value">Отсутствует.</span></div>
+                    <div class="field-item"><strong>Чувствительность:</strong> <span class="value">Не определяется.</span></div>
+                    <div class="field-item"><strong>Речь:</strong> <span class="value">Отсутствует.</span></div>
+                    <div class="field-item"><strong>Зрачки (OD, OS):</strong> <span class="value">Широкие, мидриаз, фотореакция отсутствует.</span></div>
+                    <div class="field-item"><strong>Фотореакция:</strong> <span class="value">Отсутствует.</span></div>
+                    <div class="field-item"><strong>Нистагм:</strong> <span class="value">Нет.</span></div>
+                    <div class="field-item"><strong>Асимметрия лица:</strong> <span class="value">Нет.</span></div>
+                    <div class="field-item"><strong>Менингеальные симптомы:</strong> <span class="value">Не определяются.</span></div>
+                    <div class="field-item"><strong>Очаговые симптомы:</strong> <span class="value">Не определяются.</span></div>
+                    <div class="field-item"><strong>Координаторные пробы:</strong> <span class="value">Не выполняет (ввиду клинической смерти, комы).</span></div>
+                    <div class="field-item"><strong>Роговичные рефлексы:</strong> <span class="value">Отсутствуют.</span></div>
+                </div>
+            </div>
+
+            <!-- МОЧЕПОЛОВАЯ СИСТЕМА -->
+            <div class="section">
+                <div class="section-title">🚽 МОЧЕПОЛОВАЯ СИСТЕМА</div>
+                <div class="field-list">
+                    <div class="field-item"><strong>Мочеиспускание:</strong> <span class="value">За время осмотра мочеиспускания не было, следов непроизвольного мочеиспускания нет.</span></div>
+                    <div class="field-item"><strong>Симптом поколачивания:</strong> <span class="value">Не проводился (нецелесообразно ввиду терминального состояния).</span></div>
+                </div>
+            </div>
+
+            <!-- STATUS LOCALIS -->
+            <div class="section">
+                <div class="section-title">🔍 STATUS LOCALIS</div>
+                <div class="status-local">
+                    <strong>Шея:</strong><br>
+                    При осмотре на передней поверхности шеи, ниже щитовидного хряща, расположена косовосходящая, спереди назад, одиночная, незамкнутая по задней поверхности шеи, странгуляционная борозда. Ширина борозды от 1,5 до 2 см, глубина до 0,5 см. Дно борозды представлено кожей пергаментной плотности, темно-красного цвета. Края борозды четкие, валикообразные. Направление борозды косовосходящее (слева направо/справа налево — уточнить) — соответствует типичному расположению при повешении с типичной локализацией узла (сзади/сбоку). Замкнутое кольцо борозды не определяется (незамкнута по задней поверхности шеи — узел сбоку/спереди?).<br><br>
+                    <strong>Другие области:</strong><br>
+                    Кожные покровы туловища и конечностей бледные, цианоз головы и шеи. Видимых травматических повреждений, гематом, ссадин, ран, следов инъекций не выявлено. Костно-суставных деформаций нет.<br><br>
+                    <strong>Положение пациента:</strong> горизонтальное на спине, на ровной поверхности.
+                </div>
+            </div>
+
+            <!-- ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ -->
+            <div class="section">
+                <div class="section-title">📊 ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ</div>
+                <div class="scales-list">
+                    <p>✔ <strong>ЭКГ-мониторинг (дефибриллятор):</strong> На мониторе регистрируется асистолия — изолиния, отсутствие электрической активности сердца.</p>
+                    <p>✔ <strong>Пульсоксиметрия:</strong> Не определяется (отсутствие периферического кровотока).</p>
+                </div>
+            </div>
+
+            <!-- ОКАЗАННАЯ ПОМОЩЬ И ЕЁ ЭФФЕКТ -->
+            <div class="section">
+                <div class="section-title">🚑 ОКАЗАННАЯ ПОМОЩЬ И ЕЁ ЭФФЕКТ</div>
+                <div class="status-local">
+                    <strong>На догоспитальном этапе (родственники):</strong><br>
+                    Освобождение шеи от странгуляционной петли (ремень халата срезан).<br>
+                    Начало непрямого массажа сердца до прибытия бригады СМП.<br><br>
+                    <strong>На этапе СМП (бригада):</strong><br>
+                    ______ (время): Пациент перенесен на ровную жесткую поверхность (пол).<br>
+                    ______ (время): Незамедлительно начато проведение сердечно-легочной реанимации в полном объеме в соответствии с действующими клиническими рекомендациями (смотри прилагаемый протокол сердечно-легочной реанимации).<br>
+                    ______ (время): На себя вызвана врачебная бригада / реанимационная бригада.
+                </div>
+            </div>
+
+            <!-- ОЦЕНКА ПО ШКАЛАМ -->
+            <div class="section">
+                <div class="section-title">📈 ОЦЕНКА ПО ШКАЛАМ</div>
+                <div class="scales-list">
+                    <p>✔ <strong>Шкала комы Глазго (GCS):</strong> 3 балла (глубокая кома).</p>
+                    <p>✔ <strong>Шкала NEWS2:</strong> не применимо (терминальное состояние, оценка по шкале не проводится).</p>
+                    <p>✔ <strong>Индекс Альговера:</strong> не определяется (отсутствие гемодинамики).</p>
+                    <p>✔ <strong>Шкала ОДН по Кассиль:</strong> не применима.</p>
+                    <p>✔ <strong>Шкала боли ВАШ при травме:</strong> не применимо.</p>
+                    <p>✔ <strong>Шкала ШОКС:</strong> не применимо.</p>
+                    <p>✔ <strong>Шкала риска ТЭЛА:</strong> не применимо.</p>
+                    <p>✔ <strong>Шкала LAMS:</strong> не применимо.</p>
+                    <p>✔ <strong>Признаки ДЭП:</strong> не применимо.</p>
+                    <p>✔ <strong>Состояние алкогольного опьянения:</strong> запах алкоголя не определяется. Экспресс-тест на алкоголь в выдыхаемом воздухе не проводился.</p>
+                </div>
+            </div>
+
+            <!-- КНОПКИ АЛГОРИТМОВ -->
+            <div class="algorithm-btn-container">
+                <button class="btn-algorithm" id="openAlgorithmBtn">
+                    <span>🚨 Оказание помощи при остановке сердца</span>
+                    <span class="btn-hint">▼ нажмите для открытия ▼</span>
+                </button>
+                <button class="btn-asphyxia" id="openAsphyxiaBtn">
+                    <span>🚨 Алгоритм при странгуляционной асфиксии</span>
+                    <span class="btn-hint">▼ нажмите для открытия ▼</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- МОДАЛЬНОЕ ОКНО 1: ОСТАНОВКА СЕРДЦА -->
+    <div class="modal-overlay" id="algorithmModal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h2>I46.1, I46.9, I47.2, I49.0 Остановка сердца неуточненная. Фибрилляция и трепетание желудочков. Желудочковая тахикардия. Внезапная сердечная смерть</h2>
+                <button class="modal-close" id="closeModalBtn">&times;</button>
+            </div>
+            <div class="modal-body">
+
+                <!-- ВЗРОСЛЫЙ БЛОК -->
+                <div class="adult-block">
+                    <div class="adult-header">
+                        <span class="badge-adult">ВЗРОСЛЫЙ ПРОТОКОЛ</span>
                     </div>
+
                     <ul class="list-styled">
-                        <li>Катетеризация вены или внутрикостный доступ</li>
-                        <li>Эпинефрин 1 мг (1 мл) в/венно каждые 3–5 минут</li>
+                        <li>Компрессии грудной клетки (ручные) с частотой <span class="highlight-number">100–120 в минуту</span></li>
                     </ul>
+
                     <div class="condition-title" style="margin-top: 8px;">При отсутствии ранее установленной интубационной трубки или надгортанного герметизирующего устройства:</div>
                     <ul class="list-styled">
-                        <li>Интубация трахеи или применение надгортанного герметизирующего устройства</li>
-                        <li>ИВЛ дыхательным мешком 10 в минуту или аппаратная (ДО – 6 мл/кг, ЧД – 10 в минуту, FiO2 – 1.0)</li>
-                        <li>Капнометрия-капнография (для бригад АиР)</li>
-                        <li>Повторная оценка электрической активности сердца каждые 2 минуты (ЭКГ-мониторинг)</li>
+                        <li>Санация верхних дыхательных путей</li>
+                        <li>ИВЛ масочная дыхательным мешком (<span class="bold-black">30:2</span> в сочетании с компрессией грудной клетки)</li>
+                        <li>Оценка электрической активности сердца с использованием электродов дефибриллятора <span class="highlight-number">каждые 2 минуты</span> (ЭКГ-мониторинг)</li>
                     </ul>
-                </div>
 
-                <div class="condition-block">
-                    <div class="condition-title">▶ при восстановлении электрической активности сердца</div>
+                    <div class="condition-title">При наличии ранее установленной интубационной трубки или надгортанного герметизирующего устройства:</div>
                     <ul class="list-styled">
-                        <li>См. подраздел данного раздела (Успешная сердечно-легочная реанимация) стр. 14</li>
+                        <li>ИВЛ дыхательным мешком <span class="bold-black">10 в минуту</span> или аппаратная (ДО – <span class="highlight-number">6 мл/кг</span>, ЧД – <span class="highlight-number">10 в минуту</span>, FiO2 1.0)</li>
+                        <li>Оценка электрической активности сердца с использованием электродов дефибриллятора <span class="highlight-number">каждые 2 минуты</span> (ЭКГ-мониторинг)</li>
                     </ul>
-                </div>
 
-                <div class="condition-block">
-                    <div class="condition-title">▶ при фибрилляции желудочков или желудочковой тахикардии без пульса</div>
-                    <ul class="list-styled">
-                        <li>Дефибрилляция энергией 150 Дж или энергией, предустановленной на АНД, затем</li>
-                        <li>Компрессии грудной клетки в сочетании с ИВЛ в течение 2 минут одновременно:</li>
-                        <li>Катетеризация вены или внутрикостный доступ</li>
-                        <li>Применение УАК (для бригад, оснащенных УАК)</li>
-                        <li>Повторная оценка электрической активности сердца каждые 2 минуты (ЭКГ-мониторинг)</li>
-                    </ul>
-                    <div class="tactic-block" style="margin-top: 8px;">
+                    <div class="tactic-block">
+                        <div class="tactic-title">▶ Тактика:</div>
+                        <ul class="list-styled">
+                            <li>1. Для фельдшерской бригады – вызов врачебной бригады, оснащенной УАК или бригады АиР (20)</li>
+                            <li>2. Для врачебных бригад, не оснащенных УАК – вызов бригады, оснащенной УАК (20)</li>
+                        </ul>
+                    </div>
+
+                    <div class="condition-block">
+                        <div class="condition-title">▶ при асистолии, электрической активности сердца без пульса (электромеханической диссоциации)</div>
+                        <div class="important-red"><strong>Дефибрилляция противопоказана</strong></div>
+                        <ul class="list-styled">
+                            <li>Катетеризация вены или внутрикостный доступ</li>
+                            <li><span class="drug-name">Эпинефрин 1 мг (1 мл)</span> в/венно <span class="highlight-number">каждые 3–5 минут</span></li>
+                        </ul>
+                        <div class="condition-title" style="margin-top: 8px;">При отсутствии ранее установленной интубационной трубки или надгортанного герметизирующего устройства:</div>
+                        <ul class="list-styled">
+                            <li>Интубация трахеи или применение надгортанного герметизирующего устройства</li>
+                            <li>ИВЛ дыхательным мешком <span class="bold-black">10 в минуту</span> или аппаратная (ДО – <span class="highlight-number">6 мл/кг</span>, ЧД – <span class="highlight-number">10 в минуту</span>, FiO2 – 1.0)</li>
+                            <li>Капнометрия-капнография (для бригад АиР)</li>
+                            <li>Повторная оценка электрической активности сердца <span class="highlight-number">каждые 2 минуты</span> (ЭКГ-мониторинг)</li>
+                        </ul>
+                    </div>
+
+                    <div class="general-action-block">
+                        <div class="condition-title">▶ при восстановлении электрической активности сердца</div>
+                        <ul><li><span class="italic-bold-ref">См. подраздел данного раздела (Успешная сердечно-легочная реанимация)</span></li></ul>
+                    </div>
+
+                    <div class="condition-block">
+                        <div class="condition-title">▶ при фибрилляции желудочков или желудочковой тахикардии без пульса</div>
+                        <ul class="list-styled">
+                            <li>Дефибрилляция энергией <span class="highlight-number">150 Дж</span> или энергией, предустановленной на АНД, затем</li>
+                            <li>Компрессии грудной клетки в сочетании с ИВЛ в течение <span class="highlight-number">2 минут</span> одновременно:</li>
+                            <li>Катетеризация вены или внутрикостный доступ</li>
+                            <li>Применение УАК (для бригад, оснащенных УАК)</li>
+                            <li>Повторная оценка электрической активности сердца <span class="highlight-number">каждые 2 минуты</span> (ЭКГ-мониторинг)</li>
+                        </ul>
+                        <div class="tactic-block">
+                            <div class="tactic-title">▶ Тактика:</div>
+                            <ul class="list-styled">
+                                <li>1. Вызов бригады, оснащенной УАК, для медицинской эвакуации в больницу (20)</li>
+                                <li>2. Для бригад, оснащенных УАК, медицинская эвакуация в больницу с регистрацией электрической активности сердца на бумажном носителе (13)</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="condition-block">
+                        <div class="condition-title">▶ при сохраняющейся фибрилляции желудочков или желудочковой тахикардии без пульса</div>
+                        <ul class="list-styled">
+                            <li>Дефибрилляция максимальной энергией или энергией, предустановленной на АНД, затем одновременно:</li>
+                        </ul>
+                        <div class="condition-title">При отсутствии ранее установленной интубационной трубки или надгортанного герметизирующего устройства:</div>
+                        <ul class="list-styled">
+                            <li>Санация верхних дыхательных путей</li>
+                            <li>Интубация трахеи или применение надгортанного герметизирующего устройства</li>
+                            <li>ИВЛ дыхательным мешком <span class="bold-black">10 в минуту</span> или аппаратная (ДО – <span class="highlight-number">6 мл/кг</span>, ЧД – <span class="highlight-number">10 в минуту</span>, FiO2 – 1.0)</li>
+                            <li>Капнометрия-капнография (для бригад АиР)</li>
+                            <li>Компрессии грудной клетки в сочетании с ИВЛ в течение <span class="highlight-number">2 минут</span></li>
+                            <li>Повторная оценка электрической активности сердца <span class="highlight-number">каждые 2 минуты</span> (ЭКГ-мониторинг)</li>
+                        </ul>
+                    </div>
+
+                    <div class="condition-block">
+                        <div class="condition-title">▶ при сохраняющейся фибрилляции желудочков или желудочковой тахикардии без пульса</div>
+                        <ul class="list-styled">
+                            <li>Дефибрилляция максимальной энергией или энергией, предустановленной на АНД, затем</li>
+                            <li>Компрессии грудной клетки в сочетании с ИВЛ в течение <span class="highlight-number">2 минут</span>, одновременно:</li>
+                            <li><span class="drug-name">Эпинефрин 1 мг (1 мл)</span> в/венно</li>
+                            <li><span class="drug-name">Амиодарон 300 мг (6 мл)</span> в/венно или <span class="drug-name">Лидокаин 100 мг (5 мл)</span> в/венно</li>
+                            <li>Повторная оценка электрической активности сердца через <span class="highlight-number">2 минуты</span> (ЭКГ-мониторинг)</li>
+                        </ul>
+                    </div>
+
+                    <div class="condition-block">
+                        <div class="condition-title">▶ при сохраняющейся фибрилляции желудочков или желудочковой тахикардии без пульса</div>
+                        <ul class="list-styled">
+                            <li>Дефибрилляция максимальной энергией или энергией, предустановленной на АНД, затем</li>
+                            <li>Компрессии грудной клетки в сочетании с ИВЛ в течение <span class="highlight-number">2 минут</span></li>
+                            <li>Повторная оценка электрической активности сердца <span class="highlight-number">каждые 2 минуты</span> (ЭКГ-мониторинг)</li>
+                        </ul>
+                    </div>
+
+                    <div class="condition-block">
+                        <div class="condition-title">▶ при сохраняющейся фибрилляции желудочков или желудочковой тахикардии без пульса</div>
+                        <ul class="list-styled">
+                            <li>Дефибрилляция максимальной энергией или энергией, предустановленной на АНД, затем</li>
+                            <li>Компрессии грудной клетки в сочетании с ИВЛ в течение <span class="highlight-number">2 минут</span>, одновременно:</li>
+                            <li><span class="drug-name">Эпинефрин 1 мг (1 мл)</span> в/венно (далее повторять <span class="highlight-number">каждые 3–5 минут</span>)</li>
+                            <li>Повторно: <span class="drug-name">Амиодарон 150 мг в/венно (3 мл)</span> (однократно) или <span class="drug-name">Лидокаин 50 мг (2,5 мл)</span> (однократно)</li>
+                            <li>Повторная оценка электрической активности сердца <span class="highlight-number">каждые 2 минуты</span></li>
+                        </ul>
+                    </div>
+
+                    <div class="general-action-block">
+                        <div class="condition-title">▶ при восстановлении электрической активности сердца</div>
+                        <ul><li><span class="italic-bold-ref">См. подраздел данного раздела (Успешная сердечно-легочная реанимация)</span></li></ul>
+                    </div>
+
+                    <div class="condition-block">
+                        <div class="condition-title">▶ при напряженном пневмотораксе</div>
+                        <ul><li>Немедленный перевод напряженного пневмоторакса в открытый путем пункции плевральной полости во 2-м межреберье по средне-ключичной линии <strong>по верхнему краю нижележащего ребра</strong></li></ul>
+                    </div>
+
+                    <div class="condition-block">
+                        <div class="condition-title">▶ при отравлении трициклическими антидепрессантами, кислотами, алкоголем и его суррогатами</div>
+                        <ul class="list-styled">
+                            <li>Применение УАК (для бригад, оснащенных УАК)</li>
+                            <li><span class="drug-name">Натрия гидрокарбонат 5% – 100 мл</span> в/венно капельно (для бригад АиР)</li>
+                        </ul>
+                    </div>
+
+                    <div class="condition-block">
+                        <div class="condition-title">▶ при гиперкалиемии</div>
+                        <ul class="list-styled">
+                            <li>Применение УАК (для бригад, оснащенных УАК)</li>
+                            <li><span class="drug-name">Кальция глюконат 2000 мг (20 мл)</span> в/венно</li>
+                            <li><span class="drug-name">Натрия гидрокарбонат 5% – 100 мл</span> в/венно капельно (для бригад АиР)</li>
+                        </ul>
+                    </div>
+
+                    <div class="condition-block">
+                        <div class="condition-title">▶ при гипермагниемии (в том числе на фоне терапии магния сульфатом) или отравлении антагонистами кальция, дротаверином</div>
+                        <ul class="list-styled">
+                            <li>Применение УАК (для бригад, оснащенных УАК)</li>
+                            <li><span class="drug-name">Кальция глюконат 1000–2000 мг (10–20 мл)</span> в/венно</li>
+                        </ul>
+                    </div>
+
+                    <div class="condition-block">
+                        <div class="condition-title">▶ при гиповолемии (инфекционной дегидратации или острой кровопотере)</div>
+                        <ul class="list-styled">
+                            <li>Применение УАК (для бригад, оснащенных УАК)</li>
+                            <li><span class="drug-name">Стерофундин (Натрия хлорид+калия хлорид+кальция хлорида дигидрат+магния хлорида гексагидрат+натрия ацетата тригидрат+яблочная кислота) 500 мл</span> в/венно или <span class="drug-name">Натрия хлорид 0,9% – 500 мл</span> в/венно</li>
+                        </ul>
+                    </div>
+
+                    <div class="condition-block">
+                        <div class="condition-title">▶ при гипокалиемии</div>
+                        <ul class="list-styled">
+                            <li>Применение УАК (для бригад, оснащенных УАК)</li>
+                            <li><span class="drug-name">КМА (Калия и магния аспарагинат) 250 мл</span> в/венно капельно</li>
+                        </ul>
+                    </div>
+
+                    <div class="condition-block">
+                        <div class="condition-title">▶ при диагностированном ОКС, ТЭЛА</div>
+                        <ul><li>Применение УАК (для бригад, оснащенных УАК)</li></ul>
+                    </div>
+
+                    <div class="condition-block">
+                        <div class="condition-title">▶ при проведении СЛР у беременных в третьем триместре</div>
+                        <ul class="list-styled">
+                            <li>Помещение валика под правую ягодицу или ручное смещение матки влево</li>
+                            <li>Применение УАК (для бригад, оснащенных УАК)</li>
+                        </ul>
+                    </div>
+
+                    <div class="condition-block">
+                        <div class="condition-title">▶ при общем охлаждении организма (гипотермии)</div>
+                        <ul class="list-styled">
+                            <li>Применение УАК (для бригад, оснащенных УАК)</li>
+                            <li>Термометрия в наружном слуховом проходе</li>
+                        </ul>
+                        <div class="warning-red-bg">
+                            <span class="warning-title">⚠ Важно:</span><br>
+                            Сердечно-легочная реанимация проводится непрерывно до передачи пациента в стационаре!<br>
+                            Прекращение СЛР возможно при ее неэффективности через 30 минут после согревания пациента при температуре тела > 32–35°С
+                        </div>
+                    </div>
+
+                    <div class="condition-block">
+                        <div class="condition-title">▶ при центральной температуре тела &lt; 30°С</div>
+                        <div class="condition-title">▶ при стойкой фибрилляции желудочков или желудочковой тахикардии без пульса</div>
+                        <div class="important-red"><strong>Лекарственные препараты не вводятся (в том числе Эпинефрин)</strong></div>
+                        <ul class="list-styled">
+                            <li>Дефибрилляция максимальной энергией или энергией, предустановленной на АНД, но не более трех последовательных разрядов</li>
+                        </ul>
+                    </div>
+
+                    <div class="condition-block">
+                        <div class="condition-title">▶ при центральной температуре тела > 30°С</div>
+                        <div class="condition-title">▶ при фибрилляции желудочков или желудочковой тахикардии без пульса</div>
+                        <ul class="list-styled">
+                            <li><span class="drug-name">Эпинефрин 1 мг (1 мл)</span> в/венно <span class="highlight-number">каждые 6–10 минут</span></li>
+                            <li>Дефибрилляция максимальной энергией или энергией, предустановленной на АНД – нет ограничений по проведению дефибрилляции</li>
+                        </ul>
+                    </div>
+
+                    <div class="tactic-block">
                         <div class="tactic-title">▶ Тактика:</div>
                         <ul class="list-styled">
                             <li>1. Вызов бригады, оснащенной УАК, для медицинской эвакуации в больницу (20)</li>
-                            <li>2. Для бригад, оснащенных УАК, медицинская эвакуация в больницу с регистрацией электрической активности сердца на бумажном носителе (13)</li>
+                            <li>2. Для бригад, оснащенных УАК, медицинская эвакуация в больницу в условиях продолжающейся СЛР с регистрацией электрической активности сердца на бумажном носителе (13)</li>
                         </ul>
                     </div>
                 </div>
 
-                <div class="condition-block">
-                    <div class="condition-title">▶ при сохраняющейся фибрилляции желудочков или желудочковой тахикардии без пульса</div>
-                    <ul class="list-styled">
-                        <li>Дефибрилляция максимальной энергией или энергией, предустановленной на АНД, затем одновременно:</li>
-                    </ul>
-                    <div class="condition-title" style="margin-top: 4px;">При отсутствии ранее установленной интубационной трубки или надгортанного герметизирующего устройства:</div>
-                    <ul class="list-styled">
-                        <li>Санация верхних дыхательных путей</li>
-                        <li>Интубация трахеи или применение надгортанного герметизирующего устройства</li>
-                        <li>ИВЛ дыхательным мешком 10 в минуту или аппаратная (ДО – 6 мл/кг, ЧД – 10 в минуту, FiO2 – 1.0)</li>
-                        <li>Капнометрия-капнография (для бригад АиР)</li>
-                        <li>Компрессии грудной клетки в сочетании с ИВЛ в течение 2 минут</li>
-                        <li>Повторная оценка электрической активности сердца каждые 2 минуты (ЭКГ-мониторинг)</li>
-                    </ul>
-                </div>
+                <!-- ДЕТСКИЙ БЛОК -->
+                <div class="child-block">
+                    <div class="child-header">
+                        <span class="badge-child">ДЕТСКИЙ ПРОТОКОЛ</span>
+                    </div>
 
-                <div class="condition-block">
-                    <div class="condition-title">▶ при сохраняющейся фибрилляции желудочков или желудочковой тахикардии без пульса</div>
                     <ul class="list-styled">
-                        <li>Дефибрилляция максимальной энергией или энергией, предустановленной на АНД, затем</li>
-                        <li>Компрессии грудной клетки в сочетании с ИВЛ в течение 2 минут, одновременно:</li>
-                        <li>Эпинефрин 1 мг (1 мл) в/венно</li>
-                        <li>Амиодарон 300 мг (6 мл) в/венно или Лидокаин 100 мг (5 мл) в/венно</li>
-                        <li>Повторная оценка электрической активности сердца через 2 минуты (ЭКГ-мониторинг)</li>
+                        <li>Оценить сознание</li>
+                        <li>Оценить проходимость дыхательных путей и наличие дыхания – <span class="bold-black">не более 10 секунд!</span></li>
+                        <li>При наличии инородного тела – <span class="italic-bold-ref">см. подраздел данного раздела Инородное тело в дыхательных путях</span></li>
+                        <li>При отсутствии или неэффективности дыхания выполнить масочную ИВЛ <span class="bold-black">5 вдохов</span> дыхательным мешком</li>
+                        <li>При необходимости провести санацию верхних дыхательных путей.</li>
+                        <li>Провести оценку электрической активности сердца с использованием электродов дефибриллятора</li>
+                        <li>Одновременно начать компрессии грудной клетки и масочную ИВЛ в соотношении <span class="bold-black">15:2</span> при отсутствии пульса или брадикардии менее <span class="highlight-number">60 ударов в минуту</span> у детей <span class="bold-black">старше 1 года</span>, у <span class="bold-black">новорожденных детей</span> при ЧСС менее <span class="highlight-number">80 ударов в минуту</span></li>
                     </ul>
-                </div>
 
-                <div class="condition-block">
-                    <div class="condition-title">▶ при сохраняющейся фибрилляции желудочков или желудочковой тахикардии без пульса</div>
-                    <ul class="list-styled">
-                        <li>Дефибрилляция максимальной энергией или энергией, предустановленной на АНД, затем</li>
-                        <li>Компрессии грудной клетки в сочетании с ИВЛ в течение 2 минут</li>
-                        <li>Повторная оценка электрической активности сердца каждые 2 минуты (ЭКГ-мониторинг)</li>
-                    </ul>
-                </div>
-
-                <div class="condition-block">
-                    <div class="condition-title">▶ при сохраняющейся фибрилляции желудочков или желудочковой тахикардии без пульса</div>
-                    <ul class="list-styled">
-                        <li>Дефибрилляция максимальной энергией или энергией, предустановленной на АНД, затем</li>
-                        <li>Компрессии грудной клетки в сочетании с ИВЛ в течение 2 минут, одновременно:</li>
-                        <li>Эпинефрин 1 мг (1 мл) в/венно (далее повторять каждые 3–5 минут)</li>
-                        <li>Повторно: Амиодарон 150 мг в/венно (3 мл) (однократно) или Лидокаин 50 мг (2,5 мл) (однократно)</li>
-                        <li>Повторная оценка электрической активности сердца каждые 2 минуты</li>
-                    </ul>
-                </div>
-
-                <div class="condition-block">
-                    <div class="condition-title">▶ при восстановлении электрической активности сердца</div>
-                    <ul class="list-styled">
-                        <li>См. подраздел данного раздела (Успешная сердечно-легочная реанимация) стр. 14</li>
-                    </ul>
-                </div>
-
-                <hr>
-
-                <div class="alg-title">🔹 Дополнительно</div>
-
-                <div class="condition-block">
-                    <div class="condition-title">▶ при напряженном пневмотораксе</div>
-                    <ul class="list-styled">
-                        <li>Немедленный перевод напряженного пневмоторакса в открытый путем пункции плевральной полости во 2-м межреберье по средне-ключичной линии</li>
-                    </ul>
-                </div>
-
-                <div class="condition-block">
-                    <div class="condition-title">▶ при отравлении трициклическими антидепрессантами, кислотами, алкоголем и его суррогатами</div>
-                    <ul class="list-styled">
-                        <li>Применение УАК (для бригад, оснащенных УАК)</li>
-                        <li>Натрия гидрокарбонат 5% – 100 мл в/венно капельно (для бригад АиР)</li>
-                    </ul>
-                </div>
-
-                <div class="condition-block">
-                    <div class="condition-title">▶ при гиперкалиемии</div>
-                    <ul class="list-styled">
-                        <li>Применение УАК (для бригад, оснащенных УАК)</li>
-                        <li>Кальция глюконат 2000 мг (20 мл) в/венно</li>
-                        <li>Натрия гидрокарбонат 5% – 100 мл в/венно капельно (для бригад АиР)</li>
-                    </ul>
-                </div>
-
-                <div class="condition-block">
-                    <div class="condition-title">▶ при гипермагниемии (в том числе на фоне терапии магния сульфатом) или отравлении антагонистами кальция, дротаверином</div>
-                    <ul class="list-styled">
-                        <li>Применение УАК (для бригад, оснащенных УАК)</li>
-                        <li>Кальция глюконат 1000–2000 мг (10–20 мл) в/венно</li>
-                    </ul>
-                </div>
-
-                <div class="condition-block">
-                    <div class="condition-title">▶ при гиповолемии (инфекционной дегидратации или острой кровопотере)</div>
-                    <ul class="list-styled">
-                        <li>Применение УАК (для бригад, оснащенных УАК)</li>
-                        <li>Натрия хлорид+калия хлорид+кальция хлорида дигидрат+магния хлорида гексагидрат+натрия ацетата тригидрат+яблочная кислота 500 мл в/венно или Натрия хлорид 0,9% – 500 мл в/венно</li>
-                    </ul>
-                </div>
-
-                <div class="condition-block">
-                    <div class="condition-title">▶ при гипокалиемии</div>
-                    <ul class="list-styled">
-                        <li>Применение УАК (для бригад, оснащенных УАК)</li>
-                        <li>Калия и магния аспарагинат 250 мл в/венно капельно</li>
-                    </ul>
-                </div>
-
-                <div class="condition-block">
-                    <div class="condition-title">▶ при диагностированном ОКС, ТЭЛА</div>
-                    <ul class="list-styled">
-                        <li>Применение УАК (для бригад, оснащенных УАК)</li>
-                    </ul>
-                </div>
-
-                <div class="condition-block">
-                    <div class="condition-title">▶ при проведении СЛР у беременных в третьем триместре</div>
-                    <ul class="list-styled">
-                        <li>Помещение валика под правую ягодицу или ручное смещение матки влево</li>
-                        <li>Применение УАК (для бригад, оснащенных УАК)</li>
-                    </ul>
-                </div>
-
-                <div class="condition-block">
-                    <div class="condition-title">▶ при общем охлаждении организма (гипотермии)</div>
-                    <ul class="list-styled">
-                        <li>Применение УАК (для бригад, оснащенных УАК)</li>
-                        <li>Термометрия в наружном слуховом проходе</li>
-                    </ul>
-                    <div class="warning-block" style="margin-top: 8px;">
-                        <div class="warning-title">⚠ Важно:</div>
+                    <div class="condition-block child-condition-block">
+                        <div class="condition-title">– при асистолии, электромеханической диссоциации, а также при отсутствии данных об электрической активности сердца</div>
                         <ul class="list-styled">
-                            <li>Сердечно-легочная реанимация проводится непрерывно до передачи пациента в стационаре!</li>
-                            <li>Прекращение СЛР возможно при ее неэффективности через 30 минут после согревания пациента при температуре тела > 32–35°С</li>
+                            <li>До интубации трахеи или применения надгортанного устройства:<br>– соотношение компрессий к вдуваниям <span class="bold-black">15:2</span> независимо от количества реанимирующих, <span class="bold-black">3:1</span> у новорожденных детей при рождении</li>
+                            <li>Интубация трахеи или применение надгортанного герметизирующего устройства</li>
+                        </ul>
+                        <div class="condition-title" style="margin-top: 8px;">После интубации трахеи или применения надгортанного устройства</div>
+                        <ul class="list-styled">
+                            <li>Частота компрессий у новорожденных и детей до 1 года – <span class="highlight-number">120 в минуту</span>, у детей с 1 года и старше – <span class="highlight-number">100–120 в минуту</span></li>
+                            <li>Катетеризация вены или внутрикостный доступ</li>
+                            <li><span class="drug-name">Эпинефрин 0,01 мг/кг (0,01 мл/кг)</span> в разведении Натрия хлорид 0,9% 1:10000 в/венно или внутрикостно <span class="highlight-number">каждые 3–5 минут</span></li>
+                            <li>При невозможности обеспечения указанного пути введения:<br><span class="drug-name">Эпинефрин 0,1 мг/кг (0,1 мл/кг)</span> в разведении Натрия хлорид 0,9% 1:1000 эндотрахеально <span class="highlight-number">каждые 3–5 минут</span></li>
+                            <li>Повторная оценка электрической активности сердца <span class="highlight-number">каждые 2 минуты</span> (ЭКГ-мониторинг)</li>
+                            <li>Капнометрия - капнография (для бригад АиР)</li>
                         </ul>
                     </div>
-                </div>
 
-                <div class="condition-block">
-                    <div class="condition-title">▶ при центральной температуре тела &lt; 30°С</div>
-                    <div class="condition-title" style="margin-top: 4px;">▶ при стойкой фибрилляции желудочков или желудочковой тахикардии без пульса</div>
-                    <ul class="list-styled">
-                        <li>Лекарственные препараты не вводятся (в том числе Эпинефрин)</li>
-                        <li>Дефибрилляция максимальной энергией или энергией, предустановленной на АНД, но не более трех последовательных разрядов</li>
-                    </ul>
-                </div>
+                    <div class="condition-block child-condition-block">
+                        <div class="condition-title">– при фибрилляции желудочков или желудочковой тахикардии без пульса</div>
+                        <ul class="list-styled">
+                            <li>Дефибрилляция <span class="highlight-number">2 Дж/кг</span> (до 1 года) и <span class="highlight-number">4 Дж/кг</span> массы тела (с 1 года)</li>
+                            <li>Компрессии грудной клетки в сочетании с ИВЛ в течение <span class="highlight-number">2 минут</span> одновременно:</li>
+                            <li>Катетеризация вены или внутрикостный доступ</li>
+                            <li>Повторная оценка электрической активности сердца <span class="highlight-number">каждые 2 минуты</span> (ЭКГ-мониторинг)</li>
+                        </ul>
+                    </div>
 
-                <div class="condition-block">
-                    <div class="condition-title">▶ при центральной температуре тела > 30°С</div>
-                    <div class="condition-title" style="margin-top: 4px;">▶ при фибрилляции желудочков или желудочковой тахикардии без пульса</div>
-                    <ul class="list-styled">
-                        <li>Эпинефрин 1 мг (1 мл) в/венно каждые 6–10 минут</li>
-                        <li>Дефибрилляция максимальной энергией или энергией, предустановленной на АНД – нет ограничений по проведению дефибрилляции</li>
-                    </ul>
-                </div>
+                    <div class="condition-block child-condition-block">
+                        <div class="condition-title">– при сохраняющейся фибрилляции желудочков или желудочковой тахикардии без пульса</div>
+                        <ul class="list-styled">
+                            <li>Дефибрилляция <span class="highlight-number">4 Дж/кг</span> затем одновременно:</li>
+                        </ul>
+                        <div class="condition-title">При отсутствии ранее установленной интубационной трубки или надгортанного устройства:</div>
+                        <ul class="list-styled">
+                            <li>Санация верхних дыхательных путей</li>
+                            <li>Интубация трахеи или применение надгортанного герметизирующего устройства</li>
+                            <li>ИВЛ дыхательным мешком или аппаратная FiO2–1.0</li>
+                            <li>Капнометрия - капнография (для бригад АиР)</li>
+                            <li>Компрессии грудной клетки в сочетании с ИВЛ в течение <span class="highlight-number">2 минут</span></li>
+                            <li>Повторная оценка электрической активности сердца <span class="highlight-number">каждые 2 минуты</span> (ЭКГ-мониторинг)</li>
+                        </ul>
+                    </div>
 
-                <div class="tactic-block">
-                    <div class="tactic-title">▶ Тактика эвакуации:</div>
-                    <ul class="list-styled">
-                        <li>1. Вызов бригады, оснащенной УАК, для медицинской эвакуации в больницу (20)</li>
-                        <li>2. Для бригад, оснащенных УАК, медицинская эвакуация в больницу в условиях продолжающейся СЛР с регистрацией электрической активности сердца на бумажном носителе (13)</li>
-                    </ul>
-                </div>
+                    <div class="condition-block child-condition-block">
+                        <div class="condition-title">– при сохраняющейся фибрилляции желудочков или желудочковой тахикардии без пульса</div>
+                        <ul class="list-styled">
+                            <li>Дефибрилляция <span class="highlight-number">4 Дж/кг</span></li>
+                            <li>Компрессии грудной клетки в сочетании с ИВЛ в течение <span class="highlight-number">2 минут</span></li>
+                            <li>Повторная оценка электрической активности сердца <span class="highlight-number">каждые 2 минуты</span> (ЭКГ-мониторинг)</li>
+                            <li><span class="drug-name">Эпинефрин 0,01 мг/кг (0,01 мл/кг)</span> в разведении Натрия хлорид 0,9% 1:10000 в/венно или внутрикостно <span class="highlight-number">каждые 3–5 минут</span></li>
+                            <li>При невозможности обеспечения указанного пути введения:<br><span class="drug-name">Эпинефрин 0,1 мг/кг (0,1 мл/кг)</span> в разведении Натрия хлорид 0,9% 1:1000 эндотрахеально <span class="highlight-number">каждые 3–5 минут</span></li>
+                            <li><span class="drug-name">Амиодарон 5 мг/кг (0,1 мл/кг)</span> в/венно через шприцевой дозатор</li>
+                            <li>При непереносимости Амиодарона:<br><span class="drug-name">Лидокаин 1 мг/кг (0,05 мл/кг)</span> в/венно вводить только 1% раствор (разведение 2% раствора в соотношении 1:1)</li>
+                            <li>Применение УАК при соответствующих массо-габаритных характеристик ребенка и технической возможности (для бригад оснащенных УАК)</li>
+                        </ul>
+                    </div>
 
-                <hr>
+                    <div class="general-action-block" style="background: #ecf7ec;">
+                        <div class="condition-title">– при восстановлении электрической активности сердца</div>
+                        <ul><li><span class="italic-bold-ref">См. подраздел данного раздела (Успешная сердечно-легочная реанимация)</span></li></ul>
+                    </div>
 
-                <div class="alg-title">🔹 I46.0 — Успешная сердечно-легочная реанимация (постреанимационный период)</div>
-                
-                <ul class="list-styled">
-                    <li>ЭКГ</li>
-                    <li>ЭКГ-мониторинг</li>
-                    <li>Пульсоксиметрия</li>
-                    <li>Продолжение ИВЛ/ВВЛ (ДО – 6–7 мл/кг, ЧД – 14–16 в 1 мин, FiO2 – 50%)</li>
-                    <li>Капнометрия-капнография (для бригад АиР). Целевые значения EtCO2 – 35–45 мм рт.ст.</li>
-                    <li>Диазепам 10–20 мг (2–4 мл) в/венно (при судорогах или десинхронизации с ИВЛ)</li>
-                    <li>Холод на область сонных артерий и затылок (криопакеты)</li>
-                    <li>Глюкометрия</li>
-                </ul>
+                    <div class="condition-block child-condition-block">
+                        <div class="condition-title">– при напряженном пневмотораксе</div>
+                        <ul class="list-styled">
+                            <li>Немедленный перевод напряженного пневмоторакса в открытый путем пункции плевральной полости во 2-м межреберье по средне-ключичной линии затем</li>
+                            <li>Применение УАК при соответствующих массо-габаритных характеристик ребенка и технической возможности (для бригад оснащенных УАК)</li>
+                        </ul>
+                    </div>
 
-                <div class="condition-block">
-                    <div class="condition-title">▶ при гиповолемии (инфекционной дегидратации или острой кровопотере)</div>
-                    <ul class="list-styled">
-                        <li>См. подраздел данного раздела «Геморрагический шок (острая массивная кровопотеря), травматический шок» стр. 16 или «Острая дегидратация, уменьшение объема жидкости, гиповолемический шок» стр. 19</li>
-                    </ul>
-                </div>
+                    <div class="condition-block child-condition-block">
+                        <div class="condition-title">– при отравлении трициклическими антидепрессантами, кислотами</div>
+                        <ul class="list-styled">
+                            <li><span class="drug-name">Натрия гидрокарбонат 5% – 2–4 мл/кг</span> в/венно капельно или 1,6–3,2 мл/кг в/венно через шприцевой дозатор 40 мл/час (для бригад АиР)</li>
+                            <li>Применение УАК при соответствующих массо-габаритных характеристик ребенка и технической возможности (для бригад оснащенных УАК)</li>
+                        </ul>
+                    </div>
 
-                <div class="condition-block">
-                    <div class="condition-title">▶ при САД &lt; 100 мм рт.ст.</div>
-                    <ul class="list-styled">
-                        <li>Норэпинефрин 0,5–5 мкг/кг/мин или Допамин 5–10 мкг/кг/мин в разведении Натрия хлорида 0,9% в/венно через шприцевой дозатор или капельно (см. «Приложения 35, 31»)</li>
-                    </ul>
-                </div>
+                    <div class="condition-block child-condition-block">
+                        <div class="condition-title">– при гипермагниемии по данным ЭКГ-диагностики или портативного анализатора (в том числе на фоне терапии магния сульфатом) или отравлении антагонистами кальция, дротаверином</div>
+                        <ul class="list-styled">
+                            <li><span class="drug-name">Натрия гидрокарбонат 5% – 2–4 мл/кг</span> в/венно капельно или 1,6–3,2 мл/кг в/венно через шприцевой дозатор 40 мл/час (для бригад АиР)</li>
+                            <li><span class="drug-name">Кальция глюконат 0,2 мл/кг</span> в/венно</li>
+                            <li>Применение УАК при соответствующих массо-габаритных характеристик ребенка и технической возможности (для бригад оснащенных УАК)</li>
+                        </ul>
+                    </div>
 
-                <div class="tactic-block">
-                    <div class="tactic-title">▶ Тактика:</div>
-                    <ul class="list-styled">
-                        <li>1. Для фельдшерской бригады – вызов врачебной бригады, оснащенной УАК или бригады АиР (20)</li>
-                        <li>2. Медицинская эвакуация в больницу (13). Транспортировка на носилках с приподнятым изголовьем</li>
-                        <li>3. Для бригад, оснащенных УАК, транспортировка на платформе УАК (в режиме готовности к использованию) (13)</li>
-                    </ul>
+                    <div class="condition-block child-condition-block">
+                        <div class="condition-title">– при гиперкалиемии по данным ЭКГ-диагностики или портативного анализатора (в том числе отравлении калийсберегающими диуретиками)</div>
+                        <ul class="list-styled">
+                            <li><span class="drug-name">Кальция глюконат 0,2 мл/кг</span> в/венно</li>
+                            <li><span class="drug-name">Натрия гидрокарбонат 5% – 2–4 мл/кг</span> в/венно капельно или 1,6–3,2 мл/кг в/венно через шприцевой дозатор 40 мл/час (для бригад АиР)</li>
+                            <li>Применение УАК при соответствующих массо-габаритных характеристик ребенка и технической возможности (для бригад оснащенных УАК)</li>
+                        </ul>
+                    </div>
+
+                    <div class="condition-block child-condition-block">
+                        <div class="condition-title">– при гипокалиемии по данным ЭКГ-диагностики или портативного анализатора (в том числе на фоне применения диуретиков (петлевых, тиазидных и осмотических), кортикостероидов, бронхолитиков, при гиперинсулинемии, длительной рвоте и диареи)</div>
+                        <ul class="list-styled">
+                            <li><span class="drug-name">Дисоль (Калия хлорид + натрия ацетат + натрия хлорид) 15–20 мл/кг</span> в/венно капельно</li>
+                            <li>Применение УАК при соответствующих массо-габаритных характеристик ребенка и технической возможности (для бригад оснащенных УАК)</li>
+                        </ul>
+                    </div>
+
+                    <div class="condition-block child-condition-block">
+                        <div class="condition-title">При общем охлаждении организма (гипотермии):</div>
+                        <ul class="list-styled">
+                            <li>Термометрия в наружном слуховом проходе</li>
+                            <li>Применение УАК при соответствующих массо-габаритных характеристик ребенка и технической возможности (для бригад оснащенных УАК)</li>
+                        </ul>
+                        <div class="important-red" style="margin-top: 12px;">
+                            <strong>– при центральной температуре тела &lt; 30°С</strong><br>
+                            – Лекарственные препараты не вводятся (в том числе Эпинефрин)<br>
+                            Дефибрилляция <span class="highlight-number">4 Дж/кг</span> массы тела, не более трех последовательных неэффективных разрядов
+                        </div>
+                        <div class="condition-title" style="margin-top: 12px;">– при фибрилляции желудочков или желудочковой тахикардии без пульса<br>– при центральной температуре тела > 30°С</div>
+                        <ul class="list-styled">
+                            <li><span class="drug-name">Эпинефрин 0,01 мг/кг (0,01 мл/кг)</span> в разведении Натрия хлорид 0,9% 1:10000 в/венно или внутрикостно <span class="highlight-number">каждые 6–10 минут</span></li>
+                            <li>При невозможности обеспечения указанного пути введения:<br><span class="drug-name">Эпинефрин 0,1 мг/кг (0,1 мл/кг)</span> в разведении Натрия хлорид 0,9% 1:1000 эндотрахеально <span class="highlight-number">каждые 6–10 минут</span></li>
+                            <li>Дефибрилляция <span class="highlight-number">4 Дж/кг</span> массы тела – нет ограничений по проведению дефибрилляции (количеству разрядов)</li>
+                        </ul>
+                    </div>
+
+                    <div class="condition-block child-condition-block">
+                        <div class="condition-title">– при гиповолемии (инфекционной дегидратации или острой кровопотере)</div>
+                        <ul class="list-styled">
+                            <li><span class="drug-name">Натрия хлорид 0,9%</span> или <span class="drug-name">Стерофундин (Натрия хлорид+калия хлорид+кальция хлорида дигидрат+магния хлорида гексагидрат+натрия ацетата тригидрат+яблочная кислота) 20 мл/кг</span> в/венно капельно</li>
+                            <li>Применение УАК при соответствующих массо-габаритных характеристик ребенка и технической возможности (для бригад оснащенных УАК)</li>
+                        </ul>
+                    </div>
+
+                    <div class="tactic-block">
+                        <div class="tactic-title">▶ Тактика:</div>
+                        <ul class="list-styled">
+                            <li>1. Для общепрофильной бригады – вызов бригады АиР (20)</li>
+                            <li>2. Для бригад, оснащенных УАК, медицинская эвакуация в больницу (13) в условиях продолжающейся СЛР и регистрацией электрической активности сердца на бумажном носителе</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<script>
-    const modal = document.getElementById('algorithmModal');
-    const openBtn = document.getElementById('openAlgorithmBtn');
-    const closeBtn = document.getElementById('closeModalBtn');
+    <!-- МОДАЛЬНОЕ ОКНО 2: СТРАНГУЛЯЦИОННАЯ АСФИКСИЯ -->
+    <div class="modal-overlay" id="asphyxiaModal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h2>Т71 Странгуляционная асфиксия (повешение, удушение)</h2>
+                <button class="modal-close" id="closeAsphyxiaBtn">&times;</button>
+            </div>
+            <div class="modal-body">
 
-    function openModal() {
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
+                <!-- ВЗРОСЛЫЙ БЛОК -->
+                <div class="adult-block">
+                    <div class="adult-header">
+                        <span class="badge-adult">ВЗРОСЛЫЙ ПРОТОКОЛ</span>
+                    </div>
 
-    function closeModal() {
-        modal.classList.remove('active');
-        document.body.style.overflow = '';
-    }
+                    <ul class="list-styled">
+                        <li>Устранение причины асфиксии</li>
+                        <li>Пульсоксиметрия</li>
+                        <li>Иммобилизация воротниковой шиной</li>
+                        <li>Ингаляция кислорода</li>
+                        <li>ЭКГ-мониторинг</li>
+                        <li>Катетеризация вены или внутрикостный доступ</li>
+                        <li><span class="drug-name">Натрия хлорид 0,9%</span> или <span class="drug-name">Стерофундин (Натрия хлорид+калия хлорид+кальция хлорида дигидрат+магния хлорида гексагидрат+натрия ацетата тригидрат+яблочная кислота) 250–500 мл</span> в/венно капельно</li>
+                        <li><span class="drug-name">Преднизолон 120–150 мг (4–5 мл)</span> или <span class="drug-name">Дексаметазон 16–20 мг (4–5 мл)</span> в/венно</li>
+                    </ul>
 
-    openBtn.addEventListener('click', openModal);
-    closeBtn.addEventListener('click', closeModal);
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            closeModal();
+                    <div class="condition-block">
+                        <div class="condition-title">– при судорогах</div>
+                        <ul class="list-styled">
+                            <li><span class="drug-name">Диазепам 10 мг (2 мл)</span> в/венно</li>
+                        </ul>
+                        <div class="condition-title" style="margin-top: 10px;">При сохранении судорог:</div>
+                        <ul class="list-styled">
+                            <li><span class="drug-name">Диазепам 10–20 мг (2–4 мл)</span> в/венно или <span class="drug-name">Мидазолам 0,2 мг/кг (0,02 мл/кг)</span> болюсно, затем <span class="highlight-number">0,02–0,1 мкг/кг/мин</span> в разведении Натрия хлорида 0,9% – до 20–50 мл через шприцевой дозатор (для бригад АиР) или <span class="drug-name">Пропофол 2 мг/кг</span> болюсно, затем <span class="highlight-number">2–6 мг/кг/час</span> (для бригад АиР) с последующей интубацией трахеи и переводом на ИВЛ</li>
+                        </ul>
+                        <div class="condition-title" style="margin-top: 10px;">При сохранении судорог:</div>
+                        <ul class="list-styled">
+                            <li><span class="drug-name">Пипекурония бромид 4 мг</span> в/венно (для бригад АиР), затем</li>
+                            <li>ИВЛ/ВВЛ <a href="#" class="italic-bold-ref" onclick="openImage('Параметры респираторной поддержки при сохраненном самостоятельном кровообращении.jpg'); return false;">(см. «Приложение 6»)</a></li>
+                            <li>Капнометрия-капнография (для бригад АиР). Целевые значения EtCO2 – <span class="highlight-number">35–45 мм рт.ст.</span></li>
+                        </ul>
+                    </div>
+
+                    <div class="condition-block">
+                        <div class="condition-title">– при нарастающем отеке гортани</div>
+                        <div class="important-red"><strong>Применение надгортанного герметизирующего устройства противопоказано</strong></div>
+                        <ul class="list-styled">
+                            <li>Санация верхних дыхательных путей</li>
+                            <li>Интубация трахеи <a href="#" class="italic-bold-ref" onclick="openImage('Тактика обеспечения проходимости дыхательных путей у взрослых.png'); return false;">(см. «Приложение 4»)</a></li>
+                        </ul>
+                        <div class="condition-title" style="margin-top: 10px;">При невозможности интубации трахеи:</div>
+                        <ul class="list-styled">
+                            <li>Коникотомия</li>
+                            <li>ИВЛ/ВВЛ <a href="#" class="italic-bold-ref" onclick="openImage('Параметры респираторной поддержки при сохраненном самостоятельном кровообращении.jpg'); return false;">(см. «Приложение 6»)</a></li>
+                            <li>Капнометрия-капнография (для бригад АиР). Целевые значения EtCO2 – <span class="highlight-number">35–45 мм рт.ст.</span></li>
+                        </ul>
+                    </div>
+
+                    <div class="condition-block">
+                        <div class="condition-title">– при коме (без признаков нарастающего отека гортани)</div>
+                        <ul class="list-styled">
+                            <li>Санация верхних дыхательных путей</li>
+                            <li>Интубация трахеи <a href="#" class="italic-bold-ref" onclick="openImage('Тактика обеспечения проходимости дыхательных путей у взрослых.png'); return false;">(см. «Приложение 4»)</a></li>
+                            <li>ИВЛ/ВВЛ <a href="#" class="italic-bold-ref" onclick="openImage('Параметры респираторной поддержки при сохраненном самостоятельном кровообращении.jpg'); return false;">(см. «Приложение 6»)</a></li>
+                            <li>Капнометрия-капнография (для бригад АиР). Целевые значения EtCO2 – <span class="highlight-number">35–45 мм рт.ст.</span></li>
+                        </ul>
+                    </div>
+
+                    <div class="tactic-block">
+                        <div class="tactic-title">▶ Тактика:</div>
+                        <ul class="list-styled">
+                            <li>1. Медицинская эвакуация в больницу (13). Транспортировка на носилках</li>
+                            <li>2. При отказе от медицинской эвакуации в больницу – активный аудиоконтроль (55)</li>
+                            <li>3. При повторном отказе от медицинской эвакуации в больницу – рекомендовать обратиться в поликлинику (35)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- ДЕТСКИЙ БЛОК -->
+                <div class="child-block">
+                    <div class="child-header">
+                        <span class="badge-child">ДЕТСКИЙ ПРОТОКОЛ</span>
+                    </div>
+
+                    <ul class="list-styled">
+                        <li>Устранение причины асфиксии</li>
+                        <li>Ингаляция кислорода</li>
+                        <li>Пульсоксиметрия</li>
+                        <li>Иммобилизация воротниковой шиной</li>
+                        <li>Катетеризация вены или внутрикостный доступ</li>
+                        <li><span class="drug-name">Натрия хлорид 0,9%</span> или <span class="drug-name">Стерофундин (Натрия хлорид+калия хлорид+кальция хлорида дигидрат+магния хлорида гексагидрат+натрия ацетата тригидрат+яблочная кислота) 10 мл/кг</span> в/венно капельно</li>
+                        <li><span class="drug-name">Преднизолон 3–5 мг/кг (0,1–0,15 мл/кг)</span> в/венно или <span class="drug-name">Дексаметазон 0,2–0,6 мг/кг (0,05–0,15 мл/кг)</span> в/венно</li>
+                        <li>ЭКГ-мониторинг</li>
+                    </ul>
+
+                    <div class="condition-block child-condition-block">
+                        <div class="condition-title">– при судорогах</div>
+                        <ul class="list-styled">
+                            <li><span class="drug-name">Диазепам 0,3–0,5 мг/кг (0,06–0,1 мл/кг)</span> в/мышечно или в/венно</li>
+                        </ul>
+                        <div class="condition-title" style="margin-top: 10px;">При сохранении судорог:</div>
+                        <ul class="list-styled">
+                            <li><span class="drug-name">Диазепам 0,3–0,5 мг/кг (0,06–0,1 мл/кг)</span> в/венно медленно</li>
+                            <li><span class="drug-name">Мидазолам 0,2 мг/кг (0,04 мл/кг)</span> в/венно болюсно, затем <span class="highlight-number">0,02–0,1 мкг/кг/мин</span> в разведении Натрия хлорида 0,9% до 20–50 мл через шприцевой дозатор (для бригад АиР) или <span class="drug-name">Пропофол 2 мг/кг (0,2 мл/кг)</span> в/венно болюсно, затем <span class="highlight-number">2–6 мг/кг/час (0,2–0,6 мл/кг/час)</span> (для бригад АиР) или <span class="drug-name">Тиопентал натрия 1–2 мг/кг</span> в/венно (для бригад АиР) с последующей интубацией трахеи и переводом на ИВЛ</li>
+                            <li>Санация верхних дыхательных путей</li>
+                            <li>Интубация трахеи или применение надгортанного герметизирующего устройства <a href="#" class="italic-bold-ref" onclick="openImage('Тактика обеспечения проходимости дыхательных путей у детей.png'); return false;">(см. «Приложение 3»)</a></li>
+                            <li>ИВЛ/ВВЛ <a href="#" class="italic-bold-ref" onclick="openImage('Параметры респираторной поддержки при сохраненном самостоятельном кровообращении.jpg'); return false;">(см. «Приложение 6»)</a></li>
+                            <li>Капнометрия-капнография (для бригад АиР). Целевые значения EtCO2 – <span class="highlight-number">32–35 мм рт.ст.</span></li>
+                            <li>ЭКГ-мониторинг</li>
+                        </ul>
+                    </div>
+
+                    <div class="condition-block child-condition-block">
+                        <div class="condition-title">– при коме (без признаков нарастающего отека гортани)</div>
+                        <ul class="list-styled">
+                            <li>Санация верхних дыхательных путей</li>
+                            <li>Интубация трахеи или применение надгортанного герметизирующего устройства <a href="#" class="italic-bold-ref" onclick="openImage('Тактика обеспечения проходимости дыхательных путей у детей.png'); return false;">(см. «Приложение 3»)</a></li>
+                            <li>ИВЛ/ВВЛ <a href="#" class="italic-bold-ref" onclick="openImage('Параметры респираторной поддержки при сохраненном самостоятельном кровообращении.jpg'); return false;">(см. «Приложение 6»)</a></li>
+                            <li>Капнометрия-капнография (для бригад АиР). Целевые значения EtCO2 – <span class="highlight-number">32–35 мм рт.ст.</span></li>
+                            <li>ЭКГ-мониторинг</li>
+                        </ul>
+                    </div>
+
+                    <div class="condition-block child-condition-block">
+                        <div class="condition-title">– при нарастающем отеке гортани</div>
+                        <div class="important-red"><strong>Применение надгортанного герметизирующего устройства противопоказано</strong></div>
+                        <div class="important-red"><strong>Попытка интубации трахеи должна быть однократной</strong></div>
+                        <ul class="list-styled">
+                            <li>Санация верхних дыхательных путей</li>
+                            <li>Интубация трахеи <a href="#" class="italic-bold-ref" onclick="openImage('Тактика обеспечения проходимости дыхательных путей у детей.png'); return false;">(см. «Приложение 3»)</a></li>
+                            <li>ИВЛ/ВВЛ <a href="#" class="italic-bold-ref" onclick="openImage('Параметры респираторной поддержки при сохраненном самостоятельном кровообращении.jpg'); return false;">(см. «Приложение 6»)</a></li>
+                            <li>Капнометрия-капнография (для бригад АиР). Целевые значения EtCO2 – <span class="highlight-number">35–45 мм рт.ст.</span></li>
+                            <li>ЭКГ-мониторинг</li>
+                        </ul>
+                        <div class="condition-title" style="margin-top: 10px;">При невозможности интубации трахеи:</div>
+                        <ul class="list-styled">
+                            <li>Коникотомия</li>
+                        </ul>
+                    </div>
+
+                    <div class="tactic-block">
+                        <div class="tactic-title">▶ Тактика:</div>
+                        <ul class="list-styled">
+                            <li>1. Медицинская эвакуация в больницу (13). Транспортировка на носилках</li>
+                            <li>2. При отказе от медицинской эвакуации в больницу – актив на «103» через 2 часа (28)</li>
+                            <li>3. При повторном отказе от медицинской эвакуации в больницу – актив в поликлинику (27)</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно для изображений -->
+    <div id="imageModal">
+        <button class="modal-close-img" onclick="document.getElementById('imageModal').style.display='none'; isGalleryMode=false; currentGallery=[];">&times;</button>
+        <img id="modalImage" src="" alt="Изображение">
+        <div id="navContainer">
+            <button id="prevBtn">❮</button>
+            <span id="imageCounter">1 / 2</span>
+            <button id="nextBtn">❯</button>
+        </div>
+    </div>
+
+    <script>
+        // Модальное окно 1: Остановка сердца
+        const modal1 = document.getElementById('algorithmModal');
+        const openBtn1 = document.getElementById('openAlgorithmBtn');
+        const closeBtn1 = document.getElementById('closeModalBtn');
+
+        function openModal1() {
+            modal1.classList.add('active');
+            document.body.style.overflow = 'hidden';
         }
-    });
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && modal.classList.contains('active')) {
-            closeModal();
+
+        function closeModal1() {
+            modal1.classList.remove('active');
+            document.body.style.overflow = '';
         }
-    });
-</script>
+
+        openBtn1.addEventListener('click', openModal1);
+        closeBtn1.addEventListener('click', closeModal1);
+        modal1.addEventListener('click', (e) => {
+            if (e.target === modal1) {
+                closeModal1();
+            }
+        });
+
+        // Модальное окно 2: Странгуляционная асфиксия
+        const modal2 = document.getElementById('asphyxiaModal');
+        const openBtn2 = document.getElementById('openAsphyxiaBtn');
+        const closeBtn2 = document.getElementById('closeAsphyxiaBtn');
+
+        function openModal2() {
+            modal2.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal2() {
+            modal2.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        openBtn2.addEventListener('click', openModal2);
+        closeBtn2.addEventListener('click', closeModal2);
+        modal2.addEventListener('click', (e) => {
+            if (e.target === modal2) {
+                closeModal2();
+            }
+        });
+
+        // Escape закрывает оба окна
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                if (modal1.classList.contains('active')) {
+                    closeModal1();
+                }
+                if (modal2.classList.contains('active')) {
+                    closeModal2();
+                }
+            }
+        });
+
+        // Галерея изображений
+        let currentGallery = [];
+        let currentIndex = 0;
+        let isGalleryMode = false;
+
+        function openImage(imagePath) {
+            isGalleryMode = false;
+            currentGallery = [];
+            document.getElementById('navContainer').style.display = 'none';
+            document.getElementById('imageModal').style.display = 'flex';
+            document.getElementById('modalImage').src = imagePath;
+        }
+
+        function openImageGallery(images) {
+            isGalleryMode = true;
+            currentGallery = images;
+            currentIndex = 0;
+            document.getElementById('navContainer').style.display = 'flex';
+            document.getElementById('imageModal').style.display = 'flex';
+            document.getElementById('modalImage').src = currentGallery[currentIndex];
+            document.getElementById('imageCounter').textContent = `${currentIndex + 1} / ${currentGallery.length}`;
+            updateNavButtons();
+        }
+
+        function updateNavButtons() {
+            document.getElementById('prevBtn').style.opacity = currentIndex === 0 ? '0.4' : '1';
+            document.getElementById('nextBtn').style.opacity = currentIndex === currentGallery.length - 1 ? '0.4' : '1';
+        }
+
+        document.getElementById('prevBtn').addEventListener('click', function() {
+            if (!isGalleryMode || currentIndex === 0) return;
+            currentIndex--;
+            document.getElementById('modalImage').src = currentGallery[currentIndex];
+            document.getElementById('imageCounter').textContent = `${currentIndex + 1} / ${currentGallery.length}`;
+            updateNavButtons();
+        });
+
+        document.getElementById('nextBtn').addEventListener('click', function() {
+            if (!isGalleryMode || currentIndex === currentGallery.length - 1) return;
+            currentIndex++;
+            document.getElementById('modalImage').src = currentGallery[currentIndex];
+            document.getElementById('imageCounter').textContent = `${currentIndex + 1} / ${currentGallery.length}`;
+            updateNavButtons();
+        });
+
+        document.getElementById('imageModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.style.display = 'none';
+                isGalleryMode = false;
+                currentGallery = [];
+            }
+        });
+    </script>
 </body>
 </html>
