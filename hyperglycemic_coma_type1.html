@@ -5,385 +5,89 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Карта вызова скорой медицинской помощи | Гипергликемическая (кетоацидотическая) кома</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background-color: #e9ecef;
-            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
-            padding: 40px 20px;
-            color: #212529;
-            line-height: 1.45;
-        }
-
-        .card {
-            max-width: 1100px;
-            margin: 0 auto;
-            background-color: #ffffff;
-            border-radius: 20px;
-            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.15);
-            overflow: hidden;
-            border: 1px solid #dee2e6;
-        }
-
-        .mkb-row {
-            background: linear-gradient(135deg, #0b3b5f 0%, #1a4d6f 100%);
-            color: white;
-            padding: 20px 32px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            border-bottom: 4px solid #ffc107;
-        }
-
-        .mkb-row span {
-            font-weight: 700;
-            color: #ffc107;
-        }
-
-        .diagnosis {
-            background: #fef9e6;
-            padding: 12px 32px;
-            border-left: 6px solid #ffc107;
-            font-weight: 500;
-            font-size: 0.98rem;
-            color: #2d3e50;
-            border-bottom: 1px solid #f0e2b6;
-        }
-
-        .content {
-            padding: 24px 32px 40px 32px;
-        }
-
-        .section {
-            margin-bottom: 32px;
-            break-inside: avoid;
-            page-break-inside: avoid;
-        }
-
-        .section-title {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: #1a4d6f;
-            border-left: 6px solid #ffc107;
-            padding-left: 16px;
-            margin-bottom: 18px;
-            margin-top: 8px;
-            background: #f4f9ff;
-            border-radius: 0 12px 12px 0;
-            line-height: 1.3;
-        }
-
-        .field-list {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .field-item {
-            padding: 6px 0 4px 8px;
-            border-bottom: 1px dotted #e0e6ed;
-            font-size: 0.94rem;
-            line-height: 1.45;
-        }
-
-        .field-item strong {
-            font-weight: 700;
-            color: #1e4663;
-            display: inline-block;
-            min-width: 240px;
-        }
-
-        .field-item .value {
-            color: #2c3e4e;
-            font-weight: 500;
-        }
-
-        .full-width-text {
-            padding: 8px 0 8px 8px;
-            border-bottom: 1px dotted #e0e6ed;
-            font-size: 0.94rem;
-        }
-
-        .full-width-text strong {
-            font-weight: 700;
-            color: #1e4663;
-            display: inline-block;
-            min-width: 240px;
-        }
-
-        .status-local {
-            background: #fef7e0;
-            padding: 14px 18px;
-            border-radius: 18px;
-            margin-top: 6px;
-            border: 1px solid #ffe3a4;
-            font-size: 0.94rem;
-        }
-
-        .scales-list {
-            background: #f1f4f9;
-            padding: 12px 20px;
-            border-radius: 20px;
-            margin-top: 10px;
-        }
-
-        .scales-list p {
-            margin: 8px 0;
-        }
-
-        .note {
-            background: #e7f1ff;
-            border-left: 4px solid #1a4d6f;
-            padding: 12px 16px;
-            margin-top: 16px;
-            border-radius: 12px;
-            font-size: 0.9rem;
-            color: #1e4663;
-        }
-
-        .note-list {
-            margin-top: 8px;
-            margin-left: 20px;
-            list-style-type: none;
-            padding-left: 0;
-        }
-
-        .note-list li {
-            margin-bottom: 8px;
-            padding-left: 20px;
-            position: relative;
-        }
-
-        .note-list li:before {
-            content: "•";
-            position: absolute;
-            left: 4px;
-            color: #1a4d6f;
-            font-weight: bold;
-        }
-
-        /* Кнопка алгоритма */
-        .algorithm-btn-container {
-            margin-top: 32px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .btn-algorithm {
-            background-color: #dc2626;
-            color: white;
-            border: none;
-            padding: 10px 28px;
-            font-size: 1.15rem;
-            font-weight: 700;
-            border-radius: 50px;
-            cursor: pointer;
-            box-shadow: 0 6px 14px rgba(220, 38, 38, 0.3);
-            transition: all 0.2s ease;
-            display: inline-flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 4px;
-            letter-spacing: 0.3px;
-            border: 1px solid rgba(255,255,255,0.3);
-        }
-
-        .btn-algorithm:hover {
-            background-color: #b91c1c;
-            transform: scale(1.02);
-            box-shadow: 0 10px 20px rgba(185, 28, 28, 0.4);
-        }
-
-        .btn-algorithm:active {
-            transform: scale(0.98);
-        }
-
-        .btn-hint {
-            font-size: 0.7rem;
-            font-weight: normal;
-            opacity: 0.9;
-            letter-spacing: normal;
-            border-top: 1px dashed rgba(255,255,255,0.5);
-            padding-top: 4px;
-            margin-top: 2px;
-        }
-
-        /* Модальное окно */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.75);
-            backdrop-filter: blur(4px);
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            visibility: hidden;
-            opacity: 0;
-            transition: visibility 0.2s, opacity 0.2s;
-            padding: 20px;
-        }
-
-        .modal-overlay.active {
-            visibility: visible;
-            opacity: 1;
-        }
-
-        .modal-container {
-            background-color: #fffef7;
-            max-width: 750px;
-            width: 100%;
-            max-height: 85vh;
-            border-radius: 28px;
-            box-shadow: 0 25px 45px -12px black;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            animation: modalFadeIn 0.25s ease-out;
-        }
-
-        @keyframes modalFadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .modal-header {
-            background: #b91c1c;
-            color: white;
-            padding: 18px 24px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 3px solid #ffc107;
-        }
-
-        .modal-header h2 {
-            font-size: 1.3rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .modal-close {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 28px;
-            cursor: pointer;
-            line-height: 1;
-            transition: 0.2s;
-            padding: 0 8px;
-            border-radius: 40px;
-        }
-
-        .modal-close:hover {
-            background-color: rgba(255,255,255,0.2);
-            transform: scale(1.1);
-        }
-
-        .modal-body {
-            flex: 1;
-            overflow-y: auto;
-            padding: 24px 28px;
-            background: #fefcf5;
-            font-size: 0.95rem;
-            line-height: 1.5;
-        }
-
-        /* стили для алгоритма */
-        .alg-section {
-            margin-bottom: 24px;
-            border-left: 4px solid #dc2626;
-            padding-left: 18px;
-            background: #fff9f0;
-            border-radius: 0 14px 14px 0;
-        }
-
-        .alg-title {
-            font-weight: 800;
-            font-size: 1rem;
-            color: #a51c1c;
-            margin: 8px 0 8px 0;
-            display: inline-block;
-            background: #ffeeee;
-            padding: 4px 14px;
-            border-radius: 30px;
-        }
-
-        .list-styled {
-            margin: 8px 0 10px 24px;
-        }
-
-        .list-styled li {
-            margin: 6px 0;
-        }
-
-        .tactic-block {
-            background: #eef2fa;
-            border-radius: 16px;
-            padding: 12px 18px;
-            margin-top: 12px;
-            margin-bottom: 8px;
-        }
-
-        .tactic-title {
-            font-weight: 700;
-            color: #1e4663;
-            margin-bottom: 6px;
-        }
-
-        .condition-block {
-            background: #fff0d4;
-            border-left: 5px solid #dc2626;
-            padding: 10px 16px;
-            margin: 10px 0;
-            border-radius: 12px;
-        }
-
-        .condition-title {
-            font-weight: 700;
-            color: #a51c1c;
-            margin-bottom: 6px;
-        }
-
-        hr {
-            margin: 16px 0;
-            border-color: #f0dbb2;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: #e9ecef; font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif; padding: 40px 20px; color: #212529; line-height: 1.45; }
+        .card { max-width: 1100px; margin: 0 auto; background-color: #ffffff; border-radius: 20px; box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.15); overflow: hidden; border: 1px solid #dee2e6; }
+        .mkb-row { background: linear-gradient(135deg, #0b3b5f 0%, #1a4d6f 100%); color: white; padding: 20px 32px; font-weight: 600; font-size: 1.1rem; border-bottom: 4px solid #ffc107; }
+        .mkb-row span { font-weight: 700; color: #ffc107; }
+        .diagnosis { background: #fef9e6; padding: 12px 32px; border-left: 6px solid #ffc107; font-weight: 500; font-size: 0.98rem; color: #2d3e50; border-bottom: 1px solid #f0e2b6; }
+        .content { padding: 24px 32px 40px 32px; }
+        .section { margin-bottom: 32px; break-inside: avoid; page-break-inside: avoid; }
+        .section-title { font-size: 1.4rem; font-weight: 700; color: #1a4d6f; border-left: 6px solid #ffc107; padding-left: 16px; margin-bottom: 18px; margin-top: 8px; background: #f4f9ff; border-radius: 0 12px 12px 0; line-height: 1.3; }
+        .field-list { display: flex; flex-direction: column; gap: 10px; }
+        .field-item { padding: 6px 0 4px 8px; border-bottom: 1px dotted #e0e6ed; font-size: 0.94rem; line-height: 1.45; }
+        .field-item strong { font-weight: 700; color: #1e4663; display: inline-block; min-width: 240px; }
+        .field-item .value { color: #2c3e4e; font-weight: 500; }
+        .full-width-text { padding: 8px 0 8px 8px; border-bottom: 1px dotted #e0e6ed; font-size: 0.94rem; }
+        .full-width-text strong { font-weight: 700; color: #1e4663; display: inline-block; min-width: 240px; }
+        .status-local { background: #fef7e0; padding: 14px 18px; border-radius: 18px; margin-top: 6px; border: 1px solid #ffe3a4; font-size: 0.94rem; }
+        .scales-list { background: #f1f4f9; padding: 12px 20px; border-radius: 20px; margin-top: 10px; }
+        .scales-list p { margin: 8px 0; }
+        .note { background: #e7f1ff; border-left: 4px solid #1a4d6f; padding: 12px 16px; margin-top: 16px; border-radius: 12px; font-size: 0.9rem; color: #1e4663; }
+        .note-list { margin-top: 8px; margin-left: 20px; list-style-type: none; padding-left: 0; }
+        .note-list li { margin-bottom: 8px; padding-left: 20px; position: relative; }
+        .note-list li:before { content: "•"; position: absolute; left: 4px; color: #1a4d6f; font-weight: bold; }
+        .algorithm-btn-container { margin-top: 32px; margin-bottom: 20px; text-align: center; }
+        .btn-algorithm { background-color: #dc2626; color: white; border: none; padding: 10px 28px; font-size: 1.15rem; font-weight: 700; border-radius: 50px; cursor: pointer; box-shadow: 0 6px 14px rgba(220, 38, 38, 0.3); transition: all 0.2s ease; display: inline-flex; flex-direction: column; align-items: center; gap: 4px; letter-spacing: 0.3px; border: 1px solid rgba(255,255,255,0.3); max-width: 100%; }
+        .btn-algorithm:hover { background-color: #b91c1c; transform: scale(1.02); box-shadow: 0 10px 20px rgba(185, 28, 28, 0.4); }
+        .btn-algorithm:active { transform: scale(0.98); }
+        .btn-hint { font-size: 0.7rem; font-weight: normal; opacity: 0.9; letter-spacing: normal; border-top: 1px dashed rgba(255,255,255,0.5); padding-top: 4px; margin-top: 2px; }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.75); backdrop-filter: blur(4px); z-index: 1000; display: flex; align-items: center; justify-content: center; visibility: hidden; opacity: 0; transition: visibility 0.2s, opacity 0.2s; padding: 20px; }
+        .modal-overlay.active { visibility: visible; opacity: 1; }
+        .modal-container { max-width: 1200px; width: 100%; max-height: 85vh; background-color: #fffef7; border-radius: 28px; box-shadow: 0 25px 45px -12px rgba(0,0,0,0.25); display: flex; flex-direction: column; overflow: hidden; border: 1px solid #ffd7a5; animation: modalFadeIn 0.25s ease-out; }
+        @keyframes modalFadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .modal-header { background: #c2410c; color: white; padding: 18px 28px; display: flex; justify-content: space-between; align-items: center; border-bottom: 4px solid #ffb347; flex-shrink: 0; }
+        .modal-header h2 { font-size: 1.25rem; font-weight: 700; line-height: 1.3; word-break: break-word; }
+        .modal-close { background: none; border: none; color: white; font-size: 28px; cursor: pointer; line-height: 1; transition: 0.2s; padding: 0 8px; border-radius: 40px; flex-shrink: 0; }
+        .modal-close:hover { background-color: rgba(255,255,255,0.2); transform: scale(1.1); }
+        .modal-body { flex: 1; overflow-y: auto; padding: 28px 32px; background: #fefcf5; font-size: 0.95rem; line-height: 1.5; }
+        .adult-block { border-left: 5px solid #dc2626; padding-left: 20px; background: #fff9f0; border-radius: 0 18px 18px 0; margin-bottom: 40px; }
+        .adult-header { display: flex; align-items: center; gap: 12px; margin: 10px 0 20px 0; }
+        .badge-adult { background: #c2410c; color: white; padding: 6px 14px; border-radius: 40px; font-weight: bold; }
+        .child-block { border-left: 5px solid #2e7d32; padding-left: 20px; background: #ecf7ec; border-radius: 0 18px 18px 0; margin-bottom: 20px; }
+        .child-header { display: flex; align-items: center; gap: 12px; margin: 10px 0 20px 0; }
+        .badge-child { background: #2e7d32; color: white; padding: 6px 14px; border-radius: 40px; font-weight: bold; }
+        .list-styled { margin: 12px 0 14px 28px; }
+        .list-styled li { margin: 8px 0; }
+        .tactic-block { background: #d9effa; border-radius: 20px; padding: 14px 20px; margin: 18px 0 16px 0; border-left: 4px solid #0284c7; }
+        .tactic-title { font-weight: 800; color: #0369a1; margin-bottom: 8px; font-size: 1rem; }
+        .no-bg-block { padding: 14px 20px; margin: 20px 0; border-radius: 16px; }
+        .red-block { background: #ffb3b3; border-left: 6px solid #b91c1c; padding: 14px 20px; margin: 20px 0; border-radius: 16px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+        .child-condition-block { background: #d9f0d9; border-left: 6px solid #2e7d32; padding: 14px 20px; margin: 20px 0; border-radius: 16px; }
+        .condition-title { font-weight: 800; color: #b91c1c; margin-bottom: 10px; font-size: 1rem; }
+        .highlight-number { font-weight: 800; color: #c2410c; background: #fff0d0; padding: 0 4px; border-radius: 10px; }
+        .drug-name { background: #f3f3f3; font-family: monospace; padding: 2px 8px; border-radius: 20px; font-weight: 800; color: #1a3c4a; display: inline-block; }
+        .italic-bold-ref { font-weight: 800; font-style: italic; background: transparent; color: #0a2f44; }
         @media (max-width: 700px) {
-            .field-item strong {
-                min-width: 170px;
-            }
-            .full-width-text strong {
-                min-width: 170px;
-            }
-            .content {
-                padding: 20px;
-            }
-            .modal-body {
-                padding: 16px;
-            }
-            .btn-algorithm {
-                padding: 8px 22px;
-                font-size: 1rem;
-            }
-            .btn-hint {
-                font-size: 0.65rem;
-            }
+            body { padding: 16px 10px; }
+            .mkb-row { padding: 14px 18px; font-size: 0.95rem; }
+            .diagnosis { padding: 10px 18px; font-size: 0.9rem; }
+            .content { padding: 16px; }
+            .section { margin-bottom: 20px; }
+            .section-title { font-size: 1.15rem; padding-left: 12px; margin-bottom: 12px; }
+            .field-item { font-size: 0.85rem; padding: 4px 0 4px 4px; }
+            .field-item strong { min-width: 140px; }
+            .full-width-text { font-size: 0.85rem; padding: 6px 0 6px 4px; }
+            .full-width-text strong { min-width: 140px; }
+            .status-local { padding: 10px 14px; font-size: 0.85rem; }
+            .scales-list { padding: 10px 14px; }
+            .scales-list p { font-size: 0.85rem; margin: 6px 0; }
+            .note { padding: 10px 14px; font-size: 0.8rem; }
+            .note-list { margin-left: 14px; }
+            .btn-algorithm { padding: 8px 22px; font-size: 1rem; }
+            .btn-hint { font-size: 0.65rem; }
+            .modal-overlay { padding: 10px; }
+            .modal-container { max-height: 90vh; border-radius: 20px; }
+            .modal-header { padding: 14px 18px; }
+            .modal-header h2 { font-size: 1rem; }
+            .modal-body { padding: 20px; }
+            .list-styled { margin-left: 20px; }
+            .adult-block { padding-left: 14px; }
+        }
+        @media (max-width: 480px) {
+            .field-item strong { min-width: 120px; }
+            .full-width-text strong { min-width: 120px; }
+            .btn-algorithm { padding: 10px 18px; font-size: 0.9rem; border-radius: 40px; }
         }
     </style>
 </head>
@@ -395,15 +99,11 @@
     <div class="diagnosis">
         🧾 <strong>Диагноз:</strong> Основное заболевание: Гипергликемическая (кетоацидотическая) кома. Сахарный диабет (1 типа / 2 типа / неуточненный), тяжелое течение, стадия декомпенсации.
     </div>
-
     <div class="content">
-        <!-- ЖАЛОБЫ -->
         <div class="section">
             <div class="section-title">📢 ЖАЛОБЫ</div>
             <div class="full-width-text"><em>На момент осмотра пациент без сознания, жалоб не предъявляет в связи с тяжестью состояния.</em></div>
         </div>
-
-        <!-- АНАМНЕЗ -->
         <div class="section">
             <div class="section-title">📋 АНАМНЕЗ</div>
             <div class="full-width-text"><strong>Anamnesis morbi:</strong> Со слов родственников, пациент страдает сахарным диабетом в течение многих лет, принимает сахароснижающие препараты (название, дозу и режим приема уточнить не удалось). В течение последних нескольких дней отмечали нарастающую слабость, сонливость, жажду, учащенное мочеиспускание. Сегодня утром разбудить пациента не смогли, вызвали бригаду СМП. Время утраты сознания неизвестно (предположительно несколько часов назад). До приезда бригады помощь не оказывали.</div>
@@ -411,8 +111,6 @@
             <div class="full-width-text"><strong>Гинекологический анамнез:</strong> Не применимо (пациент мужского пола).</div>
             <div class="full-width-text"><strong>Эпидемиологический анамнез:</strong> Контакт с инфекционными больными отрицают. За последние 3 недели за пределы города не выезжал, укусы насекомых отрицают. Наследственность: у матери был сахарный диабет.</div>
         </div>
-
-        <!-- ОБЪЕКТИВНО -->
         <div class="section">
             <div class="section-title">🩺 ОБЪЕКТИВНО</div>
             <div class="field-list">
@@ -430,8 +128,6 @@
                 <div class="field-item"><strong>t°:</strong> <span class="value">36.2 °C (аксиллярно) – возможно гипотермия.</span></div>
             </div>
         </div>
-
-        <!-- ОРГАНЫ ДЫХАНИЯ -->
         <div class="section">
             <div class="section-title">🌬️ ОРГАНЫ ДЫХАНИЯ</div>
             <div class="field-list">
@@ -447,8 +143,6 @@
                 <div class="field-item"><strong>Мокрота:</strong> <span class="value">нет.</span></div>
             </div>
         </div>
-
-        <!-- ОРГАНЫ КРОВООБРАЩЕНИЯ -->
         <div class="section">
             <div class="section-title">❤️ ОРГАНЫ КРОВООБРАЩЕНИЯ</div>
             <div class="field-list">
@@ -463,8 +157,6 @@
                 <div class="field-item"><strong>Акцент какого тона на:</strong> <span class="value">нет.</span></div>
             </div>
         </div>
-
-        <!-- ОРГАНЫ ПИЩЕВАРЕНИЯ -->
         <div class="section">
             <div class="section-title">🍽️ ОРГАНЫ ПИЩЕВАРЕНИЯ</div>
             <div class="field-list">
@@ -478,8 +170,6 @@
                 <div class="field-item"><strong>Стул:</strong> <span class="value">задержка стула (со слов родственников, не было несколько дней).</span></div>
             </div>
         </div>
-
-        <!-- НЕРВНАЯ СИСТЕМА -->
         <div class="section">
             <div class="section-title">🧠 НЕРВНАЯ СИСТЕМА</div>
             <div class="field-list">
@@ -496,8 +186,6 @@
                 <div class="field-item"><strong>Координаторные пробы:</strong> <span class="value">не выполняются.</span></div>
             </div>
         </div>
-
-        <!-- МОЧЕПОЛОВАЯ СИСТЕМА -->
         <div class="section">
             <div class="section-title">🚽 МОЧЕПОЛОВАЯ СИСТЕМА</div>
             <div class="field-list">
@@ -505,8 +193,6 @@
                 <div class="field-item"><strong>Симптом поколачивания:</strong> <span class="value">не определяется.</span></div>
             </div>
         </div>
-
-        <!-- STATUS LOCALIS -->
         <div class="section">
             <div class="section-title">🔍 STATUS LOCALIS</div>
             <div class="status-local">
@@ -514,8 +200,6 @@
                 Экспресс-глюкометрия: уровень глюкозы в капиллярной крови 28.5 ммоль/л (или другое значение >20 ммоль/л). Тест-полоски на кетоновые тела в моче (если есть) – положительный (+++).
             </div>
         </div>
-
-        <!-- ОЦЕНКА ПО ШКАЛАМ -->
         <div class="section">
             <div class="section-title">📊 ОЦЕНКА ПО ШКАЛАМ</div>
             <div class="scales-list">
@@ -531,141 +215,5 @@
                 <p>✔ <strong>Состояние алкогольного опьянения:</strong> запах алкоголя не определяется (определяется запах ацетона). Экспресс-тест на алкоголь в выдыхаемом воздухе не проводился (не показано). Забор крови на токсикологию – в стационаре.</p>
             </div>
         </div>
-
-        <!-- Примечание для бригады СМП -->
         <div class="note">
-            <strong>📌 Примечание для бригады СМП:</strong><br>
-            Дифференциальная диагностика коматозного состояния у пациента с сахарным диабетом проведена с:
-            <ul class="note-list">
-                <li><strong>гипогликемической комой</strong> (острейшее развитие (минуты-часы), влажные кожные покровы, профузный пот, нормальный тургор тканей, часто судороги, уровень глюкозы низкий (&lt;3 ммоль/л), запах ацетона отсутствует. Быстрый эффект от внутривенного введения глюкозы);</li>
-                <li><strong>кетоацидотической комой (наш случай)</strong> (развивается постепенно (дни), сухость кожи и слизистых, снижение тургора, дыхание Куссмауля, запах ацетона, высокий уровень глюкозы, дегидратация, гипотония, тахикардия);</li>
-                <li><strong>гиперосмолярной комой</strong> (чаще у пожилых с диабетом 2 типа, выраженная дегидратация, неврологическая симптоматика (очаговые знаки, судороги), очень высокий уровень глюкозы (>30-40 ммоль/л), запах ацетона отсутствует или слабый, кетонурии нет);</li>
-                <li><strong>лактатацидотической комой</strong> (на фоне тяжелых состояний (шок, сепсис, сердечная недостаточность), выраженный ацидоз, высокий уровень лактата, запах ацетона отсутствует, уровень глюкозы может быть нормальным или слегка повышен);</li>
-                <li><strong>мозговой комой (инсульт, ОНМК)</strong> (внезапное начало, очаговая неврологическая симптоматика (парезы, асимметрия лица), уровень глюкозы может быть повышен (стресс-гипергликемия), но запах ацетона отсутствует, дыхание не типа Куссмауля (может быть патологическое дыхание Чейна-Стокса));</li>
-                <li><strong>уремической комой</strong> (хроническое заболевание почек, запах аммиака, сухость кожи, «уремический иней», перикардит, анемия, высокий уровень креатинина и мочевины);</li>
-                <li><strong>печеночной комой</strong> (заболевания печени в анамнезе, желтуха, сосудистые звездочки, асцит, печеночный запах, уровень глюкозы может быть снижен);</li>
-                <li><strong>отравлением (салицилатами, алкоголем, метанолом и др.)</strong> (может быть нарушение сознания, дыхание Куссмауля (при отравлении салицилатами), запах алкоголя или других веществ, уровень глюкозы может быть нормальным или сниженным. Анамнез и токсикологическое исследование);</li>
-                <li><strong>сепсисом (инфекционным процессом)</strong> (лихорадка или гипотермия, очаг инфекции, лейкоцитоз, может быть вторичная гипергликемия).</li>
-            </ul>
-            <strong>Ключевые признаки гипергликемической (кетоацидотической) комы:</strong><br>
-            – Постепенное развитие (часы – сутки).<br>
-            – Высокий уровень глюкозы крови (> 13–15 ммоль/л).<br>
-            – Запах ацетона изо рта.<br>
-            – Дыхание Куссмауля (глубокое, шумное).<br>
-            – Резкая сухость кожи и слизистых, снижение тургора.<br>
-            – Мягкие глазные яблоки (гипотония).<br>
-            – Сухой язык, обложенный коричневым/бурым налетом.<br>
-            – Артериальная гипотония, тахикардия.<br>
-            – Абдоминальный синдром (боли в животе, рвота, парез кишечника) при отсутствии перитонеальных симптомов.<br>
-            – Полиурия в прекоме, сменяющаяся олигурией/анурией.<br>
-            – Мышечная гипотония, снижение рефлексов.<br>
-            – Судороги – НЕ ХАРАКТЕРНЫ (в отличие от гипогликемии).<br>
-            – Нет эффекта от введения глюкозы (в отличие от гипогликемии).<br><br>
-            <strong>Критическое правило:</strong><br>
-            Любая кома у пациента с сахарным диабетом – экспресс-глюкометрия! Дифференциальный диагноз между гипо- и гипергликемической комой решает уровень глюкозы крови.
-        </div>
-
-        <!-- КРАСНАЯ КНОПКА -->
-        <div class="algorithm-btn-container">
-            <button class="btn-algorithm" id="openAlgorithmBtn">
-                <span>🚨 Оказание помощи в соответствии с Алгоритмами МСК</span>
-                <span class="btn-hint">▼ нажмите для открытия ▼</span>
-            </button>
-        </div>
-    </div>
-</div>
-
-<!-- МОДАЛЬНОЕ ОКНО: АЛГОРИТМ ДИАБЕТИЧЕСКОГО КЕТОАЦИДОЗА (E10.1, E11.1, E14.1) И ГИПЕРГЛИКЕМИЧЕСКИХ КОМ (E10.0, E11.0, E14.0) -->
-<div class="modal-overlay" id="algorithmModal">
-    <div class="modal-container">
-        <div class="modal-header">
-            <h2>📋 Алгоритм оказания помощи (МСК)</h2>
-            <button class="modal-close" id="closeModalBtn">&times;</button>
-        </div>
-        <div class="modal-body">
-            <div class="alg-section">
-                <div class="alg-title">🔹 E10.1, E11.1, E14.1 — Диабетический кетоацидоз (гипергликемическое состояние — ПРЕКОМА)</div>
-                <ul class="list-styled">
-                    <li>Глюкометрия</li>
-                    <li>Катетеризация вены или внутрикостный доступ</li>
-                    <li>Раствор Стерифундин (Калия хлорид + кальция хлорид + магния хлорид + натрия ацетат + натрия хлорид + яблочная кислота) 500 мл или Натрия хлорид 0,9% — 500 мл в/венно капельно 60 капель в минуту</li>
-                    <li>ЭКГ (ЭКП)</li>
-                    <li>Пульсоксиметрия</li>
-                    <li>Повторная глюкометрия</li>
-                </ul>
-                <div class="condition-block">
-                    <div class="condition-title">▶ при SpO₂ ≤ 93%</div>
-                    <ul class="list-styled">
-                        <li>Ингаляция кислорода</li>
-                    </ul>
-                </div>
-                <div class="tactic-block">
-                    <div class="tactic-title">▶ Тактика ведения:</div>
-                    <ul class="list-styled" style="margin-top: 4px;">
-                        <li>1. Медицинская эвакуация в больницу. Транспортировка на носилках</li>
-                        <li>2. При отказе от медицинской эвакуации в больницу – актив в поликлинику</li>
-                    </ul>
-                </div>
-
-                <hr>
-
-                <div class="alg-title">🔹 E10.0, E11.0, E14.0 — Диабетические гипергликемические КОМЫ</div>
-                <ul class="list-styled">
-                    <li>Глюкометрия</li>
-                    <li>Пульсоксиметрия</li>
-                    <li>Раствор Стерифундин (Калия хлорид + кальция хлорид + магния хлорид + натрия ацетат + натрия хлорид + яблочная кислота) — 1000 мл или Натрия хлорид 0,9% — 1000 мл в/венно в течение первого часа, в дальнейшем 500 мл в час</li>
-                </ul>
-                <div class="condition-block">
-                    <div class="condition-title">▶ при уровне сознания &lt; 8 баллов по шкале комы ГЛАЗГО после терапии</div>
-                    <ul class="list-styled">
-                        <li>См. раздел «Анестезиология и реаниматология» (Кома, в том числе неустановленного генеза) стр. 19</li>
-                    </ul>
-                </div>
-                <div class="condition-block">
-                    <div class="condition-title">▶ при шоке</div>
-                    <ul class="list-styled">
-                        <li>См. раздел «Анестезиология и реаниматология» (Гиповолемический шок) стр. 19</li>
-                    </ul>
-                </div>
-                <div class="tactic-block">
-                    <div class="tactic-title">▶ Тактика ведения:</div>
-                    <ul class="list-styled" style="margin-top: 4px;">
-                        <li>1. Медицинская эвакуация в больницу. Транспортировка на носилках</li>
-                        <li>2. При отказе от медицинской эвакуации в больницу – актив в ОНМПВиДН</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-    const modal = document.getElementById('algorithmModal');
-    const openBtn = document.getElementById('openAlgorithmBtn');
-    const closeBtn = document.getElementById('closeModalBtn');
-
-    function openModal() {
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
-
-    function closeModal() {
-        modal.classList.remove('active');
-        document.body.style.overflow = '';
-    }
-
-    openBtn.addEventListener('click', openModal);
-    closeBtn.addEventListener('click', closeModal);
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            closeModal();
-        }
-    });
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && modal.classList.contains('active')) {
-            closeModal();
-        }
-    });
-</script>
-</body>
-</html>
+            <strong>📌 Примечание для бригады СМП:</strong><
