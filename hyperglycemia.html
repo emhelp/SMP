@@ -2,366 +2,125 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Карта вызова скорой медицинской помощи | Гипергликемия</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background-color: #e9ecef;
-            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
-            padding: 40px 20px;
-            color: #212529;
-            line-height: 1.45;
-        }
-
-        .card {
-            max-width: 1100px;
-            margin: 0 auto;
-            background-color: #ffffff;
-            border-radius: 20px;
-            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.15);
-            overflow: hidden;
-            border: 1px solid #dee2e6;
-        }
-
-        .mkb-row {
-            background: linear-gradient(135deg, #0b3b5f 0%, #1a4d6f 100%);
-            color: white;
-            padding: 20px 32px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            border-bottom: 4px solid #ffc107;
-        }
-
-        .mkb-row span {
-            font-weight: 700;
-            color: #ffc107;
-        }
-
-        .diagnosis {
-            background: #fef9e6;
-            padding: 12px 32px;
-            border-left: 6px solid #ffc107;
-            font-weight: 500;
-            font-size: 0.98rem;
-            color: #2d3e50;
-            border-bottom: 1px solid #f0e2b6;
-        }
-
-        .content {
-            padding: 24px 32px 40px 32px;
-        }
-
-        .section {
-            margin-bottom: 32px;
-            break-inside: avoid;
-            page-break-inside: avoid;
-        }
-
-        .section-title {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: #1a4d6f;
-            border-left: 6px solid #ffc107;
-            padding-left: 16px;
-            margin-bottom: 18px;
-            margin-top: 8px;
-            background: #f4f9ff;
-            border-radius: 0 12px 12px 0;
-            line-height: 1.3;
-        }
-
-        .field-list {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .field-item {
-            padding: 6px 0 4px 8px;
-            border-bottom: 1px dotted #e0e6ed;
-            font-size: 0.94rem;
-            line-height: 1.45;
-        }
-
-        .field-item strong {
-            font-weight: 700;
-            color: #1e4663;
-            display: inline-block;
-            min-width: 240px;
-        }
-
-        .field-item .value {
-            color: #2c3e4e;
-            font-weight: 500;
-        }
-
-        .full-width-text {
-            padding: 8px 0 8px 8px;
-            border-bottom: 1px dotted #e0e6ed;
-            font-size: 0.94rem;
-        }
-
-        .full-width-text strong {
-            font-weight: 700;
-            color: #1e4663;
-            display: inline-block;
-            min-width: 240px;
-        }
-
-        .status-local {
-            background: #fef7e0;
-            padding: 14px 18px;
-            border-radius: 18px;
-            margin-top: 6px;
-            border: 1px solid #ffe3a4;
-            font-size: 0.94rem;
-        }
-
-        .scales-list {
-            background: #f1f4f9;
-            padding: 12px 20px;
-            border-radius: 20px;
-            margin-top: 10px;
-        }
-
-        .scales-list p {
-            margin: 8px 0;
-        }
-
-        .note {
-            background: #e7f1ff;
-            border-left: 4px solid #1a4d6f;
-            padding: 12px 16px;
-            margin-top: 16px;
-            border-radius: 12px;
-            font-size: 0.9rem;
-            color: #1e4663;
-        }
-
-        .note-list {
-            margin-top: 8px;
-            margin-left: 20px;
-            list-style-type: none;
-            padding-left: 0;
-        }
-
-        .note-list li {
-            margin-bottom: 8px;
-            padding-left: 20px;
-            position: relative;
-        }
-
-        .note-list li:before {
-            content: "•";
-            position: absolute;
-            left: 4px;
-            color: #1a4d6f;
-            font-weight: bold;
-        }
-
-        @media (max-width: 700px) {
-            .field-item strong {
-                min-width: 170px;
-            }
-            .full-width-text strong {
-                min-width: 170px;
-            }
-            .content {
-                padding: 20px;
-            }
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: #e9ecef; font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif; padding: 40px 20px; color: #212529; line-height: 1.45; }
+        .card { max-width: 1100px; margin: 0 auto; background-color: #ffffff; border-radius: 20px; box-shadow: 0 20px 35px -12px rgba(0,0,0,0.15); overflow: hidden; border: 1px solid #dee2e6; }
+        .mkb-row { background: linear-gradient(135deg, #0b3b5f 0%, #1a4d6f 100%); color: white; padding: 20px 32px; font-weight: 600; font-size: 1.1rem; border-bottom: 4px solid #ffc107; }
+        .mkb-row span { font-weight: 700; color: #ffc107; }
+        .diagnosis { background: #fef9e6; padding: 12px 32px; border-left: 6px solid #ffc107; font-weight: 500; font-size: 0.98rem; color: #2d3e50; border-bottom: 1px solid #f0e2b6; }
+        .content { padding: 24px 32px 40px 32px; }
+        .section { margin-bottom: 32px; break-inside: avoid; page-break-inside: avoid; }
+        .section-title { font-size: 1.4rem; font-weight: 700; color: #1a4d6f; border-left: 6px solid #ffc107; padding-left: 16px; margin-bottom: 18px; margin-top: 8px; background: #f4f9ff; border-radius: 0 12px 12px 0; line-height: 1.3; }
+        .field-list { display: flex; flex-direction: column; gap: 10px; }
+        .field-item { padding: 6px 0 4px 8px; border-bottom: 1px dotted #e0e6ed; font-size: 0.94rem; line-height: 1.45; }
+        .field-item strong { font-weight: 700; color: #1e4663; display: inline-block; min-width: 240px; }
+        .field-item .value { color: #2c3e4e; font-weight: 500; }
+        .full-width-text { padding: 8px 0 8px 8px; border-bottom: 1px dotted #e0e6ed; font-size: 0.94rem; }
+        .full-width-text strong { font-weight: 700; color: #1e4663; display: inline-block; min-width: 240px; }
+        .status-local { background: #fef7e0; padding: 14px 18px; border-radius: 18px; margin-top: 6px; border: 1px solid #ffe3a4; font-size: 0.94rem; }
+        .scales-list { background: #f1f4f9; padding: 12px 20px; border-radius: 20px; margin-top: 10px; }
+        .scales-list p { margin: 8px 0; }
+        .note { background: #e7f1ff; border-left: 4px solid #1a4d6f; padding: 12px 16px; margin-top: 16px; border-radius: 12px; font-size: 0.9rem; color: #1e4663; }
+        .note-list { margin-top: 8px; margin-left: 20px; list-style-type: none; padding-left: 0; }
+        .note-list li { margin-bottom: 8px; padding-left: 20px; position: relative; }
+        .note-list li:before { content: "•"; position: absolute; left: 4px; color: #1a4d6f; font-weight: bold; }
+        .algorithm-btn-container { margin-top: 32px; margin-bottom: 20px; text-align: center; }
+        .btn-algorithm { background-color: #dc2626; color: white; border: none; padding: 10px 28px; font-size: 1.15rem; font-weight: 700; border-radius: 50px; cursor: pointer; box-shadow: 0 6px 14px rgba(220,38,38,0.3); transition: all 0.2s ease; display: inline-flex; flex-direction: column; align-items: center; gap: 4px; letter-spacing: 0.3px; border: 1px solid rgba(255,255,255,0.3); max-width: 100%; }
+        .btn-algorithm:hover { background-color: #b91c1c; transform: scale(1.02); box-shadow: 0 10px 20px rgba(185,28,28,0.4); }
+        .btn-algorithm:active { transform: scale(0.98); }
+        .btn-hint { font-size: 0.7rem; font-weight: normal; opacity: 0.9; letter-spacing: normal; border-top: 1px dashed rgba(255,255,255,0.5); padding-top: 4px; margin-top: 2px; }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.75); backdrop-filter: blur(4px); z-index: 1000; display: flex; align-items: center; justify-content: center; visibility: hidden; opacity: 0; transition: visibility 0.2s, opacity 0.2s; padding: 20px; }
+        .modal-overlay.active { visibility: visible; opacity: 1; }
+        .modal-container { background-color: #fffef7; max-width: 1200px; width: 100%; max-height: 85vh; border-radius: 28px; box-shadow: 0 25px 45px -12px rgba(0,0,0,0.25); display: flex; flex-direction: column; overflow: hidden; animation: modalFadeIn 0.25s ease-out; border: 1px solid #ffd7a5; }
+        @keyframes modalFadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .modal-header { background: #c2410c; color: white; padding: 18px 28px; display: flex; justify-content: space-between; align-items: center; border-bottom: 4px solid #ffb347; flex-shrink: 0; }
+        .modal-header h2 { font-size: 1.25rem; font-weight: 700; line-height: 1.3; word-break: break-word; }
+        .modal-close { background: none; border: none; color: white; font-size: 28px; cursor: pointer; line-height: 1; transition: 0.2s; padding: 0 8px; border-radius: 40px; flex-shrink: 0; }
+        .modal-close:hover { background-color: rgba(255,255,255,0.2); transform: scale(1.1); }
+        .modal-body { flex: 1; overflow-y: auto; padding: 28px 32px; background: #fefcf5; font-size: 0.95rem; line-height: 1.5; }
+        .adult-block { border-left: 5px solid #dc2626; padding-left: 20px; background: #fff9f0; border-radius: 0 18px 18px 0; margin-bottom: 40px; }
+        .adult-header { display: flex; align-items: center; gap: 12px; margin: 10px 0 20px 0; }
+        .badge-adult { background: #c2410c; color: white; padding: 6px 14px; border-radius: 40px; font-weight: bold; }
+        .child-block { border-left: 5px solid #2e7d32; padding-left: 20px; background: #ecf7ec; border-radius: 0 18px 18px 0; margin-bottom: 20px; }
+        .child-header { display: flex; align-items: center; gap: 12px; margin: 10px 0 20px 0; }
+        .badge-child { background: #2e7d32; color: white; padding: 6px 14px; border-radius: 40px; font-weight: bold; }
+        .list-styled { margin: 12px 0 14px 28px; }
+        .list-styled li { margin: 8px 0; }
+        .tactic-block { background: #d9effa; border-radius: 20px; padding: 14px 20px; margin: 18px 0 16px 0; border-left: 4px solid #0284c7; }
+        .tactic-title { font-weight: 800; color: #0369a1; margin-bottom: 8px; font-size: 1rem; }
+        .light-block { background: #ffe6cc; border-left: 6px solid #e03a3a; padding: 14px 20px; margin: 20px 0; border-radius: 16px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
+        .child-condition-block { background: #d9f0d9; border-left: 6px solid #2e7d32; padding: 14px 20px; margin: 20px 0; border-radius: 16px; }
+        .condition-title { font-weight: 800; color: #b91c1c; margin-bottom: 10px; font-size: 1rem; }
+        .highlight-number { font-weight: 800; color: #c2410c; background: #fff0d0; padding: 0 4px; border-radius: 10px; }
+        .drug-name { background: #f3f3f3; font-family: monospace; padding: 2px 8px; border-radius: 20px; font-weight: 800; color: #1a3c4a; display: inline-block; }
+        #imageModal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.9); justify-content: center; align-items: center; flex-direction: column; }
+        #imageModal .modal-close-img { position: absolute; top: 20px; right: 35px; color: #fff; font-size: 40px; font-weight: bold; cursor: pointer; background: none; border: none; z-index: 2001; }
+        #modalImage { max-width: 90%; max-height: 70%; object-fit: contain; }
+        #navContainer { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); display: none; gap: 30px; align-items: center; justify-content: center; background-color: rgba(0,0,0,0.5); padding: 6px 20px; border-radius: 40px; z-index: 2001; }
+        #prevBtn, #nextBtn { background-color: transparent; color: white; font-size: 28px; font-weight: bold; border: none; cursor: pointer; padding: 0 12px; }
+        #imageCounter { color: white; background-color: rgba(0,0,0,0.6); padding: 4px 12px; border-radius: 20px; font-size: 14px; font-weight: bold; }
+        @media (max-width: 700px) { body { padding: 16px 10px; } .mkb-row { padding: 14px 18px; font-size: 0.95rem; } .diagnosis { padding: 10px 18px; font-size: 0.9rem; } .content { padding: 16px; } .section { margin-bottom: 20px; } .section-title { font-size: 1.15rem; padding-left: 12px; margin-bottom: 12px; } .field-item { font-size: 0.85rem; padding: 4px 0 4px 4px; } .field-item strong { min-width: 140px; } .full-width-text { font-size: 0.85rem; padding: 6px 0 6px 4px; } .full-width-text strong { min-width: 140px; } .status-local { padding: 10px 14px; font-size: 0.85rem; } .scales-list { padding: 10px 14px; } .scales-list p { font-size: 0.85rem; margin: 6px 0; } .btn-algorithm { padding: 8px 22px; font-size: 1rem; } .btn-hint { font-size: 0.65rem; } .modal-overlay { padding: 10px; } .modal-container { max-height: 90vh; border-radius: 20px; } .modal-header { padding: 14px 18px; } .modal-header h2 { font-size: 1rem; } .modal-body { padding: 20px; } .list-styled { margin-left: 20px; } .adult-block { padding-left: 14px; } }
+        @media (max-width: 480px) { .field-item strong { min-width: 120px; } .full-width-text strong { min-width: 120px; } .btn-algorithm { padding: 10px 18px; font-size: 0.9rem; border-radius: 40px; } }
     </style>
 </head>
 <body>
 <div class="card">
-    <div class="mkb-row">
-        📌 Код по МКБ-10: <span>E11.1</span> (Сахарный диабет 2 типа с кетоацидозом)
-    </div>
-    <div class="diagnosis">
-        🧾 <strong>Диагноз:</strong> Сахарный диабет 2 типа, декомпенсация. Диабетический кетоацидоз.
-    </div>
-
+    <div class="mkb-row">📌 Код по МКБ-10: <span>E11.1</span> (Сахарный диабет 2 типа с кетоацидозом)</div>
+    <div class="diagnosis">🧾 <strong>Диагноз:</strong> Сахарный диабет 2 типа, декомпенсация. Диабетический кетоацидоз.</div>
     <div class="content">
-        <!-- ЖАЛОБЫ -->
-        <div class="section">
-            <div class="section-title">📢 ЖАЛОБЫ</div>
-            <div class="full-width-text"><em>На момент осмотра пациент предъявляет жалобы на резкую общую слабость, сильную жажду, сухость во рту, частое обильное мочеиспускание, тошноту, многократную рвоту, разлитые боли в животе, головную боль, головокружение, сонливость. Родственники отмечают запах ацетона изо рта.</em></div>
-        </div>
-
-        <!-- АНАМНЕЗ -->
-        <div class="section">
-            <div class="section-title">📋 АНАМНЕЗ</div>
-            <div class="full-width-text"><strong>Anamnesis morbi:</strong> Со слов пациента (и родственников), страдает сахарным диабетом 2 типа около 10 лет, принимает таблетированные сахароснижающие препараты (метформин, гликлазид). Последние 3 дня на фоне острой респираторной инфекции (насморк, кашель, температура до 38,0°C) снизил дозу препаратов из-за плохого аппетита и рвоты. Состояние ухудшалось постепенно: нарастала слабость, жажда, усилилась тошнота, рвота, появились боли в животе. Сегодня утром родственники заметили запах ацетона изо рта, пациент стал заторможенным, с трудом отвечает на вопросы. Вызвана бригада СМП.</div>
-            <div class="full-width-text"><strong>Анамнез жизни:</strong> Сахарный диабет 2 типа, длительность заболевания около 10 лет. Гипертоническая болезнь. Осложнения: диабетическая ретинопатия, полинейропатия. Ранее госпитализировался по поводу кетоацидоза.</div>
-            <div class="full-width-text"><strong>Аллергологический анамнез:</strong> Не отягощен. Аллергии на лекарственные препараты, пищевые продукты не отмечает.</div>
-            <div class="full-width-text"><strong>Гинекологический анамнез:</strong> Не применимо (пациент мужского пола).</div>
-            <div class="full-width-text"><strong>Эпидемиологический анамнез:</strong> Контакт с инфекционными больными отрицает. За последние 3 недели за пределы города не выезжал, укусы насекомых отрицает.</div>
-        </div>
-
-        <!-- ОБЪЕКТИВНО -->
-        <div class="section">
-            <div class="section-title">🩺 ОБЪЕКТИВНО</div>
-            <div class="field-list">
-                <div class="field-item"><strong>Общее состояние:</strong> <span class="value">тяжелое.</span></div>
-                <div class="field-item"><strong>Сознание:</strong> <span class="value">оглушение (14 баллов по ШКГ – пациент заторможен, на вопросы отвечает с трудом, ориентирован не полностью).</span></div>
-                <div class="field-item"><strong>Шкала комы Глазго (GCS):</strong> <span class="value">14 баллов (E3, V5, M6).</span></div>
-                <div class="field-item"><strong>Положение:</strong> <span class="value">пассивное (лежит, с трудом меняет позу).</span></div>
-                <div class="field-item"><strong>Кожные покровы:</strong> <span class="value">сухие, бледные, тургор резко снижен (кожа, собранная в складку, расправляется медленно), теплые на ощупь. Слизистые оболочки полости рта сухие, губы с корочками.</span></div>
-                <div class="field-item"><strong>Сыпь:</strong> <span class="value">нет.</span></div>
-                <div class="field-item"><strong>Зев:</strong> <span class="value">гиперемия задней стенки глотки.</span></div>
-                <div class="field-item"><strong>Миндалины:</strong> <span class="value">без особенностей.</span></div>
-                <div class="field-item"><strong>Лимфоузлы:</strong> <span class="value">не пальпируются.</span></div>
-                <div class="field-item"><strong>Пролежни:</strong> <span class="value">нет.</span></div>
-                <div class="field-item"><strong>Отеки:</strong> <span class="value">нет.</span></div>
-                <div class="field-item"><strong>t°:</strong> <span class="value">37.2 °C.</span></div>
-            </div>
-        </div>
-
-        <!-- ОРГАНЫ ДЫХАНИЯ -->
-        <div class="section">
-            <div class="section-title">🌬️ ОРГАНЫ ДЫХАНИЯ</div>
-            <div class="field-list">
-                <div class="field-item"><strong>ЧДД в мин:</strong> <span class="value">24 (глубокое, шумное дыхание Куссмауля).</span></div>
-                <div class="field-item"><strong>Одышка:</strong> <span class="value">смешанная, по типу Куссмауля.</span></div>
-                <div class="field-item"><strong>Патологическое дыхание:</strong> <span class="value">дыхание Куссмауля.</span></div>
-                <div class="field-item"><strong>Аускультативно:</strong> <span class="value">жесткое дыхание, проводится во все отделы.</span></div>
-                <div class="field-item"><strong>Хрипы:</strong> <span class="value">не выслушиваются.</span></div>
-                <div class="field-item"><strong>Крепитация:</strong> <span class="value">нет.</span></div>
-                <div class="field-item"><strong>Шум трения плевры:</strong> <span class="value">нет.</span></div>
-                <div class="field-item"><strong>Перкуторный звук:</strong> <span class="value">ясный легочный, симметричный.</span></div>
-                <div class="field-item"><strong>Кашель:</strong> <span class="value">влажный, редкий.</span></div>
-                <div class="field-item"><strong>Мокрота:</strong> <span class="value">слизистая, скудная.</span></div>
-            </div>
-        </div>
-
-        <!-- ОРГАНЫ КРОВООБРАЩЕНИЯ -->
-        <div class="section">
-            <div class="section-title">❤️ ОРГАНЫ КРОВООБРАЩЕНИЯ</div>
-            <div class="field-list">
-                <div class="field-item"><strong>Пульс в мин:</strong> <span class="value">108 (слабого наполнения и напряжения).</span></div>
-                <div class="field-item"><strong>Ритмичный, аритмичный, наполнение пульса:</strong> <span class="value">ритмичный, слабый.</span></div>
-                <div class="field-item"><strong>ЧСС:</strong> <span class="value">108</span></div>
-                <div class="field-item"><strong>Дефицит пульса:</strong> <span class="value">нет.</span></div>
-                <div class="field-item"><strong>АД мм.рт.ст. на момент осмотра:</strong> <span class="value">95/60, привычное АД 130/80 (со слов).</span></div>
-                <div class="field-item"><strong>Тоны сердца:</strong> <span class="value">приглушены, тахикардия.</span></div>
-                <div class="field-item"><strong>Шум:</strong> <span class="value">нет.</span></div>
-                <div class="field-item"><strong>Шум трения перикарда:</strong> <span class="value">нет.</span></div>
-                <div class="field-item"><strong>Акцент какого тона на:</strong> <span class="value">нет.</span></div>
-            </div>
-        </div>
-
-        <!-- ОРГАНЫ ПИЩЕВАРЕНИЯ -->
-        <div class="section">
-            <div class="section-title">🍽️ ОРГАНЫ ПИЩЕВАРЕНИЯ</div>
-            <div class="field-list">
-                <div class="field-item"><strong>Язык:</strong> <span class="value">сухой, обложен коричневым налетом.</span></div>
-                <div class="field-item"><strong>Живот:</strong> <span class="value">мягкий, не вздут, умеренно болезненный при пальпации в эпигастрии и по всему животу (псевдоперитонит). Симптомы раздражения брюшины отрицательные.</span></div>
-                <div class="field-item"><strong>Болезненный в:</strong> <span class="value">эпигастрии, по всему животу.</span></div>
-                <div class="field-item"><strong>Положительные симптомы:</strong> <span class="value">Симптомы раздражения брюшины — отрицательные.</span></div>
-                <div class="field-item"><strong>Перистальтика:</strong> <span class="value">ослаблена.</span></div>
-                <div class="field-item"><strong>Печень:</strong> <span class="value">не увеличена, край эластичный, безболезненный.</span></div>
-                <div class="field-item"><strong>Селезенка:</strong> <span class="value">не пальпируется.</span></div>
-                <div class="field-item"><strong>Стул:</strong> <span class="value">задержка стула (со слов).</span></div>
-            </div>
-        </div>
-
-        <!-- НЕРВНАЯ СИСТЕМА -->
-        <div class="section">
-            <div class="section-title">🧠 НЕРВНАЯ СИСТЕМА</div>
-            <div class="field-list">
-                <div class="field-item"><strong>Поведение:</strong> <span class="value">заторможен, сонлив.</span></div>
-                <div class="field-item"><strong>Контакт:</strong> <span class="value">доступен, но отвечает с задержкой, односложно.</span></div>
-                <div class="field-item"><strong>Чувствительность:</strong> <span class="value">сохранена.</span></div>
-                <div class="field-item"><strong>Речь:</strong> <span class="value">замедленная, смазанная.</span></div>
-                <div class="field-item"><strong>Зрачки (OD, OS):</strong> <span class="value">D=S, обычные.</span></div>
-                <div class="field-item"><strong>Фотореакция:</strong> <span class="value">живая, содружественная.</span></div>
-                <div class="field-item"><strong>Нистагм:</strong> <span class="value">нет.</span></div>
-                <div class="field-item"><strong>Асимметрия лица:</strong> <span class="value">нет.</span></div>
-                <div class="field-item"><strong>Менингеальные симптомы:</strong> <span class="value">ригидность затылочных мышц, Кернига, Брудзинского — отрицательные.</span></div>
-                <div class="field-item"><strong>Очаговые симптомы:</strong> <span class="value">отсутствуют.</span></div>
-                <div class="field-item"><strong>Координаторные пробы:</strong> <span class="value">не выполняются из-за слабости.</span></div>
-            </div>
-        </div>
-
-        <!-- МОЧЕПОЛОВАЯ СИСТЕМА -->
-        <div class="section">
-            <div class="section-title">🚽 МОЧЕПОЛОВАЯ СИСТЕМА</div>
-            <div class="field-list">
-                <div class="field-item"><strong>Мочеиспускание:</strong> <span class="value">свободное, безболезненное, частое (полиурия), моча светлая (со слов). За последние 6 часов мочился редко (олигурия).</span></div>
-                <div class="field-item"><strong>Симптом поколачивания:</strong> <span class="value">отрицательный с обеих сторон.</span></div>
-            </div>
-        </div>
-
-        <!-- STATUS LOCALIS -->
-        <div class="section">
-            <div class="section-title">🔍 STATUS LOCALIS</div>
-            <div class="status-local">
-                <strong>Неврологический статус:</strong> Сознание – оглушение (14 баллов по ШКГ). Зрачки D=S, фотореакция живая. Менингеальных и очаговых симптомов нет. Кожные покровы сухие, тургор резко снижен. Дыхание шумное, глубокое (Куссмауля). Запах ацетона в выдыхаемом воздухе (резкий). Живот мягкий, болезненный в эпигастрии. Гемодинамика: тахикардия, гипотония.<br>
-                <strong>Экспресс-глюкометрия:</strong> уровень глюкозы в капиллярной крови 27.0 ммоль/л. Тест-полоски на кетоновые тела в моче (при наличии) – резко положительный (+++).
-            </div>
-        </div>
-
-        <!-- ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ -->
-        <div class="section">
-            <div class="section-title">📈 ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ</div>
-            <div class="scales-list">
-                <p>✔ <strong>Пульсоксиметрия:</strong> SpO₂ – 95%.</p>
-                <p>✔ <strong>Глюкометрия:</strong> 27,0 ммоль/л.</p>
-                <p>✔ <strong>ЭКГ:</strong> не проводилась.</p>
-            </div>
-        </div>
-
-        <!-- ОЦЕНКА ПО ШКАЛАМ -->
-        <div class="section">
-            <div class="section-title">📊 ОЦЕНКА ПО ШКАЛАМ</div>
-            <div class="scales-list">
-                <p>✔ <strong>Шкала NEWS2 (взрослая):</strong> ЧДД 24 (1 балл), SpO2 95% (0), температура 37.2 (0), АД сист. 95 (0), ЧСС 108 (1 балл), сознание – оглушение (2 балла). Сумма: 4 балла (средний риск, требует мониторинга).</p>
-                <p>✔ <strong>Индекс Альговера:</strong> ЧСС/АДсист = 108/95 ≈ 1.14 (повышен, риск дегидратации и гиповолемии).</p>
-                <p>✔ <strong>Шкала комы Глазго (GCS):</strong> 14 баллов.</p>
-                <p>✔ <strong>Степень дегидратации (клиническая):</strong> II–III степень (сухость кожи и слизистых, снижение тургора, тахикардия, гипотония, олигурия).</p>
-                <p>✔ <strong>Шкала боли ВАШ:</strong> не применимо (оглушение).</p>
-                <p>✔ <strong>Шкала ОДН по Кассиль:</strong> не применима.</p>
-                <p>✔ <strong>Шкала ШОКС:</strong> не применимо.</p>
-                <p>✔ <strong>Шкала риска ТЭЛА:</strong> не применимо.</p>
-                <p>✔ <strong>Шкала LAMS:</strong> 0 баллов (нет очаговой неврологической симптоматики).</p>
-                <p>✔ <strong>Состояние алкогольного опьянения:</strong> не употреблял, запаха алкоголя нет.</p>
-            </div>
-        </div>
-
-        <!-- Дифференциальная диагностика -->
-        <div class="note">
-            <strong>📌 Примечание для бригады СМП (дифференциальная диагностика):</strong><br>
-            Дифференциальная диагностика диабетического кетоацидоза проведена с:
-            <ul class="note-list">
-                <li><strong>Гипогликемической комой:</strong> острейшее развитие (минуты-часы), влажные кожные покровы, профузный пот, нормальный тургор тканей, часто судороги, уровень глюкозы низкий (<3 ммоль/л), запах ацетона отсутствует. Быстрый эффект от внутривенного введения глюкозы.</li>
-                <li><strong>Гиперосмолярным гипергликемическим состоянием:</strong> чаще у пожилых с диабетом 2 типа, выраженная дегидратация, неврологическая симптоматика (очаговые знаки, судороги), очень высокий уровень глюкозы (>30-40 ммоль/л), запах ацетона отсутствует или слабый, кетонурии нет.</li>
-                <li><strong>Лактатацидотической комой:</strong> на фоне тяжелых состояний (шок, сепсис, сердечная недостаточность), выраженный ацидоз, высокий уровень лактата, запах ацетона отсутствует, уровень глюкозы может быть нормальным или слегка повышен. Часто при приеме метформина у пациентов с почечной недостаточностью.</li>
-                <li><strong>Уремической комой:</strong> хроническое заболевание почек, запах аммиака, сухость кожи, «уремический иней», перикардит, анемия, высокий уровень креатинина и мочевины. Нет гипергликемии и кетонемии.</li>
-                <li><strong>Печеночной комой:</strong> заболевания печени в анамнезе, желтуха, сосудистые звездочки, асцит, печеночный запах, уровень глюкозы может быть снижен. Нет гипергликемии.</li>
-                <li><strong>Острым панкреатитом:</strong> опоясывающие боли в животе, многократная рвота, вздутие живота, положительные симптомы панкреатита. Может быть вторичная гипергликемия, но кетоз не характерен. Уровень амилазы повышен.</li>
-                <li><strong>Абдоминальной формой инфаркта миокарда:</strong> боли в животе, тошнота, рвота, слабость, но на ЭКГ – изменения, кардиоспецифические ферменты повышены. Нет гипергликемии и кетоза.</li>
-                <li><strong>Менингитом, энцефалитом:</strong> лихорадка, менингеальные симптомы, очаговая неврологическая симптоматика. В ликворе – плеоцитоз. Нет гипергликемии.</li>
-                <li><strong>Отравлением салицилатами:</strong> тахипноэ, шумное дыхание, тошнота, рвота, нарушение сознания. В анамнезе – прием больших доз аспирина. Может быть гипогликемия или гипергликемия, но кетоз не выражен.</li>
-                <li><strong>Алкогольным кетоацидозом:</strong> после запоя, на фоне голодания, рвоты. Уровень глюкозы нормальный или низкий, есть кетонемия, ацидоз, но нет гипергликемии. В анамнезе – злоупотребление алкоголем.</li>
-            </ul>
-            <strong>🔑 Ключевые признаки диабетического кетоацидоза:</strong><br>
-            – Наличие сахарного диабета в анамнезе.<br>
-            – Постепенное развитие на фоне интеркуррентного заболевания, нарушения режима терапии.<br>
-            – Дегидратация (сухая кожа, сниженный тургор).<br>
-            – Дыхание Куссмауля (шумное, глубокое).<br>
-            – Запах ацетона в выдыхаемом воздухе.<br>
-            – Высокий уровень глюкозы крови (27 ммоль/л).<br>
-            – Кетонурия и гиперкетонемия.<br>
-            – Боли в животе (псевдоперитонит).<br>
-            – Нарушение сознания от оглушения до комы.
+        <div class="section"><div class="section-title">📢 ЖАЛОБЫ</div><div class="full-width-text"><em>На момент осмотра пациент предъявляет жалобы на резкую общую слабость, сильную жажду, сухость во рту, частое обильное мочеиспускание, тошноту, многократную рвоту, разлитые боли в животе, головную боль, сонливость. Родственники отмечают запах ацетона изо рта.</em></div></div>
+        <div class="section"><div class="section-title">📋 АНАМНЕЗ</div><div class="full-width-text"><strong>Anamnesis morbi:</strong> Сахарный диабет 2 типа около 10 лет. Последние 3 дня на фоне ОРИ снизил дозу препаратов. Состояние ухудшалось: нарастала слабость, жажда, рвота, боли в животе. Сегодня — запах ацетона, заторможенность. Вызвана бригада СМП.</div><div class="full-width-text"><strong>Анамнез жизни:</strong> СД 2 типа, гипертоническая болезнь. Ранее госпитализации по поводу кетоацидоза.</div><div class="full-width-text"><strong>Аллергологический анамнез:</strong> Не отягощен.</div><div class="full-width-text"><strong>Гинекологический анамнез:</strong> Не применимо (пациент мужского пола).</div><div class="full-width-text"><strong>Эпидемиологический анамнез:</strong> Контакт с инфекционными больными отрицает.</div></div>
+        <div class="section"><div class="section-title">🩺 ОБЪЕКТИВНО</div><div class="field-list"><div class="field-item"><strong>Общее состояние:</strong> <span class="value">тяжелое.</span></div><div class="field-item"><strong>Сознание:</strong> <span class="value">оглушение (GCS 14).</span></div><div class="field-item"><strong>Положение:</strong> <span class="value">пассивное.</span></div><div class="field-item"><strong>Кожные покровы:</strong> <span class="value">сухие, бледные, тургор резко снижен.</span></div><div class="field-item"><strong>t°:</strong> <span class="value">37.2 °C.</span></div></div></div>
+        <div class="section"><div class="section-title">🌬️ ОРГАНЫ ДЫХАНИЯ</div><div class="field-list"><div class="field-item"><strong>ЧДД в мин:</strong> <span class="value">24 (дыхание Куссмауля).</span></div><div class="field-item"><strong>Одышка:</strong> <span class="value">смешанная, по типу Куссмауля.</span></div><div class="field-item"><strong>Патологическое дыхание:</strong> <span class="value">дыхание Куссмауля.</span></div></div></div>
+        <div class="section"><div class="section-title">❤️ ОРГАНЫ КРОВООБРАЩЕНИЯ</div><div class="field-list"><div class="field-item"><strong>Пульс в мин:</strong> <span class="value">108, слабого наполнения.</span></div><div class="field-item"><strong>АД мм.рт.ст.:</strong> <span class="value">95/60.</span></div><div class="field-item"><strong>Тоны сердца:</strong> <span class="value">приглушены, тахикардия.</span></div></div></div>
+        <div class="section"><div class="section-title">🍽️ ОРГАНЫ ПИЩЕВАРЕНИЯ</div><div class="field-list"><div class="field-item"><strong>Язык:</strong> <span class="value">сухой, обложен коричневым налетом.</span></div><div class="field-item"><strong>Живот:</strong> <span class="value">мягкий, умеренно болезненный в эпигастрии.</span></div><div class="field-item"><strong>Положительные симптомы:</strong> <span class="value">отрицательные (живот мягкий, перитонеальных знаков нет).</span></div></div></div>
+        <div class="section"><div class="section-title">🧠 НЕРВНАЯ СИСТЕМА</div><div class="field-list"><div class="field-item"><strong>Поведение:</strong> <span class="value">заторможен, сонлив.</span></div><div class="field-item"><strong>Контакт:</strong> <span class="value">доступен, отвечает с задержкой.</span></div><div class="field-item"><strong>Координаторные пробы:</strong> <span class="value">не выполняет (ввиду тяжести состояния, оглушения).</span></div></div></div>
+        <div class="section"><div class="section-title">🚽 МОЧЕПОЛОВАЯ СИСТЕМА</div><div class="field-list"><div class="field-item"><strong>Мочеиспускание:</strong> <span class="value">олигурия.</span></div><div class="field-item"><strong>Симптом поколачивания:</strong> <span class="value">отрицательный с обеих сторон.</span></div></div></div>
+        <div class="section"><div class="section-title">📈 ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ</div><div class="scales-list"><p>✔ <strong>Пульсоксиметрия:</strong> SpO₂ — 95%.</p><p>✔ <strong>Глюкометрия:</strong> 27,0 ммоль/л.</p></div></div>
+        <div class="section"><div class="section-title">📊 ОЦЕНКА ПО ШКАЛАМ</div><div class="scales-list"><p>✔ <strong>Шкала NEWS2:</strong> 4 балла (средний риск).</p><p>✔ <strong>Индекс Альговера:</strong> 108/95 ≈ 1.14.</p><p>✔ <strong>Шкала боли ВАШ:</strong> не применимо (оглушение).</p></div></div>
+        <div class="note"><strong>📌 Примечание для бригады СМП (дифференциальная диагностика):</strong><br>Дифференциальная диагностика проведена с гипогликемической комой, гиперосмолярным состоянием, лактатацидозом, уремической/печеночной комой, панкреатитом, абдоминальной формой ИМ, менингитом, отравлением салицилатами, алкогольным кетоацидозом.<br><strong>🔑 Ключевые признаки:</strong> наличие СД, постепенное развитие, дегидратация, дыхание Куссмауля, запах ацетона, гипергликемия 27 ммоль/л, кетонурия.</div>
+        <div class="algorithm-btn-container">
+            <button class="btn-algorithm" id="openAlgorithmBtn"><span>🚨 Оказание помощи в соответствии с Алгоритмами МСК</span><span class="btn-hint">▼ нажмите для открытия ▼</span></button>
         </div>
     </div>
 </div>
+
+<div class="modal-overlay" id="algorithmModal">
+    <div class="modal-container">
+        <div class="modal-header"><h2>Е10.1, Е11.1, Е14.1 Диабетический кетоацидоз (гипергликемическое состояние – прекома)</h2><button class="modal-close" id="closeModalBtn">&times;</button></div>
+        <div class="modal-body">
+            <div class="adult-block">
+                <div class="adult-header"><span class="badge-adult">ВЗРОСЛЫЙ ПРОТОКОЛ</span></div>
+                <ul class="list-styled"><li>Глюкометрия</li><li>Катетеризация вены или внутрикостный доступ</li><li><span class="drug-name">Стерофундин 500 мл</span> или <span class="drug-name">Натрия хлорид 0,9% – 500 мл</span> в/венно капельно <span class="highlight-number">60 капель в минуту</span></li><li>ЭКГ(ЭКП)</li><li>Пульсоксиметрия</li><li>Повторная глюкометрия</li></ul>
+                <div class="light-block"><div class="condition-title">– при SpO2 ≤ 93%</div><ul class="list-styled"><li>Ингаляция кислорода</li></ul></div>
+                <div class="tactic-block"><div class="tactic-title">▶ Тактика:</div><ul class="list-styled"><li>1. Медицинская эвакуация в больницу (13). Транспортировка на носилках</li><li>2. При отказе – рекомендовать обратиться в поликлинику (35)</li></ul></div>
+            </div>
+            <div class="child-block">
+                <div class="child-header"><span class="badge-child">ДЕТСКИЙ ПРОТОКОЛ</span></div>
+                <ul class="list-styled"><li>Глюкометрия</li><li>ЭКГ(ЭКП)</li><li>Катетеризация вены или внутрикостный доступ</li><li><span class="drug-name">Натрия хлорид 0,9% – 10–20 мл/кг</span> в/венно капельно</li><li>Пульсоксиметрия</li><li>Повторная глюкометрия</li></ul>
+                <div class="child-condition-block"><div class="condition-title">– при SpO2 ≤ 93%</div><ul class="list-styled"><li>Ингаляция кислорода</li></ul></div>
+                <div class="tactic-block"><div class="tactic-title">▶ Тактика:</div><ul class="list-styled"><li>1. Медицинская эвакуация в больницу (13)</li><li>2. При отказе – рекомендовать обратиться в поликлинику (35)</li></ul></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="imageModal"><button class="modal-close-img" onclick="document.getElementById('imageModal').style.display='none'; isGalleryMode=false; currentGallery=[];">&times;</button><img id="modalImage" src="" alt="Изображение"><div id="navContainer"><button id="prevBtn">❮</button><span id="imageCounter">1 / 2</span><button id="nextBtn">❯</button></div></div>
+<script>
+const modal=document.getElementById('algorithmModal');const openBtn=document.getElementById('openAlgorithmBtn');const closeBtn=document.getElementById('closeModalBtn');
+function openModal(){modal.classList.add('active');document.body.style.overflow='hidden';}
+function closeModal(){modal.classList.remove('active');document.body.style.overflow='';}
+openBtn.addEventListener('click',openModal);closeBtn.addEventListener('click',closeModal);modal.addEventListener('click',(e)=>{if(e.target===modal)closeModal();});document.addEventListener('keydown',(e)=>{if(e.key==='Escape'&&modal.classList.contains('active'))closeModal();});
+let currentGallery=[],currentIndex=0,isGalleryMode=false;
+function openImage(p){isGalleryMode=false;currentGallery=[];document.getElementById('navContainer').style.display='none';document.getElementById('imageModal').style.display='flex';document.getElementById('modalImage').src=p;}
+function openImageGallery(i){isGalleryMode=true;currentGallery=i;currentIndex=0;document.getElementById('navContainer').style.display='flex';document.getElementById('imageModal').style.display='flex';document.getElementById('modalImage').src=currentGallery[currentIndex];document.getElementById('imageCounter').textContent=`${currentIndex+1} / ${currentGallery.length}`;updateNavButtons();}
+function updateNavButtons(){document.getElementById('prevBtn').style.opacity=currentIndex===0?'0.4':'1';document.getElementById('nextBtn').style.opacity=currentIndex===currentGallery.length-1?'0.4':'1';}
+document.getElementById('prevBtn').addEventListener('click',function(){if(!isGalleryMode||currentIndex===0)return;currentIndex--;document.getElementById('modalImage').src=currentGallery[currentIndex];document.getElementById('imageCounter').textContent=`${currentIndex+1} / ${currentGallery.length}`;updateNavButtons();});
+document.getElementById('nextBtn').addEventListener('click',function(){if(!isGalleryMode||currentIndex===currentGallery.length-1)return;currentIndex++;document.getElementById('modalImage').src=currentGallery[currentIndex];document.getElementById('imageCounter').textContent=`${currentIndex+1} / ${currentGallery.length}`;updateNavButtons();});
+document.getElementById('imageModal').addEventListener('click',function(e){if(e.target===this){this.style.display='none';isGalleryMode=false;currentGallery=[];}});
+</script>
 </body>
 </html>
