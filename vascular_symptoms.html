@@ -4,8 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <title>Сосудистые симптомы | Тромбофлебит, тромбоз, эмболия, ХВН</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0f1446">
+
     <style>
         * {
             margin: 0;
@@ -14,90 +17,52 @@
         }
 
         body {
-            background: linear-gradient(145deg, #eef2f9 0%, #d9e0ec 100%);
-            font-family: system-ui, -apple-system, 'Inter', 'Segoe UI', 'Roboto', sans-serif;
-            padding: 1rem;
-            color: #1a2c3e;
-            line-height: 1.45;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            font-family: 'Segoe UI', 'Roboto', sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
         }
 
         .container {
-            max-width: 100%;
-            margin: 0 auto;
+            max-width: 1100px;
+            width: 100%;
         }
 
-        .hero {
-            background: linear-gradient(135deg, #0b2b3b, #123d4f);
+        .card {
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 24px 22px;
+            margin-bottom: 24px;
+        }
+
+        .header-card {
+            background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
             color: white;
-            border-radius: 1.5rem;
-            padding: 1.2rem 1rem;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 10px 20px -8px rgba(0,0,0,0.15);
             text-align: center;
+            padding: 28px 20px;
         }
-        .hero h1 {
-            font-size: clamp(1.3rem, 6vw, 2rem);
-            letter-spacing: -0.3px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            flex-wrap: wrap;
-            margin: 0;
+        .header-card h1 {
+            color: white;
+            margin-bottom: 8px;
+            font-size: 28px;
             font-weight: 700;
         }
 
-        .section-card {
-            background: rgba(255,255,255,0.96);
-            backdrop-filter: blur(2px);
-            border-radius: 1.25rem;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 4px 12px -6px rgba(0,0,0,0.08);
-            overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.6);
-        }
-        .section-header {
-            padding: 0.9rem 1.2rem;
-            background: #fff;
-            border-bottom: 3px solid;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-        .section-header h2 {
-            font-size: 1.2rem;
+        h2 {
+            font-size: 1.3rem;
             font-weight: 700;
-            margin: 0;
+            margin-bottom: 20px;
+            color: #0f1446;
+            border-left: 6px solid #e53935;
+            padding-left: 16px;
             display: flex;
             align-items: center;
             gap: 8px;
-            line-height: 1.3;
-        }
-        .section-content {
-            padding: 1rem 1.2rem;
-        }
-
-        @media (min-width: 640px) {
-            body {
-                padding: 1.5rem;
-            }
-            .hero {
-                padding: 1.5rem 2rem;
-                margin-bottom: 2rem;
-            }
-            .hero h1 {
-                font-size: 1.8rem;
-            }
-            .section-header {
-                padding: 1rem 1.5rem;
-            }
-            .section-header h2 {
-                font-size: 1.4rem;
-            }
-            .section-content {
-                padding: 1.2rem 1.5rem;
-            }
         }
 
         .grid-2 {
@@ -114,12 +79,11 @@
         }
 
         .symptom-card {
-            background: #f8fafd;
-            border-radius: 1rem;
+            background: #eef7ff;
+            border-radius: 16px;
             padding: 1rem;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-            border-left: 5px solid;
-            height: 100%;
+            border: 1px solid #d4e2f0;
+            border-left: 5px solid #0f1446;
         }
         .symptom-card h3 {
             font-size: 1rem;
@@ -129,41 +93,59 @@
             gap: 6px;
             flex-wrap: wrap;
             font-weight: 700;
+            color: #0f1446;
         }
         .symptom-card p {
             font-size: 0.88rem;
             line-height: 1.45;
-            color: #1e2f3d;
+            color: #1f3a4b;
             margin: 0.4rem 0;
         }
         .badge-disease {
             display: inline-block;
-            background: #c0392b;
+            background: #c62828;
             color: white;
             font-size: 0.65rem;
             padding: 2px 8px;
             border-radius: 20px;
             margin-left: 6px;
-            font-weight: normal;
+            font-weight: 600;
         }
         .technique {
-            background: #e8f0fe;
-            border-radius: 0.75rem;
+            background: #ffffff;
+            border-radius: 12px;
             padding: 0.5rem 0.7rem;
             margin-top: 0.5rem;
             font-size: 0.8rem;
-            border-left: 3px solid #2c7da0;
+            border: 1px solid #d4e2f0;
+            color: #1f3a4b;
+            line-height: 1.4;
         }
         .note-red {
-            background: #ffe6e5;
-            border-left: 5px solid #c44536;
-            border-radius: 0.9rem;
+            background: #fff0f0;
+            border-left: 5px solid #d32f2f;
+            border-radius: 12px;
             padding: 0.7rem 1rem;
             margin: 1rem 0;
             font-size: 0.85rem;
+            color: #b71c1c;
+            font-weight: 600;
+            line-height: 1.5;
         }
 
         @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            .card {
+                padding: 16px 14px;
+            }
+            .header-card h1 {
+                font-size: 24px;
+            }
+            h2 {
+                font-size: 1.1rem;
+            }
             .symptom-card h3 {
                 font-size: 0.92rem;
             }
@@ -172,16 +154,9 @@
             }
             .technique {
                 font-size: 0.75rem;
-                padding: 0.45rem 0.6rem;
             }
             .symptom-card {
                 padding: 0.8rem;
-            }
-            .section-header h2 {
-                font-size: 1.1rem;
-            }
-            .section-content {
-                padding: 0.8rem 1rem;
             }
             .note-red {
                 font-size: 0.8rem;
@@ -191,193 +166,183 @@
     </style>
 </head>
 <body>
+
 <div class="container">
-    <div class="hero">
-        <h1><span>⚡</span> СОСУДИСТЫЕ СИМПТОМЫ</h1>
+    <div class="card header-card">
+        <h1>⚡ Сосудистые симптомы</h1>
     </div>
 
     <!-- 1. Тромбофлебит поверхностных вен -->
-    <div class="section-card">
-        <div class="section-header" style="border-bottom-color: #f4a261;">
-            <h2><i class="fas fa-burn" style="color:#f4a261;"></i> 1. Тромбофлебит поверхностных вен</h2>
-        </div>
-        <div class="section-content">
-            <div class="grid-2">
-                <div class="symptom-card" style="border-left-color: #f4a261;">
-                    <h3>Симптом «жгута» (Пратта) <span class="badge-disease" style="background:#f4a261;">Поверхностный тромбофлебит</span></h3>
-                    <p>Пальпаторное определение плотного, болезненного тяжа по ходу тромбированной поверхностной вены.</p>
-                    <div class="technique">📐 <strong>Техника:</strong> пальпация по ходу поверхностной вены (большая подкожная вена голени/бедра, малая подкожная вена). Определяется плотный, чёткообразный, болезненный тяж. Кожа над веной гиперемирована, локально горячая.</div>
-                </div>
-                <div class="symptom-card" style="border-left-color: #f4a261;">
-                    <h3>Симптом Пайра <span class="badge-disease" style="background:#f4a261;">Восходящий тромбофлебит</span></h3>
-                    <p>Распространение гиперемии и болезненности проксимальнее пальпируемого тромба.</p>
-                    <div class="technique">📐 <strong>Техника:</strong> осмотр конечности для оценки границ гиперемии. Быстрое распространение выше (особенно на бедро при тромбозе большой подкожной вены) — высокий риск перехода тромбоза на глубокие вены (через сафено-феморальное соустье).</div>
-                </div>
-                <div class="symptom-card" style="border-left-color: #f4a261;">
-                    <h3>Симптом Луска (Luska) <span class="badge-disease" style="background:#f4a261;">Поверхностный тромбофлебит</span></h3>
-                    <p>Усиление боли в области тромбированной вены при натуживании, кашле или чихании.</p>
-                    <div class="technique">📐 <strong>Техника:</strong> пациента просят покашлять или натужиться. При поверхностном тромбофлебите возникает усиление локальной боли по ходу вены.</div>
-                </div>
-                <div class="symptom-card" style="border-left-color: #f4a261;">
-                    <h3>Симптом «шнура» <span class="badge-disease" style="background:#f4a261;">Облитерирующий тромбофлебит</span></h3>
-                    <p>Вена пальпируется как плотный, ригидный тяж, напоминающий шнур (при длительно существующем тромбозе).</p>
-                    <div class="technique">📐 <strong>Техника:</strong> пальпация. Отсутствие продольной подвижности вены, чёткая граница.</div>
-                </div>
+    <div class="card">
+        <h2>1. Тромбофлебит поверхностных вен</h2>
+        <div class="grid-2">
+            <div class="symptom-card">
+                <h3>Симптом «жгута» (Пратта) <span class="badge-disease">Поверхностный тромбофлебит</span></h3>
+                <p>Пальпаторное определение плотного, болезненного тяжа по ходу тромбированной поверхностной вены.</p>
+                <div class="technique">📐 <strong>Техника:</strong> пальпация по ходу поверхностной вены (большая подкожная вена голени/бедра, малая подкожная вена). Определяется плотный, чёткообразный, болезненный тяж. Кожа над веной гиперемирована, локально горячая.</div>
+            </div>
+            <div class="symptom-card">
+                <h3>Симптом Пайра <span class="badge-disease">Восходящий тромбофлебит</span></h3>
+                <p>Распространение гиперемии и болезненности проксимальнее пальпируемого тромба.</p>
+                <div class="technique">📐 <strong>Техника:</strong> осмотр конечности для оценки границ гиперемии. Быстрое распространение выше (особенно на бедро при тромбозе большой подкожной вены) — высокий риск перехода тромбоза на глубокие вены (через сафено-феморальное соустье).</div>
+            </div>
+            <div class="symptom-card">
+                <h3>Симптом Луска (Luska) <span class="badge-disease">Поверхностный тромбофлебит</span></h3>
+                <p>Усиление боли в области тромбированной вены при натуживании, кашле или чихании.</p>
+                <div class="technique">📐 <strong>Техника:</strong> пациента просят покашлять или натужиться. При поверхностном тромбофлебите возникает усиление локальной боли по ходу вены.</div>
+            </div>
+            <div class="symptom-card">
+                <h3>Симптом «шнура» <span class="badge-disease">Облитерирующий тромбофлебит</span></h3>
+                <p>Вена пальпируется как плотный, ригидный тяж, напоминающий шнур (при длительно существующем тромбозе).</p>
+                <div class="technique">📐 <strong>Техника:</strong> пальпация. Отсутствие продольной подвижности вены, чёткая граница.</div>
             </div>
         </div>
     </div>
 
     <!-- 2. Тромбоз глубоких вен нижних конечностей (ТГВ) -->
-    <div class="section-card">
-        <div class="section-header" style="border-bottom-color: #2c7da0;">
-            <h2><i class="fas fa-vein" style="color:#2c7da0;"></i> 2. Тромбоз глубоких вен (ТГВ)</h2>
-        </div>
-        <div class="section-content">
-            <div class="grid-2">
-                <div class="symptom-card" style="border-left-color: #2c7da0;">
-                    <h3>Ловенберга <span class="badge-disease" style="background:#2c7da0;">ТГВ</span></h3>
-                    <p>Появление боли в икроножной мышце при нагнетании воздуха в манжету сфигмоманометра (60-150 мм рт. ст.).</p>
-                    <div class="technique">📐 <strong>Техника:</strong> манжету накладывают на среднюю треть голени, нагнетают воздух. В норме боль появляется при 180 мм рт. ст. и выше. При ТГВ боль возникает уже при 60-150 мм рт. ст. (за счёт сдавления отёчных тканей и вен).</div>
-                </div>
-                <div class="symptom-card" style="border-left-color: #2c7da0;">
-                    <h3>Хоманса <span class="badge-disease" style="background:#2c7da0;">ТГВ</span></h3>
-                    <p>Боль в икроножной мышце при тыльном сгибании стопы.</p>
-                    <div class="technique">📐 <strong>Техника:</strong> пациент лежит на спине с выпрямленными ногами. Врач производит тыльное сгибание стопы. Положительный симптом — резкая боль в икроножной мышце на стороне поражения (натяжение задней большеберцовой вены).</div>
-                </div>
-                <div class="symptom-card" style="border-left-color: #2c7da0;">
-                    <h3>Мозеса <span class="badge-disease" style="background:#2c7da0;">ТГВ</span></h3>
-                    <p>Болезненность при сдавлении голени в передне-заднем направлении и отсутствие боли при сдавлении с боков.</p>
-                    <div class="technique">📐 <strong>Техника:</strong> одной рукой сдавливают голень спереди назад, другой — с боковых поверхностей. При ТГВ сдавление спереди назад (компрессия глубоких вен) вызывает боль, боковое сдавление — безболезненно.</div>
-                </div>
-                <div class="symptom-card" style="border-left-color: #2c7da0;">
-                    <h3>Опитца-Раминеса <span class="badge-disease" style="background:#2c7da0;">ТГВ</span></h3>
-                    <p>Усиление болей в икроножной мышце при разгибании голени в коленном суставе.</p>
-                    <div class="technique">📐 <strong>Техника:</strong> пациент сидит со сгибанием ноги в колене (90°), врач разгибает голень, вызывая боль в икроножной мышце (натяжение подколенной вены).</div>
-                </div>
-                <div class="symptom-card" style="border-left-color: #2c7da0;">
-                    <h3>Лувеля <span class="badge-disease" style="background:#2c7da0;">ТГВ</span></h3>
-                    <p>Боль в икроножной мышце при чихании или кашле.</p>
-                    <div class="technique">📐 <strong>Техника:</strong> пациента просят покашлять или вызвать чихание. При ТГВ возникает боль в проекции поражённой глубокой вены (повышение внутрибрюшного давления → ретроградный венозный застой).</div>
-                </div>
-                <div class="symptom-card" style="border-left-color: #2c7da0;">
-                    <h3>Биса (Bisgaard) <span class="badge-disease" style="background:#2c7da0;">ТГВ</span></h3>
-                    <p>Болезненность при пальпации по ходу сосудистого пучка (внутренняя поверхность бедра, подколенная область, задняя поверхность голени).</p>
-                    <div class="technique">📐 <strong>Техника:</strong> пальпация по ходу проекции глубоких вен: бедренная вена (паховая область, внутренняя поверхность бедра), подколенная вена, задние большеберцовые вены (глубокая пальпация голени).</div>
-                </div>
+    <div class="card">
+        <h2>2. Тромбоз глубоких вен (ТГВ)</h2>
+        <div class="grid-2">
+            <div class="symptom-card">
+                <h3>Ловенберга <span class="badge-disease">ТГВ</span></h3>
+                <p>Появление боли в икроножной мышце при нагнетании воздуха в манжету сфигмоманометра (60-150 мм рт. ст.).</p>
+                <div class="technique">📐 <strong>Техника:</strong> манжету накладывают на среднюю треть голени, нагнетают воздух. В норме боль появляется при 180 мм рт. ст. и выше. При ТГВ боль возникает уже при 60-150 мм рт. ст. (за счёт сдавления отёчных тканей и вен).</div>
+            </div>
+            <div class="symptom-card">
+                <h3>Хоманса <span class="badge-disease">ТГВ</span></h3>
+                <p>Боль в икроножной мышце при тыльном сгибании стопы.</p>
+                <div class="technique">📐 <strong>Техника:</strong> пациент лежит на спине с выпрямленными ногами. Врач производит тыльное сгибание стопы. Положительный симптом — резкая боль в икроножной мышце на стороне поражения (натяжение задней большеберцовой вены).</div>
+            </div>
+            <div class="symptom-card">
+                <h3>Мозеса <span class="badge-disease">ТГВ</span></h3>
+                <p>Болезненность при сдавлении голени в передне-заднем направлении и отсутствие боли при сдавлении с боков.</p>
+                <div class="technique">📐 <strong>Техника:</strong> одной рукой сдавливают голень спереди назад, другой — с боковых поверхностей. При ТГВ сдавление спереди назад (компрессия глубоких вен) вызывает боль, боковое сдавление — безболезненно.</div>
+            </div>
+            <div class="symptom-card">
+                <h3>Опитца-Раминеса <span class="badge-disease">ТГВ</span></h3>
+                <p>Усиление болей в икроножной мышце при разгибании голени в коленном суставе.</p>
+                <div class="technique">📐 <strong>Техника:</strong> пациент сидит со сгибанием ноги в колене (90°), врач разгибает голень, вызывая боль в икроножной мышце (натяжение подколенной вены).</div>
+            </div>
+            <div class="symptom-card">
+                <h3>Лувеля <span class="badge-disease">ТГВ</span></h3>
+                <p>Боль в икроножной мышце при чихании или кашле.</p>
+                <div class="technique">📐 <strong>Техника:</strong> пациента просят покашлять или вызвать чихание. При ТГВ возникает боль в проекции поражённой глубокой вены (повышение внутрибрюшного давления → ретроградный венозный застой).</div>
+            </div>
+            <div class="symptom-card">
+                <h3>Биса (Bisgaard) <span class="badge-disease">ТГВ</span></h3>
+                <p>Болезненность при пальпации по ходу сосудистого пучка (внутренняя поверхность бедра, подколенная область, задняя поверхность голени).</p>
+                <div class="technique">📐 <strong>Техника:</strong> пальпация по ходу проекции глубоких вен: бедренная вена (паховая область, внутренняя поверхность бедра), подколенная вена, задние большеберцовые вены (глубокая пальпация голени).</div>
             </div>
         </div>
     </div>
 
-    <!-- 3. Тромбоз и эмболия артерий (острая артериальная непроходимость) -->
-    <div class="section-card">
-        <div class="section-header" style="border-bottom-color: #d90429;">
-            <h2><i class="fas fa-heartbeat" style="color:#d90429;"></i> 3. Тромбоз и эмболия артерий (острая артериальная непроходимость)</h2>
-        </div>
-        <div class="section-content">
-            <div class="grid-2">
-                <div class="symptom-card" style="border-left-color: #d90429;">
-                    <h3>Пентада симптомов («5П») <span class="badge-disease" style="background:#d90429;">Острая артериальная окклюзия</span></h3>
-                    <p><strong>Pain</strong> — боль, <strong>Pulselessness</strong> — отсутствие пульса, <strong>Pallor</strong> — бледность, <strong>Paresthesia</strong> — парестезия, <strong>Paralysis</strong> — паралич (нарушение активных движений).</p>
-                    <div class="technique">📐 <strong>Техника:</strong> объективный осмотр и пальпация. Оценивают: уровень боли дистальнее окклюзии, пульсацию на всех уровнях (бедренная, подколенная, тыльная артерия стопы), цвет кожи, чувствительность, объём активных движений.</div>
-                </div>
-                <div class="symptom-card" style="border-left-color: #d90429;">
-                    <h3>Симптом «белого пятна» <span class="badge-disease" style="background:#d90429;">Артериальная ишемия</span></h3>
-                    <p>Замедленное восстановление цвета кожи после надавливания (более 3-5 секунд).</p>
-                    <div class="technique">📐 <strong>Техника:</strong> надавить пальцем на кожу конечности на 2-3 секунды, оценить скорость восстановления цвета. В норме — мгновенно. При ишемии пятно исчезает медленно.</div>
-                </div>
-                <div class="symptom-card" style="border-left-color: #d90429;">
-                    <h3>Симптом «подушечной» ишемии <span class="badge-disease" style="background:#d90429;">Критическая ишемия</span></h3>
-                    <p>Бледность и похолодание подушечек пальцев стопы при поднятии конечности вверх.</p>
-                    <div class="technique">📐 <strong>Техника:</strong> пациент поднимает прямую ногу на 30-40°. При выраженной ишемии подошва и пальцы становятся бледными («восковая бледность»), появляется боль.</div>
-                </div>
-                <div class="symptom-card" style="border-left-color: #d90429;">
-                    <h3>Перемежающаяся хромота (Шарко) <span class="badge-disease" style="background:#d90429;">Хроническая артериальная недостаточность</span></h3>
-                    <p>Боль в икроножных мышцах при ходьбе, проходящая после остановки/отдыха.</p>
-                    <div class="technique">📐 <strong>Техника:</strong> сбор анамнеза: дистанция безболевой ходьбы. Уменьшение дистанции — признак прогрессирования стеноза. Уровень окклюзии: боль в ягодицах/бедре — аортоподвздошный сегмент, боль в икроножных мышцах — бедренно-подколенный сегмент.</div>
-                </div>
-                <div class="symptom-card" style="border-left-color: #d90429;">
-                    <h3>Симптом Оппеля (проба с поднятием) <span class="badge-disease" style="background:#d90429;">Артериальная недостаточность</span></h3>
-                    <p>Быстрое побледнение подошвы (в течение 10-20 секунд) при поднятии ноги вверх.</p>
-                    <div class="technique">📐 <strong>Техника:</strong> пациент лежа на спине поднимает прямые ноги на 30-40°. В норме цвет сохраняется 30-60 секунд. При стенозе — бледность через 10-20 секунд, затем боль.</div>
-                </div>
-                <div class="symptom-card" style="border-left-color: #d90429;">
-                    <h3>Триада Лериша <span class="badge-disease" style="background:#d90429;">Синдром Лериша (окклюзия бифуркации аорты)</span></h3>
-                    <p>Перемежающаяся хромота ягодичных мышц + отсутствие пульса на бедренных артериях + эректильная дисфункция.</p>
-                    <div class="technique">📐 <strong>Техника:</strong> пальпация бедренных артерий (пульсация отсутствует или резко ослаблена), сбор анамнеза (боль в ягодицах и бедре при ходьбе, у мужчин — импотенция).</div>
-                </div>
+    <!-- 3. Тромбоз и эмболия артерий -->
+    <div class="card">
+        <h2>3. Тромбоз и эмболия артерий (острая артериальная непроходимость)</h2>
+        <div class="grid-2">
+            <div class="symptom-card" style="border-left-color: #d32f2f;">
+                <h3>Пентада симптомов («5П») <span class="badge-disease">Острая артериальная окклюзия</span></h3>
+                <p><strong>Pain</strong> — боль, <strong>Pulselessness</strong> — отсутствие пульса, <strong>Pallor</strong> — бледность, <strong>Paresthesia</strong> — парестезия, <strong>Paralysis</strong> — паралич (нарушение активных движений).</p>
+                <div class="technique">📐 <strong>Техника:</strong> объективный осмотр и пальпация. Оценивают: уровень боли дистальнее окклюзии, пульсацию на всех уровнях (бедренная, подколенная, тыльная артерия стопы), цвет кожи, чувствительность, объём активных движений.</div>
+            </div>
+            <div class="symptom-card" style="border-left-color: #d32f2f;">
+                <h3>Симптом «белого пятна» <span class="badge-disease">Артериальная ишемия</span></h3>
+                <p>Замедленное восстановление цвета кожи после надавливания (более 3-5 секунд).</p>
+                <div class="technique">📐 <strong>Техника:</strong> надавить пальцем на кожу конечности на 2-3 секунды, оценить скорость восстановления цвета. В норме — мгновенно. При ишемии пятно исчезает медленно.</div>
+            </div>
+            <div class="symptom-card" style="border-left-color: #d32f2f;">
+                <h3>Симптом «подушечной» ишемии <span class="badge-disease">Критическая ишемия</span></h3>
+                <p>Бледность и похолодание подушечек пальцев стопы при поднятии конечности вверх.</p>
+                <div class="technique">📐 <strong>Техника:</strong> пациент поднимает прямую ногу на 30-40°. При выраженной ишемии подошва и пальцы становятся бледными («восковая бледность»), появляется боль.</div>
+            </div>
+            <div class="symptom-card" style="border-left-color: #d32f2f;">
+                <h3>Перемежающаяся хромота (Шарко) <span class="badge-disease">Хроническая артериальная недостаточность</span></h3>
+                <p>Боль в икроножных мышцах при ходьбе, проходящая после остановки/отдыха.</p>
+                <div class="technique">📐 <strong>Техника:</strong> сбор анамнеза: дистанция безболевой ходьбы. Уменьшение дистанции — признак прогрессирования стеноза. Уровень окклюзии: боль в ягодицах/бедре — аортоподвздошный сегмент, боль в икроножных мышцах — бедренно-подколенный сегмент.</div>
+            </div>
+            <div class="symptom-card" style="border-left-color: #d32f2f;">
+                <h3>Симптом Оппеля (проба с поднятием) <span class="badge-disease">Артериальная недостаточность</span></h3>
+                <p>Быстрое побледнение подошвы (в течение 10-20 секунд) при поднятии ноги вверх.</p>
+                <div class="technique">📐 <strong>Техника:</strong> пациент лежа на спине поднимает прямые ноги на 30-40°. В норме цвет сохраняется 30-60 секунд. При стенозе — бледность через 10-20 секунд, затем боль.</div>
+            </div>
+            <div class="symptom-card" style="border-left-color: #d32f2f;">
+                <h3>Триада Лериша <span class="badge-disease">Синдром Лериша (окклюзия бифуркации аорты)</span></h3>
+                <p>Перемежающаяся хромота ягодичных мышц + отсутствие пульса на бедренных артериях + эректильная дисфункция.</p>
+                <div class="technique">📐 <strong>Техника:</strong> пальпация бедренных артерий (пульсация отсутствует или резко ослаблена), сбор анамнеза (боль в ягодицах и бедре при ходьбе, у мужчин — импотенция).</div>
             </div>
         </div>
     </div>
 
-    <!-- 4. Хроническая венозная недостаточность (ХВН) и варикозная болезнь -->
-    <div class="section-card">
-        <div class="section-header" style="border-bottom-color: #9c89b8;">
-            <h2><i class="fas fa-disease" style="color:#9c89b8;"></i> 4. Хроническая венозная недостаточность (ХВН) и варикозная болезнь</h2>
-        </div>
-        <div class="section-content">
-            <div class="grid-2">
-                <div class="symptom-card" style="border-left-color: #9c89b8;">
-                    <h3>Тренделенбурга <span class="badge-disease" style="background:#9c89b8;">Варикозная болезнь</span></h3>
-                    <p>Быстрое наполнение варикозных вен после поднятия ноги и снятия пальцевого прижатия устья большой подкожной вены — признак несостоятельности клапанов.</p>
-                    <div class="technique">📐 <strong>Техника:</strong> пациент лежит на спине с поднятой ногой, врач пальцем прижимает устье большой подкожной вены у овальной ямки. После опускания ноги и снятия прижатия оценивают скорость наполнения вен.</div>
-                </div>
-                <div class="symptom-card" style="border-left-color: #9c89b8;">
-                    <h3>Пратта-Шейниса <span class="badge-disease" style="background:#9c89b8;">ХВН</span></h3>
-                    <p>Появление болей в икроножной мышце при наложении резинового жгута на среднюю треть голени во время ходьбы.</p>
-                    <div class="technique">📐 <strong>Техника:</strong> пациенту накладывают резиновый жгут на голень и проходят 5-10 минут. При несостоятельности мышечно-венозной помпы возникает боль, которая исчезает после снятия жгута.</div>
-                </div>
-                <div class="symptom-card" style="border-left-color: #9c89b8;">
-                    <h3>Дельбе-Пертеса (маршевая проба) <span class="badge-disease" style="background:#9c89b8;">Оценка проходимости глубоких вен</span></h3>
-                    <p>При застойном расширении поверхностных вен после ходьбы с жгутом напряжение не уменьшается — признак непроходимости глубоких вен.</p>
-                    <div class="technique">📐 <strong>Техника:</strong> на верхнюю треть бедра накладывают резиновый жгут (сдавление поверхностных вен), пациент ходит 5 минут. При проходимых глубоких венах варикозные узлы спадаются. При непроходимости — усиливаются.</div>
-                </div>
-                <div class="symptom-card" style="border-left-color: #9c89b8;">
-                    <h3>Симптом «тяжести» в ногах <span class="badge-disease" style="background:#9c89b8;">ХВН</span></h3>
-                    <p>Чувство распирания, тяжести и усталости в нижних конечностях к вечеру, усиливающееся после длительного стояния или сидения.</p>
-                    <div class="technique">📐 <strong>Техника:</strong> сбор анамнеза. Характерно уменьшение симптомов после приподнятого положения ног или ходьбы (активация мышечно-венозной помпы).</div>
-                </div>
-                <div class="symptom-card" style="border-left-color: #9c89b8;">
-                    <h3>Трофические изменения кожи <span class="badge-disease" style="background:#9c89b8;">Декомпенсированная ХВН</span></h3>
-                    <p>Гиперпигментация («индуративная целлюлитоподобная пигментация»), липодерматосклероз, «белая атрофия кожи», варикозные экземы, трофические язвы (обычно в области внутренней лодыжки).</p>
-                    <div class="technique">📐 <strong>Техника:</strong> осмотр нижних конечностей: цвет кожи, наличие уплотнений, истончения, язвенных дефектов.</div>
-                </div>
-                <div class="symptom-card" style="border-left-color: #9c89b8;">
-                    <h3>Отёчный синдром при ХВН <span class="badge-disease" style="background:#9c89b8;">Венозный отёк</span></h3>
-                    <p>Пастозность или отёк в дистальных отделах голени, возникающий или усиливающийся к вечеру, уменьшающийся после ночного отдыха или приподнятого положения ног.</p>
-                    <div class="technique">📐 <strong>Техника:</strong> осмотр и пальпация. Отёк мягкий, при надавливании остаётся ямка, чаще локализуется на внутренней поверхности голени, в области лодыжек.</div>
-                </div>
+    <!-- 4. Хроническая венозная недостаточность (ХВН) -->
+    <div class="card">
+        <h2>4. Хроническая венозная недостаточность (ХВН) и варикозная болезнь</h2>
+        <div class="grid-2">
+            <div class="symptom-card">
+                <h3>Тренделенбурга <span class="badge-disease">Варикозная болезнь</span></h3>
+                <p>Быстрое наполнение варикозных вен после поднятия ноги и снятия пальцевого прижатия устья большой подкожной вены — признак несостоятельности клапанов.</p>
+                <div class="technique">📐 <strong>Техника:</strong> пациент лежит на спине с поднятой ногой, врач пальцем прижимает устье большой подкожной вены у овальной ямки. После опускания ноги и снятия прижатия оценивают скорость наполнения вен.</div>
+            </div>
+            <div class="symptom-card">
+                <h3>Пратта-Шейниса <span class="badge-disease">ХВН</span></h3>
+                <p>Появление болей в икроножной мышце при наложении резинового жгута на среднюю треть голени во время ходьбы.</p>
+                <div class="technique">📐 <strong>Техника:</strong> пациенту накладывают резиновый жгут на голень и проходят 5-10 минут. При несостоятельности мышечно-венозной помпы возникает боль, которая исчезает после снятия жгута.</div>
+            </div>
+            <div class="symptom-card">
+                <h3>Дельбе-Пертеса (маршевая проба) <span class="badge-disease">Оценка проходимости глубоких вен</span></h3>
+                <p>При застойном расширении поверхностных вен после ходьбы с жгутом напряжение не уменьшается — признак непроходимости глубоких вен.</p>
+                <div class="technique">📐 <strong>Техника:</strong> на верхнюю треть бедра накладывают резиновый жгут (сдавление поверхностных вен), пациент ходит 5 минут. При проходимых глубоких венах варикозные узлы спадаются. При непроходимости — усиливаются.</div>
+            </div>
+            <div class="symptom-card">
+                <h3>Симптом «тяжести» в ногах <span class="badge-disease">ХВН</span></h3>
+                <p>Чувство распирания, тяжести и усталости в нижних конечностях к вечеру, усиливающееся после длительного стояния или сидения.</p>
+                <div class="technique">📐 <strong>Техника:</strong> сбор анамнеза. Характерно уменьшение симптомов после приподнятого положения ног или ходьбы (активация мышечно-венозной помпы).</div>
+            </div>
+            <div class="symptom-card">
+                <h3>Трофические изменения кожи <span class="badge-disease">Декомпенсированная ХВН</span></h3>
+                <p>Гиперпигментация («индуративная целлюлитоподобная пигментация»), липодерматосклероз, «белая атрофия кожи», варикозные экземы, трофические язвы (обычно в области внутренней лодыжки).</p>
+                <div class="technique">📐 <strong>Техника:</strong> осмотр нижних конечностей: цвет кожи, наличие уплотнений, истончения, язвенных дефектов.</div>
+            </div>
+            <div class="symptom-card">
+                <h3>Отёчный синдром при ХВН <span class="badge-disease">Венозный отёк</span></h3>
+                <p>Пастозность или отёк в дистальных отделах голени, возникающий или усиливающийся к вечеру, уменьшающийся после ночного отдыха или приподнятого положения ног.</p>
+                <div class="technique">📐 <strong>Техника:</strong> осмотр и пальпация. Отёк мягкий, при надавливании остаётся ямка, чаще локализуется на внутренней поверхности голени, в области лодыжек.</div>
             </div>
         </div>
     </div>
 
-    <!-- 5. RED FLAGS и тактика СМП -->
-    <div class="section-card">
-        <div class="section-header" style="border-bottom-color: #c44536;">
-            <h2>🚨 5. RED FLAGS — неотложные состояния</h2>
+    <!-- 5. RED FLAGS -->
+    <div class="card">
+        <h2>🚨 5. RED FLAGS — неотложные состояния</h2>
+        <div class="grid-2">
+            <div class="symptom-card" style="border-left-color: #d32f2f;">
+                <h3>Тромбоэмболия лёгочной артерии (ТЭЛА)</h3>
+                <p>Внезапная одышка, тахипноэ, цианоз верхней половины туловища, боли в груди, гипотензия, синкопе, кровохарканье.</p>
+                <div class="technique">📐 <strong>Тактика:</strong> немедленная госпитализация, оксигенотерапия, ЭКГ (синдром SIQIII), контроль гемодинамики.</div>
+            </div>
+            <div class="symptom-card" style="border-left-color: #d32f2f;">
+                <h3>Острая артериальная окклюзия (эмболия/тромбоз)</h3>
+                <p>Внезапное исчезновение пульсации, резкая боль, бледность/мраморность, отсутствие активных движений, похолодание конечности.</p>
+                <div class="technique">📐 <strong>Тактика:</strong> экстренная госпитализация в сосудистый центр, конечность не согревать, не поднимать высоко (умеренное возвышенное положение).</div>
+            </div>
+            <div class="symptom-card" style="border-left-color: #d32f2f;">
+                <h3>«Синяя» флегмазия (phlegmasia cerulea dolens)</h3>
+                <p>Тотальный тромбоз глубоких и поверхностных вен, цианоз конечности, гигантский отёк, резкая боль, риск венозной гангрены.</p>
+                <div class="technique">📐 <strong>Тактика:</strong> экстренная госпитализация, строгий постельный режим, возвышенное положение конечности, антикоагулянты.</div>
+            </div>
         </div>
-        <div class="section-content">
-            <div class="grid-2">
-                <div class="symptom-card" style="border-left-color: #c44536;">
-                    <h3>Тромбоэмболия лёгочной артерии (ТЭЛА)</h3>
-                    <p>Внезапная одышка, тахипноэ, цианоз верхней половины туловища, боли в груди, гипотензия, синкопе, кровохарканье.</p>
-                    <div class="technique">📐 <strong>Тактика:</strong> немедленная госпитализация, оксигенотерапия, ЭКГ (синдром SIQIII), контроль гемодинамики.</div>
-                </div>
-                <div class="symptom-card" style="border-left-color: #c44536;">
-                    <h3>Острая артериальная окклюзия (эмболия/тромбоз)</h3>
-                    <p>Внезапное исчезновение пульсации, резкая боль, бледность/мраморность, отсутствие активных движений, похолодание конечности.</p>
-                    <div class="technique">📐 <strong>Тактика:</strong> экстренная госпитализация в сосудистый центр, конечность не согревать, не поднимать высоко (умеренное возвышенное положение).</div>
-                </div>
-                <div class="symptom-card" style="border-left-color: #c44536;">
-                    <h3>«Синяя» флегмазия (phlegmasia cerulea dolens)</h3>
-                    <p>Тотальный тромбоз глубоких и поверхностных вен, цианоз конечности, гигантский отёк, резкая боль, риск венозной гангрены.</p>
-                    <div class="technique">📐 <strong>Тактика:</strong> экстренная госпитализация, строгий постельный режим, возвышенное положение конечности, антикоагулянты.</div>
-                </div>
-            </div>
-            <div class="note-red" style="margin-top: 0.5rem;">
-                <strong>⚠️ Врачу СМП:</strong> положительные симптомы Хоманса, Мозеса или Ловенберга в сочетании с отёком и цианозом конечности требуют немедленного исключения ТГВ. При подозрении на острую артериальную окклюзию — экстренная госпитализация в сосудистый центр (терапевтическое окно 6-8 часов).
-            </div>
+        <div class="note-red">
+            <strong>⚠️ Врачу СМП:</strong> положительные симптомы Хоманса, Мозеса или Ловенберга в сочетании с отёком и цианозом конечности требуют немедленного исключения ТГВ. При подозрении на острую артериальную окклюзию — экстренная госпитализация в сосудистый центр (терапевтическое окно 6-8 часов).
         </div>
     </div>
 </div>
+
+<script>
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/SMP/sw.js')
+            .then(reg => console.log('✅ SW зарегистрирован:', reg))
+            .catch(err => console.error('❌ Ошибка:', err));
+    }
+</script>
+
 </body>
 </html>
