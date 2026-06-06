@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Дифференциальная диагностика ком — полная таблица</title>
+
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0f1446">
+
     <style>
         * {
             margin: 0;
@@ -12,82 +17,57 @@
         }
 
         body {
-            background: linear-gradient(135deg, #eef2f5 0%, #dce7f0 100%);
-            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-            padding: 2rem 1rem;
-            color: #1e293b;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            font-family: 'Segoe UI', 'Roboto', sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             min-height: 100vh;
         }
 
-        .document-card {
+        .container {
             max-width: 1400px;
-            margin: 0 auto;
-            background: #ffffff;
-            border-radius: 32px;
-            box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.2);
-            overflow: hidden;
+            width: 100%;
         }
 
-        /* Шапка */
-        .hero-header {
-            background: linear-gradient(115deg, #1f3b4c 0%, #2a6f8f 55%, #4ba0c0 100%);
-            padding: 2rem 2rem 1.8rem 2rem;
+        .card {
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 24px 22px;
+            margin-bottom: 24px;
+        }
+
+        .header-card {
+            background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
             color: white;
-            border-bottom: 4px solid #ffd966;
+            text-align: center;
+            padding: 28px 20px;
         }
-
-        .doc-badge {
-            background: rgba(255,255,245,0.25);
-            backdrop-filter: blur(4px);
-            display: inline-block;
-            padding: 0.25rem 1.2rem;
-            border-radius: 60px;
-            font-size: 0.8rem;
+        .header-card h1 {
+            color: white;
+            margin-bottom: 8px;
+            font-size: 28px;
             font-weight: 700;
-            letter-spacing: 0.5px;
-            margin-bottom: 1rem;
+        }
+        .header-card p {
+            opacity: 0.9;
+            font-size: 1rem;
+            margin-top: 4px;
         }
 
-        .main-title {
-            font-size: 2.3rem;
-            font-weight: 800;
-            line-height: 1.2;
-            letter-spacing: -0.3px;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.1);
-        }
-
-        .main-sub {
-            font-size: 1.1rem;
-            font-weight: 500;
-            opacity: 0.92;
-            margin-top: 0.4rem;
-        }
-
-        .content {
-            padding: 2rem 1.8rem 2rem 1.8rem;
-            background: #ffffff;
-        }
-
-        /* КРАСНАЯ ПОДСКАЗКА О ПРОКРУТКЕ */
         .scroll-hint {
             text-align: center;
-            margin-bottom: 12px;
+            margin-bottom: 16px;
             padding: 10px 12px;
-            background: linear-gradient(90deg, #fff5f5, #ffe0e0, #fff5f5);
-            border-radius: 60px;
+            background: #fff8e7;
+            border-radius: 12px;
             font-size: 0.85rem;
             font-weight: 700;
-            color: #b91c1c;
-            border: 1px solid #fecaca;
-            letter-spacing: 0.5px;
-            animation: softPulse 1.5s ease-in-out infinite;
-            box-shadow: 0 1px 4px rgba(185,28,28,0.15);
-        }
-
-        @keyframes softPulse {
-            0% { background: #fff5f5; border-color: #fecaca; }
-            50% { background: #ffe0e0; border-color: #f87171; }
-            100% { background: #fff5f5; border-color: #fecaca; }
+            color: #a56b00;
+            border: 1px solid #f0b849;
         }
 
         .scroll-hint span {
@@ -96,26 +76,24 @@
             margin: 0 6px;
         }
 
-        /* Таблица — без красной полоски */
         .table-wrapper {
             overflow-x: auto;
-            overflow-y: visible;
             margin: 0 0 1.5rem 0;
-            border-radius: 24px;
-            border: 1px solid #e2dccf;
+            border-radius: 16px;
+            border: 2px solid #d4e2f0;
             background: #ffffff;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+            -webkit-overflow-scrolling: touch;
         }
 
         .table-wrapper::-webkit-scrollbar {
             height: 8px;
         }
         .table-wrapper::-webkit-scrollbar-track {
-            background: #ede5d9;
+            background: #f5f7fa;
             border-radius: 10px;
         }
         .table-wrapper::-webkit-scrollbar-thumb {
-            background: #b99e7c;
+            background: #d4e2f0;
             border-radius: 10px;
         }
 
@@ -127,14 +105,22 @@
         }
 
         .diagnostic-table th {
-            background: linear-gradient(120deg, #e9e0d0 0%, #dfd2bd 100%);
-            color: #4a3520;
-            font-weight: 800;
+            background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
+            color: white;
+            font-weight: 700;
             padding: 14px 10px;
-            border-bottom: 2px solid #cfbc9a;
+            border-bottom: 2px solid #0f1446;
             text-align: center;
             font-size: 0.86rem;
             vertical-align: middle;
+        }
+
+        .diagnostic-table td {
+            padding: 12px 10px;
+            border-bottom: 1px solid #e2ecf3;
+            vertical-align: top;
+            line-height: 1.45;
+            color: #1f3a4b;
         }
 
         /* Чередующиеся градиентные строки */
@@ -145,81 +131,85 @@
             background: linear-gradient(90deg, #f6f1ea 0%, #fef8f0 100%);
         }
 
-        .diagnostic-table td {
-            padding: 12px 10px;
-            border-bottom: 1px solid #e8dfd1;
-            vertical-align: top;
-            line-height: 1.45;
-            color: #1f3a48;
+        .diagnostic-table tbody tr:hover td {
+            background: #eef7ff;
         }
 
         .diagnostic-table tr:last-child td {
             border-bottom: none;
         }
 
-        /* ВИДЫ КОМ: ВЫРАВНИВАНИЕ ПО ЦЕНТРУ */
         .diagnostic-table td:first-child {
             font-weight: 700;
             text-align: center;
             vertical-align: middle;
-            border-right: 1px solid #e0d3c0;
+            border-right: 1px solid #d4e2f0;
+            color: #0f1446;
         }
 
         .diagnostic-table th:first-child {
             text-align: center;
         }
 
-        /* Примечания */
         .footnote {
-            background: linear-gradient(115deg, #eef3f0 0%, #e2ece8 100%);
-            border-left: 5px solid #4ba0c0;
+            background: #eef7ff;
+            border-left: 5px solid #1f6e9c;
             padding: 1rem 1.6rem;
-            border-radius: 20px;
+            border-radius: 16px;
             margin: 1.2rem 0 0.2rem;
-            font-size: 0.82rem;
-            color: #1a5d6e;
+            font-size: 0.85rem;
+            color: #1f3a4b;
+            line-height: 1.5;
+        }
+
+        .swipe-hint {
+            display: none;
+            text-align: center;
+            font-size: 0.75rem;
+            color: #6f8eaa;
+            margin-top: 8px;
         }
 
         @media (max-width: 780px) {
             body {
-                padding: 1rem;
+                padding: 10px;
             }
-            .content {
-                padding: 1.2rem;
+            .card {
+                padding: 16px 14px;
             }
-            .main-title {
-                font-size: 1.6rem;
+            .header-card h1 {
+                font-size: 24px;
+            }
+            .header-card p {
+                font-size: 0.9rem;
             }
             .diagnostic-table th, .diagnostic-table td {
                 padding: 10px 6px;
                 font-size: 0.74rem;
             }
             .scroll-hint {
-                font-size: 0.7rem;
-                padding: 7px 10px;
+                font-size: 0.75rem;
+                padding: 8px 10px;
             }
-            .scroll-hint span {
-                font-size: 0.9rem;
+            .swipe-hint {
+                display: block;
             }
         }
     </style>
 </head>
 <body>
-<div class="document-card">
-    <!-- Шапка -->
-    <div class="hero-header">
-        <div class="doc-badge">ИНФОРМАЦИОННО-МЕТОДИЧЕСКОЕ ПИСЬМО</div>
-        <div class="main-title">О дифдиагностике комы</div>
-        <div class="main-sub">при оказании скорой медицинской помощи</div>
+
+<div class="container">
+    <div class="card header-card">
+        <h1>🧠 Дифференциальная диагностика ком</h1>
+        <p>при оказании скорой медицинской помощи</p>
     </div>
 
-    <div class="content">
-        <!-- КРАСНАЯ ПОДСКАЗКА — указывает, что таблицу можно прокручивать -->
+    <div class="card">
         <div class="scroll-hint">
             <span>👉</span> Прокрутите таблицу вправо → здесь больше столбцов <span>👈</span>
         </div>
 
-        <!-- ПОЛНАЯ ТАБЛИЦА -->
         <div class="table-wrapper">
             <table class="diagnostic-table">
                 <thead>
@@ -235,7 +225,6 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- 1. Апоплексическая (ОНМК, САК) -->
                     <tr>
                         <td>Апоплексическая (ОНМК, САК)</td>
                         <td>АГ, церебральный атеросклероз, фибрилляция предсердий, пожилой возраст</td>
@@ -246,7 +235,6 @@
                         <td>Повышение или нормальное АД, часто брадикардия, затем гипотензия</td>
                         <td>Неврологический дефицит (при САК может отсутствовать)</td>
                     </tr>
-                    <!-- 2. Гиперкапническая (вентиляционная) -->
                     <tr>
                         <td>Гиперкапническая (вентиляционная)</td>
                         <td>ХОБЛ, тяжёлая астма, кифосколиоз, синдром Пиквика</td>
@@ -257,7 +245,6 @@
                         <td>Тахикардия → брадикардия, гипертензия сменяется гипотензией</td>
                         <td>PaCO₂ значительно &gt; 45 мм рт. ст., респираторный или смешанный ацидоз, pH &lt; 7,25</td>
                     </tr>
-                    <!-- 3. Гиперосмолярная (некетотическая) -->
                     <tr>
                         <td>Гиперосмолярная (некетотическая)</td>
                         <td>Пожилые с СД 2 типа. Триггеры: инфекция, дегидратация, приём тиазидов/глюкокортикоидов</td>
@@ -268,7 +255,6 @@
                         <td>Тахикардия, артериальная гипотензия</td>
                         <td>Гипергликемия, кетоны в моче отрицательные, осмоляльность плазмы &gt; 320 мОсм/кг (КЩС)</td>
                     </tr>
-                    <!-- 4. Гипогликемическая -->
                     <tr>
                         <td>Гипогликемическая</td>
                         <td>СД (передозировка инсулина), голодание, физ. нагрузка</td>
@@ -279,7 +265,6 @@
                         <td>Тахикардия, АД нормальное или повышенное</td>
                         <td>Глюкоза крови &lt; 3,0 ммоль/л (часто &lt; 2,5), кетоны отрицательные</td>
                     </tr>
-                    <!-- 5. Кетоацидотическая (диабетическая) -->
                     <tr>
                         <td>Кетоацидотическая (диабетическая)</td>
                         <td>СД 1 типа (реже 2 типа), инфекции, травмы, погрешность приёма терапии</td>
@@ -290,7 +275,6 @@
                         <td>Тахикардия, выраженная гипотензия (на фоне дегидратации)</td>
                         <td>Гликемия &gt; 17,9, кетоны (кровь/моча) +++, pH &lt; 7,3</td>
                     </tr>
-                    <!-- 6. Кома при экзогенной интоксикации -->
                     <tr>
                         <td>Кома при экзогенной интоксикации</td>
                         <td>Приём алкоголя, наркотических и психотропных веществ, лекарственных препаратов, бытовых и промышленных химических веществ</td>
@@ -301,7 +285,6 @@
                         <td>Гемодинамические эффекты проявляются в зависимости от действия вещества, вызвавшего угнетение сознания. Аритмии при отравлении ФОС</td>
                         <td>Наличие данных и обстоятельств, указывающих на экзогенную интоксикацию</td>
                     </tr>
-                    <!-- 7. Микседематозная (гипотиреоидная) -->
                     <tr>
                         <td>Микседематозная (гипотиреоидная)</td>
                         <td>Женщины пожилого возраста. Гипотиреоз, операция на ЩЖ, приём седативных препаратов</td>
@@ -312,7 +295,6 @@
                         <td>Брадикардия, гипотензия, низкое пульсовое АД</td>
                         <td>Гипотиреоз в анамнезе, гипонатриемия</td>
                     </tr>
-                    <!-- 8. Печёночная -->
                     <tr>
                         <td>Печёночная</td>
                         <td>Цирроз, гепатит (алкогольный, вирусный). Триггеры: ЖКК, констипация.</td>
@@ -323,7 +305,6 @@
                         <td>Тахикардия, гипотензия (терминальная стадия)</td>
                         <td>Признаки печёночной недостаточности</td>
                     </tr>
-                    <!-- 9. Травматическая церебральная кома (ЧМТ) -->
                     <tr>
                         <td>Травматическая церебральная кома (ЧМТ)</td>
                         <td>Высокоэнергетическая травма, включающая ЧМТ</td>
@@ -334,7 +315,6 @@
                         <td>Артериальная гипертензия и брадикардия (рефлекс Кушинга – признак ВЧГ). В дальнейшем возможно развитие гипотензии (при сочетанной травме или кровопотере)</td>
                         <td>Наличие ЧМТ</td>
                     </tr>
-                    <!-- 10. Уремическая -->
                     <tr>
                         <td>Уремическая</td>
                         <td>ХБП, ОПП, гломерулонефрит, пиелонефрит, отравление ядами</td>
@@ -345,7 +325,6 @@
                         <td>Тахикардия, гипертензия (сменяется гипотензией), брадиаритмия</td>
                         <td>Признаки ОПП, гиперкалиемия, pH ↓ (ацидоз)</td>
                     </tr>
-                    <!-- 11. Эклампсическая -->
                     <tr>
                         <td>Эклампсическая</td>
                         <td>Беременность (&gt;20 нед) или послеродовой период (до 28 сут). АГ + протеинурия</td>
@@ -360,7 +339,8 @@
             </table>
         </div>
 
-        <!-- Примечания -->
+        <div class="swipe-hint">← Прокручивайте таблицу влево-вправо →</div>
+
         <div class="footnote">
             <strong>Примечания:</strong><br>
             * Астериксис – «негативный миоклонус» – гиперкинез, возникающий в результате кратковременного, внезапного прерывания мышечного тонуса.<br>
@@ -368,5 +348,14 @@
         </div>
     </div>
 </div>
+
+<script>
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/SMP/sw.js')
+            .then(reg => console.log('✅ SW зарегистрирован:', reg))
+            .catch(err => console.error('❌ Ошибка:', err));
+    }
+</script>
+
 </body>
 </html>
