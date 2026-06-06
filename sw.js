@@ -1,7 +1,7 @@
 // sw.js — Service Worker для EMHelp PWA
 // Версия: v95 (улучшенная оффлайн-поддержка + Persistent Storage)
 
-const CACHE_NAME = 'emhelp-v95';
+const CACHE_NAME = 'emhelp-v96';
 
 const urlsToCache = [
   // Главная
