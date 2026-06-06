@@ -1,7 +1,7 @@
 // sw.js — Service Worker для EMHelp PWA
-// Версия: v98 (добавлены incubation-periods, pneumonia-diagnostics)
+// Версия: v99 (добавлены incubation-periods, pneumonia-diagnostics)
 
-const CACHE_NAME = 'emhelp-v98';
+const CACHE_NAME = 'emhelp-v99';
 
 const urlsToCache = [
   // Главная
@@ -197,7 +197,7 @@ self.addEventListener('activate', event => {
         })
       );
     }).then(() => {
-      console.log('✅ Service Worker активирован (v98)');
+      console.log('✅ Service Worker активирован (v99)');
       return self.clients.claim();
     })
   );
