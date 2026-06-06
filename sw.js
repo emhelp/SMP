@@ -1,7 +1,7 @@
 // sw.js — Service Worker для EMHelp PWA
-// Версия: v97 (улучшенная оффлайн-поддержка + Persistent Storage)
+// Версия: v98 (добавлены incubation-periods, pneumonia-diagnostics)
 
-const CACHE_NAME = 'emhelp-v97';
+const CACHE_NAME = 'emhelp-v98';
 
 const urlsToCache = [
   // Главная
@@ -54,6 +54,7 @@ const urlsToCache = [
   '/SMP/dorsalgia_symptoms.html',
   '/SMP/itls-trauma.html',
   '/SMP/incubation-periods.html',
+  '/SMP/pneumonia-diagnostics.html',
   
   // Шаблоны карт (15 разделов)
   '/SMP/obstetrics.html',
@@ -196,7 +197,7 @@ self.addEventListener('activate', event => {
         })
       );
     }).then(() => {
-      console.log('✅ Service Worker активирован (v97)');
+      console.log('✅ Service Worker активирован (v98)');
       return self.clients.claim();
     })
   );
