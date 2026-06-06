@@ -4,8 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <title>Симптомы дорсалгий | Радикулопатии, люмбаго, ишиас, торакалгия</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0f1446">
+
     <style>
         * {
             margin: 0;
@@ -14,90 +17,52 @@
         }
 
         body {
-            background: linear-gradient(145deg, #eef2f9 0%, #d9e0ec 100%);
-            font-family: system-ui, -apple-system, 'Inter', 'Segoe UI', 'Roboto', sans-serif;
-            padding: 1rem;
-            color: #1a2c3e;
-            line-height: 1.45;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            font-family: 'Segoe UI', 'Roboto', sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
         }
 
         .container {
-            max-width: 100%;
-            margin: 0 auto;
+            max-width: 1100px;
+            width: 100%;
         }
 
-        .hero {
-            background: linear-gradient(135deg, #0b2b3b, #123d4f);
+        .card {
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 24px 22px;
+            margin-bottom: 24px;
+        }
+
+        .header-card {
+            background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
             color: white;
-            border-radius: 1.5rem;
-            padding: 1.2rem 1rem;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 10px 20px -8px rgba(0,0,0,0.15);
             text-align: center;
+            padding: 28px 20px;
         }
-        .hero h1 {
-            font-size: clamp(1.3rem, 6vw, 2rem);
-            letter-spacing: -0.3px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            flex-wrap: wrap;
-            margin: 0;
+        .header-card h1 {
+            color: white;
+            margin-bottom: 8px;
+            font-size: 28px;
             font-weight: 700;
         }
 
-        .section-card {
-            background: rgba(255,255,255,0.96);
-            backdrop-filter: blur(2px);
-            border-radius: 1.25rem;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 4px 12px -6px rgba(0,0,0,0.08);
-            overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.6);
-        }
-        .section-header {
-            padding: 0.9rem 1.2rem;
-            background: #fff;
-            border-bottom: 3px solid;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-        .section-header h2 {
-            font-size: 1.2rem;
+        h2 {
+            font-size: 1.3rem;
             font-weight: 700;
-            margin: 0;
+            margin-bottom: 20px;
+            color: #0f1446;
+            border-left: 6px solid #e53935;
+            padding-left: 16px;
             display: flex;
             align-items: center;
             gap: 8px;
-            line-height: 1.3;
-        }
-        .section-content {
-            padding: 1rem 1.2rem;
-        }
-
-        @media (min-width: 640px) {
-            body {
-                padding: 1.5rem;
-            }
-            .hero {
-                padding: 1.5rem 2rem;
-                margin-bottom: 2rem;
-            }
-            .hero h1 {
-                font-size: 1.8rem;
-            }
-            .section-header {
-                padding: 1rem 1.5rem;
-            }
-            .section-header h2 {
-                font-size: 1.4rem;
-            }
-            .section-content {
-                padding: 1.2rem 1.5rem;
-            }
         }
 
         .grid-2 {
@@ -114,12 +79,11 @@
         }
 
         .symptom-card {
-            background: #f8fafd;
-            border-radius: 1rem;
+            background: #eef7ff;
+            border-radius: 16px;
             padding: 1rem;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-            border-left: 5px solid;
-            height: 100%;
+            border: 1px solid #d4e2f0;
+            border-left: 5px solid #0f1446;
         }
         .symptom-card h3 {
             font-size: 1rem;
@@ -129,41 +93,58 @@
             gap: 6px;
             flex-wrap: wrap;
             font-weight: 700;
+            color: #0f1446;
         }
         .symptom-card p {
             font-size: 0.88rem;
             line-height: 1.45;
-            color: #1e2f3d;
+            color: #1f3a4b;
             margin: 0.4rem 0;
         }
         .badge-disease {
             display: inline-block;
-            background: #c0392b;
+            background: #c62828;
             color: white;
             font-size: 0.65rem;
             padding: 2px 8px;
             border-radius: 20px;
             margin-left: 6px;
-            font-weight: normal;
+            font-weight: 600;
         }
         .technique {
-            background: #e8f0fe;
-            border-radius: 0.75rem;
+            background: #ffffff;
+            border-radius: 12px;
             padding: 0.5rem 0.7rem;
             margin-top: 0.5rem;
             font-size: 0.8rem;
-            border-left: 3px solid #2c7da0;
+            border: 1px solid #d4e2f0;
+            color: #1f3a4b;
+            line-height: 1.4;
         }
         .note-red {
-            background: #ffe6e5;
-            border-left: 5px solid #c44536;
-            border-radius: 0.9rem;
+            background: #fff0f0;
+            border-left: 5px solid #d32f2f;
+            border-radius: 12px;
             padding: 0.7rem 1rem;
             margin: 1rem 0;
             font-size: 0.85rem;
+            color: #b71c1c;
+            font-weight: 600;
         }
 
         @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            .card {
+                padding: 16px 14px;
+            }
+            .header-card h1 {
+                font-size: 24px;
+            }
+            h2 {
+                font-size: 1.1rem;
+            }
             .symptom-card h3 {
                 font-size: 0.92rem;
             }
@@ -172,16 +153,9 @@
             }
             .technique {
                 font-size: 0.75rem;
-                padding: 0.45rem 0.6rem;
             }
             .symptom-card {
                 padding: 0.8rem;
-            }
-            .section-header h2 {
-                font-size: 1.1rem;
-            }
-            .section-content {
-                padding: 0.8rem 1rem;
             }
             .note-red {
                 font-size: 0.8rem;
@@ -191,229 +165,215 @@
     </style>
 </head>
 <body>
+
 <div class="container">
-    <div class="hero">
-        <h1><span>🩻</span> СИМПТОМЫ ДОРСАЛГИЙ</h1>
+    <div class="card header-card">
+        <h1>🩻 Симптомы дорсалгий</h1>
     </div>
 
     <!-- 1. Симптомы натяжения (корешковые) -->
-    <div class="section-card">
-        <div class="section-header" style="border-bottom-color: #2c7da0;">
-            <h2><i class="fas fa-spine" style="color:#2c7da0;"></i> 1. Симптомы натяжения (корешковые)</h2>
-        </div>
-        <div class="section-content">
-            <div class="grid-2">
-                <div class="symptom-card" style="border-left-color: #2c7da0;">
-                    <h3>Ласега <span class="badge-disease" style="background:#2c7da0;">Поражение седалищного нерва (L5-S1)</span></h3>
-                    <p>Появление боли по ходу седалищного нерва при поднимании выпрямленной ноги в положении лёжа на спине.</p>
-                    <div class="technique">📐 <strong>Техника:</strong> пациент лежит на спине с выпрямленными ногами. Врач медленно поднимает выпрямленную ногу за пятку, не сгибая в колене. Положительный симптом — появление боли при угле 30-60°. При сгибании ноги в колене боль исчезает (в отличие от бедренно-суставной патологии).</div>
-                </div>
-                <div class="symptom-card" style="border-left-color: #2c7da0;">
-                    <h3>Мацкевича <span class="badge-disease" style="background:#2c7da0;">Поражение бедренного нерва (L2-L4)</span></h3>
-                    <p>Боль по передней поверхности бедра при сгибании ноги в коленном суставе в положении лёжа на животе.</p>
-                    <div class="technique">📐 <strong>Техника:</strong> пациент лежит на животе с выпрямленными ногами. Врач сгибает ногу в коленном суставе, приближая пятку к ягодице. При поражении бедренного нерва возникает боль по передней поверхности бедра.</div>
-                </div>
-                <div class="symptom-card" style="border-left-color: #2c7da0;">
-                    <h3>Вассермана <span class="badge-disease" style="background:#2c7da0;">Поражение бедренного нерва</span></h3>
-                    <p>Боль по передней поверхности бедра при поднимании выпрямленной ноги кзади в положении лёжа на животе.</p>
-                    <div class="technique">📐 <strong>Техника:</strong> пациент лежит на животе. Врач поднимает выпрямленную ногу кзади (разгибание в тазобедренном суставе). Положительный симптом — боль по передней поверхности бедра.</div>
-                </div>
-                <div class="symptom-card" style="border-left-color: #2c7da0;">
-                    <h3>Нери <span class="badge-disease" style="background:#2c7da0;">Поражение корешков L4-S1</span></h3>
-                    <p>Боль в поясничной области и по ходу седалищного нерва при сгибании головы вперёд.</p>
-                    <div class="technique">📐 <strong>Техника:</strong> пациент лежит на спине с выпрямленными ногами. Врач пассивно сгибает голову пациента (подбородок к груди). Положительный симптом — появление или усиление боли в пояснице, иррадиирующей в ногу.</div>
-                </div>
-                <div class="symptom-card" style="border-left-color: #2c7da0;">
-                    <h3>Бехтерева (перекрёстный симптом Ласега) <span class="badge-disease" style="background:#2c7da0;">Поражение корешков</span></h3>
-                    <p>Возникновение боли в больной ноге при поднимании здоровой выпрямленной ноги.</p>
-                    <div class="technique">📐 <strong>Техника:</strong> пациент лежит на спине. Врач поднимает выпрямленную здоровую ногу. При положительном симптоме боль появляется в противоположной (больной) ноге. Признак выраженного раздражения корешков или оболочек спинного мозга.</div>
-                </div>
-                <div class="symptom-card" style="border-left-color: #2c7da0;">
-                    <h3>Симптом «тростника» <span class="badge-disease" style="background:#2c7da0;">Поражение корешков L5</span></h3>
-                    <p>Усиление боли при пассивном разгибании большого пальца стопы.</p>
-                    <div class="technique">📐 <strong>Техника:</strong> пациент лежит на спине. Врач пассивно разгибает большой палец стопы (тыльное сгибание). При поражении корешка L5 возникает боль по ходу седалищного нерва.</div>
-                </div>
+    <div class="card">
+        <h2>1. Симптомы натяжения (корешковые)</h2>
+        <div class="grid-2">
+            <div class="symptom-card">
+                <h3>Ласега <span class="badge-disease">Поражение седалищного нерва (L5-S1)</span></h3>
+                <p>Появление боли по ходу седалищного нерва при поднимании выпрямленной ноги в положении лёжа на спине.</p>
+                <div class="technique">📐 <strong>Техника:</strong> пациент лежит на спине с выпрямленными ногами. Врач медленно поднимает выпрямленную ногу за пятку, не сгибая в колене. Положительный симптом — появление боли при угле 30-60°. При сгибании ноги в колене боль исчезает (в отличие от бедренно-суставной патологии).</div>
+            </div>
+            <div class="symptom-card">
+                <h3>Мацкевича <span class="badge-disease">Поражение бедренного нерва (L2-L4)</span></h3>
+                <p>Боль по передней поверхности бедра при сгибании ноги в коленном суставе в положении лёжа на животе.</p>
+                <div class="technique">📐 <strong>Техника:</strong> пациент лежит на животе с выпрямленными ногами. Врач сгибает ногу в коленном суставе, приближая пятку к ягодице. При поражении бедренного нерва возникает боль по передней поверхности бедра.</div>
+            </div>
+            <div class="symptom-card">
+                <h3>Вассермана <span class="badge-disease">Поражение бедренного нерва</span></h3>
+                <p>Боль по передней поверхности бедра при поднимании выпрямленной ноги кзади в положении лёжа на животе.</p>
+                <div class="technique">📐 <strong>Техника:</strong> пациент лежит на животе. Врач поднимает выпрямленную ногу кзади (разгибание в тазобедренном суставе). Положительный симптом — боль по передней поверхности бедра.</div>
+            </div>
+            <div class="symptom-card">
+                <h3>Нери <span class="badge-disease">Поражение корешков L4-S1</span></h3>
+                <p>Боль в поясничной области и по ходу седалищного нерва при сгибании головы вперёд.</p>
+                <div class="technique">📐 <strong>Техника:</strong> пациент лежит на спине с выпрямленными ногами. Врач пассивно сгибает голову пациента (подбородок к груди). Положительный симптом — появление или усиление боли в пояснице, иррадиирующей в ногу.</div>
+            </div>
+            <div class="symptom-card">
+                <h3>Бехтерева (перекрёстный симптом Ласега) <span class="badge-disease">Поражение корешков</span></h3>
+                <p>Возникновение боли в больной ноге при поднимании здоровой выпрямленной ноги.</p>
+                <div class="technique">📐 <strong>Техника:</strong> пациент лежит на спине. Врач поднимает выпрямленную здоровую ногу. При положительном симптоме боль появляется в противоположной (больной) ноге. Признак выраженного раздражения корешков или оболочек спинного мозга.</div>
+            </div>
+            <div class="symptom-card">
+                <h3>Симптом «тростника» <span class="badge-disease">Поражение корешков L5</span></h3>
+                <p>Усиление боли при пассивном разгибании большого пальца стопы.</p>
+                <div class="technique">📐 <strong>Техника:</strong> пациент лежит на спине. Врач пассивно разгибает большой палец стопы (тыльное сгибание). При поражении корешка L5 возникает боль по ходу седалищного нерва.</div>
             </div>
         </div>
     </div>
 
     <!-- 2. Симптомы люмбаго и ишиаса -->
-    <div class="section-card">
-        <div class="section-header" style="border-bottom-color: #f4a261;">
-            <h2><i class="fas fa-bolt" style="color:#f4a261;"></i> 2. Симптомы люмбаго, ишиаса, плекситов</h2>
-        </div>
-        <div class="section-content">
-            <div class="grid-2">
-                <div class="symptom-card" style="border-left-color: #f4a261;">
-                    <h3>Дежерина <span class="badge-disease" style="background:#f4a261;">Люмбаго, радикулит</span></h3>
-                    <p>Усиление болей в пояснице при кашле, чихании, натуживании.</p>
-                    <div class="technique">📐 <strong>Техника:</strong> пациента просят покашлять или натужиться. При положительном симптоме возникает резкое усиление болей в поясничной области. Патогномонично для корешкового синдрома.</div>
-                </div>
-                <div class="symptom-card" style="border-left-color: #f4a261;">
-                    <h3>Симптом «колокола» <span class="badge-disease" style="background:#f4a261;">Радикулопатия</span></h3>
-                    <p>Резкая боль при перкуссии остистых отростков поясничных позвонков.</p>
-                    <div class="technique">📐 <strong>Техника:</strong> перкуссия молоточком или пальцем по остистым отросткам позвонков (L3-L5, S1). При положительном симптоме возникает боль в зоне соответствующего корешка.</div>
-                </div>
-                <div class="symptom-card" style="border-left-color: #f4a261;">
-                    <h3>Симптом Лихтенштейна <span class="badge-disease" style="background:#f4a261;">Ишиас</span></h3>
-                    <p>Боль при тыльном сгибании стопы с одновременным разгибанием пальцев.</p>
-                    <div class="technique">📐 <strong>Техника:</strong> пациент лежит на спине. Врач производит тыльное сгибание стопы с одновременным пассивным разгибанием пальцев. При поражении седалищного нерва возникает боль по задней поверхности ноги.</div>
-                </div>
-                <div class="symptom-card" style="border-left-color: #f4a261;">
-                    <h3>Симптом «посадки» (Ситковского) <span class="badge-disease" style="background:#f4a261;">Люмбаго, радикулит</span></h3>
-                    <p>Усиление боли в пояснице при попытке сесть из положения лёжа с выпрямленными ногами.</p>
-                    <div class="technique">📐 <strong>Техника:</strong> пациент лежит на спине с выпрямленными ногами. Врач просит пациента сесть без помощи рук. При положительном симптоме боль заставляет пациента согнуть ногу в колене (компенсаторное расслабление натяжения корешков).</div>
-                </div>
-                <div class="symptom-card" style="border-left-color: #f4a261;">
-                    <h3>Симптом пьезоэлектрический <span class="badge-disease" style="background:#f4a261;">Ишиас</span></h3>
-                    <p>Боль при надавливании на остистый отросток L4 или L5.</p>
-                    <div class="technique">📐 <strong>Техника:</strong> пальцевое надавливание на остистые отростки поясничных позвонков. Положителен при дискогенной радикулопатии.</div>
-                </div>
+    <div class="card">
+        <h2>2. Симптомы люмбаго, ишиаса, плекситов</h2>
+        <div class="grid-2">
+            <div class="symptom-card">
+                <h3>Дежерина <span class="badge-disease">Люмбаго, радикулит</span></h3>
+                <p>Усиление болей в пояснице при кашле, чихании, натуживании.</p>
+                <div class="technique">📐 <strong>Техника:</strong> пациента просят покашлять или натужиться. При положительном симптоме возникает резкое усиление болей в поясничной области. Патогномонично для корешкового синдрома.</div>
+            </div>
+            <div class="symptom-card">
+                <h3>Симптом «колокола» <span class="badge-disease">Радикулопатия</span></h3>
+                <p>Резкая боль при перкуссии остистых отростков поясничных позвонков.</p>
+                <div class="technique">📐 <strong>Техника:</strong> перкуссия молоточком или пальцем по остистым отросткам позвонков (L3-L5, S1). При положительном симптоме возникает боль в зоне соответствующего корешка.</div>
+            </div>
+            <div class="symptom-card">
+                <h3>Симптом Лихтенштейна <span class="badge-disease">Ишиас</span></h3>
+                <p>Боль при тыльном сгибании стопы с одновременным разгибанием пальцев.</p>
+                <div class="technique">📐 <strong>Техника:</strong> пациент лежит на спине. Врач производит тыльное сгибание стопы с одновременным пассивным разгибанием пальцев. При поражении седалищного нерва возникает боль по задней поверхности ноги.</div>
+            </div>
+            <div class="symptom-card">
+                <h3>Симптом «посадки» (Ситковского) <span class="badge-disease">Люмбаго, радикулит</span></h3>
+                <p>Усиление боли в пояснице при попытке сесть из положения лёжа с выпрямленными ногами.</p>
+                <div class="technique">📐 <strong>Техника:</strong> пациент лежит на спине с выпрямленными ногами. Врач просит пациента сесть без помощи рук. При положительном симптоме боль заставляет пациента согнуть ногу в колене (компенсаторное расслабление натяжения корешков).</div>
+            </div>
+            <div class="symptom-card">
+                <h3>Симптом пьезоэлектрический <span class="badge-disease">Ишиас</span></h3>
+                <p>Боль при надавливании на остистый отросток L4 или L5.</p>
+                <div class="technique">📐 <strong>Техника:</strong> пальцевое надавливание на остистые отростки поясничных позвонков. Положителен при дискогенной радикулопатии.</div>
             </div>
         </div>
     </div>
 
     <!-- 3. Симптомы дорсалгий грудного отдела (торакалгии) -->
-    <div class="section-card">
-        <div class="section-header" style="border-bottom-color: #9c89b8;">
-            <h2><i class="fas fa-ribbon" style="color:#9c89b8;"></i> 3. Симптомы дорсалгий грудного отдела (торакалгии)</h2>
-        </div>
-        <div class="section-content">
-            <div class="grid-2">
-                <div class="symptom-card" style="border-left-color: #9c89b8;">
-                    <h3>Симптом Вертебра <span class="badge-disease" style="background:#9c89b8;">Торакалгия</span></h3>
-                    <p>Боль в грудном отделе позвоночника, усиливающаяся при длительном статическом положении (сидя, стоя).</p>
-                    <div class="technique">📐 <strong>Техника:</strong> сбор анамнеза. Характерно уменьшение боли в положении лёжа, после смены позы, разминки. Боль может иррадиировать по межрёберным промежуткам.</div>
-                </div>
-                <div class="symptom-card" style="border-left-color: #9c89b8;">
-                    <h3>Симптом «сдавленного позвонка» <span class="badge-disease" style="background:#9c89b8;">Компрессионный перелом грудного отдела</span></h3>
-                    <p>Резкая локальная боль при перкуссии остистых отростков грудных позвонков (особенно Th7-Th12).</p>
-                    <div class="technique">📐 <strong>Техника:</strong> перкуссия пальцем или молоточком по остистым отросткам грудных позвонков. При переломе возникает резкая, локальная боль.</div>
-                </div>
-                <div class="symptom-card" style="border-left-color: #9c89b8;">
-                    <h3>Симптом псевдостенокардии <span class="badge-disease" style="background:#9c89b8;">Верхнегрудная дорсалгия (Th1-Th5)</span></h3>
-                    <p>Боль за грудиной, в области сердца, иррадиирующая в левую руку, лопатку, имитирующая стенокардию. Не связана с физической нагрузкой, не купируется нитроглицерином.</p>
-                    <div class="technique">📐 <strong>Техника:</strong> дифференциальная диагностика: отсутствие изменений на ЭКГ, связь боли с движениями позвоночника, наличие триггерных точек в паравертебральной области.</div>
-                </div>
-                <div class="symptom-card" style="border-left-color: #9c89b8;">
-                    <h3>Симптом «опоясывания» <span class="badge-disease" style="background:#9c89b8;">Межрёберная невралгия, торакалгия</span></h3>
-                    <p>Боль распространяется по ходу межреберных промежутков, опоясывая грудную клетку.</p>
-                    <div class="technique">📐 <strong>Техника:</strong> опрос пациента. Характерно усиление боли при глубоком вдохе, кашле, поворотах туловища. Важно исключить патологию сердца, лёгких и плевры.</div>
-                </div>
-                <div class="symptom-card" style="border-left-color: #9c89b8;">
-                    <h3>Триггерные точки Балле (грудные) <span class="badge-disease" style="background:#9c89b8;">Торакалгия</span></h3>
-                    <p>Болезненные точки в паравертебральной области на уровне грудных позвонков, по линии сосков и по средне-подмышечной линии.</p>
-                    <div class="technique">📐 <strong>Техника:</strong> пальпация паравертебральных точек на уровне Th2-Th10, по линии сосков и по средне-подмышечной линии. Надавливание вызывает локальную боль.</div>
-                </div>
-                <div class="symptom-card" style="border-left-color: #9c89b8;">
-                    <h3>Симптом Дежерина (грудной) <span class="badge-disease" style="background:#9c89b8;">Торакальная радикулопатия</span></h3>
-                    <p>Усиление боли в грудном отделе позвоночника по ходу межрёберных промежутков при кашле, чихании, натуживании.</p>
-                    <div class="technique">📐 <strong>Техника:</strong> пациента просят покашлять или натужиться. При положительном симптоме возникает резкое усиление болей в грудной клетке, иррадиация по ходу поражённого корешка. Патогномонично для корешкового синдрома грудного отдела.</div>
-                </div>
+    <div class="card">
+        <h2>3. Симптомы дорсалгий грудного отдела (торакалгии)</h2>
+        <div class="grid-2">
+            <div class="symptom-card">
+                <h3>Симптом Вертебра <span class="badge-disease">Торакалгия</span></h3>
+                <p>Боль в грудном отделе позвоночника, усиливающаяся при длительном статическом положении (сидя, стоя).</p>
+                <div class="technique">📐 <strong>Техника:</strong> сбор анамнеза. Характерно уменьшение боли в положении лёжа, после смены позы, разминки. Боль может иррадиировать по межрёберным промежуткам.</div>
+            </div>
+            <div class="symptom-card">
+                <h3>Симптом «сдавленного позвонка» <span class="badge-disease">Компрессионный перелом грудного отдела</span></h3>
+                <p>Резкая локальная боль при перкуссии остистых отростков грудных позвонков (особенно Th7-Th12).</p>
+                <div class="technique">📐 <strong>Техника:</strong> перкуссия пальцем или молоточком по остистым отросткам грудных позвонков. При переломе возникает резкая, локальная боль.</div>
+            </div>
+            <div class="symptom-card">
+                <h3>Симптом псевдостенокардии <span class="badge-disease">Верхнегрудная дорсалгия (Th1-Th5)</span></h3>
+                <p>Боль за грудиной, в области сердца, иррадиирующая в левую руку, лопатку, имитирующая стенокардию. Не связана с физической нагрузкой, не купируется нитроглицерином.</p>
+                <div class="technique">📐 <strong>Техника:</strong> дифференциальная диагностика: отсутствие изменений на ЭКГ, связь боли с движениями позвоночника, наличие триггерных точек в паравертебральной области.</div>
+            </div>
+            <div class="symptom-card">
+                <h3>Симптом «опоясывания» <span class="badge-disease">Межрёберная невралгия, торакалгия</span></h3>
+                <p>Боль распространяется по ходу межреберных промежутков, опоясывая грудную клетку.</p>
+                <div class="technique">📐 <strong>Техника:</strong> опрос пациента. Характерно усиление боли при глубоком вдохе, кашле, поворотах туловища. Важно исключить патологию сердца, лёгких и плевры.</div>
+            </div>
+            <div class="symptom-card">
+                <h3>Триггерные точки Балле (грудные) <span class="badge-disease">Торакалгия</span></h3>
+                <p>Болезненные точки в паравертебральной области на уровне грудных позвонков, по линии сосков и по средне-подмышечной линии.</p>
+                <div class="technique">📐 <strong>Техника:</strong> пальпация паравертебральных точек на уровне Th2-Th10, по линии сосков и по средне-подмышечной линии. Надавливание вызывает локальную боль.</div>
+            </div>
+            <div class="symptom-card">
+                <h3>Симптом Дежерина (грудной) <span class="badge-disease">Торакальная радикулопатия</span></h3>
+                <p>Усиление боли в грудном отделе позвоночника по ходу межрёберных промежутков при кашле, чихании, натуживании.</p>
+                <div class="technique">📐 <strong>Техника:</strong> пациента просят покашлять или натужиться. При положительном симптоме возникает резкое усиление болей в грудной клетке, иррадиация по ходу поражённого корешка. Патогномонично для корешкового синдрома грудного отдела.</div>
             </div>
         </div>
     </div>
 
     <!-- 4. Симптомы при невралгиях -->
-    <div class="section-card">
-        <div class="section-header" style="border-bottom-color: #5e548e;">
-            <h2><i class="fas fa-nerve" style="color:#5e548e;"></i> 4. Симптомы при невралгиях</h2>
-        </div>
-        <div class="section-content">
-            <div class="grid-2">
-                <div class="symptom-card" style="border-left-color: #5e548e;">
-                    <h3>Триггерные точки Балле (межрёберные) <span class="badge-disease" style="background:#5e548e;">Межрёберная невралгия</span></h3>
-                    <p>Болезненные точки в паравертебральной области, по линии сосков и по среднеключичной линии.</p>
-                    <div class="technique">📐 <strong>Техника:</strong> пальпация паравертебральных точек на уровне грудных позвонков (Th2-Th6), по линии сосков и по среднеключичной линии. При межрёберной невралгии надавливание вызывает резкую боль.</div>
-                </div>
-                <div class="symptom-card" style="border-left-color: #5e548e;">
-                    <h3>Симптом «опоясывания» (невралгический) <span class="badge-disease" style="background:#5e548e;">Межрёберная невралгия</span></h3>
-                    <p>Боль распространяется по ходу межреберных промежутков, опоясывая грудную клетку.</p>
-                    <div class="technique">📐 <strong>Техника:</strong> опрос пациента. Характерно усиление боли при глубоком вдохе, кашле, поворотах туловища. Важно исключить патологию сердца и лёгких.</div>
-                </div>
-                <div class="symptom-card" style="border-left-color: #5e548e;">
-                    <h3>Симптом «пальпации точек выхода» <span class="badge-disease" style="background:#5e548e;">Невралгия затылочного нерва</span></h3>
-                    <p>Боль при надавливании в точках выхода большого затылочного нерва (между сосцевидным отростком и остистым отростком C2).</p>
-                    <div class="technique">📐 <strong>Техника:</strong> пальпация точек проекции затылочных нервов: на 1,5-2 см латеральнее и ниже наружного затылочного бугра. Боль иррадиирует в затылок и теменную область.</div>
-                </div>
-                <div class="symptom-card" style="border-left-color: #5e548e;">
-                    <h3>Тригеминальные точки Балле <span class="badge-disease" style="background:#5e548e;">Невралгия тройничного нерва</span></h3>
-                    <p>Болезненные точки при надавливании в зоне выхода ветвей тройничного нерва (надглазничная, подглазничная, подбородочная).</p>
-                    <div class="technique">📐 <strong>Техника:</strong> пальпация точек: надглазничная (у внутреннего края орбиты), подглазничная (на уровне середины нижнего края орбиты), подбородочная (на середине нижней челюсти).</div>
-                </div>
+    <div class="card">
+        <h2>4. Симптомы при невралгиях</h2>
+        <div class="grid-2">
+            <div class="symptom-card">
+                <h3>Триггерные точки Балле (межрёберные) <span class="badge-disease">Межрёберная невралгия</span></h3>
+                <p>Болезненные точки в паравертебральной области, по линии сосков и по среднеключичной линии.</p>
+                <div class="technique">📐 <strong>Техника:</strong> пальпация паравертебральных точек на уровне грудных позвонков (Th2-Th6), по линии сосков и по среднеключичной линии. При межрёберной невралгии надавливание вызывает резкую боль.</div>
+            </div>
+            <div class="symptom-card">
+                <h3>Симптом «опоясывания» (невралгический) <span class="badge-disease">Межрёберная невралгия</span></h3>
+                <p>Боль распространяется по ходу межреберных промежутков, опоясывая грудную клетку.</p>
+                <div class="technique">📐 <strong>Техника:</strong> опрос пациента. Характерно усиление боли при глубоком вдохе, кашле, поворотах туловища. Важно исключить патологию сердца и лёгких.</div>
+            </div>
+            <div class="symptom-card">
+                <h3>Симптом «пальпации точек выхода» <span class="badge-disease">Невралгия затылочного нерва</span></h3>
+                <p>Боль при надавливании в точках выхода большого затылочного нерва (между сосцевидным отростком и остистым отростком C2).</p>
+                <div class="technique">📐 <strong>Техника:</strong> пальпация точек проекции затылочных нервов: на 1,5-2 см латеральнее и ниже наружного затылочного бугра. Боль иррадиирует в затылок и теменную область.</div>
+            </div>
+            <div class="symptom-card">
+                <h3>Тригеминальные точки Балле <span class="badge-disease">Невралгия тройничного нерва</span></h3>
+                <p>Болезненные точки при надавливании в зоне выхода ветвей тройничного нерва (надглазничная, подглазничная, подбородочная).</p>
+                <div class="technique">📐 <strong>Техника:</strong> пальпация точек: надглазничная (у внутреннего края орбиты), подглазничная (на уровне середины нижнего края орбиты), подбородочная (на середине нижней челюсти).</div>
             </div>
         </div>
     </div>
 
     <!-- 5. Дополнительные симптомы вертеброгенных радикулопатий -->
-    <div class="section-card">
-        <div class="section-header" style="border-bottom-color: #d90429;">
-            <h2><i class="fas fa-backward" style="color:#d90429;"></i> 5. Дополнительные симптомы вертеброгенных радикулопатий</h2>
-        </div>
-        <div class="section-content">
-            <div class="grid-2">
-                <div class="symptom-card" style="border-left-color: #d90429;">
-                    <h3>Симптом «рессоры» <span class="badge-disease" style="background:#d90429;">Люмбаго</span></h3>
-                    <p>Усиление боли в пояснице при разгибании туловища из положения сгибания вперёд.</p>
-                    <div class="technique">📐 <strong>Техника:</strong> пациент стоит, наклоняется вперёд, затем разгибается. Положительный симптом — боль при возвращении в вертикальное положение.</div>
-                </div>
-                <div class="symptom-card" style="border-left-color: #d90429;">
-                    <h3>Симптом «наклона» <span class="badge-disease" style="background:#d90429;">Люмбаго</span></h3>
-                    <p>Усиление боли при наклоне туловища в сторону, противоположную поражению.</p>
-                    <div class="technique">📐 <strong>Техника:</strong> пациент стоит. Врач просит наклониться влево и вправо. При поражении корешка боль усиливается при наклоне в здоровую сторону (растяжение корешка).</div>
-                </div>
-                <div class="symptom-card" style="border-left-color: #d90429;">
-                    <h3>Симптом «утренней скованности» <span class="badge-disease" style="background:#d90429;">Спондилоартроз, анкилозирующий спондилит</span></h3>
-                    <p>Ограничение подвижности и боль в пояснице после сна, уменьшающаяся после разминки.</p>
-                    <div class="technique">📐 <strong>Техника:</strong> сбор анамнеза. Характерно для воспалительных заболеваний позвоночника (в отличие от механической боли при остеохондрозе).</div>
-                </div>
-                <div class="symptom-card" style="border-left-color: #d90429;">
-                    <h3>Симптом «позвоночного толчка» <span class="badge-disease" style="background:#d90429;">Компрессионный перелом, спондилолистез</span></h3>
-                    <p>Усиление боли в пояснице при осевой нагрузке (поколачивании по остистым отросткам или по голове).</p>
-                    <div class="technique">📐 <strong>Техника:</strong> поколачивание по остистым отросткам поясничных позвонков или лёгкое надавливание на голову пациента по вертикальной оси.</div>
-                </div>
-                <div class="symptom-card" style="border-left-color: #d90429;">
-                    <h3>Симптом «поза замершего человека» <span class="badge-disease" style="background:#d90429;">Люмбаго (прострел)</span></h3>
-                    <p>Пациент застывает в определённой позе, не может разогнуться из-за резкой боли.</p>
-                    <div class="technique">📐 <strong>Техника:</strong> визуальный осмотр. Пациент стоит с согнутой поясницей (анталгическая поза), избегает малейших движений.</div>
-                </div>
-                <div class="symptom-card" style="border-left-color: #d90429;">
-                    <h3>Симптом «кашлевого толчка» (Дежерина) <span class="badge-disease" style="background:#d90429;">Радикулопатия (поясничная и грудная)</span></h3>
-                    <p>Усиление боли при кашле, чихании или натуживании (повышение внутрипозвоночного давления).</p>
-                    <div class="technique">📐 <strong>Техника:</strong> пациента просят покашлять. При положительном симптоме возникает резкая боль в зоне соответствующего корешка. Высокоспецифичный признак.</div>
-                </div>
+    <div class="card">
+        <h2>5. Дополнительные симптомы вертеброгенных радикулопатий</h2>
+        <div class="grid-2">
+            <div class="symptom-card">
+                <h3>Симптом «рессоры» <span class="badge-disease">Люмбаго</span></h3>
+                <p>Усиление боли в пояснице при разгибании туловища из положения сгибания вперёд.</p>
+                <div class="technique">📐 <strong>Техника:</strong> пациент стоит, наклоняется вперёд, затем разгибается. Положительный симптом — боль при возвращении в вертикальное положение.</div>
+            </div>
+            <div class="symptom-card">
+                <h3>Симптом «наклона» <span class="badge-disease">Люмбаго</span></h3>
+                <p>Усиление боли при наклоне туловища в сторону, противоположную поражению.</p>
+                <div class="technique">📐 <strong>Техника:</strong> пациент стоит. Врач просит наклониться влево и вправо. При поражении корешка боль усиливается при наклоне в здоровую сторону (растяжение корешка).</div>
+            </div>
+            <div class="symptom-card">
+                <h3>Симптом «утренней скованности» <span class="badge-disease">Спондилоартроз, анкилозирующий спондилит</span></h3>
+                <p>Ограничение подвижности и боль в пояснице после сна, уменьшающаяся после разминки.</p>
+                <div class="technique">📐 <strong>Техника:</strong> сбор анамнеза. Характерно для воспалительных заболеваний позвоночника (в отличие от механической боли при остеохондрозе).</div>
+            </div>
+            <div class="symptom-card">
+                <h3>Симптом «позвоночного толчка» <span class="badge-disease">Компрессионный перелом, спондилолистез</span></h3>
+                <p>Усиление боли в пояснице при осевой нагрузке (поколачивании по остистым отросткам или по голове).</p>
+                <div class="technique">📐 <strong>Техника:</strong> поколачивание по остистым отросткам поясничных позвонков или лёгкое надавливание на голову пациента по вертикальной оси.</div>
+            </div>
+            <div class="symptom-card">
+                <h3>Симптом «поза замершего человека» <span class="badge-disease">Люмбаго (прострел)</span></h3>
+                <p>Пациент застывает в определённой позе, не может разогнуться из-за резкой боли.</p>
+                <div class="technique">📐 <strong>Техника:</strong> визуальный осмотр. Пациент стоит с согнутой поясницей (анталгическая поза), избегает малейших движений.</div>
+            </div>
+            <div class="symptom-card">
+                <h3>Симптом «кашлевого толчка» (Дежерина) <span class="badge-disease">Радикулопатия (поясничная и грудная)</span></h3>
+                <p>Усиление боли при кашле, чихании или натуживании (повышение внутрипозвоночного давления).</p>
+                <div class="technique">📐 <strong>Техника:</strong> пациента просят покашлять. При положительном симптоме возникает резкая боль в зоне соответствующего корешка. Высокоспецифичный признак.</div>
             </div>
         </div>
     </div>
 
     <!-- 6. RED FLAGS при дорсалгиях -->
-    <div class="section-card">
-        <div class="section-header" style="border-bottom-color: #c44536;">
-            <h2>🚨 6. RED FLAGS — тревожные признаки при болях в спине</h2>
+    <div class="card">
+        <h2>🚨 6. RED FLAGS — тревожные признаки при болях в спине</h2>
+        <div class="grid-2">
+            <div class="symptom-card" style="border-left-color: #d32f2f;">
+                <h3>Синдром «конского хвоста»</h3>
+                <p>Задержка мочеиспускания, недержание мочи или кала, онемение в промежности (седловидная анестезия), резкая слабость в ногах.</p>
+                <div class="technique">📐 <strong>Тактика:</strong> экстренная госпитализация — неврологическая катастрофа, требующая декомпрессии.</div>
+            </div>
+            <div class="symptom-card" style="border-left-color: #d32f2f;">
+                <h3>Наличие лихорадки + боли в спине</h3>
+                <p>Подозрение на эпидуральный абсцесс, спондилит, септический диск-сит.</p>
+                <div class="technique">📐 <strong>Тактика:</strong> госпитализация, МРТ, антибиотикотерапия.</div>
+            </div>
+            <div class="symptom-card" style="border-left-color: #d32f2f;">
+                <h3>Прогрессирующий неврологический дефицит</h3>
+                <p>Нарастающая слабость в ногах, падение, нарушение походки, затруднение подъёма на носки или пятки.</p>
+                <div class="technique">📐 <strong>Тактика:</strong> экстренная госпитализация в нейрохирургическое отделение.</div>
+            </div>
         </div>
-        <div class="section-content">
-            <div class="grid-2">
-                <div class="symptom-card" style="border-left-color: #c44536;">
-                    <h3>Синдром «конского хвоста»</h3>
-                    <p>Задержка мочеиспускания, недержание мочи или кала, онемение в промежности (седловидная анестезия), резкая слабость в ногах.</p>
-                    <div class="technique">📐 <strong>Тактика:</strong> экстренная госпитализация — неврологическая катастрофа, требующая декомпрессии.</div>
-                </div>
-                <div class="symptom-card" style="border-left-color: #c44536;">
-                    <h3>Наличие лихорадки + боли в спине</h3>
-                    <p>Подозрение на эпидуральный абсцесс, спондилит, септический диск-сит.</p>
-                    <div class="technique">📐 <strong>Тактика:</strong> госпитализация, МРТ, антибиотикотерапия.</div>
-                </div>
-                <div class="symptom-card" style="border-left-color: #c44536;">
-                    <h3>Прогрессирующий неврологический дефицит</h3>
-                    <p>Нарастающая слабость в ногах, падение, нарушение походки, затруднение подъёма на носки или пятки.</p>
-                    <div class="technique">📐 <strong>Тактика:</strong> экстренная госпитализация в нейрохирургическое отделение.</div>
-                </div>
-            </div>
-            <div class="note-red" style="margin-top: 0.5rem;">
-                <strong>⚠️ Врачу СМП:</strong> При симптомах «конского хвоста» — экстренная госпитализация!
-            </div>
+        <div class="note-red">
+            <strong>⚠️ Врачу СМП:</strong> При симптомах «конского хвоста» — экстренная госпитализация!
         </div>
     </div>
 </div>
+
+<script>
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/SMP/sw.js')
+            .then(reg => console.log('✅ SW зарегистрирован:', reg))
+            .catch(err => console.error('❌ Ошибка:', err));
+    }
+</script>
+
 </body>
 </html>
