@@ -27,20 +27,34 @@
     min-height: 100vh;
   }
 
-  h1 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #0f1446;
-    font-size: 28px;
-  }
-
   .container {
     max-width: 1700px;
     width: 100%;
+  }
+
+  .card {
     background: white;
     border-radius: 24px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    padding: 1.5rem 1rem;
+    padding: 24px 22px;
+    margin-bottom: 24px;
+  }
+
+  .header-card {
+    background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
+    color: white;
+    text-align: center;
+    padding: 28px 20px;
+  }
+  .header-card h1 {
+    color: white;
+    margin-bottom: 8px;
+    font-size: 28px;
+  }
+  .header-card p {
+    opacity: 0.9;
+    font-size: 1rem;
+    margin-top: 4px;
   }
 
   .toolbar {
@@ -323,12 +337,8 @@
     .swipe-hint {
       display: block;
     }
-    h1 {
+    .header-card h1 {
       font-size: 24px;
-    }
-    .container {
-      padding: 1rem 0.8rem;
-      border-radius: 16px;
     }
     th, td {
       padding: 0.5rem 0.5rem;
@@ -340,8 +350,9 @@
     body {
       padding: 10px;
     }
-    .container {
-      padding: 0.8rem 0.5rem;
+    .card {
+      padding: 14px 10px;
+      border-radius: 16px;
     }
     .search-box {
       padding: 0.2rem 0.2rem 0.2rem 0.8rem;
@@ -358,52 +369,57 @@
 </head>
 <body>
 
-<h1>🦠 Инкубационный период инфекций</h1>
-
 <div class="container">
-  <div class="toolbar">
-    <div class="search-box">
-      <input type="text" id="searchInput" placeholder="Название, синдром, источник..." autocomplete="off">
-      <button id="searchBtn">🔍</button>
-    </div>
-    <div class="filter-scroll" id="filterScroll">
-      <div class="filter-chip active" data-group="all">Все</div>
-      <div class="filter-chip" data-group="Воздушно-капельные">🫁 Капельные</div>
-      <div class="filter-chip" data-group="Кишечные">💧 Кишечные</div>
-      <div class="filter-chip" data-group="Нейроинфекции">🧠 Нейро</div>
-      <div class="filter-chip" data-group="Гепатиты">🫀 Гепатиты</div>
-      <div class="filter-chip" data-group="Зоонозы">🐾 Зоонозы</div>
-      <div class="filter-chip" data-group="Трансмиссивные">🦟 Трансмис.</div>
-      <div class="filter-chip" data-group="Особо опасные">⚠️ ООИ</div>
-      <div class="filter-chip" data-group="Тропические">🌴 Тропики</div>
-      <div class="filter-chip" data-group="Паразитарные">🪱 Паразиты</div>
-      <div class="filter-chip special" data-group="Детские">🧸 Детские</div>
-      <div class="filter-chip sort-chip" id="sortByTimeBtn">⏱️ Сроки</div>
-      <button class="reset-btn" id="resetFilters">↺ Сброс</button>
-    </div>
+  <div class="card header-card">
+    <h1>🦠 Инкубационный период инфекций</h1>
+    <p>Воздушно-капельные, кишечные, нейроинфекции, гепатиты, зоонозы, трансмиссивные, ООИ, тропические и паразитарные</p>
   </div>
 
-  <div class="table-wrapper">
-    <table id="infectionTable">
-      <thead>
-         <tr>
-            <th>Заболевание</th>
-            <th>Группа</th>
-            <th>Мин.</th>
-            <th>Типично</th>
-            <th>Макс.</th>
-            <th>Синдром</th>
-            <th>Источник</th>
-            <th>Передача</th>
-         </tr>
-      </thead>
-      <tbody id="tableBody">
-      </tbody>
-    </table>
-  </div>
-  <div class="swipe-hint">← Прокручивайте таблицу влево-вправо →</div>
-  <div class="footer-note">
-    <span class="count-indicator" id="rowCount">0 заболеваний</span>
+  <div class="card">
+    <div class="toolbar">
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Название, синдром, источник..." autocomplete="off">
+        <button id="searchBtn">🔍</button>
+      </div>
+      <div class="filter-scroll" id="filterScroll">
+        <div class="filter-chip active" data-group="all">Все</div>
+        <div class="filter-chip" data-group="Воздушно-капельные">🫁 Капельные</div>
+        <div class="filter-chip" data-group="Кишечные">💧 Кишечные</div>
+        <div class="filter-chip" data-group="Нейроинфекции">🧠 Нейро</div>
+        <div class="filter-chip" data-group="Гепатиты">🫀 Гепатиты</div>
+        <div class="filter-chip" data-group="Зоонозы">🐾 Зоонозы</div>
+        <div class="filter-chip" data-group="Трансмиссивные">🦟 Трансмис.</div>
+        <div class="filter-chip" data-group="Особо опасные">⚠️ ООИ</div>
+        <div class="filter-chip" data-group="Тропические">🌴 Тропики</div>
+        <div class="filter-chip" data-group="Паразитарные">🪱 Паразиты</div>
+        <div class="filter-chip special" data-group="Детские">🧸 Детские</div>
+        <div class="filter-chip sort-chip" id="sortByTimeBtn">⏱️ Сроки</div>
+        <button class="reset-btn" id="resetFilters">↺ Сброс</button>
+      </div>
+    </div>
+
+    <div class="table-wrapper">
+      <table id="infectionTable">
+        <thead>
+           <tr>
+              <th>Заболевание</th>
+              <th>Группа</th>
+              <th>Мин.</th>
+              <th>Типично</th>
+              <th>Макс.</th>
+              <th>Синдром</th>
+              <th>Источник</th>
+              <th>Передача</th>
+           </tr>
+        </thead>
+        <tbody id="tableBody">
+        </tbody>
+      </table>
+    </div>
+    <div class="swipe-hint">← Прокручивайте таблицу влево-вправо →</div>
+    <div class="footer-note">
+      <span class="count-indicator" id="rowCount">0 заболеваний</span>
+    </div>
   </div>
 </div>
 
