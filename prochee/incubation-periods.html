@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Инкубационный период инфекций</title>
+
+<!-- PWA -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0f1446">
+
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Segoe UI', 'Roboto', sans-serif;
+    margin: 0;
+    padding: 20px;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+  }
+
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #0f1446;
+    font-size: 28px;
+  }
+
+  .container {
+    max-width: 1700px;
+    width: 100%;
+    background: white;
+    border-radius: 24px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    padding: 1.5rem 1rem;
+  }
+
+  .toolbar {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .search-box {
+    display: flex;
+    align-items: center;
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 0.3rem 0.3rem 0.3rem 1rem;
+    width: 100%;
+    border: 2px solid #d4e2f0;
+    transition: 0.2s;
+  }
+
+  .search-box:focus-within {
+    border-color: #0f1446;
+    box-shadow: 0 0 0 3px rgba(15,20,70,0.1);
+  }
+
+  .search-box input {
+    border: none;
+    background: transparent;
+    width: 100%;
+    font-size: 15px;
+    padding: 0.5rem 0;
+    outline: none;
+    min-width: 0;
+    font-family: inherit;
+    color: #1f3a4b;
+  }
+
+  .search-box button {
+    background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
+    border: none;
+    color: white;
+    font-weight: 600;
+    padding: 0.5rem 1.2rem;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: all 0.2s;
+    white-space: nowrap;
+    flex-shrink: 0;
+    font-family: inherit;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  }
+
+  .search-box button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  }
+
+  .search-box button:active {
+    transform: scale(0.98);
+  }
+
+  .filter-scroll {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 8px;
+    padding-bottom: 8px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: #d4e2f0 #f5f7fa;
+  }
+
+  .filter-scroll::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  .filter-scroll::-webkit-scrollbar-track {
+    background: #f5f7fa;
+    border-radius: 4px;
+  }
+
+  .filter-scroll::-webkit-scrollbar-thumb {
+    background: #d4e2f0;
+    border-radius: 4px;
+  }
+
+  .filter-chip {
+    background: #ffffff;
+    border: 2px solid #d4e2f0;
+    padding: 8px 14px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #0f1446;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+    user-select: none;
+    flex-shrink: 0;
+    font-family: inherit;
+  }
+
+  .filter-chip:hover {
+    background: #eef7ff;
+    border-color: #0f1446;
+    transform: translateY(-1px);
+  }
+
+  .filter-chip.active {
+    background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
+    border-color: #0f1446;
+    color: white;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  }
+
+  .filter-chip:active {
+    transform: scale(0.98);
+  }
+
+  .filter-chip.special {
+    background: #fff0f0;
+    border-color: #d32f2f;
+    color: #b71c1c;
+  }
+
+  .filter-chip.special.active {
+    background: linear-gradient(135deg, #800000 0%, #5a0000 100%);
+    border-color: #800000;
+    color: white;
+  }
+
+  .sort-chip {
+    background: #eef7ff;
+    border-color: #1f6e9c;
+    color: #0f1446;
+  }
+
+  .sort-chip.active {
+    background: linear-gradient(135deg, #1f6e9c 0%, #155a80 100%);
+    border-color: #1f6e9c;
+    color: white;
+  }
+
+  .reset-btn {
+    background: transparent;
+    border: 2px dashed #d4e2f0;
+    color: #6f8eaa;
+    padding: 8px 14px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+    white-space: nowrap;
+    flex-shrink: 0;
+    font-family: inherit;
+  }
+
+  .reset-btn:hover {
+    border-color: #0f1446;
+    color: #0f1446;
+    background: #eef7ff;
+  }
+
+  .table-wrapper {
+    overflow-x: auto;
+    border-radius: 16px;
+    border: 2px solid #d4e2f0;
+    background: white;
+    -webkit-overflow-scrolling: touch;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.8rem;
+    min-width: 900px;
+  }
+
+  th {
+    background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
+    color: white;
+    font-weight: 600;
+    padding: 0.8rem 0.6rem;
+    text-align: left;
+    border-bottom: 2px solid #0f1446;
+    position: sticky;
+    top: 0;
+    font-size: 0.72rem;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+  }
+
+  td {
+    padding: 0.6rem 0.6rem;
+    border-bottom: 1px solid #e2ecf3;
+    color: #1f3a4b;
+  }
+
+  tbody tr:hover {
+    background: #eef7ff;
+  }
+
+  tbody tr:active {
+    background: #d4e2f0;
+  }
+
+  .badge {
+    display: inline-block;
+    background: #eef7ff;
+    color: #0f1446;
+    font-weight: 600;
+    font-size: 0.65rem;
+    padding: 0.15rem 0.55rem;
+    border-radius: 8px;
+    letter-spacing: 0.2px;
+    text-transform: uppercase;
+    white-space: nowrap;
+    border: 1px solid #d4e2f0;
+  }
+
+  .badge.airborne { background: #eef7ff; color: #0f1446; border-color: #1f6e9c; }
+  .badge.enteric { background: #fff8e7; color: #a56b00; border-color: #f0b849; }
+  .badge.neuro { background: #eef7ff; color: #0f1446; border-color: #5f9bc2; }
+  .badge.hepatitis { background: #fff8e7; color: #a56b00; border-color: #e68a2e; }
+  .badge.zoonosis { background: #e8f5e9; color: #1b5e20; border-color: #4caf50; }
+  .badge.vector { background: #fce4ec; color: #880e4f; border-color: #e91e63; }
+  .badge.ooo { background: #ffebee; color: #b71c1c; border-color: #d32f2f; }
+  .badge.tropical { background: #fff8e7; color: #a56b00; border-color: #ff9800; }
+  .badge.parasitic { background: #e8f5e9; color: #1b5e20; border-color: #388e3c; }
+  .badge.pediatric { background: #fce4ec; color: #880e4f; border-color: #f06292; }
+
+  .highlight {
+    background: #fff3b0;
+    font-weight: 600;
+    border-radius: 4px;
+    padding: 0 2px;
+    color: #a56b00;
+  }
+
+  .footer-note {
+    margin-top: 20px;
+    font-size: 0.75rem;
+    color: #6f8eaa;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 16px;
+    border-top: 1px solid #e2ecf3;
+  }
+
+  .count-indicator {
+    background: #eef7ff;
+    border-radius: 10px;
+    padding: 4px 12px;
+    font-weight: 600;
+    font-size: 0.75rem;
+    color: #0f1446;
+  }
+
+  .swipe-hint {
+    display: none;
+    text-align: center;
+    font-size: 0.75rem;
+    color: #6f8eaa;
+    margin-top: 8px;
+  }
+
+  @media (max-width: 768px) {
+    .swipe-hint {
+      display: block;
+    }
+    h1 {
+      font-size: 24px;
+    }
+    .container {
+      padding: 1rem 0.8rem;
+      border-radius: 16px;
+    }
+    th, td {
+      padding: 0.5rem 0.5rem;
+      font-size: 0.7rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    body {
+      padding: 10px;
+    }
+    .container {
+      padding: 0.8rem 0.5rem;
+    }
+    .search-box {
+      padding: 0.2rem 0.2rem 0.2rem 0.8rem;
+    }
+    .search-box input {
+      font-size: 13px;
+    }
+    .search-box button {
+      padding: 0.4rem 0.8rem;
+      font-size: 13px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<h1>🦠 Инкубационный период инфекций</h1>
+
+<div class="container">
+  <div class="toolbar">
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Название, синдром, источник..." autocomplete="off">
+      <button id="searchBtn">🔍</button>
+    </div>
+    <div class="filter-scroll" id="filterScroll">
+      <div class="filter-chip active" data-group="all">Все</div>
+      <div class="filter-chip" data-group="Воздушно-капельные">🫁 Капельные</div>
+      <div class="filter-chip" data-group="Кишечные">💧 Кишечные</div>
+      <div class="filter-chip" data-group="Нейроинфекции">🧠 Нейро</div>
+      <div class="filter-chip" data-group="Гепатиты">🫀 Гепатиты</div>
+      <div class="filter-chip" data-group="Зоонозы">🐾 Зоонозы</div>
+      <div class="filter-chip" data-group="Трансмиссивные">🦟 Трансмис.</div>
+      <div class="filter-chip" data-group="Особо опасные">⚠️ ООИ</div>
+      <div class="filter-chip" data-group="Тропические">🌴 Тропики</div>
+      <div class="filter-chip" data-group="Паразитарные">🪱 Паразиты</div>
+      <div class="filter-chip special" data-group="Детские">🧸 Детские</div>
+      <div class="filter-chip sort-chip" id="sortByTimeBtn">⏱️ Сроки</div>
+      <button class="reset-btn" id="resetFilters">↺ Сброс</button>
+    </div>
+  </div>
+
+  <div class="table-wrapper">
+    <table id="infectionTable">
+      <thead>
+         <tr>
+            <th>Заболевание</th>
+            <th>Группа</th>
+            <th>Мин.</th>
+            <th>Типично</th>
+            <th>Макс.</th>
+            <th>Синдром</th>
+            <th>Источник</th>
+            <th>Передача</th>
+         </tr>
+      </thead>
+      <tbody id="tableBody">
+      </tbody>
+    </table>
+  </div>
+  <div class="swipe-hint">← Прокручивайте таблицу влево-вправо →</div>
+  <div class="footer-note">
+    <span class="count-indicator" id="rowCount">0 заболеваний</span>
+  </div>
+</div>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/SMP/sw.js')
+      .then(reg => console.log('✅ SW зарегистрирован:', reg))
+      .catch(err => console.error('❌ Ошибка:', err));
+  }
+
+  (function() {
+    const infections = [
+      { disease: "Грипп", group: "Воздушно-капельные", min: "1 день", typical: "2 дня", max: "4 дня", syndrome: "Интоксикация, катар", source: "Больной человек", transmission: "Воздушно-капельный", minHours: 24, typicalHours: 48, maxHours: 96 },
+      { disease: "COVID-19", group: "Воздушно-капельные", min: "2 дня", typical: "3–5 дней", max: "14 дней", syndrome: "Респираторный, аносмия", source: "Больной человек", transmission: "Воздушно-капельный, аэрозоль", minHours: 48, typicalHours: 84, maxHours: 336 },
+      { disease: "Корь", group: "Воздушно-капельные", min: "7 дней", typical: "11–12 дней", max: "21 день", syndrome: "Пятна Бельского-Филатова, сыпь", source: "Больной человек", transmission: "Воздушно-капельный", minHours: 168, typicalHours: 276, maxHours: 504, pediatric: true },
+      { disease: "Краснуха", group: "Воздушно-капельные", min: "11 дней", typical: "14–18 дней", max: "23 дня", syndrome: "Мелкопятнистая сыпь, лимфаденит", source: "Больной человек", transmission: "Воздушно-капельный", minHours: 264, typicalHours: 384, maxHours: 552, pediatric: true },
+      { disease: "Ветряная оспа", group: "Воздушно-капельные", min: "10 дней", typical: "14–16 дней", max: "21 день", syndrome: "Везикулярная сыпь", source: "Больной человек", transmission: "Воздушно-капельный, контактный", minHours: 240, typicalHours: 360, maxHours: 504, pediatric: true },
+      { disease: "Опоясывающий лишай", group: "Воздушно-капельные", min: "месяцы", typical: "годы", max: "десятилетия", syndrome: "Герпетические высыпания по дерматому", source: "Эндогенная реактивация", transmission: "Воздушно-капельный", minHours: 720, typicalHours: 8760, maxHours: 87600 },
+      { disease: "Эпидемический паротит", group: "Воздушно-капельные", min: "12 дней", typical: "16–18 дней", max: "25 дней", syndrome: "Паротит, орхит", source: "Больной человек", transmission: "Воздушно-капельный", minHours: 288, typicalHours: 408, maxHours: 600, pediatric: true },
+      { disease: "Полиомиелит", group: "Воздушно-капельные", min: "3 дня", typical: "7–14 дней", max: "35 дней", syndrome: "Вялые параличи", source: "Больной человек", transmission: "Фекально-оральный, воздушно-капельный", minHours: 72, typicalHours: 252, maxHours: 840 },
+      { disease: "Аденовирусная инфекция", group: "Воздушно-капельные", min: "2 дня", typical: "5–6 дней", max: "14 дней", syndrome: "Фарингоконъюнктивальная лихорадка", source: "Больной человек", transmission: "Воздушно-капельный, контактный", minHours: 48, typicalHours: 132, maxHours: 336 },
+      { disease: "РС-вирус", group: "Воздушно-капельные", min: "2 дня", typical: "4–6 дней", max: "8 дней", syndrome: "Бронхиолит", source: "Больной человек", transmission: "Воздушно-капельный", minHours: 48, typicalHours: 120, maxHours: 192 },
+      { disease: "Риновирусная инфекция", group: "Воздушно-капельные", min: "12 часов", typical: "1–2 дня", max: "3 дня", syndrome: "Ринит, фарингит", source: "Больной человек", transmission: "Воздушно-капельный", minHours: 12, typicalHours: 36, maxHours: 72 },
+      { disease: "Парагрипп", group: "Воздушно-капельные", min: "2 дня", typical: "2–6 дней", max: "7 дней", syndrome: "Ларингит, круп", source: "Больной человек", transmission: "Воздушно-капельный", minHours: 48, typicalHours: 96, maxHours: 168 },
+      { disease: "Метапневмовирус", group: "Воздушно-капельные", min: "3 дня", typical: "4–6 дней", max: "9 дней", syndrome: "ОРВИ, бронхиолит", source: "Больной человек", transmission: "Воздушно-капельный", minHours: 72, typicalHours: 120, maxHours: 216 },
+      { disease: "Инфекционный мононуклеоз (EBV)", group: "Воздушно-капельные", min: "30 дней", typical: "4–6 недель", max: "8 недель", syndrome: "Ангина, лимфаденопатия", source: "Больной человек", transmission: "Воздушно-капельный, контактный", minHours: 720, typicalHours: 840, maxHours: 1344 },
+      { disease: "ЦМВ-инфекция", group: "Воздушно-капельные", min: "20 дней", typical: "4–8 недель", max: "12 недель", syndrome: "Мононуклеозоподобный", source: "Больной человек", transmission: "Контактный, трансплацентарный", minHours: 480, typicalHours: 1008, maxHours: 2016 },
+      { disease: "Герпес простой", group: "Воздушно-капельные", min: "2 дня", typical: "4–6 дней", max: "12 дней", syndrome: "Везикулы на коже/слизистых", source: "Больной человек", transmission: "Контактный, воздушно-капельный", minHours: 48, typicalHours: 120, maxHours: 288 },
+      { disease: "Вирус Коксаки", group: "Кишечные", min: "2 дня", typical: "3–6 дней", max: "10 дней", syndrome: "Герпангина, экзантема", source: "Больной человек", transmission: "Фекально-оральный", minHours: 48, typicalHours: 108, maxHours: 240 },
+      { disease: "Энтеровирусная инфекция", group: "Кишечные", min: "2 дня", typical: "3–5 дней", max: "10 дней", syndrome: "Лихорадка, сыпь", source: "Больной человек", transmission: "Фекально-оральный", minHours: 48, typicalHours: 96, maxHours: 240 },
+      { disease: "Ротавирус", group: "Кишечные", min: "15 часов", typical: "1–2 дня", max: "3 дня", syndrome: "Гастроэнтерит", source: "Больной человек", transmission: "Фекально-оральный", minHours: 15, typicalHours: 36, maxHours: 72 },
+      { disease: "Норовирус", group: "Кишечные", min: "12 часов", typical: "24–48 часов", max: "72 часа", syndrome: "Острый гастроэнтерит", source: "Больной человек", transmission: "Фекально-оральный", minHours: 12, typicalHours: 36, maxHours: 72 },
+      { disease: "Астровирус", group: "Кишечные", min: "1 день", typical: "3–4 дня", max: "5 дней", syndrome: "Диарея", source: "Больной человек", transmission: "Фекально-оральный", minHours: 24, typicalHours: 84, maxHours: 120 },
+      { disease: "Шигеллёз", group: "Кишечные", min: "1 день", typical: "2–3 дня", max: "7 дней", syndrome: "Колит, тенезмы", source: "Больной человек", transmission: "Фекально-оральный", minHours: 24, typicalHours: 60, maxHours: 168 },
+      { disease: "Сальмонеллёз", group: "Кишечные", min: "6 часов", typical: "12–36 часов", max: "3 дня", syndrome: "Гастроэнтерит", source: "Животные, пища", transmission: "Фекально-оральный", minHours: 6, typicalHours: 24, maxHours: 72 },
+      { disease: "Кампилобактериоз", group: "Кишечные", min: "1 день", typical: "2–5 дней", max: "10 дней", syndrome: "Энтероколит", source: "Птица, животные", transmission: "Фекально-оральный", minHours: 24, typicalHours: 84, maxHours: 240 },
+      { disease: "Иерсиниоз", group: "Кишечные", min: "1 день", typical: "4–7 дней", max: "21 день", syndrome: "Энтероколит, псевдоаппендицит", source: "Грызуны", transmission: "Фекально-оральный", minHours: 24, typicalHours: 132, maxHours: 504 },
+      { disease: "Брюшной тиф", group: "Кишечные", min: "3 дня", typical: "7–14 дней", max: "60 дней", syndrome: "Лихорадка, розеолы", source: "Больной человек", transmission: "Фекально-оральный", minHours: 72, typicalHours: 252, maxHours: 1440 },
+      { disease: "Паратиф", group: "Кишечные", min: "1 день", typical: "7–10 дней", max: "21 день", syndrome: "Лихорадка, интоксикация", source: "Больной человек", transmission: "Фекально-оральный", minHours: 24, typicalHours: 204, maxHours: 504 },
+      { disease: "Холера", group: "Кишечные", min: "несколько часов", typical: "1–2 дня", max: "5 дней", syndrome: "Водянистая диарея", source: "Больной человек", transmission: "Фекально-оральный", minHours: 3, typicalHours: 36, maxHours: 120 },
+      { disease: "Стафилококковая пищевая токсикоинфекция", group: "Кишечные", min: "30 мин", typical: "2–6 часов", max: "8 часов", syndrome: "Рвота, интоксикация", source: "Пища", transmission: "Пищевой", minHours: 0.5, typicalHours: 4, maxHours: 8 },
+      { disease: "Ботулизм", group: "Кишечные", min: "6 часов", typical: "12–36 часов", max: "8 дней", syndrome: "Нейропаралитический", source: "Консервы, почва", transmission: "Пищевой", minHours: 6, typicalHours: 24, maxHours: 192 },
+      { disease: "Менингококковая инфекция", group: "Нейроинфекции", min: "1 день", typical: "3–4 дня", max: "10 дней", syndrome: "Менингит, менингококкемия", source: "Больной человек", transmission: "Воздушно-капельный", minHours: 24, typicalHours: 84, maxHours: 240 },
+      { disease: "Hib-инфекция", group: "Нейроинфекции", min: "1 день", typical: "2–4 дня", max: "10 дней", syndrome: "Менингит, эпиглоттит", source: "Больной человек", transmission: "Воздушно-капельный", minHours: 24, typicalHours: 72, maxHours: 240 },
+      { disease: "Пневмококковая инфекция", group: "Нейроинфекции", min: "1 день", typical: "1–3 дня", max: "7 дней", syndrome: "Пневмония, менингит", source: "Больной человек", transmission: "Воздушно-капельный", minHours: 24, typicalHours: 48, maxHours: 168 },
+      { disease: "Клещевой энцефалит", group: "Нейроинфекции", min: "2 дня", typical: "7–14 дней", max: "28 дней", syndrome: "Менингоэнцефалит", source: "Клещи", transmission: "Трансмиссивный", minHours: 48, typicalHours: 252, maxHours: 672 },
+      { disease: "Японский энцефалит", group: "Нейроинфекции", min: "5 дней", typical: "8–10 дней", max: "15 дней", syndrome: "Энцефалит", source: "Комары", transmission: "Трансмиссивный", minHours: 120, typicalHours: 216, maxHours: 360 },
+      { disease: "Бешенство", group: "Нейроинфекции", min: "5 дней", typical: "1–3 месяца", max: "более 1 года", syndrome: "Энцефалит, гидрофобия", source: "Животные", transmission: "Укус, ослюнение", minHours: 120, typicalHours: 1440, maxHours: 8760 },
+      { disease: "Гепатит А", group: "Гепатиты", min: "15 дней", typical: "28–30 дней", max: "50 дней", syndrome: "Желтуха, интоксикация", source: "Больной человек", transmission: "Фекально-оральный", minHours: 360, typicalHours: 696, maxHours: 1200 },
+      { disease: "Гепатит В", group: "Гепатиты", min: "30 дней", typical: "60–90 дней", max: "180 дней", syndrome: "Желтуха, артралгия", source: "Больной человек", transmission: "Парентеральный, половой", minHours: 720, typicalHours: 1800, maxHours: 4320 },
+      { disease: "Гепатит С", group: "Гепатиты", min: "2 недели", typical: "6–7 недель", max: "6 месяцев", syndrome: "Стертая желтуха", source: "Больной человек", transmission: "Парентеральный", minHours: 336, typicalHours: 1092, maxHours: 4320 },
+      { disease: "Гепатит D", group: "Гепатиты", min: "2 недели", typical: "6–8 недель", max: "6 месяцев", syndrome: "Тяжелый гепатит", source: "Больной человек", transmission: "Парентеральный", minHours: 336, typicalHours: 1176, maxHours: 4320 },
+      { disease: "Гепатит Е", group: "Гепатиты", min: "15 дней", typical: "40 дней", max: "60 дней", syndrome: "Желтуха", source: "Больной человек", transmission: "Фекально-оральный", minHours: 360, typicalHours: 960, maxHours: 1440 },
+      { disease: "Лептоспироз", group: "Зоонозы", min: "2 дня", typical: "7–12 дней", max: "30 дней", syndrome: "Лихорадка, миалгия", source: "Грызуны", transmission: "Контакт с водой", minHours: 48, typicalHours: 228, maxHours: 720 },
+      { disease: "Туляремия", group: "Зоонозы", min: "1 день", typical: "3–5 дней", max: "21 день", syndrome: "Бубон, язва", source: "Грызуны", transmission: "Трансмиссивный, контактный", minHours: 24, typicalHours: 96, maxHours: 504 },
+      { disease: "Бруцеллёз", group: "Зоонозы", min: "5 дней", typical: "2–4 недели", max: "несколько месяцев", syndrome: "Лихорадка, артрит", source: "Скот", transmission: "Алиментарный, контактный", minHours: 120, typicalHours: 504, maxHours: 2160 },
+      { disease: "Орнитоз", group: "Зоонозы", min: "4 дня", typical: "7–14 дней", max: "28 дней", syndrome: "Пневмония", source: "Птицы", transmission: "Воздушно-пылевой", minHours: 96, typicalHours: 252, maxHours: 672 },
+      { disease: "Q-лихорадка", group: "Зоонозы", min: "7 дней", typical: "14–21 день", max: "40 дней", syndrome: "Лихорадка, пневмония", source: "Скот", transmission: "Воздушно-пылевой", minHours: 168, typicalHours: 420, maxHours: 960 },
+      { disease: "Листериоз", group: "Зоонозы", min: "1 день", typical: "1–3 недели", max: "до 70 дней", syndrome: "Менингит, гастроэнтерит", source: "Животные, пища", transmission: "Пищевой", minHours: 24, typicalHours: 336, maxHours: 1680 },
+      { disease: "Сап", group: "Зоонозы", min: "1 день", typical: "1–14 дней", max: "21 день", syndrome: "Язвы, пневмония", source: "Лошади", transmission: "Контактный", minHours: 24, typicalHours: 180, maxHours: 504 },
+      { disease: "Малярия (Pl. falciparum)", group: "Трансмиссивные", min: "7 дней", typical: "10–14 дней", max: "30 дней", syndrome: "Лихорадка, анемия", source: "Комары", transmission: "Трансмиссивный", minHours: 168, typicalHours: 288, maxHours: 720 },
+      { disease: "Малярия (Pl. vivax)", group: "Трансмиссивные", min: "8 дней", typical: "12–17 дней", max: "12 месяцев", syndrome: "Лихорадка", source: "Комары", transmission: "Трансмиссивный", minHours: 192, typicalHours: 348, maxHours: 8640 },
+      { disease: "Денге", group: "Трансмиссивные", min: "3 дня", typical: "4–8 дней", max: "14 дней", syndrome: "Лихорадка, сыпь", source: "Комары", transmission: "Трансмиссивный", minHours: 72, typicalHours: 144, maxHours: 336 },
+      { disease: "Чикунгунья", group: "Трансмиссивные", min: "1 день", typical: "2–4 дня", max: "14 дней", syndrome: "Артралгия", source: "Комары", transmission: "Трансмиссивный", minHours: 24, typicalHours: 72, maxHours: 336 },
+      { disease: "Жёлтая лихорадка", group: "Трансмиссивные", min: "3 дня", typical: "4–6 дней", max: "10 дней", syndrome: "Геморрагический", source: "Комары", transmission: "Трансмиссивный", minHours: 72, typicalHours: 120, maxHours: 240 },
+      { disease: "Лихорадка Зика", group: "Трансмиссивные", min: "3 дня", typical: "5–7 дней", max: "14 дней", syndrome: "Сыпь, конъюнктивит", source: "Комары", transmission: "Трансмиссивный", minHours: 72, typicalHours: 144, maxHours: 336 },
+      { disease: "Западный Нил", group: "Трансмиссивные", min: "2 дня", typical: "3–14 дней", max: "21 день", syndrome: "Энцефалит", source: "Комары", transmission: "Трансмиссивный", minHours: 48, typicalHours: 204, maxHours: 504 },
+      { disease: "Чума", group: "Особо опасные", min: "несколько часов", typical: "2–6 дней", max: "10 дней", syndrome: "Бубон, пневмония", source: "Грызуны", transmission: "Трансмиссивный, воздушно-капельный", minHours: 4, typicalHours: 96, maxHours: 240 },
+      { disease: "Сибирская язва (кожная)", group: "Особо опасные", min: "1 день", typical: "2–7 дней", max: "12 дней", syndrome: "Карбункул", source: "Животные", transmission: "Контактный", minHours: 24, typicalHours: 108, maxHours: 288 },
+      { disease: "Сибирская язва (ингаляционная)", group: "Особо опасные", min: "1 день", typical: "4–6 дней", max: "60 дней", syndrome: "Медиастинит", source: "Животные", transmission: "Воздушно-пылевой", minHours: 24, typicalHours: 120, maxHours: 1440 },
+      { disease: "Эбола", group: "Особо опасные", min: "2 дня", typical: "8–10 дней", max: "21 день", syndrome: "Геморрагическая лихорадка", source: "Летучие мыши", transmission: "Контактный", minHours: 48, typicalHours: 216, maxHours: 504 },
+      { disease: "Марбург", group: "Особо опасные", min: "2 дня", typical: "5–10 дней", max: "21 день", syndrome: "Геморрагический", source: "Летучие мыши", transmission: "Контактный", minHours: 48, typicalHours: 180, maxHours: 504 },
+      { disease: "Лихорадка Ласса", group: "Особо опасные", min: "4 дня", typical: "7–10 дней", max: "21 день", syndrome: "Геморрагический", source: "Грызуны", transmission: "Контактный", minHours: 96, typicalHours: 204, maxHours: 504 },
+      { disease: "Крым-Конго геморрагическая лихорадка", group: "Особо опасные", min: "1 день", typical: "3–7 дней", max: "14 дней", syndrome: "Геморрагии", source: "Клещи", transmission: "Трансмиссивный", minHours: 24, typicalHours: 120, maxHours: 336 },
+      { disease: "Хантавирусная инфекция", group: "Особо опасные", min: "7 дней", typical: "2–4 недели", max: "8 недель", syndrome: "ГЛПС", source: "Грызуны", transmission: "Воздушно-пылевой", minHours: 168, typicalHours: 504, maxHours: 1344 },
+      { disease: "Лихорадка денге", group: "Тропические", min: "3 дня", typical: "4–8 дней", max: "14 дней", syndrome: "Лихорадка, боль", source: "Комары", transmission: "Трансмиссивный", minHours: 72, typicalHours: 144, maxHours: 336 },
+      { disease: "Чикунгунья", group: "Тропические", min: "1 день", typical: "2–4 дня", max: "14 дней", syndrome: "Суставной", source: "Комары", transmission: "Трансмиссивный", minHours: 24, typicalHours: 72, maxHours: 336 },
+      { disease: "Амебиаз", group: "Паразитарные", min: "несколько дней", typical: "2–4 недели", max: "несколько месяцев", syndrome: "Колит", source: "Человек", transmission: "Фекально-оральный", minHours: 72, typicalHours: 504, maxHours: 2160 },
+      { disease: "Лямблиоз", group: "Паразитарные", min: "3 дня", typical: "7–14 дней", max: "25 дней", syndrome: "Диарея", source: "Человек", transmission: "Фекально-оральный", minHours: 72, typicalHours: 252, maxHours: 600 },
+      { disease: "Токсоплазмоз", group: "Паразитарные", min: "5 дней", typical: "1–3 недели", max: "несколько месяцев", syndrome: "Лимфаденит", source: "Кошки", transmission: "Фекально-оральный", minHours: 120, typicalHours: 336, maxHours: 2160 },
+      { disease: "Криптоспоридиоз", group: "Паразитарные", min: "2 дня", typical: "7 дней", max: "14 дней", syndrome: "Диарея", source: "Животные", transmission: "Фекально-оральный", minHours: 48, typicalHours: 168, maxHours: 336 },
+      { disease: "Трихинеллёз", group: "Паразитарные", min: "5 дней", typical: "5–45 дней", max: "45 дней", syndrome: "Миалгия, эозинофилия", source: "Свинина", transmission: "Пищевой", minHours: 120, typicalHours: 600, maxHours: 1080 },
+      { disease: "Аскаридоз", group: "Паразитарные", min: "4 недели", typical: "4–8 недель", max: "8 недель", syndrome: "Легочный, кишечный", source: "Почва", transmission: "Фекально-оральный", minHours: 672, typicalHours: 1008, maxHours: 1344 },
+      { disease: "Энтеробиоз", group: "Паразитарные", min: "2 недели", typical: "2–6 недель", max: "6 недель", syndrome: "Перианальный зуд", source: "Человек", transmission: "Контактный", minHours: 336, typicalHours: 672, maxHours: 1008 },
+      { disease: "Эхинококкоз", group: "Паразитарные", min: "месяцы", typical: "месяцы–годы", max: "годы", syndrome: "Кисты печени", source: "Собаки", transmission: "Фекально-оральный", minHours: 1440, typicalHours: 8760, maxHours: 43800 },
+      { disease: "Дифиллоботриоз", group: "Паразитарные", min: "3 недели", typical: "3–6 недель", max: "6 недель", syndrome: "Диспепсия", source: "Рыба", transmission: "Пищевой", minHours: 504, typicalHours: 756, maxHours: 1008 },
+      { disease: "Тениоз", group: "Паразитарные", min: "8 недель", typical: "8–14 недель", max: "14 недель", syndrome: "Диспепсия", source: "Свинина", transmission: "Пищевой", minHours: 1344, typicalHours: 1848, maxHours: 2352 },
+      { disease: "Дифтерия", group: "Воздушно-капельные", min: "несколько часов", typical: "2–5 дней", max: "10 дней", syndrome: "Налёты в зеве", source: "Больной человек", transmission: "Воздушно-капельный", minHours: 4, typicalHours: 84, maxHours: 240, pediatric: true },
+      { disease: "Коклюш", group: "Воздушно-капельные", min: "5 дней", typical: "7–10 дней", max: "21 день", syndrome: "Спазматический кашель", source: "Больной человек", transmission: "Воздушно-капельный", minHours: 120, typicalHours: 204, maxHours: 504, pediatric: true },
+      { disease: "Стрептококковая ангина", group: "Воздушно-капельные", min: "1 день", typical: "2–5 дней", max: "7 дней", syndrome: "Тонзиллит", source: "Больной человек", transmission: "Воздушно-капельный", minHours: 24, typicalHours: 84, maxHours: 168 },
+      { disease: "Скарлатина", group: "Воздушно-капельные", min: "1 день", typical: "2–5 дней", max: "7 дней", syndrome: "Сыпь, ангина", source: "Больной человек", transmission: "Воздушно-капельный", minHours: 24, typicalHours: 84, maxHours: 168, pediatric: true },
+      { disease: "Легионеллёз", group: "Воздушно-капельные", min: "2 дня", typical: "5–6 дней", max: "10 дней", syndrome: "Пневмония", source: "Вода", transmission: "Аэрозольный", minHours: 48, typicalHours: 132, maxHours: 240 },
+      { disease: "Столбняк", group: "Нейроинфекции", min: "1 день", typical: "8 дней", max: "21 день", syndrome: "Тонические судороги", source: "Почва", transmission: "Раневой", minHours: 24, typicalHours: 192, maxHours: 504 },
+      { disease: "ВИЧ (острая сероконверсия)", group: "Гепатиты", min: "10 дней", typical: "2–4 недели", max: "6 недель", syndrome: "Мононуклеозоподобный", source: "Человек", transmission: "Половой, парентеральный", minHours: 240, typicalHours: 504, maxHours: 1008 }
+    ];
+
+    const groupOrder = [
+      "Воздушно-капельные", "Кишечные", "Нейроинфекции", "Гепатиты",
+      "Зоонозы", "Трансмиссивные", "Особо опасные", "Тропические", "Паразитарные"
+    ];
+
+    const tbody = document.getElementById('tableBody');
+    const searchInput = document.getElementById('searchInput');
+    const searchBtn = document.getElementById('searchBtn');
+    const filterChips = document.querySelectorAll('.filter-chip');
+    const sortByTimeBtn = document.getElementById('sortByTimeBtn');
+    const resetBtn = document.getElementById('resetFilters');
+    const rowCountSpan = document.getElementById('rowCount');
+
+    let currentGroup = 'all';
+    let currentSearch = '';
+    let sortByTimeActive = false;
+
+    function renderTable() {
+      const searchLower = currentSearch.trim().toLowerCase();
+      let filtered = infections.filter(item => {
+        if (currentGroup === 'Детские') {
+          if (!item.pediatric) return false;
+        } else if (currentGroup !== 'all' && item.group !== currentGroup) {
+          return false;
+        }
+        if (searchLower === '') return true;
+        return (
+          item.disease.toLowerCase().includes(searchLower) ||
+          item.group.toLowerCase().includes(searchLower) ||
+          item.syndrome.toLowerCase().includes(searchLower) ||
+          item.source.toLowerCase().includes(searchLower) ||
+          item.transmission.toLowerCase().includes(searchLower) ||
+          item.min.toLowerCase().includes(searchLower) ||
+          item.typical.toLowerCase().includes(searchLower) ||
+          item.max.toLowerCase().includes(searchLower)
+        );
+      });
+
+      if (sortByTimeActive) {
+        filtered.sort((a, b) => a.minHours - b.minHours);
+      } else {
+        filtered.sort((a, b) => {
+          const idxA = groupOrder.indexOf(a.group);
+          const idxB = groupOrder.indexOf(b.group);
+          if (idxA !== idxB) return idxA - idxB;
+          return a.disease.localeCompare(b.disease, 'ru');
+        });
+      }
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="8" style="text-align:center; padding:2rem; color:#6f8eaa;">🔎 Ничего не найдено. Измените фильтр или запрос.</td></tr>`;
+        rowCountSpan.textContent = '0 заболеваний';
+        return;
+      }
+
+      let html = '';
+      filtered.forEach(item => {
+        const groupClass = getGroupClass(item.group);
+        html += `<tr>
+          <td><strong>${highlightMatch(item.disease, searchLower)}</strong></td>
+          <td><span class="badge ${groupClass} ${item.pediatric ? 'pediatric' : ''}">${item.group}</span></td>
+          <td>${highlightMatch(item.min, searchLower)}</td>
+          <td>${highlightMatch(item.typical, searchLower)}</td>
+          <td>${highlightMatch(item.max, searchLower)}</td>
+          <td>${highlightMatch(item.syndrome, searchLower)}</td>
+          <td>${highlightMatch(item.source, searchLower)}</td>
+          <td>${highlightMatch(item.transmission, searchLower)}</td>
+        </tr>`;
+      });
+      tbody.innerHTML = html;
+      rowCountSpan.textContent = `${filtered.length} заболеваний`;
+    }
+
+    function getGroupClass(group) {
+      const map = {
+        'Воздушно-капельные': 'airborne', 'Кишечные': 'enteric', 'Нейроинфекции': 'neuro',
+        'Гепатиты': 'hepatitis', 'Зоонозы': 'zoonosis', 'Трансмиссивные': 'vector',
+        'Особо опасные': 'ooo', 'Тропические': 'tropical', 'Паразитарные': 'parasitic'
+      };
+      return map[group] || '';
+    }
+
+    function highlightMatch(text, query) {
+      if (!query || query.length < 2) return text;
+      try {
+        const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const regex = new RegExp(`(${escaped})`, 'gi');
+        return text.replace(regex, '<span class="highlight">$1</span>');
+      } catch (e) { return text; }
+    }
+
+    function setActiveFilter(chipElement) {
+      filterChips.forEach(chip => chip.classList.remove('active'));
+      if (chipElement) chipElement.classList.add('active');
+      if (sortByTimeBtn && sortByTimeBtn !== chipElement) sortByTimeBtn.classList.remove('active');
+    }
+
+    filterChips.forEach(chip => {
+      chip.addEventListener('click', function(e) {
+        if (this.id === 'sortByTimeBtn') return;
+        const group = this.dataset.group;
+        currentGroup = group || 'all';
+        sortByTimeActive = false;
+        if (sortByTimeBtn) sortByTimeBtn.classList.remove('active');
+        setActiveFilter(this);
+        renderTable();
+        this.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+      });
+    });
+
+    if (sortByTimeBtn) {
+      sortByTimeBtn.addEventListener('click', function() {
+        sortByTimeActive = !sortByTimeActive;
+        if (sortByTimeActive) {
+          this.classList.add('active');
+          filterChips.forEach(chip => { if (chip !== this) chip.classList.remove('active'); });
+          currentGroup = 'all';
+        } else {
+          this.classList.remove('active');
+          const allChip = document.querySelector('.filter-chip[data-group="all"]');
+          if (allChip) allChip.classList.add('active');
+          currentGroup = 'all';
+        }
+        renderTable();
+        this.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+      });
+    }
+
+    resetBtn.addEventListener('click', () => {
+      currentGroup = 'all';
+      currentSearch = '';
+      sortByTimeActive = false;
+      searchInput.value = '';
+      setActiveFilter(document.querySelector('.filter-chip[data-group="all"]'));
+      if (sortByTimeBtn) sortByTimeBtn.classList.remove('active');
+      renderTable();
+    });
+
+    searchBtn.addEventListener('click', () => {
+      currentSearch = searchInput.value;
+      renderTable();
+    });
+
+    searchInput.addEventListener('keyup', (e) => {
+      if (e.key === 'Enter') {
+        currentSearch = searchInput.value;
+        renderTable();
+      }
+    });
+
+    renderTable();
+  })();
+</script>
+
+</body>
+</html>
