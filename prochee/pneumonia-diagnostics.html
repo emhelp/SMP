@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Диагностика пневмонии</title>
+
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0f1446">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Roboto', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1100px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #0f1446;
+            font-size: 28px;
+        }
+
+        .subtitle {
+            text-align: center;
+            margin-top: -16px;
+            margin-bottom: 24px;
+            color: #5e6f8c;
+            font-size: 15px;
+            font-weight: 400;
+        }
+
+        .card {
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 24px 22px;
+            margin-bottom: 24px;
+        }
+
+        .header-card {
+            background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
+            color: white;
+            text-align: center;
+            padding: 28px 20px;
+        }
+        .header-card h1 {
+            color: white;
+            margin-bottom: 8px;
+        }
+
+        h2 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #0f1446;
+            border-left: 6px solid #e53935;
+            padding-left: 16px;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            margin: 16px 0 8px;
+            border-radius: 16px;
+            border: 2px solid #d4e2f0;
+            background: #fff;
+            -webkit-overflow-scrolling: touch;
+        }
+        .compare-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+            min-width: 700px;
+            background: white;
+        }
+        .compare-table th {
+            background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
+            color: white;
+            padding: 14px 12px;
+            text-align: left;
+            font-weight: 700;
+            font-size: 0.9rem;
+            border-bottom: 2px solid #0f1446;
+            white-space: nowrap;
+        }
+        .compare-table td {
+            padding: 12px 12px;
+            border-bottom: 1px solid #e2ecf3;
+            vertical-align: top;
+            background-color: #ffffff;
+            color: #1f3a4b;
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+        .compare-table tr:last-child td {
+            border-bottom: none;
+        }
+        .compare-table tbody tr:hover {
+            background: #eef7ff;
+        }
+
+        .auscultation-block {
+            background: #eef7ff;
+            border-radius: 16px;
+            padding: 18px 20px;
+            margin-top: 18px;
+            border: 1px solid #d4e2f0;
+        }
+        .ausc-flex {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 16px;
+        }
+        .ausc-item {
+            flex: 1;
+            min-width: 260px;
+            background: white;
+            border-radius: 16px;
+            padding: 18px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            border: 1px solid #d4e2f0;
+        }
+        .ausc-item h3 {
+            font-size: 1.1rem;
+            margin-bottom: 14px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #0f1446;
+        }
+        .ausc-item ul {
+            margin-left: 20px;
+            line-height: 1.5;
+            font-size: 0.85rem;
+            color: #1f3a4b;
+        }
+        .ausc-item li {
+            margin: 8px 0;
+        }
+
+        .mkb-footer {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin: 10px 0 5px;
+        }
+        .mkb-footer-item {
+            background: #eef7ff;
+            border: 1px solid #d4e2f0;
+            border-radius: 16px;
+            padding: 16px 20px;
+            text-align: center;
+            flex: 1;
+            min-width: 220px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+        }
+        .mkb-code {
+            font-size: 2rem;
+            font-weight: 800;
+            font-family: 'Segoe UI', monospace;
+            letter-spacing: 1px;
+            color: #0f1446;
+        }
+        .mkb-label {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #0f1446;
+            margin-top: 6px;
+        }
+
+        .swipe-hint {
+            display: none;
+            text-align: center;
+            font-size: 0.75rem;
+            color: #6f8eaa;
+            margin-top: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .swipe-hint {
+                display: block;
+            }
+            h1 {
+                font-size: 24px;
+            }
+            h2 {
+                font-size: 1.2rem;
+            }
+            .card {
+                padding: 16px 14px;
+            }
+            .compare-table th, .compare-table td {
+                padding: 10px 8px;
+                font-size: 0.78rem;
+            }
+            .mkb-code {
+                font-size: 1.5rem;
+            }
+            .ausc-item {
+                min-width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            .card {
+                padding: 14px 10px;
+                border-radius: 16px;
+            }
+            .compare-table th, .compare-table td {
+                padding: 8px 6px;
+                font-size: 0.72rem;
+            }
+            .mkb-footer-item {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="card header-card">
+        <h1>🫁 Диагностика пневмонии</h1>
+        <p style="opacity:0.9; font-size:1rem; margin-top:4px;">Долевая (крупозная) vs Очаговая (бронхопневмония)</p>
+    </div>
+
+    <!-- Сравнительная таблица -->
+    <div class="card">
+        <h2>📋 Сравнительная таблица: крупозная vs очаговая</h2>
+        <div class="table-wrapper">
+            <table class="compare-table">
+                <thead>
+                    <tr>
+                        <th style="width: 30%">Признак</th>
+                        <th style="width: 35%">Долевая (крупозная) пневмония</th>
+                        <th style="width: 35%">Очаговая пневмония (бронхопневмония)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Начало заболевания</strong></td>
+                        <td>Острейшее, внезапное, потрясающий озноб, t° 39–40°C</td>
+                        <td>Постепенное (на фоне ОРВИ, ларингита, трахеита, бронхита)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Кашель / мокрота</strong></td>
+                        <td>Вначале сухой, затем с отхождением «ржавой» (фибринозной) мокроты</td>
+                        <td>Сухой → слизисто-гнойная мокрота, без ржавого оттенка</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Боли в грудной клетке</strong></td>
+                        <td>Резкая, интенсивная, плевральная. Связана с дыханием и кашлем</td>
+                        <td>Обычно отсутствует или слабо выражена</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Осмотр грудной клетки</strong></td>
+                        <td>Отставание поражённой половины при дыхании</td>
+                        <td>Отставания нет или оно незначительное</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Голосовое дрожание</strong></td>
+                        <td>Резко усилено над зоной поражения (доля)</td>
+                        <td>Малохарактерно или отсутствует</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Перкуторный звук</strong></td>
+                        <td>Выраженное притупление / тупой звук (над воспалённой долей)</td>
+                        <td>Притупление непостоянное, может отсутствовать (малый очаг)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Одышка и цианоз</strong></td>
+                        <td>Характерны, выражены (ЧДД 25–30 и более, цианоз губ, акроцианоз)</td>
+                        <td>Маловыражены или отсутствуют</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="swipe-hint">← Прокручивайте таблицу влево-вправо →</div>
+    </div>
+
+    <!-- Аускультация -->
+    <div class="card">
+        <h2>🩺 Аускультация: подробная характеристика</h2>
+        <div class="auscultation-block">
+            <div class="ausc-flex">
+                <div class="ausc-item">
+                    <h3>🔴 Крупозная (долевая)</h3>
+                    <ul>
+                        <li><strong>Стадия прилива (1–2 сутки):</strong><br>Ослабленное везикулярное дыхание + <strong>crepitatio indux</strong> (крепитация на высоте глубокого вдоха).</li>
+                        <li><strong>Стадия опечения / разгара (3–10 сутки):</strong><br><strong>Бронхиальное дыхание</strong> (громкое, патологическое).<br><strong>Шум трения плевры</strong> (сухой, «скрип снега»).</li>
+                        <li><strong>Стадия разрешения (с 10 суток):</strong><br>Ослабленное везикулярное дыхание + <strong>crepitatio redux</strong> (конечная крепитация).</li>
+                        <li><strong>Важное отличие:</strong> при крупозной пневмонии отсутствуют влажные хрипы в разгар заболевания.</li>
+                    </ul>
+                </div>
+                <div class="ausc-item">
+                    <h3>🟠 Очаговая (бронхопневмония)</h3>
+                    <ul>
+                        <li><strong>Основной феномен:</strong><br>Влажные <strong>звучные мелкопузырчатые хрипы</strong> над ограниченным участком лёгкого.</li>
+                        <li><strong>Локализация хрипов:</strong> строго над проекцией очага воспаления.</li>
+                        <li><strong>Характер хрипов:</strong> выслушиваются на протяжении <strong>всего вдоха</strong>, не исчезают после откашливания.</li>
+                        <li>Дыхание — везикулярное, может быть ослабленным в зоне хрипов.</li>
+                        <li><strong>Крепитация не характерна</strong>.</li>
+                        <li>Шум трения плевры <strong>отсутствует</strong>.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Сравнение аускультативных феноменов -->
+    <div class="card">
+        <h2>🎯 Сравнение аускультативных феноменов</h2>
+        <div class="table-wrapper">
+            <table class="compare-table">
+                <thead>
+                    <tr>
+                        <th>Характеристика</th>
+                        <th>Крупозная пневмония</th>
+                        <th>Очаговая пневмония</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Дыхание</strong></td>
+                        <td>Ослабленное везикулярное → бронхиальное → ослабленное везикулярное</td>
+                        <td>Везикулярное, часто не изменено или локально ослаблено</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Дополнительные шумы</strong></td>
+                        <td>Крепитация (indux / redux), шум трения плевры</td>
+                        <td>Влажные мелкопузырчатые звучные хрипы</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Локализация</strong></td>
+                        <td>Целая доля (чаще нижняя доля)</td>
+                        <td>Ограниченный участок (1–2 сегмента)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Изменчивость во времени</strong></td>
+                        <td>Выраженная стадийность (меняется каждые 3–5 дней)</td>
+                        <td>Стабильная аускультативная картина</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Влияние кашля</strong></td>
+                        <td>Крепитация не исчезает после кашля</td>
+                        <td>Хрипы могут временно изменить калибр, но не исчезают полностью</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="swipe-hint">← Прокручивайте таблицу влево-вправо →</div>
+    </div>
+
+    <!-- Дополнительные клинические признаки -->
+    <div class="card">
+        <h2>📌 Дополнительные клинические признаки</h2>
+        <div class="table-wrapper">
+            <table class="compare-table">
+                <thead>
+                    <tr>
+                        <th style="width: 30%">Признак</th>
+                        <th style="width: 35%">Долевая (крупозная) пневмония</th>
+                        <th style="width: 35%">Очаговая пневмония (бронхопневмония)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Герпетические высыпания</strong></td>
+                        <td>Характерны (губы, крылья носа)</td>
+                        <td>Не характерны</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Лихорадочный румянец</strong></td>
+                        <td>Часто (гиперемия щёк на стороне поражения)</td>
+                        <td>Не выражен или отсутствует</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Положение больного</strong></td>
+                        <td>Вынужденное — на больном боку</td>
+                        <td>Свободное, активное</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Цианоз</strong></td>
+                        <td>Акроцианоз, диффузный цианоз при ДН</td>
+                        <td>Обычно отсутствует</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="swipe-hint">← Прокручивайте таблицу влево-вправо →</div>
+    </div>
+
+    <!-- Коды МКБ-10 -->
+    <div class="card">
+        <h2>📚 Коды МКБ-10</h2>
+        <div class="mkb-footer">
+            <div class="mkb-footer-item">
+                <div class="mkb-code">J18.1</div>
+                <div class="mkb-label">Долевая (крупозная) пневмония</div>
+                <div style="font-size:0.75rem; color:#6f8eaa; margin-top:6px;">Пневмония, вызванная Streptococcus pneumoniae<br>(фибринозное воспаление доли)</div>
+            </div>
+            <div class="mkb-footer-item">
+                <div class="mkb-code">J18.0</div>
+                <div class="mkb-label">Очаговая пневмония (бронхопневмония)</div>
+                <div style="font-size:0.75rem; color:#6f8eaa; margin-top:6px;">Бронхогенное воспаление, очаговые инфильтраты</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/SMP/sw.js')
+            .then(reg => console.log('✅ SW зарегистрирован:', reg))
+            .catch(err => console.error('❌ Ошибка:', err));
+    }
+</script>
+
+</body>
+</html>
