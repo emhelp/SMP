@@ -34,101 +34,6 @@
       box-sizing: border-box;
     }
     
-    /* Кнопки в шапке с анимацией гало */
-    .header-btn {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background-color: #0f1446;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-decoration: none;
-      border: none;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      flex-shrink: 0;
-      position: relative;
-    }
-
-    /* Гало для конверта (голубое) — двойная вспышка */
-    .header-btn-left::before {
-      content: '';
-      position: absolute;
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: transparent;
-      box-shadow: 0 0 0 0 rgba(66, 165, 245, 0.8);
-      animation: strobe-blue 1.2s ease-in-out infinite;
-      z-index: -1;
-    }
-
-    @keyframes strobe-blue {
-      0%, 35% {
-        box-shadow: 0 0 0 0 rgba(66, 165, 245, 0);
-      }
-      40% {
-        box-shadow: 0 0 0 18px rgba(66, 165, 245, 1);
-      }
-      44% {
-        box-shadow: 0 0 0 0 rgba(66, 165, 245, 0);
-      }
-      48% {
-        box-shadow: 0 0 0 18px rgba(66, 165, 245, 1);
-      }
-      52%, 100% {
-        box-shadow: 0 0 0 0 rgba(66, 165, 245, 0);
-      }
-    }
-
-    /* Гало для поделиться (красное) — двойная вспышка */
-    .header-btn-right::before {
-      content: '';
-      position: absolute;
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: transparent;
-      box-shadow: 0 0 0 0 rgba(66, 165, 245, 0.8);
-      animation: strobe-red 1.2s ease-in-out infinite;
-      z-index: -1;
-    }
-
-    @keyframes strobe-red {
-      0%, 85% {
-        box-shadow: 0 0 0 0 rgba(66, 165, 245, 0);
-      }
-      89% {
-        box-shadow: 0 0 0 18px rgba(66, 165, 245, 1);
-      }
-      92% {
-        box-shadow: 0 0 0 0 rgba(66, 165, 245, 0);
-      }
-      95% {
-        box-shadow: 0 0 0 18px rgba(66, 165, 245, 1);
-      }
-      98%, 100% {
-        box-shadow: 0 0 0 0 rgba(66, 165, 245, 0);
-      }
-    }
-
-    .header-btn i {
-      color: white;
-      font-size: 22px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .header-btn:hover {
-      transform: scale(1.05);
-      background-color: #1a2060;
-    }
-
-    .header-btn:active {
-      transform: scale(0.95);
-    }
-
     /* Стрелка с эффектом «гравитация» */
     .share-arrow {
       display: inline-flex;
@@ -165,7 +70,7 @@
       display: flex;
       flex-direction: column;
       gap: 0px;
-      line-height: 1;
+      line-height: 0.9;
     }
     
     .news-line {
@@ -176,7 +81,7 @@
       gap: 8px;
       margin: 0;
       padding: 0;
-      line-height: 1;
+      line-height: 0.9;
     }
     
     .news-line-left {
@@ -200,7 +105,7 @@
     /* Текст новостей */
     .news-text-custom span {
       font-size: 14px;
-      line-height: 1;
+      line-height: 0.9;
       color: #000000;
       font-weight: 600;
       font-style: italic;
@@ -211,22 +116,10 @@
       font-weight: 700;
       font-style: normal;
       font-size: 13px;
-      line-height: 1;
+      line-height: 0.9;
     }
     
     @media (max-width: 600px) {
-      .header-btn {
-        width: 40px;
-        height: 40px;
-      }
-      .header-btn i {
-        font-size: 20px;
-      }
-      .header-btn-left::before,
-      .header-btn-right::before {
-        width: 40px;
-        height: 40px;
-      }
       .news-block-custom {
         max-width: 90%;
         padding: 5px 12px;
