@@ -1,7 +1,7 @@
 // sw.js — Service Worker для EMHelp PWA
-// Версия: v100 (добавлены maskable-иконки в manifest)
+// Версия: v101 (обновлены разделы неврологии, педиатрии, анестезиологии)
 
-const CACHE_NAME = 'emhelp-v100';
+const CACHE_NAME = 'emhelp-v101';
 
 const urlsToCache = [
   // Главная
@@ -197,7 +197,7 @@ self.addEventListener('activate', event => {
         })
       );
     }).then(() => {
-      console.log('✅ Service Worker активирован (v100)');
+      console.log('✅ Service Worker активирован (v101)');
       return self.clients.claim();
     })
   );
