@@ -1,7 +1,7 @@
 // sw.js — Service Worker для EMHelp PWA
-// Версия: v101 (обновлены разделы неврологии, педиатрии, анестезиологии)
+// Версия: v102 (добавлен таймаут 5 секунд для сетевых запросов)
 
-const CACHE_NAME = 'emhelp-v101';
+const CACHE_NAME = 'emhelp-v102';
 
 const urlsToCache = [
   // Главная
@@ -197,14 +197,14 @@ self.addEventListener('activate', event => {
         })
       );
     }).then(() => {
-      console.log('✅ Service Worker активирован (v101)');
+      console.log('✅ Service Worker активирован (v102)');
       return self.clients.claim();
     })
   );
 });
 
 // ============================================
-// ЗАПРОСЫ: Stale-While-Revalidate + оффлайн-заглушка
+// ЗАПРОСЫ: Stale-While-Revalidate + таймаут 5 сек
 // ============================================
 self.addEventListener('fetch', event => {
   if (event.request.method !== 'GET') return;
@@ -213,17 +213,22 @@ self.addEventListener('fetch', event => {
     caches.open(CACHE_NAME).then(cache => {
       return cache.match(event.request).then(cachedResponse => {
         
-        const networkPromise = fetch(event.request)
-          .then(networkResponse => {
-            if (networkResponse && networkResponse.status === 200) {
-              cache.put(event.request, networkResponse.clone());
-            }
-            return networkResponse;
-          })
-          .catch(() => {
-            console.log('📡 Оффлайн:', event.request.url);
-            return null;
-          });
+        // Сеть с таймаутом 5 секунд
+        const networkPromise = Promise.race([
+          fetch(event.request)
+            .then(networkResponse => {
+              if (networkResponse && networkResponse.status === 200) {
+                cache.put(event.request, networkResponse.clone());
+              }
+              return networkResponse;
+            }),
+          new Promise((_, reject) => 
+            setTimeout(() => reject(new Error('timeout')), 5000)
+          )
+        ]).catch(() => {
+          console.log('⏱️ Таймаут или нет сети:', event.request.url);
+          return null;
+        });
         
         // Есть в кэше — возвращаем мгновенно
         if (cachedResponse) {
@@ -231,7 +236,7 @@ self.addEventListener('fetch', event => {
           return cachedResponse;
         }
         
-        // Нет в кэше — ждём сеть
+        // Нет в кэше — ждём сеть (но не более 5 секунд)
         return networkPromise.then(networkResponse => {
           if (networkResponse) return networkResponse;
           
