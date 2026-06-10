@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Психиатрия и наркология - Алгоритмы СМП</title>
+
+<!-- PWA -->
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0f1446">
+
+<style>
+  body {
+    font-family: 'Segoe UI', 'Roboto', sans-serif;
+    margin: 0;
+    padding: 20px;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+  }
+
+  h1 {
+    text-align: center;
+    margin-bottom: 8px;
+    color: #0f1446;
+    font-size: 28px;
+  }
+
+  .subtitle {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #e53935;
+    font-size: 14px;
+    font-weight: 600;
+    font-style: italic;
+  }
+
+  .algorithms-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    max-width: 500px;
+    box-sizing: border-box;
+  }
+
+  .algorithms-btn {
+    text-decoration: none;
+    color: white;
+    background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
+    padding: 14px 10px;
+    border-radius: 12px;
+    font-weight: bold;
+    text-align: center;
+    width: 100%;
+    transition: all 0.2s;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+    font-family: inherit;
+    box-sizing: border-box;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    line-height: 1.3;
+  }
+
+  .algorithms-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+  }
+
+  .algorithms-btn:active {
+    transform: scale(0.98);
+  }
+
+  @media (max-width: 600px) {
+    .algorithms-menu {
+      max-width: 95%;
+    }
+    .algorithms-btn {
+      font-size: 13px;
+      padding: 12px 8px;
+    }
+    h1 {
+      font-size: 22px;
+    }
+    .subtitle {
+      font-size: 12px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<h1>🧠 Психиатрия и наркология</h1>
+<p class="subtitle">⚠️ Для линейных бригад!</p>
+
+<div class="algorithms-menu">
+  <button class="algorithms-btn" onclick="window.location.href='cognitive_symptoms.html'">
+    Другие симптомы и признаки, относящиеся к познавательной способности и осознанию. Другие симптомы и признаки, относящиеся к общим ощущениям и восприятиям. Симптомы и признаки, относящиеся к эмоциональному состоянию. Симптомы и признаки, относящиеся к внешнему виду и поведению
+  </button>
+  
+  <button class="algorithms-btn" onclick="window.location.href='drug_use.html'">
+    Использование наркотиков
+  </button>
+  
+  <button class="algorithms-btn" onclick="window.location.href='emotional_shock.html'">
+    Состояние эмоционального шока и стресса неуточненное
+  </button>
+  
+  <button class="algorithms-btn" onclick="window.location.href='alcohol_use.html'">
+    Употребление алкоголя
+  </button>
+</div>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/SMP/sw.js')
+      .then(reg => console.log('✅ Сервис-воркер зарегистрирован:', reg))
+      .catch(err => console.error('❌ Ошибка регистрации:', err));
+  }
+</script>
+
+</body>
+</html>
