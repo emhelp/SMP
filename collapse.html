@@ -3,99 +3,126 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Карта вызова скорой медицинской помощи | Коллапс</title>
+    <title>Карта вызова скорой медицинской помощи | Коллапс R55</title>
     <style>
+        :root {
+            --primary: #1a4d6f;
+            --primary-light: #f4f9ff;
+            --accent: #ffc107;
+            --diagnosis-bg: #fef9e6;
+            --danger: #dc2626;
+            --danger-light: #ffc4c4;
+            --danger-text: #9b1c1c;
+            --success: #2e7d32;
+            --success-light: #ecf7ec;
+            --warning: #c2410c;
+            --warning-light: #fff0d0;
+            --info: #0284c7;
+            --info-light: #d9effa;
+            --text-dark: #1e4663;
+            --border-light: #e0e6ed;
+            --white: #ffffff;
+            --shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.15);
+            --radius: 20px;
+            --radius-sm: 12px;
+            --radius-btn: 50px;
+        }
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
         }
         body {
-            background-color: #e9ecef;
-            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
-            padding: 40px 20px;
-            color: #212529;
-            line-height: 1.45;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #f0f4f8;
+            color: #2c3e50;
+            line-height: 1.6;
+            padding: 24px 16px;
+            -webkit-font-smoothing: antialiased;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
         .card {
             max-width: 1100px;
             margin: 0 auto;
-            background-color: #ffffff;
-            border-radius: 20px;
-            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.15);
-            overflow: hidden;
+            background: var(--white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
             border: 1px solid #dee2e6;
+            overflow: hidden;
         }
         .mkb-row {
             background: linear-gradient(135deg, #0b3b5f 0%, #1a4d6f 100%);
-            color: white;
+            color: var(--white);
             padding: 20px 32px;
             font-weight: 600;
             font-size: 1.1rem;
-            border-bottom: 4px solid #ffc107;
+            border-bottom: 4px solid var(--accent);
+            word-break: break-word;
         }
         .mkb-row span {
             font-weight: 700;
-            color: #ffc107;
+            color: var(--accent);
         }
         .diagnosis {
-            background: #fef9e6;
+            background: var(--diagnosis-bg);
             padding: 12px 32px;
-            border-left: 6px solid #ffc107;
+            border-left: 6px solid var(--accent);
             font-weight: 500;
             font-size: 0.98rem;
             color: #2d3e50;
-            border-bottom: 1px solid #f0e2b6;
+            word-break: break-word;
         }
         .content {
             padding: 24px 32px 40px 32px;
         }
         .section {
             margin-bottom: 32px;
-            break-inside: avoid;
-            page-break-inside: avoid;
         }
         .section-title {
             font-size: 1.4rem;
             font-weight: 700;
-            color: #1a4d6f;
-            border-left: 6px solid #ffc107;
+            color: var(--primary);
+            border-left: 6px solid var(--accent);
             padding-left: 16px;
             margin-bottom: 18px;
             margin-top: 8px;
-            background: #f4f9ff;
-            border-radius: 0 12px 12px 0;
+            background: var(--primary-light);
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
             line-height: 1.3;
-        }
-        .field-list {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
+            word-break: break-word;
         }
         .field-item {
             padding: 6px 0 4px 8px;
-            border-bottom: 1px dotted #e0e6ed;
+            border-bottom: 1px dotted var(--border-light);
             font-size: 0.94rem;
             line-height: 1.45;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            word-break: break-word;
         }
         .field-item strong {
             font-weight: 700;
-            color: #1e4663;
+            color: var(--text-dark);
             display: inline-block;
             min-width: 240px;
+            flex-shrink: 0;
         }
         .field-item .value {
             color: #2c3e4e;
             font-weight: 500;
+            word-break: break-word;
         }
         .full-width-text {
             padding: 8px 0 8px 8px;
-            border-bottom: 1px dotted #e0e6ed;
+            border-bottom: 1px dotted var(--border-light);
             font-size: 0.94rem;
+            word-break: break-word;
         }
         .full-width-text strong {
             font-weight: 700;
-            color: #1e4663;
+            color: var(--text-dark);
             display: inline-block;
             min-width: 240px;
         }
@@ -106,24 +133,28 @@
             margin-top: 6px;
             border: 1px solid #ffe3a4;
             font-size: 0.94rem;
+            word-break: break-word;
         }
         .scales-list {
             background: #f1f4f9;
             padding: 12px 20px;
             border-radius: 20px;
             margin-top: 10px;
+            word-break: break-word;
         }
         .scales-list p {
             margin: 8px 0;
+            word-break: break-word;
         }
         .note {
             background: #e7f1ff;
-            border-left: 4px solid #1a4d6f;
+            border-left: 4px solid var(--primary);
             padding: 12px 16px;
             margin-top: 16px;
-            border-radius: 12px;
+            border-radius: var(--radius-sm);
             font-size: 0.9rem;
-            color: #1e4663;
+            color: var(--text-dark);
+            word-break: break-word;
         }
         .note-list {
             margin-top: 8px;
@@ -140,48 +171,39 @@
             content: "•";
             position: absolute;
             left: 4px;
-            color: #1a4d6f;
+            color: var(--primary);
             font-weight: bold;
         }
-        .algorithm-btn-container {
-            margin-top: 32px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
         .btn-algorithm {
-            background-color: #dc2626;
-            color: white;
-            border: none;
+            display: block;
+            width: 100%;
+            max-width: 100%;
+            margin: 20px 0;
             padding: 10px 28px;
+            background: var(--danger);
+            color: var(--white);
             font-size: 1.15rem;
             font-weight: 700;
-            border-radius: 50px;
-            cursor: pointer;
+            border: none;
+            border-radius: var(--radius-btn);
             box-shadow: 0 6px 14px rgba(220, 38, 38, 0.3);
-            transition: all 0.2s ease;
-            display: inline-flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 4px;
-            letter-spacing: 0.3px;
-            border: 1px solid rgba(255,255,255,0.3);
+            cursor: pointer;
+            text-align: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+            word-break: break-word;
         }
         .btn-algorithm:hover {
-            background-color: #b91c1c;
-            transform: scale(1.02);
-            box-shadow: 0 10px 20px rgba(185, 28, 28, 0.4);
-        }
-        .btn-algorithm:active {
-            transform: scale(0.98);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(220, 38, 38, 0.4);
         }
         .btn-hint {
+            display: block;
             font-size: 0.7rem;
-            font-weight: normal;
+            font-weight: 400;
+            border-top: 1px dashed rgba(255, 255, 255, 0.5);
+            margin-top: 6px;
+            padding-top: 6px;
             opacity: 0.9;
-            letter-spacing: normal;
-            border-top: 1px dashed rgba(255,255,255,0.5);
-            padding-top: 4px;
-            margin-top: 2px;
         }
         .modal-overlay {
             position: fixed;
@@ -189,164 +211,380 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.75);
+            background: rgba(0, 0, 0, 0.75);
             backdrop-filter: blur(4px);
             z-index: 1000;
             display: flex;
             align-items: center;
             justify-content: center;
+            padding: 20px;
             visibility: hidden;
             opacity: 0;
-            transition: visibility 0.2s, opacity 0.2s;
-            padding: 20px;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
         }
         .modal-overlay.active {
             visibility: visible;
             opacity: 1;
         }
         .modal-container {
-            background-color: #fffef7;
-            max-width: 900px;
+            max-width: 1200px;
             width: 100%;
             max-height: 85vh;
+            background: #fffef7;
             border-radius: 28px;
-            box-shadow: 0 25px 45px -12px black;
+            box-shadow: 0 30px 50px rgba(0, 0, 0, 0.4);
             display: flex;
             flex-direction: column;
             overflow: hidden;
-            animation: modalFadeIn 0.25s ease-out;
+            border: 1px solid #ffd7a5;
+            animation: modalFadeIn 0.25s ease;
         }
         @keyframes modalFadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(-20px) scale(0.96);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
         }
         .modal-header {
-            background: #b91c1c;
-            color: white;
-            padding: 18px 24px;
+            background: #c2410c;
+            color: var(--white);
+            padding: 18px 28px;
             display: flex;
+            align-items: flex-start;
             justify-content: space-between;
-            align-items: center;
-            border-bottom: 3px solid #ffc107;
+            flex-shrink: 0;
+            border-bottom: 4px solid #ffb347;
+            gap: 12px;
         }
         .modal-header h2 {
-            font-size: 1.3rem;
+            font-size: 1.25rem;
             font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            word-break: break-word;
+            overflow-wrap: break-word;
+            hyphens: auto;
+            flex: 1;
+            min-width: 0;
         }
         .modal-close {
-            background: none;
+            background: transparent;
+            color: var(--white);
             border: none;
-            color: white;
             font-size: 28px;
             cursor: pointer;
-            line-height: 1;
-            transition: 0.2s;
+            flex-shrink: 0;
             padding: 0 8px;
-            border-radius: 40px;
+            transition: transform 0.2s;
+            line-height: 1;
         }
         .modal-close:hover {
-            background-color: rgba(255,255,255,0.2);
-            transform: scale(1.1);
+            transform: scale(1.2);
         }
         .modal-body {
-            flex: 1;
-            overflow-y: auto;
-            padding: 24px 28px;
+            padding: 28px 32px;
             background: #fefcf5;
             font-size: 0.95rem;
-            line-height: 1.5;
+            overflow-y: auto;
+            flex-grow: 1;
+            word-break: break-word;
+            overflow-wrap: break-word;
         }
-        .alg-section {
-            margin-bottom: 24px;
-            border-left: 4px solid #dc2626;
-            padding-left: 18px;
+        .adult-block {
+            border-left: 5px solid var(--danger);
+            padding-left: 20px;
             background: #fff9f0;
-            border-radius: 0 14px 14px 0;
+            border-radius: 0 18px 18px 0;
+            margin-bottom: 40px;
+            padding-top: 14px;
+            padding-bottom: 14px;
+            padding-right: 14px;
+            word-break: break-word;
         }
-        .alg-title {
-            font-weight: 800;
-            font-size: 1rem;
-            color: #a51c1c;
-            margin: 8px 0 8px 0;
+        .badge-adult {
+            background: #c2410c;
+            color: var(--white);
+            padding: 6px 14px;
+            border-radius: 40px;
+            font-weight: bold;
             display: inline-block;
-            background: #ffeeee;
-            padding: 4px 14px;
-            border-radius: 30px;
+            margin-bottom: 12px;
+        }
+        .important-red {
+            background: var(--danger-light);
+            border-left: 6px solid var(--danger);
+            font-weight: 800;
+            color: var(--danger-text);
+            padding: 14px 20px;
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            margin: 16px 0;
+            word-break: break-word;
+        }
+        .bold-black {
+            font-weight: 800;
+            color: #000000;
         }
         .list-styled {
-            margin: 8px 0 10px 24px;
+            margin: 12px 0 14px 28px;
         }
         .list-styled li {
-            margin: 6px 0;
+            margin: 8px 0;
+            word-break: break-word;
         }
-        .tactic-block {
-            background: #eef2fa;
-            border-radius: 16px;
-            padding: 12px 18px;
-            margin-top: 12px;
-            margin-bottom: 8px;
+        #imageModal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
         }
-        .tactic-title {
-            font-weight: 700;
-            color: #1e4663;
-            margin-bottom: 6px;
+        #imageModal.active {
+            display: flex;
         }
-        .condition-block {
-            background: #fff0d4;
-            border-left: 5px solid #dc2626;
-            padding: 10px 16px;
-            margin: 10px 0;
+        #imageModal img {
+            max-width: 90vw;
+            max-height: 85vh;
             border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
         }
-        .condition-title {
-            font-weight: 700;
-            color: #a51c1c;
-            margin-bottom: 6px;
+        #imageModal .close-img {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 2001;
         }
-        hr {
-            margin: 16px 0;
-            border-color: #f0dbb2;
+        .img-nav {
+            display: flex;
+            gap: 24px;
+            margin-top: 16px;
+            color: white;
+            font-size: 1.2rem;
+            align-items: center;
+        }
+        .img-nav button {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid white;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+        .img-nav button:hover {
+            background: rgba(255, 255, 255, 0.4);
+        }
+        .img-counter {
+            font-weight: 600;
         }
         @media (max-width: 700px) {
-            .field-item strong { min-width: 170px; }
-            .full-width-text strong { min-width: 170px; }
-            .content { padding: 20px; }
-            .modal-body { padding: 16px; }
-            .btn-algorithm { padding: 8px 22px; font-size: 1rem; }
-            .btn-hint { font-size: 0.65rem; }
+            body {
+                padding: 16px 10px;
+            }
+            .mkb-row {
+                padding: 14px 18px;
+                font-size: 0.95rem;
+            }
+            .diagnosis {
+                padding: 10px 18px;
+                font-size: 0.9rem;
+            }
+            .content {
+                padding: 16px;
+            }
+            .section {
+                margin-bottom: 20px;
+            }
+            .section-title {
+                font-size: 1.15rem;
+                padding-left: 12px;
+                margin-bottom: 12px;
+            }
+            .field-item {
+                font-size: 0.85rem;
+                padding: 4px 0 4px 4px;
+            }
+            .field-item strong {
+                min-width: 140px;
+            }
+            .full-width-text {
+                font-size: 0.85rem;
+                padding: 6px 0 6px 4px;
+            }
+            .full-width-text strong {
+                min-width: 140px;
+            }
+            .status-local {
+                padding: 10px 14px;
+                font-size: 0.85rem;
+            }
+            .scales-list {
+                padding: 10px 14px;
+            }
+            .scales-list p {
+                font-size: 0.85rem;
+                margin: 6px 0;
+            }
+            .note {
+                padding: 10px 14px;
+                font-size: 0.8rem;
+            }
+            .note-list {
+                margin-left: 14px;
+            }
+            .btn-algorithm {
+                padding: 8px 22px;
+                font-size: 1rem;
+            }
+            .btn-hint {
+                font-size: 0.65rem;
+            }
+            .modal-overlay {
+                padding: 12px;
+                align-items: center;
+            }
+            .modal-container {
+                max-height: 85vh;
+                border-radius: 20px;
+            }
+            .modal-header {
+                padding: 14px 16px;
+                gap: 8px;
+                border-bottom: 3px solid #ffb347;
+            }
+            .modal-header h2 {
+                font-size: 1rem;
+                line-height: 1.25;
+            }
+            .modal-close {
+                font-size: 26px;
+                padding: 0 4px;
+            }
+            .modal-body {
+                padding: 16px;
+                font-size: 0.88rem;
+            }
+            .adult-block {
+                padding-left: 12px;
+                padding-right: 10px;
+                padding-top: 10px;
+                padding-bottom: 10px;
+                border-radius: 0 14px 14px 0;
+                margin-bottom: 28px;
+            }
+            .badge-adult {
+                font-size: 0.8rem;
+                padding: 4px 10px;
+                border-radius: 30px;
+            }
+            .important-red {
+                padding: 10px 14px;
+                font-size: 0.85rem;
+                border-radius: 0 10px 10px 0;
+            }
+            .list-styled {
+                margin-left: 18px;
+            }
+            .list-styled li {
+                margin: 6px 0;
+                font-size: 0.85rem;
+            }
+        }
+        @media (max-width: 480px) {
+            .field-item strong {
+                min-width: 120px;
+            }
+            .full-width-text strong {
+                min-width: 120px;
+            }
+            .btn-algorithm {
+                padding: 10px 18px;
+                font-size: 0.9rem;
+                border-radius: 40px;
+            }
+            .modal-overlay {
+                padding: 8px;
+                align-items: center;
+            }
+            .modal-container {
+                max-height: 85vh;
+                border-radius: 16px;
+            }
+            .modal-header {
+                padding: 10px 12px;
+                gap: 6px;
+            }
+            .modal-header h2 {
+                font-size: 0.9rem;
+                line-height: 1.2;
+            }
+            .modal-close {
+                font-size: 22px;
+            }
+            .modal-body {
+                padding: 12px;
+                font-size: 0.82rem;
+            }
+            .adult-block {
+                padding-left: 8px;
+                padding-right: 8px;
+                border-left-width: 4px;
+            }
+            .important-red {
+                padding: 8px 10px;
+                font-size: 0.8rem;
+            }
+            .badge-adult {
+                font-size: 0.7rem;
+                padding: 3px 8px;
+            }
+            .list-styled {
+                margin-left: 14px;
+            }
+            .list-styled li {
+                font-size: 0.8rem;
+                margin: 4px 0;
+            }
         }
     </style>
 </head>
 <body>
-<div class="card">
-    <div class="mkb-row">
-        📌 Код по МКБ-10: <span>R55</span> (Обморок [синкопе] и коллапс)
-    </div>
-    <div class="diagnosis">
-        🧾 <strong>Диагноз:</strong> Ортостатический коллапс на фоне болезненной менструации.
-    </div>
-    <div class="content">
-        <div class="section">
-            <div class="section-title">📢 ЖАЛОБЫ</div>
-            <div class="full-width-text"><em>На момент осмотра пациентка предъявляет жалобы на выраженную общую слабость.</em></div>
+    <div class="card">
+        <div class="mkb-row">
+            📌 Код по МКБ-10: <span>R55</span> (Обморок [синкопе] и коллапс)
         </div>
-        <div class="section">
-            <div class="section-title">📋 АНАМНЕЗ</div>
-            <div class="full-width-text"><strong>Anamnesis morbi:</strong> Со слов пациентки, состояние развилось остро около 30 минут назад, когда после резкого вставания внезапно побледнела, появилась испарина на лбу, тошнота, дискомфорт внизу живота. Родственники успели поддержать её за руки, падения не произошло. Сознание не теряла, помнит всё. Легла на кровать, измерила АД – 75/50 мм рт. ст., вызвала СМП. Подобные состояния бывали ранее (в дни менструаций), но не обследовалась. Лекарств не принимала.</div>
-            <div class="full-width-text"><strong>Анамнез жизни:</strong> Перенесённые ОРВИ. Болезненные менструации. Курит (со слов «курильщик» в ЭКГ-заключении).</div>
-            <div class="full-width-text"><strong>Аллергологический анамнез:</strong> Не отягощен (аллергии на лекарства, пищевые продукты не отмечает).</div>
-            <div class="full-width-text"><strong>Гинекологический анамнез:</strong> Менструации с 13 лет, установились сразу, цикл регулярный (28–30 дней), по 5 дней, умеренные, болезненные. Сегодня первый день менструации, выделения обычные, физиологическая кровопотеря. Выделения из половых путей в норме.</div>
-            <div class="full-width-text"><strong>Эпидемиологический анамнез:</strong> За пределы РФ не выезжала, контакт с инфекционными больными отрицает. Прививочный анамнез неизвестен.</div>
+        <div class="diagnosis">
+            🧾 <strong>Диагноз:</strong> Ортостатический коллапс.
         </div>
-        <div class="section">
-            <div class="section-title">🩺 ОБЪЕКТИВНО</div>
-            <div class="field-list">
+        <div class="content">
+            <div class="section">
+                <div class="section-title">📢 ЖАЛОБЫ</div>
+                <div class="full-width-text"><em>На момент осмотра пациентка предъявляет жалобы на выраженную общую слабость.</em></div>
+            </div>
+            <div class="section">
+                <div class="section-title">📋 АНАМНЕЗ (в т.ч. - эпид., аллерг., гинекол. по показаниям)</div>
+                <div class="full-width-text"><strong>Anamnesis morbi:</strong> Со слов пациентки, состояние развилось остро около 30 минут назад, когда после резкого вставания внезапно побледнела, появилась испарина на лбу, тошнота, дискомфорт внизу живота. Родственники успели поддержать её за руки, падения не произошло. Сознание не теряла, помнит всё. Легла на кровать, измерила АД – 75/50 мм рт. ст., вызвала СМП. Подобные состояния бывали ранее (в дни менструаций), но не обследовалась. Лекарств не принимала.</div>
+                <div class="full-width-text"><strong>Анамнез жизни:</strong> Перенесённые ОРВИ. Болезненные менструации. Курит.</div>
+                <div class="full-width-text"><strong>Аллергологический анамнез:</strong> Не отягощен (аллергии на лекарства, пищевые продукты не отмечает).</div>
+                <div class="full-width-text"><strong>Гинекологический анамнез:</strong> Менструальный цикл регулярный (28–30 дней), по 5 дней, болезненные. Сегодня первый день менструации, выделения обычные, физиологическая кровопотеря.</div>
+                <div class="full-width-text"><strong>Эпидемиологический анамнез:</strong> За пределы РФ не выезжала, контакт с инфекционными больными отрицает. Прививочный анамнез неизвестен.</div>
+            </div>
+            <div class="section">
+                <div class="section-title">🩺 ОБЪЕКТИВНО</div>
                 <div class="field-item"><strong>Общее состояние:</strong> <span class="value">средней тяжести (за счёт артериальной гипотензии и слабости).</span></div>
-                <div class="field-item"><strong>Сознание:</strong> <span class="value">ясное.</span></div>
-                <div class="field-item"><strong>Шкала комы Глазго (GCS):</strong> <span class="value">15 баллов (E4,V5,M6).</span></div>
+                <div class="field-item"><strong>Сознание:</strong> <span class="value">ясное. Шкала Глазго: 15 баллов.</span></div>
                 <div class="field-item"><strong>Положение:</strong> <span class="value">активное (лежит на кровати).</span></div>
                 <div class="field-item"><strong>Кожные покровы:</strong> <span class="value">розовые, чистые, умеренной влажности. Акроцианоза нет.</span></div>
                 <div class="field-item"><strong>Сыпь:</strong> <span class="value">нет.</span></div>
@@ -354,13 +592,11 @@
                 <div class="field-item"><strong>Миндалины:</strong> <span class="value">не увеличены, налетов нет.</span></div>
                 <div class="field-item"><strong>Лимфоузлы:</strong> <span class="value">не увеличены.</span></div>
                 <div class="field-item"><strong>Пролежни:</strong> <span class="value">нет.</span></div>
-                <div class="field-item"><strong>Отеки:</strong> <span class="value">нет.</span></div>
-                <div class="field-item"><strong>t°:</strong> <span class="value">36.6 °C (аксиллярно).</span></div>
+                <div class="field-item"><strong>Отёки:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Температура тела:</strong> <span class="value">36,6 °C.</span></div>
             </div>
-        </div>
-        <div class="section">
-            <div class="section-title">🌬️ ОРГАНЫ ДЫХАНИЯ</div>
-            <div class="field-list">
+            <div class="section">
+                <div class="section-title">🌬️ ОРГАНЫ ДЫХАНИЯ</div>
                 <div class="field-item"><strong>ЧДД в мин:</strong> <span class="value">18</span></div>
                 <div class="field-item"><strong>Одышка:</strong> <span class="value">нет.</span></div>
                 <div class="field-item"><strong>Патологическое дыхание:</strong> <span class="value">нет.</span></div>
@@ -372,37 +608,30 @@
                 <div class="field-item"><strong>Кашель:</strong> <span class="value">нет.</span></div>
                 <div class="field-item"><strong>Мокрота:</strong> <span class="value">нет.</span></div>
             </div>
-        </div>
-        <div class="section">
-            <div class="section-title">❤️ ОРГАНЫ КРОВООБРАЩЕНИЯ</div>
-            <div class="field-list">
-                <div class="field-item"><strong>Пульс в мин:</strong> <span class="value">80 (до терапии)</span></div>
-                <div class="field-item"><strong>Ритмичный, аритмичный, наполнение пульса:</strong> <span class="value">ритмичный, удовлетворительного наполнения.</span></div>
-                <div class="field-item"><strong>ЧСС:</strong> <span class="value">80</span></div>
+            <div class="section">
+                <div class="section-title">❤️ ОРГАНЫ КРОВООБРАЩЕНИЯ</div>
+                <div class="field-item"><strong>Пульс в мин:</strong> <span class="value">80, ритмичный, удовлетворительного наполнения.</span></div>
+                <div class="field-item"><strong>ЧСС:</strong> <span class="value">80 ударов в минуту.</span></div>
                 <div class="field-item"><strong>Дефицит пульса:</strong> <span class="value">нет.</span></div>
-                <div class="field-item"><strong>АД мм.рт.ст. на момент осмотра:</strong> <span class="value">75/55, привычное АД мм.рт.ст.: 110/70, максимальное АД мм.рт.ст.: 110/70.</span></div>
+                <div class="field-item"><strong>АД мм.рт.ст.:</strong> <span class="value">75/55.</span></div>
+                <div class="field-item"><strong>Привычное АД:</strong> <span class="value">110/70.</span></div>
                 <div class="field-item"><strong>Тоны сердца:</strong> <span class="value">звучные, ритмичные.</span></div>
                 <div class="field-item"><strong>Шум:</strong> <span class="value">нет.</span></div>
                 <div class="field-item"><strong>Шум трения перикарда:</strong> <span class="value">нет.</span></div>
-                <div class="field-item"><strong>Акцент какого тона на:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Акцент тонов:</strong> <span class="value">нет.</span></div>
             </div>
-        </div>
-        <div class="section">
-            <div class="section-title">🍽️ ОРГАНЫ ПИЩЕВАРЕНИЯ</div>
-            <div class="field-list">
+            <div class="section">
+                <div class="section-title">🍽️ ОРГАНЫ ПИЩЕВАРЕНИЯ</div>
                 <div class="field-item"><strong>Язык:</strong> <span class="value">чистый.</span></div>
-                <div class="field-item"><strong>Живот:</strong> <span class="value">правильной формы, мягкий, не напряжен, участвует в акте дыхания, умеренно болезненный при пальпации в нижних отделах (связывает с менструацией).</span></div>
-                <div class="field-item"><strong>Болезненный в:</strong> <span class="value">нижних отделах живота.</span></div>
-                <div class="field-item"><strong>Положительные симптомы:</strong> <span class="value">Симптомы раздражения брюшины (Образцова, Ровзинга, Ситковского, Ортнера, Мерфи, Мейо-Робсона, Щёткина-Блюмберга, Валя) — отрицательные.</span></div>
+                <div class="field-item"><strong>Живот:</strong> <span class="value">правильной формы, мягкий, не напряжен, участвует в акте дыхания, умеренно болезненный при пальпации в нижних отделах (дисменорея).</span></div>
+                <div class="field-item"><strong>Положительные симптомы:</strong> <span class="value">нет (живот мягкий, умеренно болезненный в нижних отделах — дисменорея).</span></div>
                 <div class="field-item"><strong>Перистальтика:</strong> <span class="value">активная, выслушивается во всех отделах.</span></div>
                 <div class="field-item"><strong>Печень:</strong> <span class="value">по краю реберной дуги.</span></div>
-                <div class="field-item"><strong>Селезенка:</strong> <span class="value">не пальпируется.</span></div>
+                <div class="field-item"><strong>Селезёнка:</strong> <span class="value">не пальпируется.</span></div>
                 <div class="field-item"><strong>Стул:</strong> <span class="value">оформлен, коричневый, 2 раза в сутки.</span></div>
             </div>
-        </div>
-        <div class="section">
-            <div class="section-title">🧠 НЕРВНАЯ СИСТЕМА</div>
-            <div class="field-list">
+            <div class="section">
+                <div class="section-title">🧠 НЕРВНАЯ СИСТЕМА</div>
                 <div class="field-item"><strong>Поведение:</strong> <span class="value">спокойное.</span></div>
                 <div class="field-item"><strong>Контакт:</strong> <span class="value">сохранен, продуктивный.</span></div>
                 <div class="field-item"><strong>Чувствительность:</strong> <span class="value">не нарушена.</span></div>
@@ -413,117 +642,112 @@
                 <div class="field-item"><strong>Асимметрия лица:</strong> <span class="value">нет.</span></div>
                 <div class="field-item"><strong>Менингеальные симптомы:</strong> <span class="value">ригидность затылочных мышц, Кернига, Брудзинского — отрицательные.</span></div>
                 <div class="field-item"><strong>Очаговые симптомы:</strong> <span class="value">не выявлены.</span></div>
-                <div class="field-item"><strong>Координаторные пробы:</strong> <span class="value">пальце-носовую и пяточно-коленную пробы выполняет уверенно, без промахивания; в позе Ромберга устойчива.</span></div>
             </div>
-        </div>
-        <div class="section">
-            <div class="section-title">🚽 МОЧЕПОЛОВАЯ СИСТЕМА</div>
-            <div class="field-list">
+            <div class="section">
+                <div class="section-title">🧍 КООРДИНАТОРНЫЕ ПРОБЫ</div>
+                <div class="field-item"><strong>Пальце-носовая проба:</strong> <span class="value">выполняет удовлетворительно (выполняет верно, без промахивания).</span></div>
+                <div class="field-item"><strong>Пяточно-коленная проба:</strong> <span class="value">выполняет удовлетворительно (без атаксии).</span></div>
+                <div class="field-item"><strong>Поза Ромберга:</strong> <span class="value">устойчива.</span></div>
+            </div>
+            <div class="section">
+                <div class="section-title">🚽 МОЧЕПОЛОВАЯ СИСТЕМА</div>
                 <div class="field-item"><strong>Мочеиспускание:</strong> <span class="value">свободное, безболезненное, моча соломенно-желтая, прозрачная, без примесей.</span></div>
                 <div class="field-item"><strong>Симптом поколачивания:</strong> <span class="value">отрицательный с обеих сторон.</span></div>
             </div>
-        </div>
-        <div class="section">
-            <div class="section-title">🔍 STATUS LOCALIS</div>
-            <div class="status-local">
-                Травм и повреждений кожных покровов нет. Ангинозных болей и их эквивалентов на момент осмотра и ранее нет.
+            <div class="section">
+                <div class="section-title">🔍 STATUS LOCALIS</div>
+                <div class="status-local">
+                    Травм и повреждений кожных покровов нет. Ангинозных болей и их эквивалентов на момент осмотра и ранее нет.
+                </div>
             </div>
-        </div>
-        <div class="section">
-            <div class="section-title">📊 ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ</div>
-            <div class="scales-list">
-                <p>✔ <strong>ЭКГ (09:38):</strong> ритм синусовый, ЧСС 80 в мин, вертикальное положение ЭОС, признаки гипертрофии правого предсердия.</p>
-                <p>✔ <strong>Пульсоксиметрия:</strong> SpO2 – 97%.</p>
-                <p>✔ <strong>Глюкометрия:</strong> 7,2 ммоль/л (небольшая гипергликемия, возможно, стрессовая).</p>
+            <div class="section">
+                <div class="section-title">📈 ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ</div>
+                <div class="scales-list">
+                    <p>✔ <strong>Пульсоксиметрия:</strong> SpO₂ – 97%.</p>
+                    <p>✔ <strong>Глюкометрия:</strong> 7,2 ммоль/л.</p>
+                    <p>✔ <strong>ЭКГ (09:38):</strong> ритм синусовый, ЧСС 80 в мин, вертикальное положение ЭОС, признаки гипертрофии правого предсердия.</p>
+                </div>
             </div>
-        </div>
-        <div class="section">
-            <div class="section-title">💉 ОКАЗАННАЯ МЕДИЦИНСКАЯ ПОМОЩЬ</div>
-            <div class="scales-list">
-                <p>✔ Придано положение с приподнятыми ногами.</p>
-                <p>✔ Катетеризация левой локтевой вены кубитальным катетером (фиксирован пластырем).</p>
-                <p>✔ Sol. Natrii chloridi 0,9% – 500 мл внутривенно капельно под контролем гемодинамики.</p>
+            <div class="section">
+                <div class="section-title">💉 ОКАЗАННАЯ ПОМОЩЬ И ЕЁ ЭФФЕКТ</div>
+                <div class="full-width-text"><strong>Проведённые мероприятия:</strong></div>
+                <div class="full-width-text">— Придано положение с приподнятыми ногами.</div>
+                <div class="full-width-text">— Катетеризация левой локтевой вены кубитальным катетером (фиксирован пластырем).</div>
+                <div class="full-width-text">— Sol. Natrii chloridi 0,9% – 500 мл внутривенно капельно под контролем гемодинамики.</div>
+                <div class="full-width-text"><strong>Эффект:</strong> После инфузии состояние улучшилось: слабость прошла, АД 105/75 мм рт. ст., ЧСС 76 в мин, пульс 76, ЧДД 18. Пациентка чувствует себя удовлетворительно, жалоб нет.</div>
+                <div class="full-width-text"><strong>Тактика:</strong> Рекомендовать обратиться в поликлинику <span class="bold-black">(34)</span> для дообследования.</div>
             </div>
-        </div>
-        <div class="section">
-            <div class="section-title">📈 ЭФФЕКТ ОТ ПРОВЕДЕННОЙ ТЕРАПИИ</div>
-            <div class="scales-list">
-                <p>После инфузии состояние улучшилось: слабость прошла, АД 105/75 мм рт. ст., ЧСС 76 в мин, пульс 76, ЧДД 18. Пациентка чувствует себя удовлетворительно, жалоб нет.</p>
+            <div class="section">
+                <div class="section-title">📊 ОЦЕНКА ПО ШКАЛАМ</div>
+                <div class="scales-list">
+                    <p>✔ <strong>Шкала NEWS2 (до терапии):</strong> ЧДД 18 – 0, SpO₂ 97% – 0, температура 36,6 – 0, АД сист. 75 – 3, ЧСС 80 – 0, сознание ясное – 0. Сумма: 3 балла (средний риск).</p>
+                    <p>✔ <strong>Шкала NEWS2 (после терапии):</strong> ЧДД 18 – 0, SpO₂ 97% – 0, температура 36,6 – 0, АД сист. 105 – 0, ЧСС 76 – 0, сознание ясное – 0. Сумма: 0 баллов (низкий риск).</p>
+                    <p>✔ <strong>Шкала комы Глазго (GCS):</strong> 15 баллов.</p>
+                    <p>✔ <strong>Индекс Альговера (до терапии):</strong> ЧСС/АД сист. = 80/75 ≈ 1,07 — <span class="bold-black">шок II степени (субкомпенсированный)</span>.</p>
+                    <p>✔ <strong>Индекс Альговера (после терапии):</strong> ЧСС/АД сист. = 76/105 ≈ 0,72 — <span class="bold-black">норма (шока нет)</span>.</p>
+                    <p>✔ <strong>Шкала LAMS:</strong> не применима.</p>
+                    <p>✔ <strong>Шкала боли ВАШ:</strong> не применимо.</p>
+                    <p>✔ <strong>Шкала ОДН по Кассиль:</strong> не применимо.</p>
+                    <p>✔ <strong>Шкала риска ТЭЛА:</strong> не применимо.</p>
+                    <p>✔ <strong>Алкогольное опьянение:</strong> запах алкоголя не определяется. Поведение адекватное.</p>
+                    <p>✔ <strong>Признаки ДЭП:</strong> не применимо.</p>
+                </div>
             </div>
-        </div>
-        <div class="section">
-            <div class="section-title">📊 ОЦЕНКА ПО ШКАЛАМ</div>
-            <div class="scales-list">
-                <p>✔ <strong>Шкала NEWS2 (до терапии):</strong> ЧДД 18 (0), SpO2 97% (0), температура 36.6 (0), АД сист. 75 (3 балла), ЧСС 80 (0), сознание ясное (0). Сумма: 3 балла (средний риск, требуется наблюдение).</p>
-                <p>✔ <strong>Шкала NEWS2 (после терапии):</strong> ЧДД 18 (0), SpO2 97% (0), температура 36.6 (0), АД сист. 105 (0), ЧСС 76 (0), сознание ясное (0). Сумма: 0 баллов (низкий риск).</p>
-                <p>✔ <strong>Шкала инсульта LAMS:</strong> не применима.</p>
-                <p>✔ <strong>Индекс Альговера (до терапии):</strong> ЧСС/АДсист = 80/75 = 1.07 (риск гиповолемического шока).</p>
-                <p>✔ <strong>Индекс Альговера (после терапии):</strong> ЧСС/АДсист = 76/105 = 0.72 (в пределах нормы).</p>
-                <p>✔ <strong>Степень дыхательной недостаточности:</strong> ОДН 0 (SpO2 >95%, ЧДД <20).</p>
-                <p>✔ <strong>Шкала боли ВАШ при травме:</strong> не применимо.</p>
-                <p>✔ <strong>Шкала риска ТЭЛА:</strong> не применимо.</p>
-                <p>✔ <strong>Шкала ШОКС:</strong> не применимо.</p>
-                <p>✔ <strong>Признаки ДЭП:</strong> не применимо.</p>
-                <p>✔ <strong>Состояние алкогольного опьянения:</strong> запах алкоголя не определяется. Поведение адекватное.</p>
+            <div class="note">
+                <strong>📌 Примечание для бригады СМП (дифференциальная диагностика + ключевые признаки)</strong><br>
+                Дифференциальная диагностика коллапса проведена с:
+                <ul class="note-list">
+                    <li><strong>кардиогенным синкопе (аритмии, стеноз аорты, ТЭЛА)</strong> (возможны обмороки при нагрузке, боли в груди, одышка. На ЭКГ – аритмии, ишемические изменения. У пациентки ритм синусовый, болей нет, ЭКГ без патологии);</li>
+                    <li><strong>гипогликемией</strong> (слабость, потливость, тремор, чувство голода, возможна спутанность сознания. Глюкометрия исключила гипогликемию (7,2 ммоль/л));</li>
+                    <li><strong>внутренним кровотечением (эктопическая беременность, апоплексия яичника)</strong> (острая боль внизу живота, головокружение, бледность, тахикардия, гипотония. Менструальный анамнез (первый день цикла) делает беременность маловероятной, но исключать нельзя. Боль внизу живота у пациентки есть, но она типична для дисменореи. Требуется осмотр гинеколога);</li>
+                    <li><strong>анафилактической реакцией</strong> (связь с аллергеном, кожные проявления, бронхоспазм. У пациентки нет);</li>
+                    <li><strong>нейрогенным обмороком (вазовагальный, синокаротидный)</strong> (провоцируется стрессом, духотой, длительным стоянием. У пациентки – ортостатический фактор, что более характерно для ортостатического коллапса);</li>
+                    <li><strong>ортостатической гипотензией (вследствие анемии, вегетативной дисфункции, приема лекарств)</strong> (наиболее вероятна у пациентки: снижение АД при вставании, на фоне менструации (возможна анемия). Требует дообследования).</li>
+                </ul>
+                <strong>🔑 Ключевые признаки ортостатического коллапса:</strong><br>
+                – Возникновение при переходе в вертикальное положение.<br>
+                – Кратковременная слабость, потемнение в глазах, без полной потери сознания (предобморок).<br>
+                – Быстрое восстановление в положении лёжа.<br>
+                – Отсутствие кардиальной и неврологической симптоматики.
             </div>
-        </div>
-        <div class="note">
-            <strong>📌 Примечание для бригады СМП:</strong><br>
-            Дифференциальная диагностика коллапса проведена с:
-            <ul class="note-list">
-                <li><strong>кардиогенным синкопе (аритмии, стеноз аорты, ТЭЛА)</strong> (возможны обмороки при нагрузке, боли в груди, одышка. На ЭКГ – аритмии, ишемические изменения. У пациентки ритм синусовый, болей нет, ЭКГ без патологии);</li>
-                <li><strong>гипогликемией</strong> (слабость, потливость, тремор, чувство голода, возможна спутанность сознания. Глюкометрия исключила гипогликемию (7,2 ммоль/л));</li>
-                <li><strong>внутренним кровотечением (эктопическая беременность, апоплексия яичника)</strong> (острая боль внизу живота, головокружение, бледность, тахикардия, гипотония. Менструальный анамнез (первый день цикла) делает беременность маловероятной, но исключать нельзя. Боль внизу живота у пациентки есть, но она типична для дисменореи. Требуется осмотр гинеколога);</li>
-                <li><strong>анафилактической реакцией</strong> (связь с аллергеном, кожные проявления, бронхоспазм. У пациентки нет);</li>
-                <li><strong>нейрогенным обмороком (вазовагальный, синокаротидный)</strong> (провоцируется стрессом, духотой, длительным стоянием. У пациентки – ортостатический фактор, что более характерно для ортостатического коллапса);</li>
-                <li><strong>ортостатической гипотензией (вследствие анемии, вегетативной дисфункции, приема лекарств)</strong> (наиболее вероятна у пациентки: снижение АД при вставании, на фоне менструации (возможна анемия). Требует дообследования).</li>
-            </ul>
-            <strong>Ключевые признаки ортостатического коллапса:</strong><br>
-            – Возникновение при переходе в вертикальное положение.<br>
-            – Кратковременная слабость, потемнение в глазах, без полной потери сознания (предобморок).<br>
-            – Быстрое восстановление в положении лёжа.<br>
-            – Отсутствие кардиальной и неврологической симптоматики.
-        </div>
-        <div class="algorithm-btn-container">
             <button class="btn-algorithm" id="openAlgorithmBtn">
-                <span>🚨 Оказание помощи в соответствии с Алгоритмами МСК</span>
+                🚨 Оказание помощи в соответствии с Алгоритмами МСК
                 <span class="btn-hint">▼ нажмите для открытия ▼</span>
             </button>
         </div>
     </div>
-</div>
-<div class="modal-overlay" id="algorithmModal">
-    <div class="modal-container">
-        <div class="modal-header">
-            <h2>📋 Алгоритм оказания помощи (МСК)</h2>
-            <button class="modal-close" id="closeModalBtn">&times;</button>
-        </div>
-        <div class="modal-body">
-            <div class="alg-section">
-                <div class="alg-title">🔹 Диагноза нет в Алгоритмах</div>
-                <div class="tactic-block">
-                    <div class="tactic-title">▶ Консилиум с ОВС.</div>
-                </div>
-                <div class="condition-block">
-                    <ul class="list-styled">
-                        <li>• Придать горизонтальное положение тела</li>
-                        <li>• ЭКГ(ЭКП)</li>
-                        <li>• Глюкометрия</li>
-                        <li>• Пульсоксиметрия</li>
-                        <li>• При выявленной соматической патологии см. соответствующий раздел «Алгоритмов» (кома, шок, обезвоживание, прочее)</li>
-                        <li>– при SpO2 ≤ 93 % ингаляция кислорода</li>
-                    </ul>
+
+    <div class="modal-overlay" id="algorithmModal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h2>R55 Обморок [синкопе] и коллапс</h2>
+                <button class="modal-close" id="closeModalBtn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="adult-block">
+                    <div class="badge-adult">ВЗРОСЛЫЙ ПРОТОКОЛ</div>
+                    <div class="important-red">
+                        <strong>Диагноза нет в алгоритмах, необходим консилиум с ОВС.</strong>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<script>
-    (function() {
+
+    <div id="imageModal">
+        <span class="close-img" onclick="document.getElementById('imageModal').classList.remove('active')">&times;</span>
+        <img id="imgDisplay" src="" alt="Изображение" />
+        <div class="img-nav" id="imgNav" style="display:none;">
+            <button onclick="prevImage()">◀ Назад</button>
+            <span class="img-counter" id="imgCounter"></span>
+            <button onclick="nextImage()">Вперёд ▶</button>
+        </div>
+    </div>
+
+    <script>
         const modal = document.getElementById('algorithmModal');
         const openBtn = document.getElementById('openAlgorithmBtn');
         const closeBtn = document.getElementById('closeModalBtn');
-        if (!modal || !openBtn || !closeBtn) return;
         function openModal() {
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
@@ -540,7 +764,52 @@
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && modal.classList.contains('active')) closeModal();
         });
-    })();
-</script>
+        let currentGallery = [];
+        let currentIndex = 0;
+        function openImage(src) {
+            document.getElementById('imageModal').classList.add('active');
+            document.getElementById('imgDisplay').src = src;
+            document.getElementById('imgNav').style.display = 'none';
+            document.body.style.overflow = 'hidden';
+        }
+        function openImageGallery(images) {
+            currentGallery = images;
+            currentIndex = 0;
+            document.getElementById('imageModal').classList.add('active');
+            document.getElementById('imgDisplay').src = currentGallery[currentIndex];
+            document.getElementById('imgNav').style.display = 'flex';
+            updateCounter();
+            document.body.style.overflow = 'hidden';
+        }
+        function updateCounter() {
+            document.getElementById('imgCounter').textContent =
+                (currentIndex + 1) + ' / ' + currentGallery.length;
+        }
+        function nextImage() {
+            if (currentGallery.length === 0) return;
+            currentIndex = (currentIndex + 1) % currentGallery.length;
+            document.getElementById('imgDisplay').src = currentGallery[currentIndex];
+            updateCounter();
+        }
+        function prevImage() {
+            if (currentGallery.length === 0) return;
+            currentIndex = (currentIndex - 1 + currentGallery.length) % currentGallery.length;
+            document.getElementById('imgDisplay').src = currentGallery[currentIndex];
+            updateCounter();
+        }
+        document.getElementById('imageModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+        document.addEventListener('keydown', function(e) {
+            const imgModal = document.getElementById('imageModal');
+            if (e.key === 'Escape' && imgModal.classList.contains('active')) {
+                imgModal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+    </script>
 </body>
 </html>
