@@ -2,118 +2,130 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Карта вызова скорой медицинской помощи | Субарахноидальное кровоизлияние</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Карта вызова скорой медицинской помощи | Субарахноидальное кровоизлияние I60.9</title>
     <style>
+        :root {
+            --primary: #1a4d6f;
+            --primary-light: #f4f9ff;
+            --accent: #ffc107;
+            --diagnosis-bg: #fef9e6;
+            --danger: #dc2626;
+            --danger-light: #ffc4c4;
+            --danger-text: #9b1c1c;
+            --success: #2e7d32;
+            --success-light: #ecf7ec;
+            --warning: #c2410c;
+            --warning-light: #fff0d0;
+            --info: #0284c7;
+            --info-light: #d9effa;
+            --text-dark: #1e4663;
+            --border-light: #e0e6ed;
+            --white: #ffffff;
+            --shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.15);
+            --radius: 20px;
+            --radius-sm: 12px;
+            --radius-btn: 50px;
+        }
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
         }
-
         body {
-            background-color: #e9ecef;
-            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
-            padding: 40px 20px;
-            color: #212529;
-            line-height: 1.45;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #f0f4f8;
+            color: #2c3e50;
+            line-height: 1.6;
+            padding: 24px 16px;
+            -webkit-font-smoothing: antialiased;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
-
         .card {
             max-width: 1100px;
             margin: 0 auto;
-            background-color: #ffffff;
-            border-radius: 20px;
-            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.15);
-            overflow: hidden;
+            background: var(--white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
             border: 1px solid #dee2e6;
+            overflow: hidden;
         }
-
         .mkb-row {
             background: linear-gradient(135deg, #0b3b5f 0%, #1a4d6f 100%);
-            color: white;
+            color: var(--white);
             padding: 20px 32px;
             font-weight: 600;
             font-size: 1.1rem;
-            border-bottom: 4px solid #ffc107;
+            border-bottom: 4px solid var(--accent);
+            word-break: break-word;
         }
-
         .mkb-row span {
             font-weight: 700;
-            color: #ffc107;
+            color: var(--accent);
         }
-
         .diagnosis {
-            background: #fef9e6;
+            background: var(--diagnosis-bg);
             padding: 12px 32px;
-            border-left: 6px solid #ffc107;
+            border-left: 6px solid var(--accent);
             font-weight: 500;
             font-size: 0.98rem;
             color: #2d3e50;
-            border-bottom: 1px solid #f0e2b6;
+            word-break: break-word;
         }
-
         .content {
             padding: 24px 32px 40px 32px;
         }
-
         .section {
             margin-bottom: 32px;
-            break-inside: avoid;
-            page-break-inside: avoid;
         }
-
         .section-title {
             font-size: 1.4rem;
             font-weight: 700;
-            color: #1a4d6f;
-            border-left: 6px solid #ffc107;
+            color: var(--primary);
+            border-left: 6px solid var(--accent);
             padding-left: 16px;
             margin-bottom: 18px;
             margin-top: 8px;
-            background: #f4f9ff;
-            border-radius: 0 12px 12px 0;
+            background: var(--primary-light);
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
             line-height: 1.3;
+            word-break: break-word;
         }
-
-        .field-list {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
         .field-item {
             padding: 6px 0 4px 8px;
-            border-bottom: 1px dotted #e0e6ed;
+            border-bottom: 1px dotted var(--border-light);
             font-size: 0.94rem;
             line-height: 1.45;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            word-break: break-word;
         }
-
         .field-item strong {
             font-weight: 700;
-            color: #1e4663;
+            color: var(--text-dark);
             display: inline-block;
             min-width: 240px;
+            flex-shrink: 0;
         }
-
         .field-item .value {
             color: #2c3e4e;
             font-weight: 500;
+            word-break: break-word;
         }
-
         .full-width-text {
             padding: 8px 0 8px 8px;
-            border-bottom: 1px dotted #e0e6ed;
+            border-bottom: 1px dotted var(--border-light);
             font-size: 0.94rem;
+            word-break: break-word;
         }
-
         .full-width-text strong {
             font-weight: 700;
-            color: #1e4663;
+            color: var(--text-dark);
             display: inline-block;
             min-width: 240px;
         }
-
         .status-local {
             background: #fef7e0;
             padding: 14px 18px;
@@ -121,96 +133,616 @@
             margin-top: 6px;
             border: 1px solid #ffe3a4;
             font-size: 0.94rem;
+            word-break: break-word;
         }
-
         .scales-list {
             background: #f1f4f9;
             padding: 12px 20px;
             border-radius: 20px;
             margin-top: 10px;
+            word-break: break-word;
         }
-
         .scales-list p {
             margin: 8px 0;
+            word-break: break-word;
         }
-
         .note {
             background: #e7f1ff;
-            border-left: 4px solid #1a4d6f;
+            border-left: 4px solid var(--primary);
             padding: 12px 16px;
             margin-top: 16px;
-            border-radius: 12px;
+            border-radius: var(--radius-sm);
             font-size: 0.9rem;
-            color: #1e4663;
+            color: var(--text-dark);
+            word-break: break-word;
         }
-
-        .note-list {
-            margin-top: 8px;
-            margin-left: 20px;
-            list-style-type: none;
-            padding-left: 0;
+        .btn-algorithm {
+            display: block;
+            width: 100%;
+            max-width: 100%;
+            margin: 20px 0;
+            padding: 10px 28px;
+            background: var(--danger);
+            color: var(--white);
+            font-size: 1.15rem;
+            font-weight: 700;
+            border: none;
+            border-radius: var(--radius-btn);
+            box-shadow: 0 6px 14px rgba(220, 38, 38, 0.3);
+            cursor: pointer;
+            text-align: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+            word-break: break-word;
         }
-
-        .note-list li {
-            margin-bottom: 8px;
-            padding-left: 20px;
-            position: relative;
+        .btn-algorithm:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(220, 38, 38, 0.4);
         }
-
-        .note-list li:before {
-            content: "•";
-            position: absolute;
-            left: 4px;
-            color: #1a4d6f;
-            font-weight: bold;
+        .btn-hint {
+            display: block;
+            font-size: 0.7rem;
+            font-weight: 400;
+            border-top: 1px dashed rgba(255, 255, 255, 0.5);
+            margin-top: 6px;
+            padding-top: 6px;
+            opacity: 0.9;
         }
-
-        @media (max-width: 700px) {
-            .field-item strong {
-                min-width: 170px;
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .modal-overlay.active {
+            visibility: visible;
+            opacity: 1;
+        }
+        .modal-container {
+            max-width: 1200px;
+            width: 100%;
+            max-height: 85vh;
+            background: #fffef7;
+            border-radius: 28px;
+            box-shadow: 0 30px 50px rgba(0, 0, 0, 0.4);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            border: 1px solid #ffd7a5;
+            animation: modalFadeIn 0.25s ease;
+        }
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px) scale(0.96);
             }
-            .full-width-text strong {
-                min-width: 170px;
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        .modal-header {
+            background: #c2410c;
+            color: var(--white);
+            padding: 18px 28px;
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            flex-shrink: 0;
+            border-bottom: 4px solid #ffb347;
+            gap: 12px;
+        }
+        .modal-header h2 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            word-break: break-word;
+            overflow-wrap: break-word;
+            hyphens: auto;
+            flex: 1;
+            min-width: 0;
+        }
+        .modal-close {
+            background: transparent;
+            color: var(--white);
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            flex-shrink: 0;
+            padding: 0 8px;
+            transition: transform 0.2s;
+            line-height: 1;
+        }
+        .modal-close:hover {
+            transform: scale(1.2);
+        }
+        .modal-body {
+            padding: 28px 32px;
+            background: #fefcf5;
+            font-size: 0.95rem;
+            overflow-y: auto;
+            flex-grow: 1;
+            word-break: break-word;
+            overflow-wrap: break-word;
+        }
+        .adult-block {
+            border-left: 5px solid var(--danger);
+            padding-left: 20px;
+            background: #fff9f0;
+            border-radius: 0 18px 18px 0;
+            margin-bottom: 40px;
+            padding-top: 14px;
+            padding-bottom: 14px;
+            padding-right: 14px;
+            word-break: break-word;
+        }
+        .badge-adult {
+            background: #c2410c;
+            color: var(--white);
+            padding: 6px 14px;
+            border-radius: 40px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 12px;
+        }
+        .child-block {
+            border-left: 5px solid var(--success);
+            padding-left: 20px;
+            background: var(--success-light);
+            border-radius: 0 18px 18px 0;
+            margin-bottom: 20px;
+            padding-top: 14px;
+            padding-bottom: 14px;
+            padding-right: 14px;
+            word-break: break-word;
+        }
+        .badge-child {
+            background: var(--success);
+            color: var(--white);
+            padding: 6px 14px;
+            border-radius: 40px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 12px;
+        }
+        .no-bg-block {
+            padding: 14px 20px;
+            margin: 20px 0;
+            border-radius: 16px;
+            word-break: break-word;
+        }
+        .light-block {
+            background: #ffe6cc;
+            border-left: 6px solid #e03a3a;
+            padding: 14px 20px;
+            margin: 20px 0;
+            border-radius: 16px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+            word-break: break-word;
+        }
+        .red-block {
+            background: #ffb3b3;
+            border-left: 6px solid #b91c1c;
+            padding: 14px 20px;
+            margin: 20px 0;
+            border-radius: 16px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            word-break: break-word;
+        }
+        .child-condition-block {
+            background: #d9f0d9;
+            border-left: 6px solid var(--success);
+            padding: 14px 20px;
+            margin: 20px 0;
+            border-radius: 16px;
+            word-break: break-word;
+        }
+        .child-red-block {
+            background: #ffb3b3;
+            border-left: 6px solid #b91c1c;
+            padding: 14px 20px;
+            margin: 20px 0;
+            border-radius: 16px;
+            word-break: break-word;
+        }
+        .tactic-block {
+            background: var(--info-light);
+            border-left: 4px solid var(--info);
+            border-radius: 20px;
+            padding: 14px 20px;
+            margin: 18px 0 16px 0;
+            word-break: break-word;
+        }
+        .tactic-title {
+            color: #0369a1;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+        .condition-title {
+            color: #b91c1c;
+            font-weight: 800;
+            margin-bottom: 10px;
+            font-size: 1rem;
+            word-break: break-word;
+        }
+        .important-red {
+            background: var(--danger-light);
+            border-left: 6px solid var(--danger);
+            font-weight: 800;
+            color: var(--danger-text);
+            padding: 14px 20px;
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            margin: 16px 0;
+            word-break: break-word;
+        }
+        .highlight-number {
+            color: var(--warning);
+            background: var(--warning-light);
+            font-weight: 800;
+            padding: 0 4px;
+            border-radius: 10px;
+            white-space: nowrap;
+        }
+        .drug-name {
+            background: #f3f3f3;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: 800;
+            color: #1a3c4a;
+            padding: 2px 8px;
+            border-radius: 20px;
+            display: inline-block;
+            word-break: break-word;
+        }
+        .italic-bold-ref {
+            font-weight: 800;
+            font-style: italic;
+            color: #0a2f44;
+            text-decoration: underline;
+            cursor: pointer;
+            word-break: break-word;
+        }
+        .italic-bold-static {
+            font-weight: 800;
+            font-style: italic;
+            color: #0a2f44;
+            word-break: break-word;
+        }
+        .bold-black {
+            font-weight: 800;
+            color: #000000;
+        }
+        .list-styled {
+            margin: 12px 0 14px 28px;
+        }
+        .list-styled li {
+            margin: 8px 0;
+            word-break: break-word;
+        }
+        #imageModal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        #imageModal.active {
+            display: flex;
+        }
+        #imageModal img {
+            max-width: 90vw;
+            max-height: 85vh;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+        }
+        #imageModal .close-img {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 2001;
+        }
+        .img-nav {
+            display: flex;
+            gap: 24px;
+            margin-top: 16px;
+            color: white;
+            font-size: 1.2rem;
+            align-items: center;
+        }
+        .img-nav button {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid white;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+        .img-nav button:hover {
+            background: rgba(255, 255, 255, 0.4);
+        }
+        .img-counter {
+            font-weight: 600;
+        }
+        @media (max-width: 700px) {
+            body {
+                padding: 16px 10px;
+            }
+            .mkb-row {
+                padding: 14px 18px;
+                font-size: 0.95rem;
+            }
+            .diagnosis {
+                padding: 10px 18px;
+                font-size: 0.9rem;
             }
             .content {
-                padding: 20px;
+                padding: 16px;
+            }
+            .section {
+                margin-bottom: 20px;
+            }
+            .section-title {
+                font-size: 1.15rem;
+                padding-left: 12px;
+                margin-bottom: 12px;
+            }
+            .field-item {
+                font-size: 0.85rem;
+                padding: 4px 0 4px 4px;
+            }
+            .field-item strong {
+                min-width: 140px;
+            }
+            .full-width-text {
+                font-size: 0.85rem;
+                padding: 6px 0 6px 4px;
+            }
+            .full-width-text strong {
+                min-width: 140px;
+            }
+            .status-local {
+                padding: 10px 14px;
+                font-size: 0.85rem;
+            }
+            .scales-list {
+                padding: 10px 14px;
+            }
+            .scales-list p {
+                font-size: 0.85rem;
+                margin: 6px 0;
+            }
+            .note {
+                padding: 10px 14px;
+                font-size: 0.8rem;
+            }
+            .btn-algorithm {
+                padding: 8px 22px;
+                font-size: 1rem;
+            }
+            .btn-hint {
+                font-size: 0.65rem;
+            }
+            .modal-overlay {
+                padding: 12px;
+                align-items: center;
+            }
+            .modal-container {
+                max-height: 85vh;
+                border-radius: 20px;
+            }
+            .modal-header {
+                padding: 14px 16px;
+                gap: 8px;
+                border-bottom: 3px solid #ffb347;
+            }
+            .modal-header h2 {
+                font-size: 1rem;
+                line-height: 1.25;
+            }
+            .modal-close {
+                font-size: 26px;
+                padding: 0 4px;
+            }
+            .modal-body {
+                padding: 16px;
+                font-size: 0.88rem;
+            }
+            .adult-block {
+                padding-left: 12px;
+                padding-right: 10px;
+                padding-top: 10px;
+                padding-bottom: 10px;
+                border-radius: 0 14px 14px 0;
+                margin-bottom: 28px;
+            }
+            .child-block {
+                padding-left: 12px;
+                padding-right: 10px;
+                padding-top: 10px;
+                padding-bottom: 10px;
+                border-radius: 0 14px 14px 0;
+                margin-bottom: 16px;
+            }
+            .badge-adult,
+            .badge-child {
+                font-size: 0.8rem;
+                padding: 4px 10px;
+                border-radius: 30px;
+            }
+            .condition-title {
+                font-size: 0.9rem;
+                margin-bottom: 6px;
+            }
+            .list-styled {
+                margin-left: 18px;
+            }
+            .list-styled li {
+                margin: 6px 0;
+                font-size: 0.85rem;
+            }
+            .no-bg-block,
+            .light-block,
+            .red-block,
+            .child-condition-block,
+            .child-red-block {
+                padding: 10px 14px;
+                margin: 14px 0;
+                border-radius: 12px;
+            }
+            .tactic-block {
+                padding: 10px 14px;
+                margin: 14px 0;
+                border-radius: 16px;
+            }
+            .tactic-title {
+                font-size: 0.9rem;
+            }
+            .important-red {
+                padding: 10px 14px;
+                font-size: 0.85rem;
+                border-radius: 0 10px 10px 0;
+            }
+            .drug-name {
+                font-size: 0.82rem;
+                padding: 1px 6px;
+            }
+            .highlight-number {
+                font-size: 0.85rem;
+            }
+        }
+        @media (max-width: 480px) {
+            .field-item strong {
+                min-width: 120px;
+            }
+            .full-width-text strong {
+                min-width: 120px;
+            }
+            .btn-algorithm {
+                padding: 10px 18px;
+                font-size: 0.9rem;
+                border-radius: 40px;
+            }
+            .modal-overlay {
+                padding: 8px;
+                align-items: center;
+            }
+            .modal-container {
+                max-height: 85vh;
+                border-radius: 16px;
+            }
+            .modal-header {
+                padding: 10px 12px;
+                gap: 6px;
+            }
+            .modal-header h2 {
+                font-size: 0.9rem;
+                line-height: 1.2;
+            }
+            .modal-close {
+                font-size: 22px;
+            }
+            .modal-body {
+                padding: 12px;
+                font-size: 0.82rem;
+            }
+            .adult-block {
+                padding-left: 8px;
+                padding-right: 8px;
+                border-left-width: 4px;
+            }
+            .child-block {
+                padding-left: 8px;
+                padding-right: 8px;
+                border-left-width: 4px;
+            }
+            .list-styled {
+                margin-left: 14px;
+            }
+            .list-styled li {
+                font-size: 0.8rem;
+                margin: 4px 0;
+            }
+            .condition-title {
+                font-size: 0.82rem;
+            }
+            .no-bg-block,
+            .light-block,
+            .red-block,
+            .child-condition-block,
+            .child-red-block {
+                padding: 8px 10px;
+                margin: 10px 0;
+            }
+            .tactic-block {
+                padding: 8px 10px;
+                margin: 10px 0;
+            }
+            .tactic-title {
+                font-size: 0.82rem;
+            }
+            .important-red {
+                padding: 8px 10px;
+                font-size: 0.8rem;
+            }
+            .drug-name {
+                font-size: 0.75rem;
+            }
+            .highlight-number {
+                font-size: 0.8rem;
+            }
+            .badge-adult,
+            .badge-child {
+                font-size: 0.7rem;
+                padding: 3px 8px;
             }
         }
     </style>
 </head>
 <body>
-<div class="card">
-    <div class="mkb-row">
-        📌 Код по МКБ-10: <span>I60.9</span> (Субарахноидальное кровоизлияние неуточненное)
-    </div>
-    <div class="diagnosis">
-        🧾 <strong>Диагноз:</strong> Нетравматическое субарахноидальное кровоизлияние (вероятно, вследствие разрыва аневризмы). Менингеальный синдром.
-    </div>
-
-    <div class="content">
-        <!-- ЖАЛОБЫ -->
-        <div class="section">
-            <div class="section-title">📢 ЖАЛОБЫ</div>
-            <div class="full-width-text"><em>На момент осмотра пациентка предъявляет жалобы на внезапно возникшую, резчайшую, распирающую головную боль диффузного характера, преимущественно в затылочной области. Боль сопровождается тошнотой, многократной рвотой, не приносящей облегчения. Также беспокоят светобоязнь, боль при движении глазных яблок, напряжение в шее, затруднение при попытке наклонить голову.</em></div>
+    <div class="card">
+        <div class="mkb-row">
+            📌 Код по МКБ-10: <span>I60.9</span> (Субарахноидальное кровоизлияние неуточненное)
         </div>
-
-        <!-- АНАМНЕЗ -->
-        <div class="section">
-            <div class="section-title">📋 АНАМНЕЗ</div>
-            <div class="full-width-text"><strong>Anamnesis morbi:</strong> Со слов пациентки, головная боль возникла внезапно, около 2 часов назад, на фоне полного благопокойствия (или во время физической нагрузки — уточнить). Подобной боли никогда ранее не испытывала. Самостоятельно не лечилась, вызвала бригаду СМП.</div>
-            <div class="full-width-text"><strong>Анамнез жизни:</strong> Гипертоническая болезнь в анамнезе (со слов), максимальное АД до 180/100 мм рт. ст., регулярно гипотензивные препараты не принимает. Курит. Наследственность: у матери была гипертония, инсульт.</div>
-            <div class="full-width-text"><strong>Аллергологический анамнез:</strong> Не отягощен (аллергии на лекарства, пищевые продукты не отмечает).</div>
-            <div class="full-width-text"><strong>Гинекологический анамнез:</strong> Менопауза с 50 лет. Выделения из половых путей отсутствуют.</div>
-            <div class="full-width-text"><strong>Эпидемиологический анамнез:</strong> Контакт с инфекционными больными отрицает. За пределы РФ не выезжала, укусы насекомых отрицает. Прививочный анамнез неизвестен.</div>
+        <div class="diagnosis">
+            🧾 <strong>Диагноз:</strong> Нетравматическое субарахноидальное кровоизлияние (вероятно, вследствие разрыва аневризмы). Менингеальный синдром.
         </div>
-
-        <!-- ОБЪЕКТИВНО -->
-        <div class="section">
-            <div class="section-title">🩺 ОБЪЕКТИВНО</div>
-            <div class="field-list">
-                <div class="field-item"><strong>Общее состояние:</strong> <span class="value">средней тяжести (тяжелое? – учитывая интенсивность боли и менингеальные симптомы, скорее средней тяжести).</span></div>
-                <div class="field-item"><strong>Сознание:</strong> <span class="value">ясное.</span></div>
-                <div class="field-item"><strong>Шкала комы Глазго (GCS):</strong> <span class="value">15 баллов (E4,V5,M6).</span></div>
+        <div class="content">
+            <div class="section">
+                <div class="section-title">📢 ЖАЛОБЫ</div>
+                <div class="full-width-text"><em>На момент осмотра пациентка предъявляет жалобы на внезапно возникшую, резчайшую, распирающую головную боль диффузного характера, преимущественно в затылочной области. Боль сопровождается тошнотой, многократной рвотой, не приносящей облегчения. Также беспокоят светобоязнь, боль при движении глазных яблок, напряжение в шее, затруднение при попытке наклонить голову.</em></div>
+            </div>
+            <div class="section">
+                <div class="section-title">📋 АНАМНЕЗ (в т.ч. - эпид., аллерг., гинекол. по показаниям)</div>
+                <div class="full-width-text"><strong>Anamnesis morbi:</strong> Со слов пациентки, головная боль возникла внезапно, около 2 часов назад, на фоне полного благополучия. Подобной боли никогда ранее не испытывала. Самостоятельно не лечилась, вызвала бригаду СМП.</div>
+                <div class="full-width-text"><strong>Анамнез жизни:</strong> Гипертоническая болезнь в анамнезе (со слов), максимальное АД до 180/100 мм рт. ст., регулярно гипотензивные препараты не принимает. Курит. Наследственность: у матери была гипертония, инсульт.</div>
+                <div class="full-width-text"><strong>Аллергологический анамнез:</strong> Не отягощен (аллергии на лекарства, пищевые продукты не отмечает).</div>
+                <div class="full-width-text"><strong>Гинекологический анамнез:</strong> Менопауза с 50 лет. Выделения из половых путей отсутствуют.</div>
+                <div class="full-width-text"><strong>Эпидемиологический анамнез:</strong> Контакт с инфекционными больными отрицает. За пределы РФ не выезжала, укусы насекомых отрицает. Прививочный анамнез неизвестен.</div>
+            </div>
+            <div class="section">
+                <div class="section-title">🩺 ОБЪЕКТИВНО</div>
+                <div class="field-item"><strong>Общее состояние:</strong> <span class="value">средней тяжести.</span></div>
+                <div class="field-item"><strong>Сознание:</strong> <span class="value">ясное. Шкала Глазго: 15 баллов.</span></div>
                 <div class="field-item"><strong>Положение:</strong> <span class="value">вынужденное (лежит на боку с запрокинутой головой, щадит свет).</span></div>
                 <div class="field-item"><strong>Кожные покровы:</strong> <span class="value">бледные, чистые, умеренно влажные, горячие на ощупь. Акроцианоза нет.</span></div>
                 <div class="field-item"><strong>Сыпь:</strong> <span class="value">нет.</span></div>
@@ -218,15 +750,11 @@
                 <div class="field-item"><strong>Миндалины:</strong> <span class="value">без особенностей, не увеличены, налетов нет.</span></div>
                 <div class="field-item"><strong>Лимфоузлы:</strong> <span class="value">не пальпируются.</span></div>
                 <div class="field-item"><strong>Пролежни:</strong> <span class="value">нет.</span></div>
-                <div class="field-item"><strong>Отеки:</strong> <span class="value">нет.</span></div>
-                <div class="field-item"><strong>t°:</strong> <span class="value">36.7 °C (аксиллярно).</span></div>
+                <div class="field-item"><strong>Отёки:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Температура тела:</strong> <span class="value">36,7 °C.</span></div>
             </div>
-        </div>
-
-        <!-- ОРГАНЫ ДЫХАНИЯ -->
-        <div class="section">
-            <div class="section-title">🌬️ ОРГАНЫ ДЫХАНИЯ</div>
-            <div class="field-list">
+            <div class="section">
+                <div class="section-title">🌬️ ОРГАНЫ ДЫХАНИЯ</div>
                 <div class="field-item"><strong>ЧДД в мин:</strong> <span class="value">18</span></div>
                 <div class="field-item"><strong>Одышка:</strong> <span class="value">нет.</span></div>
                 <div class="field-item"><strong>Патологическое дыхание:</strong> <span class="value">нет.</span></div>
@@ -238,43 +766,31 @@
                 <div class="field-item"><strong>Кашель:</strong> <span class="value">нет.</span></div>
                 <div class="field-item"><strong>Мокрота:</strong> <span class="value">нет.</span></div>
             </div>
-        </div>
-
-        <!-- ОРГАНЫ КРОВООБРАЩЕНИЯ -->
-        <div class="section">
-            <div class="section-title">❤️ ОРГАНЫ КРОВООБРАЩЕНИЯ</div>
-            <div class="field-list">
-                <div class="field-item"><strong>Пульс в мин:</strong> <span class="value">86 (ритмичный, удовлетворительного наполнения и напряжения).</span></div>
-                <div class="field-item"><strong>Ритмичный, аритмичный, наполнение пульса:</strong> <span class="value">ритмичный, удовлетворительный.</span></div>
-                <div class="field-item"><strong>ЧСС:</strong> <span class="value">86 (по аускультации сердца).</span></div>
+            <div class="section">
+                <div class="section-title">❤️ ОРГАНЫ КРОВООБРАЩЕНИЯ</div>
+                <div class="field-item"><strong>Пульс в мин:</strong> <span class="value">86, ритмичный, удовлетворительного наполнения и напряжения.</span></div>
+                <div class="field-item"><strong>ЧСС:</strong> <span class="value">86 ударов в минуту.</span></div>
                 <div class="field-item"><strong>Дефицит пульса:</strong> <span class="value">нет.</span></div>
-                <div class="field-item"><strong>АД мм.рт.ст. на момент осмотра:</strong> <span class="value">150/90, привычное АД мм.рт.ст.: 140/80 (со слов), максимальное АД мм.рт.ст.: 180/100.</span></div>
+                <div class="field-item"><strong>АД мм.рт.ст.:</strong> <span class="value">150/90.</span></div>
+                <div class="field-item"><strong>Привычное АД:</strong> <span class="value">140/80 (со слов).</span></div>
+                <div class="field-item"><strong>Максимальное АД:</strong> <span class="value">180/100 (со слов).</span></div>
                 <div class="field-item"><strong>Тоны сердца:</strong> <span class="value">ясные, звучные, ритмичные, акцент II тона на аорте.</span></div>
                 <div class="field-item"><strong>Шум:</strong> <span class="value">нет.</span></div>
                 <div class="field-item"><strong>Шум трения перикарда:</strong> <span class="value">нет.</span></div>
-                <div class="field-item"><strong>Акцент какого тона на:</strong> <span class="value">акцент II тона на аорте.</span></div>
+                <div class="field-item"><strong>Акцент тонов:</strong> <span class="value">акцент II тона на аорте.</span></div>
             </div>
-        </div>
-
-        <!-- ОРГАНЫ ПИЩЕВАРЕНИЯ -->
-        <div class="section">
-            <div class="section-title">🍽️ ОРГАНЫ ПИЩЕВАРЕНИЯ</div>
-            <div class="field-list">
+            <div class="section">
+                <div class="section-title">🍽️ ОРГАНЫ ПИЩЕВАРЕНИЯ</div>
                 <div class="field-item"><strong>Язык:</strong> <span class="value">влажный, обложен белым налетом у корня.</span></div>
                 <div class="field-item"><strong>Живот:</strong> <span class="value">правильной формы, мягкий, не вздут, участвует в акте дыхания, безболезненный при пальпации во всех отделах.</span></div>
-                <div class="field-item"><strong>Болезненный в:</strong> <span class="value">безболезненный.</span></div>
-                <div class="field-item"><strong>Положительные симптомы:</strong> <span class="value">Симптомы раздражения брюшины (Образцова, Ровзинга, Ситковского, Ортнера, Мерфи, Мейо-Робсона, Щёткина-Блюмберга, Валя) — отрицательные.</span></div>
+                <div class="field-item"><strong>Положительные симптомы:</strong> <span class="value">нет (живот мягкий, безболезненный).</span></div>
                 <div class="field-item"><strong>Перистальтика:</strong> <span class="value">активная, выслушивается.</span></div>
                 <div class="field-item"><strong>Печень:</strong> <span class="value">не увеличена, край эластичный, безболезненный.</span></div>
-                <div class="field-item"><strong>Селезенка:</strong> <span class="value">не пальпируется.</span></div>
+                <div class="field-item"><strong>Селезёнка:</strong> <span class="value">не пальпируется.</span></div>
                 <div class="field-item"><strong>Стул:</strong> <span class="value">регулярный, оформленный (сегодня утром был). На момент осмотра многократная рвота.</span></div>
             </div>
-        </div>
-
-        <!-- НЕРВНАЯ СИСТЕМА -->
-        <div class="section">
-            <div class="section-title">🧠 НЕРВНАЯ СИСТЕМА</div>
-            <div class="field-list">
+            <div class="section">
+                <div class="section-title">🧠 НЕРВНАЯ СИСТЕМА</div>
                 <div class="field-item"><strong>Поведение:</strong> <span class="value">беспокойное, испугана из-за интенсивности боли.</span></div>
                 <div class="field-item"><strong>Контакт:</strong> <span class="value">доступен, адекватна.</span></div>
                 <div class="field-item"><strong>Чувствительность:</strong> <span class="value">сохранена, гиперестезия кожных покровов (неприятные ощущения при прикосновении).</span></div>
@@ -285,79 +801,372 @@
                 <div class="field-item"><strong>Асимметрия лица:</strong> <span class="value">нет.</span></div>
                 <div class="field-item"><strong>Менингеальные симптомы:</strong> <span class="value">ригидность затылочных мышц (на 3–4 поперечных пальца), симптомы Кернига (положительный с обеих сторон), Брудзинского (верхний, нижний – положительные).</span></div>
                 <div class="field-item"><strong>Очаговые симптомы:</strong> <span class="value">не выявлены (парезов, параличей, нарушений чувствительности, координации нет).</span></div>
-                <div class="field-item"><strong>Координаторные пробы:</strong> <span class="value">выполняет с трудом из-за головной боли и рвоты, но грубых нарушений нет.</span></div>
             </div>
-        </div>
-
-        <!-- МОЧЕПОЛОВАЯ СИСТЕМА -->
-        <div class="section">
-            <div class="section-title">🚽 МОЧЕПОЛОВАЯ СИСТЕМА</div>
-            <div class="field-list">
+            <div class="section">
+                <div class="section-title">🧍 КООРДИНАТОРНЫЕ ПРОБЫ</div>
+                <div class="field-item"><strong>Пальце-носовая проба:</strong> <span class="value">выполняет с трудом из-за головной боли и рвоты, но грубых нарушений нет.</span></div>
+                <div class="field-item"><strong>Пяточно-коленная проба:</strong> <span class="value">выполняет с трудом из-за головной боли и рвоты.</span></div>
+                <div class="field-item"><strong>Поза Ромберга:</strong> <span class="value">не проводилась (вынужденное положение).</span></div>
+            </div>
+            <div class="section">
+                <div class="section-title">🚽 МОЧЕПОЛОВАЯ СИСТЕМА</div>
                 <div class="field-item"><strong>Мочеиспускание:</strong> <span class="value">свободное, безболезненное, моча светлая, прозрачная.</span></div>
                 <div class="field-item"><strong>Симптом поколачивания:</strong> <span class="value">отрицательный с обеих сторон.</span></div>
             </div>
-        </div>
-
-        <!-- STATUS LOCALIS -->
-        <div class="section">
-            <div class="section-title">🔍 STATUS LOCALIS</div>
-            <div class="status-local">
-                Травм и повреждений кожных покровов нет. При неврологическом осмотре: выраженный менингеальный синдром (ригидность затылочных мышц, симптомы Кернига, Брудзинского).
+            <div class="section">
+                <div class="section-title">🔍 STATUS LOCALIS</div>
+                <div class="status-local">
+                    Травм и повреждений кожных покровов нет. При неврологическом осмотре: выраженный менингеальный синдром (ригидность затылочных мышц, симптомы Кернига, Брудзинского).
+                </div>
             </div>
-        </div>
-
-        <!-- ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ -->
-        <div class="section">
-            <div class="section-title">📊 ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ</div>
-            <div class="scales-list">
-                <p>✔ <strong>ЭКГ:</strong> ритм синусовый, правильный, ЧСС 86 в мин, ЭОС нормальная. Признаков острой коронарной патологии нет.</p>
-                <p>✔ <strong>Пульсоксиметрия:</strong> SpO2 – 98%.</p>
-                <p>✔ <strong>Глюкометрия:</strong> 6,2 ммоль/л (стрессовая гипергликемия?).</p>
+            <div class="section">
+                <div class="section-title">📈 ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ</div>
+                <div class="scales-list">
+                    <p>✔ <strong>Пульсоксиметрия:</strong> SpO₂ – 98%.</p>
+                    <p>✔ <strong>Глюкометрия:</strong> 6,2 ммоль/л (стрессовая гипергликемия?).</p>
+                    <p>✔ <strong>ЭКГ:</strong> ритм синусовый, правильный, ЧСС 86 в мин, ЭОС нормальная. Признаков острой коронарной патологии нет.</p>
+                </div>
             </div>
-        </div>
-
-        <!-- ОЦЕНКА ПО ШКАЛАМ -->
-        <div class="section">
-            <div class="section-title">📊 ОЦЕНКА ПО ШКАЛАМ</div>
-            <div class="scales-list">
-                <p>✔ <strong>Шкала NEWS2:</strong> ЧДД 18 (0), SpO2 98% (0), температура 36.7 (0), АД сист. 150 (1 балл), ЧСС 86 (0), сознание ясное (0). Сумма: 1 балл (низкий риск, но требует экстренной госпитализации).</p>
-                <p>✔ <strong>Шкала Hunt-Hess (для САК):</strong> II степень (умеренная/средняя) – головная боль, менингеальные симптомы, без очагового дефицита.</p>
-                <p>✔ <strong>Шкала инсульта LAMS:</strong> 0 баллов (лицо симметрично, сила в руках сохранена, парезов нет, речи нет афазии, отклонения языка нет).</p>
-                <p>✔ <strong>Индекс Альговера:</strong> ЧСС/АДсист = 86/150 = 0.57 (в пределах нормы).</p>
-                <p>✔ <strong>Степень дыхательной недостаточности:</strong> ОДН 0 (SpO2 >95%, ЧДД <20).</p>
-                <p>✔ <strong>Шкала боли ВАШ при травме:</strong> не применимо.</p>
-                <p>✔ <strong>Шкала риска ТЭЛА:</strong> не применимо.</p>
-                <p>✔ <strong>Шкала ШОКС:</strong> не применимо.</p>
-                <p>✔ <strong>Признаки ДЭП:</strong> не применимо.</p>
-                <p>✔ <strong>Состояние алкогольного опьянения:</strong> запах алкоголя не определяется. Поведение адекватное.</p>
+            <div class="section">
+                <div class="section-title">📊 ОЦЕНКА ПО ШКАЛАМ</div>
+                <div class="scales-list">
+                    <p>✔ <strong>Шкала NEWS2:</strong> ЧДД 18 – 0, SpO₂ 98% – 0, температура 36,7 – 0, АД сист. 150 – 1, ЧСС 86 – 0, сознание ясное – 0. Сумма: 1 балл (низкий риск, но требует экстренной госпитализации).</p>
+                    <p>✔ <strong>Шкала комы Глазго (GCS):</strong> 15 баллов.</p>
+                    <p>✔ <strong>Шкала Hunt-Hess (для САК):</strong> II степень (умеренная/средняя) – головная боль, менингеальные симптомы, без очагового дефицита.</p>
+                    <p>✔ <strong>Индекс Альговера:</strong> ЧСС/АД сист. = 86/150 ≈ 0,57 — <span class="bold-black">норма (шока нет)</span>.</p>
+                    <p>✔ <strong>Шкала LAMS:</strong> 0 баллов (лицо симметрично, сила в руках сохранена, парезов нет, речи нет афазии, отклонения языка нет).</p>
+                    <p>✔ <strong>Шкала боли ВАШ:</strong> не применимо.</p>
+                    <p>✔ <strong>Шкала ОДН по Кассиль:</strong> не применимо.</p>
+                    <p>✔ <strong>Шкала риска ТЭЛА:</strong> не применимо.</p>
+                    <p>✔ <strong>Шкала ШОКС:</strong> не применимо.</p>
+                    <p>✔ <strong>Алкогольное опьянение:</strong> запах алкоголя не определяется. Поведение адекватное.</p>
+                    <p>✔ <strong>Признаки ДЭП:</strong> не применимо.</p>
+                </div>
             </div>
-        </div>
-
-        <!-- Примечание для бригады СМП -->
-        <div class="note">
-            <strong>📌 Примечание для бригады СМП:</strong><br>
-            Дифференциальная диагностика внезапной головной боли с менингеальным синдромом проведена с:
-            <ul class="note-list">
-                <li><strong>менингитом (бактериальным, вирусным)</strong> (характерны лихорадка, озноб, интоксикация, менингеальные симптомы, но головная боль нарастает постепенно, нет "громоподобного" начала. В ликворе – воспалительные изменения. Эпиданамнез (контакт с больными));</li>
-                <li><strong>гипертоническим кризом с гипертензивной энцефалопатией</strong> (резкое повышение АД, головная боль, тошнота, рвота, могут быть очаговые симптомы, судороги. При САК АД также может быть высоким, но боль носит характер "удара");</li>
-                <li><strong>внутримозговым кровоизлиянием (гематомой)</strong> (острое начало, очаговая неврологическая симптоматика (гемипарез, афазия) часто доминирует, менингеальные симптомы могут отсутствовать или быть слабо выражены);</li>
-                <li><strong>ишемическим инсультом</strong> (очаговая симптоматика, головная боль менее интенсивна, менингеальные симптомы не характерны (кроме массивных инфарктов мозжечка));</li>
-                <li><strong>мигренью (особенно гемиплегической или с аурой)</strong> (головная боль пульсирующая, часто односторонняя, с тошнотой, рвотой, свето- и звукобоязнью. Но нет внезапного "громоподобного" начала, менингеальные симптомы отсутствуют. В анамнезе – подобные приступы);</li>
-                <li><strong>тромбозом венозных синусов</strong> (головная боль подострая, нарастающая, может быть очаговая симптоматика, судороги, повышение температуры. Факторы риска – инфекции, тромбофилии, послеродовый период);</li>
-                <li><strong>опухолью головного мозга (с кровоизлиянием или без)</strong> (головная боль нарастает постепенно, часто усиливается по утрам, сопровождается тошнотой, рвотой, возможны очаговые симптомы. МРТ уточняет);</li>
-                <li><strong>расслаивающей аневризмой аорты</strong> (резкая боль в груди, спине, с иррадиацией, но не в голове. При вовлечении сонных артерий – неврологический дефицит);</li>
-                <li><strong>синдромом обратимой церебральной вазоконстрикции (Call-Fleming)</strong> ("громоподобная" головная боль, часто повторяющаяся, с нормальной КТ, изменения на МР-ангиографии (сегментарный спазм). Связан с приемом симпатомиметиков, послеродовым периодом).</li>
-            </ul>
-            <strong>Ключевые признаки субарахноидального кровоизлияния:</strong><br>
-            – Внезапное начало (молниеносная, "громоподобная" головная боль – пациент помнит момент, когда она возникла).<br>
-            – Выраженный менингеальный синдром (ригидность затылочных мышц, симптомы Кернига, Брудзинского).<br>
-            – Тошнота, многократная рвота, светобоязнь.<br>
-            – Возможна кратковременная потеря сознания в дебюте.<br>
-            – Отсутствие очаговой неврологической симптоматики (при неосложненном течении).<br>
-            – Возраст (чаще 40–60 лет), наличие факторов риска (гипертония, курение, отягощенный семейный анамнез).<br>
-            – КТ головного мозга – золотой стандарт диагностики (кровь в субарахноидальном пространстве).
+            <div class="note">
+                <strong>📌 Примечание для бригады СМП (дифференциальная диагностика + ключевые признаки)</strong><br>
+                Дифференциальная диагностика внезапной головной боли с менингеальным синдромом проведена с:
+                <ul class="note-list">
+                    <li><strong>менингитом (бактериальным, вирусным)</strong> (характерны лихорадка, озноб, интоксикация, менингеальные симптомы, но головная боль нарастает постепенно, нет «громоподобного» начала. В ликворе – воспалительные изменения);</li>
+                    <li><strong>гипертоническим кризом с гипертензивной энцефалопатией</strong> (резкое повышение АД, головная боль, тошнота, рвота, могут быть очаговые симптомы, судороги. При САК АД также может быть высоким, но боль носит характер «удара»);</li>
+                    <li><strong>внутримозговым кровоизлиянием (гематомой)</strong> (острое начало, очаговая неврологическая симптоматика (гемипарез, афазия) часто доминирует, менингеальные симптомы могут отсутствовать или быть слабо выражены);</li>
+                    <li><strong>ишемическим инсультом</strong> (очаговая симптоматика, головная боль менее интенсивна, менингеальные симптомы не характерны);</li>
+                    <li><strong>мигренью</strong> (головная боль пульсирующая, часто односторонняя, с тошнотой, рвотой, свето- и звукобоязнью. Но нет внезапного «громоподобного» начала, менингеальные симптомы отсутствуют);</li>
+                    <li><strong>тромбозом венозных синусов</strong> (головная боль подострая, нарастающая, может быть очаговая симптоматика, судороги);</li>
+                    <li><strong>опухолью головного мозга</strong> (головная боль нарастает постепенно, часто усиливается по утрам. МРТ уточняет);</li>
+                    <li><strong>синдромом обратимой церебральной вазоконстрикции (Call-Fleming)</strong> («громоподобная» головная боль, часто повторяющаяся, с нормальной КТ).</li>
+                </ul>
+                <strong>🔑 Ключевые признаки субарахноидального кровоизлияния:</strong><br>
+                – Внезапное начало (молниеносная, «громоподобная» головная боль – пациент помнит момент, когда она возникла).<br>
+                – Выраженный менингеальный синдром (ригидность затылочных мышц, симптомы Кернига, Брудзинского).<br>
+                – Тошнота, многократная рвота, светобоязнь.<br>
+                – Возможна кратковременная потеря сознания в дебюте.<br>
+                – Отсутствие очаговой неврологической симптоматики (при неосложненном течении).<br>
+                – Возраст (чаще 40–60 лет), наличие факторов риска (гипертония, курение, отягощенный семейный анамнез).<br>
+                – КТ головного мозга – золотой стандарт диагностики (кровь в субарахноидальном пространстве).
+            </div>
+            <button class="btn-algorithm" id="openAlgorithmBtn">
+                🚨 Оказание помощи в соответствии с Алгоритмами МСК
+                <span class="btn-hint">▼ нажмите для открытия ▼</span>
+            </button>
         </div>
     </div>
-</div>
+
+    <div class="modal-overlay" id="algorithmModal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h2>I63, I64, I60, I61, G45, G45.0 Инсульт. Инфаркт мозга. Субарахноидальное кровоизлияние. Внутримозговое кровоизлияние. ТИА. Синдром ВБАС</h2>
+                <button class="modal-close" id="closeModalBtn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="adult-block">
+                    <div class="badge-adult">ВЗРОСЛЫЙ ПРОТОКОЛ</div>
+                    <ul class="list-styled">
+                        <li>Пульсоксиметрия</li>
+                        <li>ЭКГ(ЭКП)</li>
+                        <li>Глюкометрия</li>
+                        <li>Термометрия</li>
+                        <li>Оценка неврологического дефицита по шкале LAMS <span class="italic-bold-ref" onclick="openImage('Шкала LAMS.jpg'); return false;">(см. «Приложение 19»)</span></li>
+                        <li>Катетеризация вены или внутрикостный доступ</li>
+                        <li><span class="drug-name">Мексидол (Этилметилгидроксипиридина сукцинат) 250 мг (5 мл)</span> в/венно и <span class="drug-name">Магния сульфат 2500 мг (10 мл)</span> в разведении Натрия хлорида 0,9% – 250 мл в/венно капельно <span class="highlight-number">30–60 капель в минуту</span> или <span class="drug-name">Цитофлавин (Инозин + никотинамид + рибофлавин + янтарная кислота) 10 мл</span> в разведении Натрия хлорида 0,9% – 400 мл в/венно капельно до <span class="highlight-number">60 капель в минуту</span></li>
+                        <li>Эхо–ЭС (для экстренных консультативных неврологических бригад)</li>
+                    </ul>
+                    <div class="light-block">
+                        <div class="condition-title">– при SpO₂ ≤ 93%</div>
+                        <ul class="list-styled">
+                            <li>Ингаляция кислорода</li>
+                        </ul>
+                    </div>
+                    <div class="red-block">
+                        <div class="condition-title">– при САД > 200 мм рт.ст. (инсульт, инфаркт мозга)</div>
+                        <div class="condition-title">– при САД > 180 мм рт.ст. (субарахноидальное, внутримозговое кровоизлияние)</div>
+                        <ul class="list-styled">
+                            <li><span class="drug-name">Урапидил 12,5–25 мг (2,5–5 мл)</span> в/венно медленно</li>
+                        </ul>
+                        <div class="important-red" style="margin-top: 10px;">
+                            <strong>Снижение САД не более 15% от исходного уровня</strong>
+                        </div>
+                    </div>
+                    <div class="red-block">
+                        <div class="condition-title">– при САД < 100 мм рт.ст.</div>
+                        <ul class="list-styled">
+                            <li><span class="drug-name">Натрия хлорида 0,9% – 250–500 мл</span> и/или <span class="drug-name">Гидроксиэтилкрахмал 6% – 250–500 мл</span> в/венно капельно</li>
+                        </ul>
+                        <div class="condition-title" style="margin-top: 8px;">При отсутствии эффекта:</div>
+                        <ul class="list-styled">
+                            <li><span class="drug-name">Норэпинефрин 0,5–5 мкг/кг/мин</span> в разведении Декстрозы 5% – 250 мл в/венно капельно или через шприцевой дозатор или <span class="drug-name">Допамин 5–15 мкг/кг/мин</span> в разведении Натрия хлорида 0,9% – 250 мл в/венно капельно или через шприцевой дозатор (при брадикардии) <a href="norepinephrine-adult.html" class="italic-bold-ref" target="_blank">(см. «Приложение 35»)</a>, <a href="dopamine-adult.html" class="italic-bold-ref" target="_blank">(см. «Приложение 31»)</a></li>
+                        </ul>
+                    </div>
+                    <div class="light-block">
+                        <div class="condition-title">– при тахикардии ≥ 100 в минуту</div>
+                        <ul class="list-styled">
+                            <li><span class="drug-name">Пропранолол 10–20 мг</span> или <span class="drug-name">Метопролол 12,5–25 мг</span> (при отсутствии противопоказаний) внутрь</li>
+                        </ul>
+                    </div>
+                    <div class="light-block">
+                        <div class="condition-title">– при рвоте</div>
+                        <ul class="list-styled">
+                            <li><span class="drug-name">Метоклопрамид 10 мг (2 мл)</span> в/венно</li>
+                        </ul>
+                    </div>
+                    <div class="light-block">
+                        <div class="condition-title">– при головной боли</div>
+                        <ul class="list-styled">
+                            <li><span class="drug-name">Кеторолак 30 мг (1 мл)</span> в/венно</li>
+                        </ul>
+                    </div>
+                    <div class="light-block">
+                        <div class="condition-title">– при психомоторном возбуждении</div>
+                        <ul class="list-styled">
+                            <li><span class="drug-name">Диазепам 10 мг (2 мл)</span> в/венно</li>
+                        </ul>
+                    </div>
+                    <div class="light-block">
+                        <div class="condition-title">– при температуре тела > 38°С</div>
+                        <ul class="list-styled">
+                            <li><span class="drug-name">Анальгин (Метамизол натрия) 1000 мг (2 мл)</span> в/венно</li>
+                            <li>Холод на затылочную область головы</li>
+                        </ul>
+                    </div>
+                    <div class="light-block">
+                        <div class="condition-title">– при гипогликемии < 3,7 ммоль/л</div>
+                        <ul class="list-styled">
+                            <li><span class="drug-name">Декстроза 40% – 20–40 мл</span> в/венно</li>
+                        </ul>
+                    </div>
+                    <div class="light-block">
+                        <div class="condition-title">– при гипергликемии > 10 ммоль/л</div>
+                        <ul class="list-styled">
+                            <li><span class="drug-name">Натрия хлорид 0,9% – 250 мл</span> в/венно капельно</li>
+                        </ul>
+                    </div>
+                    <div class="no-bg-block">
+                        <div class="condition-title">– при судорогах</div>
+                        <ul class="list-styled">
+                            <li><span class="italic-bold-static">См. подраздел данного раздела (Эпилепсия)</span></li>
+                        </ul>
+                    </div>
+                    <div class="no-bg-block">
+                        <div class="condition-title">– при отеке головного мозга</div>
+                        <ul class="list-styled">
+                            <li><span class="italic-bold-static">См. раздел «Анестезиология и реаниматология» (Отек головного мозга)</span></li>
+                        </ul>
+                    </div>
+                    <div class="no-bg-block">
+                        <div class="condition-title">– при коме</div>
+                        <div class="condition-title">– при нарушении дыхания (ДН III–IV ст.)</div>
+                        <ul class="list-styled">
+                            <li><span class="italic-bold-static">См. раздел «Анестезиология и реаниматология» (Кома, в том числе неустановленного генеза)</span></li>
+                            <li><span class="italic-bold-static">(Дыхательная недостаточность)</span></li>
+                        </ul>
+                    </div>
+                    <div class="tactic-block">
+                        <div class="tactic-title">▶ Тактика:</div>
+                        <ul class="list-styled">
+                            <li>1. Медицинская эвакуация в больницу <span class="bold-black">(13)</span>. Транспортировка на носилках</li>
+                            <li>2. При отказе от медицинской эвакуации в больницу:<br>– активный аудиоконтроль <span class="bold-black">(55)</span> (инсульт, инфаркт мозга, субарахноидальное, внутримозговое кровоизлияние),<br>– рекомендовать обратиться в поликлинику <span class="bold-black">(35)</span> (ТИА, ВБН)</li>
+                            <li>3. При повторном отказе – рекомендовать обратиться в поликлинику <span class="bold-black">(35)</span> (инсульт, инфаркт мозга, субарахноидальное, внутримозговое кровоизлияние)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="child-block">
+                    <div class="badge-child">ДЕТСКИЙ ПРОТОКОЛ</div>
+                    <ul class="list-styled">
+                        <li>Пульсоксиметрия</li>
+                        <li>ЭКГ(ЭКП)</li>
+                        <li>Глюкометрия</li>
+                        <li>Термометрия</li>
+                        <li>Катетеризация вены или внутрикостный доступ</li>
+                        <li><span class="drug-name">Магния сульфат: 13 мл</span> в разведении натрия хлорида 0,9% – 250 мл или 5% декстрозы в/венно капельно, <span class="highlight-number">2 кап/кг в мин.</span> – строго <span class="highlight-number">30 мин.</span></li>
+                    </ul>
+                    <div class="child-condition-block">
+                        <div class="condition-title">– при SpO₂ ≤ 93%</div>
+                        <ul class="list-styled">
+                            <li>Ингаляция кислорода</li>
+                        </ul>
+                    </div>
+                    <div class="child-condition-block">
+                        <div class="condition-title">– при повышении САД на 20% и более от возрастной нормы</div>
+                        <ul class="list-styled">
+                            <li><span class="drug-name">Каптоприл 0,1–0,2 мг/кг</span> внутрь <span class="bold-black">(с 12 лет)</span> (применение только после дистанционного медицинского консилиума)</li>
+                        </ul>
+                    </div>
+                    <div class="child-condition-block">
+                        <div class="condition-title">– при снижении САД на 20% и менее от возрастной нормы</div>
+                        <ul class="list-styled">
+                            <li><span class="drug-name">Натрия хлорид 0,9% – 10 мл/кг</span> в/венно капельно</li>
+                        </ul>
+                    </div>
+                    <div class="child-condition-block">
+                        <div class="condition-title">– при рвоте</div>
+                        <ul class="list-styled">
+                            <li><span class="drug-name">Метоклопрамид 0,1 мг/кг (0,02 мл/кг)</span> в/венно или в/мышечно <span class="bold-black">(с 2 лет)</span></li>
+                        </ul>
+                    </div>
+                    <div class="child-condition-block">
+                        <div class="condition-title">– при головной боли</div>
+                        <ul class="list-styled">
+                            <li><span class="drug-name">Анальгин (Метамизол натрия) 10 мг/кг (0,02 мл/кг)</span> в/венно или в/мышечно</li>
+                        </ul>
+                    </div>
+                    <div class="child-condition-block">
+                        <div class="condition-title">– при судорогах</div>
+                        <ul class="list-styled">
+                            <li><span class="drug-name">Диазепам</span> в/венно <a href="diazepam-child.html" class="italic-bold-ref" target="_blank">(см. «Приложение 43»)</a> и/или <span class="drug-name">Конвулекс (Вальпроевая кислота) 15 мг/кг (0,15 мл/кг)</span> в/венно медленно <span class="bold-black">(с 6 месяцев)</span></li>
+                        </ul>
+                    </div>
+                    <div class="child-condition-block">
+                        <div class="condition-title">– при психомоторном возбуждении</div>
+                        <ul class="list-styled">
+                            <li><span class="drug-name">Диазепам</span> в/венно <a href="diazepam-child.html" class="italic-bold-ref" target="_blank">(см. «Приложение 43»)</a> или <span class="highlight-number">0,3 мг/кг (0,06 мл/кг)</span> в/мышечно</li>
+                        </ul>
+                    </div>
+                    <div class="child-condition-block">
+                        <div class="condition-title">– при температуре тела > 38°С</div>
+                        <ul class="list-styled">
+                            <li><span class="drug-name">Парацетамол 15 мг/кг</span> внутрь или суппозитории ректально или <span class="drug-name">Анальгин (Метамизол натрия) 10 мг/кг (0,02 мл/кг)</span> в/венно или в/мышечно</li>
+                            <li>Холод на затылочную область головы</li>
+                        </ul>
+                    </div>
+                    <div class="child-condition-block">
+                        <div class="condition-title">– при гипогликемии < 3,9 ммоль/л</div>
+                        <ul class="list-styled">
+                            <li><span class="drug-name">Декстроза 10% – 2 мл/кг</span> в/венно капельно</li>
+                        </ul>
+                    </div>
+                    <div class="child-condition-block">
+                        <div class="condition-title">– при гипергликемии > 10 ммоль/л</div>
+                        <ul class="list-styled">
+                            <li><span class="drug-name">Натрия хлорид 0,9% – 10 мл/кг</span> в/венно капельно</li>
+                        </ul>
+                    </div>
+                    <div class="child-red-block">
+                        <div class="condition-title">– при нарушении дыхания (ДН III–IV ст.)</div>
+                        <ul class="list-styled">
+                            <li>Санация верхних дыхательных путей</li>
+                            <li>Интубация трахеи или применение надгортанного герметизирующего устройства <span class="italic-bold-ref" onclick="openImage('Тактика обеспечения проходимости дыхательных путей у детей.png'); return false;">(см. «Приложение 3»)</span></li>
+                            <li>ИВЛ/ВВЛ <span class="italic-bold-ref" onclick="openImage('Параметры респираторной поддержки при сохраненном самостоятельном кровообращении.jpg'); return false;">(см. «Приложение 6»)</span></li>
+                            <li>Капнометрия-капнография (для бригад АиР)</li>
+                        </ul>
+                    </div>
+                    <div class="no-bg-block">
+                        <div class="condition-title">– при коме</div>
+                        <div class="condition-title">– при отеке головного мозга</div>
+                        <div class="condition-title">– при нарастающем дислокационном синдроме</div>
+                        <ul class="list-styled">
+                            <li><span class="italic-bold-static">См. раздел «Детская анестезиология и реаниматология» (Кома неустановленного генеза)</span></li>
+                            <li><span class="italic-bold-static">(Отек головного мозга)</span></li>
+                        </ul>
+                    </div>
+                    <div class="tactic-block">
+                        <div class="tactic-title">▶ Тактика:</div>
+                        <ul class="list-styled">
+                            <li>1. Медицинская эвакуация в больницу <span class="bold-black">(13)</span>. Транспортировка на носилках</li>
+                            <li>2. При отказе от медицинской эвакуации в больницу – актив в ОНМПВиДН <span class="bold-black">(31)</span></li>
+                            <li>3. При повторном отказе от медицинской эвакуации – актив в поликлинику <span class="bold-black">(27)</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="imageModal">
+        <span class="close-img" onclick="document.getElementById('imageModal').classList.remove('active')">&times;</span>
+        <img id="imgDisplay" src="" alt="Изображение" />
+        <div class="img-nav" id="imgNav" style="display:none;">
+            <button onclick="prevImage()">◀ Назад</button>
+            <span class="img-counter" id="imgCounter"></span>
+            <button onclick="nextImage()">Вперёд ▶</button>
+        </div>
+    </div>
+
+    <script>
+        const modal = document.getElementById('algorithmModal');
+        const openBtn = document.getElementById('openAlgorithmBtn');
+        const closeBtn = document.getElementById('closeModalBtn');
+        function openModal() {
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeModal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        openBtn.addEventListener('click', openModal);
+        closeBtn.addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('active')) closeModal();
+        });
+        let currentGallery = [];
+        let currentIndex = 0;
+        function openImage(src) {
+            document.getElementById('imageModal').classList.add('active');
+            document.getElementById('imgDisplay').src = src;
+            document.getElementById('imgNav').style.display = 'none';
+            document.body.style.overflow = 'hidden';
+        }
+        function openImageGallery(images) {
+            currentGallery = images;
+            currentIndex = 0;
+            document.getElementById('imageModal').classList.add('active');
+            document.getElementById('imgDisplay').src = currentGallery[currentIndex];
+            document.getElementById('imgNav').style.display = 'flex';
+            updateCounter();
+            document.body.style.overflow = 'hidden';
+        }
+        function updateCounter() {
+            document.getElementById('imgCounter').textContent =
+                (currentIndex + 1) + ' / ' + currentGallery.length;
+        }
+        function nextImage() {
+            if (currentGallery.length === 0) return;
+            currentIndex = (currentIndex + 1) % currentGallery.length;
+            document.getElementById('imgDisplay').src = currentGallery[currentIndex];
+            updateCounter();
+        }
+        function prevImage() {
+            if (currentGallery.length === 0) return;
+            currentIndex = (currentIndex - 1 + currentGallery.length) % currentGallery.length;
+            document.getElementById('imgDisplay').src = currentGallery[currentIndex];
+            updateCounter();
+        }
+        document.getElementById('imageModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+        document.addEventListener('keydown', function(e) {
+            const imgModal = document.getElementById('imageModal');
+            if (e.key === 'Escape' && imgModal.classList.contains('active')) {
+                imgModal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+    </script>
 </body>
 </html>
