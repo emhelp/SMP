@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <title>Зубная формула | Взрослые и дети</title>
-    
+
     <!-- PWA -->
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#1e2f47">
-    
+    <meta name="theme-color" content="#0f1446">
+
     <style>
         * {
             margin: 0;
@@ -17,164 +17,140 @@
         }
 
         body {
-            background: linear-gradient(145deg, #eef2f7 0%, #dce3ec 100%);
-            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, 'Helvetica Neue', sans-serif;
-            min-height: 100vh;
-            padding: 2rem 1rem;
-        }
-
-        .dental-app {
-            max-width: 1100px;
-            margin: 0 auto;
-            background: #ffffff;
-            border-radius: 48px;
-            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.2);
-            overflow: hidden;
-            animation: fadeIn 0.5s ease;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .dental-header {
-            background: #1e2f47;
-            background-image: linear-gradient(115deg, #142a3b, #1d3f55);
-            padding: 1.8rem 2rem;
-            color: white;
-        }
-
-        .dental-header h1 {
-            font-size: 1.9rem;
-            font-weight: 700;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            font-family: 'Segoe UI', 'Roboto', sans-serif;
+            margin: 0;
+            padding: 20px;
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 12px;
-            flex-wrap: wrap;
+            min-height: 100vh;
         }
 
-        .dental-header h1::before {
-            content: "🦷";
-            font-size: 2rem;
+        .container {
+            max-width: 1100px;
+            width: 100%;
         }
 
-        .dental-header p {
-            margin-top: 12px;
-            opacity: 0.85;
+        .card {
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 24px 22px;
+            margin-bottom: 24px;
+        }
+
+        .header-card {
+            background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
+            color: white;
+            text-align: center;
+            padding: 28px 20px;
+        }
+        .header-card h1 {
+            color: white;
+            margin-bottom: 8px;
+            font-size: 28px;
+            font-weight: 700;
+        }
+        .header-card p {
+            opacity: 0.9;
             font-size: 0.95rem;
-            border-left: 3px solid #5f9bc2;
-            padding-left: 16px;
+            margin-top: 4px;
         }
 
         .hint {
             background: #eef7ff;
-            margin: 0 28px 20px 28px;
+            margin: 0 0 20px 0;
             padding: 12px 20px;
-            border-radius: 20px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             gap: 12px;
             font-size: 0.85rem;
-            color: #1f4a66;
+            color: #1f3a4b;
             border-left: 4px solid #1f6e9c;
-        }
-
-        .hint::before {
-            content: "💡";
-            font-size: 1.2rem;
         }
 
         .controls {
             display: flex;
             gap: 12px;
-            padding: 20px 28px;
-            background: #f6fafd;
-            border-bottom: 1px solid #d4e2f0;
+            margin-bottom: 20px;
             flex-wrap: wrap;
             align-items: center;
         }
 
         .age-buttons {
             display: flex;
-            gap: 10px;
-            background: #eef2f7;
-            padding: 4px;
-            border-radius: 60px;
+            gap: 8px;
         }
 
         .age-btn {
-            padding: 10px 24px;
-            border: none;
-            border-radius: 60px;
+            padding: 10px 20px;
+            border: 2px solid #d4e2f0;
+            border-radius: 12px;
             font-size: 0.9rem;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.25s ease;
+            transition: all 0.2s;
             font-family: inherit;
-            background: transparent;
-            color: #1f4a66;
+            background: #ffffff;
+            color: #0f1446;
         }
 
         .age-btn:hover {
-            background: rgba(31,110,156,0.1);
+            background: #eef7ff;
+            border-color: #0f1446;
+            transform: translateY(-1px);
         }
 
         .age-btn.active {
-            background: linear-gradient(135deg, #1f6e9c 0%, #155a80 100%);
+            background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
+            border-color: #0f1446;
             color: white;
-            box-shadow: 0 4px 12px rgba(31,110,156,0.3);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
         }
 
         .action-buttons {
             display: flex;
-            gap: 10px;
+            gap: 8px;
             margin-left: auto;
         }
 
         .action-btn {
             padding: 10px 20px;
-            border: none;
-            border-radius: 60px;
+            border: 2px solid #d4e2f0;
+            border-radius: 12px;
             font-size: 0.85rem;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.25s ease;
+            transition: all 0.2s;
             font-family: inherit;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
+            background: #ffffff;
+            color: #0f1446;
         }
 
         .clear-btn {
-            background: #ffebee;
-            color: #c62828;
+            border-color: #d32f2f;
+            color: #d32f2f;
         }
 
         .clear-btn:hover {
-            background: #ffcdd2;
-            transform: translateY(-2px);
+            background: #fff0f0;
+            transform: translateY(-1px);
         }
 
         .info-btn {
-            background: #eef7ff;
+            border-color: #1f6e9c;
             color: #1f6e9c;
         }
 
         .info-btn:hover {
-            background: #d4eaf5;
-            transform: translateY(-2px);
+            background: #eef7ff;
+            transform: translateY(-1px);
         }
 
         .svg-container {
-            padding: 20px 28px;
-            background: white;
+            margin-bottom: 20px;
             overflow-x: auto;
         }
 
@@ -186,16 +162,14 @@
         }
 
         .tooth {
-            stroke: #94a3b8;
+            stroke: #d4e2f0;
             stroke-width: 1.5;
             cursor: pointer;
             transition: all 0.2s ease;
-            filter: drop-shadow(0 1px 2px rgba(0,0,0,0.1));
         }
 
         .tooth:hover {
-            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));
-            stroke: #1f6e9c;
+            stroke: #0f1446;
             stroke-width: 2;
         }
 
@@ -206,8 +180,8 @@
         }
 
         .label-number {
-            font-size: 12px;
-            font-weight: 600;
+            font-size: 14px;
+            font-weight: 700;
             fill: #1f3a4b;
             pointer-events: none;
             dominant-baseline: middle;
@@ -215,7 +189,7 @@
         }
 
         .label-type {
-            font-size: 9px;
+            font-size: 11px;
             fill: #6f8eaa;
             pointer-events: none;
             dominant-baseline: middle;
@@ -223,11 +197,11 @@
         }
 
         .result-panel {
-            margin: 0 28px 28px 28px;
-            background: #f6fafd;
-            border-radius: 28px;
+            background: #eef7ff;
+            border-radius: 16px;
             padding: 20px;
-            border-left: 6px solid #1f6e9c;
+            border: 1px solid #d4e2f0;
+            border-left: 5px solid #1f6e9c;
         }
 
         .result-header {
@@ -238,14 +212,10 @@
             flex-wrap: wrap;
         }
 
-        .result-header span {
-            font-size: 1.2rem;
-        }
-
         .result-header h3 {
             font-size: 1rem;
             font-weight: 600;
-            color: #1f4a66;
+            color: #0f1446;
         }
 
         .selected-teeth {
@@ -253,7 +223,7 @@
             color: #1f3a4b;
             background: white;
             padding: 12px 16px;
-            border-radius: 20px;
+            border-radius: 12px;
             word-break: break-word;
             line-height: 1.6;
             border: 1px solid #d4e2f0;
@@ -272,11 +242,11 @@
         }
 
         .count-badge {
-            background: #1f6e9c;
+            background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
             color: white;
             padding: 4px 12px;
-            border-radius: 40px;
-            font-size: 0.75rem;
+            border-radius: 10px;
+            font-size: 0.8rem;
             font-weight: 600;
         }
 
@@ -286,7 +256,7 @@
             margin-top: 12px;
             padding-top: 12px;
             border-top: 1px solid #e2ecf3;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             flex-wrap: wrap;
         }
 
@@ -304,7 +274,7 @@
 
         .legend-color.normal {
             background: white;
-            border: 1px solid #94a3b8;
+            border: 1px solid #d4e2f0;
         }
 
         .legend-color.selected {
@@ -324,7 +294,6 @@
             justify-content: center;
             align-items: center;
             z-index: 1000;
-            animation: fadeIn 0.2s ease;
         }
 
         .modal.active {
@@ -333,24 +302,12 @@
 
         .modal-content {
             background: white;
-            border-radius: 28px;
+            border-radius: 24px;
             max-width: 500px;
             width: 90%;
             max-height: 80vh;
             overflow-y: auto;
             padding: 24px;
-            animation: slideUp 0.3s ease;
-        }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
         }
 
         .modal-header {
@@ -363,8 +320,8 @@
         }
 
         .modal-header h3 {
-            font-size: 1.3rem;
-            color: #1f4a66;
+            font-size: 1.2rem;
+            color: #0f1446;
         }
 
         .close-modal {
@@ -377,12 +334,13 @@
         }
 
         .close-modal:hover {
-            color: #c62828;
+            color: #d32f2f;
         }
 
         .modal-body {
             line-height: 1.6;
             color: #1f3a4b;
+            font-size: 0.9rem;
         }
 
         .modal-body p {
@@ -400,14 +358,17 @@
 
         @media (max-width: 768px) {
             body {
-                padding: 1rem;
+                padding: 10px;
+            }
+            .card {
+                padding: 16px 14px;
+            }
+            .header-card h1 {
+                font-size: 24px;
             }
             .controls {
                 flex-direction: column;
                 align-items: stretch;
-            }
-            .age-buttons {
-                justify-content: center;
             }
             .action-buttons {
                 margin-left: 0;
@@ -417,24 +378,15 @@
                 padding: 8px 16px;
                 font-size: 0.8rem;
             }
-            .action-btn {
-                padding: 8px 16px;
-                font-size: 0.75rem;
+            .label-number {
+                font-size: 11px;
             }
-            .dental-header h1 {
-                font-size: 1.3rem;
+            .label-type {
+                font-size: 8px;
             }
-            .dental-header p {
-                font-size: 0.8rem;
-            }
-            .result-panel {
-                margin: 0 20px 20px 20px;
-            }
-            .hint {
-                margin: 0 20px 16px 20px;
-                font-size: 0.75rem;
-                padding: 10px 16px;
-            }
+        }
+
+        @media (max-width: 480px) {
             .label-number {
                 font-size: 10px;
             }
@@ -442,67 +394,55 @@
                 font-size: 7px;
             }
         }
-
-        @media (max-width: 480px) {
-            .label-number {
-                font-size: 8px;
-            }
-            .label-type {
-                font-size: 6px;
-            }
-            .hint {
-                font-size: 0.7rem;
-            }
-            .selected-teeth {
-                font-size: 0.8rem;
-            }
-        }
     </style>
 </head>
 <body>
-<div class="dental-app">
-    <div class="dental-header">
-        <h1>Зубная формула</h1>
-        <p>Интерактивная схема зубов для взрослых (32 зуба) и детей (20 молочных зубов).</p>
+
+<div class="container">
+    <div class="card header-card">
+        <h1>🦷 Зубная формула</h1>
+        <p>Интерактивная схема зубов для взрослых (32 зуба) и детей (20 молочных зубов)</p>
     </div>
 
-    <div class="controls">
-        <div class="age-buttons">
-            <button class="age-btn active" id="adultBtn">🦷 Взрослые (32 зуба)</button>
-            <button class="age-btn" id="childBtn">👶 Дети (20 зубов)</button>
+    <div class="card">
+        <div class="hint">
+            💡 Нажмите на любой зуб, чтобы отметить его как поражённый. Повторное нажатие снимет выделение.
         </div>
-        <div class="action-buttons">
-            <button class="action-btn clear-btn" id="clearBtn">🗑️ Очистить всё</button>
-            <button class="action-btn info-btn" id="infoBtn">ℹ️ Справка</button>
-        </div>
-    </div>
 
-    <div class="hint">
-        Нажмите на любой зуб, чтобы отметить его как поражённый. Повторное нажатие снимет выделение.
-    </div>
-
-    <div class="svg-container">
-        <svg id="svg" viewBox="0 0 900 340"></svg>
-    </div>
-
-    <div class="result-panel">
-        <div class="result-header">
-            <span>🦷</span>
-            <h3>Выбранные зубы</h3>
-        </div>
-        <div class="selected-teeth" id="out">—</div>
-        <div class="teeth-details">
-            <span class="count-badge" id="teethCount">0 зубов выбрано</span>
-            <span id="typeSummary"></span>
-        </div>
-        <div class="legend">
-            <div class="legend-item">
-                <div class="legend-color normal"></div>
-                <span>Здоровый зуб (цвет квадранта)</span>
+        <div class="controls">
+            <div class="age-buttons">
+                <button class="age-btn active" id="adultBtn">🦷 Взрослые (32 зуба)</button>
+                <button class="age-btn" id="childBtn">👶 Дети (20 зубов)</button>
             </div>
-            <div class="legend-item">
-                <div class="legend-color selected"></div>
-                <span>Поражённый зуб</span>
+            <div class="action-buttons">
+                <button class="action-btn clear-btn" id="clearBtn">🗑️ Очистить всё</button>
+                <button class="action-btn info-btn" id="infoBtn">ℹ️ Справка</button>
+            </div>
+        </div>
+
+        <div class="svg-container">
+            <svg id="svg" viewBox="0 0 900 360"></svg>
+        </div>
+
+        <div class="result-panel">
+            <div class="result-header">
+                <span>🦷</span>
+                <h3>Выбранные зубы</h3>
+            </div>
+            <div class="selected-teeth" id="out">—</div>
+            <div class="teeth-details">
+                <span class="count-badge" id="teethCount">0 зубов выбрано</span>
+                <span id="typeSummary"></span>
+            </div>
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-color normal"></div>
+                    <span>Здоровый зуб</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color selected"></div>
+                    <span>Поражённый зуб</span>
+                </div>
             </div>
         </div>
     </div>
@@ -534,19 +474,18 @@
                 <li>3 — клык</li>
                 <li>4, 5 — моляры</li>
             </ul>
-            <p><strong>🎨 Цветовая маркировка квадрантов:</strong></p>
-            <ul>
-                <li>🔵 Верхняя челюсть справа — голубой</li>
-                <li>🟣 Верхняя челюсть слева — фиолетовый</li>
-                <li>🔴 Нижняя челюсть справа — красный</li>
-                <li>🟠 Нижняя челюсть слева — оранжевый</li>
-            </ul>
-            <p>💡 <strong>Совет:</strong> Нажмите на любой зуб, чтобы отметить его как поражённый. Повторное нажатие снимет выделение. Выбранные зубы отображаются в панели справа.</p>
+            <p>💡 Нажмите на любой зуб, чтобы отметить его как поражённый. Повторное нажатие снимет выделение.</p>
         </div>
     </div>
 </div>
 
 <script>
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/SMP/sw.js')
+            .then(reg => console.log('✅ SW зарегистрирован:', reg))
+            .catch(err => console.error('❌ Ошибка:', err));
+    }
+
     const svg = document.getElementById("svg");
     const out = document.getElementById("out");
     const teethCountSpan = document.getElementById("teethCount");
@@ -557,320 +496,108 @@
 
     function getQuadrantColor(num) {
         const quadrant = Math.floor(num / 10);
-        
         if (mode === "adult") {
-            switch(quadrant) {
-                case 1: return "#b8e1fc";
-                case 2: return "#d9b8fc";
-                case 3: return "#ffe0b2";
-                case 4: return "#ffcdd2";
-                default: return "#ffffff";
-            }
+            switch(quadrant) { case 1: return "#eef7ff"; case 2: return "#f3e5f5"; case 3: return "#fff8e7"; case 4: return "#ffebee"; default: return "#ffffff"; }
         } else {
-            switch(quadrant) {
-                case 5: return "#b8e1fc";
-                case 6: return "#d9b8fc";
-                case 7: return "#ffe0b2";
-                case 8: return "#ffcdd2";
-                default: return "#ffffff";
-            }
+            switch(quadrant) { case 5: return "#eef7ff"; case 6: return "#f3e5f5"; case 7: return "#fff8e7"; case 8: return "#ffebee"; default: return "#ffffff"; }
         }
     }
 
     function toothType(n) {
         const digit = n % 10;
-        if (mode === "adult") {
-            if (digit <= 2) return "резец";
-            if (digit === 3) return "клык";
-            if (digit <= 5) return "премоляр";
-            return "моляр";
-        } else {
-            if (digit <= 2) return "резец";
-            if (digit === 3) return "клык";
-            return "моляр";
-        }
+        if (mode === "adult") { if (digit <= 2) return "резец"; if (digit === 3) return "клык"; if (digit <= 5) return "премоляр"; return "моляр"; }
+        else { if (digit <= 2) return "резец"; if (digit === 3) return "клык"; return "моляр"; }
     }
 
     function getQuadrantName(n) {
         const quadrant = Math.floor(n / 10);
-        if (mode === "adult") {
-            const quadrantNames = {
-                1: "верхний правый",
-                2: "верхний левый",
-                3: "нижний левый",
-                4: "нижний правый"
-            };
-            return quadrantNames[quadrant] || "";
-        } else {
-            const quadrantNames = {
-                5: "верхний правый (молочный)",
-                6: "верхний левый (молочный)",
-                7: "нижний левый (молочный)",
-                8: "нижний правый (молочный)"
-            };
-            return quadrantNames[quadrant] || "";
-        }
+        const names = mode === "adult" ? {1:"верхний правый",2:"верхний левый",3:"нижний левый",4:"нижний правый"} : {5:"верхний правый (молочный)",6:"верхний левый (молочный)",7:"нижний левый (молочный)",8:"нижний правый (молочный)"};
+        return names[quadrant] || "";
     }
 
     function sideName(n) {
         const quadrant = Math.floor(n / 10);
-        if (mode === "adult") {
-            if (quadrant === 1 || quadrant === 4) return "справа (пациент)";
-            if (quadrant === 2 || quadrant === 3) return "слева (пациент)";
-        } else {
-            if (quadrant === 5 || quadrant === 8) return "справа (пациент)";
-            if (quadrant === 6 || quadrant === 7) return "слева (пациент)";
-        }
-        return "";
+        return ([1,4,5,8].includes(quadrant)) ? "справа" : "слева";
     }
 
     function toothShape(x, y) {
-        return `
-            M ${x} ${y}
-            q 8 -10 16 0
-            q 4 20 -8 30
-            q -12 -10 -8 -30
-            z
-        `;
+        return `M ${x} ${y} q 10 -14 22 0 q 6 28 -10 40 q -16 -14 -12 -40 z`;
     }
 
     function drawTooth(x, y, num) {
         let g = document.createElementNS("http://www.w3.org/2000/svg", "g");
-
         let path = document.createElementNS("http://www.w3.org/2000/svg", "path");
         path.setAttribute("d", toothShape(x, y));
         path.setAttribute("class", "tooth");
-        
-        const quadrantColor = getQuadrantColor(num);
-        path.setAttribute("fill", quadrantColor);
-        
-        if (selected.includes(num)) {
-            path.classList.add("selected");
-            path.setAttribute("fill", "#4caf50");
-        }
-
+        path.setAttribute("fill", getQuadrantColor(num));
+        if (selected.includes(num)) { path.classList.add("selected"); path.setAttribute("fill", "#4caf50"); }
         path.onclick = () => toggle(num);
 
         let textNum = document.createElementNS("http://www.w3.org/2000/svg", "text");
-        textNum.setAttribute("x", x + 8);
-        textNum.setAttribute("y", y + 42);
-        textNum.setAttribute("text-anchor", "middle");
-        textNum.setAttribute("class", "label-number");
-        textNum.textContent = num;
+        textNum.setAttribute("x", x + 11); textNum.setAttribute("y", y + 56);
+        textNum.setAttribute("class", "label-number"); textNum.textContent = num;
 
         let textType = document.createElementNS("http://www.w3.org/2000/svg", "text");
-        textType.setAttribute("x", x + 8);
-        textType.setAttribute("y", y + 54);
-        textType.setAttribute("text-anchor", "middle");
-        textType.setAttribute("class", "label-type");
-        textType.textContent = toothType(num);
+        textType.setAttribute("x", x + 11); textType.setAttribute("y", y + 72);
+        textType.setAttribute("class", "label-type"); textType.textContent = toothType(num);
 
-        g.appendChild(path);
-        g.appendChild(textNum);
-        g.appendChild(textType);
-
+        g.appendChild(path); g.appendChild(textNum); g.appendChild(textType);
         return g;
-    }
-
-    function addLabel(x, y, text, fontSize = 10, fontWeight = "normal") {
-        let t = document.createElementNS("http://www.w3.org/2000/svg", "text");
-        t.setAttribute("x", x);
-        t.setAttribute("y", y);
-        t.setAttribute("text-anchor", "middle");
-        t.setAttribute("font-size", fontSize);
-        t.setAttribute("fill", "#6f8eaa");
-        t.setAttribute("font-weight", fontWeight);
-        t.textContent = text;
-        svg.appendChild(t);
-    }
-
-    function renderAdult() {
-        let upperRight = [18, 17, 16, 15, 14, 13, 12, 11];
-        let upperLeft = [21, 22, 23, 24, 25, 26, 27, 28];
-        let lowerLeft = [31, 32, 33, 34, 35, 36, 37, 38];
-        let lowerRight = [48, 47, 46, 45, 44, 43, 42, 41];
-
-        upperRight.forEach((n, i) => {
-            svg.appendChild(drawTooth(40 + i * 50, 35, n));
-        });
-        upperLeft.forEach((n, i) => {
-            svg.appendChild(drawTooth(40 + 400 + i * 50, 35, n));
-        });
-        lowerLeft.forEach((n, i) => {
-            svg.appendChild(drawTooth(40 + i * 50, 175, n));
-        });
-        lowerRight.forEach((n, i) => {
-            svg.appendChild(drawTooth(40 + 400 + i * 50, 175, n));
-        });
-
-        addLabel(220, 20, "Верхняя челюсть", 12, "bold");
-        addLabel(220, 160, "Нижняя челюсть", 12, "bold");
-        addLabel(80, 10, "Справа", 10);
-        addLabel(820, 10, "Слева", 10);
-    }
-
-    function renderChild() {
-        let upperRight = [55, 54, 53, 52, 51];
-        let upperLeft = [61, 62, 63, 64, 65];
-        let lowerLeft = [71, 72, 73, 74, 75];
-        let lowerRight = [85, 84, 83, 82, 81];
-
-        upperRight.forEach((n, i) => {
-            svg.appendChild(drawTooth(40 + i * 60, 35, n));
-        });
-        upperLeft.forEach((n, i) => {
-            svg.appendChild(drawTooth(40 + 320 + i * 60, 35, n));
-        });
-        lowerLeft.forEach((n, i) => {
-            svg.appendChild(drawTooth(40 + i * 60, 175, n));
-        });
-        lowerRight.forEach((n, i) => {
-            svg.appendChild(drawTooth(40 + 320 + i * 60, 175, n));
-        });
-
-        addLabel(220, 20, "Верхняя челюсть (молочные)", 12, "bold");
-        addLabel(220, 160, "Нижняя челюсть (молочные)", 12, "bold");
-        addLabel(80, 10, "Справа", 10);
-        addLabel(820, 10, "Слева", 10);
     }
 
     function render() {
         svg.innerHTML = "";
-        
-        if (mode === "adult") {
-            renderAdult();
-        } else {
-            renderChild();
-        }
-    }
+        const adultUpperRight = [18,17,16,15,14,13,12,11], adultUpperLeft = [21,22,23,24,25,26,27,28];
+        const adultLowerLeft = [31,32,33,34,35,36,37,38], adultLowerRight = [48,47,46,45,44,43,42,41];
+        const childUpperRight = [55,54,53,52,51], childUpperLeft = [61,62,63,64,65];
+        const childLowerLeft = [71,72,73,74,75], childLowerRight = [85,84,83,82,81];
 
-    function updateTypeSummary() {
-        if (selected.length === 0) {
-            typeSummarySpan.innerHTML = "";
-            return;
+        if (mode === "adult") {
+            adultUpperRight.forEach((n,i) => svg.appendChild(drawTooth(30+i*55, 30, n)));
+            adultUpperLeft.forEach((n,i) => svg.appendChild(drawTooth(470+i*55, 30, n)));
+            adultLowerLeft.forEach((n,i) => svg.appendChild(drawTooth(30+i*55, 195, n)));
+            adultLowerRight.forEach((n,i) => svg.appendChild(drawTooth(470+i*55, 195, n)));
+        } else {
+            childUpperRight.forEach((n,i) => svg.appendChild(drawTooth(30+i*70, 30, n)));
+            childUpperLeft.forEach((n,i) => svg.appendChild(drawTooth(380+i*70, 30, n)));
+            childLowerLeft.forEach((n,i) => svg.appendChild(drawTooth(30+i*70, 195, n)));
+            childLowerRight.forEach((n,i) => svg.appendChild(drawTooth(380+i*70, 195, n)));
         }
-        
-        const types = {};
-        selected.forEach(num => {
-            const type = toothType(num);
-            types[type] = (types[type] || 0) + 1;
-        });
-        
-        const typeSummary = Object.entries(types)
-            .map(([type, count]) => {
-                let word;
-                if (count === 1) {
-                    word = type;
-                } else if (type === "резец") {
-                    word = "резца";
-                } else if (type === "клык") {
-                    word = "клыка";
-                } else if (type === "премоляр") {
-                    word = "премоляра";
-                } else {
-                    word = "моляра";
-                }
-                return `${count} ${word}`;
-            })
-            .join(", ");
-        
-        typeSummarySpan.innerHTML = `📊 ${typeSummary}`;
     }
 
     function updateResultText() {
-        if (selected.length === 0) {
-            out.innerHTML = "—";
-            teethCountSpan.innerHTML = "0 зубов выбрано";
-            typeSummarySpan.innerHTML = "";
-            return;
-        }
-
-        const sorted = [...selected].sort((a, b) => a - b);
-        
-        const lines = sorted.map(n => {
-            return `${n} — ${toothType(n)}, ${getQuadrantName(n)} (${sideName(n)})`;
-        });
-
-        out.innerHTML = lines.join("<br>");
-        
+        if (selected.length === 0) { out.innerHTML = "—"; teethCountSpan.innerHTML = "0 зубов выбрано"; typeSummarySpan.innerHTML = ""; return; }
+        const sorted = [...selected].sort((a,b) => a-b);
+        out.innerHTML = sorted.map(n => `${n} — ${toothType(n)}, ${getQuadrantName(n)} (${sideName(n)})`).join("<br>");
         const count = selected.length;
-        let countText;
-        if (count % 10 === 1 && count % 100 !== 11) {
-            countText = "зуб";
-        } else if ([2, 3, 4].includes(count % 10) && ![12, 13, 14].includes(count % 100)) {
-            countText = "зуба";
-        } else {
-            countText = "зубов";
-        }
-        
-        teethCountSpan.innerHTML = `${count} ${countText} выбрано`;
-        updateTypeSummary();
+        teethCountSpan.innerHTML = `${count} ${count%10===1&&count%100!==11?"зуб":[2,3,4].includes(count%10)&&![12,13,14].includes(count%100)?"зуба":"зубов"} выбрано`;
+        const types = {};
+        selected.forEach(n => { const t = toothType(n); types[t] = (types[t]||0)+1; });
+        typeSummarySpan.innerHTML = "📊 " + Object.entries(types).map(([t,c]) => `${c} ${c===1?t:t==="резец"?"резца":t==="клык"?"клыка":t==="премоляр"?"премоляра":"моляра"}`).join(", ");
     }
 
     function toggle(n) {
-        if (selected.includes(n)) {
-            selected = selected.filter(x => x !== n);
-        } else {
-            selected.push(n);
-        }
-        update();
-    }
-
-    function update() {
-        render();
-        updateResultText();
-    }
-
-    function clearAll() {
-        selected = [];
-        update();
+        if (selected.includes(n)) selected = selected.filter(x => x !== n); else selected.push(n);
+        render(); updateResultText();
     }
 
     function setMode(newMode) {
-        mode = newMode;
-        selected = [];
-        
-        const adultBtn = document.getElementById("adultBtn");
-        const childBtn = document.getElementById("childBtn");
-        
-        if (mode === "adult") {
-            adultBtn.classList.add("active");
-            childBtn.classList.remove("active");
-        } else {
-            childBtn.classList.add("active");
-            adultBtn.classList.remove("active");
-        }
-        
-        update();
-    }
-
-    function showModal() {
-        document.getElementById("infoModal").classList.add("active");
-    }
-    
-    function hideModal() {
-        document.getElementById("infoModal").classList.remove("active");
+        mode = newMode; selected = [];
+        document.getElementById("adultBtn").classList.toggle("active", newMode==="adult");
+        document.getElementById("childBtn").classList.toggle("active", newMode==="child");
+        render(); updateResultText();
     }
 
     document.getElementById("adultBtn").onclick = () => setMode("adult");
     document.getElementById("childBtn").onclick = () => setMode("child");
-    document.getElementById("clearBtn").onclick = clearAll;
-    document.getElementById("infoBtn").onclick = showModal;
-    document.getElementById("closeModalBtn").onclick = hideModal;
-    
-    document.getElementById("infoModal").onclick = (e) => {
-        if (e.target === document.getElementById("infoModal")) {
-            hideModal();
-        }
-    };
+    document.getElementById("clearBtn").onclick = () => { selected = []; render(); updateResultText(); };
+    document.getElementById("infoBtn").onclick = () => document.getElementById("infoModal").classList.add("active");
+    document.getElementById("closeModalBtn").onclick = () => document.getElementById("infoModal").classList.remove("active");
+    document.getElementById("infoModal").onclick = (e) => { if (e.target === document.getElementById("infoModal")) document.getElementById("infoModal").classList.remove("active"); };
 
-    update();
-    
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/SMP/sw.js')
-            .then(reg => console.log('✅ Сервис-воркер зарегистрирован:', reg))
-            .catch(err => console.error('❌ Ошибка регистрации:', err));
-    }
+    render();
+    updateResultText();
 </script>
+
 </body>
 </html>
