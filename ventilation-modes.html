@@ -2,12 +2,12 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
-    <title>Режимы ИВЛ | Полное руководство</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>📖 Режимы ИВЛ</title>
     
     <!-- PWA -->
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#1e2f47">
+    <meta name="theme-color" content="#0f1446">
     
     <style>
         * {
@@ -17,189 +17,212 @@
         }
 
         body {
-            background: linear-gradient(145deg, #eef2f7 0%, #dce3ec 100%);
-            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, 'Helvetica Neue', sans-serif;
-            padding: 2rem 1rem;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            font-family: 'Segoe UI', 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: #1f3a4b;
+            padding: 20px;
             min-height: 100vh;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1100px;
             margin: 0 auto;
         }
 
-        .hero {
-            background: #1e2f47;
-            background-image: linear-gradient(115deg, #142a3b, #1d3f55);
-            border-radius: 28px;
-            padding: 1.8rem 2rem;
-            margin-bottom: 1.5rem;
+        .card {
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 24px 22px;
+            margin-bottom: 20px;
+        }
+
+        .card.header-card {
+            background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
             color: white;
-            box-shadow: 0 12px 20px rgba(0,0,0,0.1);
+            text-align: center;
+            padding: 28px 20px;
         }
-        .hero h1 {
-            font-size: 1.9rem;
+
+        .card.header-card h1 {
+            font-size: 28px;
+            color: white;
             font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            flex-wrap: wrap;
+            margin-bottom: 8px;
         }
-        .hero h1 span {
-            background: rgba(255,255,255,0.2);
-            font-size: 0.9rem;
-            padding: 5px 14px;
-            border-radius: 60px;
-            font-weight: 500;
-        }
-        .hero p {
-            margin-top: 12px;
-            opacity: 0.85;
+
+        .card.header-card p {
+            opacity: 0.9;
             font-size: 0.95rem;
-            border-left: 3px solid #5f9bc2;
+            margin-top: 8px;
+        }
+
+        h2 {
+            color: #0f1446;
+            border-left: 6px solid #e53935;
             padding-left: 16px;
+            font-size: 1.3rem;
+            margin: 1.2rem 0 1rem 0;
         }
 
         .tabs-wrapper {
-            margin-bottom: 1rem;
+            margin-bottom: 16px;
         }
         
         .tabs-label {
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             font-weight: 600;
-            color: #1f4a66;
-            margin-bottom: 12px;
+            color: #0f1446;
+            margin-bottom: 10px;
             display: flex;
             align-items: center;
             gap: 8px;
-        }
-        
-        .tabs-label::before {
-            content: "📌";
-            font-size: 1rem;
         }
         
         .nav-tabs {
             display: flex;
             flex-wrap: wrap;
-            gap: 12px;
-            padding: 4px 0;
+            gap: 10px;
         }
         
         .tab-btn {
-            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-            border: 2px solid #cbdde6;
-            padding: 12px 24px;
+            background: #ffffff;
+            border: 2px solid #d4e2f0;
+            padding: 12px 20px;
             font-size: 0.9rem;
             font-weight: 600;
-            color: #1f4a66;
+            color: #0f1446;
             cursor: pointer;
-            border-radius: 60px;
-            transition: all 0.25s ease;
+            border-radius: 12px;
+            transition: all 0.2s ease;
             font-family: inherit;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            flex: 0 0 auto;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
         
         .tab-btn:hover {
-            background: linear-gradient(135deg, #e8f0f5 0%, #dfeaf0 100%);
-            border-color: #1f6e9c;
+            background: #eef7ff;
+            border-color: #0f1446;
             transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+            box-shadow: 0 6px 14px rgba(0,0,0,0.15);
         }
         
         .tab-btn.active {
-            background: linear-gradient(135deg, #1f6e9c 0%, #155a80 100%);
-            border-color: #ffc107;
+            background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
+            border-color: #0f1446;
             color: white;
-            box-shadow: 0 4px 12px rgba(31,110,156,0.4);
-        }
-
-        .click-hint {
-            text-align: center;
-            margin: 1rem 0 1.5rem 0;
-            padding: 10px 16px;
-            background: #eef7ff;
-            border-radius: 60px;
-            border: 1px solid #d4e2f0;
-            color: #1f4a66;
-            font-size: 0.85rem;
-            font-weight: 500;
-        }
-
-        .click-hint::before {
-            content: "👆 ";
-            font-size: 1rem;
         }
 
         .tab-content {
             display: none;
             animation: fade 0.3s ease;
         }
+
         .tab-content.active {
             display: block;
         }
+
         @keyframes fade {
-            from { opacity: 0; transform: translateY(10px);}
-            to { opacity: 1; transform: translateY(0);}
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .card {
-            background: #ffffff;
-            border-radius: 28px;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
-            border: 1px solid #d4e2f0;
-            transition: all 0.2s;
+        .section-desc {
+            font-size: 0.95rem;
+            color: #1f3a4b;
+            margin-bottom: 16px;
+            line-height: 1.5;
         }
-        .card:hover {
-            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+
+        .abbr-hint {
+            text-align: center;
+            margin: 0 0 16px 0;
+            padding: 10px 16px;
+            background: #eef7ff;
+            border-radius: 12px;
+            border-left: 4px solid #1f6e9c;
+            color: #1f3a4b;
+            font-size: 0.85rem;
+            font-weight: 500;
         }
-        .card-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: #1f4a66;
-            margin-bottom: 0.8rem;
-            border-left: 5px solid #1f6e9c;
-            padding-left: 14px;
-        }
+
         .badge-list {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
-            margin: 1rem 0;
+            margin: 12px 0;
         }
         
         .clickable-abbr {
             display: inline-block;
-            background: linear-gradient(135deg, #e8f0fe 0%, #d4e4f5 100%);
-            padding: 8px 18px;
-            border-radius: 40px;
-            font-size: 0.85rem;
+            background: #ffffff;
+            padding: 10px 18px;
+            border-radius: 12px;
+            font-size: 0.9rem;
             font-weight: 700;
-            color: #1f4a66;
-            font-family: 'Courier New', monospace;
+            color: #0f1446;
+            font-family: 'Segoe UI', 'Roboto', sans-serif;
             cursor: pointer;
             transition: all 0.2s ease;
-            border: 2px solid #b9d0e5;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border: 2px solid #d4e2f0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
         
         .clickable-abbr:hover {
-            background: linear-gradient(135deg, #d0e4f7 0%, #bdd6ee 100%);
+            background: #eef7ff;
+            border-color: #0f1446;
             transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
-            border-color: #1f6e9c;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+        }
+
+        .accent-text {
+            background: #eef7ff;
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            color: #1f3a4b;
+            border-left: 4px solid #1f6e9c;
+            margin: 12px 0;
+        }
+
+        .accent-text strong {
+            color: #0f1446;
+        }
+
+        hr {
+            margin: 16px 0;
+            border: none;
+            height: 1px;
+            background: #d4e2f0;
+        }
+
+        .footnote {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #6f8eaa;
+            margin-top: 16px;
+            padding-top: 14px;
+            border-top: 1px solid #d4e2f0;
+            line-height: 1.5;
         }
         
-        .clickable-abbr:active {
-            transform: scale(0.96);
+        ul {
+            margin-left: 1.5rem;
+            margin-top: 0.5rem;
         }
-        
+
+        li {
+            margin: 0.4rem 0;
+            font-size: 0.9rem;
+            color: #1f3a4b;
+        }
+
         .modal {
             display: none;
             position: fixed;
@@ -207,7 +230,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.7);
+            background: rgba(0,0,0,0.6);
             backdrop-filter: blur(4px);
             z-index: 1000;
             justify-content: center;
@@ -223,26 +246,13 @@
             background: white;
             max-width: 500px;
             width: 100%;
-            border-radius: 28px;
+            border-radius: 24px;
             overflow: hidden;
             box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-            animation: modalSlideIn 0.25s ease;
-        }
-        
-        @keyframes modalSlideIn {
-            from {
-                opacity: 0;
-                transform: translateY(30px) scale(0.95);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
         }
         
         .modal-header {
-            background: #1e2f47;
-            background-image: linear-gradient(115deg, #142a3b, #1d3f55);
+            background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
             color: white;
             padding: 18px 20px;
             display: flex;
@@ -251,9 +261,8 @@
         }
         
         .modal-header h3 {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             font-weight: 700;
-            font-family: 'Courier New', monospace;
             margin: 0;
         }
         
@@ -261,20 +270,20 @@
             background: rgba(255,255,255,0.2);
             border: none;
             color: white;
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             cursor: pointer;
-            width: 36px;
-            height: 36px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.2s;
+            font-family: inherit;
         }
         
         .modal-close:hover {
             background: rgba(255,255,255,0.4);
-            transform: scale(1.05);
         }
         
         .modal-body {
@@ -282,92 +291,66 @@
             max-height: 60vh;
             overflow-y: auto;
             color: #1f3a4b;
+            font-size: 0.9rem;
+            line-height: 1.6;
         }
-        
-        .modal-body p {
-            margin-bottom: 12px;
-            line-height: 1.5;
-        }
-        
-        .grid-2 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1rem;
-        }
-        .accent-text {
-            background: #eef7ff;
-            padding: 0.7rem 1rem;
-            border-radius: 16px;
-            font-size: 0.85rem;
-            margin: 0.8rem 0;
-            color: #1f3a4b;
-        }
-        hr {
-            margin: 1.2rem 0;
-            border: none;
-            height: 1px;
-            background: #e2ecf3;
-        }
-        .footnote {
-            text-align: center;
-            font-size: 0.7rem;
-            color: #6f8eaa;
-            margin-top: 1.5rem;
-            padding-top: 1rem;
-            border-top: 1px solid #e2ecf3;
-        }
-        
-        ul {
-            margin-left: 1.2rem;
-            margin-top: 0.5rem;
-        }
-        li {
-            margin: 0.4rem 0;
-            font-size: 0.85rem;
-            color: #1f3a4b;
-        }
-        
-        @media (max-width: 680px) {
-            body { padding: 1rem; }
-            .hero { padding: 1.2rem; }
-            .hero h1 { font-size: 1.3rem; }
-            .hero p { font-size: 0.8rem; }
-            .tab-btn { padding: 10px 16px; font-size: 0.8rem; flex: 1; justify-content: center; min-width: calc(50% - 10px); }
-            .clickable-abbr { font-size: 0.75rem; padding: 6px 12px; }
-            .card-title { font-size: 1.1rem; }
-            .card { padding: 1rem; }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            .card {
+                padding: 16px 14px;
+            }
+            .card.header-card {
+                padding: 20px 14px;
+            }
+            .card.header-card h1 {
+                font-size: 22px;
+            }
+            .tab-btn {
+                padding: 10px 14px;
+                font-size: 0.8rem;
+                flex: 1;
+                min-width: calc(50% - 8px);
+                text-align: center;
+            }
+            .clickable-abbr {
+                font-size: 0.8rem;
+                padding: 8px 14px;
+            }
         }
     </style>
 </head>
 <body>
+
 <div class="container">
-    <div class="hero">
-        <h1>
-            📖 Режимы искусственной вентиляции легких
-            <span>полный справочник</span>
-        </h1>
-        <p>Полная классификация, клинические особенности, преимущества и недостатки основных режимов ИВЛ. Выберите раздел ниже.</p>
+    
+    <!-- ===== ШАПКА ===== -->
+    <div class="card header-card">
+        <h1>📖 Режимы искусственной вентиляции лёгких</h1>
+        <p>Полная классификация, клинические особенности, преимущества и недостатки основных режимов ИВЛ</p>
     </div>
-
-    <div class="tabs-wrapper">
-        <div class="tabs-label">Выберите раздел:</div>
-        <div class="nav-tabs">
-            <button class="tab-btn active" data-tab="forced">🔹 Принудительная ИВЛ — CMV</button>
-            <button class="tab-btn" data-tab="sync">🔄 Принудительно-вспомогательные (SIMV)</button>
-            <button class="tab-btn" data-tab="support">💡 Вспомогательные режимы (ВИВЛ)</button>
-            <button class="tab-btn" data-tab="abbr">📚 Словарь аббревиатур</button>
+    
+    <!-- ===== ОСНОВНОЙ КОНТЕНТ ===== -->
+    <div class="card">
+        
+        <div class="tabs-wrapper">
+            <div class="tabs-label">📌 Выберите раздел:</div>
+            <div class="nav-tabs">
+                <button class="tab-btn active" data-tab="forced">🔹 Принудительная ИВЛ — CMV</button>
+                <button class="tab-btn" data-tab="sync">🔄 Принудительно-вспомогательные (SIMV)</button>
+                <button class="tab-btn" data-tab="support">💡 Вспомогательные режимы (ВИВЛ)</button>
+                <button class="tab-btn" data-tab="abbr">📚 Словарь аббревиатур</button>
+            </div>
         </div>
-    </div>
 
-    <!-- ПОДСКАЗКА ПОД КНОПКАМИ -->
-    <div class="click-hint">
-        Нажмите на любую аббревиатуру — откроется подробное описание режима ИВЛ
-    </div>
-
-    <div id="forced" class="tab-content active">
-        <div class="card">
-            <div class="card-title">🔹 Принудительная (управляемая) вентиляция — CMV</div>
-            <p>Режим, при котором все дыхательные циклы полностью задаются аппаратом. Пациент не совершает самостоятельных вдохов, а его дыхательная активность (если есть) игнорируется. Используется у пациентов без спонтанного дыхания, в глубокой седации или миоплегии.</p>
+        <!-- Принудительная ИВЛ -->
+        <div id="forced" class="tab-content active">
+            <h2>🔹 Принудительная (управляемая) вентиляция — CMV</h2>
+            <p class="section-desc">Режим, при котором все дыхательные циклы полностью задаются аппаратом. Пациент не совершает самостоятельных вдохов, а его дыхательная активность (если есть) игнорируется. Используется у пациентов без спонтанного дыхания, в глубокой седации или миоплегии.</p>
+            
+            <div class="tabs-label">📌 Выберите требуемый режим:</div>
             <div class="badge-list">
                 <span class="clickable-abbr" data-abbr="VC-CMV">VC-CMV</span>
                 <span class="clickable-abbr" data-abbr="PC-CMV">PC-CMV</span>
@@ -375,12 +358,13 @@
                 <span class="clickable-abbr" data-abbr="CMV">CMV</span>
             </div>
         </div>
-    </div>
 
-    <div id="sync" class="tab-content">
-        <div class="card">
-            <div class="card-title">🔄 Синхронизированная перемежающаяся принудительная вентиляция (SIMV)</div>
-            <p>Режим, сочетающий принудительные вдохи с возможностью самостоятельного дыхания пациента. Принудительные вдохи синхронизированы с дыхательными попытками (триггер). Если пациент не дышит — респиратор подаёт заданное количество аппаратных вдохов. Это универсальный режим для пациентов с частично сохранённым спонтанным дыханием.</p>
+        <!-- Принудительно-вспомогательные -->
+        <div id="sync" class="tab-content">
+            <h2>🔄 Синхронизированная перемежающаяся принудительная вентиляция (SIMV)</h2>
+            <p class="section-desc">Режим, сочетающий принудительные вдохи с возможностью самостоятельного дыхания пациента. Принудительные вдохи синхронизированы с дыхательными попытками (триггер). Если пациент не дышит — респиратор подаёт заданное количество аппаратных вдохов. Это универсальный режим для пациентов с частично сохранённым спонтанным дыханием.</p>
+            
+            <div class="tabs-label">📌 Выберите требуемый режим:</div>
             <div class="badge-list">
                 <span class="clickable-abbr" data-abbr="SIMV">SIMV</span>
                 <span class="clickable-abbr" data-abbr="VC-SIMV">VC-SIMV</span>
@@ -389,12 +373,13 @@
                 <span class="clickable-abbr" data-abbr="IMV">IMV</span>
             </div>
         </div>
-    </div>
 
-    <div id="support" class="tab-content">
-        <div class="card">
-            <div class="card-title">💡 Вспомогательные режимы (поддержка спонтанного дыхания)</div>
-            <p>Применяются у стабильных пациентов с сохранённой гемодинамикой для облегчения работы дыхания и отлучения от респиратора. <strong>Не используются у критических больных!</strong> Часто применяются совместно с SIMV или как самостоятельные режимы.</p>
+        <!-- Вспомогательные -->
+        <div id="support" class="tab-content">
+            <h2>💡 Вспомогательные режимы (поддержка спонтанного дыхания)</h2>
+            <p class="section-desc">Применяются у стабильных пациентов с сохранённой гемодинамикой для облегчения работы дыхания и отлучения от респиратора. <strong>Не используются у критических больных!</strong> Часто применяются совместно с SIMV или как самостоятельные режимы.</p>
+            
+            <div class="tabs-label">📌 Выберите требуемый режим:</div>
             <div class="badge-list">
                 <span class="clickable-abbr" data-abbr="PSV">PSV</span>
                 <span class="clickable-abbr" data-abbr="VS">VS</span>
@@ -402,35 +387,39 @@
                 <span class="clickable-abbr" data-abbr="PAV">PAV</span>
             </div>
         </div>
-    </div>
 
-    <div id="abbr" class="tab-content">
-        <div class="card">
-            <div class="card-title">📖 Расшифровка международных аббревиатур режимов ИВЛ</div>
+        <!-- Словарь -->
+        <div id="abbr" class="tab-content">
+            <h2>📖 Расшифровка международных аббревиатур режимов ИВЛ</h2>
+            
+            <div class="abbr-hint">
+                👇 Нажмите на режим, чтобы получить описание
+            </div>
+            
             <div class="grid-2">
                 <div>
                     <ul>
-                        <li><strong class="clickable-abbr" data-abbr="APRV">APRV</strong> — Airway pressure release ventilation (вентиляция с периодическим снижением давления)</li>
-                        <li><strong class="clickable-abbr" data-abbr="ACV">ACV</strong> — Assist control ventilation (вспомогательная управляемая вентиляция)</li>
-                        <li><strong class="clickable-abbr" data-abbr="BIPAP">BIPAP</strong> — Bi-level positive airway pressure (двухуровневое положительное давление)</li>
-                        <li><strong class="clickable-abbr" data-abbr="CMV">CMV</strong> — Controlled mechanical ventilation (управляемая ИВЛ)</li>
-                        <li><strong class="clickable-abbr" data-abbr="CPAP">CPAP</strong> — Continuous positive airway pressure (постоянное положительное давление)</li>
-                        <li><strong class="clickable-abbr" data-abbr="CPPV">CPPV</strong> / <strong class="clickable-abbr" data-abbr="PEEP">PEEP</strong> — положительное давление в конце выдоха</li>
-                        <li><strong class="clickable-abbr" data-abbr="HFJV">HFJV</strong> — высокочастотная струйная вентиляция</li>
-                        <li><strong class="clickable-abbr" data-abbr="HFO">HFO</strong> — высокочастотная осцилляция</li>
-                        <li><strong class="clickable-abbr" data-abbr="IMV">IMV</strong> — Intermittent mandatory ventilation (перемежающаяся принудительная вентиляция)</li>
+                        <li><strong class="clickable-abbr" data-abbr="APRV" style="padding:2px 8px;font-size:0.8rem;">APRV</strong> — Airway pressure release ventilation</li>
+                        <li><strong class="clickable-abbr" data-abbr="ACV" style="padding:2px 8px;font-size:0.8rem;">ACV</strong> — Assist control ventilation</li>
+                        <li><strong class="clickable-abbr" data-abbr="BIPAP" style="padding:2px 8px;font-size:0.8rem;">BIPAP</strong> — Bi-level positive airway pressure</li>
+                        <li><strong class="clickable-abbr" data-abbr="CMV" style="padding:2px 8px;font-size:0.8rem;">CMV</strong> — Controlled mechanical ventilation</li>
+                        <li><strong class="clickable-abbr" data-abbr="CPAP" style="padding:2px 8px;font-size:0.8rem;">CPAP</strong> — Continuous positive airway pressure</li>
+                        <li><strong class="clickable-abbr" data-abbr="CPPV" style="padding:2px 8px;font-size:0.8rem;">CPPV</strong> / <strong class="clickable-abbr" data-abbr="PEEP" style="padding:2px 8px;font-size:0.8rem;">PEEP</strong> — положительное давление в конце выдоха</li>
+                        <li><strong class="clickable-abbr" data-abbr="HFJV" style="padding:2px 8px;font-size:0.8rem;">HFJV</strong> — высокочастотная струйная вентиляция</li>
+                        <li><strong class="clickable-abbr" data-abbr="HFO" style="padding:2px 8px;font-size:0.8rem;">HFO</strong> — высокочастотная осцилляция</li>
+                        <li><strong class="clickable-abbr" data-abbr="IMV" style="padding:2px 8px;font-size:0.8rem;">IMV</strong> — Intermittent mandatory ventilation</li>
                     </ul>
                 </div>
                 <div>
                     <ul>
-                        <li><strong class="clickable-abbr" data-abbr="IPPV">IPPV</strong> — Intermittent positive pressure ventilation (прерывистая вентиляция с положительным давлением)</li>
-                        <li><strong class="clickable-abbr" data-abbr="IRV">IRV</strong> — Inverse ratio ventilation (инверсированное отношение вдох:выдох)</li>
-                        <li><strong class="clickable-abbr" data-abbr="PAV">PAV</strong> — Proportional assist ventilation (пропорциональная вспомогательная вентиляция)</li>
-                        <li><strong class="clickable-abbr" data-abbr="SIMV">SIMV</strong> — Synchronized intermittent mandatory ventilation (синхронизированная перемежающаяся принудительная вентиляция)</li>
-                        <li><strong class="clickable-abbr" data-abbr="PSV">PSV</strong> — Pressure support ventilation (поддержка давлением)</li>
-                        <li><strong class="clickable-abbr" data-abbr="VSV">VSV</strong> — Volume support ventilation (поддержка объёмом)</li>
-                        <li><strong class="clickable-abbr" data-abbr="VCV">VCV</strong> — Volume controlled ventilation (вентиляция с контролем по объему)</li>
-                        <li><strong class="clickable-abbr" data-abbr="PCV">PCV</strong> — Pressure controlled ventilation (вентиляция с контролем по давлению)</li>
+                        <li><strong class="clickable-abbr" data-abbr="IPPV" style="padding:2px 8px;font-size:0.8rem;">IPPV</strong> — Intermittent positive pressure ventilation</li>
+                        <li><strong class="clickable-abbr" data-abbr="IRV" style="padding:2px 8px;font-size:0.8rem;">IRV</strong> — Inverse ratio ventilation</li>
+                        <li><strong class="clickable-abbr" data-abbr="PAV" style="padding:2px 8px;font-size:0.8rem;">PAV</strong> — Proportional assist ventilation</li>
+                        <li><strong class="clickable-abbr" data-abbr="SIMV" style="padding:2px 8px;font-size:0.8rem;">SIMV</strong> — Synchronized intermittent mandatory ventilation</li>
+                        <li><strong class="clickable-abbr" data-abbr="PSV" style="padding:2px 8px;font-size:0.8rem;">PSV</strong> — Pressure support ventilation</li>
+                        <li><strong class="clickable-abbr" data-abbr="VSV" style="padding:2px 8px;font-size:0.8rem;">VSV</strong> — Volume support ventilation</li>
+                        <li><strong class="clickable-abbr" data-abbr="VCV" style="padding:2px 8px;font-size:0.8rem;">VCV</strong> — Volume controlled ventilation</li>
+                        <li><strong class="clickable-abbr" data-abbr="PCV" style="padding:2px 8px;font-size:0.8rem;">PCV</strong> — Pressure controlled ventilation</li>
                     </ul>
                 </div>
             </div>
@@ -438,9 +427,8 @@
             <div class="accent-text">
                 <strong>🔹 Примечание:</strong> В клинической практике часто используются комбинации (например, SIMV+PSV, PCV-VG — объёмная гарантия при давлении). Выбор режима зависит от респираторной механики, гемодинамики и фазы лечения.
             </div>
-        </div>
-        <div class="card">
-            <div class="card-title">🧠 Важные клинические моменты</div>
+            
+            <h2>🧠 Важные клинические моменты</h2>
             <ul>
                 <li><strong>Мониторинг:</strong> SpO₂, EtCO₂, минутная вентиляция (МОД), пиковое давление (Ppeak), плато давление (Pplat), КЩС.</li>
                 <li><strong>Безопасность:</strong> При нестабильной гемодинамике предпочтительны режимы с контролем по давлению (PCV, PC-SIMV) для снижения риска баротравмы.</li>
@@ -448,10 +436,10 @@
                 <li><strong>Специальные режимы:</strong> APRV и BIPAP — для пациентов с тяжёлым ОРДС; высокочастотная вентиляция (HFOV) — при бронхоплевральных свищах.</li>
             </ul>
         </div>
-    </div>
 
-    <div class="footnote">
-        ⚕️ Информация основана на актуальных клинических рекомендациях. Режимы ИВЛ подбираются индивидуально.
+        <div class="footnote">
+            ⚕️ Информация основана на актуальных клинических рекомендациях. Режимы ИВЛ подбираются индивидуально.
+        </div>
     </div>
 </div>
 
@@ -504,10 +492,10 @@
         const data = abbrData[abbr];
         if (data) {
             modalTitle.textContent = data.title || abbr;
-            modalBody.innerHTML = `<p style="background: #eef7ff; padding: 10px 14px; border-radius: 16px; margin-bottom: 14px;">📖 ${data.desc}</p><p>${data.details.replace(/\n/g, '<br>')}</p>`;
+            modalBody.innerHTML = `<p style="background: #eef7ff; padding: 12px 14px; border-radius: 12px; margin-bottom: 14px; border-left: 4px solid #1f6e9c;">📖 ${data.desc}</p><p>${data.details.replace(/\n/g, '<br>')}</p>`;
         } else {
             modalTitle.textContent = abbr;
-            modalBody.innerHTML = `<p>Информация об аббревиатуре "${abbr}" временно отсутствует.</p>`;
+            modalBody.innerHTML = `<p>Информация об аббревиатуре «${abbr}» временно отсутствует.</p>`;
         }
         modal.classList.add('active');
     }
@@ -524,23 +512,22 @@
 
     const tabs = document.querySelectorAll('.tab-btn');
     const contents = document.querySelectorAll('.tab-content');
+
     function activateTab(tabId) {
         contents.forEach(c => c.classList.remove('active'));
         document.getElementById(tabId).classList.add('active');
         tabs.forEach(btn => btn.classList.remove('active'));
         document.querySelector(`.tab-btn[data-tab="${tabId}"]`).classList.add('active');
-        window.scrollTo({ top: 0, behavior: 'instant' });
     }
+
     tabs.forEach(btn => btn.addEventListener('click', () => activateTab(btn.getAttribute('data-tab'))));
-    
-    window.scrollTo({ top: 0, behavior: 'instant' });
-    window.addEventListener('pageshow', () => window.scrollTo({ top: 0, behavior: 'instant' }));
     
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('/SMP/sw.js')
-            .then(reg => console.log('✅ Сервис-воркер зарегистрирован:', reg))
-            .catch(err => console.error('❌ Ошибка регистрации:', err));
+            .then(reg => console.log('✅ Service Worker зарегистрирован:', reg.scope))
+            .catch(err => console.error('❌ Ошибка регистрации SW:', err));
     }
 </script>
+
 </body>
 </html>
