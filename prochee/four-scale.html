@@ -2,13 +2,13 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <title>FOUR шкала комы — интерактивная оценка</title>
-    
+
     <!-- PWA -->
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#1e2f47">
-    
+    <meta name="theme-color" content="#0f1446">
+
     <style>
         * {
             margin: 0;
@@ -17,52 +17,46 @@
         }
 
         body {
-            background: linear-gradient(145deg, #eef2f7 0%, #dce3ec 100%);
-            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, 'Helvetica Neue', sans-serif;
-            padding: 2rem 1rem;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            font-family: 'Segoe UI', 'Roboto', sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             min-height: 100vh;
         }
 
-        .calculator-card {
+        .container {
             max-width: 880px;
-            margin: 0 auto;
-            background: #ffffff;
-            border-radius: 48px;
-            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.2);
-            overflow: hidden;
+            width: 100%;
         }
 
-        .card-header {
-            background: #1e2f47;
-            background-image: linear-gradient(115deg, #142a3b, #1d3f55);
-            padding: 1.8rem 2rem;
+        .card {
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 24px 22px;
+            margin-bottom: 24px;
+        }
+
+        .header-card {
+            background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
             color: white;
+            text-align: center;
+            padding: 28px 20px;
         }
-        .card-header h1 {
-            font-size: 1.9rem;
+        .header-card h1 {
+            color: white;
+            margin-bottom: 8px;
+            font-size: 28px;
             font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            flex-wrap: wrap;
         }
-        .card-header h1 span {
-            background: rgba(255,255,255,0.2);
-            font-size: 0.9rem;
-            padding: 5px 14px;
-            border-radius: 60px;
-            font-weight: 500;
-        }
-        .card-header p {
-            margin-top: 12px;
-            opacity: 0.85;
+        .header-card p {
+            opacity: 0.9;
             font-size: 0.95rem;
-            border-left: 3px solid #5f9bc2;
-            padding-left: 16px;
-        }
-
-        .card-body {
-            padding: 2rem 2rem 1.8rem;
+            margin-top: 4px;
+            line-height: 1.5;
         }
 
         .scale-grid {
@@ -73,22 +67,17 @@
         }
 
         .category-card {
-            background: #f6fafd;
-            border-radius: 28px;
+            background: #eef7ff;
+            border-radius: 16px;
             border: 1px solid #d4e2f0;
             overflow: hidden;
-            transition: box-shadow 0.2s;
-        }
-        .category-card:hover {
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
         }
         .category-title {
-            background: linear-gradient(115deg, #142a3b, #1d3f55);
+            background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
             color: white;
             padding: 0.9rem 1.3rem;
             font-weight: 700;
             font-size: 1.1rem;
-            letter-spacing: 0.3px;
         }
         .options-list {
             padding: 0.8rem 1.2rem;
@@ -101,10 +90,11 @@
             align-items: center;
             gap: 1rem;
             padding: 0.5rem 0.8rem;
-            border-radius: 16px;
+            border-radius: 12px;
             background: #ffffff;
             transition: background 0.15s;
             cursor: pointer;
+            border: 1px solid #d4e2f0;
         }
         .option-item:hover {
             background: #eef7ff;
@@ -112,7 +102,7 @@
         .option-radio {
             width: 18px;
             height: 18px;
-            accent-color: #1f6e9c;
+            accent-color: #0f1446;
             cursor: pointer;
             flex-shrink: 0;
         }
@@ -120,47 +110,47 @@
             flex: 1;
             font-weight: 500;
             color: #1f3a4b;
+            font-size: 0.9rem;
         }
         .option-score {
-            font-weight: 800;
-            background: #eef2f7;
+            font-weight: 700;
+            background: #eef7ff;
             padding: 0.2rem 0.8rem;
-            border-radius: 30px;
-            color: #c0422b;
+            border-radius: 10px;
+            color: #d32f2f;
             font-size: 0.9rem;
             min-width: 45px;
             text-align: center;
         }
 
         .result-panel {
-            background: #f6fafd;
-            border-radius: 32px;
+            background: #eef7ff;
+            border-radius: 16px;
             padding: 1.4rem 1.6rem;
-            margin: 1rem 0 1rem;
-            border-left: 6px solid #1f6e9c;
+            margin: 1rem 0;
+            border: 1px solid #d4e2f0;
+            border-left: 5px solid #1f6e9c;
             text-align: center;
-            transition: all 0.2s;
         }
         .total-score {
-            font-size: 2.8rem;
-            font-weight: 800;
-            color: #1a4d6b;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #0f1446;
             line-height: 1;
         }
         .total-label {
             font-size: 1rem;
-            letter-spacing: 0.5px;
-            color: #1f4a66;
+            color: #0f1446;
             margin-bottom: 0.5rem;
             font-weight: 600;
         }
         .severity-badge {
             display: inline-block;
             padding: 0.5rem 1.5rem;
-            border-radius: 60px;
+            border-radius: 12px;
             font-weight: 700;
             margin-top: 0.75rem;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
         }
         .severity-coma3 { background: #4a0000; color: white; }
         .severity-coma2 { background: #8b0000; color: white; }
@@ -173,20 +163,22 @@
         .info-card {
             background: #eef7ff;
             border-left: 5px solid #1f6e9c;
-            border-radius: 24px;
-            padding: 1.2rem 1.5rem;
+            border-radius: 16px;
+            padding: 1rem 1.25rem;
             margin: 1.5rem 0 1rem;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             line-height: 1.5;
+            color: #1f3a4b;
         }
         .warning-card {
-            background: #fff4e8;
-            border-left: 5px solid #e67e22;
-            border-radius: 24px;
-            padding: 1.2rem 1.5rem;
-            margin: 1rem 0 1rem;
-            font-size: 0.95rem;
+            background: #fff8e7;
+            border-left: 5px solid #e68a2e;
+            border-radius: 16px;
+            padding: 1rem 1.25rem;
+            margin: 1rem 0;
+            font-size: 0.9rem;
             line-height: 1.5;
+            color: #1f3a4b;
         }
         .info-card ul, .warning-card ul {
             margin-top: 0.5rem;
@@ -204,19 +196,18 @@
             color: #a56b00;
         }
         .important-text {
-            background: #f8d7da;
-            padding: 0 4px;
-            border-radius: 8px;
-            font-weight: 600;
-            color: #b13e2d;
+            font-weight: 700;
+            color: #d32f2f;
         }
 
-        /* Таблица интерпретации */
         .interpretation-table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 12px;
             font-size: 0.9rem;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #d4e2f0;
         }
         .interpretation-table th, .interpretation-table td {
             padding: 10px 14px;
@@ -224,32 +215,32 @@
             border-bottom: 1px solid #e2ecf3;
         }
         .interpretation-table th {
-            background: #1e2f47;
+            background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
             color: white;
             font-weight: 700;
         }
-        .interpretation-table tr:nth-child(even) {
-            background: #f6fafd;
-        }
-        .interpretation-table tr:hover {
+        .interpretation-table tbody tr:nth-child(even) td {
             background: #eef7ff;
         }
 
         @media (max-width: 680px) {
-            .card-body {
-                padding: 1.5rem;
+            body {
+                padding: 10px;
+            }
+            .card {
+                padding: 16px 14px;
+            }
+            .header-card h1 {
+                font-size: 24px;
             }
             .total-score {
-                font-size: 2.2rem;
+                font-size: 2rem;
             }
             .category-title {
                 font-size: 1rem;
             }
             .option-text {
                 font-size: 0.85rem;
-            }
-            .info-card, .warning-card {
-                padding: 1rem;
             }
             .interpretation-table {
                 font-size: 0.75rem;
@@ -258,36 +249,27 @@
     </style>
 </head>
 <body>
-<div class="calculator-card">
-    <div class="card-header">
-        <h1>
-            🧠 FOUR шкала комы
-            <span>оценка сознания</span>
-        </h1>
-        <p>FOUR (Full Outline of UnResponsiveness) — шкала оценки уровня сознания. Оценивает 4 параметра: глазные реакции, моторный ответ, стволовые рефлексы и паттерн дыхания. Диапазон: 0–16 баллов.</p>
+
+<div class="container">
+    <div class="card header-card">
+        <h1>🧠 FOUR шкала комы</h1>
+        <p>FOUR (Full Outline of UnResponsiveness) — оценка по 4 параметрам: глазные реакции, моторный ответ, стволовые рефлексы и паттерн дыхания. Диапазон: 0–16 баллов.</p>
     </div>
-    <div class="card-body">
-        
+
+    <div class="card">
         <div class="scale-grid">
-            <!-- Глазные реакции -->
             <div class="category-card">
                 <div class="category-title">👁️ Глазные реакции (E)</div>
                 <div class="options-list" id="eye-list"></div>
             </div>
-            
-            <!-- Моторный ответ -->
             <div class="category-card">
                 <div class="category-title">💪 Моторный ответ (M)</div>
                 <div class="options-list" id="motor-list"></div>
             </div>
-            
-            <!-- Стволовые рефлексы -->
             <div class="category-card">
                 <div class="category-title">🧬 Стволовые рефлексы (B)</div>
                 <div class="options-list" id="brainstem-list"></div>
             </div>
-            
-            <!-- Дыхание -->
             <div class="category-card">
                 <div class="category-title">🫁 Дыхание (R)</div>
                 <div class="options-list" id="respiration-list"></div>
@@ -317,22 +299,26 @@
                 </tbody>
             </table>
         </div>
-        
+
         <div class="warning-card">
             <strong>⚠️ Преимущества FOUR перед шкалой Глазго:</strong>
             <ul>
                 <li>✅ <span class="highlight">Оценивает стволовые рефлексы</span> — критически важно при подозрении на смерть мозга</li>
                 <li>✅ <span class="highlight">Не зависит от вербального ответа</span> — можно использовать у интубированных пациентов</li>
                 <li>✅ <span class="highlight">Оценивает паттерн дыхания</span> — помогает в диагностике стволовых нарушений</li>
-                <li>✅ Более точная оценка у пациентов с <span class="highlight">афазией, ИВЛ, седацией</span></li>
-                <li>✅ <span class="highlight">0 баллов</span> по стволовым рефлексам + апноэ = Кома III (признаки смерти мозга)</li>
+                <li>✅ <span class="highlight">0 баллов</span> по стволовым рефлексам + апноэ = Кома III</li>
             </ul>
         </div>
-
     </div>
 </div>
 
 <script>
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/SMP/sw.js')
+            .then(reg => console.log('✅ SW зарегистрирован:', reg))
+            .catch(err => console.error('❌ Ошибка:', err));
+    }
+
     const eyeOptions = [
         { text: "Открывает глаза, следит взглядом за предметом/выполняет команду", score: 4 },
         { text: "Открывает глаза спонтанно, но не следит взглядом", score: 3 },
@@ -340,29 +326,26 @@
         { text: "Открывает глаза только на болевое раздражение", score: 1 },
         { text: "Глаза не открывает, веки неподвижны", score: 0 }
     ];
-
     const motorOptions = [
-        { text: "Выполняет команды (показывает большой палец, знак V, сжимает кулак)", score: 4 },
-        { text: "Локализует боль (тянется к месту раздражения)", score: 3 },
-        { text: "Сгибательный ответ на боль (декортикационная поза — сгибание рук)", score: 2 },
-        { text: "Разгибательный ответ на боль (децеребрационная поза — разгибание)", score: 1 },
+        { text: "Выполняет команды", score: 4 },
+        { text: "Локализует боль", score: 3 },
+        { text: "Сгибательный ответ на боль (декортикация)", score: 2 },
+        { text: "Разгибательный ответ на боль (децеребрация)", score: 1 },
         { text: "Двигательная реакция отсутствует", score: 0 }
     ];
-
     const brainstemOptions = [
         { text: "Зрачковый и корнеальный рефлексы сохранены", score: 4 },
         { text: "Один зрачок широкий и не реагирует на свет (анизокория)", score: 3 },
         { text: "Зрачковый рефлекс отсутствует с обеих сторон", score: 2 },
-        { text: "Зрачковый и корнеальный рефлексы отсутствуют (арефлексия)", score: 1 },
+        { text: "Зрачковый и корнеальный рефлексы отсутствуют", score: 1 },
         { text: "Зрачковый, корнеальный и кашлевой рефлексы отсутствуют", score: 0 }
     ];
-
     const respirationOptions = [
-        { text: "Самостоятельное дыхание, ритмичное, не нуждается в поддержке", score: 4 },
-        { text: "Самостоятельное дыхание, типа Чейна-Стокса (периодическое)", score: 3 },
-        { text: "Самостоятельное дыхание, нерегулярное (атактическое, гаспинг)", score: 2 },
-        { text: "Самостоятельное дыхание с частотой выше аппаратной (попытки вдоха)", score: 1 },
-        { text: "Апноэ (дыхание отсутствует, работает только аппарат ИВЛ)", score: 0 }
+        { text: "Самостоятельное дыхание, ритмичное", score: 4 },
+        { text: "Дыхание Чейна-Стокса (периодическое)", score: 3 },
+        { text: "Нерегулярное дыхание (атактическое, гаспинг)", score: 2 },
+        { text: "Попытки вдоха выше аппаратной частоты", score: 1 },
+        { text: "Апноэ (дыхание отсутствует)", score: 0 }
     ];
 
     function renderOptions(containerId, options, groupName, callback) {
@@ -380,13 +363,10 @@
             `;
             container.appendChild(div);
             if (idx === 0) {
-                const radio = div.querySelector('input');
-                radio.checked = true;
+                div.querySelector('input').checked = true;
             }
-            div.querySelector('input').addEventListener('change', () => {
-                if (callback) callback();
-            });
-            div.querySelector('label').addEventListener('click', (e) => {
+            div.querySelector('input').addEventListener('change', () => { if (callback) callback(); });
+            div.querySelector('label').addEventListener('click', () => {
                 const radio = div.querySelector('input');
                 if (!radio.checked) radio.checked = true;
                 if (callback) callback();
@@ -403,40 +383,17 @@
     }
 
     function updateResult() {
-        const eye = getSelectedScore('eye');
-        const motor = getSelectedScore('motor');
-        const brainstem = getSelectedScore('brainstem');
-        const respiration = getSelectedScore('respiration');
-        const total = eye + motor + brainstem + respiration;
-        
+        const total = getSelectedScore('eye') + getSelectedScore('motor') + getSelectedScore('brainstem') + getSelectedScore('respiration');
         document.getElementById('total-score').innerText = total;
-        
         const severityDiv = document.getElementById('severity-badge');
         let severityClass = '', severityText = '';
-        
-        if (total === 0) {
-            severityClass = 'severity-coma3';
-            severityText = 'Кома III (0)';
-        } else if (total <= 6) {
-            severityClass = 'severity-coma2';
-            severityText = 'Кома II (1–6)';
-        } else if (total <= 8) {
-            severityClass = 'severity-coma1';
-            severityText = 'Кома I (7–8)';
-        } else if (total <= 12) {
-            severityClass = 'severity-sopor';
-            severityText = 'Сопор (9–12)';
-        } else if (total <= 14) {
-            severityClass = 'severity-stupor-deep';
-            severityText = 'Глубокое оглушение (13–14)';
-        } else if (total === 15) {
-            severityClass = 'severity-stupor-mild';
-            severityText = 'Умеренное оглушение (15)';
-        } else {
-            severityClass = 'severity-normal';
-            severityText = 'Ясное сознание (16)';
-        }
-        
+        if (total === 0) { severityClass = 'severity-coma3'; severityText = 'Кома III (0)'; }
+        else if (total <= 6) { severityClass = 'severity-coma2'; severityText = 'Кома II (1–6)'; }
+        else if (total <= 8) { severityClass = 'severity-coma1'; severityText = 'Кома I (7–8)'; }
+        else if (total <= 12) { severityClass = 'severity-sopor'; severityText = 'Сопор (9–12)'; }
+        else if (total <= 14) { severityClass = 'severity-stupor-deep'; severityText = 'Глубокое оглушение (13–14)'; }
+        else if (total === 15) { severityClass = 'severity-stupor-mild'; severityText = 'Умеренное оглушение (15)'; }
+        else { severityClass = 'severity-normal'; severityText = 'Ясное сознание (16)'; }
         severityDiv.className = `severity-badge ${severityClass}`;
         severityDiv.innerText = severityText;
     }
@@ -450,12 +407,7 @@
     }
 
     init();
-
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/SMP/sw.js')
-            .then(reg => console.log('✅ Сервис-воркер зарегистрирован:', reg))
-            .catch(err => console.error('❌ Ошибка регистрации:', err));
-    }
 </script>
+
 </body>
 </html>
