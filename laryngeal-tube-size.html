@@ -2,282 +2,265 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>Калькулятор: Размер ларингеальной трубки</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>📏 Ларингеальная трубка</title>
     
     <!-- PWA -->
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#1e2f47">
+    <meta name="theme-color" content="#0f1446">
     
     <style>
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
 
         body {
-            background: linear-gradient(145deg, #eef2f7 0%, #dce3ec 100%);
-            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, 'Helvetica Neue', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            font-family: 'Segoe UI', 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: #1f3a4b;
+            padding: 20px;
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 2rem 1rem;
         }
 
-        .calculator-card {
+        .container {
             max-width: 800px;
-            width: 100%;
-            background: #ffffff;
-            border-radius: 48px;
-            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.2);
-            overflow: hidden;
+            margin: 0 auto;
         }
 
-        .card-header {
-            background: #1e2f47;
-            background-image: linear-gradient(115deg, #142a3b, #1d3f55);
-            padding: 1.8rem 2rem;
+        .card {
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 24px 22px;
+            margin-bottom: 20px;
+        }
+
+        .card.header-card {
+            background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
             color: white;
             text-align: center;
+            padding: 28px 20px;
         }
 
-        .card-header h1 {
-            font-size: 1.9rem;
+        .card.header-card h1 {
+            font-size: 28px;
+            color: white;
             font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            flex-wrap: wrap;
+            margin-bottom: 8px;
         }
 
-        .card-header h1 span {
-            background: rgba(255,255,255,0.2);
-            font-size: 0.9rem;
-            padding: 5px 14px;
-            border-radius: 60px;
-            font-weight: 500;
-        }
-
-        .card-header p {
-            margin-top: 12px;
-            opacity: 0.85;
+        .card.header-card p {
+            opacity: 0.9;
             font-size: 0.95rem;
-            border-left: 3px solid #5f9bc2;
-            padding-left: 16px;
-            text-align: left;
+            margin-top: 8px;
         }
 
-        .card-content {
-            padding: 2rem;
+        h2 {
+            color: #0f1446;
+            border-left: 6px solid #e53935;
+            padding-left: 16px;
+            font-size: 1.3rem;
+            margin: 1.2rem 0 1rem 0;
         }
 
         .prompt-text {
             text-align: center;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 600;
-            color: #1f4a66;
-            background: #f6fafd;
-            padding: 14px 12px;
-            border-radius: 60px;
-            margin-bottom: 32px;
-            border: 1px solid #d4e2f0;
+            color: #0f1446;
+            background: #eef7ff;
+            padding: 14px 16px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            border-left: 4px solid #1f6e9c;
         }
 
         .buttons-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 16px;
-            margin-bottom: 40px;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 12px;
+            margin-bottom: 24px;
         }
 
         .patient-btn {
-            background: #f6fafd;
-            border: 2px solid #d4e2f0;
-            padding: 16px 10px;
-            border-radius: 44px;
-            font-size: 1rem;
+            text-decoration: none;
+            color: #0f1446;
+            background: #ffffff;
+            padding: 14px 12px;
+            border-radius: 12px;
             font-weight: 600;
-            color: #1f4a66;
-            cursor: pointer;
-            transition: all 0.25s;
             text-align: center;
-            line-height: 1.3;
+            transition: all 0.2s;
+            border: 2px solid #d4e2f0;
+            cursor: pointer;
+            font-size: 15px;
             font-family: inherit;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            line-height: 1.3;
         }
 
         .patient-btn:hover {
-            background: #eef2f7;
-            border-color: #1f6e9c;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 16px -8px rgba(0,0,0,0.15);
+            background: #eef7ff;
+            border-color: #0f1446;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 14px rgba(0,0,0,0.15);
         }
 
         .patient-btn:active {
-            transform: translateY(1px);
+            transform: translateY(0);
         }
 
-        .result-area {
-            background: #f6fafd;
-            border-radius: 28px;
-            padding: 1.5rem;
-            border-left: 6px solid #1f6e9c;
+        .patient-btn.selected {
+            background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
+            border-color: #0f1446;
+            color: white;
+        }
+
+        .result-section {
+            background: #eef7ff;
+            border-radius: 16px;
+            padding: 20px;
+            border-left: 4px solid #1f6e9c;
         }
 
         .result-label {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
             font-weight: 700;
             color: #6f8eaa;
             text-align: center;
-            margin-bottom: 12px;
+            margin-bottom: 14px;
         }
 
         .result-details {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 28px;
-            align-items: baseline;
-            margin: 10px 0 8px;
+            gap: 20px;
+            align-items: stretch;
+            margin: 10px 0;
         }
 
-        .size-box {
+        .result-box {
             text-align: center;
             background: #ffffff;
-            border-radius: 64px;
-            padding: 14px 28px;
+            border-radius: 12px;
+            padding: 16px 24px;
             min-width: 150px;
             border: 1px solid #d4e2f0;
+            flex: 1;
         }
 
-        .size-label {
-            font-size: 0.9rem;
+        .result-box-label {
+            font-size: 0.85rem;
             font-weight: 600;
-            color: #1f4a66;
-            letter-spacing: 0.5px;
+            color: #6f8eaa;
+            margin-bottom: 4px;
         }
 
         .size-value {
-            font-size: 3rem;
+            font-size: 2.8rem;
             font-weight: 800;
             line-height: 1.1;
-            color: #1a4d6b;
-        }
-
-        .color-box {
-            text-align: center;
-            background: #ffffff;
-            border-radius: 64px;
-            padding: 14px 28px;
-            min-width: 170px;
-            border: 1px solid #d4e2f0;
-        }
-
-        .color-label {
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: #1f4a66;
+            color: #0f1446;
         }
 
         .color-value {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             font-weight: 700;
             display: inline-flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             margin-top: 6px;
+            color: #1f3a4b;
         }
 
         .color-badge {
-            width: 32px;
-            height: 32px;
-            border-radius: 100%;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
             display: inline-block;
             box-shadow: 0 2px 6px rgba(0,0,0,0.1);
             border: 1px solid rgba(0,0,0,0.1);
-        }
-
-        .color-name {
-            font-weight: 700;
-            text-transform: capitalize;
-            color: #1f3a4b;
+            flex-shrink: 0;
         }
 
         .footnote {
             text-align: center;
-            font-size: 0.7rem;
+            font-size: 0.8rem;
             color: #6f8eaa;
-            margin-top: 24px;
-            padding-top: 18px;
-            border-top: 1px solid #e2ecf3;
+            margin-top: 16px;
+            padding-top: 14px;
+            border-top: 1px solid #d4e2f0;
         }
 
         @media (max-width: 768px) {
             body {
-                padding: 1rem;
+                padding: 10px;
             }
-            .card-header {
-                padding: 1.2rem;
+            .card {
+                padding: 16px 14px;
             }
-            .card-header h1 {
-                font-size: 1.3rem;
+            .card.header-card {
+                padding: 20px 14px;
             }
-            .card-header p {
-                font-size: 0.8rem;
-            }
-            .card-content {
-                padding: 1rem;
+            .card.header-card h1 {
+                font-size: 22px;
             }
             .size-value {
-                font-size: 2.5rem;
+                font-size: 2.2rem;
             }
             .color-value {
-                font-size: 1.4rem;
+                font-size: 1.3rem;
             }
             .patient-btn {
-                padding: 12px 8px;
+                padding: 12px 10px;
                 font-size: 0.9rem;
             }
             .result-details {
                 flex-direction: column;
-                align-items: stretch;
-                gap: 14px;
+                gap: 12px;
             }
-            .size-box, .color-box {
-                width: 100%;
+            .buttons-grid {
+                grid-template-columns: 1fr;
             }
         }
 
         @media (max-width: 480px) {
-            .prompt-text {
-                font-size: 1rem;
-            }
             .size-value {
-                font-size: 2rem;
+                font-size: 1.8rem;
+            }
+            .prompt-text {
+                font-size: 0.95rem;
             }
         }
     </style>
 </head>
 <body>
-<div class="calculator-card">
-    <div class="card-header">
-        <h1>
-            📏 Ларингеальная трубка
-            <span>размер + цвет</span>
-        </h1>
+
+<div class="container">
+    
+    <!-- ===== ШАПКА ===== -->
+    <div class="card header-card">
+        <h1>📏 Ларингеальная трубка</h1>
         <p>Калькулятор соответствия размера ларингеальной трубки в зависимости от веса и роста пациента</p>
     </div>
-    <div class="card-content">
+    
+    <!-- ===== ОСНОВНОЙ КОНТЕНТ ===== -->
+    <div class="card">
+        
         <div class="prompt-text">
             👶 Выберите параметры пациента
         </div>
 
+        <h2>📋 Категории пациентов</h2>
+
         <div class="buttons-grid">
-            <button class="patient-btn" data-key="newborn">👶 Новорожденные, весом менее 5 кг</button>
+            <button class="patient-btn" data-key="newborn">👶 Новорождённые, весом менее 5 кг</button>
             <button class="patient-btn" data-key="child5_12">🧒 Дети, весом от 5 до 12 кг</button>
             <button class="patient-btn" data-key="child12_25">🧑 Дети, весом от 12 до 25 кг</button>
             <button class="patient-btn" data-key="child125_150">📏 Дети, ростом от 125 до 150 см</button>
@@ -286,18 +269,19 @@
             <button class="patient-btn" data-key="adult_more180">👨‍🦰 Взрослые, ростом более 180 см</button>
         </div>
 
-        <div class="result-area" id="resultArea">
-            <div class="result-label">🔍 Рекомендованный размер</div>
+        <h2>🔍 Рекомендованный размер</h2>
+
+        <div class="result-section" id="resultArea">
             <div class="result-details" id="resultDetails">
-                <div class="size-box">
-                    <div class="size-label">Размер трубки</div>
+                <div class="result-box">
+                    <div class="result-box-label">Размер трубки</div>
                     <div class="size-value" id="tubeSizeValue">—</div>
                 </div>
-                <div class="color-box" id="colorBox">
-                    <div class="color-label">Цвет коннектора</div>
+                <div class="result-box">
+                    <div class="result-box-label">Цвет коннектора</div>
                     <div class="color-value" id="colorValueDisplay">
-                        <span class="color-badge" id="colorBadge" style="background-color: #cfddeb;"></span>
-                        <span class="color-name" id="colorNameText">Не выбран</span>
+                        <span class="color-badge" id="colorBadge" style="background-color: #d4e2f0;"></span>
+                        <span id="colorNameText">Не выбран</span>
                     </div>
                 </div>
             </div>
@@ -311,7 +295,7 @@
 <script>
     const sizeMapping = {
         newborn: {
-            label: "Новорожденные, весом менее 5 кг",
+            label: "Новорождённые, весом менее 5 кг",
             size: "0",
             colorName: "Прозрачный",
             colorCode: "#E0E7F1"
@@ -325,7 +309,7 @@
         child12_25: {
             label: "Дети, весом от 12 до 25 кг",
             size: "2",
-            colorName: "Зеленый",
+            colorName: "Зелёный",
             colorCode: "#2E7D32"
         },
         child125_150: {
@@ -337,7 +321,7 @@
         adult_less150: {
             label: "Взрослые, ростом менее 150 см",
             size: "3",
-            colorName: "Желтый",
+            colorName: "Жёлтый",
             colorCode: "#FFD966"
         },
         adult155_180: {
@@ -358,13 +342,10 @@
         const data = sizeMapping[patientKey];
         if (!data) return;
 
-        const tubeSizeElement = document.getElementById('tubeSizeValue');
-        const colorNameSpan = document.getElementById('colorNameText');
+        document.getElementById('tubeSizeValue').textContent = data.size;
+        document.getElementById('colorNameText').textContent = data.colorName;
+        
         const colorBadge = document.getElementById('colorBadge');
-        
-        tubeSizeElement.textContent = data.size;
-        colorNameSpan.textContent = data.colorName;
-        
         if (data.colorName === "Прозрачный") {
             colorBadge.style.background = "linear-gradient(135deg, #f0f4fa, #d9e2ef)";
             colorBadge.style.border = "1px solid #a0b8d0";
@@ -372,50 +353,33 @@
             colorBadge.style.backgroundColor = data.colorCode;
             colorBadge.style.border = "none";
         }
-        
-        const resultArea = document.getElementById('resultArea');
-        resultArea.style.transform = 'scale(1.01)';
-        setTimeout(() => {
-            if (resultArea) resultArea.style.transform = '';
-        }, 180);
+
+        // Подсветка выбранной кнопки
+        document.querySelectorAll('.patient-btn').forEach(btn => {
+            if (btn.getAttribute('data-key') === patientKey) {
+                btn.classList.add('selected');
+            } else {
+                btn.classList.remove('selected');
+            }
+        });
     }
 
     const buttons = document.querySelectorAll('.patient-btn');
     buttons.forEach(btn => {
-        btn.addEventListener('click', (e) => {
+        btn.addEventListener('click', () => {
             const key = btn.getAttribute('data-key');
             if (key && sizeMapping[key]) {
                 updateResult(key);
-                btn.style.backgroundColor = "#e8f0fe";
-                setTimeout(() => {
-                    btn.style.backgroundColor = "";
-                }, 150);
-            } else {
-                console.warn("Неизвестный ключ пациента", key);
             }
         });
     });
-
-    const style = document.createElement('style');
-    style.textContent = `
-        .patient-btn:focus-visible {
-            outline: 3px solid #1f6e9c;
-            outline-offset: 2px;
-        }
-        .color-badge {
-            transition: background 0.2s;
-        }
-        .result-area {
-            transition: transform 0.12s ease-out;
-        }
-    `;
-    document.head.appendChild(style);
     
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('/SMP/sw.js')
-            .then(reg => console.log('✅ Сервис-воркер зарегистрирован:', reg))
-            .catch(err => console.error('❌ Ошибка регистрации:', err));
+            .then(reg => console.log('✅ Service Worker зарегистрирован:', reg.scope))
+            .catch(err => console.error('❌ Ошибка регистрации SW:', err));
     }
 </script>
+
 </body>
 </html>
