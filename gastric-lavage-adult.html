@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <title>Промывание желудка | Калькулятор и алгоритм для взрослых</title>
-    
+
     <!-- PWA -->
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#1e2f47">
-    
+    <meta name="theme-color" content="#0f1446">
+
     <style>
         * {
             margin: 0;
@@ -17,56 +17,46 @@
         }
 
         body {
-            background: linear-gradient(145deg, #eef2f7 0%, #dce3ec 100%);
-            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, 'Helvetica Neue', sans-serif;
-            padding: 2rem 1rem;
-            min-height: 100vh;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            font-family: 'Segoe UI', 'Roboto', sans-serif;
+            margin: 0;
+            padding: 20px;
             display: flex;
-            justify-content: center;
-            align-items: flex-start;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
         }
 
-        .calculator-card {
+        .container {
             max-width: 1300px;
             width: 100%;
-            margin: 0 auto;
-            background: #ffffff;
-            border-radius: 48px;
-            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.2);
-            overflow: hidden;
         }
 
-        .card-header {
-            background: #1e2f47;
-            background-image: linear-gradient(115deg, #142a3b, #1d3f55);
-            padding: 1.8rem 2rem;
+        .card {
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 24px 22px;
+            margin-bottom: 24px;
+        }
+
+        .header-card {
+            background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
             color: white;
+            text-align: center;
+            padding: 28px 20px;
         }
-        .card-header h1 {
-            font-size: 1.9rem;
+        .header-card h1 {
+            color: white;
+            margin-bottom: 8px;
+            font-size: 28px;
             font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            flex-wrap: wrap;
         }
-        .card-header h1 span {
-            background: rgba(255,255,255,0.2);
-            font-size: 0.9rem;
-            padding: 5px 14px;
-            border-radius: 60px;
-            font-weight: 500;
-        }
-        .card-header p {
-            margin-top: 12px;
-            opacity: 0.85;
+        .header-card p {
+            opacity: 0.9;
             font-size: 0.95rem;
-            border-left: 3px solid #5f9bc2;
-            padding-left: 16px;
-        }
-
-        .card-content {
-            padding: 2rem;
+            margin-top: 4px;
+            line-height: 1.5;
         }
 
         .flex-grid {
@@ -85,23 +75,18 @@
             min-width: 380px;
         }
 
-        .card {
-            background: #ffffff;
-            border-radius: 28px;
+        .section-card {
+            background: #eef7ff;
+            border-radius: 16px;
             padding: 1.5rem;
             margin-bottom: 1.5rem;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
             border: 1px solid #d4e2f0;
-            transition: all 0.2s;
-        }
-        .card:hover {
-            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
         }
 
         .card-title {
-            font-size: 1.25rem;
+            font-size: 1.2rem;
             font-weight: 700;
-            color: #1f4a66;
+            color: #0f1446;
             margin-bottom: 20px;
             display: flex;
             align-items: center;
@@ -116,7 +101,7 @@
 
         .param-label {
             font-weight: 600;
-            color: #1f4a66;
+            color: #0f1446;
             margin-bottom: 10px;
             font-size: 0.9rem;
         }
@@ -133,7 +118,7 @@
         }
 
         .input-field label {
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             color: #6f8eaa;
             display: block;
             margin-bottom: 4px;
@@ -144,26 +129,23 @@
             width: 100%;
             padding: 12px 16px;
             border: 2px solid #d4e2f0;
-            border-radius: 18px;
+            border-radius: 12px;
             font-size: 0.9rem;
             font-family: inherit;
             transition: all 0.2s;
             background: white;
-        }
-
-        .input-field input:hover {
-            border-color: #1f6e9c;
+            color: #1f3a4b;
         }
 
         .input-field input:focus {
             outline: none;
-            border-color: #1f6e9c;
-            box-shadow: 0 0 0 3px rgba(31,110,156,0.1);
+            border-color: #0f1446;
+            box-shadow: 0 0 0 3px rgba(15,20,70,0.1);
         }
 
         .result-box {
-            background: #f6fafd;
-            border-radius: 20px;
+            background: #ffffff;
+            border-radius: 16px;
             padding: 18px;
             margin: 20px 0;
             border: 1px solid #d4e2f0;
@@ -173,7 +155,7 @@
             display: flex;
             justify-content: space-between;
             padding: 10px 0;
-            border-bottom: 1px solid #d4e2f0;
+            border-bottom: 1px solid #e2ecf3;
             font-size: 0.9rem;
             flex-wrap: wrap;
             gap: 8px;
@@ -186,28 +168,28 @@
 
         .result-value {
             font-weight: 700;
-            color: #1a4d6b;
+            color: #0f1446;
             font-size: 0.95rem;
             text-align: right;
         }
 
         .warning-note {
             background: #fff8e7;
-            border-left: 4px solid #f0b849;
+            border-left: 4px solid #e68a2e;
             padding: 12px 16px;
-            border-radius: 16px;
+            border-radius: 12px;
             margin: 16px 0;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             color: #a56b00;
         }
 
         .danger-note {
-            background: #ffebee;
-            border-left: 4px solid #c62828;
+            background: #fff0f0;
+            border-left: 4px solid #d32f2f;
             padding: 12px 16px;
-            border-radius: 16px;
+            border-radius: 12px;
             margin: 16px 0;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             color: #c62828;
         }
 
@@ -225,37 +207,36 @@
         }
 
         .step-number {
-            background: linear-gradient(135deg, #1f6e9c 0%, #155a80 100%);
+            background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
             color: white;
             width: 30px;
             height: 30px;
-            border-radius: 30px;
+            border-radius: 10px;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             font-weight: 700;
             font-size: 0.85rem;
             flex-shrink: 0;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
         }
 
         .step-text {
             flex: 1;
             font-size: 0.85rem;
-            line-height: 1.45;
+            line-height: 1.5;
             color: #1f3a4b;
         }
 
         .btn-copy {
-            background: linear-gradient(135deg, #ecf3f8 0%, #e6edf4 100%);
-            border: 2px solid #cbdae6;
+            background: #eef7ff;
+            border: 2px solid #d4e2f0;
             padding: 10px 20px;
-            border-radius: 60px;
-            font-size: 0.8rem;
+            border-radius: 12px;
+            font-size: 0.85rem;
             font-weight: 600;
             cursor: pointer;
             font-family: inherit;
-            color: #1f4a66;
+            color: #0f1446;
             transition: all 0.2s;
             margin-top: 12px;
             display: inline-flex;
@@ -266,31 +247,24 @@
         }
 
         .btn-copy:hover {
-            background: linear-gradient(135deg, #e2eaf2 0%, #d8e2ec 100%);
-            border-color: #1f6e9c;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            background: #d4e2f0;
+            transform: translateY(-1px);
         }
 
-        .btn-copy:active {
-            transform: scale(0.98);
-        }
-
-        /* УЛУЧШЕННЫЙ СТИЛЬ ДЛЯ ПРОТОКОЛА — БОЛЕЕ ЧИТАБЕЛЬНЫЙ */
         .protocol-text {
-            background: #f8fafc;
+            background: #ffffff;
             padding: 20px;
-            border-radius: 20px;
+            border-radius: 16px;
             font-size: 0.9rem;
-            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
-            line-height: 1.6;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.7;
             border: 1px solid #d4e2f0;
             color: #1f3a4b;
             white-space: pre-wrap;
         }
 
         .footnote {
-            font-size: 0.7rem;
+            font-size: 0.8rem;
             color: #6f8eaa;
             text-align: center;
             margin-top: 24px;
@@ -300,51 +274,26 @@
         }
 
         @media (max-width: 900px) {
-            .card-header h1 {
-                font-size: 1.4rem;
-            }
-            .card {
-                padding: 1.2rem;
+            .header-card h1 {
+                font-size: 24px;
             }
             .card-title {
                 font-size: 1.1rem;
-            }
-            .result-item {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            .result-value {
-                text-align: left;
             }
         }
 
         @media (max-width: 768px) {
             body {
-                padding: 1rem;
+                padding: 10px;
             }
-            .card-header {
-                padding: 1.2rem;
-            }
-            .card-header h1 {
-                font-size: 1.3rem;
-            }
-            .card-header p {
-                font-size: 0.8rem;
-            }
-            .card-content {
-                padding: 1rem;
+            .card {
+                padding: 16px 14px;
             }
             .flex-grid {
                 gap: 16px;
             }
             .calculator-panel, .algorithm-panel {
                 min-width: 100%;
-            }
-            .input-field input {
-                padding: 10px 14px;
-            }
-            .step-item {
-                padding: 12px 0;
             }
             .step-number {
                 width: 26px;
@@ -354,55 +303,26 @@
             .step-text {
                 font-size: 0.8rem;
             }
-            .btn-copy {
-                padding: 10px 16px;
-                font-size: 0.75rem;
-            }
             .protocol-text {
                 font-size: 0.8rem;
                 padding: 14px;
-                line-height: 1.5;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .result-box {
-                padding: 14px;
-            }
-            .result-item {
-                font-size: 0.8rem;
-            }
-            .warning-note, .danger-note {
-                font-size: 0.75rem;
-                padding: 10px 12px;
-            }
-            .input-row {
-                flex-direction: column;
-                gap: 12px;
-            }
-            .protocol-text {
-                font-size: 0.75rem;
-                padding: 12px;
-                line-height: 1.5;
             }
         }
     </style>
 </head>
 <body>
-<div class="calculator-card">
-    <div class="card-header">
-        <h1>
-            💧 Промывание желудка
-            <span>алгоритм для ВЗРОСЛЫХ</span>
-        </h1>
-        <p>Калькулятор параметров процедуры + пошаговый клинический алгоритм на основе стандартов оказания помощи. Расчет диаметра зонда, глубины введения, объема жидкости и количества активированного угля.</p>
+
+<div class="container">
+    <div class="card header-card">
+        <h1>💧 Промывание желудка</h1>
+        <p>Алгоритм для взрослых — калькулятор параметров процедуры + пошаговый клинический алгоритм на основе стандартов оказания помощи</p>
     </div>
-    <div class="card-content">
+
+    <div class="card">
         <div class="flex-grid">
             <div class="calculator-panel">
-                <div class="card">
+                <div class="section-card">
                     <div class="card-title">📏 Расчет параметров промывания</div>
-                    
                     <div class="param-group">
                         <div class="param-label">👤 Данные пациента</div>
                         <div class="input-row">
@@ -418,30 +338,12 @@
                     </div>
 
                     <div class="result-box">
-                        <div class="result-item">
-                            <span>🔍 Диаметр зонда (рекомендуемый):</span>
-                            <span class="result-value" id="tubeDiameter">10–13 мм</span>
-                        </div>
-                        <div class="result-item">
-                            <span>📏 Глубина введения зонда:</span>
-                            <span class="result-value" id="insertionDepth">~50 см</span>
-                        </div>
-                        <div class="result-item">
-                            <span>💧 Разовый объем жидкости:</span>
-                            <span class="result-value" id="singleVolume">500 мл</span>
-                        </div>
-                        <div class="result-item">
-                            <span>🔄 Общий объем промывания:</span>
-                            <span class="result-value" id="totalVolume">10–12 литров</span>
-                        </div>
-                        <div class="result-item">
-                            <span>🖤 Активированный уголь (доза):</span>
-                            <span class="result-value" id="charcoalDose">—</span>
-                        </div>
-                        <div class="result-item">
-                            <span>🧴 Вазелиновое масло:</span>
-                            <span class="result-value" id="vaselineOil">100–150 мл</span>
-                        </div>
+                        <div class="result-item"><span>🔍 Диаметр зонда (рекомендуемый):</span><span class="result-value" id="tubeDiameter">10–13 мм</span></div>
+                        <div class="result-item"><span>📏 Глубина введения зонда:</span><span class="result-value" id="insertionDepth">~50 см</span></div>
+                        <div class="result-item"><span>💧 Разовый объем жидкости:</span><span class="result-value" id="singleVolume">500 мл</span></div>
+                        <div class="result-item"><span>🔄 Общий объем промывания:</span><span class="result-value" id="totalVolume">10–12 литров</span></div>
+                        <div class="result-item"><span>🖤 Активированный уголь (доза):</span><span class="result-value" id="charcoalDose">—</span></div>
+                        <div class="result-item"><span>🧴 Вазелиновое масло:</span><span class="result-value" id="vaselineOil">100–150 мл</span></div>
                     </div>
 
                     <div class="warning-note">
@@ -449,23 +351,11 @@
                     </div>
                 </div>
 
-                <div class="card">
+                <div class="section-card">
                     <div class="card-title">💊 Энтеросорбенты</div>
-                    <div class="param-group">
-                        <div class="param-label">Активированный уголь</div>
-                        <div class="result-item" style="border-bottom: none;">
-                            <span>Расчетная доза:</span>
-                            <span class="result-value" id="charcoalCalc">0 г</span>
-                        </div>
-                        <div class="result-item" style="border-bottom: none;">
-                            <span>Количество таблеток (0,25 г):</span>
-                            <span class="result-value" id="tabletsCount">0 шт</span>
-                        </div>
-                        <div class="result-item" style="border-bottom: none;">
-                            <span>Растворитель:</span>
-                            <span class="result-value">вазелиновое масло 100–150 мл</span>
-                        </div>
-                    </div>
+                    <div class="result-item" style="border-bottom: 1px solid #e2ecf3;"><span>Расчетная доза:</span><span class="result-value" id="charcoalCalc">0 г</span></div>
+                    <div class="result-item" style="border-bottom: 1px solid #e2ecf3;"><span>Количество таблеток (0,25 г):</span><span class="result-value" id="tabletsCount">0 шт</span></div>
+                    <div class="result-item"><span>Растворитель:</span><span class="result-value">вазелиновое масло 100–150 мл</span></div>
                     <div class="danger-note">
                         <strong>❌ Активированный уголь НЕ эффективен при отравлениях:</strong> кислотами, щелочами, бромидами, синильной кислотой, этанолом, этиленгликолем, ФОС (карбофос, хлорофос, дихлофос), железом.
                     </div>
@@ -473,7 +363,7 @@
             </div>
 
             <div class="algorithm-panel">
-                <div class="card">
+                <div class="section-card">
                     <div class="card-title">📋 Пошаговый алгоритм промывания желудка (взрослые)</div>
                     <ul class="step-list">
                         <li class="step-item"><div class="step-number">1</div><div class="step-text"><strong>Выбор зонда:</strong> диаметр зонда должен соответствовать ширине ногтевой фаланги I пальца кисти (≈10–13 мм).</div></li>
@@ -489,17 +379,15 @@
                     </ul>
                 </div>
 
-                <div class="card">
+                <div class="section-card">
                     <div class="card-title">📝 Шаблон описания процедуры (протокол)</div>
-                    <div id="protocolText" class="protocol-text">
-                        Апликационная анестезия KateGel корня языка и глотки. Определение глубины введения зонда в желудок путем измерения расстояния от мечевидного отростка до резцов через сосцевидный отросток (~50 см). Обработка зонда KateGel. В положении пациента на левом боку через рот с первой попытки введен зонд в желудок до отметки. Контрольное введение воздуха вызывает урчание в эпигастрии. Через зонд введено дробно (циклы по 500 мл) 10 л проточной воды комнатной температуры. Количество введенной и выведенной жидкости полностью равно. Через зонд введен активированный уголь (расчетная доза) в вазелиновом масле. Зонд извлечен.
-                    </div>
+                    <div id="protocolText" class="protocol-text">Апликационная анестезия KateGel корня языка и глотки. Определение глубины введения зонда в желудок путем измерения расстояния от мечевидного отростка до резцов через сосцевидный отросток (~50 см). Обработка зонда KateGel. В положении пациента на левом боку через рот с первой попытки введен зонд в желудок до отметки. Контрольное введение воздуха вызывает урчание в эпигастрии. Через зонд введено дробно (циклы по 500 мл) 10 л проточной воды комнатной температуры. Количество введенной и выведенной жидкости полностью равно. Через зонд введен активированный уголь (расчетная доза) в вазелиновом масле. Зонд извлечен.</div>
                     <button class="btn-copy" id="copyProtocolBtn">📋 Скопировать протокол</button>
                 </div>
 
-                <div class="card">
+                <div class="section-card">
                     <div class="card-title">⚠️ Критерии прекращения процедуры</div>
-                    <ul style="margin-left: 20px; font-size: 0.8rem; color: #1f3a4b; line-height: 1.6;">
+                    <ul style="margin-left: 20px; font-size: 0.85rem; color: #1f3a4b; line-height: 1.8;">
                         <li>• Появление чистой промывной воды (без примесей)</li>
                         <li>• Ухудшение состояния пациента (нарушение сознания, брадикардия, гипотензия, аспирация)</li>
                         <li>• Разница между введенной и выведенной жидкостью >1%</li>
@@ -510,40 +398,45 @@
         </div>
 
         <div class="footnote">
-            ⚕️ Алгоритм составлен на основе клинических рекомендаций и стандартов оказания медицинской помощи. У взрослых общий объем промывной жидкости составляет 10–12 литров, разовый объем — 500 мл. Скорость введения/выведения — 1,5 минуты на каждую фазу. Вазелиновое масло препятствует образованию конгломератов активированного угля и не всасывается.
+            ⚕️ Алгоритм составлен на основе клинических рекомендаций и стандартов оказания медицинской помощи. У взрослых общий объем промывной жидкости составляет 10–12 литров, разовый объем — 500 мл. Вазелиновое масло препятствует образованию конгломератов активированного угля и не всасывается.
         </div>
     </div>
 </div>
 
 <script>
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/SMP/sw.js')
+            .then(reg => console.log('✅ SW зарегистрирован:', reg))
+            .catch(err => console.error('❌ Ошибка:', err));
+    }
+
     function updateParameters() {
         let weight = parseFloat(document.getElementById('weight').value);
         if (isNaN(weight)) weight = 70;
         weight = Math.max(1, Math.min(200, weight));
-        
+
         document.getElementById('tubeDiameter').innerHTML = '10–13 мм';
         document.getElementById('insertionDepth').innerHTML = '~50 см (ухо → кончик носа → мечевидный отросток)';
         document.getElementById('singleVolume').innerHTML = '500 мл';
         document.getElementById('totalVolume').innerHTML = '10–12 литров';
-        
+
         const charcoalMin = (weight * 0.5).toFixed(0);
         const charcoalMax = (weight * 1).toFixed(0);
         document.getElementById('charcoalDose').innerHTML = `${charcoalMin}–${charcoalMax} г (0,5–1 г/кг)`;
-        
+
         const avgDose = weight * 0.75;
         const tablets = Math.ceil(avgDose / 0.25);
         document.getElementById('charcoalCalc').innerHTML = `${avgDose.toFixed(0)} г (средняя доза)`;
         document.getElementById('tabletsCount').innerHTML = `${tablets} шт (по 0,25 г)`;
-        
+
         document.getElementById('vaselineOil').innerHTML = '100–150 мл';
         updateProtocolText(weight);
     }
-    
+
     function updateProtocolText(weight) {
         const avgDose = (weight * 0.75).toFixed(0);
         const tablets = Math.ceil(weight * 0.75 / 0.25);
-        const protocolDiv = document.getElementById('protocolText');
-        protocolDiv.innerHTML = `Апликационная анестезия KateGel (Sol.Lidocaini) корня языка и глотки.
+        document.getElementById('protocolText').innerHTML = `Апликационная анестезия KateGel (Sol.Lidocaini) корня языка и глотки.
 
 Определение глубины введения зонда в желудок путем измерения расстояния от мечевидного отростка до области резцов зубов, через область сосцевидного отростка (~50 см), с нанесением отметки на зонд.
 
@@ -559,32 +452,22 @@ KateGel обработка зонда.
 
 Зонд из желудка извлечен. Состояние пациента на момент завершения процедуры стабильное.`;
     }
-    
+
     function copyProtocol() {
         const protocolText = document.getElementById('protocolText').innerText;
         navigator.clipboard.writeText(protocolText).then(() => {
             const btn = document.getElementById('copyProtocolBtn');
             const originalText = btn.innerHTML;
             btn.innerHTML = '✅ Скопировано!';
-            setTimeout(() => {
-                btn.innerHTML = originalText;
-            }, 2000);
-        }).catch(() => {
-            alert('Не удалось скопировать текст');
-        });
+            setTimeout(() => { btn.innerHTML = originalText; }, 2000);
+        }).catch(() => { alert('Не удалось скопировать текст'); });
     }
-    
+
     document.getElementById('weight').addEventListener('input', updateParameters);
     document.getElementById('age').addEventListener('input', updateParameters);
     document.getElementById('copyProtocolBtn').addEventListener('click', copyProtocol);
-    
     updateParameters();
-    
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/SMP/sw.js')
-            .then(reg => console.log('✅ Сервис-воркер зарегистрирован:', reg))
-            .catch(err => console.error('❌ Ошибка регистрации:', err));
-    }
 </script>
+
 </body>
 </html>
