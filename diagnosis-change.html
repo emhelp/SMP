@@ -2,164 +2,189 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Изменение диагноза на повторном вызове - СМП</title>
+
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0f1446">
+
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+
         body {
-            background-color: transparent;
-            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
-            line-height: 1.5;
-            color: #1e2a3e;
-            padding: 20px 0;
+            font-family: 'Segoe UI', 'Roboto', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
         }
-        .document-container {
+
+        .container {
             max-width: 1200px;
-            margin: 0 auto;
-            background-color: #ffffff;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            overflow: hidden;
+            width: 100%;
         }
-        .document-header {
-            background: linear-gradient(135deg, #2c3e66 0%, #1a2a4a 100%);
+
+        .card {
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 24px 22px;
+            margin-bottom: 24px;
+        }
+
+        .header-card {
+            background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
             color: white;
-            padding: 1.5rem 2rem;
-            border-bottom: 4px solid #ffc107;
+            text-align: center;
+            padding: 28px 20px;
         }
-        .document-header h1 {
-            font-size: 1.8rem;
+        .header-card h1 {
+            color: white;
+            margin-bottom: 8px;
+            font-size: 28px;
             font-weight: 700;
-            margin-bottom: 0.5rem;
         }
-        .document-content {
-            padding: 2rem;
-        }
-        .intro-card {
-            background: #e3f2fd;
-            border-left: 6px solid #2c3e66;
-            padding: 1rem 1.25rem;
-            margin-bottom: 1.5rem;
-            border-radius: 0 12px 12px 0;
-        }
-        .section-title {
+
+        h2 {
             font-size: 1.3rem;
             font-weight: 700;
-            color: #2c3e66;
-            margin: 1rem 0 1rem 0;
-            display: inline-block;
-            border-bottom: 3px solid #ffc107;
-            padding-bottom: 0.25rem;
+            margin-bottom: 20px;
+            color: #0f1446;
+            border-left: 6px solid #e53935;
+            padding-left: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
+
+        .intro-card {
+            background: #eef7ff;
+            border-left: 5px solid #1f6e9c;
+            padding: 1rem 1.25rem;
+            margin-bottom: 1.5rem;
+            border-radius: 16px;
+            color: #1f3a4b;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
         .rule-card {
-            background: #fefaf5;
-            border-radius: 12px;
+            background: #eef7ff;
+            border-radius: 16px;
             padding: 1rem 1.25rem;
             margin: 1rem 0;
-            transition: all 0.2s ease;
-            border-left: 5px solid #f57c00;
+            border: 1px solid #d4e2f0;
+            border-left: 5px solid #e68a2e;
+            font-size: 0.9rem;
+            color: #1f3a4b;
+            line-height: 1.5;
         }
-        .rule-card:hover {
-            background: #fff7f0;
-            transform: translateX(2px);
-        }
+
         .rule-header {
             display: flex;
             align-items: flex-start;
             gap: 12px;
         }
+
         .rule-icon {
             font-size: 1.2rem;
             flex-shrink: 0;
-            color: #f57c00;
         }
+
         .rule-text {
             flex: 1;
             line-height: 1.55;
         }
-        .rule-text strong {
-            color: #2c3e66;
-        }
+
         .highlight {
-            background-color: #ffecb3;
+            background-color: #fff3b0;
             padding: 0.1rem 0.3rem;
             border-radius: 4px;
             font-weight: 600;
-            color: #b85c00;
+            color: #a56b00;
         }
+
         .important-text {
             font-weight: 700;
-            color: #c62828;
-            text-decoration: underline;
+            color: #d32f2f;
         }
+
         .special-card {
-            background: #e8f0fe;
-            border-left: 5px solid #1976d2;
-            border-radius: 12px;
+            background: #eef7ff;
+            border-left: 5px solid #1f6e9c;
+            border-radius: 16px;
             padding: 1rem 1.25rem;
             margin: 1rem 0;
+            font-size: 0.9rem;
+            color: #1f3a4b;
+            line-height: 1.5;
         }
+
         .warning-card {
             background: #fff8e7;
-            border-left: 5px solid #ff9800;
-            border-radius: 12px;
+            border-left: 5px solid #e68a2e;
+            border-radius: 16px;
             padding: 1rem 1.25rem;
             margin: 1rem 0;
+            font-size: 0.9rem;
+            color: #1f3a4b;
+            line-height: 1.5;
         }
-        .badge {
-            display: inline-block;
-            background: #2c3e66;
-            color: white;
-            font-size: 0.7rem;
-            font-weight: 600;
-            padding: 0.2rem 0.7rem;
-            border-radius: 20px;
-            margin-right: 0.5rem;
-            vertical-align: middle;
-        }
+
         hr {
             margin: 1.5rem 0;
             border: none;
             height: 1px;
-            background: linear-gradient(90deg, #e2e8f0, transparent);
+            background: #e2ecf3;
         }
+
         .subnote {
             font-size: 0.85rem;
-            color: #5a6e85;
+            color: #6f8eaa;
             margin-top: 1rem;
             padding-top: 0.75rem;
-            border-top: 1px solid #e2e8f0;
+            border-top: 1px solid #e2ecf3;
+            line-height: 1.5;
         }
+
         @media (max-width: 768px) {
-            .document-content {
-                padding: 1rem;
+            body {
+                padding: 10px;
+            }
+            .card {
+                padding: 16px 14px;
+            }
+            .header-card h1 {
+                font-size: 24px;
             }
             .rule-card {
                 padding: 0.75rem;
-            }
-            .rule-header {
-                gap: 8px;
             }
         }
     </style>
 </head>
 <body>
-<div class="document-container">
-    <div class="document-header">
+
+<div class="container">
+    <div class="card header-card">
         <h1>📋 Порядок изменения диагноза "первичного" вызова</h1>
     </div>
-    <div class="document-content">
-        
+
+    <div class="card">
         <div class="intro-card">
             При выезде на повторный, «активный» вызов или вызов «на себя» бригадами СМП и ОНМПВиДН
         </div>
-        
-        <div class="section-title">🔤 Правила изменения диагноза</div>
-        
+
+        <h2>🔤 Правила изменения диагноза</h2>
+
         <div class="rule-card">
             <div class="rule-header">
                 <div class="rule-icon">🔤</div>
@@ -168,7 +193,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="rule-card">
             <div class="rule-header">
                 <div class="rule-icon">🔤</div>
@@ -177,7 +202,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="rule-card">
             <div class="rule-header">
                 <div class="rule-icon">🔤</div>
@@ -188,7 +213,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="rule-card">
             <div class="rule-header">
                 <div class="rule-icon">🔤</div>
@@ -197,7 +222,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="rule-card">
             <div class="rule-header">
                 <div class="rule-icon">🔤</div>
@@ -206,7 +231,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="special-card">
             <div class="rule-header">
                 <div class="rule-icon">✅</div>
@@ -215,7 +240,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="warning-card">
             <div class="rule-header">
                 <div class="rule-icon">⚕️</div>
@@ -224,9 +249,9 @@
                 </div>
             </div>
         </div>
-        
+
         <hr>
-        
+
         <div class="subnote">
             📋 <strong>Сводка важных моментов:</strong><br>
             • <strong>Изменение диагноза</strong> допустимо <span class="highlight">только на основании достоверных данных</span> (анамнез, объективный осмотр, инструментальные методы)<br>
@@ -239,8 +264,16 @@
             <br>
             🔍 <em>Документ регламентирует порядок изменения диагноза первичного вызова при работе на повторных, «активных» вызовах и вызовах «на себя». Соблюдение правил обязательно.</em>
         </div>
-        
     </div>
 </div>
+
+<script>
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/SMP/sw.js')
+            .then(reg => console.log('✅ SW зарегистрирован:', reg))
+            .catch(err => console.error('❌ Ошибка:', err));
+    }
+</script>
+
 </body>
 </html>
