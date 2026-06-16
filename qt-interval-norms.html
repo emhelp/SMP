@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <title>QT в норме | Калькулятор интервала QT по RR</title>
-    
+
     <!-- PWA -->
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#1e2f47">
-    
+    <meta name="theme-color" content="#0f1446">
+
     <style>
         * {
             margin: 0;
@@ -17,66 +17,51 @@
         }
 
         body {
-            background: linear-gradient(145deg, #eef2f7 0%, #dce3ec 100%);
-            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, 'Helvetica Neue', sans-serif;
-            padding: 2rem 1rem;
-            min-height: 100vh;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            font-family: 'Segoe UI', 'Roboto', sans-serif;
+            margin: 0;
+            padding: 20px;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
+            min-height: 100vh;
         }
 
-        .calculator-card {
+        .container {
             max-width: 850px;
             width: 100%;
-            background: #ffffff;
-            border-radius: 48px;
-            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.2);
-            overflow: hidden;
         }
 
-        .card-header {
-            background: #1e2f47;
-            background-image: linear-gradient(115deg, #142a3b, #1d3f55);
-            padding: 1.8rem 2rem;
+        .card {
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 24px 22px;
+            margin-bottom: 24px;
+        }
+
+        .header-card {
+            background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
             color: white;
             text-align: center;
+            padding: 28px 20px;
         }
-
-        .card-header h1 {
-            font-size: 1.9rem;
+        .header-card h1 {
+            color: white;
+            margin-bottom: 8px;
+            font-size: 28px;
             font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            flex-wrap: wrap;
         }
-
-        .card-header h1 span {
-            background: rgba(255,255,255,0.2);
-            font-size: 0.9rem;
-            padding: 5px 14px;
-            border-radius: 60px;
-            font-weight: 500;
-        }
-
-        .card-header p {
-            margin-top: 12px;
-            opacity: 0.85;
+        .header-card p {
+            opacity: 0.9;
             font-size: 0.95rem;
-            border-left: 3px solid #5f9bc2;
-            padding-left: 16px;
-            text-align: left;
-        }
-
-        .card-content {
-            padding: 2rem;
+            margin-top: 4px;
+            line-height: 1.5;
         }
 
         .input-panel {
-            background: #f6fafd;
-            border-radius: 28px;
+            background: #eef7ff;
+            border-radius: 16px;
             padding: 1.5rem;
             margin-bottom: 1.5rem;
             border: 1px solid #d4e2f0;
@@ -89,14 +74,14 @@
         .input-group label {
             display: block;
             font-weight: 600;
-            color: #1f4a66;
+            color: #0f1446;
             margin-bottom: 8px;
             font-size: 0.9rem;
         }
 
         .radio-group {
             display: flex;
-            gap: 28px;
+            gap: 24px;
             flex-wrap: wrap;
             margin-top: 6px;
         }
@@ -108,12 +93,13 @@
             font-weight: 500;
             cursor: pointer;
             color: #1f3a4b;
+            font-size: 0.9rem;
         }
 
         .radio-group input {
             width: 16px;
             height: 16px;
-            accent-color: #1f6e9c;
+            accent-color: #0f1446;
         }
 
         input, select {
@@ -121,7 +107,7 @@
             padding: 12px 16px;
             font-size: 0.95rem;
             border: 2px solid #d4e2f0;
-            border-radius: 18px;
+            border-radius: 12px;
             background: white;
             transition: 0.2s;
             font-family: inherit;
@@ -130,54 +116,59 @@
 
         input:focus, select:focus {
             outline: none;
-            border-color: #1f6e9c;
-            box-shadow: 0 0 0 3px rgba(31,110,156,0.1);
+            border-color: #0f1446;
+            box-shadow: 0 0 0 3px rgba(15,20,70,0.1);
         }
 
         .info-box {
             background: #eef7ff;
             border-left: 4px solid #1f6e9c;
             padding: 12px 16px;
-            border-radius: 20px;
+            border-radius: 12px;
             margin-top: 1rem;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             color: #1f3a4b;
         }
 
         .calc-btn {
-            background: linear-gradient(135deg, #1f6e9c 0%, #155a80 100%);
+            background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
             color: white;
             border: none;
             width: 100%;
             padding: 14px 20px;
-            font-size: 1rem;
-            font-weight: 700;
-            border-radius: 60px;
+            font-size: 15px;
+            font-weight: 600;
+            border-radius: 12px;
             cursor: pointer;
-            transition: 0.2s;
-            margin: 0.5rem 0 0.5rem;
+            transition: all 0.2s;
+            margin: 0.5rem 0;
             font-family: inherit;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
         .calc-btn:hover {
-            background: linear-gradient(135deg, #1a5c84 0%, #114d6e 100%);
-            transform: translateY(-2px);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+        }
+
+        .calc-btn:active {
+            transform: scale(0.98);
         }
 
         .result-card {
-            background: #f6fafd;
-            border-radius: 28px;
+            background: #eef7ff;
+            border-radius: 16px;
             padding: 1.5rem;
             margin-top: 1.5rem;
-            border-left: 6px solid #1f6e9c;
+            border: 1px solid #d4e2f0;
+            border-left: 5px solid #1f6e9c;
         }
 
         .result-title {
             font-size: 0.85rem;
             text-transform: uppercase;
-            letter-spacing: 2px;
             color: #6f8eaa;
-            font-weight: 700;
+            font-weight: 600;
             margin-bottom: 18px;
         }
 
@@ -190,23 +181,23 @@
 
         .result-item {
             background: #ffffff;
-            border-radius: 20px;
+            border-radius: 12px;
             padding: 1rem;
             text-align: center;
             border: 1px solid #d4e2f0;
         }
 
         .result-item-label {
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             font-weight: 600;
             color: #6f8eaa;
             text-transform: uppercase;
         }
 
         .result-item-value {
-            font-size: 1.6rem;
-            font-weight: 800;
-            color: #1a4d6b;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #0f1446;
             line-height: 1.2;
             margin-top: 6px;
         }
@@ -214,28 +205,28 @@
         .cell-info {
             background: #ffffff;
             padding: 12px 16px;
-            border-radius: 20px;
+            border-radius: 12px;
             margin-top: 1rem;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             text-align: left;
             border: 1px solid #d4e2f0;
             color: #1f3a4b;
         }
 
         .error-message {
-            color: #c62828;
-            background: #ffebee;
+            color: #d32f2f;
+            background: #fff0f0;
             padding: 8px 15px;
-            border-radius: 20px;
+            border-radius: 12px;
             margin-top: 10px;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             text-align: center;
             display: none;
         }
 
         .footnote {
             text-align: center;
-            font-size: 0.7rem;
+            font-size: 0.8rem;
             color: #6f8eaa;
             margin-top: 1.5rem;
             border-top: 1px solid #e2ecf3;
@@ -245,22 +236,16 @@
 
         @media (max-width: 768px) {
             body {
-                padding: 1rem;
+                padding: 10px;
             }
-            .card-header {
-                padding: 1.2rem;
+            .card {
+                padding: 16px 14px;
             }
-            .card-header h1 {
-                font-size: 1.3rem;
-            }
-            .card-header p {
-                font-size: 0.8rem;
-            }
-            .card-content {
-                padding: 1rem;
+            .header-card h1 {
+                font-size: 24px;
             }
             .result-item-value {
-                font-size: 1.3rem;
+                font-size: 1.2rem;
             }
         }
 
@@ -268,28 +253,18 @@
             .result-grid {
                 grid-template-columns: 1fr;
             }
-            .radio-group {
-                gap: 12px;
-            }
-            .info-box {
-                font-size: 0.75rem;
-            }
-            .cell-info {
-                font-size: 0.7rem;
-            }
         }
     </style>
 </head>
 <body>
-<div class="calculator-card">
-    <div class="card-header">
-        <h1>
-            📐 QT в норме
-            <span>по RR</span>
-        </h1>
-        <p>Должный диапазон QT для вашей частоты ритма</p>
+
+<div class="container">
+    <div class="card header-card">
+        <h1>📐 QT в норме</h1>
+        <p>Должный диапазон QT для вашей частоты ритма — расчёт по RR</p>
     </div>
-    <div class="card-content">
+
+    <div class="card">
         <div class="input-panel">
             <div class="input-group">
                 <label>Категория пациента</label>
@@ -301,7 +276,7 @@
             </div>
 
             <div class="input-group">
-                <label>Интервал RR (мс) – любое положительное число</label>
+                <label>Интервал RR (мс) — любое положительное число</label>
                 <input type="text" id="rrInput" value="1000" placeholder="например: 820, 1000.5" inputmode="decimal">
             </div>
 
@@ -336,10 +311,10 @@
                 </div>
             </div>
             <div id="cellConvert" class="cell-info"></div>
-            <div id="qtcInfo" class="info-box" style="margin-top: 12px;"></div>
+            <div id="qtcInfo" class="info-box" style="margin-top:12px;"></div>
             <div id="errorMsg" class="error-message"></div>
         </div>
-        
+
         <div class="footnote">
             ⚕️ Расчёт основан на формуле Базетта. Нормальный QTc: мужчины 350–440 мс, женщины и дети 350–460 мс.<br>
             QT<sub>норма</sub> = QTc × √(RR/1000). Диапазон QT изменяется с частотой ритма.
@@ -348,34 +323,25 @@
 </div>
 
 <script>
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/SMP/sw.js')
+            .then(reg => console.log('✅ SW зарегистрирован:', reg))
+            .catch(err => console.error('❌ Ошибка:', err));
+    }
+
     function getQTcNormRange(category) {
-        if (category === 'male') {
-            return { min: 350, max: 440 };
-        } else {
-            return { min: 350, max: 460 };
-        }
+        return category === 'male' ? { min: 350, max: 440 } : { min: 350, max: 460 };
     }
 
     function calculateQtRange(rrMs, category) {
         const qtcRange = getQTcNormRange(category);
-        const sqrtRR = Math.sqrt(rrMs / 1000.0);
-        const qtMin = Math.round(qtcRange.min * sqrtRR);
-        const qtMax = Math.round(qtcRange.max * sqrtRR);
-        return { qtMin, qtMax, qtcMin: qtcRange.min, qtcMax: qtcRange.max };
+        const sqrtRR = Math.sqrt(rrMs / 1000);
+        return { qtMin: Math.round(qtcRange.min * sqrtRR), qtMax: Math.round(qtcRange.max * sqrtRR), qtcMin: qtcRange.min, qtcMax: qtcRange.max };
     }
 
     function msToCells(ms, speed) {
-        if (speed === 25) {
-            const mm = ms / 40;
-            const smallCells = mm;
-            const bigCells = mm / 5;
-            return { mm: mm.toFixed(1), small: smallCells.toFixed(1), big: bigCells.toFixed(1) };
-        } else {
-            const mm = ms / 20;
-            const smallCells = mm;
-            const bigCells = mm / 5;
-            return { mm: mm.toFixed(1), small: smallCells.toFixed(1), big: bigCells.toFixed(1) };
-        }
+        const mm = speed === 25 ? ms / 40 : ms / 20;
+        return { mm: mm.toFixed(1), small: mm.toFixed(1), big: (mm/5).toFixed(1) };
     }
 
     function formatCells(ms, speed, label) {
@@ -389,71 +355,43 @@
         let rawValue = rrField.value.trim();
         let rr = parseFloat(rawValue);
         const errorDiv = document.getElementById('errorMsg');
-        
+
         if (rawValue === "" || isNaN(rr) || rr <= 0) {
             errorDiv.style.display = 'block';
-            if (rawValue === "") {
-                errorDiv.innerHTML = '⚠️ Введите интервал RR (положительное число, например 820 или 1000.5)';
-            } else if (isNaN(rr)) {
-                errorDiv.innerHTML = '⚠️ Некорректное значение. Введите число (например 750).';
-            } else if (rr <= 0) {
-                errorDiv.innerHTML = '⚠️ RR должен быть больше 0 (например 400–1500 мс).';
-            }
+            errorDiv.innerHTML = rawValue === "" ? '⚠️ Введите интервал RR' : isNaN(rr) ? '⚠️ Некорректное значение. Введите число.' : '⚠️ RR должен быть больше 0.';
             document.getElementById('qtMin').innerHTML = '—';
             document.getElementById('qtMax').innerHTML = '—';
             document.getElementById('cellConvert').innerHTML = '';
             document.getElementById('qtcInfo').innerHTML = '';
             return;
         }
-        
+
         errorDiv.style.display = 'none';
-        
         const category = document.querySelector('input[name="category"]:checked').value;
         const speed = parseInt(document.getElementById('speedSelect').value);
-        
         const { qtMin, qtMax, qtcMin, qtcMax } = calculateQtRange(rr, category);
+
         document.getElementById('qtMin').innerHTML = `${qtMin} мс`;
         document.getElementById('qtMax').innerHTML = `${qtMax} мс`;
-        
+
         const hr = Math.round(60000 / rr);
-        const qtcInfoDiv = document.getElementById('qtcInfo');
-        qtcInfoDiv.innerHTML = `📊 Нормальный скорректированный интервал QTc для данной категории: ${qtcMin}–${qtcMax} мс.<br> При вашем RR = ${rr} мс (ЧСС ≈ ${hr} уд/мин), QT должен быть в диапазоне ${qtMin}–${qtMax} мс.`;
-        
-        const rrCells = formatCells(rr, speed, "Интервал RR");
-        const qtMinCells = formatCells(qtMin, speed, "Нижняя граница QT");
-        const qtMaxCells = formatCells(qtMax, speed, "Верхняя граница QT");
-        
-        const cellDiv = document.getElementById('cellConvert');
-        cellDiv.innerHTML = `
-            <strong>📏 Перевод в миллиметры и клетки (скорость ${speed} мм/с):</strong><br>
-            ${rrCells}<br>
-            ${qtMinCells}<br>
-            ${qtMaxCells}<br>
-            <span style="font-size:0.7rem;">* 1 маленькая клетка = 1 мм. При 25 мм/с: 1 мм = 40 мс; при 50 мм/с: 1 мм = 20 мс.</span>
+        document.getElementById('qtcInfo').innerHTML = `📊 Нормальный QTc: ${qtcMin}–${qtcMax} мс. При RR = ${rr} мс (ЧСС ≈ ${hr} уд/мин), QT должен быть ${qtMin}–${qtMax} мс.`;
+
+        document.getElementById('cellConvert').innerHTML = `
+            <strong>📏 Перевод в клетки (скорость ${speed} мм/с):</strong><br>
+            ${formatCells(rr, speed, "Интервал RR")}<br>
+            ${formatCells(qtMin, speed, "Нижняя граница QT")}<br>
+            ${formatCells(qtMax, speed, "Верхняя граница QT")}<br>
+            <span style="font-size:0.75rem;">* 1 мал. клетка = 1 мм. При 25 мм/с: 1 мм = 40 мс; при 50 мм/с: 1 мм = 20 мс.</span>
         `;
     }
-    
-    const rrField = document.getElementById('rrInput');
-    const speedSelect = document.getElementById('speedSelect');
-    const categoryRadios = document.querySelectorAll('input[name="category"]');
-    const calcBtn = document.getElementById('calcBtn');
-    
-    function handleInput() {
-        updateAll();
-    }
-    
-    rrField.addEventListener('input', handleInput);
-    speedSelect.addEventListener('change', handleInput);
-    categoryRadios.forEach(radio => radio.addEventListener('change', handleInput));
-    calcBtn.addEventListener('click', handleInput);
-    
+
+    document.getElementById('rrInput').addEventListener('input', updateAll);
+    document.getElementById('speedSelect').addEventListener('change', updateAll);
+    document.querySelectorAll('input[name="category"]').forEach(r => r.addEventListener('change', updateAll));
+    document.getElementById('calcBtn').addEventListener('click', updateAll);
     updateAll();
-    
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/SMP/sw.js')
-            .then(reg => console.log('✅ Сервис-воркер зарегистрирован:', reg))
-            .catch(err => console.error('❌ Ошибка регистрации:', err));
-    }
 </script>
+
 </body>
 </html>
