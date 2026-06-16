@@ -2,12 +2,12 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>Калькулятор скорости внутривенного введения</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>💧 Расчёт скорости внутривенного введения</title>
     
     <!-- PWA -->
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#1e2f47">
+    <meta name="theme-color" content="#0f1446">
     
     <style>
         * {
@@ -15,364 +15,326 @@
             padding: 0;
             box-sizing: border-box;
         }
+
         body {
-            background: linear-gradient(145deg, #eef2f7 0%, #dce3ec 100%);
-            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, 'Helvetica Neue', sans-serif;
-            line-height: 1.5;
-            padding: 2rem 1rem;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            font-family: 'Segoe UI', 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: #1f3a4b;
+            padding: 20px;
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
         }
-        .calculator-card {
+
+        .container {
             max-width: 800px;
-            width: 100%;
-            background: #ffffff;
-            border-radius: 48px;
-            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.2);
-            overflow: hidden;
             margin: 0 auto;
         }
-        .card-header {
-            background: #1e2f47;
-            background-image: linear-gradient(115deg, #142a3b, #1d3f55);
-            padding: 1.8rem 2rem;
+
+        .card {
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 24px 22px;
+            margin-bottom: 20px;
+        }
+
+        .card.header-card {
+            background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
             color: white;
+            text-align: center;
+            padding: 28px 20px;
         }
-        .card-header h1 {
-            font-size: 1.7rem;
+
+        .card.header-card h1 {
+            font-size: 28px;
+            color: white;
             font-weight: 700;
-            margin-bottom: 0.5rem;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            flex-wrap: wrap;
+            margin-bottom: 8px;
         }
-        .card-header p {
+
+        .card.header-card p {
+            opacity: 0.9;
+            font-size: 0.95rem;
             margin-top: 8px;
-            opacity: 0.85;
-            font-size: 0.9rem;
-            border-left: 3px solid #5f9bc2;
+        }
+
+        h2 {
+            color: #0f1446;
+            border-left: 6px solid #e53935;
             padding-left: 16px;
+            font-size: 1.3rem;
+            margin: 1.2rem 0 1rem 0;
         }
-        .card-content {
-            padding: 2rem;
-        }
-        
-        /* Группы ввода */
+
         .input-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 16px;
         }
+
         .input-group label {
             font-weight: 600;
-            color: #1f4a66;
+            color: #0f1446;
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             font-size: 0.9rem;
         }
+
         .input-group input, .input-group select {
             width: 100%;
-            padding: 14px 18px;
+            padding: 12px 14px;
             font-size: 1rem;
             border: 2px solid #d4e2f0;
-            border-radius: 20px;
+            border-radius: 12px;
             transition: 0.2s;
             font-family: inherit;
             background: white;
-            text-align: center;
             color: #1f3a4b;
         }
+
         .input-group input:focus, .input-group select:focus {
             outline: none;
             border-color: #1f6e9c;
             box-shadow: 0 0 0 3px rgba(31,110,156,0.1);
         }
+
         .input-row {
             display: flex;
             gap: 12px;
             flex-wrap: wrap;
         }
+
         .input-row .input-group {
             flex: 1;
             min-width: 120px;
         }
-        
-        /* Результат */
-        .result-block {
-            background: #f6fafd;
-            border-radius: 28px;
-            padding: 1.5rem;
-            margin: 1.5rem 0;
-            text-align: center;
-            border-left: 6px solid #1f6e9c;
+
+        .result-section {
+            background: #eef7ff;
+            border-radius: 16px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #1f6e9c;
         }
-        .result-title {
-            font-size: 0.7rem;
+
+        .result-label {
+            font-size: 0.8rem;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
             color: #6f8eaa;
-            margin-bottom: 0.5rem;
+            font-weight: 700;
+            margin-bottom: 14px;
+            text-align: center;
         }
-        .result-value {
-            font-size: 3rem;
-            font-weight: 800;
-            color: #1a4d6b;
-            line-height: 1.2;
-        }
-        .result-unit {
-            font-size: 0.9rem;
-            font-weight: 500;
-            color: #6f8eaa;
-        }
+
         .result-row {
             display: flex;
             justify-content: center;
-            gap: 2rem;
+            gap: 16px;
             flex-wrap: wrap;
         }
+
         .result-item {
             flex: 1;
             min-width: 140px;
             background: white;
-            border-radius: 24px;
-            padding: 1rem;
+            border-radius: 12px;
+            padding: 16px;
             text-align: center;
             border: 1px solid #d4e2f0;
         }
-        .result-item .result-value {
+
+        .result-value {
             font-size: 2rem;
+            font-weight: 800;
+            color: #0f1446;
+            line-height: 1.2;
         }
-        
-        .divider {
-            height: 1px;
-            background: linear-gradient(90deg, transparent, #d4e2f0, transparent);
-            margin: 1rem 0;
+
+        .result-unit {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #6f8eaa;
+            margin-top: 4px;
         }
-        
+
         .speed-info {
             background: #fff8e7;
-            border-radius: 20px;
-            padding: 0.8rem;
-            margin-top: 1rem;
+            border-radius: 12px;
+            padding: 12px 16px;
+            margin-top: 14px;
             font-size: 0.85rem;
             color: #a56b00;
             text-align: center;
             border-left: 4px solid #f0b849;
         }
-        
-        /* Катетеры */
-        .catheters-title {
-            font-weight: 700;
-            color: #1f4a66;
-            margin: 1rem 0 0.75rem 0;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+
         .catheters-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 12px;
-            margin-bottom: 0.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 10px;
+            margin: 12px 0;
         }
+
         .catheter-card {
-            border-radius: 20px;
+            border-radius: 12px;
             padding: 12px;
             text-align: center;
             border: 1px solid #d4e2f0;
             transition: all 0.2s;
             background: #ffffff;
         }
-        .catheter-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
-        }
+
         .catheter-card.exceeded {
-            border: 2px solid #c62828;
-            box-shadow: 0 0 0 2px rgba(198,40,40,0.3);
+            border: 2px solid #d32f2f;
+            box-shadow: 0 0 0 2px rgba(211,47,47,0.2);
         }
-        /* Цвета катетеров */
-        .catheter-g24 {
-            background: #fff8e7;
-            border-left: 8px solid #f0b849;
-        }
-        .catheter-g22 {
-            background: #eef7ff;
-            border-left: 8px solid #1f6e9c;
-        }
-        .catheter-g20 {
-            background: #ffebee;
-            border-left: 8px solid #c62828;
-        }
-        .catheter-g18 {
-            background: #e8f0e8;
-            border-left: 8px solid #2c7a4d;
-        }
-        .catheter-g16 {
-            background: #eceff1;
-            border-left: 8px solid #90a4ae;
-        }
+
+        .catheter-g24 { background: #fff8e7; border-left: 4px solid #f0b849; }
+        .catheter-g22 { background: #eef7ff; border-left: 4px solid #1f6e9c; }
+        .catheter-g20 { background: #fff0f0; border-left: 4px solid #d32f2f; }
+        .catheter-g18 { background: #e8f5e9; border-left: 4px solid #2e7d32; }
+        .catheter-g16 { background: #eef7ff; border-left: 4px solid #6f8eaa; }
+
         .catheter-gauge {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 800;
-            margin-bottom: 4px;
+            margin-bottom: 2px;
         }
-        .catheter-g24 .catheter-gauge { color: #e68a2e; }
+
+        .catheter-g24 .catheter-gauge { color: #a56b00; }
         .catheter-g22 .catheter-gauge { color: #1f6e9c; }
-        .catheter-g20 .catheter-gauge { color: #c62828; }
-        .catheter-g18 .catheter-gauge { color: #2c7a4d; }
-        .catheter-g16 .catheter-gauge { color: #546e7a; }
-        .catheter-color {
+        .catheter-g20 .catheter-gauge { color: #d32f2f; }
+        .catheter-g18 .catheter-gauge { color: #2e7d32; }
+        .catheter-g16 .catheter-gauge { color: #6f8eaa; }
+
+        .catheter-desc {
             font-size: 0.7rem;
             color: #6f8eaa;
-            margin-bottom: 8px;
-            font-weight: 500;
+            margin-bottom: 6px;
         }
+
         .catheter-flow {
             font-size: 0.75rem;
             color: #1f3a4b;
             margin-bottom: 4px;
         }
+
         .catheter-max {
             font-size: 0.8rem;
             font-weight: 700;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
-        .catheter-g24 .catheter-max { color: #e68a2e; }
+
+        .catheter-g24 .catheter-max { color: #a56b00; }
         .catheter-g22 .catheter-max { color: #1f6e9c; }
-        .catheter-g20 .catheter-max { color: #c62828; }
-        .catheter-g18 .catheter-max { color: #2c7a4d; }
-        .catheter-g16 .catheter-max { color: #546e7a; }
+        .catheter-g20 .catheter-max { color: #d32f2f; }
+        .catheter-g18 .catheter-max { color: #2e7d32; }
+        .catheter-g16 .catheter-max { color: #6f8eaa; }
+
         .catheter-drops {
             background: rgba(255,255,255,0.7);
-            border-radius: 40px;
+            border-radius: 12px;
             padding: 6px 10px;
-            margin-top: 8px;
+            margin-top: 6px;
         }
+
         .catheter-drops-value {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 800;
-            color: #1a4d6b;
+            color: #0f1446;
         }
+
         .catheter-drops-label {
             font-size: 0.65rem;
             color: #6f8eaa;
         }
+
         .warning-text {
             font-size: 0.65rem;
-            color: #c62828;
+            color: #d32f2f;
             margin-top: 6px;
             font-weight: 600;
         }
-        
-        /* Кнопки */
-        .button-group {
-            display: flex;
-            gap: 12px;
-            margin: 1rem 0 1rem;
-            flex-wrap: wrap;
-        }
-        .btn {
-            flex: 1;
-            padding: 12px 20px;
-            border-radius: 60px;
+
+        .reset-btn {
+            text-decoration: none;
+            color: #0f1446;
+            background: #ffffff;
+            padding: 14px 24px;
+            border-radius: 12px;
             font-weight: 600;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: 0.2s;
-            font-family: inherit;
-            border: none;
             text-align: center;
+            transition: all 0.2s;
+            border: 2px solid #d4e2f0;
+            cursor: pointer;
+            font-size: 15px;
+            font-family: inherit;
+            line-height: 1.3;
+            width: 100%;
+            margin-top: 12px;
         }
-        .btn-primary {
-            background: linear-gradient(135deg, #1f6e9c 0%, #155a80 100%);
-            color: white;
+
+        .reset-btn:hover {
+            background: #eef7ff;
+            border-color: #0f1446;
+            transform: translateY(-1px);
         }
-        .btn-primary:hover {
-            background: linear-gradient(135deg, #1a5c84 0%, #114d6e 100%);
-            transform: translateY(-2px);
-        }
-        .btn-secondary {
-            background: #ecf3f8;
-            color: #1f4a66;
-        }
-        .btn-secondary:hover {
-            background: #dee4ec;
-            transform: translateY(-2px);
-        }
-        
-        .info-text {
-            font-size: 0.7rem;
+
+        .footnote {
+            font-size: 0.8rem;
             color: #6f8eaa;
             text-align: center;
-            margin-top: 1rem;
-            padding-top: 0.75rem;
-            border-top: 1px solid #e2ecf3;
+            margin-top: 16px;
+            padding-top: 14px;
+            border-top: 1px solid #d4e2f0;
             line-height: 1.5;
         }
-        
+
         @media (max-width: 768px) {
             body {
-                padding: 1rem;
+                padding: 10px;
             }
-            .card-header {
-                padding: 1.2rem;
+            .card {
+                padding: 16px 14px;
             }
-            .card-header h1 {
-                font-size: 1.3rem;
+            .card.header-card {
+                padding: 20px 14px;
             }
-            .card-header p {
-                font-size: 0.8rem;
-            }
-            .card-content {
-                padding: 1rem;
+            .card.header-card h1 {
+                font-size: 22px;
             }
             .result-value {
-                font-size: 2rem;
-            }
-            .result-item .result-value {
                 font-size: 1.6rem;
-            }
-            .button-group {
-                flex-direction: column;
             }
             .catheters-grid {
                 grid-template-columns: 1fr;
             }
         }
-        
-        @media (max-width: 480px) {
-            .result-value {
-                font-size: 1.5rem;
-            }
-            .input-group input, .input-group select {
-                padding: 10px 14px;
-            }
-        }
     </style>
 </head>
 <body>
-<div class="calculator-card">
-    <div class="card-header">
-        <h1>
-            💧 Расчет скорости внутривенного введения
-            <span style="font-size: 0.9rem;">капельница</span>
-        </h1>
-        <p>Настройка капельницы | Стандартная система (20 капель/мл)</p>
+
+<div class="container">
+    
+    <!-- ===== ШАПКА ===== -->
+    <div class="card header-card">
+        <h1>💧 Расчёт скорости внутривенного введения</h1>
+        <p>Настройка капельницы: стандартная система (20 капель/мл), подбор катетера по скорости потока</p>
     </div>
-    <div class="card-content">
+    
+    <!-- ===== ОСНОВНОЙ КОНТЕНТ ===== -->
+    <div class="card">
+        
+        <h2>📦 Параметры инфузии</h2>
         
         <div class="input-group">
-            <label>📦 Объем раствора (мл)</label>
-            <input type="number" id="volume" step="1" value="250" placeholder="например, 250, 500, 100">
+            <label>Объём раствора (мл)</label>
+            <input type="number" id="volume" step="1" value="250" placeholder="Например: 250, 500, 100">
         </div>
         
         <div class="input-row">
             <div class="input-group">
                 <label>⏱️ Время введения</label>
-                <input type="number" id="timeValue" step="1" value="60" placeholder="например, 30, 60, 120">
+                <input type="number" id="timeValue" step="1" value="60" placeholder="Например: 30, 60, 120">
             </div>
             <div class="input-group">
                 <label>📅 Единица времени</label>
@@ -383,8 +345,9 @@
             </div>
         </div>
         
-        <div class="result-block">
-            <div class="result-title">📊 НАСТРОЙКА КАПЕЛЬНИЦЫ</div>
+        <h2>📊 Настройка капельницы</h2>
+        
+        <div class="result-section">
             <div class="result-row">
                 <div class="result-item">
                     <div class="result-value" id="dropsPerMinute">—</div>
@@ -395,28 +358,21 @@
                     <div class="result-unit">капель в секунду</div>
                 </div>
             </div>
-            <div class="divider"></div>
             <div class="speed-info" id="speedInfo">
-                <span>💧 Скорость инфузии: </span>
-                <strong id="speedDisplay">—</strong>
+                💧 Скорость инфузии: <strong id="speedDisplay">—</strong>
             </div>
         </div>
         
-        <div class="catheters-title">
-            🩸 Рекомендации по выбору катетера
-            <span style="font-size: 0.7rem;">(максимальная скорость потока)</span>
-        </div>
+        <h2>🩸 Рекомендации по выбору катетера</h2>
+        
         <div class="catheters-grid" id="cathetersGrid"></div>
         
-        <div class="button-group">
-            <button class="btn btn-primary" id="calculateBtn">📊 Рассчитать</button>
-            <button class="btn btn-secondary" id="clearBtn">🗑️ Очистить</button>
-        </div>
+        <button class="reset-btn" id="clearBtn">🗑️ Сбросить</button>
         
-        <div class="info-text">
-            ⚕️ <strong>Формула расчета:</strong> Капли/мин = (Объем × 20) ÷ Время (мин)<br>
+        <div class="footnote">
+            ⚕️ <strong>Формула расчёта:</strong> Капли/мин = (Объём × 20) ÷ Время (мин)<br>
             • Стандартная капельница — <strong>20 капель = 1 мл</strong><br>
-            • Для расчета в часах: время в часах × 60 = время в минутах<br>
+            • Для расчёта в часах: время в часах × 60 = время в минутах<br>
             • <strong>Внимание!</strong> Указаны максимальные клинические скорости для периферических катетеров. Превышение может привести к повреждению вены и экстравазации.
         </div>
     </div>
@@ -431,24 +387,22 @@
     const dropsPerSecondSpan = document.getElementById('dropsPerSecond');
     const speedDisplaySpan = document.getElementById('speedDisplay');
     
-    const calculateBtn = document.getElementById('calculateBtn');
     const clearBtn = document.getElementById('clearBtn');
     const cathetersGrid = document.getElementById('cathetersGrid');
     
     const DROP_FACTOR = 20;
     
     const catheters = [
-        { gauge: "G24", color: "желтый", maxFlowMlMin: 20, maxFlowMlHour: 1200, description: "Новорожденные, дети, мелкие вены", colorClass: "catheter-g24" },
+        { gauge: "G24", color: "жёлтый", maxFlowMlMin: 20, maxFlowMlHour: 1200, description: "Новорождённые, дети, мелкие вены", colorClass: "catheter-g24" },
         { gauge: "G22", color: "голубой", maxFlowMlMin: 35, maxFlowMlHour: 2100, description: "Дети, пожилые, стандартные инфузии", colorClass: "catheter-g22" },
         { gauge: "G20", color: "розовый", maxFlowMlMin: 60, maxFlowMlHour: 3600, description: "Стандартный, большинство взрослых", colorClass: "catheter-g20" },
-        { gauge: "G18", color: "зеленый", maxFlowMlMin: 100, maxFlowMlHour: 6000, description: "Быстрые инфузии, травматология", colorClass: "catheter-g18" },
+        { gauge: "G18", color: "зелёный", maxFlowMlMin: 100, maxFlowMlHour: 6000, description: "Быстрые инфузии, травматология", colorClass: "catheter-g18" },
         { gauge: "G16", color: "серый", maxFlowMlMin: 200, maxFlowMlHour: 12000, description: "Массивные инфузии, реанимация", colorClass: "catheter-g16" }
     ];
     
     let currentDropsPerMinute = 0;
     let currentSpeedMlPerHour = 0;
     let currentSpeedMlPerMin = 0;
-    let currentTimeInMinutes = 0;
     
     function calculate() {
         let volume = parseFloat(volumeInput.value);
@@ -461,36 +415,33 @@
         volume = Math.max(0, Math.min(10000, volume));
         timeValue = Math.max(0.01, Math.min(720, timeValue));
         
+        let timeInMinutes;
         if (timeUnit === 'minutes') {
-            currentTimeInMinutes = timeValue;
+            timeInMinutes = timeValue;
         } else {
-            currentTimeInMinutes = timeValue * 60;
+            timeInMinutes = timeValue * 60;
         }
         
         currentDropsPerMinute = 0;
-        if (currentTimeInMinutes > 0 && volume > 0) {
-            currentDropsPerMinute = (volume * DROP_FACTOR) / currentTimeInMinutes;
+        if (timeInMinutes > 0 && volume > 0) {
+            currentDropsPerMinute = (volume * DROP_FACTOR) / timeInMinutes;
         }
         
         let dropsPerSecond = currentDropsPerMinute / 60;
         
-        let speedMlPerHour = 0;
-        let speedMlPerMin = 0;
-        if (currentTimeInMinutes > 0 && volume > 0) {
-            speedMlPerHour = (volume / currentTimeInMinutes) * 60;
-            speedMlPerMin = volume / currentTimeInMinutes;
-            currentSpeedMlPerHour = speedMlPerHour;
-            currentSpeedMlPerMin = speedMlPerMin;
+        if (timeInMinutes > 0 && volume > 0) {
+            currentSpeedMlPerHour = (volume / timeInMinutes) * 60;
+            currentSpeedMlPerMin = volume / timeInMinutes;
         } else {
             currentSpeedMlPerHour = 0;
             currentSpeedMlPerMin = 0;
         }
         
         let speedDisplay = '';
-        if (speedMlPerHour >= 1) {
-            speedDisplay = `${speedMlPerHour.toFixed(1)} мл/час (${speedMlPerMin.toFixed(1)} мл/мин)`;
-        } else if (speedMlPerHour > 0) {
-            speedDisplay = `${speedMlPerMin.toFixed(2)} мл/мин (${speedMlPerHour.toFixed(2)} мл/час)`;
+        if (currentSpeedMlPerHour >= 1) {
+            speedDisplay = `${currentSpeedMlPerHour.toFixed(1)} мл/час (${currentSpeedMlPerMin.toFixed(1)} мл/мин)`;
+        } else if (currentSpeedMlPerHour > 0) {
+            speedDisplay = `${currentSpeedMlPerMin.toFixed(2)} мл/мин (${currentSpeedMlPerHour.toFixed(2)} мл/час)`;
         } else {
             speedDisplay = '0 мл/час';
         }
@@ -514,14 +465,14 @@
         speedDisplaySpan.innerHTML = speedDisplay;
         
         if (currentDropsPerMinute > 200) {
-            dropsPerMinuteSpan.style.color = "#c62828";
-            dropsPerSecondSpan.style.color = "#c62828";
+            dropsPerMinuteSpan.style.color = "#d32f2f";
+            dropsPerSecondSpan.style.color = "#d32f2f";
         } else if (currentDropsPerMinute > 100) {
             dropsPerMinuteSpan.style.color = "#e68a2e";
             dropsPerSecondSpan.style.color = "#e68a2e";
         } else {
-            dropsPerMinuteSpan.style.color = "#1a4d6b";
-            dropsPerSecondSpan.style.color = "#1a4d6b";
+            dropsPerMinuteSpan.style.color = "#0f1446";
+            dropsPerSecondSpan.style.color = "#0f1446";
         }
         
         updateCatheters();
@@ -544,7 +495,7 @@
             
             card.innerHTML = `
                 <div class="catheter-gauge">${catheter.gauge} (${catheter.color})</div>
-                <div class="catheter-color">${catheter.description}</div>
+                <div class="catheter-desc">${catheter.description}</div>
                 <div class="catheter-flow">📈 Макс. поток: <strong>${catheter.maxFlowMlMin} мл/мин</strong></div>
                 <div class="catheter-max">⚡ ${maxFlowDisplay}</div>
                 <div class="catheter-drops">
@@ -566,17 +517,15 @@
         dropsPerMinuteSpan.innerHTML = '—';
         dropsPerSecondSpan.innerHTML = '—';
         speedDisplaySpan.innerHTML = '—';
-        dropsPerMinuteSpan.style.color = "#1a4d6b";
-        dropsPerSecondSpan.style.color = "#1a4d6b";
+        dropsPerMinuteSpan.style.color = "#0f1446";
+        dropsPerSecondSpan.style.color = "#0f1446";
         
         currentDropsPerMinute = 0;
         currentSpeedMlPerHour = 0;
         currentSpeedMlPerMin = 0;
-        currentTimeInMinutes = 0;
         updateCatheters();
     }
     
-    calculateBtn.addEventListener('click', calculate);
     clearBtn.addEventListener('click', clearAll);
     
     volumeInput.addEventListener('input', calculate);
@@ -587,9 +536,10 @@
     
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('/SMP/sw.js')
-            .then(reg => console.log('✅ Сервис-воркер зарегистрирован:', reg))
-            .catch(err => console.error('❌ Ошибка регистрации:', err));
+            .then(reg => console.log('✅ Service Worker зарегистрирован:', reg.scope))
+            .catch(err => console.error('❌ Ошибка регистрации SW:', err));
     }
 </script>
+
 </body>
 </html>
