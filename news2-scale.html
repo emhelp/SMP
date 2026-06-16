@@ -2,13 +2,13 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
-    <title>Шкала NEWS2 (National Early Warning Score) | Интерактивный калькулятор</title>
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Шкала NEWS2 | Интерактивный калькулятор</title>
+
     <!-- PWA -->
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#1e2f47">
-    
+    <meta name="theme-color" content="#0f1446">
+
     <style>
         * {
             margin: 0;
@@ -17,81 +17,66 @@
         }
 
         body {
-            background: linear-gradient(145deg, #eef2f7 0%, #dce3ec 100%);
-            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, 'Helvetica Neue', sans-serif;
-            padding: 2rem 1rem;
-            min-height: 100vh;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            font-family: 'Segoe UI', 'Roboto', sans-serif;
+            margin: 0;
+            padding: 20px;
             display: flex;
-            justify-content: center;
-            align-items: flex-start;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
         }
 
-        .calculator-card {
+        .container {
             max-width: 1100px;
             width: 100%;
-            margin: 0 auto;
-            background: #ffffff;
-            border-radius: 48px;
-            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.2);
-            overflow: hidden;
-            transition: transform 0.2s;
         }
 
-        .card-header {
-            background: #1e2f47;
-            background-image: linear-gradient(115deg, #142a3b, #1d3f55);
-            padding: 1.8rem 2rem;
+        .card {
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 24px 22px;
+            margin-bottom: 24px;
+        }
+
+        .header-card {
+            background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
             color: white;
+            text-align: center;
+            padding: 28px 20px;
         }
-        .card-header h1 {
-            font-size: 1.9rem;
+        .header-card h1 {
+            color: white;
+            margin-bottom: 8px;
+            font-size: 28px;
             font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            flex-wrap: wrap;
         }
-        .card-header h1 span {
-            background: rgba(255,255,255,0.2);
-            font-size: 0.9rem;
-            padding: 5px 14px;
-            border-radius: 60px;
-            font-weight: 500;
-        }
-        .card-header p {
-            margin-top: 12px;
-            opacity: 0.85;
+        .header-card p {
+            opacity: 0.9;
             font-size: 0.95rem;
-            border-left: 3px solid #5f9bc2;
-            padding-left: 16px;
-        }
-
-        .card-body {
-            padding: 2rem 2rem 1.8rem;
+            margin-top: 4px;
+            line-height: 1.5;
         }
 
         .parameters-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
         }
 
         .param-card {
-            background: #f6fafd;
-            border-radius: 24px;
-            padding: 1.2rem 1.2rem 1rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-            transition: all 0.2s;
+            background: #eef7ff;
+            border-radius: 16px;
+            padding: 1rem 1.2rem;
             border: 1px solid #d4e2f0;
         }
-        .param-card:hover {
-            border-color: #b9d0e5;
-        }
+
         .param-title {
             font-weight: 700;
             font-size: 1rem;
-            color: #1f4a66;
+            color: #0f1446;
             margin-bottom: 12px;
             display: flex;
             align-items: center;
@@ -99,78 +84,90 @@
             border-left: 4px solid #1f6e9c;
             padding-left: 12px;
         }
+
         .param-buttons {
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
             margin-top: 8px;
         }
+
         .param-btn {
             background: #ffffff;
-            border: 1px solid #cbdae6;
-            padding: 8px 14px;
-            border-radius: 40px;
+            border: 2px solid #d4e2f0;
+            padding: 8px 12px;
+            border-radius: 10px;
             font-size: 0.85rem;
-            font-weight: 500;
+            font-weight: 600;
             cursor: pointer;
-            transition: 0.15s;
-            color: #1f3a4b;
+            transition: all 0.2s;
+            color: #0f1446;
             flex: 1 0 auto;
             text-align: center;
             font-family: inherit;
         }
+
         .param-btn.active {
-            background: #1f6e9c;
-            border-color: #0f557c;
+            background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
+            border-color: #0f1446;
             color: white;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
         }
+
         .param-btn.normal-value {
-            font-weight: 700;
-            background: #e8f0e8;
-            border-color: #b8d0b8;
+            background: #e8f5e9;
+            border-color: #4caf50;
         }
+
         .param-btn.active.normal-value {
-            background: #1f6e9c;
-            border-color: #0f557c;
+            background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
+            border-color: #0f1446;
             color: white;
-            font-weight: 700;
         }
+
         .param-btn:hover:not(.active) {
-            background: #eef2f7;
-            border-color: #b9cfdf;
+            background: #eef7ff;
+            border-color: #0f1446;
+            transform: translateY(-1px);
         }
+
         .oxygen-group {
             display: flex;
             gap: 10px;
             margin-bottom: 12px;
         }
+
         .oxygen-btn {
             flex: 1;
             background: #ffffff;
-            border: 1px solid #cbdae6;
+            border: 2px solid #d4e2f0;
             padding: 8px 14px;
-            border-radius: 40px;
+            border-radius: 10px;
             font-size: 0.85rem;
-            font-weight: 500;
+            font-weight: 600;
             cursor: pointer;
-            transition: 0.15s;
-            color: #1f3a4b;
+            transition: all 0.2s;
+            color: #0f1446;
             text-align: center;
+            font-family: inherit;
         }
+
         .oxygen-btn.active {
-            background: #1f6e9c;
-            border-color: #0f557c;
+            background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
+            border-color: #0f1446;
             color: white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
         }
 
         .result-panel {
-            background: #f6fafd;
-            border-radius: 28px;
-            padding: 1.5rem;
+            background: #eef7ff;
+            border-radius: 16px;
+            padding: 1.25rem;
             margin-top: 0.5rem;
-            border-left: 6px solid #1f6e9c;
+            border: 1px solid #d4e2f0;
+            border-left: 5px solid #1f6e9c;
         }
+
         .score-box {
             display: flex;
             align-items: baseline;
@@ -181,287 +178,193 @@
             padding-bottom: 1rem;
             border-bottom: 2px solid #d4e2f0;
         }
+
         .score-number {
-            font-size: 3.5rem;
-            font-weight: 800;
+            font-size: 2.8rem;
+            font-weight: 700;
             line-height: 1;
-            color: #1a4d6b;
+            color: #0f1446;
         }
+
         .risk-level {
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 600;
-            padding: 6px 18px;
-            border-radius: 60px;
+            padding: 6px 16px;
+            border-radius: 10px;
             background: white;
-        }
-        .recommendation {
-            font-size: 0.95rem;
-            margin-top: 12px;
-            padding: 12px 16px;
-            border-radius: 20px;
-            background: #ffffff;
             border: 1px solid #d4e2f0;
         }
+
+        .recommendation {
+            font-size: 0.9rem;
+            margin-top: 12px;
+            padding: 12px 16px;
+            border-radius: 12px;
+            background: #ffffff;
+            border: 1px solid #d4e2f0;
+            color: #1f3a4b;
+        }
+
         .reset-btn {
-            background: #ecf3f8;
-            border: none;
-            padding: 10px 24px;
-            border-radius: 40px;
+            background: #eef7ff;
+            border: 2px solid #d4e2f0;
+            padding: 10px 20px;
+            border-radius: 12px;
             font-weight: 600;
             cursor: pointer;
             margin-top: 16px;
             font-family: inherit;
-            transition: 0.2s;
-            color: #1f4a66;
+            transition: all 0.2s;
+            color: #0f1446;
         }
+
         .reset-btn:hover {
-            background: #dee4ec;
+            background: #d4e2f0;
+            transform: translateY(-1px);
         }
-        .footer-note {
+
+        .footnote {
             text-align: center;
-            font-size: 0.7rem;
+            font-size: 0.8rem;
             color: #6f8eaa;
-            margin-top: 2rem;
+            margin-top: 1.5rem;
             padding-top: 1rem;
             border-top: 1px solid #e2ecf3;
+            line-height: 1.5;
         }
-        
+
         @media (max-width: 768px) {
-            .card-body {
-                padding: 1.5rem;
+            body {
+                padding: 10px;
             }
-            .parameters-grid {
-                gap: 1rem;
+            .card {
+                padding: 16px 14px;
             }
-            .score-number {
-                font-size: 2.5rem;
-            }
-            .risk-level {
-                font-size: 0.9rem;
-                padding: 4px 12px;
-            }
-            .recommendation {
-                font-size: 0.85rem;
-            }
-            .card-header h1 {
-                font-size: 1.4rem;
-            }
-            .card-header p {
-                font-size: 0.85rem;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .param-btn {
-                font-size: 0.75rem;
-                padding: 6px 10px;
-            }
-            .param-title {
-                font-size: 0.9rem;
+            .header-card h1 {
+                font-size: 24px;
             }
             .score-number {
                 font-size: 2rem;
+            }
+            .parameters-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-<div class="calculator-card">
-    <div class="card-header">
-        <h1>
-            📊 Шкала NEWS2
-            <span>National Early Warning Score</span>
-        </h1>
-        <p>Быстрая оценка физиологического статуса пациента. Выберите параметры – итоговый балл и уровень риска рассчитаются автоматически.</p>
+
+<div class="container">
+    <div class="card header-card">
+        <h1>📊 Шкала NEWS2</h1>
+        <p>National Early Warning Score — быстрая оценка физиологического статуса пациента. Выберите параметры — итоговый балл и уровень риска рассчитаются автоматически.</p>
     </div>
-    <div class="card-body">
-        
+
+    <div class="card">
         <div class="parameters-grid" id="paramsGrid"></div>
 
         <div class="result-panel" id="resultPanel">
             <div class="score-box">
                 <div>
-                    <span style="font-size: 0.9rem; font-weight: 500;">Общий балл NEWS2:</span>
+                    <span style="font-size: 0.9rem; font-weight: 500; color: #1f3a4b;">Общий балл NEWS2:</span>
                     <div class="score-number" id="totalScore">0</div>
                 </div>
                 <div class="risk-level" id="riskLevel">Низкий риск</div>
             </div>
-            <div class="recommendation" id="recommendation">
-                Балл 0–4: рутинное клиническое наблюдение.
-            </div>
+            <div class="recommendation" id="recommendation">Балл 0–4: рутинное клиническое наблюдение.</div>
             <button class="reset-btn" id="resetBtn">⟳ Сбросить все параметры</button>
         </div>
-        
-        <div class="footer-note">
-            ⚕️ Шкала NEWS2 (National Early Warning Score) — стандартизированная система оценки тяжести состояния.<br>
-            Параметры: дыхание, сатурация, кислород, АД, пульс, сознание (AVPU), температура. Балл ≥5 требует срочной врачебной оценки.
+
+        <div class="footnote">
+            ⚕️ Шкала NEWS2 — стандартизированная система оценки тяжести состояния. Параметры: дыхание, сатурация, кислород, АД, пульс, сознание (AVPU), температура. Балл ≥5 требует срочной врачебной оценки.
         </div>
     </div>
 </div>
 
 <script>
-    const parameters = {
-        respiratory: {
-            name: "Частота дыхания (дыханий/мин)",
-            options: [
-                { label: "≤8", value: 3, isNormal: false },
-                { label: "9–11", value: 1, isNormal: false },
-                { label: "12–20", value: 0, isNormal: true },
-                { label: "21–24", value: 2, isNormal: false },
-                { label: "≥25", value: 3, isNormal: false }
-            ],
-            defaultIdx: 2
-        },
-        systolicBP: {
-            name: "Систолическое АД (мм рт. ст.)",
-            options: [
-                { label: "≤90", value: 3, isNormal: false },
-                { label: "91–100", value: 2, isNormal: false },
-                { label: "101–110", value: 1, isNormal: false },
-                { label: "111–219", value: 0, isNormal: true },
-                { label: "≥220", value: 3, isNormal: false }
-            ],
-            defaultIdx: 3
-        },
-        pulse: {
-            name: "Частота пульса (уд/мин)",
-            options: [
-                { label: "≤40", value: 3, isNormal: false },
-                { label: "41–50", value: 1, isNormal: false },
-                { label: "51–90", value: 0, isNormal: true },
-                { label: "91–110", value: 1, isNormal: false },
-                { label: "111–130", value: 2, isNormal: false },
-                { label: "≥131", value: 3, isNormal: false }
-            ],
-            defaultIdx: 2
-        },
-        consciousness: {
-            name: "Сознание (AVPU)",
-            options: [
-                { label: "Alert (Ясное)", value: 0, isNormal: true },
-                { label: "Voice (Реакция на голос)", value: 3, isNormal: false },
-                { label: "Pain (Реакция на боль)", value: 3, isNormal: false },
-                { label: "Unresponsive (Не реагирует)", value: 3, isNormal: false }
-            ],
-            defaultIdx: 0
-        },
-        temperature: {
-            name: "Температура (°C)",
-            options: [
-                { label: "≤35.0", value: 3, isNormal: false },
-                { label: "35.1–36.0", value: 1, isNormal: false },
-                { label: "36.1–38.0", value: 0, isNormal: true },
-                { label: "38.1–39.0", value: 1, isNormal: false },
-                { label: "≥39.1", value: 2, isNormal: false }
-            ],
-            defaultIdx: 2
-        }
-    };
-
-    // Параметры SpO₂ и кислорода
-    const spo2Options = [
-        { label: "≤91%", value: 3, isNormal: false },
-        { label: "92–93%", value: 2, isNormal: false },
-        { label: "94–95%", value: 1, isNormal: false },
-        { label: "≥96%", value: 0, isNormal: true }
-    ];
-
-    let selectedIndices = {
-        respiratory: parameters.respiratory.defaultIdx,
-        spo2: 3, // по умолчанию ≥96%
-        systolicBP: parameters.systolicBP.defaultIdx,
-        pulse: parameters.pulse.defaultIdx,
-        consciousness: parameters.consciousness.defaultIdx,
-        temperature: parameters.temperature.defaultIdx
-    };
-    let oxygenFlag = false; // false - нет кислорода, true - есть (+1 балл)
-
-    function getParamScore(paramKey) {
-        const param = parameters[paramKey];
-        const idx = selectedIndices[paramKey];
-        if (idx >= 0 && idx < param.options.length) {
-            return param.options[idx].value;
-        }
-        return 0;
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/SMP/sw.js')
+            .then(reg => console.log('✅ SW зарегистрирован:', reg))
+            .catch(err => console.error('❌ Ошибка:', err));
     }
 
+    const parameters = {
+        respiratory: { name: "Частота дыхания (дыханий/мин)", options: [{ label: "≤8", value: 3 }, { label: "9–11", value: 1 }, { label: "12–20", value: 0, isNormal: true }, { label: "21–24", value: 2 }, { label: "≥25", value: 3 }], defaultIdx: 2 },
+        systolicBP: { name: "Систолическое АД (мм рт. ст.)", options: [{ label: "≤90", value: 3 }, { label: "91–100", value: 2 }, { label: "101–110", value: 1 }, { label: "111–219", value: 0, isNormal: true }, { label: "≥220", value: 3 }], defaultIdx: 3 },
+        pulse: { name: "Частота пульса (уд/мин)", options: [{ label: "≤40", value: 3 }, { label: "41–50", value: 1 }, { label: "51–90", value: 0, isNormal: true }, { label: "91–110", value: 1 }, { label: "111–130", value: 2 }, { label: "≥131", value: 3 }], defaultIdx: 2 },
+        consciousness: { name: "Сознание (AVPU)", options: [{ label: "Alert (Ясное)", value: 0, isNormal: true }, { label: "Voice (Реакция на голос)", value: 3 }, { label: "Pain (Реакция на боль)", value: 3 }, { label: "Unresponsive (Не реагирует)", value: 3 }], defaultIdx: 0 },
+        temperature: { name: "Температура (°C)", options: [{ label: "≤35.0", value: 3 }, { label: "35.1–36.0", value: 1 }, { label: "36.1–38.0", value: 0, isNormal: true }, { label: "38.1–39.0", value: 1 }, { label: "≥39.1", value: 2 }], defaultIdx: 2 }
+    };
+
+    const spo2Options = [{ label: "≤91%", value: 3 }, { label: "92–93%", value: 2 }, { label: "94–95%", value: 1 }, { label: "≥96%", value: 0, isNormal: true }];
+
+    let selectedIndices = { respiratory: 2, spo2: 3, systolicBP: 3, pulse: 2, consciousness: 0, temperature: 2 };
+    let oxygenFlag = false;
+
     function updateTotalScore() {
-        let total = 0;
-        total += getParamScore('respiratory');
-        total += spo2Options[selectedIndices.spo2].value;
-        total += getParamScore('systolicBP');
-        total += getParamScore('pulse');
-        total += getParamScore('consciousness');
-        total += getParamScore('temperature');
-        if (oxygenFlag) total += 1;
+        let total = parameters.respiratory.options[selectedIndices.respiratory].value +
+                   spo2Options[selectedIndices.spo2].value +
+                   parameters.systolicBP.options[selectedIndices.systolicBP].value +
+                   parameters.pulse.options[selectedIndices.pulse].value +
+                   parameters.consciousness.options[selectedIndices.consciousness].value +
+                   parameters.temperature.options[selectedIndices.temperature].value +
+                   (oxygenFlag ? 1 : 0);
 
         document.getElementById('totalScore').innerText = total;
+        let riskText, recommendationText, riskColor;
+        if (total <= 4) { riskText = "Низкий риск"; recommendationText = "🟢 Балл 0–4: рутинное клиническое наблюдение."; riskColor = "#2e7d32"; }
+        else if (total <= 6) { riskText = "Средний риск"; recommendationText = "🟠 Балл 5–6: требуется расширенная оценка, увеличение частоты наблюдения."; riskColor = "#e68a2e"; }
+        else { riskText = "Высокий риск"; recommendationText = "🔴 Балл ≥7: критическое состояние. Немедленная оценка реаниматологом, рассмотреть перевод в ОРИТ."; riskColor = "#d32f2f"; }
 
-        let riskText = "", recommendationText = "", riskColor = "";
-        if (total <= 4) {
-            riskText = "Низкий риск";
-            recommendationText = "🟢 Балл 0–4: рутинное клиническое наблюдение. Продолжить мониторинг по стандартному протоколу.";
-            riskColor = "#2c7a4d";
-        } else if (total >= 5 && total <= 6) {
-            riskText = "Средний риск";
-            recommendationText = "🟠 Балл 5–6: порог срочности. Требуется расширенная оценка, увеличение частоты наблюдения, вызов врача (или бригады) для принятия решения о переводе в отделение интенсивной терапии.";
-            riskColor = "#e67e22";
-        } else {
-            riskText = "Высокий риск";
-            recommendationText = "🔴 Балл ≥7: критическое состояние. Высокий риск ухудшения, необходима немедленная оценка реаниматологом / интенсивная терапия. Рассмотреть перевод в ОРИТ.";
-            riskColor = "#c0392b";
-        }
-        document.getElementById('riskLevel').innerText = riskText;
+        const riskEl = document.getElementById('riskLevel');
+        riskEl.innerText = riskText;
+        riskEl.style.backgroundColor = riskColor + "20";
+        riskEl.style.color = riskColor;
+        riskEl.style.border = `1px solid ${riskColor}40`;
         document.getElementById('recommendation').innerHTML = recommendationText;
-        document.getElementById('riskLevel').style.backgroundColor = riskColor + "20";
-        document.getElementById('riskLevel').style.color = riskColor;
-        document.getElementById('riskLevel').style.border = `1px solid ${riskColor}40`;
     }
 
     function buildUI() {
         const container = document.getElementById('paramsGrid');
         container.innerHTML = '';
 
-        // Карточка частоты дыхания
-        const respCard = document.createElement('div');
-        respCard.className = 'param-card';
-        respCard.innerHTML = `<div class="param-title">${parameters.respiratory.name}</div><div class="param-buttons" id="buttons-respiratory"></div>`;
-        container.appendChild(respCard);
-        const respContainer = respCard.querySelector('#buttons-respiratory');
-        parameters.respiratory.options.forEach((opt, idx) => {
-            const btn = document.createElement('button');
-            btn.className = 'param-btn';
-            if (opt.isNormal) btn.classList.add('normal-value');
-            if (selectedIndices.respiratory === idx) btn.classList.add('active');
-            btn.innerText = opt.label;
-            btn.addEventListener('click', () => {
-                selectedIndices.respiratory = idx;
-                document.querySelectorAll('#buttons-respiratory .param-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                updateTotalScore();
+        for (const [key, param] of Object.entries(parameters)) {
+            const card = document.createElement('div');
+            card.className = 'param-card';
+            card.innerHTML = `<div class="param-title">${param.name}</div><div class="param-buttons" id="buttons-${key}"></div>`;
+            container.appendChild(card);
+            const btnContainer = card.querySelector(`.param-buttons`);
+            param.options.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = 'param-btn';
+                if (opt.isNormal) btn.classList.add('normal-value');
+                if (selectedIndices[key] === idx) btn.classList.add('active');
+                btn.innerText = opt.label;
+                btn.addEventListener('click', () => {
+                    selectedIndices[key] = idx;
+                    document.querySelectorAll(`#buttons-${key} .param-btn`).forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    updateTotalScore();
+                });
+                btnContainer.appendChild(btn);
             });
-            respContainer.appendChild(btn);
-        });
+        }
 
-        // Создаем карточку для SpO₂ и кислорода
         const spo2Card = document.createElement('div');
         spo2Card.className = 'param-card';
         spo2Card.innerHTML = `
             <div class="param-title">SpO₂ (сатурация) и кислородная поддержка</div>
-            <div style="margin-bottom: 12px;">
-                <div style="font-weight:500; font-size:0.8rem; margin-bottom: 6px;">Необходимость ингаляции кислорода:</div>
-                <div class="oxygen-group">
-                    <button id="oxygenNoBtn" class="oxygen-btn">Нет (+0)</button>
-                    <button id="oxygenYesBtn" class="oxygen-btn">Да (+1)</button>
-                </div>
+            <div style="font-weight:500; font-size:0.85rem; margin-bottom:6px; color:#1f3a4b;">Необходимость ингаляции кислорода:</div>
+            <div class="oxygen-group">
+                <button id="oxygenNoBtn" class="oxygen-btn">Нет (+0)</button>
+                <button id="oxygenYesBtn" class="oxygen-btn">Да (+1)</button>
             </div>
-            <div style="font-weight:500; font-size:0.8rem; margin-bottom: 6px;">SpO₂ (сатурация):</div>
+            <div style="font-weight:500; font-size:0.85rem; margin-bottom:6px; color:#1f3a4b;">SpO₂ (сатурация):</div>
             <div class="param-buttons" id="buttons-spo2"></div>
         `;
         container.appendChild(spo2Card);
-        
-        const spo2BtnContainer = spo2Card.querySelector('#buttons-spo2');
-        
+
+        const spo2Container = spo2Card.querySelector('#buttons-spo2');
         spo2Options.forEach((opt, idx) => {
             const btn = document.createElement('button');
             btn.className = 'param-btn';
@@ -474,128 +377,24 @@
                 btn.classList.add('active');
                 updateTotalScore();
             });
-            spo2BtnContainer.appendChild(btn);
+            spo2Container.appendChild(btn);
         });
 
-        // Карточка АД
-        const bpCard = document.createElement('div');
-        bpCard.className = 'param-card';
-        bpCard.innerHTML = `<div class="param-title">${parameters.systolicBP.name}</div><div class="param-buttons" id="buttons-systolicBP"></div>`;
-        container.appendChild(bpCard);
-        const bpContainer = bpCard.querySelector('#buttons-systolicBP');
-        parameters.systolicBP.options.forEach((opt, idx) => {
-            const btn = document.createElement('button');
-            btn.className = 'param-btn';
-            if (opt.isNormal) btn.classList.add('normal-value');
-            if (selectedIndices.systolicBP === idx) btn.classList.add('active');
-            btn.innerText = opt.label;
-            btn.addEventListener('click', () => {
-                selectedIndices.systolicBP = idx;
-                document.querySelectorAll('#buttons-systolicBP .param-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                updateTotalScore();
-            });
-            bpContainer.appendChild(btn);
-        });
-
-        // Карточка пульса
-        const pulseCard = document.createElement('div');
-        pulseCard.className = 'param-card';
-        pulseCard.innerHTML = `<div class="param-title">${parameters.pulse.name}</div><div class="param-buttons" id="buttons-pulse"></div>`;
-        container.appendChild(pulseCard);
-        const pulseContainer = pulseCard.querySelector('#buttons-pulse');
-        parameters.pulse.options.forEach((opt, idx) => {
-            const btn = document.createElement('button');
-            btn.className = 'param-btn';
-            if (opt.isNormal) btn.classList.add('normal-value');
-            if (selectedIndices.pulse === idx) btn.classList.add('active');
-            btn.innerText = opt.label;
-            btn.addEventListener('click', () => {
-                selectedIndices.pulse = idx;
-                document.querySelectorAll('#buttons-pulse .param-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                updateTotalScore();
-            });
-            pulseContainer.appendChild(btn);
-        });
-
-        // Карточка сознания
-        const consciousnessCard = document.createElement('div');
-        consciousnessCard.className = 'param-card';
-        consciousnessCard.innerHTML = `<div class="param-title">${parameters.consciousness.name}</div><div class="param-buttons" id="buttons-consciousness"></div>`;
-        container.appendChild(consciousnessCard);
-        const consciousnessContainer = consciousnessCard.querySelector('#buttons-consciousness');
-        parameters.consciousness.options.forEach((opt, idx) => {
-            const btn = document.createElement('button');
-            btn.className = 'param-btn';
-            if (opt.isNormal) btn.classList.add('normal-value');
-            if (selectedIndices.consciousness === idx) btn.classList.add('active');
-            btn.innerText = opt.label;
-            btn.addEventListener('click', () => {
-                selectedIndices.consciousness = idx;
-                document.querySelectorAll('#buttons-consciousness .param-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                updateTotalScore();
-            });
-            consciousnessContainer.appendChild(btn);
-        });
-
-        // Карточка температуры
-        const tempCard = document.createElement('div');
-        tempCard.className = 'param-card';
-        tempCard.innerHTML = `<div class="param-title">${parameters.temperature.name}</div><div class="param-buttons" id="buttons-temperature"></div>`;
-        container.appendChild(tempCard);
-        const tempContainer = tempCard.querySelector('#buttons-temperature');
-        parameters.temperature.options.forEach((opt, idx) => {
-            const btn = document.createElement('button');
-            btn.className = 'param-btn';
-            if (opt.isNormal) btn.classList.add('normal-value');
-            if (selectedIndices.temperature === idx) btn.classList.add('active');
-            btn.innerText = opt.label;
-            btn.addEventListener('click', () => {
-                selectedIndices.temperature = idx;
-                document.querySelectorAll('#buttons-temperature .param-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                updateTotalScore();
-            });
-            tempContainer.appendChild(btn);
-        });
-
-        const oxygenNo = spo2Card.querySelector('#oxygenNoBtn');
-        const oxygenYes = spo2Card.querySelector('#oxygenYesBtn');
-        
-        function updateOxygenUI() {
-            if (oxygenFlag) {
-                oxygenYes.classList.add('active');
-                oxygenNo.classList.remove('active');
-            } else {
-                oxygenNo.classList.add('active');
-                oxygenYes.classList.remove('active');
-            }
+        const updateOxygenUI = () => {
+            const noBtn = spo2Card.querySelector('#oxygenNoBtn');
+            const yesBtn = spo2Card.querySelector('#oxygenYesBtn');
+            if (oxygenFlag) { yesBtn.classList.add('active'); noBtn.classList.remove('active'); }
+            else { noBtn.classList.add('active'); yesBtn.classList.remove('active'); }
             updateTotalScore();
-        }
-        
-        oxygenNo.addEventListener('click', () => {
-            oxygenFlag = false;
-            updateOxygenUI();
-        });
-        oxygenYes.addEventListener('click', () => {
-            oxygenFlag = true;
-            updateOxygenUI();
-        });
+        };
 
+        spo2Card.querySelector('#oxygenNoBtn').addEventListener('click', () => { oxygenFlag = false; updateOxygenUI(); });
+        spo2Card.querySelector('#oxygenYesBtn').addEventListener('click', () => { oxygenFlag = true; updateOxygenUI(); });
         updateOxygenUI();
     }
 
     function resetAll() {
-        selectedIndices = {
-            respiratory: parameters.respiratory.defaultIdx,
-            spo2: 3,
-            systolicBP: parameters.systolicBP.defaultIdx,
-            pulse: parameters.pulse.defaultIdx,
-            consciousness: parameters.consciousness.defaultIdx,
-            temperature: parameters.temperature.defaultIdx
-        };
+        selectedIndices = { respiratory: 2, spo2: 3, systolicBP: 3, pulse: 2, consciousness: 0, temperature: 2 };
         oxygenFlag = false;
         buildUI();
         updateTotalScore();
@@ -603,14 +402,7 @@
 
     buildUI();
     updateTotalScore();
-
     document.getElementById('resetBtn').addEventListener('click', resetAll);
-
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/SMP/sw.js')
-            .then(reg => console.log('✅ Сервис-воркер зарегистрирован:', reg))
-            .catch(err => console.error('❌ Ошибка регистрации:', err));
-    }
 </script>
 
 </body>
