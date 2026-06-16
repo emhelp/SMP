@@ -3,9 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>Интубация трахеи | Протокол процедуры и статус пациента</title>
+    <title>Интубация трахеи | Алгоритм для карты вызова СМП</title>
+    <!-- Шрифты и иконки -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- PWA-манифест (унаследован) -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#2e2218">
     <style>
         * {
             margin: 0;
@@ -46,6 +50,19 @@
             color: #fff5ea;
             margin-bottom: 0.25rem;
             line-height: 1.3;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .title-section h1 span {
+            background: rgba(255,255,255,0.15);
+            font-size: 0.75rem;
+            padding: 0.2rem 0.8rem;
+            border-radius: 40px;
+            font-weight: 500;
+            letter-spacing: 0.3px;
         }
 
         .sub {
@@ -162,30 +179,72 @@
             border-radius: 8px;
             display: inline-block;
         }
+        
+        .important-text {
+            font-weight: 700;
+            color: #c62828;
+            text-decoration: underline;
+        }
 
-        /* Акцентные рамки для блоков */
+        /* Акцентные рамки */
         .preparation-card {
             border-left: 4px solid #b87c4a;
             background: #fffdf9;
         }
-        
         .preparation-card .row-header {
             background: #fffaf3;
         }
-        
         .procedure-card {
             border-left: 4px solid #6f9e7c;
         }
-        
         .status-card {
             border-left: 4px solid #5d8fae;
         }
-        
         .sanitation-card {
             border-left: 4px solid #e08e3a;
         }
+        .fixation-card {
+            border-left: 4px solid #a08c7a;
+        }
+        
+        /* Новые стили для информационных карточек */
+        .info-checklist-card {
+            border-left: 4px solid #1f6e9c;
+            background: #f6fafd;
+        }
+        .info-checklist-card .row-header {
+            background: #eef7ff;
+            color: #1a3c4a;
+        }
+        .info-checklist-card .row-header i {
+            color: #1f6e9c;
+            background: #e0eff9;
+        }
+        
+        .warning-checklist-card {
+            border-left: 4px solid #f0b849;
+            background: #fffdf7;
+        }
+        .warning-checklist-card .row-header {
+            background: #fff8e7;
+            color: #7a5800;
+        }
+        .warning-checklist-card .row-header i {
+            color: #cc8c1a;
+            background: #ffefd2;
+        }
 
-        /* Новый стиль для клинического комментария */
+        /* Блок с параметрами ИВЛ */
+        .ventilator-box {
+            background: #eef7ff;
+            border-radius: 1rem;
+            padding: 1rem;
+            margin-top: 0.75rem;
+            border-left: 3px solid #1f6e9c;
+            font-size: 0.9rem;
+        }
+
+        /* Клинический разбор */
         .clinical-new {
             background: #f6f3ef;
             border-radius: 1.5rem;
@@ -194,7 +253,6 @@
             overflow: hidden;
             border: 1px solid #e6daca;
         }
-        
         .clinical-new-header {
             background: #d9c8b6;
             padding: 0.7rem 1.2rem;
@@ -203,7 +261,6 @@
             gap: 12px;
             border-bottom: 2px solid #c8b496;
         }
-        
         .clinical-new-header i {
             font-size: 1.2rem;
             color: #4a2e1e;
@@ -211,7 +268,6 @@
             padding: 6px;
             border-radius: 40px;
         }
-        
         .clinical-new-header span {
             font-weight: 700;
             font-size: 0.85rem;
@@ -219,19 +275,16 @@
             color: #2c241a;
             text-transform: uppercase;
         }
-        
         .clinical-new-content {
             padding: 1.2rem 1.3rem;
             background: #fefcf8;
         }
-        
         .clinical-new-content p {
             line-height: 1.55;
             font-size: 0.92rem;
             color: #2e4a3c;
             margin-bottom: 0.75rem;
         }
-        
         .clinical-quote {
             margin-top: 0.8rem;
             padding-top: 0.6rem;
@@ -241,7 +294,6 @@
             display: flex;
             gap: 8px;
         }
-        
         .clinical-quote i {
             color: #c97e3a;
         }
@@ -255,7 +307,6 @@
             margin: 0;
             box-shadow: 0 4px 10px rgba(0,0,0,0.03);
         }
-
         .impressio-box h4 {
             font-weight: 700;
             color: #b4682d;
@@ -265,70 +316,10 @@
             align-items: center;
             gap: 8px;
         }
-
         .impressio-box h4 i {
             font-size: 1.1rem;
         }
 
-        @media (max-width: 600px) {
-            body {
-                padding: 0.75rem;
-            }
-            
-            .card-header {
-                padding: 1rem 1.2rem;
-            }
-            
-            .title-section h1 {
-                font-size: 1.25rem;
-            }
-            
-            .sub {
-                font-size: 0.75rem;
-            }
-            
-            .card-body {
-                padding: 1.2rem;
-            }
-            
-            .row-header {
-                padding: 0.8rem 1rem 0.3rem 1rem;
-            }
-            
-            .row-header i {
-                font-size: 1.2rem;
-                width: 30px;
-            }
-            
-            .row-content {
-                padding: 0 1rem 0.8rem 1rem;
-                font-size: 0.88rem;
-            }
-            
-            .clinical-new-content {
-                padding: 1rem;
-            }
-            
-            .diagnosis-tag {
-                font-size: 0.7rem;
-                margin-bottom: 1rem;
-            }
-        }
-
-        .icon-accent {
-            color: #d97a2b;
-            margin-right: 6px;
-        }
-        
-        .bullet-list {
-            margin: 0.25rem 0 0 0;
-            padding-left: 1.2rem;
-        }
-        
-        .bullet-list li {
-            margin-bottom: 0.3rem;
-        }
-        
         .procedure-note {
             background: #f0f4f8;
             border-radius: 12px;
@@ -340,14 +331,12 @@
             gap: 8px;
             border-left: 3px solid #e08e3a;
         }
-        
         .vitals-grid {
             display: flex;
             flex-wrap: wrap;
             gap: 0.8rem;
             margin-top: 0.5rem;
         }
-        
         .vital-card {
             background: #fefcf9;
             border-radius: 12px;
@@ -355,17 +344,47 @@
             border: 1px solid #e8ddce;
             min-width: 100px;
         }
-        
         .vital-label {
             font-size: 0.7rem;
             color: #8b6b4a;
             letter-spacing: 0.5px;
         }
-        
         .vital-value {
             font-weight: 700;
             font-size: 1rem;
             color: #2f5342;
+        }
+        .bullet-list {
+            margin: 0.25rem 0 0 0;
+            padding-left: 1.2rem;
+        }
+        .bullet-list li {
+            margin-bottom: 0.3rem;
+        }
+        
+        .badge {
+            display: inline-block;
+            background: #1f6e9c;
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 0.2rem 0.7rem;
+            border-radius: 20px;
+            margin-right: 0.5rem;
+            vertical-align: middle;
+        }
+
+        @media (max-width: 600px) {
+            body { padding: 0.75rem; }
+            .card-header { padding: 1rem 1.2rem; }
+            .title-section h1 { font-size: 1.25rem; }
+            .sub { font-size: 0.75rem; }
+            .card-body { padding: 1.2rem; }
+            .row-header { padding: 0.8rem 1rem 0.3rem 1rem; }
+            .row-header i { font-size: 1.2rem; width: 30px; }
+            .row-content { padding: 0 1rem 0.8rem 1rem; font-size: 0.88rem; }
+            .clinical-new-content { padding: 1rem; }
+            .diagnosis-tag { font-size: 0.7rem; margin-bottom: 1rem; }
         }
     </style>
 </head>
@@ -373,79 +392,118 @@
 <div class="medical-card">
     <div class="card-header">
         <div class="title-section">
-            <h1>Интубация трахеи</h1>
+            <h1>
+                🫁 Интубация трахеи
+                <span>Алгоритм СМП</span>
+            </h1>
             <div class="sub">
-                <i class="fas fa-ambulance"></i> Оротрахеальная интубация · ИВЛ · Седация
+                <i class="fas fa-ambulance"></i> Оротрахеальная интубация · ИВЛ · Протокол для карты вызова
             </div>
         </div>
     </div>
     
     <div class="card-body">
         <div class="diagnosis-tag">
-            <i class="fas fa-lungs"></i> Интубация трахеи · Искусственная вентиляция легких · Медикаментозная седация
+            <i class="fas fa-lungs"></i> По жизненным показаниям · Прямая ларингоскопия · Контроль ИВЛ
         </div>
 
         <div class="procedure-note">
             <i class="fas fa-info-circle"></i>
-            <span><strong>Процедура выполнена:</strong> под прямой ларингоскопией, с первой попытки, без технических трудностей. Гемодинамика стабильная, сатурация в норме, адекватная вентиляция.</span>
+            <span><strong>Основание:</strong> процедура выполнена <span class="important-text">по жизненным показаниям</span> с первой попытки, без технических трудностей. Гемодинамика стабильная, сатурация в норме.</span>
         </div>
 
         <div class="exam-section">
-            <!-- Преоксигенация и подготовка -->
-            <div class="info-row preparation-card">
-                <div class="row-header">
-                    <i class="fas fa-lungs"></i>
-                    <span>🫁 Преоксигенация и подготовка</span>
-                </div>
-                <div class="row-content">
-                    <ul class="bullet-list">
-                        <li><strong>Оборудование:</strong> Drager Oxylog 1000.</li>
-                        <li><strong>Режим:</strong> <span class="highlight">100% FiO₂</span>, CPAP 9 л/мин, ингаляционной маской.</li>
-                        <li><strong>Апликационная анестезия:</strong> <span class="highlight">KateGel (Sol. Lidocaini)</span> — обработка корня языка, глотки и эндотрахеальной трубки.</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <!-- Санация ВДП перед интубацией -->
+            <!-- Шаг 1: Санация ВДП -->
             <div class="info-row sanitation-card">
                 <div class="row-header">
                     <i class="fas fa-pump-medical"></i>
-                    <span>🩺 Санация верхних дыхательных путей (ВДП)</span>
+                    <span>1. Санация верхних дыхательных путей (ВДП)</span>
                 </div>
                 <div class="row-content">
                     Электроаспиратор «Элема-01СП» — аспирировано <span class="highlight">10 мл вязкой прозрачной слизи</span> без примесей.
                 </div>
             </div>
             
-            <!-- Интубация -->
-            <div class="info-row procedure-card">
+            <!-- Шаг 2: Преоксигенация и подготовка -->
+            <div class="info-row preparation-card">
                 <div class="row-header">
-                    <i class="fas fa-hand-peace"></i>
-                    <span>🫀 Проведение интубации</span>
+                    <i class="fas fa-lungs"></i>
+                    <span>2. Преоксигенация и подготовка</span>
                 </div>
                 <div class="row-content">
                     <ul class="bullet-list">
-                        <li><strong>Метод:</strong> под <span class="normal-sign">прямой ларингоскопией</span> при полной визуализации голосовой щели.</li>
-                        <li><strong>Оборудование:</strong> одноразовый клинок <span class="highlight">Mc#3</span>.</li>
+                        <li><strong>Оборудование:</strong> Drager Oxylog 1000.</li>
+                        <li><strong>Режим:</strong> <span class="highlight">100% FiO₂</span>, CPAP 9 л/мин, ингаляционной маской.</li>
+                        <li><strong>Аппликационная анестезия:</strong> <span class="highlight">KateGel (Sol. Lidocaini)</span> — обработка корня языка, глотки и эндотрахеальной трубки.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Шаг 3: Интубация (объединены шаги: ларингоскопия, введение трубки, герметизация, контроль) -->
+            <div class="info-row procedure-card">
+                <div class="row-header">
+                    <i class="fas fa-hand-peace"></i>
+                    <span>3. Проведение интубации трахеи</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li><strong>Метод:</strong> под <span class="normal-sign">прямой ларингоскопией</span> изогнутым клинком <span class="highlight">Mc#3</span> при полной визуализации голосовой щели.</li>
                         <li><strong>Попытка:</strong> с <span class="normal-sign">первой попытки без технических трудностей</span>.</li>
-                        <li><strong>Эндотрахеальная трубка (ЭТТ):</strong> размер <span class="highlight">№ 8,5</span>.</li>
-                        <li><strong>Контроль положения ЭТТ:</strong>
+                        <li><strong>Эндотрахеальная трубка (ЭТТ):</strong> размер <span class="highlight">№ 8,5</span>, введена в трахею.</li>
+                        <li><strong>Первичный контроль положения (сразу после введения):</strong>
                             <ul style="margin-left: 1.5rem; margin-top: 0.2rem;">
-                                <li>Герметизация ЭТТ и трахеобронхиального дерева (ТБД).</li>
-                                <li>Внутренняя поверхность ЭТТ при выдохе пациента <span class="normal-sign">запотевает</span>.</li>
+                                <li>Аускультация в <span class="highlight">3 точках</span> — дыхание проводится в оба лёгких.</li>
+                                <li>Герметизация манжетой, внутренняя поверхность ЭТТ при выдохе <span class="normal-sign">запотевает</span>.</li>
                                 <li>Контрольная ИВЛ дыхательным мешком вызывает <span class="normal-sign">симметричную экскурсию грудной клетки</span>.</li>
-                                <li>Над всеми полями легких аускультируется <span class="normal-sign">ясное жесткое дыхание без немых зон и хрипов</span>.</li>
                             </ul>
                         </li>
                     </ul>
                 </div>
             </div>
+
+            <!-- Шаг 4: Фиксация трубки -->
+            <div class="info-row fixation-card">
+                <div class="row-header">
+                    <i class="fas fa-tape"></i>
+                    <span>4. Фиксация эндотрахеальной трубки</span>
+                </div>
+                <div class="row-content">
+                    Надежная фиксация ЭТТ с помощью <span class="highlight">фиксатора Томаса</span> для предотвращения смещения при транспортировке.
+                </div>
+            </div>
+
+            <!-- Шаг 5: Окончательный аускультативный контроль -->
+            <div class="info-row procedure-card">
+                <div class="row-header">
+                    <i class="fas fa-stethoscope"></i>
+                    <span>5. Окончательный аускультативный контроль</span>
+                </div>
+                <div class="row-content">
+                    После фиксации проведена аускультация в <span class="highlight">5 точках</span>: над всеми полями легких выслушивается <span class="normal-sign">ясное жесткое дыхание без немых зон и хрипов</span>.
+                </div>
+            </div>
+
+            <!-- Шаг 6: Параметры ИВЛ -->
+            <div class="info-row status-card">
+                <div class="row-header">
+                    <i class="fas fa-cogs"></i>
+                    <span>6. Параметры искусственной вентиляции легких (ИВЛ)</span>
+                </div>
+                <div class="row-content">
+                    <div class="ventilator-box">
+                        <strong>📊 Аппарат Medumat Standard (после подтверждения положения ЭТТ):</strong><br>
+                        • <span class="highlight">O₂ = 100%</span> (кислород на время манипуляции и после)<br>
+                        • <span class="highlight">ДО = 7 мл/кг</span> (дыхательный объем на килограмм массы тела)<br>
+                        • <span class="highlight">ЧД = 10 в минуту</span> (частота дыхания)
+                    </div>
+                </div>
+            </div>
             
-            <!-- Витальные показатели и статус пациента -->
+            <!-- Шаг 7: Витальные показатели и статус пациента -->
             <div class="info-row status-card">
                 <div class="row-header">
                     <i class="fas fa-heartbeat"></i>
-                    <span>📊 Витальные показатели и статус пациента</span>
+                    <span>7. Витальные показатели и статус пациента</span>
                 </div>
                 <div class="row-content">
                     <div class="vitals-grid">
@@ -472,7 +530,7 @@
                     </div>
                     <ul class="bullet-list" style="margin-top: 0.75rem;">
                         <li><strong>Дыхание:</strong> ровное, свободное.</li>
-                        <li><strong>Шкала возбуждения-седации Ричмонда (RASS):</strong> <span class="critical-sign">«-5»</span> — отсутствие пробуждения (никакой реакции на голос и физическую стимуляцию).</li>
+                        <li><strong>Шкала возбуждения-седации Ричмонда (RASS):</strong> <span class="critical-sign">«-5»</span> — отсутствие пробуждения.</li>
                         <li><strong>Зрачки:</strong> обычные, в центральном положении, фотореакция <span class="normal-sign">живая OD=OS</span>.</li>
                         <li><strong>Кожа:</strong> тела теплая, сухая, <span class="warning-sign">бледная</span>, без цианоза.</li>
                         <li><strong>Общее состояние:</strong> <span class="critical-sign">тяжелое</span> (обусловлено основным заболеванием, на фоне ИВЛ — стабильное).</li>
@@ -480,11 +538,11 @@
                 </div>
             </div>
             
-            <!-- Санация после интубации -->
+            <!-- Шаг 8: Санация после интубации -->
             <div class="info-row sanitation-card">
                 <div class="row-header">
                     <i class="fas fa-pump-medical"></i>
-                    <span>🩺 Санация ВДП и ТБД после интубации</span>
+                    <span>8. Санация ВДП и ТБД после интубации</span>
                 </div>
                 <div class="row-content">
                     Электроаспиратор «Элема-01СП» — аспирировано <span class="highlight">10 мл вязкой прозрачной слизи</span> без примесей.
@@ -492,29 +550,76 @@
             </div>
         </div>
         
-        <!-- Новый стиль клинического комментария -->
+        <!-- НОВЫЙ БЛОК: Ключевые элементы описания интубации в карте вызова -->
+        <div class="info-row info-checklist-card" style="margin-bottom: 1.35rem;">
+            <div class="row-header">
+                <i class="fas fa-clipboard-check"></i>
+                <span>📋 Ключевые элементы описания интубации в карте вызова</span>
+            </div>
+            <div class="row-content">
+                <ul class="bullet-list">
+                    <li><span class="highlight">Показания к интубации</span> — по жизненным показаниям (обязательно указываются)</li>
+                    <li><span class="highlight">Тип ларингоскопии</span> — прямая, под визуальным контролем</li>
+                    <li><span class="highlight">Размер эндотрахеальной трубки</span> — №8 (для взрослых)</li>
+                    <li><span class="highlight">Количество попыток</span> — с первой попытки (фиксируется количество попыток)</li>
+                    <li><span class="highlight">Аускультативный контроль</span> — в 3 и 5 точках, подтверждение вентиляции обоих легких</li>
+                    <li><span class="highlight">Герметизация</span> — раздутие манжеты</li>
+                    <li><span class="highlight">Фиксация трубки</span> — фиксатор Томаса</li>
+                    <li><span class="highlight">Параметры ИВЛ</span> — аппарат, кислород, дыхательный объем, частота</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- НОВЫЙ БЛОК: Важные моменты для бригад СМП -->
+        <div class="info-row warning-checklist-card" style="margin-bottom: 1.5rem;">
+            <div class="row-header">
+                <i class="fas fa-exclamation-triangle"></i>
+                <span>⚠️ Важные моменты для бригад СМП</span>
+            </div>
+            <div class="row-content">
+                <ul class="bullet-list">
+                    <li>При описании интубации обязательно указывать <span class="important-text">«по жизненным показаниям»</span> — это обосновывает проведение манипуляции</li>
+                    <li><span class="highlight">Аускультация в трех точках</span> проводится сразу после интубации для подтверждения правильного положения трубки</li>
+                    <li><span class="highlight">Аускультация в пяти точках</span> проводится после фиксации трубки для окончательного подтверждения</li>
+                    <li>При невозможности интубации с первой попытки — <span class="important-text">обязательное указание количества попыток</span> и переход к альтернативным методам (надгортанные воздуховоды, коникотомия)</li>
+                    <li>Параметры ИВЛ фиксируются <span class="highlight">после успешной интубации и подтверждения положения трубки</span></li>
+                    <li><span class="highlight">Фиксатор Томаса</span> обеспечивает надежную фиксацию эндотрахеальной трубки и предотвращает ее смещение при транспортировке</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Клинический разбор -->
         <div class="clinical-new">
             <div class="clinical-new-header">
                 <i class="fas fa-stethoscope"></i>
                 <span>Клинический разбор</span>
             </div>
             <div class="clinical-new-content">
-                <p>Пациенту проведена <strong>оротрахеальная интубация</strong> в связи с тяжелым состоянием, требующим защиты дыхательных путей и проведения искусственной вентиляции легких. Преоксигенация проведена в режиме 100% FiO₂ с CPAP 9 л/мин через маску. Верхние дыхательные пути санированы от вязкой слизи (10 мл).</p>
-                <p>Интубация выполнена <span class="normal-sign">под прямой ларингоскопией клинком Mc#3 с первой попытки, без технических трудностей</span>. Эндотрахеальная трубка №8,5 фиксирована. Контроль положения ЭТТ: герметизация достигнута, внутренняя поверхность трубки запотевает при выдохе, контрольная ИВЛ вызывает симметричную экскурсию грудной клетки, аускультативно — ясное жесткое дыхание над всеми полями легких без немых зон и хрипов.</p>
-                <p>Витальные показатели: ЧДД 16/мин, SpO₂ 99%, Pet(CO₂) 43 мм рт.ст., ЧСС 90 уд/мин, АД 90/60 мм рт.ст. Дыхание ровное, свободное. По шкале RASS — «-5» (глубокая седация). Зрачки обычные, фотореакция живая. Кожа тела теплая, сухая, бледная, без цианоза. Состояние пациента тяжелое, обусловленное основным заболеванием, на фоне проводимой ИВЛ — стабильное. После интубации проведена повторная санация трахеобронхиального дерева, эвакуировано 10 мл вязкой прозрачной слизи.</p>
+                <p>Пациенту <span class="important-text">по жизненным показаниям</span> проведена <strong>оротрахеальная интубация</strong> в связи с тяжелым состоянием, требующим защиты дыхательных путей и проведения искусственной вентиляции легких. Преоксигенация проведена в режиме 100% FiO₂ с CPAP 9 л/мин через маску. Верхние дыхательные пути санированы от вязкой слизи (10 мл).</p>
+                <p>Интубация выполнена <span class="normal-sign">под прямой ларингоскопией клинком Mc#3 с первой попытки, без технических трудностей</span>. Эндотрахеальная трубка №8,5 фиксирована фиксатором Томаса. Аускультативный контроль в 3 и 5 точках подтвердил проведение дыхания в оба легких, герметизация достигнута, экскурсия грудной клетки симметричная.</p>
+                <p>ИВЛ проводится аппаратом Medumat Standard: O₂ 100%, ДО 7 мл/кг, ЧД 10/мин. Витальные показатели: ЧДД 16/мин, SpO₂ 99%, Pet(CO₂) 43 мм рт.ст., ЧСС 90 уд/мин, АД 90/60 мм рт.ст. По шкале RASS — «-5» (глубокая седация). Состояние пациента тяжелое, на фоне проводимой ИВЛ — стабильное. После интубации проведена повторная санация трахеобронхиального дерева.</p>
                 <div class="clinical-quote">
                     <i class="fas fa-chart-line"></i>
-                    <span><strong>Заключение:</strong> оротрахеальная интубация выполнена успешно с первой попытки, без осложнений. Эндотрахеальная трубка установлена правильно (аускультативный контроль, симметричная экскурсия грудной клетки, капнография). Пациент находится на искусственной вентиляции легких, состояние стабильное на фоне проводимой респираторной поддержки и медикаментозной седации.</span>
+                    <span><strong>Заключение:</strong> оротрахеальная интубация выполнена успешно с первой попытки, без осложнений. Эндотрахеальная трубка установлена правильно. Пациент находится на искусственной вентиляции легких, состояние стабильное.</span>
                 </div>
             </div>
         </div>
         
         <!-- Итоговое заключение -->
         <div class="impressio-box">
-            <h4><i class="fas fa-notes-medical"></i> Протокол интубации трахеи</h4>
-            <p><strong>Оротрахеальная интубация выполнена:</strong> под прямой ларингоскопией клинком Mc#3 с первой попытки, без технических трудностей. Эндотрахеальная трубка №8,5. Контроль положения ЭТТ: герметизация, запотевание трубки на выдохе, симметричная экскурсия грудной клетки при контрольной ИВЛ, аускультативно — ясное жесткое дыхание над всеми полями легких без немых зон и хрипов. Витальные показатели: ЧДД 16/мин, SpO₂ 99%, Pet(CO₂) 43 мм рт.ст., АД 90/60 мм рт.ст., ЧСС 90 уд/мин. RASS «-5» (глубокая седация). Зрачки обычные, фотореакция живая. Кожа бледная, сухая, теплая, без цианоза. Санация ВДП и ТБД: до интубации — 10 мл вязкой прозрачной слизи, после интубации — 10 мл вязкой прозрачной слизи. Состояние пациента тяжелое (обусловлено основным заболеванием), на фоне ИВЛ — стабильное.</p>
+            <h4><i class="fas fa-notes-medical"></i> Протокол интубации трахеи (для карты вызова)</h4>
+            <p><strong>Оротрахеальная интубация выполнена по жизненным показаниям:</strong> под прямой ларингоскопией клинком Mc#3 с первой попытки, без технических трудностей. ЭТТ №8,5. Контроль положения: аускультация в 3 и 5 точках — дыхание проводится в оба легких, герметизация, симметричная экскурсия грудной клетки. Фиксация трубки фиксатором Томаса. ИВЛ аппаратом Medumat Standard: O₂ 100%, ДО 7 мл/кг, ЧД 10/мин. Санация ВДП и ТБД: до интубации — 10 мл вязкой прозрачной слизи, после интубации — 10 мл вязкой прозрачной слизи. Состояние пациента тяжелое, на фоне ИВЛ — стабильное.</p>
         </div>
     </div>
 </div>
+
+<script>
+    // Регистрация Service Worker для PWA (унаследован из второго алгоритма)
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/SMP/sw.js')
+            .then(reg => console.log('✅ Сервис-воркер зарегистрирован:', reg))
+            .catch(err => console.error('❌ Ошибка регистрации:', err));
+    }
+</script>
 </body>
 </html>
