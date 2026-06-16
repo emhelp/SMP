@@ -4,174 +4,192 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <title>Оценка по шкале боли ВАШ - Перечень состояний</title>
-    
+
     <!-- PWA -->
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#1e2f47">
-    
+    <meta name="theme-color" content="#0f1446">
+
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
-            background: linear-gradient(145deg, #eef2f7 0%, #dce3ec 100%);
-            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, 'Helvetica Neue', sans-serif;
-            padding: 2rem 1rem;
-            min-height: 100vh;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            font-family: 'Segoe UI', 'Roboto', sans-serif;
+            margin: 0;
+            padding: 20px;
             display: flex;
-            justify-content: center;
-            align-items: flex-start;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
         }
-        
-        .calculator-card {
+
+        .container {
             max-width: 1100px;
             width: 100%;
-            margin: 0 auto;
-            background: #ffffff;
-            border-radius: 48px;
-            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.2);
-            overflow: hidden;
-            transition: transform 0.2s;
         }
-        
-        .card-header {
-            background: #1e2f47;
-            background-image: linear-gradient(115deg, #142a3b, #1d3f55);
-            padding: 1.8rem 2rem;
+
+        .card {
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 24px 22px;
+            margin-bottom: 24px;
+        }
+
+        .header-card {
+            background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
             color: white;
+            text-align: center;
+            padding: 28px 20px;
         }
-        .card-header h1 {
-            font-size: 1.9rem;
+        .header-card h1 {
+            color: white;
+            margin-bottom: 8px;
+            font-size: 28px;
             font-weight: 700;
+        }
+        .header-card p {
+            opacity: 0.9;
+            font-size: 0.95rem;
+            margin-top: 4px;
+            line-height: 1.5;
+        }
+
+        h2 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #0f1446;
+            border-left: 6px solid #e53935;
+            padding-left: 16px;
             display: flex;
             align-items: center;
-            gap: 12px;
-            flex-wrap: wrap;
+            gap: 10px;
         }
-        .card-header h1 span {
-            background: rgba(255,255,255,0.2);
-            font-size: 0.9rem;
-            padding: 5px 14px;
-            border-radius: 60px;
-            font-weight: 500;
-        }
-        .card-header .hashtag {
-            font-size: 1rem;
-            opacity: 0.9;
-            font-family: monospace;
-            margin-top: 8px;
-        }
-        .card-header p {
-            margin-top: 12px;
-            opacity: 0.85;
-            font-size: 0.95rem;
-            border-left: 3px solid #5f9bc2;
-            padding-left: 16px;
-        }
-        
-        .card-content {
-            padding: 2rem 2rem 1.8rem;
-        }
-        
+
         .info-card {
             background: #eef7ff;
             border-left: 5px solid #1f6e9c;
-            border-radius: 20px;
+            border-radius: 16px;
             padding: 1rem 1.25rem;
             margin: 1rem 0;
+            color: #1f3a4b;
+            font-size: 0.9rem;
+            line-height: 1.5;
         }
-        
-        .section {
-            margin-bottom: 2rem;
-            border-left: 4px solid #1f6e9c;
-            padding-left: 1.25rem;
+
+        .scale-buttons {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
         }
-        
-        .section-title {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: #1f4a66;
-            margin-bottom: 1rem;
-            display: inline-block;
-            border-bottom: 2px solid #ffc107;
-            padding-bottom: 0.25rem;
-        }
-        
-        .badge {
-            display: inline-block;
-            background: #1f6e9c;
+
+        .scale-btn {
+            text-decoration: none;
             color: white;
-            font-size: 0.7rem;
+            background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
+            padding: 14px 24px;
+            border-radius: 12px;
             font-weight: 600;
-            padding: 0.2rem 0.7rem;
-            border-radius: 20px;
-            margin-right: 0.5rem;
-            vertical-align: middle;
+            text-align: center;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+            font-size: 15px;
+            font-family: inherit;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
-        
-        .badge-orange {
-            background: #f57c00;
+
+        .scale-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 14px rgba(0,0,0,0.15);
         }
-        
-        .badge-blue {
-            background: #1f6e9c;
+
+        .scale-btn:active {
+            transform: scale(0.98);
         }
-        
-        .badge-green {
-            background: #2c7a4d;
+
+        /* Модальное окно */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.85);
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
         }
-        
-        .highlight {
-            background-color: #fff3b0;
-            padding: 0.1rem 0.3rem;
-            border-radius: 8px;
-            font-weight: 600;
-            color: #a56b00;
+        .modal.active {
+            display: flex;
         }
-        
-        .important-text {
-            font-weight: 700;
-            color: #c62828;
-            text-decoration: underline;
+        .modal-content {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 16px;
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+            text-align: center;
+            box-shadow: 0 20px 35px rgba(0,0,0,0.3);
         }
-        
+        .close-modal {
+            position: absolute;
+            top: 12px;
+            right: 18px;
+            color: #0f1446;
+            font-size: 32px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        .modal-image {
+            max-width: 100%;
+            max-height: 80vh;
+            object-fit: contain;
+            border-radius: 16px;
+        }
+
         .category-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
             gap: 1rem;
             margin: 1rem 0;
         }
-        
+
         .category-card {
-            background: #f6fafd;
-            border-radius: 20px;
+            background: #eef7ff;
+            border-radius: 16px;
             padding: 1rem;
+            border: 1px solid #d4e2f0;
             border-left: 4px solid #1f6e9c;
-            transition: all 0.2s;
         }
-        
-        .category-card:hover {
-            border-color: #0f557c;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-        }
-        
+
         .category-title {
-            font-weight: 800;
+            font-weight: 700;
             font-size: 1.1rem;
-            color: #1f4a66;
+            color: #0f1446;
             margin-bottom: 0.75rem;
             padding-bottom: 0.5rem;
             border-bottom: 2px solid #d4e2f0;
         }
-        
+
         .condition-list {
             list-style: none;
             padding-left: 0;
         }
-        
+
         .condition-list li {
             padding-left: 1.3rem;
             position: relative;
@@ -179,180 +197,189 @@
             font-size: 0.9rem;
             color: #1f3a4b;
         }
-        
+
         .condition-list li::before {
             content: "•";
-            color: #1f6e9c;
+            color: #0f1446;
             font-weight: bold;
             position: absolute;
             left: 0;
         }
-        
+
+        .highlight {
+            background-color: #fff3b0;
+            padding: 0.1rem 0.3rem;
+            border-radius: 8px;
+            font-weight: 600;
+            color: #a56b00;
+        }
+
+        .important-text {
+            font-weight: 700;
+            color: #d32f2f;
+        }
+
         hr {
             margin: 1.5rem 0;
             border: none;
             height: 1px;
-            background: linear-gradient(90deg, #e2e8f0, transparent);
+            background: #e2ecf3;
         }
-        
+
         .subnote {
             font-size: 0.85rem;
             color: #6f8eaa;
             margin-top: 1rem;
             padding-top: 0.75rem;
             border-top: 1px solid #e2ecf3;
+            line-height: 1.5;
         }
-        
+
         @media (max-width: 768px) {
             body {
-                padding: 1rem;
+                padding: 10px;
             }
-            .card-content {
-                padding: 1.5rem;
+            .card {
+                padding: 16px 14px;
             }
-            .section {
-                padding-left: 0.75rem;
-            }
-            .section-title {
-                font-size: 1.2rem;
+            .header-card h1 {
+                font-size: 24px;
             }
             .category-grid {
                 grid-template-columns: 1fr;
             }
-            .card-header h1 {
-                font-size: 1.4rem;
+            .scale-buttons {
+                flex-direction: column;
             }
-            .card-header p {
-                font-size: 0.85rem;
+            .scale-btn {
+                justify-content: center;
             }
         }
     </style>
 </head>
 <body>
-<div class="calculator-card">
-    <div class="card-header">
-        <h1>
-            📋 Оценка по шкале боли ВАШ
-            <span>Visual Analogue Scale</span>
-        </h1>
-        <div class="hashtag">Перечень состояний, при которых проводится обязательная оценка</div>
-        <p>Визуальная аналоговая шкала (ВАШ) — инструмент объективной оценки интенсивности болевого синдрома</p>
+
+<div class="container">
+    <div class="card header-card">
+        <h1>📋 Оценка по шкале боли ВАШ</h1>
+        <p>Visual Analogue Scale — перечень состояний, при которых проводится обязательная оценка интенсивности болевого синдрома</p>
     </div>
-    <div class="card-content">
-        
-        <div class="info-card">
-            <strong>📌 Шкала ВАШ (Visual Analogue Scale)</strong> — метод оценки боли, при котором пациент отмечает уровень боли на прямой линии от 0 (нет боли) до 10 (невыносимая боль). <strong class="highlight">Оценка проводится у всех пациентов с указанными состояниями!</strong>
+
+    <div class="card">
+        <div class="scale-buttons">
+            <button class="scale-btn" onclick="openModal('prochee/Шкалы оценки боли взрослая.png')">📊 Взрослая шкала</button>
+            <button class="scale-btn" onclick="openModal('prochee/Шкалы оценки боли детская.png')">👶 Детская шкала</button>
         </div>
-        
-        <div class="section">
-            <div class="section-title">📋 Перечень состояний</div>
-            
-            <div class="category-grid">
-                
-                <div class="category-card">
-                    <div class="category-title">🔬 Онкология / Неврология</div>
-                    <ul class="condition-list">
-                        <li>Злокачественные новообразования</li>
-                        <li>Болезни периферической нервной системы и межпозвонковых дисков</li>
-                    </ul>
-                </div>
-                
-                <div class="category-card">
-                    <div class="category-title">🧠 Черепно-мозговая травма</div>
-                    <ul class="condition-list">
-                        <li>Сотрясение головного мозга</li>
-                        <li>Перелом свода и/или основания черепа</li>
-                        <li>Ушиб головного мозга</li>
-                        <li>Травматическое субарахноидальное кровоизлияние</li>
-                        <li>Внутричерепная гематома</li>
-                        <li>Поверхностная травма волосистой части головы</li>
-                        <li>Перелом лицевых костей (костей носа, скуловой кости, верхней, нижней челюсти и др.)</li>
-                        <li>Раны лица, шеи, полости рта и волосистой части головы</li>
-                        <li>Ушиб горла, шейного отдела пищевода, глотки, гортани, трахеи</li>
-                        <li>Открытая рана, затрагивающая гортань и шейный отдел трахеи</li>
-                        <li>Перелом хрящей гортани, трахеи</li>
-                    </ul>
-                </div>
-                
-                <div class="category-card">
-                    <div class="category-title">🦴 Позвоночник</div>
-                    <ul class="condition-list">
-                        <li>Перелом позвоночника</li>
-                        <li>Вывих шейного позвонка</li>
-                    </ul>
-                </div>
-                
-                <div class="category-card">
-                    <div class="category-title">💪 Вывихи верхних конечностей</div>
-                    <ul class="condition-list">
-                        <li>Плечевой кости</li>
-                        <li>Грудиноключичного сустава</li>
-                        <li>Костей предплечья</li>
-                        <li>Костей запястья</li>
-                        <li>Пальцев кисти</li>
-                    </ul>
-                </div>
-                
-                <div class="category-card">
-                    <div class="category-title">🦵 Вывихи нижних конечностей</div>
-                    <ul class="condition-list">
-                        <li>Костей голени</li>
-                        <li>Голеностопного сустава</li>
-                        <li>Коленного сустава</li>
-                        <li>Пальцев стопы</li>
-                    </ul>
-                </div>
-                
-                <div class="category-card">
-                    <div class="category-title">🦴 Переломы конечностей</div>
-                    <ul class="condition-list">
-                        <li>Переломы костей верхних и нижних конечностей, закрытые</li>
-                        <li>Переломы костей верхних и нижних конечностей, открытые</li>
-                    </ul>
-                </div>
-                
-                <div class="category-card">
-                    <div class="category-title">⚠️ Травмы и повреждения</div>
-                    <ul class="condition-list">
-                        <li>Травма грудной клетки</li>
-                        <li>Открытые раны (огнестрельные, колотые, резаные, укушенные и т.д.)</li>
-                        <li>Синдром длительного сдавления</li>
-                        <li>Открытая травма живота</li>
-                        <li>Травма наружных половых органов</li>
-                    </ul>
-                </div>
-                
-                <div class="category-card">
-                    <div class="category-title">🔥 Термические поражения</div>
-                    <ul class="condition-list">
-                        <li>Термические и химические ожоги</li>
-                        <li>Отморожение</li>
-                    </ul>
-                </div>
-                
-                <div class="category-card">
-                    <div class="category-title">🩺 Особые состояния</div>
-                    <ul class="condition-list">
-                        <li><span class="highlight">Боли «под гипсом»</span></li>
-                    </ul>
-                </div>
-                
+
+        <div class="info-card">
+            <strong>📌 Шкала ВАШ (Visual Analogue Scale)</strong> — метод оценки боли, при котором пациент отмечает уровень боли на прямой линии от 0 (нет боли) до 10 (невыносимая боль). <strong>Оценка проводится у всех пациентов с указанными состояниями!</strong>
+        </div>
+
+        <h2>📋 Перечень состояний</h2>
+
+        <div class="category-grid">
+            <div class="category-card">
+                <div class="category-title">🔬 Онкология / Неврология</div>
+                <ul class="condition-list">
+                    <li>Злокачественные новообразования</li>
+                    <li>Болезни периферической нервной системы и межпозвонковых дисков</li>
+                </ul>
+            </div>
+
+            <div class="category-card">
+                <div class="category-title">🧠 Черепно-мозговая травма</div>
+                <ul class="condition-list">
+                    <li>Сотрясение головного мозга</li>
+                    <li>Перелом свода и/или основания черепа</li>
+                    <li>Ушиб головного мозга</li>
+                    <li>Травматическое субарахноидальное кровоизлияние</li>
+                    <li>Внутричерепная гематома</li>
+                    <li>Поверхностная травма волосистой части головы</li>
+                    <li>Перелом лицевых костей (костей носа, скуловой кости, верхней, нижней челюсти и др.)</li>
+                    <li>Раны лица, шеи, полости рта и волосистой части головы</li>
+                    <li>Ушиб горла, шейного отдела пищевода, глотки, гортани, трахеи</li>
+                    <li>Открытая рана, затрагивающая гортань и шейный отдел трахеи</li>
+                    <li>Перелом хрящей гортани, трахеи</li>
+                </ul>
+            </div>
+
+            <div class="category-card">
+                <div class="category-title">🦴 Позвоночник</div>
+                <ul class="condition-list">
+                    <li>Перелом позвоночника</li>
+                    <li>Вывих шейного позвонка</li>
+                </ul>
+            </div>
+
+            <div class="category-card">
+                <div class="category-title">💪 Вывихи верхних конечностей</div>
+                <ul class="condition-list">
+                    <li>Плечевой кости</li>
+                    <li>Грудиноключичного сустава</li>
+                    <li>Костей предплечья</li>
+                    <li>Костей запястья</li>
+                    <li>Пальцев кисти</li>
+                </ul>
+            </div>
+
+            <div class="category-card">
+                <div class="category-title">🦵 Вывихи нижних конечностей</div>
+                <ul class="condition-list">
+                    <li>Костей голени</li>
+                    <li>Голеностопного сустава</li>
+                    <li>Коленного сустава</li>
+                    <li>Пальцев стопы</li>
+                </ul>
+            </div>
+
+            <div class="category-card">
+                <div class="category-title">🦴 Переломы конечностей</div>
+                <ul class="condition-list">
+                    <li>Переломы костей верхних и нижних конечностей, закрытые</li>
+                    <li>Переломы костей верхних и нижних конечностей, открытые</li>
+                </ul>
+            </div>
+
+            <div class="category-card">
+                <div class="category-title">⚠️ Травмы и повреждения</div>
+                <ul class="condition-list">
+                    <li>Травма грудной клетки</li>
+                    <li>Открытые раны (огнестрельные, колотые, резаные, укушенные и т.д.)</li>
+                    <li>Синдром длительного сдавления</li>
+                    <li>Открытая травма живота</li>
+                    <li>Травма наружных половых органов</li>
+                </ul>
+            </div>
+
+            <div class="category-card">
+                <div class="category-title">🔥 Термические поражения</div>
+                <ul class="condition-list">
+                    <li>Термические и химические ожоги</li>
+                    <li>Отморожение</li>
+                </ul>
+            </div>
+
+            <div class="category-card">
+                <div class="category-title">🩺 Особые состояния</div>
+                <ul class="condition-list">
+                    <li><span class="highlight">Боли «под гипсом»</span></li>
+                </ul>
             </div>
         </div>
-        
+
         <div class="info-card">
             <strong>📊 Шкала ВАШ (0–10 баллов):</strong><br>
-            • <strong class="highlight">0 баллов</strong> — боли нет<br>
-            • <strong class="highlight">1–3 балла</strong> — слабая боль<br>
-            • <strong class="highlight">4–6 баллов</strong> — умеренная боль<br>
-            • <strong class="highlight">7–9 баллов</strong> — сильная боль<br>
-            • <strong class="highlight">10 баллов</strong> — невыносимая боль<br>
+            • <strong>0 баллов</strong> — боли нет<br>
+            • <strong>1–3 балла</strong> — слабая боль<br>
+            • <strong>4–6 баллов</strong> — умеренная боль<br>
+            • <strong>7–9 баллов</strong> — сильная боль<br>
+            • <strong>10 баллов</strong> — невыносимая боль<br>
             <br>
             <strong>Оценка проводится:</strong> при первичном осмотре, после введения обезболивающих препаратов, при динамическом наблюдении.
         </div>
-        
+
         <hr>
-        
+
         <div class="subnote">
             📋 <strong>Важные моменты:</strong><br>
             • Оценка боли по шкале ВАШ проводится <strong class="important-text">у всех пациентов с указанными состояниями</strong><br>
@@ -362,17 +389,42 @@
             <br>
             🔍 <em>Документ регламентирует перечень состояний, при которых выездные бригады скорой медицинской помощи обязаны проводить оценку интенсивности болевого синдрома с использованием шкалы ВАШ.</em>
         </div>
-        
+    </div>
+</div>
+
+<!-- Модальное окно -->
+<div id="imageModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeModal()">&times;</span>
+        <img id="modalImage" class="modal-image" src="" alt="Шкала боли">
     </div>
 </div>
 
 <script>
-    // Регистрация Service Worker для PWA
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('/SMP/sw.js')
-            .then(reg => console.log('✅ Сервис-воркер зарегистрирован:', reg))
-            .catch(err => console.error('❌ Ошибка регистрации:', err));
+            .then(reg => console.log('✅ SW зарегистрирован:', reg))
+            .catch(err => console.error('❌ Ошибка:', err));
     }
+
+    function openModal(imageSrc) {
+        document.getElementById('modalImage').src = imageSrc;
+        document.getElementById('imageModal').classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+        document.getElementById('imageModal').classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    document.getElementById('imageModal').addEventListener('click', function(e) {
+        if (e.target === this) closeModal();
+    });
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeModal();
+    });
 </script>
 
 </body>
