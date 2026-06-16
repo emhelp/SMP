@@ -2,12 +2,12 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>Акушерский калькулятор: срок беременности, дата родов, ВСДМ</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>🤰 Калькулятор даты родов</title>
     
     <!-- PWA -->
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#1e2f47">
+    <meta name="theme-color" content="#0f1446">
     
     <style>
         * {
@@ -17,236 +17,211 @@
         }
 
         body {
-            background: linear-gradient(145deg, #eef2f7 0%, #dce3ec 100%);
-            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, 'Helvetica Neue', sans-serif;
-            padding: 2rem 1rem;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            font-family: 'Segoe UI', 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: #1f3a4b;
+            padding: 20px;
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
         }
 
-        .calculator-card {
+        .container {
             max-width: 800px;
-            width: 100%;
             margin: 0 auto;
-            background: #ffffff;
-            border-radius: 48px;
-            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.2);
-            overflow: hidden;
         }
 
-        .card-header {
-            background: #1e2f47;
-            background-image: linear-gradient(115deg, #142a3b, #1d3f55);
-            padding: 1.8rem 2rem;
+        .card {
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 24px 22px;
+            margin-bottom: 20px;
+        }
+
+        .card.header-card {
+            background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
             color: white;
-        }
-        .card-header h1 {
-            font-size: 1.9rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-        .card-header h1 span {
-            background: rgba(255,255,255,0.2);
-            font-size: 0.9rem;
-            padding: 5px 14px;
-            border-radius: 60px;
-            font-weight: 500;
-        }
-        .card-header p {
-            margin-top: 12px;
-            opacity: 0.85;
-            font-size: 0.95rem;
-            border-left: 3px solid #5f9bc2;
-            padding-left: 16px;
+            text-align: center;
+            padding: 28px 20px;
         }
 
-        .card-content {
-            padding: 2rem;
+        .card.header-card h1 {
+            font-size: 28px;
+            color: white;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .card.header-card p {
+            opacity: 0.9;
+            font-size: 0.95rem;
+            margin-top: 8px;
+        }
+
+        h2 {
+            color: #0f1446;
+            border-left: 6px solid #e53935;
+            padding-left: 16px;
+            font-size: 1.3rem;
+            margin: 1.2rem 0 1rem 0;
         }
 
         .input-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.2rem;
         }
+
         .input-group label {
             font-weight: 600;
-            color: #1f4a66;
+            color: #0f1446;
             display: block;
             margin-bottom: 8px;
             font-size: 0.95rem;
         }
+
         .date-input {
             width: 100%;
             padding: 12px 16px;
             font-size: 1rem;
             border: 2px solid #d4e2f0;
-            border-radius: 60px;
+            border-radius: 12px;
             background: white;
             transition: 0.2s;
             font-family: inherit;
             color: #1f3a4b;
         }
+
         .date-input:focus {
             outline: none;
             border-color: #1f6e9c;
             box-shadow: 0 0 0 3px rgba(31,110,156,0.1);
         }
 
-        .button-group {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-            margin: 24px 0 20px;
+        .reset-btn-wrap {
+            margin: 16px 0;
         }
-        .btn {
-            background: #ecf3f8;
-            border: none;
-            padding: 12px 28px;
-            border-radius: 60px;
+
+        .reset-btn {
+            text-decoration: none;
+            color: #0f1446;
+            background: #ffffff;
+            padding: 14px 24px;
+            border-radius: 12px;
             font-weight: 600;
-            font-size: 0.9rem;
-            color: #1f4a66;
-            cursor: pointer;
+            text-align: center;
             transition: all 0.2s;
+            border: 2px solid #d4e2f0;
+            cursor: pointer;
+            font-size: 15px;
             font-family: inherit;
+            line-height: 1.3;
+            width: 100%;
         }
-        .btn-primary {
-            background: linear-gradient(135deg, #1f6e9c 0%, #155a80 100%);
-            color: white;
-        }
-        .btn-primary:hover {
-            background: linear-gradient(135deg, #1a5c84 0%, #114d6e 100%);
-            transform: translateY(-2px);
-        }
-        .btn-secondary {
-            background: #ecf3f8;
-            border: 2px solid #cbdae6;
-        }
-        .btn-secondary:hover {
-            background: #dee4ec;
-            transform: translateY(-2px);
+
+        .reset-btn:hover {
+            background: #eef7ff;
+            border-color: #0f1446;
+            transform: translateY(-1px);
         }
 
         .result-card {
-            background: #f6fafd;
-            border-radius: 28px;
-            padding: 1.2rem 1.6rem;
-            margin: 1.8rem 0 1rem;
-            border-left: 6px solid #1f6e9c;
+            background: #eef7ff;
+            border-radius: 16px;
+            padding: 20px;
+            margin: 16px 0;
+            border-left: 4px solid #1f6e9c;
         }
-        
+
         .gestational {
             background: #eef7ff;
             padding: 16px 20px;
-            border-radius: 28px;
-            margin: 16px 0;
+            border-radius: 16px;
+            margin: 12px 0;
             text-align: center;
-            border-left: 6px solid #1f6e9c;
+            border-left: 4px solid #1f6e9c;
         }
-        .gestational .gestational-label {
+
+        .gestational-label {
             font-size: 0.9rem;
             font-weight: 500;
-            color: #1f4a66;
+            color: #1f3a4b;
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
-        .gestational .gestational-value {
-            font-size: 2rem;
+
+        .gestational-value {
+            font-size: 1.8rem;
             font-weight: 800;
-            color: #1a4d6b;
-            letter-spacing: 0.5px;
+            color: #0f1446;
         }
-        
-        .due-date {
-            background: #fff8e7;
-            padding: 12px 18px;
-            border-radius: 28px;
-            margin: 16px 0;
+
+        .info-row {
+            padding: 12px 16px;
+            border-radius: 12px;
+            margin: 12px 0;
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
             align-items: center;
             gap: 8px;
+        }
+
+        .info-row.due {
+            background: #fff8e7;
             border-left: 4px solid #f0b849;
         }
-        .due-date-label {
+
+        .info-row.days {
+            background: #e8f5e9;
+            border-left: 4px solid #2e7d32;
+        }
+
+        .info-label {
             font-size: 0.9rem;
             font-weight: 500;
+        }
+
+        .info-row.due .info-label,
+        .info-row.due .info-value {
             color: #a56b00;
         }
-        .due-date-value {
+
+        .info-row.days .info-label,
+        .info-row.days .info-value {
+            color: #1b5e20;
+        }
+
+        .info-value {
             font-size: 1rem;
             font-weight: 600;
-            color: #a56b00;
         }
-        
-        .days-left {
-            background: #e8f0e8;
-            padding: 12px 18px;
-            border-radius: 28px;
-            margin: 16px 0;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: center;
-            gap: 8px;
-            border-left: 4px solid #2c7a4d;
-        }
-        .days-left-label {
-            font-size: 0.9rem;
-            font-weight: 500;
-            color: #2c7a4d;
-        }
-        .days-left-value {
-            font-size: 1rem;
-            font-weight: 600;
-            color: #2c7a4d;
-        }
-        
-        .fundus-box {
+
+        .detail-box {
             background: #ffffff;
-            border-radius: 28px;
+            border-radius: 16px;
             padding: 16px 20px;
-            margin-top: 18px;
+            margin-top: 14px;
             border: 1px solid #d4e2f0;
         }
-        .fundus-title {
+
+        .detail-title {
             font-weight: 700;
             font-size: 1rem;
             display: flex;
             align-items: center;
             gap: 8px;
-            color: #1f4a66;
-            margin-bottom: 12px;
+            color: #0f1446;
+            margin-bottom: 10px;
         }
-        .fundus-desc {
+
+        .detail-desc {
             font-size: 0.9rem;
-            line-height: 1.45;
+            line-height: 1.5;
             color: #1f3a4b;
         }
-        
-        .fetal-title {
-            font-weight: 700;
-            font-size: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: #1f4a66;
-            margin: 12px 0 12px 0;
-        }
-        .fetal-desc {
-            font-size: 0.9rem;
-            line-height: 1.45;
-            color: #1f3a4b;
-        }
-        
+
         .movement-status {
-            background: #f6fafd;
-            border-radius: 20px;
+            background: #eef7ff;
+            border-radius: 12px;
             padding: 12px 16px;
             margin-top: 12px;
             border-left: 4px solid #1f6e9c;
@@ -254,107 +229,92 @@
             line-height: 1.5;
             color: #1f3a4b;
         }
+
         .movement-status strong {
-            color: #1f4a66;
+            color: #0f1446;
         }
-        
+
         .warning-note {
-            font-size: 0.7rem;
+            font-size: 0.8rem;
             color: #6f8eaa;
-            margin-top: 20px;
+            margin-top: 16px;
             text-align: center;
-            border-top: 1px solid #e2ecf3;
-            padding-top: 18px;
+            border-top: 1px solid #d4e2f0;
+            padding-top: 14px;
             line-height: 1.5;
         }
-        
+
         @media (max-width: 768px) {
             body {
-                padding: 1rem;
+                padding: 10px;
             }
-            .card-header {
-                padding: 1.2rem;
+            .card {
+                padding: 16px 14px;
             }
-            .card-header h1 {
-                font-size: 1.3rem;
+            .card.header-card {
+                padding: 20px 14px;
             }
-            .card-header p {
-                font-size: 0.8rem;
+            .card.header-card h1 {
+                font-size: 22px;
             }
-            .card-content {
-                padding: 1rem;
+            .gestational-value {
+                font-size: 1.4rem;
             }
-            .gestational .gestational-value {
-                font-size: 1.5rem;
-            }
-            .due-date, .days-left {
+            .info-row {
                 flex-direction: column;
                 align-items: flex-start;
-            }
-            .fundus-title, .fetal-title {
-                font-size: 0.9rem;
-            }
-            .fundus-desc, .fetal-desc {
-                font-size: 0.85rem;
-            }
-            .movement-status {
-                font-size: 0.8rem;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .button-group {
-                flex-direction: column;
-            }
-            .btn {
-                text-align: center;
             }
         }
     </style>
 </head>
 <body>
-<div class="calculator-card">
-    <div class="card-header">
-        <h1>
-            📅 Калькулятор даты родов
-            <span>по последней менструации</span>
-        </h1>
-        <p>Акушерский срок + высота дна матки + сердцебиение и шевеления плода</p>
+
+<div class="container">
+    
+    <!-- ===== ШАПКА ===== -->
+    <div class="card header-card">
+        <h1>🤰 Калькулятор даты родов</h1>
+        <p>Акушерский срок, высота дна матки, сердцебиение и шевеления плода</p>
     </div>
-    <div class="card-content">
+    
+    <!-- ===== ОСНОВНОЙ КОНТЕНТ ===== -->
+    <div class="card">
+        
         <div class="input-group">
             <label>📆 Первый день последней менструации (ПДПМ):</label>
-            <input type="date" id="lastMenstrualDate" class="date-input" value="2026-01-01">
+            <input type="date" id="lastMenstrualDate" class="date-input">
         </div>
 
-        <div class="button-group">
-            <button id="calculateBtn" class="btn btn-primary">✅ Рассчитать</button>
-            <button id="resetBtn" class="btn btn-secondary">🗑️ Сбросить (01.01.2026)</button>
+        <div class="reset-btn-wrap">
+            <button id="resetBtn" class="reset-btn">🗑️ Сбросить на сегодня</button>
         </div>
 
         <div id="resultArea">
             <div class="result-card">
+                
                 <div class="gestational">
-                    <div class="gestational-label">📍 Текущий срок беременности (акушерский):</div>
+                    <span class="gestational-label">📍 Текущий срок беременности (акушерский):</span>
                     <div class="gestational-value" id="weeksDays">—</div>
                 </div>
                 
-                <div class="due-date">
-                    <span class="due-date-label">🤰 Предполагаемая дата родов (ПДР):</span>
-                    <span class="due-date-value" id="dueDateDisplay">—</span>
+                <div class="info-row due">
+                    <span class="info-label">🤰 Предполагаемая дата родов (ПДР):</span>
+                    <span class="info-value" id="dueDateDisplay">—</span>
                 </div>
                 
-                <div class="days-left">
-                    <span class="days-left-label">⏳ Количество дней до родов (ПДР):</span>
-                    <span class="days-left-value" id="daysLeftDisplay">—</span>
+                <div class="info-row days">
+                    <span class="info-label">⏳ Осталось до родов:</span>
+                    <span class="info-value" id="daysLeftDisplay">—</span>
                 </div>
                 
-                <div class="fundus-box">
-                    <div class="fundus-title">📏 Высота стояния дна матки (ВСДМ)</div>
-                    <div class="fundus-desc" id="fundusDescription"></div>
+                <h2>📏 Клинические данные</h2>
+                
+                <div class="detail-box">
+                    <div class="detail-title">📏 Высота стояния дна матки (ВСДМ)</div>
+                    <div class="detail-desc" id="fundusDescription"></div>
                     
-                    <div class="fetal-title">❤️ Аускультация и шевеления</div>
-                    <div class="fetal-desc" id="fetalInfo"></div>
+                    <div class="detail-title" style="margin-top: 14px;">❤️ Аускультация и шевеления</div>
+                    <div class="detail-desc" id="fetalInfo"></div>
                     <div class="movement-status" id="movementStatus"></div>
                 </div>
                 
@@ -370,7 +330,6 @@
 <script>
     (function() {
         const dateInput = document.getElementById('lastMenstrualDate');
-        const calcBtn = document.getElementById('calculateBtn');
         const resetBtn = document.getElementById('resetBtn');
         const dueDateSpan = document.getElementById('dueDateDisplay');
         const weeksDaysSpan = document.getElementById('weeksDays');
@@ -378,6 +337,13 @@
         const fundusDescSpan = document.getElementById('fundusDescription');
         const fetalInfoSpan = document.getElementById('fetalInfo');
         const movementStatusSpan = document.getElementById('movementStatus');
+
+        // Устанавливаем сегодняшнюю дату по умолчанию
+        const today = new Date();
+        const todayStr = today.getFullYear() + '-' + 
+            String(today.getMonth() + 1).padStart(2, '0') + '-' + 
+            String(today.getDate()).padStart(2, '0');
+        dateInput.value = todayStr;
 
         function formatDateToDMY(date) {
             if (!date || isNaN(date.getTime())) return '—';
@@ -420,6 +386,7 @@
             if ([2,3,4].includes(weeks % 10) && ![12,13,14].includes(weeks % 100)) return "недели";
             return "недель";
         }
+
         function declensionDays(days) {
             if (days % 10 === 1 && days % 100 !== 11) return "день";
             if ([2,3,4].includes(days % 10) && ![12,13,14].includes(days % 100)) return "дня";
@@ -548,16 +515,6 @@
             today.setHours(0,0,0,0);
             lmpDate.setHours(0,0,0,0);
 
-            if (lmpDate > today) {
-                dueDateSpan.innerText = "—";
-                weeksDaysSpan.innerText = "Дата в будущем";
-                daysLeftSpan.innerText = "—";
-                fundusDescSpan.innerText = "Дата менструации не может быть позже сегодняшнего дня.";
-                fetalInfoSpan.innerText = "";
-                movementStatusSpan.innerHTML = "";
-                return;
-            }
-
             const due = getDueDate(lmpDate);
             dueDateSpan.innerText = formatDateToDMY(due);
 
@@ -599,24 +556,27 @@
             }
         }
 
-        function resetToFirstJan2026() {
-            dateInput.value = "2026-01-01";
+        function resetToToday() {
+            const today = new Date();
+            const todayStr = today.getFullYear() + '-' + 
+                String(today.getMonth() + 1).padStart(2, '0') + '-' + 
+                String(today.getDate()).padStart(2, '0');
+            dateInput.value = todayStr;
             updateCalculator();
         }
 
-        calcBtn.addEventListener('click', updateCalculator);
-        resetBtn.addEventListener('click', resetToFirstJan2026);
+        resetBtn.addEventListener('click', resetToToday);
         dateInput.addEventListener('change', updateCalculator);
 
-        dateInput.value = "2026-01-01";
         updateCalculator();
         
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('/SMP/sw.js')
-                .then(reg => console.log('✅ Сервис-воркер зарегистрирован:', reg))
-                .catch(err => console.error('❌ Ошибка регистрации:', err));
+                .then(reg => console.log('✅ Service Worker зарегистрирован:', reg.scope))
+                .catch(err => console.error('❌ Ошибка регистрации SW:', err));
         }
     })();
 </script>
+
 </body>
 </html>
