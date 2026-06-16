@@ -2,142 +2,154 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Порядок проведения ЭКГ-исследований - СМП</title>
+
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0f1446">
+
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+
         body {
-            background-color: transparent;
-            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
-            line-height: 1.5;
-            color: #1e2a3e;
-            padding: 20px 0;
+            font-family: 'Segoe UI', 'Roboto', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
         }
-        .document-container {
+
+        .container {
             max-width: 1000px;
-            margin: 0 auto;
-            background-color: #ffffff;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            overflow: hidden;
+            width: 100%;
         }
-        .document-header {
-            background: linear-gradient(135deg, #1a5f7a 0%, #0e3b4d 100%);
+
+        .card {
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 24px 22px;
+            margin-bottom: 24px;
+        }
+
+        .header-card {
+            background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
             color: white;
-            padding: 1.5rem 2rem;
-            border-bottom: 4px solid #ffc107;
+            text-align: center;
+            padding: 28px 20px;
         }
-        .document-header h1 {
-            font-size: 1.8rem;
+        .header-card h1 {
+            color: white;
+            margin-bottom: 8px;
+            font-size: 28px;
             font-weight: 700;
-            margin-bottom: 0.5rem;
         }
-        .document-header .hashtag {
-            font-size: 1rem;
+        .header-card p {
             opacity: 0.9;
-            font-family: monospace;
+            font-size: 0.95rem;
+            margin-top: 4px;
         }
-        .document-content {
-            padding: 2rem;
-        }
-        .section-title {
+
+        h2 {
             font-size: 1.3rem;
             font-weight: 700;
-            color: #1a5f7a;
-            margin-bottom: 1rem;
-            display: inline-block;
-            border-bottom: 3px solid #ffc107;
-            padding-bottom: 0.25rem;
+            margin-bottom: 20px;
+            color: #0f1446;
+            border-left: 6px solid #e53935;
+            padding-left: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
+
         .rule-card {
-            background: #fefaf5;
-            border-radius: 12px;
+            background: #eef7ff;
+            border-radius: 16px;
             padding: 1.25rem 1.5rem;
             margin: 1.25rem 0;
-            transition: all 0.2s ease;
-            border-left: 5px solid;
+            border: 1px solid #d4e2f0;
+            font-size: 0.95rem;
+            color: #1f3a4b;
+            line-height: 1.5;
         }
-        .rule-evacuation {
-            border-left-color: #2e7d32;
-            background: #f1f8e9;
-        }
-        .rule-other {
-            border-left-color: #f57c00;
-            background: #fff8e7;
-        }
+
+        .rule-evacuation { border-left: 5px solid #2e7d32; background: linear-gradient(135deg, #ffffff 0%, #e8f5e9 100%); }
+        .rule-other { border-left: 5px solid #e68a2e; background: linear-gradient(135deg, #ffffff 0%, #fff8e7 100%); }
+
         .rule-header {
             display: flex;
             align-items: flex-start;
             gap: 12px;
         }
+
         .rule-icon {
             font-size: 1.3rem;
             flex-shrink: 0;
         }
+
         .rule-text {
             flex: 1;
             line-height: 1.55;
             font-size: 1.02rem;
         }
-        .rule-text strong {
-            color: #1a5f7a;
-        }
+
         .highlight {
-            background-color: #ffecb3;
+            background-color: #fff3b0;
             padding: 0.1rem 0.3rem;
             border-radius: 4px;
             font-weight: 600;
-            color: #b85c00;
+            color: #a56b00;
         }
+
         .important-text {
             font-weight: 700;
-            color: #c62828;
-            text-decoration: underline;
+            color: #d32f2f;
         }
-        .badge {
-            display: inline-block;
-            background: #1a5f7a;
-            color: white;
-            font-size: 0.7rem;
-            font-weight: 600;
-            padding: 0.2rem 0.7rem;
-            border-radius: 20px;
-            margin-right: 0.5rem;
-            vertical-align: middle;
-        }
-        .badge-green {
-            background: #2e7d32;
-        }
-        .badge-orange {
-            background: #f57c00;
-        }
+
         .info-card {
-            background: #e3f2fd;
-            border-left: 6px solid #1976d2;
+            background: #eef7ff;
+            border-left: 5px solid #1f6e9c;
             padding: 1rem 1.25rem;
             margin: 1.5rem 0;
-            border-radius: 0 12px 12px 0;
+            border-radius: 16px;
+            font-size: 0.9rem;
+            color: #1f3a4b;
+            line-height: 1.5;
         }
+
         hr {
             margin: 1.5rem 0;
             border: none;
             height: 1px;
-            background: linear-gradient(90deg, #e2e8f0, transparent);
+            background: #e2ecf3;
         }
+
         .subnote {
             font-size: 0.85rem;
-            color: #5a6e85;
+            color: #6f8eaa;
             margin-top: 1rem;
             padding-top: 0.75rem;
-            border-top: 1px solid #e2e8f0;
+            border-top: 1px solid #e2ecf3;
+            line-height: 1.5;
         }
+
         @media (max-width: 768px) {
-            .document-content {
-                padding: 1rem;
+            body {
+                padding: 10px;
+            }
+            .card {
+                padding: 16px 14px;
+            }
+            .header-card h1 {
+                font-size: 24px;
             }
             .rule-card {
                 padding: 1rem;
@@ -146,45 +158,44 @@
     </style>
 </head>
 <body>
-<div class="document-container">
-    <div class="document-header">
+
+<div class="container">
+    <div class="card header-card">
         <h1>📊 О порядке проведения ЭКГ-исследований</h1>
-        <div class="hashtag">п. 1177 | Общепрофильные фельдшерские выездные бригады СМП</div>
+        <p>Общепрофильные фельдшерские выездные бригады СМП</p>
     </div>
-    <div class="document-content">
-        
-        <div class="section-title">⚡ Порядок проведения ЭКГ-исследований</div>
-        
-        <!-- ПРАВИЛО 1: ПРИ ЭВАКУАЦИИ -->
+
+    <div class="card">
+        <h2>⚡ Порядок проведения ЭКГ-исследований</h2>
+
+        <!-- ПРАВИЛО 1 -->
         <div class="rule-card rule-evacuation">
             <div class="rule-header">
                 <div class="rule-icon">🚑</div>
                 <div class="rule-text">
-                    <span class="badge badge-green">ОБЯЗАННОСТЬ</span>
                     <strong>Персонал общепрофильных фельдшерских выездных бригад СМП обязан проводить самостоятельный анализ ЭКГ без ее передачи на дистанционный консультативный кардиологический пост оперативного отдела пациентам при их эвакуации в медицинское учреждение стационарного типа <span class="highlight">(кроме кардиологического профиля)</span>.</strong>
                 </div>
             </div>
         </div>
-        
-        <!-- ПРАВИЛО 2: В ОСТАЛЬНЫХ СЛУЧАЯХ -->
+
+        <!-- ПРАВИЛО 2 -->
         <div class="rule-card rule-other">
             <div class="rule-header">
                 <div class="rule-icon">📡</div>
                 <div class="rule-text">
-                    <span class="badge badge-orange">ОБЯЗАННОСТЬ</span>
                     <strong>В остальных случаях общепрофильные фельдшерские выездные бригады СМП осуществляют передачу ЭКГ на дистанционный консультативный кардиологический пост оперативного отдела.</strong>
                 </div>
             </div>
         </div>
-        
+
         <div class="info-card">
             <strong>📌 Ключевое правило:</strong><br>
             • <span class="highlight">Самостоятельный анализ ЭКГ</span> — обязателен <strong>только при эвакуации</strong> пациента в стационар <span class="highlight">(кроме кардиологического профиля)</span><br>
             • <span class="highlight">Передача ЭКГ на дистанционный кардиопост</span> — во <strong>всех остальных случаях</strong>
         </div>
-        
+
         <hr>
-        
+
         <div class="subnote">
             📋 <strong>Сводка важных моментов:</strong><br>
             • <strong>При эвакуации в стационар (кроме кардиологического профиля)</strong> — фельдшерская бригада <span class="important-text">проводит самостоятельный анализ ЭКГ</span><br>
@@ -193,8 +204,16 @@
             <br>
             🔍 <em>Документ регламентирует порядок проведения ЭКГ-исследований общепрофильными фельдшерскими выездными бригадами скорой медицинской помощи. Соблюдение правил обязательно.</em>
         </div>
-        
     </div>
 </div>
+
+<script>
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/SMP/sw.js')
+            .then(reg => console.log('✅ SW зарегистрирован:', reg))
+            .catch(err => console.error('❌ Ошибка:', err));
+    }
+</script>
+
 </body>
 </html>
