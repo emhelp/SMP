@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Подстанции СМП им. А.С. Пучкова</title>
+    <title>🚑 Подстанции СМП им. А.С. Пучкова</title>
     
     <!-- PWA -->
     <link rel="manifest" href="manifest.json">
@@ -18,77 +18,100 @@
         
         body {
             background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
-            font-family: 'Segoe UI', 'Roboto', system-ui, -apple-system, sans-serif;
-            line-height: 1.5;
-            color: #1e2a3e;
+            font-family: 'Segoe UI', 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: #1f3a4b;
             padding: 20px;
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
         }
         
         .container {
             max-width: 1300px;
             width: 100%;
-            background: #ffffff;
-            border-radius: 32px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            overflow: hidden;
+            margin: 0 auto;
         }
         
-        .header {
+        .card {
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 24px 22px;
+            margin-bottom: 20px;
+        }
+
+        .card.header-card {
             background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
             color: white;
-            padding: 1.5rem 2rem;
             text-align: center;
+            padding: 28px 20px;
         }
-        .header h1 {
-            font-size: 1.8rem;
+
+        .card.header-card h1 {
+            font-size: 28px;
+            color: white;
             font-weight: 700;
-            margin-bottom: 0.25rem;
+            margin-bottom: 8px;
         }
-        .header p {
-            font-size: 0.9rem;
-            opacity: 0.85;
-        }
-        
-        .content {
-            padding: 2rem;
+
+        .card.header-card p {
+            opacity: 0.9;
+            font-size: 0.95rem;
+            margin-top: 8px;
         }
         
         .stations-grid {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 0.75rem;
-            margin-bottom: 0;
-            padding-bottom: 0;
+            gap: 10px;
         }
         
         .station-btn {
-            background: linear-gradient(135deg, #ffffff 0%, #e8edf5 100%);
+            background: #ffffff;
             color: #0f1446;
-            border: 2px solid #0f1446;
-            padding: 0.7rem 1.2rem;
+            border: 2px solid #d4e2f0;
+            padding: 12px 18px;
             border-radius: 12px;
             font-size: 0.9rem;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.2s ease;
-            min-width: 70px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+            min-width: 60px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
             font-family: inherit;
         }
+
         .station-btn:hover {
-            background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
-            color: white;
+            background: #eef7ff;
             border-color: #0f1446;
             transform: translateY(-2px);
             box-shadow: 0 6px 14px rgba(0,0,0,0.15);
         }
+
         .station-btn:active {
             transform: scale(0.98);
+        }
+        
+        .hint-text {
+            text-align: center;
+            margin-top: 24px;
+            padding: 14px 16px;
+            background: #eef7ff;
+            border-radius: 12px;
+            color: #0f1446;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border-left: 4px solid #1f6e9c;
+        }
+
+        .hint-text span {
+            display: inline-block;
+            background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
+            color: white;
+            border-radius: 8px;
+            padding: 2px 10px;
+            margin: 0 2px;
+            font-size: 0.8rem;
         }
         
         /* Модальное окно */
@@ -99,13 +122,14 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
+            background-color: rgba(0, 0, 0, 0.6);
             backdrop-filter: blur(4px);
             z-index: 1000;
             justify-content: center;
             align-items: center;
             padding: 20px;
         }
+
         .modal.active {
             display: flex;
         }
@@ -115,10 +139,11 @@
             max-width: 550px;
             width: 100%;
             border-radius: 24px;
-            box-shadow: 0 30px 50px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
             overflow: hidden;
             animation: fadeSlideUp 0.25s ease-out;
         }
+
         @keyframes fadeSlideUp {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -126,14 +151,15 @@
         
         .modal-header {
             background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
-            padding: 1.2rem 1.5rem;
+            padding: 18px 20px;
             color: white;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
+
         .modal-header h3 {
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             font-weight: 700;
             margin: 0;
         }
@@ -141,43 +167,47 @@
         .close-modal {
             background: rgba(255,255,255,0.2);
             border: none;
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             line-height: 1;
             cursor: pointer;
             color: white;
-            width: 36px;
-            height: 36px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: background 0.2s;
+            font-family: inherit;
         }
+
         .close-modal:hover {
-            background: rgba(255,255,255,0.35);
+            background: rgba(255,255,255,0.4);
         }
         
         .modal-body {
-            padding: 1.5rem 1.8rem;
-            background: #fefefe;
+            padding: 20px;
+            background: #ffffff;
         }
         
         .info-row-modal {
-            margin: 1rem 0;
+            margin: 12px 0;
             display: flex;
             flex-wrap: wrap;
-            gap: 0.6rem;
+            gap: 8px;
             align-items: flex-start;
         }
+
         .info-label-modal {
             font-weight: 700;
-            min-width: 95px;
+            min-width: 90px;
             color: #0f1446;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
         }
+
         .info-value-modal {
             flex: 1;
-            color: #1f2937;
+            color: #1f3a4b;
             word-break: break-word;
         }
         
@@ -186,37 +216,41 @@
             padding-left: 0;
             margin: 0;
         }
+
         .phone-list-modal li {
-            margin-bottom: 0.4rem;
+            margin-bottom: 4px;
         }
+
         .phone-list-modal a {
             color: #0f1446;
             text-decoration: none;
             font-weight: 600;
             font-size: 1rem;
         }
+
         .phone-list-modal a:hover {
             text-decoration: underline;
         }
         
         .divider-modal {
             height: 1px;
-            background: #e2ecf3;
-            margin: 1rem 0;
+            background: #d4e2f0;
+            margin: 14px 0;
         }
         
         .map-links-modal {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.75rem;
-            margin-top: 0.25rem;
+            gap: 10px;
+            margin-top: 4px;
         }
+
         .map-link-modal {
             display: inline-flex;
             align-items: center;
             gap: 8px;
             background: #eef7ff;
-            padding: 0.5rem 1rem;
+            padding: 10px 14px;
             border-radius: 12px;
             color: #0f1446;
             text-decoration: none;
@@ -225,51 +259,36 @@
             border: 1px solid #d4e2f0;
             font-size: 0.9rem;
         }
-        .map-link-modal.app-link-modal {
-            background: #eef7ff;
-            border-color: #d4e2f0;
-            color: #0f1446;
-        }
+
         .map-link-modal:hover {
             background: #d4e2f0;
+            border-color: #0f1446;
             transform: translateY(-1px);
         }
         
-        .hint-text {
-            text-align: center;
-            margin-top: 2rem;
-            padding: 1rem;
-            background: #eef7ff;
-            border-radius: 12px;
-            color: #0f1446;
-            font-size: 0.85rem;
-            font-weight: 600;
-            border: 1px solid #d4e2f0;
-        }
-        .hint-text span {
-            display: inline-block;
-            background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
-            color: white;
-            border-radius: 8px;
-            padding: 0.1rem 0.7rem;
-            margin: 0 0.2rem;
-            font-size: 0.75rem;
-        }
-        
-        @media (max-width: 700px) {
-            .content {
-                padding: 1.2rem;
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            .card {
+                padding: 16px 14px;
+            }
+            .card.header-card {
+                padding: 20px 14px;
+            }
+            .card.header-card h1 {
+                font-size: 22px;
             }
             .station-btn {
-                padding: 0.55rem 0.9rem;
+                padding: 10px 14px;
                 font-size: 0.8rem;
-                min-width: 58px;
+                min-width: 50px;
             }
             .modal-body {
-                padding: 1.2rem;
+                padding: 16px;
             }
             .info-label-modal {
-                min-width: 80px;
+                min-width: 75px;
                 font-size: 0.85rem;
             }
             .modal-header h3 {
@@ -279,12 +298,17 @@
     </style>
 </head>
 <body>
+
 <div class="container">
-    <div class="header">
+    
+    <!-- ===== ШАПКА ===== -->
+    <div class="card header-card">
         <h1>🚑 Подстанции скорой помощи</h1>
         <p>ГБУ «Станция скорой и неотложной медицинской помощи им. А.С. Пучкова»</p>
     </div>
-    <div class="content">
+    
+    <!-- ===== ОСНОВНОЙ КОНТЕНТ ===== -->
+    <div class="card">
         <div class="stations-grid" id="stations-buttons"></div>
         <div class="hint-text">
             💡 Нажмите на <span>номер</span> подстанции — откроется карточка с полной информацией (адрес, телефоны, карта)
@@ -297,7 +321,7 @@
     <div class="modal-card">
         <div class="modal-header">
             <h3 id="modalTitle">Подстанция</h3>
-            <button class="close-modal" id="closeModalBtn">&times;</button>
+            <button class="close-modal" id="closeModalBtn">✕</button>
         </div>
         <div class="modal-body" id="modalBody">
             <div style="text-align: center; padding: 20px;">Загрузка...</div>
@@ -425,7 +449,7 @@
                 phonesHtml += '</ul>';
             }
         } else {
-            phonesHtml = '<span style="color:#8a99b0;">телефон не указан</span>';
+            phonesHtml = '<span style="color:#6f8eaa;">телефон не указан</span>';
         }
 
         let mapLinksHtml = '';
@@ -435,7 +459,7 @@
             mapLinksHtml = `
                 <div class="map-links-modal">
                     <a href="${webLink}" target="_blank" rel="noopener noreferrer" class="map-link-modal">🌍 Открыть в браузере</a>
-                    <a href="${appLink}" class="map-link-modal app-link-modal">📱 Открыть в приложении 2ГИС</a>
+                    <a href="${appLink}" class="map-link-modal">📱 Открыть в приложении 2ГИС</a>
                 </div>
             `;
         } else {
@@ -457,10 +481,10 @@
             </div>
             <div class="divider-modal"></div>
             <div class="info-row-modal">
-                <div class="info-label-modal">🗺️ Как добраться:</div>
+                <div class="info-label-modal">🗺️ Карта:</div>
                 <div class="info-value-modal">${mapLinksHtml}</div>
             </div>
-            ${station.id === '31post' ? '<div style="margin-top:12px; font-size:0.8rem; color:#6f8eaa;">ℹ️ Пост является дополнительной точкой базирования бригад.</div>' : ''}
+            ${station.id === '31post' ? '<div style="margin-top:12px; font-size:0.85rem; color:#6f8eaa;">ℹ️ Пост является дополнительной точкой базирования бригад.</div>' : ''}
         `;
 
         modal.classList.add('active');
@@ -490,9 +514,10 @@
 
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('/SMP/sw.js')
-            .then(reg => console.log('✅ SW зарегистрирован:', reg))
-            .catch(err => console.error('❌ Ошибка:', err));
+            .then(reg => console.log('✅ Service Worker зарегистрирован:', reg.scope))
+            .catch(err => console.error('❌ Ошибка регистрации SW:', err));
     }
 </script>
+
 </body>
 </html>
