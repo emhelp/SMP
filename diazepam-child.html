@@ -2,12 +2,12 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>Калькулятор введения Диазепама у детей</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>💊 Введение Диазепама — Дети</title>
     
     <!-- PWA -->
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#1e2f47">
+    <meta name="theme-color" content="#0f1446">
     
     <style>
         * {
@@ -17,107 +17,79 @@
         }
 
         body {
-            background: linear-gradient(145deg, #eef2f7 0%, #dce3ec 100%);
-            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, 'Helvetica Neue', sans-serif;
-            padding: 2rem 1rem;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            font-family: 'Segoe UI', 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: #1f3a4b;
+            padding: 20px;
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
         }
 
-        .calculator-card {
-            max-width: 1000px;
-            width: 100%;
+        .container {
+            max-width: 900px;
             margin: 0 auto;
-            background: #ffffff;
-            border-radius: 48px;
-            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.2);
-            overflow: hidden;
-        }
-
-        .card-header {
-            background: #1e2f47;
-            background-image: linear-gradient(115deg, #142a3b, #1d3f55);
-            padding: 1.8rem 2rem;
-            color: white;
-        }
-        .card-header h1 {
-            font-size: 1.9rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-        .card-header h1 span {
-            background: rgba(255,255,255,0.2);
-            font-size: 0.9rem;
-            padding: 5px 14px;
-            border-radius: 60px;
-            font-weight: 500;
-        }
-        .card-header p {
-            margin-top: 12px;
-            opacity: 0.85;
-            font-size: 0.95rem;
-            border-left: 3px solid #5f9bc2;
-            padding-left: 16px;
-        }
-
-        .card-content {
-            padding: 2rem;
         }
 
         .card {
-            background: #ffffff;
-            border-radius: 28px;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
-            border: 1px solid #d4e2f0;
-            transition: all 0.2s;
-        }
-        .card:hover {
-            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 24px 22px;
+            margin-bottom: 20px;
         }
 
-        .card-title {
-            font-size: 1.25rem;
+        .card.header-card {
+            background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
+            color: white;
+            text-align: center;
+            padding: 28px 20px;
+        }
+
+        .card.header-card h1 {
+            font-size: 28px;
+            color: white;
             font-weight: 700;
-            color: #1f4a66;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            border-left: 4px solid #1f6e9c;
+            margin-bottom: 8px;
+        }
+
+        .card.header-card p {
+            opacity: 0.9;
+            font-size: 0.95rem;
+            margin-top: 8px;
+        }
+
+        h2 {
+            color: #0f1446;
+            border-left: 6px solid #e53935;
             padding-left: 16px;
+            font-size: 1.3rem;
+            margin: 1.2rem 0 1rem 0;
         }
 
         .param-group {
-            margin-bottom: 24px;
+            margin-bottom: 20px;
         }
 
         .param-label {
             font-weight: 600;
-            color: #1f4a66;
+            color: #0f1446;
             margin-bottom: 10px;
             font-size: 0.9rem;
         }
 
         .input-row {
             display: flex;
-            gap: 20px;
+            gap: 16px;
             flex-wrap: wrap;
         }
 
         .input-field {
             flex: 1;
-            min-width: 180px;
+            min-width: 160px;
         }
 
         .input-field label {
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             color: #6f8eaa;
             display: block;
             margin-bottom: 6px;
@@ -126,18 +98,14 @@
 
         .input-field input, .input-field select {
             width: 100%;
-            padding: 12px 16px;
+            padding: 12px 14px;
             border: 2px solid #d4e2f0;
-            border-radius: 18px;
+            border-radius: 12px;
             font-size: 0.95rem;
             font-family: inherit;
-            transition: all 0.25s ease;
+            transition: all 0.2s;
             background: white;
             color: #1f3a4b;
-        }
-
-        .input-field input:hover, .input-field select:hover {
-            border-color: #1f6e9c;
         }
 
         .input-field input:focus, .input-field select:focus {
@@ -146,11 +114,12 @@
             box-shadow: 0 0 0 3px rgba(31,110,156,0.1);
         }
 
-        .result-block {
-            background: linear-gradient(135deg, #eef7ff 0%, #e0ecf5 100%);
-            border-radius: 20px;
+        .result-section {
+            background: #eef7ff;
+            border-radius: 16px;
             padding: 20px;
             margin: 20px 0;
+            border-left: 4px solid #1f6e9c;
         }
 
         .result-row {
@@ -158,7 +127,9 @@
             justify-content: space-between;
             align-items: baseline;
             padding: 10px 0;
-            border-bottom: 1px solid #c8dae8;
+            border-bottom: 1px solid #d4e2f0;
+            flex-wrap: wrap;
+            gap: 8px;
         }
 
         .result-row:last-child {
@@ -167,181 +138,149 @@
 
         .result-label {
             font-weight: 600;
-            color: #1f4a66;
+            color: #0f1446;
             font-size: 0.9rem;
         }
 
         .result-value {
             font-weight: 700;
-            font-size: 1.2rem;
-            color: #1a5a7a;
+            font-size: 1.1rem;
+            color: #0f1446;
         }
 
         .result-value.highlight {
             background: #fff8e7;
             padding: 4px 12px;
-            border-radius: 20px;
-            color: #e68a2e;
-            font-size: 1.3rem;
+            border-radius: 12px;
+            color: #a56b00;
+            font-size: 1.2rem;
+        }
+
+        .result-table-wrapper {
+            overflow-x: auto;
+            margin: 16px 0;
+            border-radius: 12px;
+            border: 1px solid #d4e2f0;
+        }
+
+        .result-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+
+        .result-table th {
+            background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
+            color: white;
+            font-weight: 700;
+            font-size: 0.85rem;
+            padding: 12px 10px;
+            text-align: center;
+        }
+
+        .result-table td {
+            padding: 10px;
+            text-align: center;
+            border-bottom: 1px solid #d4e2f0;
+            font-weight: 500;
+            color: #1f3a4b;
+        }
+
+        .result-table tr:nth-child(odd) td {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+        }
+
+        .result-table tr:nth-child(even) td {
+            background: linear-gradient(135deg, #eef7ff 0%, #f0f4f8 100%);
         }
 
         .warning-note {
             background: #fff8e7;
             border-left: 4px solid #f0b849;
             padding: 12px 16px;
-            border-radius: 16px;
-            margin: 16px 0;
-            font-size: 0.8rem;
+            border-radius: 12px;
+            margin: 12px 0;
+            font-size: 0.85rem;
             color: #a56b00;
         }
 
         .danger-note {
-            background: #ffebee;
-            border-left: 4px solid #c62828;
+            background: #fff0f0;
+            border-left: 4px solid #d32f2f;
             padding: 12px 16px;
-            border-radius: 16px;
-            margin: 16px 0;
-            font-size: 0.8rem;
-            color: #c62828;
+            border-radius: 12px;
+            margin: 12px 0;
+            font-size: 0.85rem;
+            color: #b71c1c;
         }
 
         .info-note {
             background: #eef7ff;
             border-left: 4px solid #1f6e9c;
             padding: 12px 16px;
-            border-radius: 16px;
-            margin: 16px 0;
-            font-size: 0.8rem;
-            color: #1f3a4b;
-        }
-
-        .btn-reset {
-            background: linear-gradient(135deg, #ecf3f8 0%, #e6edf4 100%);
-            border: 2px solid #cbdae6;
-            padding: 10px 20px;
-            border-radius: 60px;
+            border-radius: 12px;
+            margin: 12px 0;
             font-size: 0.85rem;
-            font-weight: 600;
-            cursor: pointer;
-            font-family: inherit;
-            color: #1f4a66;
-            transition: all 0.25s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            margin-top: 8px;
-        }
-
-        .btn-reset:hover {
-            background: linear-gradient(135deg, #e2eaf2 0%, #d8e2ec 100%);
-            border-color: #1f6e9c;
-            transform: translateY(-2px);
-        }
-
-        .footnote {
-            font-size: 0.7rem;
-            color: #6f8eaa;
-            text-align: center;
-            margin-top: 24px;
-            padding-top: 16px;
-            border-top: 1px solid #e2ecf3;
-            line-height: 1.5;
+            color: #1f3a4b;
         }
 
         .speed-note {
             background: #fff8e7;
-            border-left: 4px solid #e68a2e;
+            border-left: 4px solid #f0b849;
             padding: 10px 14px;
             border-radius: 12px;
             margin-top: 12px;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             color: #a56b00;
         }
 
         .max-dose-warning {
-            background: #ffebee;
-            border: 2px solid #c62828;
-            border-radius: 16px;
-            padding: 12px;
-            margin-top: 16px;
-            text-align: center;
+            background: #fff0f0;
+            border-left: 4px solid #d32f2f;
+            border-radius: 12px;
+            padding: 12px 16px;
+            margin-top: 12px;
             font-weight: bold;
-            color: #c62828;
+            color: #b71c1c;
+            font-size: 0.85rem;
         }
 
-        /* Градиентная таблица */
-        .gradient-table {
+        .reset-btn {
+            text-decoration: none;
+            color: #0f1446;
+            background: #ffffff;
+            padding: 14px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            text-align: center;
+            transition: all 0.2s;
+            border: 2px solid #d4e2f0;
+            cursor: pointer;
+            font-size: 15px;
+            font-family: inherit;
+            line-height: 1.3;
             width: 100%;
-            border-collapse: collapse;
-            font-size: 0.85rem;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            margin-top: 8px;
         }
 
-        .gradient-table th {
-            background: linear-gradient(135deg, #1f4a66 0%, #2c6b8f 100%);
-            color: white;
-            padding: 12px 10px;
-            text-align: center;
-            font-weight: 700;
-            font-size: 0.85rem;
-        }
-
-        .gradient-table td {
-            padding: 10px 8px;
-            text-align: center;
-            border: none;
-            transition: all 0.2s ease;
-        }
-
-        .gradient-table tbody tr {
-            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-            transition: all 0.2s ease;
-        }
-
-        .gradient-table tbody tr:nth-child(even) {
-            background: linear-gradient(135deg, #f5f8fc 0%, #eef3f8 100%);
-        }
-
-        .gradient-table tbody tr:hover {
-            background: linear-gradient(135deg, #e8f0ff 0%, #d9e8ff 100%);
-            transform: scale(1.01);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-
-        .gradient-table tbody tr:hover td {
-            font-weight: 600;
-        }
-
-        /* Выделение рекомендованного диапазона весов */
-        .gradient-table td:first-child {
-            font-weight: 600;
-            background: linear-gradient(135deg, #eef7ff 0%, #e0ecf5 100%);
-            border-right: 2px solid #c8dae8;
+        .reset-btn:hover {
+            background: #eef7ff;
+            border-color: #0f1446;
+            transform: translateY(-1px);
         }
 
         @media (max-width: 768px) {
             body {
-                padding: 1rem;
-            }
-            .card-header {
-                padding: 1.2rem;
-            }
-            .card-header h1 {
-                font-size: 1.3rem;
-            }
-            .card-header p {
-                font-size: 0.8rem;
-            }
-            .card-content {
-                padding: 1rem;
+                padding: 10px;
             }
             .card {
-                padding: 1.2rem;
+                padding: 16px 14px;
             }
-            .card-title {
-                font-size: 1.1rem;
+            .card.header-card {
+                padding: 20px 14px;
+            }
+            .card.header-card h1 {
+                font-size: 22px;
             }
             .result-value {
                 font-size: 1rem;
@@ -349,142 +288,136 @@
             .result-value.highlight {
                 font-size: 1.1rem;
             }
-            .gradient-table th, .gradient-table td {
-                padding: 8px 5px;
-                font-size: 0.7rem;
+            .result-table th, .result-table td {
+                padding: 8px 6px;
+                font-size: 0.75rem;
             }
         }
     </style>
 </head>
 <body>
-<div class="calculator-card">
-    <div class="card-header">
-        <h1>
-            💊 Введение Диазепама
-            <span>у детей</span>
-        </h1>
-        <p>Расчет дозы и объема раствора Диазепама (0,5% — 5 мг/мл) для внутривенного введения детям с 1 месяца жизни.</p>
+
+<div class="container">
+    
+    <!-- ===== ШАПКА ===== -->
+    <div class="card header-card">
+        <h1>💊 Введение Диазепама</h1>
+        <p>Расчёт дозы и объёма раствора Диазепама (0,5% — 5 мг/мл) для внутривенного введения детям с 1 месяца жизни</p>
     </div>
-    <div class="card-content">
-        <div class="card">
-            <div class="card-title">📝 Расчет дозы Диазепама</div>
-            
-            <div class="param-group">
-                <div class="param-label">👶 Данные ребенка</div>
-                <div class="input-row">
-                    <div class="input-field">
-                        <label>Масса тела (кг)</label>
-                        <input type="number" id="weight" value="10" step="0.5" min="2" max="50">
-                    </div>
-                    <div class="input-field">
-                        <label>Возрастная группа</label>
-                        <select id="ageGroup">
-                            <option value="0-5">До 5 лет</option>
-                            <option value="5+">Старше 5 лет</option>
-                        </select>
-                    </div>
+    
+    <!-- ===== ОСНОВНОЙ КОНТЕНТ ===== -->
+    <div class="card">
+        
+        <h2>📝 Расчёт дозы Диазепама</h2>
+        
+        <div class="param-group">
+            <div class="param-label">👶 Данные ребёнка</div>
+            <div class="input-row">
+                <div class="input-field">
+                    <label>Масса тела (кг)</label>
+                    <input type="number" id="weight" value="10" step="0.5" min="2" max="50">
                 </div>
-            </div>
-
-            <div class="info-note">
-                <strong>📌 Препарат:</strong> Диазепам 0,5% – 5 мг/мл<br>
-                <strong>📌 Разведение:</strong> Раствор Натрия хлорида 0,9%<br>
-                <strong>📌 Возраст:</strong> Применяется у детей с 1 месяца жизни<br>
-                <strong>📌 Скорость введения:</strong> Внутривенно медленно в течение 5 минут
-            </div>
-
-            <div class="result-block">
-                <div class="result-row">
-                    <span class="result-label">Вес ребенка:</span>
-                    <span class="result-value" id="weightDisplay">10 кг</span>
+                <div class="input-field">
+                    <label>Возрастная группа</label>
+                    <select id="ageGroup">
+                        <option value="0-5">До 5 лет</option>
+                        <option value="5+">Старше 5 лет</option>
+                    </select>
                 </div>
-                <div class="result-row">
-                    <span class="result-label">Исходная разовая доза (0,15–0,2 мг/кг):</span>
-                    <span class="result-value" id="doseRange">—</span>
-                </div>
-                <div class="result-row">
-                    <span class="result-label">💊 Рекомендуемая исходная доза (мг):</span>
-                    <span class="result-value highlight" id="recommendedDose">—</span>
-                </div>
-                <div class="result-row">
-                    <span class="result-label">📌 Объем для введения (мл):</span>
-                    <span class="result-value highlight" id="volumeMl">—</span>
-                </div>
-                <div class="result-row">
-                    <span class="result-label">Максимальная разовая доза по возрасту:</span>
-                    <span class="result-value" id="maxDose">—</span>
-                </div>
-                <div class="result-row">
-                    <span class="result-label">Превышение максимальной дозы:</span>
-                    <span class="result-value" id="overMaxWarning" style="color: #c62828;">—</span>
-                </div>
-            </div>
-
-            <div class="warning-note">
-                <strong>⚠️ Внимание!</strong><br>
-                • Диазепам вводится <strong>внутривенно медленно в течение 5 минут</strong>.<br>
-                • При отсутствии эффекта возможно повторное введение не ранее чем через 2 часа.<br>
-                • Превышение максимальной разовой дозы требует особой осторожности!
-            </div>
-
-            <div class="danger-note" id="dangerWarning" style="display: none;">
-                <strong>⚠️ ПРЕДУПРЕЖДЕНИЕ!</strong><br>
-                Расчетная доза превышает максимальную разовую дозу для данной возрастной группы!
-            </div>
-
-            <button class="btn-reset" id="resetBtn">⟳ Сбросить к 10 кг</button>
-        </div>
-
-        <div class="card">
-            <div class="card-title">📊 Справочная таблица доз Диазепама у детей</div>
-            <div style="overflow-x: auto;">
-                <table class="gradient-table" id="doseTable">
-                    <thead>
-                        <tr>
-                            <th>Вес (кг)</th>
-                            <th>Доза 0,15 мг/кг (мг)</th>
-                            <th>Доза 0,2 мг/кг (мг)</th>
-                            <th>Объем при 0,2 мг/кг (мл)</th>
-                        </tr>
-                    </thead>
-                    <tbody id="doseTableBody"></tbody>
-                </table>
-            </div>
-            <div class="speed-note">
-                ⭐ <strong>Максимальные разовые дозы:</strong> дети до 5 лет — 5 мг (1 мл); дети старше 5 лет — 10 мг (2 мл).<br>
-                📌 <strong>Рекомендация:</strong> при весе более 25 кг для детей до 5 лет расчетная доза 0,2 мг/кг может превышать максимальную (5 мг). В таких случаях вводится максимальная доза 5 мг.
             </div>
         </div>
 
-        <div class="card">
-            <div class="card-title">⚠️ Клинические рекомендации</div>
-            <div class="warning-note">
-                <strong>💊 Протокол введения Диазепама у детей:</strong><br>
-                • <strong>Показания:</strong> судороги, эпилептический статус, фебрильные судороги, премедикация<br>
-                • <strong>Разовая доза:</strong> 0,15–0,2 мг/кг внутривенно медленно<br>
-                • <strong>Скорость введения:</strong> не более 2 мл/мин (в течение 5 минут)<br>
-                • <strong>Максимальная разовая доза:</strong> до 5 лет — 5 мг (1 мл), старше 5 лет — 10 мг (2 мл)<br>
-                • <strong>Повторное введение:</strong> возможно не ранее чем через 2 часа
+        <div class="info-note">
+            <strong>📌 Препарат:</strong> Диазепам 0,5% — 5 мг/мл<br>
+            <strong>📌 Разведение:</strong> Раствор Натрия хлорида 0,9%<br>
+            <strong>📌 Возраст:</strong> Применяется у детей с 1 месяца жизни<br>
+            <strong>📌 Скорость введения:</strong> Внутривенно медленно в течение 5 минут
+        </div>
+
+        <div class="result-section">
+            <div class="result-row">
+                <span class="result-label">Вес ребёнка:</span>
+                <span class="result-value" id="weightDisplay">10 кг</span>
             </div>
-            <div class="danger-note">
-                <strong>⚠️ Важно!</strong> Диазепам угнетает дыхание, особенно при быстром введении или у детей с низкой массой тела. Необходим контроль дыхания и сатурации. Иметь наготове оборудование для ИВЛ. Совместное введение с другими седативными средствами усиливает угнетение ЦНС и дыхания.
+            <div class="result-row">
+                <span class="result-label">Исходная разовая доза (0,15–0,2 мг/кг):</span>
+                <span class="result-value" id="doseRange">—</span>
+            </div>
+            <div class="result-row">
+                <span class="result-label">💊 Рекомендуемая исходная доза (мг):</span>
+                <span class="result-value highlight" id="recommendedDose">—</span>
+            </div>
+            <div class="result-row">
+                <span class="result-label">📌 Объём для введения (мл):</span>
+                <span class="result-value highlight" id="volumeMl">—</span>
+            </div>
+            <div class="result-row">
+                <span class="result-label">Максимальная разовая доза по возрасту:</span>
+                <span class="result-value" id="maxDose">—</span>
+            </div>
+            <div class="result-row">
+                <span class="result-label">Превышение максимальной дозы:</span>
+                <span class="result-value" id="overMaxWarning" style="color: #d32f2f;">—</span>
             </div>
         </div>
 
-        <div class="footnote">
-            ⚕️ Расчеты основаны на официальных клинических рекомендациях.<br>
-            <strong>📌 Концентрация раствора:</strong> 0,5% = 5 мг/мл.<br>
-            <strong>📌 Формула расчета:</strong> доза (мг) = вес (кг) × 0,15–0,2 мг/кг; объем (мл) = доза (мг) / 5.<br>
-            <strong>📌 Разведение:</strong> Раствор Натрия хлорида 0,9%.<br>
-            <strong>📌 Максимальные дозы:</strong> до 5 лет — 5 мг (1 мл); старше 5 лет — 10 мг (2 мл).
+        <div class="warning-note">
+            <strong>⚠️ Внимание!</strong><br>
+            • Диазепам вводится <strong>внутривенно медленно в течение 5 минут</strong>.<br>
+            • При отсутствии эффекта возможно повторное введение не ранее чем через 2 часа.<br>
+            • Превышение максимальной разовой дозы требует особой осторожности!
         </div>
+
+        <div class="max-dose-warning" id="dangerWarning" style="display: none;">
+            <strong>⚠️ ПРЕДУПРЕЖДЕНИЕ!</strong><br>
+            Расчётная доза превышает максимальную разовую дозу для данной возрастной группы!
+        </div>
+
+        <button class="reset-btn" id="resetBtn">⟳ Сбросить к 10 кг</button>
+        
+        <h2>📊 Справочная таблица доз</h2>
+        
+        <div class="result-table-wrapper">
+            <table class="result-table" id="doseTable">
+                <thead>
+                    <tr>
+                        <th>Вес (кг)</th>
+                        <th>Доза 0,15 мг/кг (мг)</th>
+                        <th>Доза 0,2 мг/кг (мг)</th>
+                        <th>Объём при 0,2 мг/кг (мл)</th>
+                    </tr>
+                </thead>
+                <tbody id="doseTableBody"></tbody>
+            </table>
+        </div>
+        
+        <div class="speed-note">
+            ⭐ <strong>Максимальные разовые дозы:</strong> дети до 5 лет — 5 мг (1 мл); дети старше 5 лет — 10 мг (2 мл).<br>
+            📌 <strong>Рекомендация:</strong> при весе более 25 кг для детей до 5 лет расчётная доза 0,2 мг/кг может превышать максимальную (5 мг). В таких случаях вводится максимальная доза 5 мг.
+        </div>
+
+        <h2>⚠️ Клинические рекомендации</h2>
+        
+        <div class="warning-note">
+            <strong>💊 Протокол введения Диазепама у детей:</strong><br>
+            • <strong>Показания:</strong> судороги, эпилептический статус, фебрильные судороги, премедикация<br>
+            • <strong>Разовая доза:</strong> 0,15–0,2 мг/кг внутривенно медленно<br>
+            • <strong>Скорость введения:</strong> не более 2 мл/мин (в течение 5 минут)<br>
+            • <strong>Максимальная разовая доза:</strong> до 5 лет — 5 мг (1 мл), старше 5 лет — 10 мг (2 мл)<br>
+            • <strong>Повторное введение:</strong> возможно не ранее чем через 2 часа
+        </div>
+        
+        <div class="danger-note">
+            <strong>⚠️ Важно!</strong> Диазепам угнетает дыхание, особенно при быстром введении или у детей с низкой массой тела. Необходим контроль дыхания и сатурации. Иметь наготове оборудование для ИВЛ. Совместное введение с другими седативными средствами усиливает угнетение ЦНС и дыхания.
+        </div>
+        
     </div>
 </div>
 
 <script>
-    const CONCENTRATION = 5; // 5 мг/мл
-    const DOSE_MIN = 0.15;   // 0,15 мг/кг
-    const DOSE_MAX = 0.2;    // 0,2 мг/кг
+    const CONCENTRATION = 5;
+    const DOSE_MIN = 0.15;
+    const DOSE_MAX = 0.2;
 
     function calculateDose() {
         let weight = parseFloat(document.getElementById('weight').value);
@@ -554,9 +487,10 @@
     
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('/SMP/sw.js')
-            .then(reg => console.log('✅ Сервис-воркер зарегистрирован:', reg))
-            .catch(err => console.error('❌ Ошибка регистрации:', err));
+            .then(reg => console.log('✅ Service Worker зарегистрирован:', reg.scope))
+            .catch(err => console.error('❌ Ошибка регистрации SW:', err));
     }
 </script>
+
 </body>
 </html>
