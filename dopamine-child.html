@@ -2,12 +2,12 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>Калькулятор инфузии допамина | Дети</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>👶 Калькулятор инфузии допамина — Дети</title>
     
     <!-- PWA -->
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#1e2f47">
+    <meta name="theme-color" content="#0f1446">
     
     <style>
         * {
@@ -17,164 +17,130 @@
         }
 
         body {
-            background: linear-gradient(145deg, #eef2f7 0%, #dce3ec 100%);
-            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, 'Helvetica Neue', sans-serif;
-            padding: 2rem 1rem;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            font-family: 'Segoe UI', 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: #1f3a4b;
+            padding: 20px;
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
         }
 
-        .calculator-card {
-            max-width: 1300px;
-            width: 100%;
+        .container {
+            max-width: 1100px;
             margin: 0 auto;
-            background: #ffffff;
-            border-radius: 48px;
-            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.2);
-            overflow: hidden;
         }
 
-        .card-header {
-            background: #1e2f47;
-            background-image: linear-gradient(115deg, #142a3b, #1d3f55);
-            padding: 1.8rem 2rem;
+        .card {
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 24px 22px;
+            margin-bottom: 20px;
+        }
+
+        .card.header-card {
+            background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
             color: white;
-        }
-        .card-header h1 {
-            font-size: 1.9rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-        .card-header h1 span {
-            background: rgba(255,255,255,0.2);
-            font-size: 0.9rem;
-            padding: 5px 14px;
-            border-radius: 60px;
-            font-weight: 500;
-        }
-        .card-header p {
-            margin-top: 12px;
-            opacity: 0.85;
-            font-size: 0.95rem;
-            border-left: 3px solid #5f9bc2;
-            padding-left: 16px;
+            text-align: center;
+            padding: 28px 20px;
         }
 
-        .card-content {
-            padding: 2rem;
+        .card.header-card h1 {
+            font-size: 28px;
+            color: white;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .card.header-card p {
+            opacity: 0.9;
+            font-size: 0.95rem;
+            margin-top: 8px;
+        }
+
+        h2 {
+            color: #0f1446;
+            border-left: 6px solid #e53935;
+            padding-left: 16px;
+            font-size: 1.3rem;
+            margin: 1.2rem 0 1rem 0;
         }
 
         .tabs-wrapper {
-            margin-bottom: 1.5rem;
+            margin-bottom: 16px;
         }
 
         .tabs-label {
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             font-weight: 600;
-            color: #1f4a66;
-            margin-bottom: 12px;
+            color: #0f1446;
+            margin-bottom: 10px;
             display: flex;
             align-items: center;
             gap: 8px;
-        }
-
-        .tabs-label::before {
-            content: "👶";
-            font-size: 1rem;
         }
 
         .nav-tabs {
             display: flex;
             flex-wrap: wrap;
-            gap: 12px;
+            gap: 10px;
         }
 
         .tab-btn {
-            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-            border: 2px solid #cbdde6;
-            padding: 10px 20px;
-            font-size: 0.85rem;
+            background: #ffffff;
+            border: 2px solid #d4e2f0;
+            padding: 12px 20px;
+            font-size: 0.9rem;
             font-weight: 600;
-            color: #1f4a66;
+            color: #0f1446;
             cursor: pointer;
-            border-radius: 60px;
+            border-radius: 12px;
             transition: all 0.25s ease;
             font-family: inherit;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            flex: 0 0 auto;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
         .tab-btn:hover {
-            background: linear-gradient(135deg, #e8f0f5 0%, #dfeaf0 100%);
-            border-color: #1f6e9c;
+            background: #eef7ff;
+            border-color: #0f1446;
             transform: translateY(-2px);
+            box-shadow: 0 6px 14px rgba(0,0,0,0.15);
         }
 
         .tab-btn.active {
-            background: linear-gradient(135deg, #1f6e9c 0%, #155a80 100%);
-            border-color: #ffc107;
+            background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
+            border-color: #0f1446;
             color: white;
-            box-shadow: 0 4px 12px rgba(31,110,156,0.4);
         }
 
         .tab-content {
             display: none;
             animation: fade 0.25s ease;
         }
+
         .tab-content.active {
             display: block;
         }
+
         @keyframes fade {
-            from { opacity: 0; transform: translateY(8px);}
-            to { opacity: 1; transform: translateY(0);}
-        }
-
-        .card {
-            background: #ffffff;
-            border-radius: 28px;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
-            border: 1px solid #d4e2f0;
-            transition: all 0.2s;
-        }
-        .card:hover {
-            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-        }
-
-        .card-title {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: #1f4a66;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            border-left: 4px solid #1f6e9c;
-            padding-left: 16px;
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .param-group {
-            margin-bottom: 24px;
+            margin-bottom: 20px;
         }
 
         .param-label {
             font-weight: 600;
-            color: #1f4a66;
+            color: #0f1446;
             margin-bottom: 10px;
             font-size: 0.9rem;
         }
 
         .input-row {
             display: flex;
-            gap: 20px;
+            gap: 16px;
             flex-wrap: wrap;
         }
 
@@ -184,7 +150,7 @@
         }
 
         .input-field label {
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             color: #6f8eaa;
             display: block;
             margin-bottom: 6px;
@@ -193,18 +159,14 @@
 
         .input-field input {
             width: 100%;
-            padding: 12px 16px;
+            padding: 12px 14px;
             border: 2px solid #d4e2f0;
-            border-radius: 18px;
+            border-radius: 12px;
             font-size: 0.95rem;
             font-family: inherit;
-            transition: all 0.25s ease;
+            transition: all 0.2s;
             background: white;
             color: #1f3a4b;
-        }
-
-        .input-field input:hover {
-            border-color: #1f6e9c;
         }
 
         .input-field input:focus {
@@ -215,7 +177,9 @@
 
         .result-table-wrapper {
             overflow-x: auto;
-            margin: 20px 0;
+            margin: 16px 0;
+            border-radius: 12px;
+            border: 1px solid #d4e2f0;
         }
 
         .result-table {
@@ -225,56 +189,54 @@
             min-width: 550px;
         }
 
-        .result-table th, .result-table td {
-            padding: 12px 10px;
-            text-align: center;
-            border-bottom: 1px solid #e2ecf3;
-        }
-
         .result-table th {
-            background: #eef7ff;
-            color: #1f4a66;
+            background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
+            color: white;
             font-weight: 700;
             font-size: 0.85rem;
+            padding: 12px 10px;
+            text-align: center;
         }
 
         .result-table td {
+            padding: 10px;
+            text-align: center;
+            border-bottom: 1px solid #d4e2f0;
             font-weight: 500;
             color: #1f3a4b;
         }
 
-        .result-table td.highlight-speed {
-            background: #e8f0e8;
-            color: #2c7a4d;
-            font-weight: 700;
-            position: relative;
+        .result-table tr:nth-child(odd) td {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
         }
 
-        .result-table td.highlight-speed::after {
-            content: "⭐";
-            position: absolute;
-            top: 2px;
-            right: 4px;
-            font-size: 10px;
+        .result-table tr:nth-child(even) td {
+            background: linear-gradient(135deg, #eef7ff 0%, #f0f4f8 100%);
+        }
+
+        .highlight-speed {
+            background: #e8f5e9 !important;
+            color: #2e7d32;
+            font-weight: 700;
         }
 
         .speed-note {
-            background: #e8f0e8;
-            border-left: 4px solid #2c7a4d;
+            background: #e8f5e9;
+            border-left: 4px solid #2e7d32;
             padding: 10px 14px;
             border-radius: 12px;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             margin-top: 12px;
-            color: #1f3a4b;
+            color: #1b5e20;
         }
 
         .info-note {
             background: #eef7ff;
             border-left: 4px solid #1f6e9c;
             padding: 12px 16px;
-            border-radius: 16px;
-            margin: 16px 0;
-            font-size: 0.8rem;
+            border-radius: 12px;
+            margin: 12px 0;
+            font-size: 0.85rem;
             color: #1f3a4b;
         }
 
@@ -282,110 +244,78 @@
             background: #fff8e7;
             border-left: 4px solid #f0b849;
             padding: 12px 16px;
-            border-radius: 16px;
-            margin: 16px 0;
-            font-size: 0.8rem;
+            border-radius: 12px;
+            margin: 12px 0;
+            font-size: 0.85rem;
             color: #a56b00;
         }
 
-        .btn-reset {
-            background: linear-gradient(135deg, #ecf3f8 0%, #e6edf4 100%);
-            border: 2px solid #cbdae6;
-            padding: 10px 20px;
-            border-radius: 60px;
-            font-size: 0.85rem;
+        .reset-btn {
+            text-decoration: none;
+            color: #0f1446;
+            background: #ffffff;
+            padding: 14px 24px;
+            border-radius: 12px;
             font-weight: 600;
+            text-align: center;
+            transition: all 0.2s;
+            border: 2px solid #d4e2f0;
             cursor: pointer;
+            font-size: 15px;
             font-family: inherit;
-            color: #1f4a66;
-            transition: all 0.25s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
+            line-height: 1.3;
+            width: 100%;
             margin-top: 8px;
         }
 
-        .btn-reset:hover {
-            background: linear-gradient(135deg, #e2eaf2 0%, #d8e2ec 100%);
-            border-color: #1f6e9c;
-            transform: translateY(-2px);
-        }
-
-        .footnote {
-            font-size: 0.7rem;
-            color: #6f8eaa;
-            text-align: center;
-            margin-top: 24px;
-            padding-top: 16px;
-            border-top: 1px solid #e2ecf3;
-            line-height: 1.5;
+        .reset-btn:hover {
+            background: #eef7ff;
+            border-color: #0f1446;
+            transform: translateY(-1px);
         }
 
         @media (max-width: 768px) {
             body {
-                padding: 1rem;
-            }
-            .card-header {
-                padding: 1.2rem;
-            }
-            .card-header h1 {
-                font-size: 1.3rem;
-            }
-            .card-header p {
-                font-size: 0.8rem;
-            }
-            .card-content {
-                padding: 1rem;
-            }
-            .tab-btn {
-                padding: 8px 14px;
-                font-size: 0.75rem;
-                flex: 1;
-                justify-content: center;
+                padding: 10px;
             }
             .card {
-                padding: 1.2rem;
+                padding: 16px 14px;
             }
-            .card-title {
-                font-size: 1.1rem;
+            .card.header-card {
+                padding: 20px 14px;
             }
-            .input-field input {
-                padding: 10px 14px;
-                font-size: 0.85rem;
+            .card.header-card h1 {
+                font-size: 22px;
+            }
+            .tab-btn {
+                padding: 10px 12px;
+                font-size: 0.75rem;
+                flex: 1;
+                min-width: calc(50% - 8px);
+                text-align: center;
             }
             .result-table th, .result-table td {
                 padding: 8px 6px;
-                font-size: 0.7rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .input-row {
-                flex-direction: column;
-                gap: 12px;
-            }
-            .tab-btn {
-                padding: 8px 10px;
-                font-size: 0.7rem;
-            }
-            .result-table td.highlight-speed::after {
-                font-size: 8px;
+                font-size: 0.75rem;
             }
         }
     </style>
 </head>
 <body>
-<div class="calculator-card">
-    <div class="card-header">
-        <h1>
-            👶 Калькулятор инфузии допамина
-            <span>для детей</span>
-        </h1>
-        <p>Расчет скорости введения допамина у детей с использованием шприцевого насоса (мл/час) и капельной инфузии (капли/мин). ⭐ — выделены наиболее часто используемые в практике скорости (5–15 мкг/кг/мин).</p>
+
+<div class="container">
+    
+    <!-- ===== ШАПКА ===== -->
+    <div class="card header-card">
+        <h1>👶 Калькулятор инфузии допамина</h1>
+        <p>Расчёт скорости введения допамина у детей: шприцевой насос (мл/час) и капельная инфузия (капли/мин)</p>
     </div>
-    <div class="card-content">
+    
+    <!-- ===== ОСНОВНОЙ КОНТЕНТ ===== -->
+    <div class="card">
+        
         <div class="tabs-wrapper">
-            <div class="tabs-label">Способ введения:</div>
+            <div class="tabs-label">👶 Способ введения:</div>
             <div class="nav-tabs">
                 <button class="tab-btn active" data-tab="syringe20">💉 Шприц 20 мл</button>
                 <button class="tab-btn" data-tab="syringe50">💊 Шприц 50 мл</button>
@@ -394,142 +324,151 @@
             </div>
         </div>
 
+        <!-- Шприц 20 мл -->
         <div id="syringe20" class="tab-content active">
-            <div class="card">
-                <div class="card-title">📊 Шприцевой насос | Шприц 20 мл</div>
-                <div class="param-group">
-                    <div class="param-label">👶 Данные ребенка</div>
-                    <div class="input-row">
-                        <div class="input-field">
-                            <label>Масса тела (кг)</label>
-                            <input type="number" id="weight20" value="10" step="0.5" min="2" max="45">
-                        </div>
+            <h2>📊 Шприцевой насос — Шприц 20 мл</h2>
+            
+            <div class="param-group">
+                <div class="param-label">👶 Данные ребёнка</div>
+                <div class="input-row">
+                    <div class="input-field">
+                        <label>Масса тела (кг)</label>
+                        <input type="number" id="weight20" value="10" step="0.5" min="2" max="45">
                     </div>
                 </div>
-                <div class="info-note">
-                    <strong>📌 Разведение:</strong> Допамин 40 мг (4% - 1 мл) + Натрия хлорид 0,9% до 20 мл (2 мг/мл).<br>
-                    <strong>⚙️ Единица измерения:</strong> мл/час (устанавливается на шприцевом насосе)
-                </div>
-                <div class="result-table-wrapper">
-                    <table class="result-table" id="table20">
-                        <thead>
-                            <tr><th>Вес (кг)</th><th>5 мкг/кг/мин</th><th>10 мкг/кг/мин</th><th>15 мкг/кг/мин</th><th>20 мкг/кг/мин</th><th>25 мкг/кг/мин</th></tr>
-                        </thead>
-                        <tbody id="table20Body"></tbody>
-                    </table>
-                </div>
-                <div class="speed-note">
-                    ⭐ <strong>Часто используемые скорости:</strong> 5–15 мкг/кг/мин — стандартный диапазон для инотропной поддержки у детей.
-                </div>
+            </div>
+            
+            <div class="info-note">
+                <strong>📌 Разведение:</strong> Допамин 40 мг (4% — 1 мл) + Натрия хлорид 0,9% до 20 мл (2 мг/мл).<br>
+                <strong>⚙️ Единица измерения:</strong> мл/час (устанавливается на шприцевом насосе)
+            </div>
+            
+            <div class="result-table-wrapper">
+                <table class="result-table" id="table20">
+                    <thead>
+                        <tr><th>Вес (кг)</th><th>5</th><th>10</th><th>15</th><th>20</th><th>25</th></tr>
+                    </thead>
+                    <tbody id="table20Body"></tbody>
+                </table>
+            </div>
+            
+            <div class="speed-note">
+                ⭐ <strong>Часто используемые скорости:</strong> 5–15 мкг/кг/мин — стандартный диапазон для инотропной поддержки у детей.
             </div>
         </div>
 
+        <!-- Шприц 50 мл -->
         <div id="syringe50" class="tab-content">
-            <div class="card">
-                <div class="card-title">📊 Шприцевой насос | Шприц 50 мл</div>
-                <div class="param-group">
-                    <div class="param-label">👶 Данные ребенка</div>
-                    <div class="input-row">
-                        <div class="input-field">
-                            <label>Масса тела (кг)</label>
-                            <input type="number" id="weight50" value="10" step="0.5" min="2" max="45">
-                        </div>
+            <h2>📊 Шприцевой насос — Шприц 50 мл</h2>
+            
+            <div class="param-group">
+                <div class="param-label">👶 Данные ребёнка</div>
+                <div class="input-row">
+                    <div class="input-field">
+                        <label>Масса тела (кг)</label>
+                        <input type="number" id="weight50" value="10" step="0.5" min="2" max="45">
                     </div>
                 </div>
-                <div class="info-note">
-                    <strong>📌 Разведение:</strong> Допамин 40 мг (4% - 1 мл) + Натрия хлорид 0,9% до 50 мл (0,8 мг/мл).<br>
-                    <strong>⚙️ Единица измерения:</strong> мл/час (устанавливается на шприцевом насосе)
-                </div>
-                <div class="result-table-wrapper">
-                    <table class="result-table" id="table50">
-                        <thead>
-                            <tr><th>Вес (кг)</th><th>5 мкг/кг/мин</th><th>10 мкг/кг/мин</th><th>15 мкг/кг/мин</th><th>20 мкг/кг/мин</th><th>25 мкг/кг/мин</th></tr>
-                        </thead>
-                        <tbody id="table50Body"></tbody>
-                    </table>
-                </div>
-                <div class="speed-note">
-                    ⭐ <strong>Часто используемые скорости:</strong> 5–15 мкг/кг/мин — стандартный диапазон для инотропной поддержки у детей.
-                </div>
+            </div>
+            
+            <div class="info-note">
+                <strong>📌 Разведение:</strong> Допамин 40 мг (4% — 1 мл) + Натрия хлорид 0,9% до 50 мл (0,8 мг/мл).<br>
+                <strong>⚙️ Единица измерения:</strong> мл/час (устанавливается на шприцевом насосе)
+            </div>
+            
+            <div class="result-table-wrapper">
+                <table class="result-table" id="table50">
+                    <thead>
+                        <tr><th>Вес (кг)</th><th>5</th><th>10</th><th>15</th><th>20</th><th>25</th></tr>
+                    </thead>
+                    <tbody id="table50Body"></tbody>
+                </table>
+            </div>
+            
+            <div class="speed-note">
+                ⭐ <strong>Часто используемые скорости:</strong> 5–15 мкг/кг/мин — стандартный диапазон для инотропной поддержки у детей.
             </div>
         </div>
 
+        <!-- Капельно низкая -->
         <div id="dripLow" class="tab-content">
-            <div class="card">
-                <div class="card-title">📊 Капельная инфузия | Низкая концентрация</div>
-                <div class="param-group">
-                    <div class="param-label">👶 Данные ребенка</div>
-                    <div class="input-row">
-                        <div class="input-field">
-                            <label>Масса тела (кг)</label>
-                            <input type="number" id="weightDripLow" value="10" step="0.5" min="2" max="15">
-                        </div>
+            <h2>📊 Капельная инфузия — Низкая концентрация</h2>
+            
+            <div class="param-group">
+                <div class="param-label">👶 Данные ребёнка</div>
+                <div class="input-row">
+                    <div class="input-field">
+                        <label>Масса тела (кг)</label>
+                        <input type="number" id="weightDripLow" value="10" step="0.5" min="2" max="15">
                     </div>
                 </div>
-                <div class="info-note">
-                    <strong>📌 Разведение:</strong> Допамин 20 мг (4% - 0,5 мл) + Натрия хлорид 0,9% 250 мл (0,08 мг/мл)<br>
-                    <strong>⚙️ Единица измерения:</strong> капли в минуту (20 капель = 1 мл)
-                </div>
-                <div class="result-table-wrapper">
-                    <table class="result-table" id="tableDripLow">
-                        <thead>
-                            <tr><th>Вес (кг)</th><th>5 мкг/кг/мин</th><th>10 мкг/кг/мин</th><th>15 мкг/кг/мин</th><th>20 мкг/кг/мин</th><th>25 мкг/кг/мин</th></tr>
-                        </thead>
-                        <tbody id="tableDripLowBody"></tbody>
-                    </table>
-                </div>
-                <div class="speed-note">
-                    ⭐ <strong>Часто используемые скорости:</strong> 5–15 мкг/кг/мин — стандартный диапазон для инотропной поддержки.
-                </div>
+            </div>
+            
+            <div class="info-note">
+                <strong>📌 Разведение:</strong> Допамин 20 мг (4% — 0,5 мл) + Натрия хлорид 0,9% 250 мл (0,08 мг/мл)<br>
+                <strong>⚙️ Единица измерения:</strong> капли в минуту (20 капель = 1 мл)
+            </div>
+            
+            <div class="result-table-wrapper">
+                <table class="result-table" id="tableDripLow">
+                    <thead>
+                        <tr><th>Вес (кг)</th><th>5</th><th>10</th><th>15</th><th>20</th><th>25</th></tr>
+                    </thead>
+                    <tbody id="tableDripLowBody"></tbody>
+                </table>
+            </div>
+            
+            <div class="speed-note">
+                ⭐ <strong>Часто используемые скорости:</strong> 5–15 мкг/кг/мин — стандартный диапазон для инотропной поддержки.
             </div>
         </div>
 
+        <!-- Капельно высокая -->
         <div id="dripHigh" class="tab-content">
-            <div class="card">
-                <div class="card-title">📊 Капельная инфузия | Средняя концентрация</div>
-                <div class="param-group">
-                    <div class="param-label">👶 Данные ребенка</div>
-                    <div class="input-row">
-                        <div class="input-field">
-                            <label>Масса тела (кг)</label>
-                            <input type="number" id="weightDripHigh" value="30" step="1" min="20" max="45">
-                        </div>
+            <h2>📊 Капельная инфузия — Средняя концентрация</h2>
+            
+            <div class="param-group">
+                <div class="param-label">👶 Данные ребёнка</div>
+                <div class="input-row">
+                    <div class="input-field">
+                        <label>Масса тела (кг)</label>
+                        <input type="number" id="weightDripHigh" value="30" step="1" min="20" max="45">
                     </div>
                 </div>
-                <div class="info-note">
-                    <strong>📌 Разведение:</strong> Допамин 100 мг (4% - 2,5 мл) + Натрия хлорид 0,9% 250 мл (0,4 мг/мл)<br>
-                    <strong>⚙️ Единица измерения:</strong> капли в минуту (20 капель = 1 мл)
-                </div>
-                <div class="result-table-wrapper">
-                    <table class="result-table" id="tableDripHigh">
-                        <thead>
-                            <tr><th>Вес (кг)</th><th>5 мкг/кг/мин</th><th>10 мкг/кг/мин</th><th>15 мкг/кг/мин</th><th>20 мкг/кг/мин</th><th>25 мкг/кг/мин</th></tr>
-                        </thead>
-                        <tbody id="tableDripHighBody"></tbody>
-                    </table>
-                </div>
-                <div class="speed-note">
-                    ⭐ <strong>Часто используемые скорости:</strong> 5–15 мкг/кг/мин — стандартный диапазон для инотропной поддержки.
-                </div>
+            </div>
+            
+            <div class="info-note">
+                <strong>📌 Разведение:</strong> Допамин 100 мг (4% — 2,5 мл) + Натрия хлорид 0,9% 250 мл (0,4 мг/мл)<br>
+                <strong>⚙️ Единица измерения:</strong> капли в минуту (20 капель = 1 мл)
+            </div>
+            
+            <div class="result-table-wrapper">
+                <table class="result-table" id="tableDripHigh">
+                    <thead>
+                        <tr><th>Вес (кг)</th><th>5</th><th>10</th><th>15</th><th>20</th><th>25</th></tr>
+                    </thead>
+                    <tbody id="tableDripHighBody"></tbody>
+                </table>
+            </div>
+            
+            <div class="speed-note">
+                ⭐ <strong>Часто используемые скорости:</strong> 5–15 мкг/кг/мин — стандартный диапазон для инотропной поддержки.
             </div>
         </div>
 
-        <div class="card">
-            <div class="card-title">⚠️ Клинические рекомендации (дети)</div>
-            <div class="warning-note">
-                <strong>💊 Дозы допамина у детей:</strong><br>
-                • <strong>2–5 мкг/кг/мин</strong> — почечный эффект (увеличение диуреза)<br>
-                • <strong>5–10 мкг/кг/мин</strong> — инотропный эффект (увеличение сердечного выброса)<br>
-                • <strong>10–20 мкг/кг/мин</strong> — α-адренергический эффект (вазоконстрикция)<br>
-                • <strong>>20 мкг/кг/мин</strong> — выраженная вазоконстрикция, риск осложнений<br>
-                <strong>⚠️ У детей требуется особый контроль скорости введения!</strong>
-            </div>
-            <button class="btn-reset" id="resetBtn">⟳ Сбросить все значения к стандартному весу</button>
+        <h2>⚠️ Клинические рекомендации</h2>
+        
+        <div class="warning-note">
+            <strong>💊 Дозы допамина у детей:</strong><br>
+            • <strong>2–5 мкг/кг/мин</strong> — почечный эффект (увеличение диуреза)<br>
+            • <strong>5–10 мкг/кг/мин</strong> — инотропный эффект (увеличение сердечного выброса)<br>
+            • <strong>10–20 мкг/кг/мин</strong> — α-адренергический эффект (вазоконстрикция)<br>
+            • <strong>>20 мкг/кг/мин</strong> — выраженная вазоконстрикция, риск осложнений<br>
+            <strong>⚠️ У детей требуется особый контроль скорости введения!</strong>
         </div>
-
-        <div class="footnote">
-            ⚕️ Расчеты основаны на стандартных протоколах инфузии допамина у детей. Скорость введения корректируется индивидуально под контролем гемодинамики. ⭐ — выделены скорости, наиболее часто применяемые в клинической практике (5–15 мкг/кг/мин).
-        </div>
+        
+        <button class="reset-btn" id="resetBtn">⟳ Сбросить все значения к стандартному весу</button>
+        
     </div>
 </div>
 
@@ -742,9 +681,10 @@
     
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('/SMP/sw.js')
-            .then(reg => console.log('✅ Сервис-воркер зарегистрирован:', reg))
-            .catch(err => console.error('❌ Ошибка регистрации:', err));
+            .then(reg => console.log('✅ Service Worker зарегистрирован:', reg.scope))
+            .catch(err => console.error('❌ Ошибка регистрации SW:', err));
     }
 </script>
+
 </body>
 </html>
