@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>📊 Оценка вероятности ТЭЛА</title>
+    
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0f1446">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            font-family: 'Segoe UI', 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: #1f3a4b;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 24px 22px;
+            margin-bottom: 20px;
+        }
+
+        .card.header-card {
+            background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
+            color: white;
+            text-align: center;
+            padding: 28px 20px;
+        }
+
+        .card.header-card h1 {
+            font-size: 28px;
+            color: white;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .card.header-card p {
+            opacity: 0.9;
+            font-size: 0.95rem;
+            margin-top: 8px;
+        }
+
+        h2 {
+            color: #0f1446;
+            border-left: 6px solid #e53935;
+            padding-left: 16px;
+            font-size: 1.3rem;
+            margin: 1.2rem 0 1rem 0;
+        }
+
+        .scale-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .scale-panel {
+            flex: 1 1 380px;
+            background: #eef7ff;
+            border-radius: 16px;
+            border-left: 4px solid #1f6e9c;
+            padding: 20px;
+            transition: 0.2s;
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            border-bottom: 1px solid #d4e2f0;
+            padding-bottom: 10px;
+            margin-bottom: 14px;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .panel-header h2 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #0f1446;
+            border-left: none;
+            padding-left: 0;
+            margin: 0;
+        }
+
+        .badge {
+            background: #ffffff;
+            color: #0f1446;
+            font-weight: 600;
+            font-size: 0.75rem;
+            padding: 4px 12px;
+            border-radius: 12px;
+            border: 1px solid #d4e2f0;
+        }
+
+        .group {
+            margin: 12px 0 8px 0;
+        }
+
+        .group-label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #0f1446;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            border-bottom: 1px solid #d4e2f0;
+            padding-bottom: 4px;
+            margin-bottom: 8px;
+        }
+
+        .item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 10px;
+            border-radius: 12px;
+            margin: 2px 0;
+            cursor: pointer;
+            transition: background 0.15s ease;
+            background: #ffffff;
+            border: 1px solid #d4e2f0;
+        }
+
+        .item:hover {
+            background: #eef7ff;
+            border-color: #0f1446;
+        }
+
+        .item.selected {
+            background: #eef7ff;
+            border-color: #0f1446;
+            box-shadow: 0 0 0 1px #0f1446;
+        }
+
+        .item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #0f1446;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .item .desc {
+            flex: 1;
+            font-size: 0.9rem;
+            color: #1f3a4b;
+        }
+
+        .item .points {
+            background: #eef7ff;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            color: #0f1446;
+            white-space: nowrap;
+            border: 1px solid #d4e2f0;
+        }
+
+        .result-area {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 14px 16px;
+            margin: 16px 0 4px 0;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            border: 1px solid #d4e2f0;
+        }
+
+        .score-badge {
+            background: #eef7ff;
+            padding: 6px 18px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: #0f1446;
+            border: 1px solid #d4e2f0;
+        }
+
+        .prob-tag {
+            font-weight: 600;
+            padding: 6px 20px;
+            border-radius: 12px;
+            font-size: 0.95rem;
+        }
+
+        .prob-tag.low {
+            background: #e8f5e9;
+            color: #2e7d32;
+            border: 1px solid #2e7d32;
+        }
+
+        .prob-tag.moderate {
+            background: #fff8e7;
+            color: #a56b00;
+            border: 1px solid #f0b849;
+        }
+
+        .prob-tag.high {
+            background: #fff0f0;
+            color: #d32f2f;
+            border: 1px solid #d32f2f;
+        }
+
+        .reset-btn {
+            text-decoration: none;
+            color: #0f1446;
+            background: #ffffff;
+            padding: 8px 16px;
+            border-radius: 12px;
+            font-weight: 600;
+            text-align: center;
+            transition: all 0.2s;
+            border: 2px solid #d4e2f0;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-family: inherit;
+            line-height: 1.3;
+        }
+
+        .reset-btn:hover {
+            background: #eef7ff;
+            border-color: #0f1446;
+            transform: translateY(-1px);
+        }
+
+        .range-text {
+            font-size: 0.75rem;
+            text-align: right;
+            color: #6f8eaa;
+            padding-right: 4px;
+            margin-top: 6px;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            .card {
+                padding: 16px 14px;
+            }
+            .card.header-card {
+                padding: 20px 14px;
+            }
+            .card.header-card h1 {
+                font-size: 22px;
+            }
+            .scale-panel {
+                flex: 1 1 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    
+    <!-- ===== ШАПКА ===== -->
+    <div class="card header-card">
+        <h1>📊 Оценка вероятности ТЭЛА</h1>
+        <p>Женевская шкала и шкала Wells — отметьте признаки для расчёта</p>
+    </div>
+    
+    <!-- ===== ОСНОВНОЙ КОНТЕНТ ===== -->
+    <div class="card">
+        
+        <div class="scale-row">
+            
+            <!-- ============ ЖЕНЕВСКАЯ ============ -->
+            <div class="scale-panel" id="genevaPanel">
+                <div class="panel-header">
+                    <h2>Женевская шкала</h2>
+                    <span class="badge">отметьте признаки</span>
+                </div>
+
+                <div class="group">
+                    <div class="group-label">🧬 Предрасполагающие факторы</div>
+                    <div class="item" data-score="1" data-group="geneva"><input type="checkbox"><span class="desc">Возраст > 65 лет</span><span class="points">+1</span></div>
+                    <div class="item" data-score="3" data-group="geneva"><input type="checkbox"><span class="desc">Ранее ТГВ / ТЭЛА</span><span class="points">+3</span></div>
+                    <div class="item" data-score="2" data-group="geneva"><input type="checkbox"><span class="desc">Операция / травма ≤ 1 мес</span><span class="points">+2</span></div>
+                    <div class="item" data-score="2" data-group="geneva"><input type="checkbox"><span class="desc">Рак (активный)</span><span class="points">+2</span></div>
+                </div>
+
+                <div class="group">
+                    <div class="group-label">🫁 Симптомы</div>
+                    <div class="item" data-score="3" data-group="geneva"><input type="checkbox"><span class="desc">Боль в одной ноге</span><span class="points">+3</span></div>
+                    <div class="item" data-score="2" data-group="geneva"><input type="checkbox"><span class="desc">Кровохарканье</span><span class="points">+2</span></div>
+                </div>
+
+                <div class="group">
+                    <div class="group-label">❤️ Клинические признаки</div>
+                    <div class="item" data-score="3" data-group="geneva"><input type="checkbox"><span class="desc">ЧСС 75–94 уд/мин</span><span class="points">+3</span></div>
+                    <div class="item" data-score="5" data-group="geneva"><input type="checkbox"><span class="desc">ЧСС ≥ 95 уд/мин</span><span class="points">+5</span></div>
+                    <div class="item" data-score="4" data-group="geneva"><input type="checkbox"><span class="desc">Боль при пальпации вен + отёк</span><span class="points">+4</span></div>
+                    <div class="item" data-score="3" data-group="geneva"><input type="checkbox"><span class="desc">Клинические признаки ТГВ</span><span class="points">+3</span></div>
+                </div>
+
+                <div class="result-area" id="genevaResult">
+                    <span class="score-badge" id="genevaScore">0</span>
+                    <span class="prob-tag low" id="genevaProb">Низкая</span>
+                    <button class="reset-btn" data-target="geneva">⟳ Сбросить</button>
+                </div>
+                <div class="range-text">0–3 низкая · 4–10 средняя · ≥11 высокая</div>
+            </div>
+
+            <!-- ============ WELLS ============ -->
+            <div class="scale-panel" id="wellsPanel">
+                <div class="panel-header">
+                    <h2>Шкала Wells</h2>
+                    <span class="badge">отметьте признаки</span>
+                </div>
+
+                <div class="group">
+                    <div class="group-label">🧬 Предрасполагающие факторы</div>
+                    <div class="item" data-score="1.5" data-group="wells"><input type="checkbox"><span class="desc">Ранее ТГВ / ТЭЛА</span><span class="points">+1.5</span></div>
+                    <div class="item" data-score="1.5" data-group="wells"><input type="checkbox"><span class="desc">Недавняя операция / иммобилизация</span><span class="points">+1.5</span></div>
+                    <div class="item" data-score="1" data-group="wells"><input type="checkbox"><span class="desc">Рак (активный)</span><span class="points">+1</span></div>
+                </div>
+
+                <div class="group">
+                    <div class="group-label">🫁 Симптомы</div>
+                    <div class="item" data-score="1" data-group="wells"><input type="checkbox"><span class="desc">Кровохарканье</span><span class="points">+1</span></div>
+                </div>
+
+                <div class="group">
+                    <div class="group-label">❤️ Клинические признаки</div>
+                    <div class="item" data-score="1.5" data-group="wells"><input type="checkbox"><span class="desc">ЧСС > 100 уд/мин</span><span class="points">+1.5</span></div>
+                    <div class="item" data-score="3" data-group="wells"><input type="checkbox"><span class="desc">Клинические признаки ТГВ</span><span class="points">+3</span></div>
+                </div>
+
+                <div class="result-area" id="wellsResult">
+                    <span class="score-badge" id="wellsScore">0</span>
+                    <span class="prob-tag low" id="wellsProb">Низкая</span>
+                    <button class="reset-btn" data-target="wells">⟳ Сбросить</button>
+                </div>
+                <div class="range-text">0–1 низкая · 2–6 средняя · ≥7 высокая</div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+<script>
+    (function() {
+        function updateScale(panelId, scoreId, probId) {
+            const panel = document.getElementById(panelId);
+            const checkboxes = panel.querySelectorAll('.item input[type="checkbox"]');
+            let total = 0;
+            checkboxes.forEach(cb => {
+                if (cb.checked) {
+                    const item = cb.closest('.item');
+                    const val = parseFloat(item.dataset.score) || 0;
+                    total += val;
+                }
+            });
+
+            const scoreEl = document.getElementById(scoreId);
+            scoreEl.textContent = total;
+
+            let category = '';
+            let cls = 'low';
+            if (panelId === 'genevaPanel') {
+                if (total <= 3) { category = 'Низкая'; cls = 'low'; }
+                else if (total <= 10) { category = 'Средняя'; cls = 'moderate'; }
+                else { category = 'Высокая'; cls = 'high'; }
+            } else if (panelId === 'wellsPanel') {
+                if (total <= 1) { category = 'Низкая'; cls = 'low'; }
+                else if (total <= 6) { category = 'Средняя'; cls = 'moderate'; }
+                else { category = 'Высокая'; cls = 'high'; }
+            }
+
+            const probEl = document.getElementById(probId);
+            probEl.textContent = category;
+            probEl.className = 'prob-tag ' + cls;
+        }
+
+        function attachItemEvents() {
+            document.querySelectorAll('.item input[type="checkbox"]').forEach(cb => {
+                cb.addEventListener('change', function(e) {
+                    const item = this.closest('.item');
+                    if (this.checked) {
+                        item.classList.add('selected');
+                    } else {
+                        item.classList.remove('selected');
+                    }
+
+                    const panel = item.closest('.scale-panel');
+                    if (!panel) return;
+                    const panelId = panel.id;
+
+                    if (panelId === 'genevaPanel') {
+                        updateScale('genevaPanel', 'genevaScore', 'genevaProb');
+                    } else if (panelId === 'wellsPanel') {
+                        updateScale('wellsPanel', 'wellsScore', 'wellsProb');
+                    }
+                });
+            });
+        }
+
+        function resetPanel(panelId, scoreId, probId) {
+            const panel = document.getElementById(panelId);
+            const checkboxes = panel.querySelectorAll('.item input[type="checkbox"]');
+            checkboxes.forEach(cb => {
+                cb.checked = false;
+                cb.closest('.item').classList.remove('selected');
+            });
+            updateScale(panelId, scoreId, probId);
+        }
+
+        function initResetButtons() {
+            document.querySelectorAll('.reset-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    const target = this.dataset.target;
+                    if (target === 'geneva') {
+                        resetPanel('genevaPanel', 'genevaScore', 'genevaProb');
+                    } else if (target === 'wells') {
+                        resetPanel('wellsPanel', 'wellsScore', 'wellsProb');
+                    }
+                });
+            });
+        }
+
+        function initPanels() {
+            ['genevaPanel', 'wellsPanel'].forEach(pid => {
+                const panel = document.getElementById(pid);
+                const checks = panel.querySelectorAll('.item input[type="checkbox"]');
+                checks.forEach(cb => {
+                    cb.checked = false;
+                    cb.closest('.item').classList.remove('selected');
+                });
+                if (pid === 'genevaPanel') {
+                    updateScale('genevaPanel', 'genevaScore', 'genevaProb');
+                } else {
+                    updateScale('wellsPanel', 'wellsScore', 'wellsProb');
+                }
+            });
+        }
+
+        function enableRowClick() {
+            document.querySelectorAll('.item').forEach(item => {
+                item.addEventListener('click', function(e) {
+                    if (e.target.tagName !== 'INPUT') {
+                        const cb = this.querySelector('input[type="checkbox"]');
+                        if (cb) {
+                            cb.checked = !cb.checked;
+                            const ev = new Event('change', { bubbles: true });
+                            cb.dispatchEvent(ev);
+                        }
+                    }
+                });
+            });
+        }
+
+        function init() {
+            attachItemEvents();
+            initResetButtons();
+            enableRowClick();
+            initPanels();
+        }
+
+        document.addEventListener('DOMContentLoaded', init);
+    })();
+    
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/SMP/sw.js')
+            .then(reg => console.log('✅ Service Worker зарегистрирован:', reg.scope))
+            .catch(err => console.error('❌ Ошибка регистрации SW:', err));
+    }
+</script>
+
+</body>
+</html>
