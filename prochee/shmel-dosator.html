@@ -2,228 +2,279 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Инструкция · Дозатор ДШП 5-20-ШМЕЛЬ</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>💉 Дозатор ДШП 5-20-ШМЕЛЬ</title>
+    
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0f1446">
+    
     <style>
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
+
         body {
-            background: #f3f7fc;
-            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
-            padding: 2rem 1rem;
-            display: flex;
-            justify-content: center;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            font-family: 'Segoe UI', 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: #1f3a4b;
+            padding: 20px;
+            min-height: 100vh;
         }
+
         .container {
-            max-width: 1100px;
-            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .card {
             background: white;
-            border-radius: 32px;
-            box-shadow: 0 20px 40px rgba(0,20,40,0.12);
-            padding: 2rem 2rem 2.5rem;
-        }
-        h1 {
-            font-size: 2.2rem;
-            font-weight: 600;
-            color: #0a2a44;
-            letter-spacing: -0.3px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            flex-wrap: wrap;
-            border-bottom: 3px solid #e6edf5;
-            padding-bottom: 0.6rem;
-            margin-bottom: 1.8rem;
-        }
-        h1 small {
-            font-size: 1rem;
-            font-weight: 400;
-            color: #3b6b8f;
-            margin-left: 6px;
-        }
-        .badge {
-            background: #dce6f0;
-            color: #1e4b6b;
-            padding: 0.2rem 0.9rem;
-            border-radius: 40px;
-            font-size: 0.8rem;
-            font-weight: 500;
-            margin-left: 10px;
-        }
-        .step-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 1.8rem;
-        }
-        .step-card {
-            background: #ffffff;
             border-radius: 24px;
-            border: 1px solid #dfe9f2;
-            padding: 1.2rem 1.8rem 1.8rem;
-            transition: 0.15s;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 24px 22px;
+            margin-bottom: 20px;
         }
-        .step-card:hover {
-            border-color: #b6cfec;
-            background: #fafdff;
+
+        .card.header-card {
+            background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
+            color: white;
+            text-align: center;
+            padding: 28px 20px;
         }
+
+        .card.header-card h1 {
+            font-size: 28px;
+            color: white;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .card.header-card p {
+            opacity: 0.9;
+            font-size: 0.95rem;
+            margin-top: 8px;
+        }
+
+        h2 {
+            color: #0f1446;
+            border-left: 6px solid #e53935;
+            padding-left: 16px;
+            font-size: 1.3rem;
+            margin: 1.2rem 0 1rem 0;
+        }
+
+        .step-card {
+            background: #eef7ff;
+            border-radius: 16px;
+            border-left: 4px solid #1f6e9c;
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+
+        .step-card.warning-card {
+            background: #fff8e7;
+            border-left: 4px solid #f0b849;
+        }
+
         .step-header {
             display: flex;
-            align-items: baseline;
+            align-items: center;
             gap: 10px;
             flex-wrap: wrap;
-            margin-bottom: 0.5rem;
+            margin-bottom: 12px;
         }
+
         .step-number {
-            background: #1b4a6e;
+            background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
             color: white;
-            font-weight: 600;
+            font-weight: 700;
             font-size: 0.9rem;
-            padding: 0.2rem 0.9rem;
-            border-radius: 40px;
-            letter-spacing: 0.3px;
+            padding: 4px 14px;
+            border-radius: 12px;
+            flex-shrink: 0;
         }
+
+        .step-number.info-num {
+            background: #1f6e9c;
+        }
+
         .step-title {
-            font-weight: 600;
-            font-size: 1.3rem;
-            color: #0d2f4a;
+            font-weight: 700;
+            font-size: 1.15rem;
+            color: #0f1446;
         }
+
         .mode-tag {
-            background: #e3eefa;
-            padding: 0.2rem 0.9rem;
-            border-radius: 30px;
+            background: #ffffff;
+            padding: 4px 12px;
+            border-radius: 12px;
             font-size: 0.75rem;
             font-weight: 600;
-            color: #1b4a6e;
-            letter-spacing: 0.2px;
-            border: 1px solid #c2d7ed;
+            color: #0f1446;
+            border: 1px solid #d4e2f0;
         }
+
         .content {
             display: flex;
             flex-direction: column;
-            gap: 0.9rem;
-            margin-top: 0.3rem;
+            gap: 10px;
         }
+
         .bullet-list {
             list-style: none;
-            padding-left: 0.2rem;
+            padding-left: 0;
         }
+
         .bullet-list li {
             position: relative;
-            padding-left: 1.6rem;
-            margin-bottom: 0.4rem;
+            padding-left: 20px;
+            margin-bottom: 6px;
             font-size: 0.95rem;
             line-height: 1.5;
-            color: #1c3b55;
+            color: #1f3a4b;
         }
+
         .bullet-list li::before {
             content: "▹";
             position: absolute;
-            left: 0;
-            color: #1f6e9e;
-            font-weight: 600;
+            left: 2px;
+            color: #0f1446;
+            font-weight: 700;
         }
+
         .bullet-list ul {
             list-style: none;
-            padding-left: 1.2rem;
-            margin-top: 0.2rem;
+            padding-left: 16px;
+            margin-top: 4px;
         }
+
         .bullet-list ul li::before {
             content: "•";
-            color: #3d7ea3;
+            color: #1f6e9c;
         }
+
         .key-icon {
-            background: white;
-            border: 1px solid #bccfe0;
-            padding: 0.1rem 0.9rem;
-            border-radius: 40px;
-            font-size: 1.1rem;
-            font-weight: 500;
-            color: #003057;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.04);
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
+            display: inline-block;
+            background: #ffffff;
+            border: 1px solid #d4e2f0;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #0f1446;
             white-space: nowrap;
         }
-        .key-icon span {
-            font-size: 0.75rem;
-            font-weight: 400;
-            color: #3f6481;
-        }
-        .key-icon.small {
-            font-size: 0.85rem;
-            padding: 0.05rem 0.7rem;
-        }
+
         .info-note {
-            background: #e2edf9;
-            border-left: 5px solid #3d7ea3;
-            padding: 0.6rem 1.2rem;
-            border-radius: 14px;
-            font-size: 0.9rem;
-            color: #17415f;
+            background: #eef7ff;
+            border-left: 4px solid #1f6e9c;
+            padding: 10px 14px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            color: #1f3a4b;
         }
+
         .warning-note {
-            background: #fef7e0;
-            border-left: 5px solid #e8b84b;
-            padding: 0.6rem 1.2rem;
-            border-radius: 14px;
-            font-size: 0.9rem;
-            color: #5f4a1a;
-            margin-top: 0.5rem;
+            background: #fff8e7;
+            border-left: 4px solid #f0b849;
+            padding: 10px 14px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            color: #a56b00;
         }
+
+        .danger-note {
+            background: #fff0f0;
+            border-left: 4px solid #d32f2f;
+            padding: 10px 14px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            color: #b71c1c;
+            margin-top: 8px;
+        }
+
         .table-mini {
-            background: #f5f9fe;
-            border-radius: 18px;
-            padding: 0.6rem 1.4rem 0.8rem;
-            border: 1px solid #d9e6f2;
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 12px 16px;
+            border: 1px solid #d4e2f0;
+            margin: 8px 0;
         }
+
         .table-mini td {
-            padding: 0.15rem 0.6rem 0.15rem 0;
+            padding: 4px 8px;
+            font-size: 0.9rem;
+            color: #1f3a4b;
         }
+
         .table-mini tr td:first-child {
-            font-weight: 500;
-            color: #0a2a44;
+            font-weight: 600;
+            color: #0f1446;
         }
+
         .flex-row {
             display: flex;
             flex-wrap: wrap;
-            gap: 1.2rem 2rem;
+            gap: 10px 16px;
+            margin: 4px 0;
         }
+
         .row-value {
-            color: #1f3d56;
-            background: #f0f6fd;
-            padding: 0.2rem 0.9rem;
-            border-radius: 30px;
+            color: #0f1446;
+            background: #ffffff;
+            padding: 4px 12px;
+            border-radius: 12px;
             font-size: 0.9rem;
-            display: inline-block;
+            border: 1px solid #d4e2f0;
+            font-weight: 600;
         }
+
         .divider {
             height: 1px;
-            background: linear-gradient(90deg, #c9ddec, transparent);
-            margin: 0.6rem 0 0.8rem;
+            background: #d4e2f0;
+            margin: 10px 0;
         }
-        @media (max-width: 640px) {
-            .container { padding: 1rem; }
-            h1 { font-size: 1.6rem; }
-            .step-card { padding: 1rem; }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            .card {
+                padding: 16px 14px;
+            }
+            .card.header-card {
+                padding: 20px 14px;
+            }
+            .card.header-card h1 {
+                font-size: 22px;
+            }
+            .step-card {
+                padding: 14px;
+            }
+            .step-title {
+                font-size: 1rem;
+            }
         }
     </style>
 </head>
 <body>
+
 <div class="container">
-    <h1>
-        <span>ДШП 5-20-ШМЕЛЬ</span>
-        <small>портативный шприцевой дозатор</small>
-        <span class="badge">Руководство по эксплуатации</span>
-    </h1>
-
-    <div class="step-grid">
-
-        <!-- ШАГ 1: ВКЛЮЧЕНИЕ -->
+    
+    <!-- ===== ШАПКА ===== -->
+    <div class="card header-card">
+        <h1>💉 Дозатор ДШП 5-20-ШМЕЛЬ</h1>
+        <p>Портативный шприцевой дозатор — руководство по эксплуатации</p>
+    </div>
+    
+    <!-- ===== ОСНОВНОЙ КОНТЕНТ ===== -->
+    <div class="card">
+        
+        <h2>1. Включение и подготовка</h2>
+        
         <div class="step-card">
             <div class="step-header">
                 <span class="step-number">1</span>
@@ -233,7 +284,7 @@
             <div class="content">
                 <ul class="bullet-list">
                     <li><strong>Подключите питание:</strong> адаптер 12 В / прикуриватель — загорится зелёный индикатор «Питание».</li>
-                    <li>Нажмите и удерживайте <span class="key-icon small">⏻ Вкл/Выкл</span> ~2 сек. — дисплей загорится.</li>
+                    <li>Нажмите и удерживайте <span class="key-icon">⏻ Вкл/Выкл</span> ~2 сек. — дисплей загорится.</li>
                     <li>Если дозатор был на морозе — дайте ему прогреться <strong>1,5 минуты</strong>.</li>
                     <li><strong>Установите шприц</strong> (5, 10 или 20 мл, только 3‑компонентный):
                         <ul>
@@ -251,8 +302,9 @@
                 </div>
             </div>
         </div>
-
-        <!-- ШАГ 2: ВЫБОР РЕЖИМА -->
+        
+        <h2>2. Выбор режима работы</h2>
+        
         <div class="step-card">
             <div class="step-header">
                 <span class="step-number">2</span>
@@ -260,19 +312,20 @@
                 <span class="mode-tag">режимы</span>
             </div>
             <div class="content">
-                <p>Кнопкой <span class="key-icon small">Режимы</span> последовательно выберите нужный режим. Жёлтый светодиод напротив названия загорится непрерывно.</p>
+                <p>Кнопкой <span class="key-icon">Режимы</span> последовательно выберите нужный режим. Жёлтый светодиод напротив названия загорится непрерывно.</p>
                 <div class="flex-row">
-                    <div><span class="row-value">🔹 Инфузия</span> — непрерывное введение с заданной скоростью.</div>
-                    <div><span class="row-value">🔸 Болюс</span> — максимальная скорость (зависит от шприца).</div>
-                    <div><span class="row-value">🔹 СЛР</span> — автоматическое введение адреналина порциями.</div>
+                    <span class="row-value">🔹 Инфузия</span>
+                    <span class="row-value">🔸 Болюс</span>
+                    <span class="row-value">🔹 СЛР</span>
                 </div>
                 <div class="info-note">
                     💡 Светодиод выбранного режима горит непрерывно, при работе — мигает (период 2 с, длительность 1 с).
                 </div>
             </div>
         </div>
-
-        <!-- ШАГ 3: РЕЖИМ ИНФУЗИЯ -->
+        
+        <h2>3. Режим «Инфузия»</h2>
+        
         <div class="step-card">
             <div class="step-header">
                 <span class="step-number">3</span>
@@ -281,12 +334,10 @@
             </div>
             <div class="content">
                 <ul class="bullet-list">
-                    <li><strong>1‑е нажатие</strong> <span class="key-icon small">Параметры</span> — на дисплее тип шприца (5/10/20 мл). Убедитесь, что определён верно. Загорается индикатор «Шприц».</li>
-                    <li><strong>2‑е нажатие</strong> <span class="key-icon small">Параметры</span> — загорается индикатор «Скорость». 
-                        <br>Задаётся кнопками разрядов: <span class="key-icon">⏫</span> <span class="key-icon">⏬</span> (шаг 0,1 мл/ч до 99,9; от 100 — шаг 1 мл/ч). 
-                        <br>Для ввода десятых долей используйте кнопку <span class="key-icon small">запятая</span>.</li>
-                    <li><strong>3‑е нажатие</strong> <span class="key-icon small">Параметры</span> — загорается индикатор «Объем», на дисплее <strong>«РАБ»</strong> (готов к работе).</li>
-                    <li>Нажмите <span class="key-icon small">Старт/Стоп</span> — начнётся инфузия. Светодиод «Инфузия» начнёт мигать.</li>
+                    <li><strong>1‑е нажатие</strong> <span class="key-icon">Параметры</span> — на дисплее тип шприца (5/10/20 мл). Убедитесь, что определён верно.</li>
+                    <li><strong>2‑е нажатие</strong> <span class="key-icon">Параметры</span> — загорается индикатор «Скорость». Задаётся кнопками разрядов <span class="key-icon">⏫</span> <span class="key-icon">⏬</span> (шаг 0,1 мл/ч до 99,9; от 100 — шаг 1 мл/ч).</li>
+                    <li><strong>3‑е нажатие</strong> <span class="key-icon">Параметры</span> — загорается индикатор «Объем», на дисплее <strong>«РАБ»</strong> (готов к работе).</li>
+                    <li>Нажмите <span class="key-icon">Старт/Стоп</span> — начнётся инфузия.</li>
                 </ul>
                 <div class="table-mini">
                     <table>
@@ -296,12 +347,13 @@
                     </table>
                 </div>
                 <div class="info-note">
-                    📐 Дозатор измеряет диаметр шприца с точностью не хуже 1 %, что позволяет учитывать особенности разных производителей.
+                    📐 Дозатор измеряет диаметр шприца с точностью не хуже 1%, что позволяет учитывать особенности разных производителей.
                 </div>
             </div>
         </div>
-
-        <!-- ШАГ 4: РЕЖИМ БОЛЮС -->
+        
+        <h2>4. Режим «Болюс»</h2>
+        
         <div class="step-card">
             <div class="step-header">
                 <span class="step-number">4</span>
@@ -310,9 +362,9 @@
             </div>
             <div class="content">
                 <ul class="bullet-list">
-                    <li>Кнопкой <span class="key-icon small">Режимы</span> выберите «Болюс» — загорится соответствующий светодиод.</li>
-                    <li>Кнопка <span class="key-icon small">Параметры</span> в этом режиме <strong>не используется</strong>.</li>
-                    <li>Нажмите и <strong>удерживайте</strong> <span class="key-icon small">Старт/Стоп</span> — инфузия пойдёт с максимальной скоростью для установленного шприца.</li>
+                    <li>Кнопкой <span class="key-icon">Режимы</span> выберите «Болюс» — загорится соответствующий светодиод.</li>
+                    <li>Кнопка <span class="key-icon">Параметры</span> в этом режиме <strong>не используется</strong>.</li>
+                    <li>Нажмите и <strong>удерживайте</strong> <span class="key-icon">Старт/Стоп</span> — инфузия пойдёт с максимальной скоростью.</li>
                 </ul>
                 <div class="table-mini">
                     <table>
@@ -322,8 +374,9 @@
                 </div>
             </div>
         </div>
-
-        <!-- ШАГ 5: РЕЖИМ СЛР -->
+        
+        <h2>5. Режим «СЛР»</h2>
+        
         <div class="step-card">
             <div class="step-header">
                 <span class="step-number">5</span>
@@ -332,17 +385,16 @@
             </div>
             <div class="content">
                 <ul class="bullet-list">
-                    <li><strong>1. Выберите режим</strong> — кнопкой <span class="key-icon small">Режимы</span> установите «СЛР». Загорится соответствующий светодиод.</li>
+                    <li><strong>1. Выберите режим</strong> — кнопкой <span class="key-icon">Режимы</span> установите «СЛР».</li>
                     <li><strong>2. Проверьте шприц</strong> — <strong>обязательно используйте шприц 20 мл</strong> (при меньшем объёме — сброс настроек).</li>
-                    <li><strong>3. Настройка порции</strong> — нажмите <span class="key-icon small">Параметры</span>:
+                    <li><strong>3. Настройка порции</strong> — нажмите <span class="key-icon">Параметры</span>:
                         <ul>
                             <li><strong>1‑е нажатие</strong> — на дисплее тип шприца (должен быть 20 мл).</li>
-                            <li><strong>2‑е нажатие</strong> — на дисплее объём порции (5 мл по умолчанию). 
-                                <br>Меняется кнопкой <span class="key-icon">СЛР</span> <span class="key-icon">⏫</span> / <span class="key-icon">⏬</span> (переключение между <strong>5 мл</strong> и <strong>3 мл</strong>).</li>
+                            <li><strong>2‑е нажатие</strong> — на дисплее объём порции (5 мл по умолчанию). Меняется кнопкой <span class="key-icon">СЛР</span> <span class="key-icon">⏫</span> / <span class="key-icon">⏬</span> (переключение между <strong>5 мл</strong> и <strong>3 мл</strong>).</li>
                             <li><strong>3‑е нажатие</strong> — на дисплее <strong>«РАБ»</strong>, дозатор готов.</li>
                         </ul>
                     </li>
-                    <li><strong>4. Запуск</strong> — нажмите <span class="key-icon small">Старт/Стоп</span> — начнётся цикл:
+                    <li><strong>4. Запуск</strong> — нажмите <span class="key-icon">Старт/Стоп</span> — начнётся цикл:
                         <ul>
                             <li>Порция 5 мл вводится за 8–16 с (типично 8–10 с).</li>
                             <li>Порция 3 мл вводится за 5–8 с (типично 5–6 с).</li>
@@ -357,8 +409,9 @@
                 </div>
             </div>
         </div>
-
-        <!-- ШАГ 6: УПРАВЛЕНИЕ / ОСТАНОВКА / ТРЕВОГА -->
+        
+        <h2>6. Управление и остановка</h2>
+        
         <div class="step-card">
             <div class="step-header">
                 <span class="step-number">6</span>
@@ -367,40 +420,40 @@
             </div>
             <div class="content">
                 <ul class="bullet-list">
-                    <li><strong>Пауза/возобновление:</strong> кратковременно нажмите <span class="key-icon small">Старт/Стоп</span> — дозатор приостановится, повторное нажатие продолжит.</li>
-                    <li><strong>Завершение инфузии:</strong> нажмите <span class="key-icon small">Старт/Стоп</span> → переходит в режим ожидания.</li>
-                    <li><strong>Выключение:</strong> в режиме ожидания удерживайте <span class="key-icon small">Вкл/Выкл</span> ~2 сек. до погасания индикаторов.</li>
+                    <li><strong>Пауза/возобновление:</strong> кратковременно нажмите <span class="key-icon">Старт/Стоп</span>.</li>
+                    <li><strong>Завершение инфузии:</strong> нажмите <span class="key-icon">Старт/Стоп</span> → переходит в режим ожидания.</li>
+                    <li><strong>Выключение:</strong> в режиме ожидания удерживайте <span class="key-icon">Вкл/Выкл</span> ~2 сек. до погасания индикаторов.</li>
                     <li><strong>Тревога (красный светодиод, звук 4 кГц):</strong> 
                         <ul>
-                            <li><strong>«УС»</strong> — превышение максимально допустимого усилия на штоке шприца.
-                                <br>→ Устраните посторонние предметы, проверьте иглу, отсутствие перегибов, замените шприц.</li>
+                            <li><strong>«УС»</strong> — превышение максимально допустимого усилия на штоке шприца.</li>
                             <li><strong>«___»</strong> (нижние черточки) — выпадение шприца (прижим опустился вниз).</li>
                             <li><strong>«‾‾‾»</strong> (верхние черточки) — выпадение шприца (прижим поднялся вверх).</li>
                         </ul>
                     </li>
-                    <li>Для сброса тревоги нажмите <span class="key-icon small">Старт/Стоп</span>, <span class="key-icon small">Режимы</span> или <span class="key-icon small">Вкл/Выкл</span>.</li>
+                    <li>Для сброса тревоги нажмите <span class="key-icon">Старт/Стоп</span>, <span class="key-icon">Режимы</span> или <span class="key-icon">Вкл/Выкл</span>.</li>
                 </ul>
                 <div class="info-note">
                     📌 При срабатывании тревожной сигнализации дозатор останавливается. Дальнейшая работа возможна только после нажатия одной из кнопок сброса.
                 </div>
             </div>
         </div>
-
-        <!-- ШАГ 7: ИНДИКАЦИЯ -->
+        
+        <h2>Индикация и сигналы</h2>
+        
         <div class="step-card">
             <div class="step-header">
-                <span class="step-number">i</span>
+                <span class="step-number info-num">i</span>
                 <span class="step-title">Индикация и сигналы</span>
                 <span class="mode-tag">свет / звук</span>
             </div>
             <div class="content">
                 <div class="flex-row">
-                    <div><span class="row-value">🟢 Питание</span> — внешнее питание подключено (зелёный, непрерывно).</div>
-                    <div><span class="row-value">🟡 Аккумулятор</span> — работа от батарей (жёлтый).</div>
-                    <div><span class="row-value">🔴 Тревога</span> — ошибка / остановка (красный, прерывисто).</div>
+                    <span class="row-value">🟢 Питание</span>
+                    <span class="row-value">🟡 Аккумулятор</span>
+                    <span class="row-value">🔴 Тревога</span>
                 </div>
                 <div class="divider"></div>
-                <div><strong>Аккумулятор (жёлтый светодиод):</strong></div>
+                <strong>Аккумулятор (жёлтый светодиод):</strong>
                 <ul class="bullet-list">
                     <li><strong>Постоянное свечение</strong> — полностью заряжен.</li>
                     <li><strong>Мигает 1 раз, пауза, 1 раз (сериями)</strong> — частичная разрядка.</li>
@@ -408,7 +461,7 @@
                     <li><strong>Непрерывное частое мигание</strong> — заряд критический, скоро отключение.</li>
                 </ul>
                 <div class="divider"></div>
-                <div><strong>Звуковые сигналы:</strong></div>
+                <strong>Звуковые сигналы:</strong>
                 <ul class="bullet-list">
                     <li>При непрерывном мигании (низкий заряд) — короткий сигнал каждые 10 секунд.</li>
                     <li>Непосредственно перед отключением — 10 быстрых сигналов подряд.</li>
@@ -419,11 +472,12 @@
                 </div>
             </div>
         </div>
-
-        <!-- ШАГ 8: ВАЖНО ПОМНИТЬ -->
-        <div class="step-card" style="background: #f1f7fe;">
+        
+        <h2>Важно помнить</h2>
+        
+        <div class="step-card warning-card">
             <div class="step-header">
-                <span class="step-number">⚙</span>
+                <span class="step-number" style="background: #f0b849;">⚙</span>
                 <span class="step-title">Важно помнить</span>
             </div>
             <div class="content">
@@ -437,8 +491,17 @@
                 </ul>
             </div>
         </div>
+        
+    </div>
+</div>
 
-    </div> <!-- step-grid -->
-</div> <!-- container -->
+<script>
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/SMP/sw.js')
+            .then(reg => console.log('✅ Service Worker зарегистрирован:', reg.scope))
+            .catch(err => console.error('❌ Ошибка регистрации SW:', err));
+    }
+</script>
+
 </body>
 </html>
