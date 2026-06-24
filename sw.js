@@ -1,7 +1,7 @@
 // sw.js — Service Worker для EMHelp PWA
-// Версия: v110 (изменён порядок и цвета кнопок в index.html)
+// Версия: v111 (добавлен дозатор Шмель в калькуляторы)
 
-const CACHE_NAME = 'emhelp-v110';
+const CACHE_NAME = 'emhelp-v111';
 
 // Только самые важные страницы (пре-кэш)
 const urlsToCache = [
@@ -74,7 +74,7 @@ self.addEventListener('activate', event => {
         })
       );
     }).then(() => {
-      console.log('✅ Service Worker активирован (v110)');
+      console.log('✅ Service Worker активирован (v111)');
       return self.clients.claim();
     })
   );
