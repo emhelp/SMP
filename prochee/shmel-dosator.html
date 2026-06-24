@@ -71,12 +71,6 @@
             text-align: center;
         }
 
-        .image-card p {
-            margin-top: 8px;
-            font-size: 0.85rem;
-            color: #6f8eaa;
-        }
-
         h2 {
             color: #0f1446;
             border-left: 6px solid #e53935;
@@ -96,44 +90,6 @@
         .step-card.warning-card {
             background: #fff8e7;
             border-left: 4px solid #f0b849;
-        }
-
-        .step-header {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-bottom: 12px;
-        }
-
-        .step-number {
-            background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
-            color: white;
-            font-weight: 700;
-            font-size: 0.9rem;
-            padding: 4px 14px;
-            border-radius: 12px;
-            flex-shrink: 0;
-        }
-
-        .step-number.info-num {
-            background: #1f6e9c;
-        }
-
-        .step-title {
-            font-weight: 700;
-            font-size: 1.15rem;
-            color: #0f1446;
-        }
-
-        .mode-tag {
-            background: #ffffff;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: #0f1446;
-            border: 1px solid #d4e2f0;
         }
 
         .content {
@@ -157,11 +113,13 @@
         }
 
         .bullet-list li::before {
-            content: "▹";
+            content: "▶";
             position: absolute;
-            left: 2px;
+            left: 0;
             color: #0f1446;
             font-weight: 700;
+            font-size: 0.7rem;
+            top: 0.35rem;
         }
 
         .bullet-list ul {
@@ -173,6 +131,8 @@
         .bullet-list ul li::before {
             content: "•";
             color: #1f6e9c;
+            font-size: 1rem;
+            top: 0;
         }
 
         .key-icon {
@@ -273,9 +233,6 @@
             .step-card {
                 padding: 14px;
             }
-            .step-title {
-                font-size: 1rem;
-            }
             .device-image {
                 max-width: 100%;
             }
@@ -294,8 +251,7 @@
     
     <!-- ===== ИЗОБРАЖЕНИЕ ДОЗАТОРА ===== -->
     <div class="card image-card">
-        <img src="Дозатор.png" alt="Дозатор ДШП 5-20-ШМЕЛЬ" class="device-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='none';">
-        <p>ДШП 5-20-ШМЕЛЬ — портативный шприцевой дозатор</p>
+        <img src="Дозатор.png" alt="Дозатор ДШП 5-20-ШМЕЛЬ" class="device-image" onerror="this.style.display='none';">
     </div>
     
     <!-- ===== ОСНОВНОЙ КОНТЕНТ ===== -->
@@ -304,11 +260,6 @@
         <h2>1. Включение и подготовка</h2>
         
         <div class="step-card">
-            <div class="step-header">
-                <span class="step-number">1</span>
-                <span class="step-title">Включение и подготовка</span>
-                <span class="mode-tag">старт</span>
-            </div>
             <div class="content">
                 <ul class="bullet-list">
                     <li><strong>Подключите питание:</strong> адаптер 12 В / прикуриватель — загорится зелёный индикатор <span class="key-icon">(17) «Питание»</span>.</li>
@@ -335,13 +286,8 @@
         <h2>2. Выбор режима работы</h2>
         
         <div class="step-card">
-            <div class="step-header">
-                <span class="step-number">2</span>
-                <span class="step-title">Выбор режима работы</span>
-                <span class="mode-tag">режимы</span>
-            </div>
             <div class="content">
-                <p>Кнопкой <span class="key-icon">(12) Режимы ⏬</span> последовательно выберите нужный режим. Жёлтый светодиод в блоке <span class="key-icon">(15) Индикаторы Режимов</span> напротив названия загорится непрерывно.</p>
+                <p>Кнопкой <span class="key-icon">(12) Режимы 🔽</span> последовательно выберите нужный режим. Жёлтый светодиод в блоке <span class="key-icon">(15) Индикаторы Режимов</span> напротив названия загорится непрерывно.</p>
                 <div class="flex-row">
                     <span class="row-value">🔹 Инфузия</span>
                     <span class="row-value">🔸 Болюс</span>
@@ -357,18 +303,13 @@
         <h2>3. Режим «Инфузия»</h2>
         
         <div class="step-card">
-            <div class="step-header">
-                <span class="step-number">3</span>
-                <span class="step-title">Режим «Инфузия»</span>
-                <span class="mode-tag">настройка скорости</span>
-            </div>
             <div class="content">
                 <ul class="bullet-list">
-                    <li><strong>1‑е нажатие</strong> кнопки <span class="key-icon">(10) Параметры ⏬</span> — на дисплее <span class="key-icon">(5)</span> тип шприца (5/10/20 мл). Убедитесь, что определён верно. Загорается индикатор «Шприц» в блоке <span class="key-icon">(14)</span>.</li>
-                    <li><strong>2‑е нажатие</strong> кнопки <span class="key-icon">(10) Параметры ⏬</span> — загорается индикатор «Скорость» <strong>(14)</strong>. Задаётся кнопками разрядов: 
-                        <span class="key-icon">(6) СЛР/старший разряд числа ⏫</span> <span class="key-icon">(7) средний разряд числа ⏫</span> <span class="key-icon">(9) младший разряд числа ⏫</span> (шаг 0,1 мл/ч до 99,9; от 100 — шаг 1 мл/ч). 
+                    <li><strong>1‑е нажатие</strong> кнопки <span class="key-icon">(10) Параметры 🔽</span> — на дисплее <span class="key-icon">(5)</span> тип шприца (5/10/20 мл). Убедитесь, что определён верно. Загорается индикатор «Шприц» в блоке <span class="key-icon">(14)</span>.</li>
+                    <li><strong>2‑е нажатие</strong> кнопки <span class="key-icon">(10) Параметры 🔽</span> — загорается индикатор «Скорость» <strong>(14)</strong>. Задаётся кнопками разрядов: 
+                        <span class="key-icon">(6) СЛР/старший разряд числа 🔼</span> <span class="key-icon">(7) средний разряд числа 🔼</span> <span class="key-icon">(9) младший разряд числа 🔼</span> (шаг 0,1 мл/ч до 99,9; от 100 — шаг 1 мл/ч). 
                         Для ввода десятых долей используйте кнопку <span class="key-icon">(8) Запятая</span>.</li>
-                    <li><strong>3‑е нажатие</strong> кнопки <span class="key-icon">(10) Параметры ⏬</span> — загорается индикатор «Объем» <strong>(14)</strong>, на дисплее <strong>(5)</strong> — <strong>«РАБ»</strong> (готов к работе).</li>
+                    <li><strong>3‑е нажатие</strong> кнопки <span class="key-icon">(10) Параметры 🔽</span> — загорается индикатор «Объем» <strong>(14)</strong>, на дисплее <strong>(5)</strong> — <strong>«РАБ»</strong> (готов к работе).</li>
                     <li>Нажмите <span class="key-icon">(11) Старт/Стоп</span> — начнётся инфузия. Светодиод «Инфузия» <strong>(15)</strong> начнёт мигать.</li>
                 </ul>
                 <div class="table-mini">
@@ -387,15 +328,10 @@
         <h2>4. Режим «Болюс»</h2>
         
         <div class="step-card">
-            <div class="step-header">
-                <span class="step-number">4</span>
-                <span class="step-title">Режим «Болюс»</span>
-                <span class="mode-tag">максимальная скорость</span>
-            </div>
             <div class="content">
                 <ul class="bullet-list">
-                    <li>Кнопкой <span class="key-icon">(12) Режимы ⏬</span> выберите «Болюс» — загорится соответствующий светодиод в блоке <span class="key-icon">(15)</span>.</li>
-                    <li>Кнопка <span class="key-icon">(10) Параметры ⏬</span> в этом режиме <strong>не используется</strong>.</li>
+                    <li>Кнопкой <span class="key-icon">(12) Режимы 🔽</span> выберите «Болюс» — загорится соответствующий светодиод в блоке <span class="key-icon">(15)</span>.</li>
+                    <li>Кнопка <span class="key-icon">(10) Параметры 🔽</span> в этом режиме <strong>не используется</strong>.</li>
                     <li>Нажмите и <strong>удерживайте</strong> кнопку <span class="key-icon">(11) Старт/Стоп</span> — инфузия пойдёт с максимальной скоростью для установленного шприца.</li>
                 </ul>
                 <div class="table-mini">
@@ -410,19 +346,14 @@
         <h2>5. Режим «СЛР»</h2>
         
         <div class="step-card">
-            <div class="step-header">
-                <span class="step-number">5</span>
-                <span class="step-title">Режим «СЛР»</span>
-                <span class="mode-tag">адреналин порциями</span>
-            </div>
             <div class="content">
                 <ul class="bullet-list">
-                    <li><strong>1. Выберите режим</strong> — кнопкой <span class="key-icon">(12) Режимы ⏬</span> установите «СЛР». Загорится соответствующий светодиод <strong>(15)</strong>.</li>
+                    <li><strong>1. Выберите режим</strong> — кнопкой <span class="key-icon">(12) Режимы 🔽</span> установите «СЛР». Загорится соответствующий светодиод <strong>(15)</strong>.</li>
                     <li><strong>2. Проверьте шприц</strong> — <strong>обязательно используйте шприц 20 мл (1)</strong> (при меньшем объёме — сброс настроек).</li>
-                    <li><strong>3. Настройка порции</strong> — нажмите кнопку <span class="key-icon">(10) Параметры ⏬</span>:
+                    <li><strong>3. Настройка порции</strong> — нажмите кнопку <span class="key-icon">(10) Параметры 🔽</span>:
                         <ul>
                             <li><strong>1‑е нажатие</strong> — на дисплее <strong>(5)</strong> тип шприца (должен быть 20 мл).</li>
-                            <li><strong>2‑е нажатие</strong> — на дисплее <strong>(5)</strong> объём порции (5 мл по умолчанию). Меняется кнопкой <span class="key-icon">(6) СЛР ⏫</span> — переключение между <strong>5 мл</strong> и <strong>3 мл</strong>.</li>
+                            <li><strong>2‑е нажатие</strong> — на дисплее <strong>(5)</strong> объём порции (5 мл по умолчанию). Меняется кнопкой <span class="key-icon">(6) СЛР 🔼</span> — переключение между <strong>5 мл</strong> и <strong>3 мл</strong>.</li>
                             <li><strong>3‑е нажатие</strong> — на дисплее <strong>(5)</strong> — <strong>«РАБ»</strong>, дозатор готов.</li>
                         </ul>
                     </li>
@@ -445,11 +376,6 @@
         <h2>6. Управление и остановка</h2>
         
         <div class="step-card">
-            <div class="step-header">
-                <span class="step-number">6</span>
-                <span class="step-title">Управление и остановка</span>
-                <span class="mode-tag">старт / стоп / тревога</span>
-            </div>
             <div class="content">
                 <ul class="bullet-list">
                     <li><strong>Пауза/возобновление:</strong> кратковременно нажмите кнопку <span class="key-icon">(11) Старт/Стоп</span>.</li>
@@ -462,7 +388,7 @@
                             <li><strong>«‾‾‾»</strong> (верхние черточки) — выпадение шприца (прижим поднялся вверх).</li>
                         </ul>
                     </li>
-                    <li>Для сброса тревоги нажмите <span class="key-icon">(11) Старт/Стоп</span>, <span class="key-icon">(12) Режимы ⏬</span> или <span class="key-icon">(13) Вкл/Выкл</span>.</li>
+                    <li>Для сброса тревоги нажмите <span class="key-icon">(11) Старт/Стоп</span>, <span class="key-icon">(12) Режимы 🔽</span> или <span class="key-icon">(13) Вкл/Выкл</span>.</li>
                 </ul>
                 <div class="info-note">
                     📌 При срабатывании тревожной сигнализации <strong>(16)</strong> дозатор останавливается. Дальнейшая работа возможна только после нажатия одной из кнопок сброса.
@@ -473,11 +399,6 @@
         <h2>Индикация и сигналы</h2>
         
         <div class="step-card">
-            <div class="step-header">
-                <span class="step-number info-num">i</span>
-                <span class="step-title">Индикация и сигналы</span>
-                <span class="mode-tag">свет / звук</span>
-            </div>
             <div class="content">
                 <div class="flex-row">
                     <span class="row-value">🟢 (17) Питание</span>
@@ -508,10 +429,6 @@
         <h2>Важно помнить</h2>
         
         <div class="step-card warning-card">
-            <div class="step-header">
-                <span class="step-number" style="background: #f0b849;">⚙</span>
-                <span class="step-title">Важно помнить</span>
-            </div>
             <div class="content">
                 <ul class="bullet-list">
                     <li>Используйте только <strong>3‑компонентные шприцы (1)</strong> (с силиконовой прокладкой). Рекомендованы SFM 5, 10, 20 мл.</li>
