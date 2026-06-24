@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Инструкция · Дозатор ДШП 5-20-ШМЕЛЬ</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background: #f3f7fc;
+            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+            padding: 2rem 1rem;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            max-width: 1100px;
+            width: 100%;
+            background: white;
+            border-radius: 32px;
+            box-shadow: 0 20px 40px rgba(0,20,40,0.12);
+            padding: 2rem 2rem 2.5rem;
+        }
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 600;
+            color: #0a2a44;
+            letter-spacing: -0.3px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            border-bottom: 3px solid #e6edf5;
+            padding-bottom: 0.6rem;
+            margin-bottom: 1.8rem;
+        }
+        h1 small {
+            font-size: 1rem;
+            font-weight: 400;
+            color: #3b6b8f;
+            margin-left: 6px;
+        }
+        .badge {
+            background: #dce6f0;
+            color: #1e4b6b;
+            padding: 0.2rem 0.9rem;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-left: 10px;
+        }
+        .step-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1.8rem;
+        }
+        .step-card {
+            background: #ffffff;
+            border-radius: 24px;
+            border: 1px solid #dfe9f2;
+            padding: 1.2rem 1.8rem 1.8rem;
+            transition: 0.15s;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+        }
+        .step-card:hover {
+            border-color: #b6cfec;
+            background: #fafdff;
+        }
+        .step-header {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 0.5rem;
+        }
+        .step-number {
+            background: #1b4a6e;
+            color: white;
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 0.2rem 0.9rem;
+            border-radius: 40px;
+            letter-spacing: 0.3px;
+        }
+        .step-title {
+            font-weight: 600;
+            font-size: 1.3rem;
+            color: #0d2f4a;
+        }
+        .mode-tag {
+            background: #e3eefa;
+            padding: 0.2rem 0.9rem;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #1b4a6e;
+            letter-spacing: 0.2px;
+            border: 1px solid #c2d7ed;
+        }
+        .content {
+            display: flex;
+            flex-direction: column;
+            gap: 0.9rem;
+            margin-top: 0.3rem;
+        }
+        .bullet-list {
+            list-style: none;
+            padding-left: 0.2rem;
+        }
+        .bullet-list li {
+            position: relative;
+            padding-left: 1.6rem;
+            margin-bottom: 0.4rem;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: #1c3b55;
+        }
+        .bullet-list li::before {
+            content: "▹";
+            position: absolute;
+            left: 0;
+            color: #1f6e9e;
+            font-weight: 600;
+        }
+        .bullet-list ul {
+            list-style: none;
+            padding-left: 1.2rem;
+            margin-top: 0.2rem;
+        }
+        .bullet-list ul li::before {
+            content: "•";
+            color: #3d7ea3;
+        }
+        .key-icon {
+            background: white;
+            border: 1px solid #bccfe0;
+            padding: 0.1rem 0.9rem;
+            border-radius: 40px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #003057;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+        }
+        .key-icon span {
+            font-size: 0.75rem;
+            font-weight: 400;
+            color: #3f6481;
+        }
+        .key-icon.small {
+            font-size: 0.85rem;
+            padding: 0.05rem 0.7rem;
+        }
+        .info-note {
+            background: #e2edf9;
+            border-left: 5px solid #3d7ea3;
+            padding: 0.6rem 1.2rem;
+            border-radius: 14px;
+            font-size: 0.9rem;
+            color: #17415f;
+        }
+        .warning-note {
+            background: #fef7e0;
+            border-left: 5px solid #e8b84b;
+            padding: 0.6rem 1.2rem;
+            border-radius: 14px;
+            font-size: 0.9rem;
+            color: #5f4a1a;
+            margin-top: 0.5rem;
+        }
+        .table-mini {
+            background: #f5f9fe;
+            border-radius: 18px;
+            padding: 0.6rem 1.4rem 0.8rem;
+            border: 1px solid #d9e6f2;
+        }
+        .table-mini td {
+            padding: 0.15rem 0.6rem 0.15rem 0;
+        }
+        .table-mini tr td:first-child {
+            font-weight: 500;
+            color: #0a2a44;
+        }
+        .flex-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.2rem 2rem;
+        }
+        .row-value {
+            color: #1f3d56;
+            background: #f0f6fd;
+            padding: 0.2rem 0.9rem;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            display: inline-block;
+        }
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, #c9ddec, transparent);
+            margin: 0.6rem 0 0.8rem;
+        }
+        @media (max-width: 640px) {
+            .container { padding: 1rem; }
+            h1 { font-size: 1.6rem; }
+            .step-card { padding: 1rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>
+        <span>ДШП 5-20-ШМЕЛЬ</span>
+        <small>портативный шприцевой дозатор</small>
+        <span class="badge">Руководство по эксплуатации</span>
+    </h1>
+
+    <div class="step-grid">
+
+        <!-- ШАГ 1: ВКЛЮЧЕНИЕ -->
+        <div class="step-card">
+            <div class="step-header">
+                <span class="step-number">1</span>
+                <span class="step-title">Включение и подготовка</span>
+                <span class="mode-tag">старт</span>
+            </div>
+            <div class="content">
+                <ul class="bullet-list">
+                    <li><strong>Подключите питание:</strong> адаптер 12 В / прикуриватель — загорится зелёный индикатор «Питание».</li>
+                    <li>Нажмите и удерживайте <span class="key-icon small">⏻ Вкл/Выкл</span> ~2 сек. — дисплей загорится.</li>
+                    <li>Если дозатор был на морозе — дайте ему прогреться <strong>1,5 минуты</strong>.</li>
+                    <li><strong>Установите шприц</strong> (5, 10 или 20 мл, только 3‑компонентный):
+                        <ul>
+                            <li>Поднимите прижим до упора, поверните на 90°.</li>
+                            <li>Отодвиньте толкатель до упора вправо, нажав кнопку (резьбовую муфту).</li>
+                            <li>Установите шприц так, чтобы пальцевые упоры попали в паз.</li>
+                            <li>Нажав кнопку, передвиньте толкатель влево, чтобы упор штока попал в паз.</li>
+                            <li>Поверните прижим на 90° обратно и плавно опустите на шприц.</li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="info-note">
+                    ✅ После подключения внешнего питания дозатор включается автоматически.<br>
+                    🔋 При отключении внешнего питания дозатор продолжает работать от аккумулятора.
+                </div>
+            </div>
+        </div>
+
+        <!-- ШАГ 2: ВЫБОР РЕЖИМА -->
+        <div class="step-card">
+            <div class="step-header">
+                <span class="step-number">2</span>
+                <span class="step-title">Выбор режима работы</span>
+                <span class="mode-tag">режимы</span>
+            </div>
+            <div class="content">
+                <p>Кнопкой <span class="key-icon small">Режимы</span> последовательно выберите нужный режим. Жёлтый светодиод напротив названия загорится непрерывно.</p>
+                <div class="flex-row">
+                    <div><span class="row-value">🔹 Инфузия</span> — непрерывное введение с заданной скоростью.</div>
+                    <div><span class="row-value">🔸 Болюс</span> — максимальная скорость (зависит от шприца).</div>
+                    <div><span class="row-value">🔹 СЛР</span> — автоматическое введение адреналина порциями.</div>
+                </div>
+                <div class="info-note">
+                    💡 Светодиод выбранного режима горит непрерывно, при работе — мигает (период 2 с, длительность 1 с).
+                </div>
+            </div>
+        </div>
+
+        <!-- ШАГ 3: РЕЖИМ ИНФУЗИЯ -->
+        <div class="step-card">
+            <div class="step-header">
+                <span class="step-number">3</span>
+                <span class="step-title">Режим «Инфузия»</span>
+                <span class="mode-tag">настройка скорости</span>
+            </div>
+            <div class="content">
+                <ul class="bullet-list">
+                    <li><strong>1‑е нажатие</strong> <span class="key-icon small">Параметры</span> — на дисплее тип шприца (5/10/20 мл). Убедитесь, что определён верно. Загорается индикатор «Шприц».</li>
+                    <li><strong>2‑е нажатие</strong> <span class="key-icon small">Параметры</span> — загорается индикатор «Скорость». 
+                        <br>Задаётся кнопками разрядов: <span class="key-icon">⏫</span> <span class="key-icon">⏬</span> (шаг 0,1 мл/ч до 99,9; от 100 — шаг 1 мл/ч). 
+                        <br>Для ввода десятых долей используйте кнопку <span class="key-icon small">запятая</span>.</li>
+                    <li><strong>3‑е нажатие</strong> <span class="key-icon small">Параметры</span> — загорается индикатор «Объем», на дисплее <strong>«РАБ»</strong> (готов к работе).</li>
+                    <li>Нажмите <span class="key-icon small">Старт/Стоп</span> — начнётся инфузия. Светодиод «Инфузия» начнёт мигать.</li>
+                </ul>
+                <div class="table-mini">
+                    <table>
+                        <tr><td>Шприц 20 мл</td><td>0,1…600 мл/ч</td></tr>
+                        <tr><td>Шприц 10 мл</td><td>0,1…600 мл/ч</td></tr>
+                        <tr><td>Шприц 5 мл</td><td>0,1…600 мл/ч</td></tr>
+                    </table>
+                </div>
+                <div class="info-note">
+                    📐 Дозатор измеряет диаметр шприца с точностью не хуже 1 %, что позволяет учитывать особенности разных производителей.
+                </div>
+            </div>
+        </div>
+
+        <!-- ШАГ 4: РЕЖИМ БОЛЮС -->
+        <div class="step-card">
+            <div class="step-header">
+                <span class="step-number">4</span>
+                <span class="step-title">Режим «Болюс»</span>
+                <span class="mode-tag">максимальная скорость</span>
+            </div>
+            <div class="content">
+                <ul class="bullet-list">
+                    <li>Кнопкой <span class="key-icon small">Режимы</span> выберите «Болюс» — загорится соответствующий светодиод.</li>
+                    <li>Кнопка <span class="key-icon small">Параметры</span> в этом режиме <strong>не используется</strong>.</li>
+                    <li>Нажмите и <strong>удерживайте</strong> <span class="key-icon small">Старт/Стоп</span> — инфузия пойдёт с максимальной скоростью для установленного шприца.</li>
+                </ul>
+                <div class="table-mini">
+                    <table>
+                        <tr><td>Шприц 20 мл</td><td>1000–1500 мл/ч</td></tr>
+                        <tr><td>Шприц 10 мл</td><td>650–950 мл/ч</td></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ШАГ 5: РЕЖИМ СЛР -->
+        <div class="step-card">
+            <div class="step-header">
+                <span class="step-number">5</span>
+                <span class="step-title">Режим «СЛР»</span>
+                <span class="mode-tag">адреналин порциями</span>
+            </div>
+            <div class="content">
+                <ul class="bullet-list">
+                    <li><strong>1. Выберите режим</strong> — кнопкой <span class="key-icon small">Режимы</span> установите «СЛР». Загорится соответствующий светодиод.</li>
+                    <li><strong>2. Проверьте шприц</strong> — <strong>обязательно используйте шприц 20 мл</strong> (при меньшем объёме — сброс настроек).</li>
+                    <li><strong>3. Настройка порции</strong> — нажмите <span class="key-icon small">Параметры</span>:
+                        <ul>
+                            <li><strong>1‑е нажатие</strong> — на дисплее тип шприца (должен быть 20 мл).</li>
+                            <li><strong>2‑е нажатие</strong> — на дисплее объём порции (5 мл по умолчанию). 
+                                <br>Меняется кнопкой <span class="key-icon">СЛР</span> <span class="key-icon">⏫</span> / <span class="key-icon">⏬</span> (переключение между <strong>5 мл</strong> и <strong>3 мл</strong>).</li>
+                            <li><strong>3‑е нажатие</strong> — на дисплее <strong>«РАБ»</strong>, дозатор готов.</li>
+                        </ul>
+                    </li>
+                    <li><strong>4. Запуск</strong> — нажмите <span class="key-icon small">Старт/Стоп</span> — начнётся цикл:
+                        <ul>
+                            <li>Порция 5 мл вводится за 8–16 с (типично 8–10 с).</li>
+                            <li>Порция 3 мл вводится за 5–8 с (типично 5–6 с).</li>
+                            <li>Пауза между дозами — <strong>4 мин 5 с</strong>.</li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="warning-note">
+                    ⚠️ <strong>Важно!</strong> Первую дозу адреналина рекомендуется вводить вручную. Дозатор используйте для второй и последующих доз.<br>
+                    Не допускайте перерыва в компрессиях и СЛР для подключения дозатора.<br>
+                    Заполнение инфузионного проводника перед подключением шприца с адреналином следует осуществлять физраствором или набирать в шприц 23 мл.
+                </div>
+            </div>
+        </div>
+
+        <!-- ШАГ 6: УПРАВЛЕНИЕ / ОСТАНОВКА / ТРЕВОГА -->
+        <div class="step-card">
+            <div class="step-header">
+                <span class="step-number">6</span>
+                <span class="step-title">Управление и остановка</span>
+                <span class="mode-tag">старт / стоп / тревога</span>
+            </div>
+            <div class="content">
+                <ul class="bullet-list">
+                    <li><strong>Пауза/возобновление:</strong> кратковременно нажмите <span class="key-icon small">Старт/Стоп</span> — дозатор приостановится, повторное нажатие продолжит.</li>
+                    <li><strong>Завершение инфузии:</strong> нажмите <span class="key-icon small">Старт/Стоп</span> → переходит в режим ожидания.</li>
+                    <li><strong>Выключение:</strong> в режиме ожидания удерживайте <span class="key-icon small">Вкл/Выкл</span> ~2 сек. до погасания индикаторов.</li>
+                    <li><strong>Тревога (красный светодиод, звук 4 кГц):</strong> 
+                        <ul>
+                            <li><strong>«УС»</strong> — превышение максимально допустимого усилия на штоке шприца.
+                                <br>→ Устраните посторонние предметы, проверьте иглу, отсутствие перегибов, замените шприц.</li>
+                            <li><strong>«___»</strong> (нижние черточки) — выпадение шприца (прижим опустился вниз).</li>
+                            <li><strong>«‾‾‾»</strong> (верхние черточки) — выпадение шприца (прижим поднялся вверх).</li>
+                        </ul>
+                    </li>
+                    <li>Для сброса тревоги нажмите <span class="key-icon small">Старт/Стоп</span>, <span class="key-icon small">Режимы</span> или <span class="key-icon small">Вкл/Выкл</span>.</li>
+                </ul>
+                <div class="info-note">
+                    📌 При срабатывании тревожной сигнализации дозатор останавливается. Дальнейшая работа возможна только после нажатия одной из кнопок сброса.
+                </div>
+            </div>
+        </div>
+
+        <!-- ШАГ 7: ИНДИКАЦИЯ -->
+        <div class="step-card">
+            <div class="step-header">
+                <span class="step-number">i</span>
+                <span class="step-title">Индикация и сигналы</span>
+                <span class="mode-tag">свет / звук</span>
+            </div>
+            <div class="content">
+                <div class="flex-row">
+                    <div><span class="row-value">🟢 Питание</span> — внешнее питание подключено (зелёный, непрерывно).</div>
+                    <div><span class="row-value">🟡 Аккумулятор</span> — работа от батарей (жёлтый).</div>
+                    <div><span class="row-value">🔴 Тревога</span> — ошибка / остановка (красный, прерывисто).</div>
+                </div>
+                <div class="divider"></div>
+                <div><strong>Аккумулятор (жёлтый светодиод):</strong></div>
+                <ul class="bullet-list">
+                    <li><strong>Постоянное свечение</strong> — полностью заряжен.</li>
+                    <li><strong>Мигает 1 раз, пауза, 1 раз (сериями)</strong> — частичная разрядка.</li>
+                    <li><strong>Мигает 2 раза подряд, пауза, 2 раза (сериями)</strong> — значительная разрядка, пора заряжать.</li>
+                    <li><strong>Непрерывное частое мигание</strong> — заряд критический, скоро отключение.</li>
+                </ul>
+                <div class="divider"></div>
+                <div><strong>Звуковые сигналы:</strong></div>
+                <ul class="bullet-list">
+                    <li>При непрерывном мигании (низкий заряд) — короткий сигнал каждые 10 секунд.</li>
+                    <li>Непосредственно перед отключением — 10 быстрых сигналов подряд.</li>
+                </ul>
+                <div class="info-note">
+                    🔋 Время работы от аккумулятора — не менее 10 ч (шприц 20 мл, 600 мл/ч).<br>
+                    ⏱️ Время зарядки от внешнего источника — не более 6 часов.
+                </div>
+            </div>
+        </div>
+
+        <!-- ШАГ 8: ВАЖНО ПОМНИТЬ -->
+        <div class="step-card" style="background: #f1f7fe;">
+            <div class="step-header">
+                <span class="step-number">⚙</span>
+                <span class="step-title">Важно помнить</span>
+            </div>
+            <div class="content">
+                <ul class="bullet-list">
+                    <li>Используйте только <strong>3‑компонентные шприцы</strong> (с силиконовой прокладкой). Рекомендованы SFM 5, 10, 20 мл.</li>
+                    <li>При использовании 2‑компонентных шприцев точность скоростей и порогов окклюзии <strong>не гарантируется</strong>.</li>
+                    <li>Не используйте для крови, производных крови, парентерального питания.</li>
+                    <li>При длительном хранении подзаряжайте аккумулятор <strong>1 раз в месяц</strong>.</li>
+                    <li>Очистка: 3% перекись + 0,5% моющее, либо 1% хлорамин. Не допускайте попадания жидкости внутрь.</li>
+                    <li>Срок службы аккумулятора — 600 циклов. Замена допускается самостоятельная.</li>
+                </ul>
+            </div>
+        </div>
+
+    </div> <!-- step-grid -->
+</div> <!-- container -->
+</body>
+</html>
