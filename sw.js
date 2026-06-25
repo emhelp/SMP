@@ -1,7 +1,7 @@
 // sw.js — Service Worker для EMHelp PWA
-// Версия: v111 (добавлен дозатор Шмель в калькуляторы)
+// Версия: v112 (обновлён index.html — мета-теги + новость о дозаторе Шмель)
 
-const CACHE_NAME = 'emhelp-v111';
+const CACHE_NAME = 'emhelp-v112';
 
 // Только самые важные страницы (пре-кэш)
 const urlsToCache = [
@@ -74,7 +74,7 @@ self.addEventListener('activate', event => {
         })
       );
     }).then(() => {
-      console.log('✅ Service Worker активирован (v111)');
+      console.log('✅ Service Worker активирован (v112)');
       return self.clients.claim();
     })
   );
