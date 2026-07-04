@@ -1,7 +1,7 @@
 // sw.js — Service Worker для EMHelp PWA
-// Версия: v113 (добавлена страница активации кнопки «полусердце-полумозг»)
+// Версия: v114 (добавлен пункт об участниках СВО в консилиумы)
 
-const CACHE_NAME = 'emhelp-v113';
+const CACHE_NAME = 'emhelp-v114';
 
 // Только самые важные страницы (пре-кэш)
 const urlsToCache = [
@@ -74,7 +74,7 @@ self.addEventListener('activate', event => {
         })
       );
     }).then(() => {
-      console.log('✅ Service Worker активирован (v113)');
+      console.log('✅ Service Worker активирован (v114)');
       return self.clients.claim();
     })
   );
