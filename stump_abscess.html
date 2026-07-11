@@ -52,14 +52,6 @@
             margin-bottom: 8px;
         }
 
-        h2 {
-            color: #0f1446;
-            border-left: 6px solid #e53935;
-            padding-left: 16px;
-            font-size: 1.3rem;
-            margin: 1.2rem 0 1rem 0;
-        }
-
         .diagnosis-tag {
             display: inline-flex;
             align-items: center;
@@ -87,21 +79,11 @@
             padding: 20px;
         }
 
-        .info-row.inspection-card {
-            border-left-color: #e53935;
-        }
-
-        .info-row.scar-card {
-            border-left-color: #2e7d32;
-        }
-
-        .info-row.fistula-card {
-            border-left-color: #e68a2e;
-        }
-
-        .info-row.palpation-card {
-            border-left-color: #f0b849;
-        }
+        .info-row.complaints-card { border-left-color: #d32f2f; }
+        .info-row.inspection-card { border-left-color: #e53935; }
+        .info-row.scar-card { border-left-color: #2e7d32; }
+        .info-row.fistula-card { border-left-color: #e68a2e; }
+        .info-row.palpation-card { border-left-color: #f0b849; }
 
         .row-header {
             display: flex;
@@ -127,6 +109,39 @@
             background: #fff8e7;
             padding: 0 4px;
             border-radius: 6px;
+        }
+
+        .danger-sign {
+            font-weight: 600;
+            color: #d32f2f;
+            background: #fff0f0;
+            padding: 0 4px;
+            border-radius: 6px;
+        }
+
+        .warning-sign {
+            font-weight: 600;
+            color: #e68a2e;
+            background: #fff8e7;
+            padding: 0 4px;
+            border-radius: 6px;
+        }
+
+        .normal-sign {
+            font-weight: 600;
+            color: #2e7d32;
+            background: #e8f5e9;
+            padding: 0 4px;
+            border-radius: 6px;
+        }
+
+        .bullet-list {
+            margin: 0.25rem 0 0 0;
+            padding-left: 1.2rem;
+        }
+
+        .bullet-list li {
+            margin-bottom: 6px;
         }
 
         @media (max-width: 600px) {
@@ -169,13 +184,28 @@
 
         <div class="exam-section">
             
+            <!-- Жалобы пациента -->
+            <div class="info-row complaints-card">
+                <div class="row-header">
+                    <span>😷 Жалобы пациента (анамнестически)</span>
+                </div>
+                <div class="row-content">
+                    <ul class="bullet-list">
+                        <li>Наличие <span class="danger-sign">гнойного отделяемого из послеоперационного рубца</span> на культе левого бедра в течение последних нескольких дней.</li>
+                        <li><span class="danger-sign">Резкая болезненность</span> в области рубца и вокруг отверстий, усиливающаяся при пальпации и опоре на протез.</li>
+                        <li><span class="warning-sign">Повышение температуры тела</span>, озноб, слабость (симптомы интоксикации).</li>
+                        <li><span class="highlight">Невозможность использования протеза</span> из-за выраженной болезненности и гнойного отделяемого.</li>
+                    </ul>
+                </div>
+            </div>
+            
             <!-- Осмотр / Визуальная оценка -->
             <div class="info-row inspection-card">
                 <div class="row-header">
                     <span>🔍 Осмотр / Визуальная оценка</span>
                 </div>
                 <div class="row-content">
-                    Кожа культи левого бедра обычной окраски, <span class="highlight">горячая на ощупь</span>. Видимой отечности мягких тканей не отмечается. Периферические венозные коллатерали не выражены. Тургор тканей сохранен, несмотря на локальную гипертермию.
+                    Кожа культи левого бедра обычной окраски, <span class="danger-sign">горячая на ощупь</span>. Видимой отечности мягких тканей не отмечается. Периферические венозные коллатерали не выражены. Тургор тканей сохранен, несмотря на локальную гипертермию.
                 </div>
             </div>
             
@@ -185,7 +215,7 @@
                     <span>📌 Состояние послеоперационного рубца</span>
                 </div>
                 <div class="row-content">
-                    По передне-медиальной и задней поверхности определяется <strong>состоятельный послеоперационный рубец</strong>, длиной ≈ 15 см. Рубец линейный, без признаков келоидообразования, края плотно прилежат, частичная гиперпигментация по линии шва.
+                    По передне-медиальной и задней поверхности определяется <strong>состоятельный послеоперационный рубец</strong>, длиной ≈ 15 см. Рубец линейный, без признаков келоидообразования, края плотно прилежат, <span class="warning-sign">частичная гиперпигментация</span> по линии шва.
                 </div>
             </div>
             
@@ -195,7 +225,7 @@
                     <span>⚠️ Свищевые ходы</span>
                 </div>
                 <div class="row-content">
-                    В проекции послеоперационного рубца визуализируются <strong>два свищевых хода</strong> с <span class="highlight">активным отделяемым гнойного характера</span>. Отделяемое густое, желто-зеленого цвета, с умеренным запахом. Свищевые отверстия окружены фибринозными наложениями, края слегка подрыты.
+                    В проекции послеоперационного рубца визуализируются <strong>два свищевых хода</strong> с <span class="danger-sign">активным отделяемым гнойного характера</span>. Отделяемое густое, желто-зеленого цвета, с умеренным запахом. Свищевые отверстия окружены фибринозными наложениями, края слегка подрыты.
                 </div>
             </div>
             
@@ -205,7 +235,7 @@
                     <span>🖐️ Пальпаторные данные</span>
                 </div>
                 <div class="row-content">
-                    <strong>Резкая болезненность</strong> в области рубца и вокруг свищевых ходов. <strong>Флюктуации</strong> не определяется. <strong>Инфильтрация мягких тканей</strong> умеренная, плотно-эластичная, без четких границ. Пальпация глубжележащих слоев ограничена из-за болевого синдрома.
+                    <span class="danger-sign">Резкая болезненность</span> в области рубца и вокруг свищевых ходов. <strong>Флюктуации</strong> <span class="normal-sign">не определяется</span>. <span class="warning-sign">Инфильтрация мягких тканей</span> умеренная, плотно-эластичная, без четких границ. Пальпация глубжележащих слоев ограничена из-за болевого синдрома.
                 </div>
             </div>
             
