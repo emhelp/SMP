@@ -2,10 +2,13 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>Абсцесс пальца стопы | Описание локального статуса</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Абсцесс пальца стопы | Локальный статус</title>
+    
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0f1446">
+    
     <style>
         * {
             margin: 0;
@@ -14,380 +17,201 @@
         }
 
         body {
-            background: linear-gradient(135deg, #eef2f7 0%, #e0e8f0 100%);
-            font-family: 'Inter', sans-serif;
-            padding: 1rem;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            font-family: 'Segoe UI', 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: #1f3a4b;
+            padding: 20px;
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
         }
 
-        .medical-card {
+        .container {
             max-width: 800px;
-            width: 100%;
-            background: #ffffff;
-            border-radius: 2rem;
-            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.12);
-            overflow: hidden;
+            margin: 0 auto;
         }
 
-        .card-header {
-            background: linear-gradient(135deg, #4a2e1e 0%, #2e2218 100%);
-            padding: 1.25rem 1.5rem;
+        .card {
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 24px 22px;
+            margin-bottom: 20px;
+        }
+
+        .card.header-card {
+            background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
             color: white;
-            border-bottom: 3px solid #e08e3a;
+            text-align: center;
+            padding: 28px 20px;
         }
 
-        .title-section h1 {
+        .card.header-card h1 {
+            font-size: 28px;
+            color: white;
             font-weight: 700;
-            font-size: 1.6rem;
-            letter-spacing: -0.3px;
-            color: #fff5ea;
-            margin-bottom: 0.25rem;
-        }
-
-        .sub {
-            font-size: 0.85rem;
-            color: #e6cfb5;
-            font-weight: 400;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
-        .sub i {
-            font-size: 0.9rem;
-            color: #e08e3a;
-        }
-
-        .card-body {
-            padding: 1.5rem;
+            margin-bottom: 8px;
         }
 
         .diagnosis-tag {
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
-            background: #fef3e6;
-            color: #b45a1c;
-            padding: 0.4rem 1.1rem;
-            border-radius: 40px;
+            gap: 8px;
+            background: #eef7ff;
+            color: #0f1446;
+            padding: 6px 14px;
+            border-radius: 12px;
             font-weight: 600;
-            font-size: 0.75rem;
-            margin-bottom: 1.5rem;
-            border-left: 3px solid #e67e22;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+            border-left: 4px solid #1f6e9c;
         }
 
         .exam-section {
             display: flex;
             flex-direction: column;
-            gap: 1.35rem;
-            margin-bottom: 1.5rem;
+            gap: 16px;
         }
 
         .info-row {
-            background: #ffffff;
-            border-radius: 1.25rem;
-            border: 1.5px solid #e5d5c2;
-            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.05);
-            overflow: hidden;
+            background: #eef7ff;
+            border-radius: 16px;
+            border-left: 4px solid #1f6e9c;
+            padding: 20px;
+        }
+
+        .info-row.inspection-card {
+            border-left-color: #e53935;
+        }
+
+        .info-row.palpation-card {
+            border-left-color: #2e7d32;
+        }
+
+        .info-row.wound-card {
+            border-left-color: #e68a2e;
+        }
+
+        .info-row.regional-card {
+            border-left-color: #f0b849;
         }
 
         .row-header {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             font-weight: 700;
             font-size: 1rem;
-            color: #2f5342;
-            padding: 1rem 1.2rem 0.5rem 1.2rem;
-            background: #fefcf9;
-            border-bottom: 2px solid #f0e3d4;
-        }
-
-        .row-header i {
-            font-size: 1.4rem;
-            width: 34px;
-            color: #c96f1e;
-            background: #fff2e6;
-            padding: 6px;
-            border-radius: 14px;
-            text-align: center;
+            color: #0f1446;
+            margin-bottom: 10px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #d4e2f0;
         }
 
         .row-content {
             font-size: 0.95rem;
-            line-height: 1.55;
-            color: #2c3e3a;
-            padding: 0 1.2rem 1rem 1.2rem;
-            background: #ffffff;
+            line-height: 1.6;
+            color: #1f3a4b;
         }
 
         .highlight {
             font-weight: 600;
-            color: #bf6019;
-            background: #fff2e6;
-            padding: 0 5px;
-            border-radius: 8px;
-            display: inline-block;
-        }
-
-        /* Акцентные рамки для блоков */
-        .inspection-card {
-            border-left: 4px solid #e08e3a;
-            background: #fffdf9;
-        }
-        
-        .inspection-card .row-header {
-            background: #fffaf3;
-        }
-        
-        .palpation-card {
-            border-left: 4px solid #6f9e7c;
-        }
-        
-        .wound-card {
-            border-left: 4px solid #b87c4a;
-        }
-        
-        .regional-card {
-            border-left: 4px solid #c97e3a;
-        }
-
-        /* Новый стиль для клинического комментария */
-        .clinical-new {
-            background: #f6f3ef;
-            border-radius: 1.5rem;
-            padding: 0;
-            margin: 1.5rem 0 1.25rem;
-            overflow: hidden;
-            border: 1px solid #e6daca;
-        }
-        
-        .clinical-new-header {
-            background: #d9c8b6;
-            padding: 0.7rem 1.2rem;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            border-bottom: 2px solid #c8b496;
-        }
-        
-        .clinical-new-header i {
-            font-size: 1.2rem;
-            color: #4a2e1e;
-            background: #fff2e2;
-            padding: 6px;
-            border-radius: 40px;
-        }
-        
-        .clinical-new-header span {
-            font-weight: 700;
-            font-size: 0.85rem;
-            letter-spacing: 1px;
-            color: #2c241a;
-            text-transform: uppercase;
-        }
-        
-        .clinical-new-content {
-            padding: 1.2rem 1.3rem;
-            background: #fefcf8;
-        }
-        
-        .clinical-new-content p {
-            line-height: 1.55;
-            font-size: 0.92rem;
-            color: #2e4a3c;
-            margin-bottom: 0.75rem;
-        }
-        
-        .clinical-quote {
-            margin-top: 0.8rem;
-            padding-top: 0.6rem;
-            border-top: 1px solid #ecdfd0;
-            font-size: 0.85rem;
-            color: #7f6a53;
-            display: flex;
-            gap: 8px;
-        }
-        
-        .clinical-quote i {
-            color: #c97e3a;
-        }
-
-        /* Предварительное заключение */
-        .impressio-box {
-            background: #fffaf0;
-            border-radius: 1.25rem;
-            padding: 1.2rem 1.3rem;
-            border: 1px solid #ffdfb3;
-            margin: 0;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
-        }
-
-        .impressio-box h4 {
-            font-weight: 700;
-            color: #b4682d;
-            margin-bottom: 8px;
-            font-size: 0.95rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .impressio-box h4 i {
-            font-size: 1.1rem;
+            color: #a56b00;
+            background: #fff8e7;
+            padding: 0 4px;
+            border-radius: 6px;
         }
 
         @media (max-width: 600px) {
             body {
-                padding: 0.75rem;
+                padding: 10px;
             }
-            
-            .card-header {
-                padding: 1rem 1.2rem;
+            .card {
+                padding: 16px 14px;
             }
-            
-            .title-section h1 {
-                font-size: 1.35rem;
+            .card.header-card {
+                padding: 20px 14px;
             }
-            
-            .sub {
-                font-size: 0.75rem;
+            .card.header-card h1 {
+                font-size: 22px;
             }
-            
-            .card-body {
-                padding: 1.2rem;
+            .info-row {
+                padding: 16px;
             }
-            
-            .row-header {
-                padding: 0.8rem 1rem 0.3rem 1rem;
-            }
-            
-            .row-header i {
-                font-size: 1.2rem;
-                width: 30px;
-            }
-            
             .row-content {
-                padding: 0 1rem 0.8rem 1rem;
-                font-size: 0.88rem;
+                font-size: 0.9rem;
             }
-            
-            .clinical-new-content {
-                padding: 1rem;
-            }
-            
-            .diagnosis-tag {
-                font-size: 0.7rem;
-                margin-bottom: 1rem;
-            }
-        }
-
-        .icon-accent {
-            color: #d97a2b;
-            margin-right: 6px;
-        }
-        
-        .status-list p {
-            margin-bottom: 0.5rem;
         }
     </style>
 </head>
 <body>
-<div class="medical-card">
-    <div class="card-header">
-        <div class="title-section">
-            <h1>Абсцесс пальца стопы</h1>
-            <div class="sub">
-                <i class="fas fa-ambulance"></i> Описание локального статуса
-            </div>
-        </div>
+
+<div class="container">
+    
+    <!-- ===== ШАПКА ===== -->
+    <div class="card header-card">
+        <h1>Абсцесс пальца стопы</h1>
     </div>
     
-    <div class="card-body">
+    <!-- ===== ОСНОВНОЙ КОНТЕНТ ===== -->
+    <div class="card">
+        
         <div class="diagnosis-tag">
-            <i class="fas fa-exclamation-triangle"></i> Абсцесс пальца стопы · L02.2 (целлюлит/абсцесс стопы)
+            📋 Абсцесс пальца стопы · L02.4
         </div>
 
         <div class="exam-section">
+            
             <!-- Осмотр / Визуальная оценка -->
             <div class="info-row inspection-card">
                 <div class="row-header">
-                    <i class="fas fa-eye"></i>
                     <span>🔍 Осмотр / Визуальная оценка</span>
                 </div>
                 <div class="row-content">
-                    Кожа первого пальца правой стопы <span class="highlight">ярко гиперемирована</span>, <span class="highlight">горячая на ощупь</span>. 
-                    Определяется выраженная отечность мягких тканей, формирующая асимметрию за счет отека. Кожный рисунок сглажен, блеск кожи над зоной воспаления.
+                    Кожа первого пальца правой стопы <span class="highlight">ярко гиперемирована</span>, <span class="highlight">горячая на ощупь</span>. Определяется выраженная отечность мягких тканей, формирующая асимметрию за счет отека. Кожный рисунок сглажен, блеск кожи над зоной воспаления.
                 </div>
             </div>
             
             <!-- Пальпаторные данные -->
             <div class="info-row palpation-card">
                 <div class="row-header">
-                    <i class="fas fa-hand-peace"></i>
                     <span>🖐️ Пальпаторные данные</span>
                 </div>
                 <div class="row-content">
-                    В толще пальца пальпируется <strong>плотный инфильтрат</strong> размерами до 2,5 см в диаметре, спаянный с подлежащими тканями. 
-                    Кожные покровы над зоной воспаления <strong>напряжены</strong>. Пальпация резко болезненна. Флюктуация не определяется, 
-                    что может указывать на глубокое расположение гнойного очага или стадию инфильтрации.
+                    В толще пальца пальпируется <strong>плотный инфильтрат</strong> размерами до 2,5 см в диаметре, спаянный с подлежащими тканями. Кожные покровы над зоной воспаления <strong>напряжены</strong>. Пальпация резко болезненна. Флюктуация не определяется, что может указывать на глубокое расположение гнойного очага или стадию инфильтрации.
                 </div>
             </div>
             
             <!-- Раневой дефект -->
             <div class="info-row wound-card">
                 <div class="row-header">
-                    <i class="fas fa-fist-raised"></i>
                     <span>⚠️ Раневой дефект</span>
                 </div>
                 <div class="row-content">
-                    В центре инфильтрата визуализируется <strong>язвенный дефект</strong> округлой формы, диаметром ≈ 0,8 см, 
-                    с <span class="highlight">активным гнойным отделяемым</span> желто-зеленого цвета, скудного характера, без неприятного запаха. 
-                    Края язвы подрытые, дно выполнено фибринозными наложениями. Зона перифокального воспаления распространяется на основание пальца.
+                    В центре инфильтрата визуализируется <strong>язвенный дефект</strong> округлой формы, диаметром ≈ 0,8 см, с <span class="highlight">активным гнойным отделяемым</span> желто-зеленого цвета, скудного характера, без неприятного запаха. Края язвы подрытые, дно выполнено фибринозными наложениями. Зона перифокального воспаления распространяется на основание пальца.
                 </div>
             </div>
             
             <!-- Регионарный статус -->
             <div class="info-row regional-card">
                 <div class="row-header">
-                    <i class="fas fa-thermometer-half"></i>
                     <span>🌡️ Регионарный статус</span>
                 </div>
                 <div class="row-content">
-                    При пальпации подколенных и паховых лимфатических узлов справа определяется увеличение и умеренная болезненность 
-                    паховых узлов (лимфаденит). Лимфангита (красных полос по ходу сосудов) не выявлено. 
-                    Пульсация на артериях стопы сохранена, дистальные отделы конечности теплые, чувствительность не нарушена.
+                    При пальпации подколенных и паховых лимфатических узлов справа определяется увеличение и умеренная болезненность паховых узлов (лимфаденит). Лимфангита (красных полос по ходу сосудов) не выявлено. Пульсация на артериях стопы сохранена, дистальные отделы конечности теплые, чувствительность не нарушена.
                 </div>
             </div>
-        </div>
-        
-        <!-- Новый стиль клинического комментария -->
-        <div class="clinical-new">
-            <div class="clinical-new-header">
-                <i class="fas fa-stethoscope"></i>
-                <span>Клинический разбор</span>
-            </div>
-            <div class="clinical-new-content">
-                <p>Представленная картина соответствует <strong>острому абсцессу первого пальца правой стопы</strong> на стадии формирования язвенного дефекта. Наличие плотного инфильтрата с напряжением тканей, локальной гипертермией и регионарным лимфаденитом указывает на выраженную гнойно-воспалительную реакцию с высоким риском распространения инфекции по фасциальным пространствам.</p>
-                <p>Отсутствие флюктуации не исключает наличия сформированной гнойной полости в глубоких слоях мягких тканей. Клиническая картина усугубляется локализацией процесса (палец стопы), что создает предпосылки для развития пандактилита или остеомиелита фаланги.</p>
-                <div class="clinical-quote">
-                    <i class="fas fa-exclamation-triangle"></i>
-                    <span>Ключевые факторы риска: выраженный отек, напряженность тканей, регионарный лимфаденит — требуют активной хирургической тактики для предотвращения распространения инфекции.</span>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Предварительное заключение -->
-        <div class="impressio-box">
-            <h4><i class="fas fa-notes-medical"></i> Предварительное заключение</h4>
-            <p><strong>Правый первый палец стопы:</strong> Острый абсцесс с формированием язвенного дефекта и гнойным отделяемым. Признаки выраженного местного воспаления (гиперемия, гипертермия, отёк, плотный инфильтрат, регионарный лимфаденит). <strong>Высок риск лимфогенного и контактного распространения инфекции, развития пандактилита и остеомиелита фаланги.</strong></p>
+            
         </div>
     </div>
 </div>
+
+<script>
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/SMP/sw.js')
+            .then(reg => console.log('✅ Service Worker зарегистрирован:', reg.scope))
+            .catch(err => console.error('❌ Ошибка регистрации SW:', err));
+    }
+</script>
+
 </body>
 </html>
