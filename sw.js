@@ -1,7 +1,7 @@
 // sw.js — Service Worker для EMHelp PWA
-// Версия: v114 (добавлен пункт об участниках СВО в консилиумы)
+// Версия: v115 (добавлены страницы кодов МКБ и акушерство-гинекология)
 
-const CACHE_NAME = 'emhelp-v114';
+const CACHE_NAME = 'emhelp-v115';
 
 // Только самые важные страницы (пре-кэш)
 const urlsToCache = [
@@ -24,6 +24,9 @@ const urlsToCache = [
   '/SMP/consilium.html',
   '/SMP/prikaz.html',
   '/SMP/stations.html',
+  
+  // Страницы кодов МКБ
+  '/SMP/prochee/akusherstvo-mkb.html',
   
   // CSS, манифест, иконки, скриншоты
   '/SMP/style.css',
@@ -74,7 +77,7 @@ self.addEventListener('activate', event => {
         })
       );
     }).then(() => {
-      console.log('✅ Service Worker активирован (v114)');
+      console.log('✅ Service Worker активирован (v115)');
       return self.clients.claim();
     })
   );
