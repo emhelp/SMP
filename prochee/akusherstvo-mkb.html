@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>🤰 МКБ-10: Акушерство и гинекология | Коды ССиНМП</title>
+    
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0b3b4f">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #dce5ec;
+            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+            padding: 16px 12px;
+            color: #1a3a48;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        /* Шапка */
+        .header {
+            background: #0b3b4f;
+            background-image: radial-gradient(circle at 10% 20%, #125d78, #062633);
+            border-radius: 24px;
+            padding: 14px 18px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px -4px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+        .header h1 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: -0.2px;
+            color: #ffffff;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .header h1 span {
+            background: #f5b042;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 60px;
+            color: #0a2e3c;
+            box-shadow: inset 0 -1px 0 rgba(0,0,0,0.05), 0 1px 4px rgba(0,0,0,0.1);
+        }
+        
+        /* Поиск */
+        .search-bar {
+            margin-bottom: 18px;
+        }
+        .search-input {
+            padding: 12px 16px;
+            border-radius: 60px;
+            border: 1px solid #cbdbe2;
+            background: white;
+            font-size: 0.95rem;
+            width: 100%;
+            outline: none;
+            transition: all 0.2s;
+            font-family: inherit;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .search-input:focus {
+            border-color: #0f6b8c;
+            box-shadow: 0 0 0 3px rgba(18, 93, 120, 0.2);
+        }
+        
+        /* Секции */
+        .section {
+            margin-bottom: 18px;
+        }
+        .section-header {
+            background: #e9f0f5;
+            padding: 10px 16px;
+            border-radius: 16px 16px 0 0;
+            border: 1px solid #cbdbe2;
+            border-bottom: none;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        .section-title {
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: #000000;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        /* Сетка карточек */
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+            background: #ffffff;
+            padding: 12px;
+            border-radius: 0 0 16px 16px;
+            border: 1px solid #cbdbe2;
+        }
+        
+        /* Карточка диагноза */
+        .card {
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.03);
+            border: 1px solid #dce5ec;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.15s ease;
+        }
+        .card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-color: #b0cddd;
+        }
+        .disease-title {
+            background: #f4f9fe;
+            padding: 10px 14px 8px 14px;
+            border-bottom: 1px solid #e2edf5;
+        }
+        .disease-name {
+            font-size: 0.98rem;
+            font-weight: 700;
+            color: #0c4e6b;
+            line-height: 1.35;
+            letter-spacing: -0.2px;
+        }
+        .code-block {
+            padding: 12px 14px 14px 14px;
+            background: #ffffff;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .codes-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
+        }
+        .mkb-line {
+            font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+            font-weight: 500;
+            font-size: 0.8rem;
+            color: #000000;
+            background: #eef2f8;
+            padding: 6px 12px;
+            border-radius: 40px;
+            border: 1px solid #d0dee9;
+            letter-spacing: 0.2px;
+            word-break: break-word;
+            flex-shrink: 0;
+        }
+        .inner-code-block {
+            background: #f9f3e0;
+            padding: 6px 12px;
+            border-radius: 40px;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-weight: 500;
+            font-size: 0.8rem;
+            color: #a55217;
+            border: 1px solid #ffe0a3;
+            flex-shrink: 0;
+        }
+        .inner-code-block strong {
+            font-weight: 700;
+            color: #8b3c0c;
+        }
+        .description {
+            margin-top: 2px;
+            font-size: 0.8rem;
+            line-height: 1.4;
+            color: #2c4e62;
+            background: #fefef7;
+            padding: 8px 10px;
+            border-radius: 14px;
+            border-left: 3px solid #7fc1db;
+        }
+        .description em {
+            font-style: italic;
+            background: #fff2dd;
+            padding: 1px 4px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+        
+        .no-results {
+            text-align: center;
+            padding: 48px 20px;
+            background: white;
+            border-radius: 28px;
+            color: #2c5a70;
+            font-weight: 500;
+            font-size: 1rem;
+            border: 1px solid #cde3ef;
+            grid-column: 1 / -1;
+        }
+        
+        @media (min-width: 700px) {
+            .grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            body { padding: 20px; }
+            .header h1 { font-size: 1.4rem; }
+        }
+        @media (min-width: 1100px) {
+            .grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            body { padding: 24px 20px; }
+        }
+        @media (max-width: 480px) {
+            .codes-row { gap: 6px; }
+            .mkb-line, .inner-code-block { font-size: 0.75rem; padding: 5px 10px; }
+            .disease-name { font-size: 0.9rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    
+    <div class="header">
+        <h1>
+            🤰 Отдельные случаи кодирования: акушерство и гинекология
+            <span>МКБ-10 + коды ССиНМП</span>
+        </h1>
+    </div>
+    
+    <div class="search-bar">
+        <input type="text" id="searchInput" class="search-input" placeholder="Поиск по коду, диагнозу или примечанию..." autocomplete="off">
+    </div>
+    
+    <div id="sectionsContainer"></div>
+    
+</div>
+
+<script>
+    (function() {
+        const sections = [
+            {
+                title: "Гипертензия, осложняющая беременность, роды и послеродовой период",
+                rows: [
+                    { station: "2353", mkb: "O10.0", name: "Существовавшая ранее гипертензия, осложняющая беременность, роды и послеродовой период", note: "Включая ранее существовавшую гипертоническую болезнь" },
+                    { station: "2354", mkb: "O10.2", name: "Существовавшая ранее почечная гипертензия, осложняющая беременность, роды и послеродовой период", note: "" },
+                    { station: "2355", mkb: "O10.4", name: "Существовавшая ранее вторичная гипертензия, осложняющая беременность, роды и послеродовой период", note: "Любое состояние, классифицированное в рубрике I15.- во время беременности, родов и в послеродовом периоде" },
+                    { station: "2356", mkb: "O11", name: "Существовавшая ранее гипертензия с присоединившейся протеинурией", note: "В том числе: присоединившаяся преэклампсия" },
+                    { station: "2358", mkb: "O13", name: "Вызванная беременностью гипертензия без значительной протеинурии", note: "Гестационная артериальная гипертензия; Легкая преэклампсия [нефропатия лёгкой степени]" },
+                    { station: "1614", mkb: "O16", name: "Гипертензия у матери неуточнённая", note: "Преходящая гипертензия во время беременности" }
+                ]
+            },
+            {
+                title: "Венозные осложнения во время беременности",
+                rows: [
+                    { station: "1617", mkb: "O22.3", name: "Глубокий флеботромбоз во время беременности", note: "Тромбоз глубоких вен дородовой" }
+                ]
+            },
+            {
+                title: "Венозные осложнения в послеродовом периоде",
+                rows: [
+                    { station: "2390", mkb: "O87.9", name: "Венозные осложнения в послеродовом периоде неуточнённые", note: "Послеродовой(ая): флебит без доп. уточнений, флебопатия, тромбоз без уточнений" }
+                ]
+            },
+            {
+                title: "Инфекции и паразитарные болезни матери",
+                rows: [
+                    { station: "2398", mkb: "O98.6", name: "Протозойные инфекции, осложняющие беременность, роды и послеродовой период", note: "Состояния, классифицированные в рубриках B50-B64" },
+                    { station: "2400", mkb: "O98.8", name: "Другие инфекционные и паразитарные болезни, осложняющие беременность, роды и послеродовой период", note: "Включая КИНЭ и ПТИ" }
+                ]
+            },
+            {
+                title: "Другие болезни матери, осложняющие беременность, роды и послеродовой период (O99)",
+                rows: [
+                    { station: "2401", mkb: "O99.0", name: "Анемия, осложняющая беременность, роды и послеродовой период", note: "Состояния, классифицированные в рубриках D50-D64" },
+                    { station: "2402", mkb: "O99.1", name: "Другие болезни крови и кроветворных органов, осложняющие беременность, роды и послеродовой период", note: "Состояния, классифицированные в рубриках D65-D89" },
+                    { station: "2403", mkb: "O99.2", name: "Болезни эндокринной системы, осложняющие беременность, роды и послеродовой период", note: "Состояния E00-E90 (искл. сахарный диабет O24.-)" },
+                    { station: "2404", mkb: "O99.3", name: "Болезни нервной системы, осложняющие беременность, роды и послеродовой период", note: "Болезни G00-G99. Внимание! Дорсалгии, дорсопатии кодом O99.3 не кодировать!" },
+                    { station: "2405", mkb: "O99.4", name: "Болезни системы кровообращения, осложняющие беременность, роды и послеродовой период", note: "Состояния I00-I99 (искл. гипертензивные расстройства O10-O16)" },
+                    { station: "2406", mkb: "O99.5", name: "Болезни органов дыхания, осложняющие беременность, роды и послеродовой период", note: "Состояния J00-J99 (в т.ч. ОРВИ, грипп, синусит, фарингит, тонзиллит, ларингит)" },
+                    { station: "2407", mkb: "O99.6", name: "Болезни органов пищеварения, осложняющие беременность, роды и послеродовой период", note: "Состояния K00-K93. В т.ч. острый аппендицит, холецистит, гастрит + беременность" },
+                    { station: "2408", mkb: "O99.7", name: "Болезни кожи и подкожной клетчатки, осложняющие беременность", note: "В т.ч. фурункул + беременность" },
+                    { station: "1650", mkb: "O99.8", name: "Другие уточнённые болезни матери, осложняющие беременность", note: "Мочекаменная болезнь, почечные колики, C00-D48, H00-H95, M00-N99, Q00-Q99 и др." }
+                ]
+            },
+            {
+                title: "Акушерство и гинекология (роды, новорождённые)",
+                rows: [
+                    { station: "2902", mkb: "Z00.1", name: "Обследование состояния здоровья ребёнка", note: "Для здоровых новорождённых (домашние роды)" },
+                    { station: "1626", mkb: "O47.0", name: "Угроза преждевременных родов (22–37 нед)", note: "Боли в животе без регулярной родовой деятельности" },
+                    { station: "1628", mkb: "O60.0", name: "Преждевременные роды (22–37 нед) без родоразрешения", note: "Боли + регулярная родовая деятельность" },
+                    { station: "2376", mkb: "O60.1", name: "Преждевременные роды (22–37 нед) с преждевременным родоразрешением", note: "" },
+                    { station: "1640", mkb: "O80.0", name: "Одноплодные самопроизвольные роды в затылочном (головном) предлежании", note: "Везём на роды (первый период) — если указано «головное» или «затылочное»" },
+                    { station: "2387", mkb: "O80.1", name: "Одноплодные самопроизвольные роды в ягодичном предлежании", note: "Везём на роды — если указано ягодичное предлежание" },
+                    { station: "2388", mkb: "O80.9", name: "Одноплодные самопроизвольные роды неуточнённые", note: "Везём на роды (≥37 нед, первый период) или домашние роды (уже родила) – отметить «Р»" },
+                    { station: "1641", mkb: "O83.9", name: "Акушерское пособие при одноплодных своевременных родах (39 нед)", note: "Кодирует бригада, принявшая роды. При кровотечении — осложнение «10»." },
+                    { station: "1642", mkb: "O84.0", name: "Роды многоплодные, полностью самопроизвольные (двойня и более)", note: "Везём на роды (≥37 нед) или домашние роды (уже родила) — отметить «Р»" }
+                ]
+            },
+            {
+                title: "Аборты, неразвившаяся беременность, кровотечения",
+                rows: [
+                    { station: "1615", mkb: "O20.0", name: "Угрожающий аборт", note: "Схваткообразные боли внизу живота, могут иррадиировать в крестец; выделения скудные или отсутствуют" },
+                    { station: "1608", mkb: "O03.3", name: "Начавшийся самопроизвольный аборт", note: "Схваткообразные боли, кровотечение из половых путей" },
+                    { station: "1607", mkb: "O02.0", name: "Неразвившаяся беременность", note: "В кодификаторе — «несостоявшееся выкидывание». Может быть с кровотечением — тогда осложнение «10»." }
+                ]
+            },
+            {
+                title: "Инфекции почек, мочевого пузыря, мочеполовых путей при беременности",
+                rows: [
+                    { station: "2366", mkb: "O23.0", name: "Пиелонефрит + беременность", note: "" },
+                    { station: "2367", mkb: "O23.1", name: "Цистит + беременность", note: "" },
+                    { station: "2368", mkb: "O23.9", name: "Инфекция мочеполовых путей неуточнённая при беременности", note: "" }
+                ]
+            },
+            {
+                title: "Маститы (связанные с деторождением и нет)",
+                rows: [
+                    { station: "1647", mkb: "O91.1", name: "Гнойный мастит или абсцесс молочной железы, связанный с деторождением", note: "" },
+                    { station: "1584", mkb: "N61", name: "Абсцесс, мастит не послеродовой", note: "Не связан с деторождением" },
+                    { station: "2392", mkb: "O92.2", name: "Негнойный мастит, связанный с деторождением", note: "Лактостаз (срок родов ≤2 недель), серозный мастит" }
+                ]
+            },
+            {
+                title: "Рвота беременных",
+                rows: [
+                    { station: "1616", mkb: "O21.1", name: "Чрезмерная рвота беременных (до 22 нед)", note: "Все степени рвоты, титализм (слонотечение)" },
+                    { station: "2365", mkb: "O21.2", name: "Рвота во второй половине беременности (после 22 нед)", note: "" }
+                ]
+            },
+            {
+                title: "Преждевременный разрыв плодных оболочек, задержка плаценты, кровотечение в родах",
+                rows: [
+                    { station: "1621", mkb: "O42.9", name: "Преждевременный разрыв плодных оболочек / преждевременное излитие вод", note: "Воды отошли, схваток нет" },
+                    { station: "1638", mkb: "O73.0", name: "Задержка плаценты без кровотечения", note: "Ребёнок родился, послед не отделяется. Отметить «Р»" },
+                    { station: "1637", mkb: "O72.0", name: "Кровотечение в 3 периоде родов", note: "Отметить «Р»" }
+                ]
+            },
+            {
+                title: "Гинекология (дополнительные состояния)",
+                rows: [
+                    { station: "2882", mkb: "N83.8", name: "Апоплексия яичника (разрыв яичника) и разрыв кисты яичника", note: "Внезапное кровоизлияние в яичник с нарушением целости и кровотечением в брюшную полость" },
+                    { station: "1598", mkb: "N94.0", name: "Овуляторный синдром", note: "Боли в середине менструального цикла — не путать с апоплексией" },
+                    { station: "2883", mkb: "N94.3", name: "Синдром предменструального напряжения", note: "" },
+                    { station: "2884", mkb: "N94.6", name: "Альгодисменорея (дисменорея неуточнённая)", note: "" },
+                    { station: "2885", mkb: "N94.8", name: "Другие уточнённые состояния, связанные с женскими половыми органами", note: "В т.ч. альгоменорея (боли в первый день менструации, без нарушения цикла)" },
+                    { station: "2338", mkb: "N93.8", name: "Дисфункциональное маточное кровотечение (ДМК)", note: "При такой формулировке «кровотечение» в осложнениях не кодировать" },
+                    { station: "1600", mkb: "N96", name: "Привычный выкидыш", note: "Кровотечение + ≥3 выкидышей в анамнезе. Не ставить «Угроза привычного выкидыша»." }
+                ]
+            },
+            {
+                title: "Прочее (отёки, преэклампсия, экстрагенитальная патология)",
+                rows: [
+                    { station: "2357", mkb: "O12.2", name: "Отёки беременных, водянка, патологическая прибавка в весе", note: "Без повышения АД" },
+                    { station: "2360", mkb: "O14.9", name: "Преэклампсия (нефропатия) без уточнения степени тяжести", note: "" },
+                    { station: "1595", mkb: "N83.5", name: "Перекрут придатков матки (яичника, маточной трубы, кисты и др.)", note: "Перекрут ножки кисты, маточной трубы, в том числе перекрут дольчатой трубы, кисты моральной" },
+                    { station: "1596", mkb: "N92.0", name: "Обильные и частые менструации при регулярном цикле (полименорея, меноррагия)", note: "Кровотечение в осложнениях не кодировать" },
+                    { station: "2325", mkb: "N92.1", name: "Обильные и частые менструации при нерегулярном цикле (метрорагия, метроменоррагия)", note: "" },
+                    { station: "2337", mkb: "N92.4", name: "Кровотечение в пременопаузальном периоде и в менопаузе", note: "" },
+                    { station: "2336", mkb: "N92.2", name: "Овуляционное кровотечение", note: "" },
+                    { station: "2074", mkb: "D25.9", name: "Лейомиома матки неуточнённая (миома матки)", note: "В диагнозе обязательно указывать наличие миомы. Миома + маточное кровотечение → осложнение «10». Миома + перекрут миоматозного узла → осложнение «21»." }
+                ]
+            }
+        ];
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.replace(/[&<>]/g, function(m) {
+                if (m === '&') return '&amp;';
+                if (m === '<') return '&lt;';
+                if (m === '>') return '&gt;';
+                return m;
+            });
+        }
+
+        const container = document.getElementById('sectionsContainer');
+        const searchInput = document.getElementById('searchInput');
+
+        function renderSections(filter = '') {
+            const lowerFilter = filter.toLowerCase().trim();
+            let html = '';
+
+            for (const section of sections) {
+                let filteredRows = section.rows;
+                if (lowerFilter !== '') {
+                    filteredRows = section.rows.filter(row => {
+                        return row.station.toLowerCase().includes(lowerFilter) ||
+                            row.mkb.toLowerCase().includes(lowerFilter) ||
+                            row.name.toLowerCase().includes(lowerFilter) ||
+                            (row.note || '').toLowerCase().includes(lowerFilter);
+                    });
+                }
+                if (filteredRows.length === 0) continue;
+
+                html += `<div class="section">`;
+                html += `<div class="section-header">`;
+                html += `<div class="section-title">📌 ${escapeHtml(section.title)}</div>`;
+                html += `</div>`;
+                html += `<div class="grid">`;
+
+                for (const row of filteredRows) {
+                    const noteText = row.note && row.note.trim() !== '' ? row.note : '';
+                    const descHtml = noteText ? `<div class="description"><em>${escapeHtml(noteText)}</em></div>` : '';
+
+                    html += `
+                        <div class="card">
+                            <div class="disease-title">
+                                <div class="disease-name">${escapeHtml(row.name)}</div>
+                            </div>
+                            <div class="code-block">
+                                <div class="codes-row">
+                                    <div class="mkb-line">МКБ-10: ${escapeHtml(row.mkb)}</div>
+                                    <div class="inner-code-block"><strong>Код ССиНМП:</strong> ${escapeHtml(row.station)}</div>
+                                </div>
+                                ${descHtml}
+                            </div>
+                        </div>
+                    `;
+                }
+                html += `</div></div>`;
+            }
+
+            if (html === '') {
+                html = `<div class="no-results">🔎 Ничего не найдено по запросу «${escapeHtml(filter)}»</div>`;
+            }
+            container.innerHTML = html;
+        }
+
+        let timer;
+        searchInput.addEventListener('input', function(e) {
+            clearTimeout(timer);
+            timer = setTimeout(() => {
+                renderSections(this.value);
+            }, 150);
+        });
+
+        renderSections('');
+        
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/SMP/sw.js')
+                .then(reg => console.log('✅ Service Worker зарегистрирован:', reg.scope))
+                .catch(err => console.error('❌ Ошибка регистрации SW:', err));
+        }
+    })();
+</script>
+
+</body>
+</html>
