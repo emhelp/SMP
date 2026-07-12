@@ -2,10 +2,13 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>Лакунарная ангина | Описание локального статуса</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Лакунарная ангина | Локальный статус</title>
+    
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0f1446">
+    
     <style>
         * {
             margin: 0;
@@ -14,459 +17,251 @@
         }
 
         body {
-            background: linear-gradient(135deg, #eef2f7 0%, #e0e8f0 100%);
-            font-family: 'Inter', sans-serif;
-            padding: 1rem;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            font-family: 'Segoe UI', 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: #1f3a4b;
+            padding: 20px;
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
         }
 
-        .medical-card {
+        .container {
             max-width: 800px;
-            width: 100%;
-            background: #ffffff;
-            border-radius: 2rem;
-            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.12);
-            overflow: hidden;
+            margin: 0 auto;
         }
 
-        .card-header {
-            background: linear-gradient(135deg, #4a2e1e 0%, #2e2218 100%);
-            padding: 1.25rem 1.5rem;
+        .card {
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 24px 22px;
+            margin-bottom: 20px;
+        }
+
+        .card.header-card {
+            background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
             color: white;
-            border-bottom: 3px solid #e08e3a;
+            text-align: center;
+            padding: 28px 20px;
         }
 
-        .title-section h1 {
+        .card.header-card h1 {
+            font-size: 28px;
+            color: white;
             font-weight: 700;
-            font-size: 1.6rem;
-            letter-spacing: -0.3px;
-            color: #fff5ea;
-            margin-bottom: 0.25rem;
+            margin-bottom: 8px;
         }
 
-        .sub {
-            font-size: 0.85rem;
-            color: #e6cfb5;
-            font-weight: 400;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
-        .sub i {
-            font-size: 0.9rem;
-            color: #e08e3a;
-        }
-
-        .card-body {
-            padding: 1.5rem;
+        h2 {
+            color: #0f1446;
+            border-left: 6px solid #e53935;
+            padding-left: 16px;
+            font-size: 1.3rem;
+            margin: 1.2rem 0 1rem 0;
         }
 
         .diagnosis-tag {
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
-            background: #fef3e6;
-            color: #b45a1c;
-            padding: 0.4rem 1.1rem;
-            border-radius: 40px;
+            gap: 8px;
+            background: #eef7ff;
+            color: #0f1446;
+            padding: 6px 14px;
+            border-radius: 12px;
             font-weight: 600;
-            font-size: 0.75rem;
-            margin-bottom: 1.5rem;
-            border-left: 3px solid #e67e22;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+            border-left: 4px solid #1f6e9c;
         }
 
         .exam-section {
             display: flex;
             flex-direction: column;
-            gap: 1.35rem;
-            margin-bottom: 1.5rem;
+            gap: 16px;
         }
 
         .info-row {
-            background: #ffffff;
-            border-radius: 1.25rem;
-            border: 1.5px solid #e5d5c2;
-            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.05);
-            overflow: hidden;
+            background: #eef7ff;
+            border-radius: 16px;
+            border-left: 4px solid #1f6e9c;
+            padding: 20px;
         }
+
+        .info-row.complaints-card { border-left-color: #d32f2f; }
+        .info-row.status-card { border-left-color: #e68a2e; }
 
         .row-header {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             font-weight: 700;
             font-size: 1rem;
-            color: #2f5342;
-            padding: 1rem 1.2rem 0.5rem 1.2rem;
-            background: #fefcf9;
-            border-bottom: 2px solid #f0e3d4;
-        }
-
-        .row-header i {
-            font-size: 1.4rem;
-            width: 34px;
-            color: #c96f1e;
-            background: #fff2e6;
-            padding: 6px;
-            border-radius: 14px;
-            text-align: center;
+            color: #0f1446;
+            margin-bottom: 10px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #d4e2f0;
         }
 
         .row-content {
             font-size: 0.95rem;
-            line-height: 1.55;
-            color: #2c3e3a;
-            padding: 0 1.2rem 1rem 1.2rem;
-            background: #ffffff;
+            line-height: 1.6;
+            color: #1f3a4b;
         }
 
         .highlight {
             font-weight: 600;
-            color: #bf6019;
-            background: #fff2e6;
-            padding: 0 5px;
-            border-radius: 8px;
-            display: inline-block;
+            color: #a56b00;
+            background: #fff8e7;
+            padding: 0 4px;
+            border-radius: 6px;
         }
 
-        .complaints-card {
-            border-left: 4px solid #e08e3a;
-            background: #fffdf9;
-        }
-        
-        .complaints-card .row-header {
-            background: #fffaf3;
-        }
-        
-        .status-card {
-            border-left: 4px solid #b87c4a;
+        .danger-sign {
+            font-weight: 600;
+            color: #d32f2f;
+            background: #fff0f0;
+            padding: 0 4px;
+            border-radius: 6px;
         }
 
-        .badge-note {
-            background: #f9efe4;
-            border-radius: 14px;
-            padding: 0.65rem 1rem;
-            margin-top: 0.65rem;
-            font-size: 0.85rem;
-            color: #6f4f2e;
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            border: 1px solid #f0e0ce;
+        .warning-sign {
+            font-weight: 600;
+            color: #e68a2e;
+            background: #fff8e7;
+            padding: 0 4px;
+            border-radius: 6px;
         }
 
-        .badge-note i {
-            margin-top: 2px;
-            color: #d97a2b;
+        .normal-sign {
+            font-weight: 600;
+            color: #2e7d32;
+            background: #e8f5e9;
+            padding: 0 4px;
+            border-radius: 6px;
         }
 
-        /* НОВЫЙ СТИЛЬ для дифференциальной диагностики */
-        .diff-new {
-            background: #fefaf5;
-            border-radius: 1.5rem;
-            padding: 1.2rem;
-            margin-bottom: 1.5rem;
-            border: 1px solid #f3e5d5;
+        .status-list p {
+            margin-bottom: 8px;
         }
-        
-        .diff-new-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 1rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px dotted #e8d9c8;
+
+        .status-list p:last-child {
+            margin-bottom: 0;
         }
-        
-        .diff-new-header i {
-            font-size: 1.5rem;
-            color: #c97e3a;
-            background: #fff0e2;
-            padding: 8px;
-            border-radius: 16px;
-        }
-        
-        .diff-new-header h3 {
-            font-size: 1rem;
-            font-weight: 700;
-            color: #4a3724;
-            letter-spacing: 0.3px;
-            text-transform: uppercase;
-        }
-        
-        .diff-cards {
+
+        /* Сравнительная характеристика */
+        .diff-section {
             display: flex;
             flex-direction: column;
-            gap: 0.9rem;
+            gap: 10px;
+            margin-top: 16px;
         }
-        
-        .diff-new-card {
-            background: white;
-            border-radius: 1rem;
-            padding: 0.9rem 1rem;
-            display: flex;
-            gap: 1rem;
-            align-items: flex-start;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
-            border: 1px solid #efe2d4;
+
+        .diff-card {
+            background: #eef7ff;
+            border-radius: 16px;
+            padding: 16px;
+            border-left: 4px solid #1f6e9c;
         }
-        
-        .diff-icon {
-            width: 40px;
-            height: 40px;
-            background: #fdf3ea;
-            border-radius: 40px;
+
+        .diff-card.catarrhal { border-left-color: #2e7d32; }
+        .diff-card.follicular { border-left-color: #e68a2e; }
+        .diff-card.lacunar { border-left-color: #d32f2f; }
+
+        .diff-header {
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            flex-shrink: 0;
-        }
-        
-        .catarrhal-icon { background: #eef2f5; color: #6f8faa; }
-        .follicular-icon { background: #fcebd9; color: #e67e22; }
-        .lacunar-icon { background: #fce4de; color: #c0392b; }
-        
-        .diff-text {
-            flex: 1;
-        }
-        
-        .diff-text .diff-title-new {
-            font-weight: 800;
-            font-size: 0.95rem;
-            margin-bottom: 0.3rem;
-            display: flex;
+            gap: 8px;
+            margin-bottom: 8px;
             flex-wrap: wrap;
-            align-items: baseline;
-            gap: 6px;
         }
-        
-        .diff-text .diff-desc {
-            font-size: 0.85rem;
-            line-height: 1.45;
-            color: #4a5b55;
+
+        .diff-title {
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: #0f1446;
         }
-        
+
         .diff-badge {
-            background: #f0e6db;
-            border-radius: 20px;
-            padding: 0.2rem 0.6rem;
+            background: #ffffff;
+            border: 1px solid #d4e2f0;
+            padding: 2px 10px;
+            border-radius: 12px;
             font-size: 0.7rem;
             font-weight: 600;
-            color: #7c5d3c;
+            color: #6f8eaa;
         }
 
-        /* НОВЫЙ СТИЛЬ для клинического комментария */
-        .clinical-new {
-            background: #f6f3ef;
-            border-radius: 1.5rem;
-            padding: 0;
-            margin: 1.5rem 0 1.25rem;
-            overflow: hidden;
-            border: 1px solid #e6daca;
-        }
-        
-        .clinical-new-header {
-            background: #d9c8b6;
-            padding: 0.7rem 1.2rem;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            border-bottom: 2px solid #c8b496;
-        }
-        
-        .clinical-new-header i {
-            font-size: 1.2rem;
-            color: #4a2e1e;
-            background: #fff2e2;
-            padding: 6px;
-            border-radius: 40px;
-        }
-        
-        .clinical-new-header span {
-            font-weight: 700;
-            font-size: 0.85rem;
-            letter-spacing: 1px;
-            color: #2c241a;
-            text-transform: uppercase;
-        }
-        
-        .clinical-new-content {
-            padding: 1.2rem 1.3rem;
-            background: #fefcf8;
-        }
-        
-        .clinical-new-content p {
-            line-height: 1.55;
-            font-size: 0.92rem;
-            color: #2e4a3c;
-            margin-bottom: 0.75rem;
-        }
-        
-        .clinical-quote {
-            margin-top: 0.8rem;
-            padding-top: 0.6rem;
-            border-top: 1px solid #ecdfd0;
-            font-size: 0.85rem;
-            color: #7f6a53;
-            display: flex;
-            gap: 8px;
-        }
-        
-        .clinical-quote i {
-            color: #c97e3a;
+        .diff-card.lacunar .diff-badge {
+            background: #fff0f0;
+            border-color: #ffcdd2;
+            color: #b71c1c;
         }
 
-        /* Предварительное заключение */
-        .impressio-box {
-            background: #fffaf0;
-            border-radius: 1.25rem;
-            padding: 1.2rem 1.3rem;
-            border: 1px solid #ffdfb3;
-            margin: 0;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
-        }
-
-        .impressio-box h4 {
-            font-weight: 700;
-            color: #b4682d;
-            margin-bottom: 8px;
-            font-size: 0.95rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .impressio-box h4 i {
-            font-size: 1.1rem;
+        .diff-content {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: #1f3a4b;
         }
 
         @media (max-width: 600px) {
             body {
-                padding: 0.75rem;
+                padding: 10px;
             }
-            
-            .card-header {
-                padding: 1rem 1.2rem;
+            .card {
+                padding: 16px 14px;
             }
-            
-            .title-section h1 {
-                font-size: 1.35rem;
+            .card.header-card {
+                padding: 20px 14px;
             }
-            
-            .sub {
-                font-size: 0.75rem;
+            .card.header-card h1 {
+                font-size: 22px;
             }
-            
-            .card-body {
-                padding: 1.2rem;
+            .info-row {
+                padding: 16px;
             }
-            
-            .row-header {
-                padding: 0.8rem 1rem 0.3rem 1rem;
-            }
-            
-            .row-header i {
-                font-size: 1.2rem;
-                width: 30px;
-            }
-            
             .row-content {
-                padding: 0 1rem 0.8rem 1rem;
-                font-size: 0.88rem;
+                font-size: 0.9rem;
             }
-            
-            .diff-new {
-                padding: 1rem;
+            .diff-card {
+                padding: 14px;
             }
-            
-            .diff-new-card {
-                flex-direction: column;
-                gap: 0.5rem;
-            }
-            
-            .diff-icon {
-                width: 32px;
-                height: 32px;
-                font-size: 1rem;
-            }
-            
-            .clinical-new-content {
-                padding: 1rem;
-            }
-            
-            .diagnosis-tag {
-                font-size: 0.7rem;
-                margin-bottom: 1rem;
-            }
-        }
-
-        .icon-accent {
-            color: #d97a2b;
-            margin-right: 6px;
-        }
-        
-        .flex-between {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-        
-        .status-list p {
-            margin-bottom: 0.5rem;
-        }
-        
-        .complaints-inline {
-            line-height: 1.65;
-        }
-        
-        .complaints-inline strong {
-            color: #2f5342;
         }
     </style>
 </head>
 <body>
-<div class="medical-card">
-    <div class="card-header">
-        <div class="title-section">
-            <h1>Лакунарная ангина</h1>
-            <div class="sub">
-                <i class="fas fa-ambulance"></i> Описание локального статуса
-            </div>
-        </div>
+
+<div class="container">
+    
+    <!-- ===== ШАПКА ===== -->
+    <div class="card header-card">
+        <h1>Лакунарная ангина</h1>
     </div>
     
-    <div class="card-body">
+    <!-- ===== ОСНОВНОЙ КОНТЕНТ ===== -->
+    <div class="card">
+        
         <div class="diagnosis-tag">
-            <i class="fas fa-exclamation-triangle"></i> Лакунарная ангина · J03.0 (острый тонзиллит)
+            📋 Лакунарная ангина · J03.0
         </div>
 
         <div class="exam-section">
-            <!-- Жалобы пациента с акцентной рамкой -->
+            
+            <!-- Жалобы пациента -->
             <div class="info-row complaints-card">
                 <div class="row-header">
-                    <i class="fas fa-comment-medical"></i>
-                    <span>😷 Жалобы пациента</span>
+                    <span>😷 Жалобы пациента (анамнестически)</span>
                 </div>
-                <div class="row-content complaints-inline">
-                    <strong>Интенсивная боль в горле</strong>, усиливающаяся при глотании. 
-                    <strong>Выраженная слабость и головная боль</strong>. 
-                    <strong>Повышение температуры тела до фебрильных цифр</strong> (38,5–39,5°C), сопровождающееся ознобом. 
-                    <strong>Снижение аппетита</strong> на фоне интоксикации и боли при глотании.
+                <div class="row-content">
+                    <p style="margin-bottom: 8px;"><span class="danger-sign">Интенсивная боль в горле</span>, усиливающаяся при глотании.</p>
+                    <p style="margin-bottom: 8px;"><span class="warning-sign">Выраженная слабость и головная боль</span>.</p>
+                    <p style="margin-bottom: 8px;"><span class="danger-sign">Повышение температуры тела до фебрильных цифр</span> (38,5–39,5°C), сопровождающееся ознобом.</p>
+                    <p><span class="warning-sign">Снижение аппетита</span> на фоне интоксикации и боли при глотании.</p>
                 </div>
             </div>
             
-            <!-- Статус локальный (ротоглотка) с акцентной рамкой -->
+            <!-- Статус локальный (ротоглотка) -->
             <div class="info-row status-card">
                 <div class="row-header">
-                    <i class="fas fa-stethoscope"></i>
                     <span>🔬 Статус локальный (ротоглотка)</span>
                 </div>
                 <div class="row-content">
@@ -474,93 +269,64 @@
                         <p><strong>Миндалины:</strong> Гипертрофированы (увеличены в размерах), резко отечны, инфильтрированы.</p>
                         <p><strong>Лакуны:</strong> Визуально определяются как <span class="highlight">расширенные</span>, устья зияют.</p>
                         <p><strong>Налет:</strong> В просветах лакун визуализируется желтовато-белое гнойное содержимое. Это содержимое, выходя из лакун, формирует на поверхности миндалин рыхлый налет в виде <strong>мелких очагов (островков) слева</strong> и <strong>сплошной пленки справа</strong>.</p>
-                        <p><strong>Дифференциально-диагностический признак:</strong> Налет легко снимается шпателем, растирается между предметными стеклами, <strong>не выходит за пределы миндалин</strong>, и после его удаления не образуется кровоточащий дефект (поверхность миндалины не кровоточит), что исключает дифтерию.</p>
+                        <p><strong>Дифференциально-диагностический признак:</strong> Налет легко снимается шпателем, растирается между предметными стеклами, <span class="normal-sign">не выходит за пределы миндалин</span>, и после его удаления <span class="normal-sign">не образуется кровоточащий дефект</span> (поверхность миндалины не кровоточит), что исключает дифтерию.</p>
                     </div>
                 </div>
             </div>
-        </div>
-        
-        <!-- НОВЫЙ СТИЛЬ дифференциальной диагностики -->
-        <div class="diff-new">
-            <div class="diff-new-header">
-                <i class="fas fa-chart-line"></i>
-                <h3>📋 Сравнительная характеристика</h3>
-            </div>
-            <div class="diff-cards">
-                <!-- Катаральная ангина -->
-                <div class="diff-new-card">
-                    <div class="diff-icon catarrhal-icon">
-                        <i class="fas fa-temperature-low"></i>
+            
+            <!-- Сравнительная характеристика -->
+            <div class="diff-section">
+                <h2>📋 Сравнительная характеристика ангин</h2>
+                
+                <!-- Катаральная -->
+                <div class="diff-card catarrhal">
+                    <div class="diff-header">
+                        <span class="diff-title">🌡️ Катаральная ангина</span>
+                        <span class="diff-badge">лёгкое течение</span>
                     </div>
-                    <div class="diff-text">
-                        <div class="diff-title-new">
-                            🌡️ Катаральная ангина
-                            <span class="diff-badge">легкое течение</span>
-                        </div>
-                        <div class="diff-desc">
-                            <strong>Симптомы:</strong> жжение, сухость, першение, умеренная боль.<br>
-                            <strong>Состояние:</strong> субфебрильная температура (37,1–37,9°C), недомогание.
-                        </div>
+                    <div class="diff-content">
+                        <strong>Симптомы:</strong> жжение, сухость, першение, умеренная боль.<br>
+                        <strong>Состояние:</strong> субфебрильная температура (37,1–37,9°C), недомогание.
                     </div>
                 </div>
-                <!-- Фолликулярная ангина -->
-                <div class="diff-new-card">
-                    <div class="diff-icon follicular-icon">
-                        <i class="fas fa-bacteria"></i>
+                
+                <!-- Фолликулярная -->
+                <div class="diff-card follicular">
+                    <div class="diff-header">
+                        <span class="diff-title">🤒 Фолликулярная ангина</span>
+                        <span class="diff-badge">среднетяжёлое течение</span>
                     </div>
-                    <div class="diff-text">
-                        <div class="diff-title-new">
-                            🤒 Фолликулярная ангина
-                            <span class="diff-badge">среднетяжелое течение</span>
-                        </div>
-                        <div class="diff-desc">
-                            <strong>Боль:</strong> выраженная, иррадиация в ухо, затруднение глотания.<br>
-                            <strong>Общее:</strong> фебрильная температура (38–40°C), озноб, миалгии.<br>
-                            <strong>Локально:</strong> нагноившиеся фолликулы — симптом <strong>«звездного неба»</strong>.
-                        </div>
+                    <div class="diff-content">
+                        <strong>Боль:</strong> выраженная, иррадиация в ухо, затруднение глотания.<br>
+                        <strong>Общее:</strong> фебрильная температура (38–40°C), озноб, миалгии.<br>
+                        <strong>Локально:</strong> нагноившиеся фолликулы — симптом <strong>«звездного неба»</strong>.
                     </div>
                 </div>
-                <!-- Лакунарная ангина (текущая) -->
-                <div class="diff-new-card">
-                    <div class="diff-icon lacunar-icon">
-                        <i class="fas fa-fire"></i>
+                
+                <!-- Лакунарная (текущая) -->
+                <div class="diff-card lacunar">
+                    <div class="diff-header">
+                        <span class="diff-title">🔥 Лакунарная ангина</span>
+                        <span class="diff-badge">текущая форма · тяжёлое течение</span>
                     </div>
-                    <div class="diff-text">
-                        <div class="diff-title-new">
-                            🔥 Лакунарная ангина
-                            <span class="diff-badge" style="background:#fce4cc; color:#c25d1a;">текущая форма · тяжелое течение</span>
-                        </div>
-                        <div class="diff-desc">
-                            <strong>Особенность:</strong> интоксикация максимально выражена, температура часто выше 39°C.<br>
-                            <strong>Локально:</strong> гнойное содержимое непосредственно <strong>в расширенных лакунах</strong>, формирование островковых или сливных налетов, <strong>не выходящих за миндалины</strong>. Налет легко снимается, без кровоточивости.
-                        </div>
+                    <div class="diff-content">
+                        <strong>Особенность:</strong> интоксикация максимально выражена, температура часто выше 39°C.<br>
+                        <strong>Локально:</strong> гнойное содержимое непосредственно <strong>в расширенных лакунах</strong>, формирование островковых или сливных налетов, <span class="normal-sign">не выходящих за миндалины</span>. Налет легко снимается, без кровоточивости.
                     </div>
                 </div>
             </div>
-        </div>
-        
-        <!-- НОВЫЙ СТИЛЬ клинического комментария -->
-        <div class="clinical-new">
-            <div class="clinical-new-header">
-                <i class="fas fa-stethoscope"></i>
-                <span>Клинический разбор</span>
-            </div>
-            <div class="clinical-new-content">
-                <p>Представленная клиническая картина соответствует <strong>лакунарной ангине</strong> — наиболее тяжелой форме острого тонзиллита с преимущественным поражением лакунарного аппарата небных миндалин. Характерные признаки: выраженный интоксикационный синдром (фебрильная лихорадка с ознобом, интенсивная головная боль, резкая слабость), локальный статус с гипертрофией и отеком миндалин, наличием гнойного содержимого в расширенных лакунах и образованием рыхлых налетов (островковых слева, сливных справа).</p>
-                <p>В отличие от фолликулярной формы, при лакунарной ангине гнойное содержимое локализуется непосредственно в лакунах, а не в фолликулах, что обусловливает более массивное образование налетов и более тяжелое течение.</p>
-                <div class="clinical-quote">
-                    <i class="fas fa-check-circle"></i>
-                    <span>Важный дифференциально-диагностический признак: налет <strong>легко снимается</strong>, <strong>не выходит за пределы миндалин</strong>, после удаления <strong>поверхность не кровоточит</strong> — что полностью исключает дифтерию зева. Данных за паратонзиллярный абсцесс не выявлено.</span>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Предварительное заключение -->
-        <div class="impressio-box">
-            <h4><i class="fas fa-notes-medical"></i> Предварительное заключение</h4>
-            <p><strong>Лакунарная ангина</strong> (острый тонзиллит, лакунарная форма), тяжелое течение. Выраженный интоксикационный синдром, фебрильная лихорадка, двустороннее поражение небных миндалин с гнойным содержимым в расширенных лакунах и формированием сливных/островковых налетов. Дифтерия зева исключена на основании клинико-диагностических критериев (налет не выходит за пределы миндалин, легко снимается, поверхность не кровоточит). <strong>Риск развития паратонзиллярного абсцесса, ревматических и пострептококковых осложнений.</strong></p>
+            
         </div>
     </div>
 </div>
+
+<script>
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/SMP/sw.js')
+            .then(reg => console.log('✅ Service Worker зарегистрирован:', reg.scope))
+            .catch(err => console.error('❌ Ошибка регистрации SW:', err));
+    }
+</script>
+
 </body>
 </html>
