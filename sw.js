@@ -1,7 +1,7 @@
 // sw.js — Service Worker для EMHelp PWA
-// Версия: v116 (обновлена страница акушерства и гинекологии)
+// Версия: v117 (обновлена инструкция по установке приложения)
 
-const CACHE_NAME = 'emhelp-v116';
+const CACHE_NAME = 'emhelp-v117';
 
 // Только самые важные страницы (пре-кэш)
 const urlsToCache = [
@@ -77,7 +77,7 @@ self.addEventListener('activate', event => {
         })
       );
     }).then(() => {
-      console.log('✅ Service Worker активирован (v116)');
+      console.log('✅ Service Worker активирован (v117)');
       return self.clients.claim();
     })
   );
