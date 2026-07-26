@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>График смен | Скорая помощь</title>
+    <meta name="description" content="Календарь графика смен для сотрудников скорой помощи">
+    
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0f1446">
+    
+    <!-- iOS PWA support -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="График смен">
+    <link rel="apple-touch-icon" href="icon-192.png">
+    
+    <!-- html2canvas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            font-family: 'Segoe UI', 'Roboto', sans-serif;
+            padding: 20px; min-height: 100vh; color: #1f3a4b;
+        }
+        
+        .container { max-width: 800px; margin: 0 auto; }
+        
+        .card {
+            background: white; border-radius: 24px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1); padding: 24px 22px; margin-bottom: 20px;
+        }
+        
+        .header-card {
+            background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
+            color: white; text-align: center; padding: 28px 20px;
+        }
+        
+        .header-card h1 { font-size: 24px; color: white; font-weight: 700; margin-bottom: 6px; }
+        .header-card p { opacity: 0.9; font-size: 0.9rem; }
+        
+        .month-nav { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; gap: 12px; }
+        
+        .month-nav button {
+            background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
+            color: white; border: none; border-radius: 12px; padding: 10px 16px;
+            font-size: 16px; cursor: pointer; font-family: inherit; font-weight: 600; transition: all 0.2s;
+        }
+        
+        .month-nav button:hover { filter: brightness(1.1); }
+        .month-nav button:active { transform: scale(0.95); }
+        .month-title { font-size: 1.3rem; font-weight: 700; color: #0f1446; text-align: center; flex: 1; }
+        
+        .action-buttons { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+        
+        .action-btn {
+            flex: 1; min-width: 100px; padding: 10px 14px; border-radius: 12px; border: none;
+            font-weight: 600; font-size: 0.9rem; cursor: pointer; font-family: inherit;
+            transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 6px;
+        }
+        
+        .btn-export { background: #e8f5e9; color: #2e7d32; border: 2px solid #a5d6a7; }
+        .btn-export:hover { background: #c8e6c9; }
+        .btn-share { background: #fff8e7; color: #e68a2e; border: 2px solid #ffe0a3; }
+        .btn-share:hover { background: #ffecb3; }
+        .btn-clear-all { background: #fff0f0; color: #d32f2f; border: 2px solid #ffcdd2; }
+        .btn-clear-all:hover { background: #ffcdd2; }
+        
+        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; margin-bottom: 16px; }
+        
+        .day-header {
+            text-align: center; font-weight: 700; font-size: 0.8rem;
+            color: #6f8eaa; padding: 8px 4px; text-transform: uppercase;
+        }
+        
+        .day-cell {
+            aspect-ratio: 0.75; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            border-radius: 12px; cursor: pointer; transition: all 0.15s; font-weight: 600;
+            font-size: 0.9rem; border: 2px solid transparent; background: #f8f9fb; color: #1f3a4b; min-height: 68px;
+        }
+        
+        .day-cell:hover { border-color: #0f1446; transform: scale(1.05); z-index: 2; }
+        .day-cell.empty { background: transparent; cursor: default; border: none; }
+        .day-cell.empty:hover { border-color: transparent; transform: none; }
+        .day-cell.today { border-color: #e53935; box-shadow: 0 0 0 2px rgba(229, 57, 53, 0.2); }
+        
+        .day-cell.shift-active { background: #7c3aed; border-color: #6d28d9; }
+        .day-cell.shift-active .day-number { color: white; font-size: 1rem; }
+        .day-cell .shift-info { display: flex; flex-direction: column; align-items: center; gap: 3px; margin-top: 4px; }
+        .day-cell.shift-active .shift-type { 
+            background: white; color: #000000; font-size: 0.7rem; padding: 2px 7px; 
+            border-radius: 7px; font-weight: 600; line-height: 1.2;
+        }
+        .day-cell.shift-active .shift-overtime {
+            background: rgba(255,255,255,0.25); color: white; font-size: 0.65rem;
+            padding: 2px 7px; border-radius: 7px; font-weight: 500; line-height: 1.2;
+        }
+        
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1000; align-items: center; justify-content: center; padding: 20px; }
+        .modal-overlay.active { display: flex; }
+        
+        .modal-dialog { background: white; border-radius: 20px; padding: 24px; max-width: 400px; width: 100%; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .modal-dialog h3 { font-size: 1.1rem; font-weight: 700; color: #0f1446; margin-bottom: 6px; }
+        .modal-date { font-size: 0.9rem; color: #6f8eaa; margin-bottom: 16px; }
+        
+        .time-picker-container { background: #f8f9fb; border-radius: 16px; padding: 16px; margin-bottom: 12px; }
+        .time-picker-row { display: flex; align-items: center; justify-content: center; gap: 6px; }
+        .time-picker-col { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+        .time-picker-label { font-size: 0.7rem; font-weight: 600; color: #6f8eaa; text-transform: uppercase; letter-spacing: 0.5px; }
+        
+        .time-picker-btn {
+            width: 44px; height: 34px; border: 2px solid #d4e2f0; border-radius: 10px; background: white;
+            font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center;
+            color: #0f1446; font-weight: 700; transition: all 0.15s; font-family: inherit; user-select: none;
+        }
+        
+        .time-picker-btn:hover { background: #0f1446; color: white; border-color: #0f1446; }
+        .time-picker-btn:active { transform: scale(0.9); }
+        
+        .time-picker-value { font-size: 1.5rem; font-weight: 700; color: #0f1446; min-width: 48px; text-align: center; background: white; padding: 6px 8px; border-radius: 10px; border: 2px solid #d4e2f0; }
+        .time-picker-separator { font-size: 1.5rem; font-weight: 700; color: #0f1446; margin: 0 2px; padding-top: 18px; }
+        
+        .overtime-section {
+            background: #fff8e7; border-radius: 12px; padding: 12px; margin-bottom: 12px;
+            border: 1px solid #ffe0a3; display: none;
+        }
+        
+        .overtime-section.active { display: block; }
+        
+        .overtime-title {
+            font-weight: 700; font-size: 0.85rem; color: #e68a2e; margin-bottom: 8px;
+            display: flex; align-items: center; gap: 6px;
+        }
+        
+        .btn-row { display: flex; gap: 8px; margin-top: 12px; }
+        
+        .btn {
+            flex: 1; padding: 12px; border-radius: 12px; border: none;
+            font-weight: 600; font-size: 0.95rem; cursor: pointer; font-family: inherit; transition: all 0.2s;
+        }
+        
+        .btn-save { background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%); color: white; }
+        .btn-save:hover { filter: brightness(1.1); }
+        .btn-cancel { background: #eef7ff; color: #0f1446; border: 2px solid #d4e2f0; }
+        .btn-clear { background: #fff0f0; color: #d32f2f; border: 2px solid #ffcdd2; margin-top: 8px; width: 100%; }
+        .btn-overtime {
+            background: #fff8e7; color: #e68a2e; border: 2px solid #ffe0a3;
+            margin-top: 8px; width: 100%;
+        }
+        .btn-overtime:hover { background: #ffecb3; }
+        .btn-overtime.active { background: #ffe0a3; }
+        
+        .stats { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+        
+        .stat-card {
+            border-radius: 12px; padding: 14px; text-align: center; border-left: 4px solid;
+        }
+        
+        .stat-card.hours-stat { background: #fff8e7; border-left-color: #e68a2e; }
+        .stat-card.overtime-stat { background: #fff0f0; border-left-color: #d32f2f; display: none; }
+        .stat-card.overtime-stat.active { display: block; }
+        
+        .stat-number { font-size: 1.5rem; font-weight: 700; color: #0f1446; }
+        .stat-label { font-size: 0.75rem; color: #6f8eaa; margin-top: 2px; }
+        
+        .toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: #0f1446; color: white; padding: 12px 24px; border-radius: 40px; font-weight: 600; font-size: 0.9rem; z-index: 2000; opacity: 0; transition: opacity 0.3s; pointer-events: none; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+        .toast.show { opacity: 1; }
+        
+        .loading-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 3000; align-items: center; justify-content: center; }
+        .loading-overlay.active { display: flex; }
+        
+        .loading-spinner { background: white; border-radius: 20px; padding: 30px 40px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .loading-spinner .spinner { width: 40px; height: 40px; border: 4px solid #e2ecf3; border-top-color: #0f1446; border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 12px; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .loading-spinner p { font-weight: 600; color: #0f1446; }
+        
+        @media (max-width: 600px) {
+            body { padding: 10px; }
+            .card { padding: 16px 14px; }
+            .header-card { padding: 22px 16px; }
+            .header-card h1 { font-size: 20px; }
+            .day-cell { font-size: 0.75rem; min-height: 54px; aspect-ratio: 0.75; }
+            .day-cell.shift-active .day-number { font-size: 0.8rem; }
+            .day-cell.shift-active .shift-type { font-size: 0.55rem; padding: 1px 5px; }
+            .day-cell.shift-active .shift-overtime { font-size: 0.5rem; padding: 1px 5px; }
+            .day-header { font-size: 0.65rem; }
+            .action-btn { font-size: 0.8rem; padding: 8px 10px; }
+            .time-picker-btn { width: 38px; height: 30px; font-size: 1rem; }
+            .time-picker-value { font-size: 1.2rem; min-width: 40px; padding: 5px 6px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    
+    <div class="card header-card no-export">
+        <h1>📅 График рабочих смен</h1>
+        <p>Нажмите на день, чтобы настроить время смены</p>
+    </div>
+    
+    <div class="card" id="calendarCard">
+        
+        <div class="month-title" id="monthTitleExport" style="font-size: 1.5rem; text-align: center; margin-bottom: 16px; color: #0f1446; font-weight: 700;">Июль 2026</div>
+        
+        <div class="month-nav no-export">
+            <button id="prevMonth">◀</button>
+            <div class="month-title" id="monthTitle" style="display: none;">Июль 2026</div>
+            <button id="nextMonth">▶</button>
+        </div>
+        
+        <div class="action-buttons no-export">
+            <button class="action-btn btn-export" id="exportBtn">📥 Сохранить как картинку</button>
+            <button class="action-btn btn-share" id="shareBtn">📲 Поделиться картинкой</button>
+            <button class="action-btn btn-clear-all" id="clearAllBtn">🗑️ Очистить всё</button>
+        </div>
+        
+        <div class="stats">
+            <div class="stat-card hours-stat"><div class="stat-number" id="hoursCount">0</div><div class="stat-label">Часов всего</div></div>
+            <div class="stat-card overtime-stat" id="overtimeCard"><div class="stat-number" id="overtimeCount">0</div><div class="stat-label">Часов переработки</div></div>
+        </div>
+        
+        <div class="calendar-grid" id="calendarGrid"></div>
+        
+    </div>
+</div>
+
+<!-- МОДАЛЬНОЕ ОКНО -->
+<div class="modal-overlay" id="modal">
+    <div class="modal-dialog">
+        <h3>📋 Выберите время смены</h3>
+        <div class="modal-date" id="modalDate"></div>
+        
+        <div class="time-picker-container">
+            <div class="time-picker-row">
+                <div class="time-picker-col">
+                    <div class="time-picker-label">Начало</div>
+                    <button class="time-picker-btn" id="startUp">▲</button>
+                    <div class="time-picker-value" id="startValue">9</div>
+                    <button class="time-picker-btn" id="startDown">▼</button>
+                </div>
+                
+                <div class="time-picker-separator">:</div>
+                
+                <div class="time-picker-col">
+                    <div class="time-picker-label">00</div>
+                    <div style="width: 44px; height: 34px;"></div>
+                    <div class="time-picker-value" style="border: none; background: transparent; font-size: 1.5rem;">00</div>
+                    <div style="width: 44px; height: 34px;"></div>
+                </div>
+                
+                <div class="time-picker-separator">—</div>
+                
+                <div class="time-picker-col">
+                    <div class="time-picker-label">Конец</div>
+                    <button class="time-picker-btn" id="endUp">▲</button>
+                    <div class="time-picker-value" id="endValue">9</div>
+                    <button class="time-picker-btn" id="endDown">▼</button>
+                </div>
+                
+                <div class="time-picker-separator">:</div>
+                
+                <div class="time-picker-col">
+                    <div class="time-picker-label">00</div>
+                    <div style="width: 44px; height: 34px;"></div>
+                    <div class="time-picker-value" style="border: none; background: transparent; font-size: 1.5rem;">00</div>
+                    <div style="width: 44px; height: 34px;"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Переработка -->
+        <button class="btn btn-overtime" id="toggleOvertime">⏰ Добавить переработку</button>
+        
+        <div class="overtime-section" id="overtimeSection">
+            <div class="overtime-title">🕐 Переработка</div>
+            <div class="time-picker-row">
+                <div class="time-picker-col">
+                    <div class="time-picker-label">Часы</div>
+                    <button class="time-picker-btn" id="otHoursUp">▲</button>
+                    <div class="time-picker-value" id="otHoursValue">0</div>
+                    <button class="time-picker-btn" id="otHoursDown">▼</button>
+                </div>
+                
+                <div class="time-picker-separator">:</div>
+                
+                <div class="time-picker-col">
+                    <div class="time-picker-label">Мин</div>
+                    <button class="time-picker-btn" id="otMinUp">▲</button>
+                    <div class="time-picker-value" id="otMinValue">00</div>
+                    <button class="time-picker-btn" id="otMinDown">▼</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="btn-row">
+            <button class="btn btn-save" id="saveShift">Сохранить</button>
+            <button class="btn btn-cancel" id="cancelShift">Отмена</button>
+        </div>
+        
+        <button class="btn btn-clear" id="clearShift">🗑️ Очистить день</button>
+    </div>
+</div>
+
+<!-- Загрузка -->
+<div class="loading-overlay" id="loadingOverlay">
+    <div class="loading-spinner">
+        <div class="spinner"></div>
+        <p>Создаю картинку...</p>
+    </div>
+</div>
+
+<!-- Уведомление -->
+<div class="toast" id="toast"></div>
+
+<script>
+    // Весь JavaScript без изменений
+    (function() {
+        let currentDate = new Date();
+        let selectedDay = null;
+        let scheduleData = JSON.parse(localStorage.getItem('scheduleData') || '{}');
+        
+        const monthTitleExport = document.getElementById('monthTitleExport');
+        const calendarGrid = document.getElementById('calendarGrid');
+        const modal = document.getElementById('modal');
+        const modalDate = document.getElementById('modalDate');
+        const startValue = document.getElementById('startValue');
+        const endValue = document.getElementById('endValue');
+        const hoursCount = document.getElementById('hoursCount');
+        const overtimeCount = document.getElementById('overtimeCount');
+        const overtimeCard = document.getElementById('overtimeCard');
+        const overtimeSection = document.getElementById('overtimeSection');
+        const toggleOvertime = document.getElementById('toggleOvertime');
+        const otHoursValue = document.getElementById('otHoursValue');
+        const otMinValue = document.getElementById('otMinValue');
+        const toast = document.getElementById('toast');
+        const loadingOverlay = document.getElementById('loadingOverlay');
+        const calendarCard = document.getElementById('calendarCard');
+        
+        const monthNames = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
+        const dayNames = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
+        
+        let toastTimer;
+        let customStartHour = 9;
+        let customEndHour = 9;
+        let overtimeHours = 0;
+        let overtimeMinutes = 0;
+        let overtimeActive = false;
+        
+        function showToast(message) {
+            clearTimeout(toastTimer);
+            toast.textContent = message;
+            toast.classList.add('show');
+            toastTimer = setTimeout(() => { toast.classList.remove('show'); }, 2000);
+        }
+        
+        function getDateKey(year, month, day) {
+            return `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+        }
+        
+        function calculateHours(start, end) {
+            if (end > start) return end - start;
+            if (end === start) return 24;
+            return 24 - start + end;
+        }
+        
+        function updateTimeDisplay() {
+            startValue.textContent = customStartHour;
+            endValue.textContent = customEndHour;
+            otHoursValue.textContent = overtimeHours;
+            otMinValue.textContent = String(overtimeMinutes).padStart(2, '0');
+        }
+        
+        function updateOvertimeUI() {
+            if (overtimeActive) {
+                overtimeSection.classList.add('active');
+                toggleOvertime.classList.add('active');
+                toggleOvertime.innerHTML = '⏰ Переработка: ' + overtimeHours + ':' + String(overtimeMinutes).padStart(2, '0');
+            } else {
+                overtimeSection.classList.remove('active');
+                toggleOvertime.classList.remove('active');
+                toggleOvertime.innerHTML = '⏰ Добавить переработку';
+            }
+        }
+        
+        function updateStats() {
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth();
+            let hours = 0;
+            let overtimeTotal = 0;
+            
+            for (const [key, value] of Object.entries(scheduleData)) {
+                const [y, m] = key.split('-').map(Number);
+                if (y === year && m === month + 1) {
+                    hours += value.customHours || calculateHours(value.customStart || 9, value.customEnd || 9);
+                    overtimeTotal += (value.overtimeHours || 0) * 60 + (value.overtimeMinutes || 0);
+                }
+            }
+            
+            hoursCount.textContent = hours;
+            
+            const otH = Math.floor(overtimeTotal / 60);
+            const otM = overtimeTotal % 60;
+            overtimeCount.textContent = otH + ' ч ' + otM + ' мин';
+            
+            if (overtimeTotal > 0) {
+                overtimeCard.classList.add('active');
+            } else {
+                overtimeCard.classList.remove('active');
+            }
+        }
+        
+        function updateMonthTitle() {
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth();
+            const titleText = `${monthNames[month]} ${year}`;
+            monthTitleExport.textContent = titleText;
+        }
+        
+        function renderCalendar() {
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth();
+            
+            updateMonthTitle();
+            
+            const firstDay = new Date(year, month, 1);
+            const lastDay = new Date(year, month + 1, 0);
+            const startDayOfWeek = (firstDay.getDay() + 6) % 7;
+            
+            let html = '';
+            
+            for (const day of dayNames) {
+                html += `<div class="day-header">${day}</div>`;
+            }
+            
+            for (let i = 0; i < startDayOfWeek; i++) {
+                html += `<div class="day-cell empty"></div>`;
+            }
+            
+            const today = new Date();
+            const todayKey = getDateKey(today.getFullYear(), today.getMonth(), today.getDate());
+            
+            for (let day = 1; day <= lastDay.getDate(); day++) {
+                const dateKey = getDateKey(year, month, day);
+                const savedData = scheduleData[dateKey];
+                let cellClass = 'day-cell';
+                let shiftTypeText = '';
+                let overtimeText = '';
+                
+                if (dateKey === todayKey) cellClass += ' today';
+                
+                if (savedData) {
+                    cellClass += ' shift-active';
+                    shiftTypeText = savedData.type || `${savedData.customStart || 9}/${savedData.customEnd || 9}`;
+                    if (savedData.overtimeHours || savedData.overtimeMinutes) {
+                        overtimeText = '+' + (savedData.overtimeHours || 0) + ':' + String(savedData.overtimeMinutes || 0).padStart(2, '0');
+                    }
+                }
+                
+                let infoHtml = '';
+                if (shiftTypeText || overtimeText) {
+                    infoHtml = '<div class="shift-info">';
+                    if (shiftTypeText) infoHtml += `<span class="shift-type">${shiftTypeText}</span>`;
+                    if (overtimeText) infoHtml += `<span class="shift-overtime">${overtimeText}</span>`;
+                    infoHtml += '</div>';
+                }
+                
+                html += `<div class="${cellClass}" data-date="${dateKey}" data-day="${day}">
+                    <span class="day-number">${day}</span>
+                    ${infoHtml}
+                </div>`;
+            }
+            
+            calendarGrid.innerHTML = html;
+            
+            document.querySelectorAll('.day-cell:not(.empty)').forEach(cell => {
+                cell.addEventListener('click', () => {
+                    openModal(cell.dataset.date, cell.dataset.day, month, year);
+                });
+            });
+            
+            updateStats();
+        }
+        
+        function openModal(dateKey, day, month, year) {
+            selectedDay = dateKey;
+            modalDate.textContent = `${day} ${monthNames[month].toLowerCase()} ${year} г.`;
+            
+            const savedData = scheduleData[dateKey];
+            
+            if (savedData) {
+                customStartHour = savedData.customStart || 9;
+                customEndHour = savedData.customEnd || 9;
+                overtimeHours = savedData.overtimeHours || 0;
+                overtimeMinutes = savedData.overtimeMinutes || 0;
+                overtimeActive = (overtimeHours > 0 || overtimeMinutes > 0);
+            } else {
+                customStartHour = 9;
+                customEndHour = 9;
+                overtimeHours = 0;
+                overtimeMinutes = 0;
+                overtimeActive = false;
+            }
+            
+            updateTimeDisplay();
+            updateOvertimeUI();
+            modal.classList.add('active');
+        }
+        
+        function closeModal() {
+            modal.classList.remove('active');
+            selectedDay = null;
+        }
+        
+        function saveShift() {
+            if (!selectedDay) return;
+            
+            const hours = calculateHours(customStartHour, customEndHour);
+            
+            scheduleData[selectedDay] = {
+                shift: 'custom',
+                type: `${customStartHour}/${customEndHour}`,
+                customStart: customStartHour,
+                customEnd: customEndHour,
+                customHours: hours,
+                overtimeHours: overtimeActive ? overtimeHours : 0,
+                overtimeMinutes: overtimeActive ? overtimeMinutes : 0
+            };
+            
+            localStorage.setItem('scheduleData', JSON.stringify(scheduleData));
+            closeModal();
+            renderCalendar();
+            showToast('✅ Смена сохранена');
+        }
+        
+        function clearShift() {
+            if (!selectedDay) return;
+            delete scheduleData[selectedDay];
+            localStorage.setItem('scheduleData', JSON.stringify(scheduleData));
+            customStartHour = 9;
+            customEndHour = 9;
+            overtimeHours = 0;
+            overtimeMinutes = 0;
+            overtimeActive = false;
+            updateTimeDisplay();
+            updateOvertimeUI();
+            showToast('🗑️ День очищен');
+        }
+        
+        document.getElementById('startUp').addEventListener('click', () => { customStartHour = (customStartHour + 1) % 24; updateTimeDisplay(); });
+        document.getElementById('startDown').addEventListener('click', () => { customStartHour = (customStartHour - 1 + 24) % 24; updateTimeDisplay(); });
+        document.getElementById('endUp').addEventListener('click', () => { customEndHour = (customEndHour + 1) % 24; updateTimeDisplay(); });
+        document.getElementById('endDown').addEventListener('click', () => { customEndHour = (customEndHour - 1 + 24) % 24; updateTimeDisplay(); });
+        document.getElementById('otHoursUp').addEventListener('click', () => { overtimeHours = (overtimeHours + 1) % 24; updateTimeDisplay(); });
+        document.getElementById('otHoursDown').addEventListener('click', () => { overtimeHours = (overtimeHours - 1 + 24) % 24; updateTimeDisplay(); });
+        document.getElementById('otMinUp').addEventListener('click', () => { overtimeMinutes = (overtimeMinutes + 5) % 60; updateTimeDisplay(); });
+        document.getElementById('otMinDown').addEventListener('click', () => { overtimeMinutes = (overtimeMinutes - 5 + 60) % 60; updateTimeDisplay(); });
+        
+        toggleOvertime.addEventListener('click', () => {
+            overtimeActive = !overtimeActive;
+            if (!overtimeActive) { overtimeHours = 0; overtimeMinutes = 0; }
+            updateTimeDisplay();
+            updateOvertimeUI();
+        });
+        
+        async function captureCalendar() {
+            loadingOverlay.classList.add('active');
+            const noExportElements = document.querySelectorAll('.no-export');
+            noExportElements.forEach(el => el.style.display = 'none');
+            try {
+                const canvas = await html2canvas(calendarCard, { backgroundColor: '#ffffff', scale: 2, useCORS: true, logging: false });
+                return canvas;
+            } finally {
+                noExportElements.forEach(el => el.style.display = '');
+                loadingOverlay.classList.remove('active');
+            }
+        }
+        
+        async function downloadAsImage() {
+            const canvas = await captureCalendar();
+            if (!canvas) return;
+            const titleText = monthTitleExport.textContent.replace(/\s/g, '_');
+            const link = document.createElement('a');
+            link.download = `график_смен_${titleText}.png`;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+            showToast('📥 Картинка сохранена');
+        }
+        
+        async function shareAsImage() {
+            const canvas = await captureCalendar();
+            if (!canvas) return;
+            const titleText = monthTitleExport.textContent;
+            canvas.toBlob(async (blob) => {
+                const file = new File([blob], `график_смен_${titleText.replace(/\s/g, '_')}.png`, { type: 'image/png' });
+                if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+                    try {
+                        await navigator.share({ title: 'Мой график смен', text: `График смен за ${titleText}`, files: [file] });
+                        showToast('📲 Отправлено');
+                    } catch (err) { if (err.name !== 'AbortError') downloadAsImage(); }
+                } else { downloadAsImage(); showToast('📥 Картинка сохранена. Отправьте файл коллеге.'); }
+            }, 'image/png');
+        }
+        
+        function clearAll() {
+            if (confirm('Удалить ВЕСЬ график за все месяцы? Это действие нельзя отменить.')) {
+                scheduleData = {};
+                localStorage.setItem('scheduleData', JSON.stringify(scheduleData));
+                renderCalendar();
+                showToast('🗑️ Весь график очищен');
+            }
+        }
+        
+        document.getElementById('prevMonth').addEventListener('click', () => { currentDate.setMonth(currentDate.getMonth() - 1); renderCalendar(); });
+        document.getElementById('nextMonth').addEventListener('click', () => { currentDate.setMonth(currentDate.getMonth() + 1); renderCalendar(); });
+        document.getElementById('saveShift').addEventListener('click', saveShift);
+        document.getElementById('cancelShift').addEventListener('click', closeModal);
+        document.getElementById('clearShift').addEventListener('click', clearShift);
+        document.getElementById('exportBtn').addEventListener('click', downloadAsImage);
+        document.getElementById('shareBtn').addEventListener('click', shareAsImage);
+        document.getElementById('clearAllBtn').addEventListener('click', clearAll);
+        modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+        
+        updateTimeDisplay();
+        updateOvertimeUI();
+        renderCalendar();
+        
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/SMP/sw.js')
+                .then(reg => console.log('✅ SW зарегистрирован:', reg))
+                .catch(err => console.error('❌ Ошибка:', err));
+        }
+    })();
+</script>
+</body>
+</html>
