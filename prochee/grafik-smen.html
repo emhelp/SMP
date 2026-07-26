@@ -55,21 +55,6 @@
         .month-nav button:active { transform: scale(0.95); }
         .month-title { font-size: 1.3rem; font-weight: 700; color: #0f1446; text-align: center; flex: 1; }
         
-        .action-buttons { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
-        
-        .action-btn {
-            flex: 1; min-width: 100px; padding: 10px 14px; border-radius: 12px; border: none;
-            font-weight: 600; font-size: 0.9rem; cursor: pointer; font-family: inherit;
-            transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 6px;
-        }
-        
-        .btn-export { background: #e8f5e9; color: #2e7d32; border: 2px solid #a5d6a7; }
-        .btn-export:hover { background: #c8e6c9; }
-        .btn-share { background: #fff8e7; color: #e68a2e; border: 2px solid #ffe0a3; }
-        .btn-share:hover { background: #ffecb3; }
-        .btn-clear-all { background: #fff0f0; color: #d32f2f; border: 2px solid #ffcdd2; }
-        .btn-clear-all:hover { background: #ffcdd2; }
-        
         .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; margin-bottom: 16px; }
         
         .day-header {
@@ -108,21 +93,21 @@
         .modal-date { font-size: 0.9rem; color: #6f8eaa; margin-bottom: 16px; }
         
         .time-picker-container { background: #f8f9fb; border-radius: 16px; padding: 16px; margin-bottom: 12px; }
-        .time-picker-row { display: flex; align-items: center; justify-content: center; gap: 6px; }
+        .time-picker-row { display: flex; align-items: center; justify-content: center; gap: 10px; }
         .time-picker-col { display: flex; flex-direction: column; align-items: center; gap: 6px; }
         .time-picker-label { font-size: 0.7rem; font-weight: 600; color: #6f8eaa; text-transform: uppercase; letter-spacing: 0.5px; }
         
         .time-picker-btn {
-            width: 44px; height: 34px; border: 2px solid #d4e2f0; border-radius: 10px; background: white;
-            font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center;
+            width: 52px; height: 40px; border: 2px solid #d4e2f0; border-radius: 10px; background: white;
+            font-size: 1.2rem; cursor: pointer; display: flex; align-items: center; justify-content: center;
             color: #0f1446; font-weight: 700; transition: all 0.15s; font-family: inherit; user-select: none;
         }
         
         .time-picker-btn:hover { background: #0f1446; color: white; border-color: #0f1446; }
         .time-picker-btn:active { transform: scale(0.9); }
         
-        .time-picker-value { font-size: 1.5rem; font-weight: 700; color: #0f1446; min-width: 48px; text-align: center; background: white; padding: 6px 8px; border-radius: 10px; border: 2px solid #d4e2f0; }
-        .time-picker-separator { font-size: 1.5rem; font-weight: 700; color: #0f1446; margin: 0 2px; padding-top: 18px; }
+        .time-picker-value { font-size: 1.8rem; font-weight: 700; color: #0f1446; min-width: 56px; text-align: center; background: white; padding: 8px 10px; border-radius: 10px; border: 2px solid #d4e2f0; }
+        .time-picker-separator { font-size: 1.8rem; font-weight: 700; color: #0f1446; margin: 0 4px; padding-top: 18px; }
         
         .overtime-section {
             background: #fff8e7; border-radius: 12px; padding: 12px; margin-bottom: 12px;
@@ -153,6 +138,19 @@
         }
         .btn-overtime:hover { background: #ffecb3; }
         .btn-overtime.active { background: #ffe0a3; }
+        
+        .action-buttons { display: flex; gap: 8px; margin-top: 16px; flex-wrap: wrap; }
+        
+        .action-btn {
+            flex: 1; min-width: 100px; padding: 10px 14px; border-radius: 12px; border: none;
+            font-weight: 600; font-size: 0.9rem; cursor: pointer; font-family: inherit;
+            transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 6px;
+        }
+        
+        .btn-export { background: #e8f5e9; color: #2e7d32; border: 2px solid #a5d6a7; }
+        .btn-export:hover { background: #c8e6c9; }
+        .btn-clear-all { background: #fff0f0; color: #d32f2f; border: 2px solid #ffcdd2; }
+        .btn-clear-all:hover { background: #ffcdd2; }
         
         .stats { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
         
@@ -189,8 +187,8 @@
             .day-cell.shift-active .shift-overtime { font-size: 0.5rem; padding: 1px 5px; }
             .day-header { font-size: 0.65rem; }
             .action-btn { font-size: 0.8rem; padding: 8px 10px; }
-            .time-picker-btn { width: 38px; height: 30px; font-size: 1rem; }
-            .time-picker-value { font-size: 1.2rem; min-width: 40px; padding: 5px 6px; }
+            .time-picker-btn { width: 42px; height: 34px; font-size: 1rem; }
+            .time-picker-value { font-size: 1.4rem; min-width: 44px; padding: 6px 8px; }
         }
     </style>
 </head>
@@ -213,18 +211,17 @@
             <button id="nextMonth">▶</button>
         </div>
         
-        <div class="action-buttons no-export">
-            <button class="action-btn btn-export" id="exportBtn">📥 Сохранить как картинку</button>
-            <button class="action-btn btn-share" id="shareBtn">📲 Поделиться картинкой</button>
-            <button class="action-btn btn-clear-all" id="clearAllBtn">🗑️ Очистить всё</button>
-        </div>
-        
         <div class="stats">
             <div class="stat-card hours-stat"><div class="stat-number" id="hoursCount">0</div><div class="stat-label">Часов всего</div></div>
             <div class="stat-card overtime-stat" id="overtimeCard"><div class="stat-number" id="overtimeCount">0</div><div class="stat-label">Часов переработки</div></div>
         </div>
         
         <div class="calendar-grid" id="calendarGrid"></div>
+        
+        <div class="action-buttons no-export">
+            <button class="action-btn btn-export" id="exportBtn">📥 Сохранить как картинку</button>
+            <button class="action-btn btn-clear-all" id="clearAllBtn">🗑️ Очистить всё</button>
+        </div>
         
     </div>
 </div>
@@ -244,15 +241,6 @@
                     <button class="time-picker-btn" id="startDown">▼</button>
                 </div>
                 
-                <div class="time-picker-separator">:</div>
-                
-                <div class="time-picker-col">
-                    <div class="time-picker-label">00</div>
-                    <div style="width: 44px; height: 34px;"></div>
-                    <div class="time-picker-value" style="border: none; background: transparent; font-size: 1.5rem;">00</div>
-                    <div style="width: 44px; height: 34px;"></div>
-                </div>
-                
                 <div class="time-picker-separator">—</div>
                 
                 <div class="time-picker-col">
@@ -261,19 +249,9 @@
                     <div class="time-picker-value" id="endValue">9</div>
                     <button class="time-picker-btn" id="endDown">▼</button>
                 </div>
-                
-                <div class="time-picker-separator">:</div>
-                
-                <div class="time-picker-col">
-                    <div class="time-picker-label">00</div>
-                    <div style="width: 44px; height: 34px;"></div>
-                    <div class="time-picker-value" style="border: none; background: transparent; font-size: 1.5rem;">00</div>
-                    <div style="width: 44px; height: 34px;"></div>
-                </div>
             </div>
         </div>
         
-        <!-- Переработка -->
         <button class="btn btn-overtime" id="toggleOvertime">⏰ Добавить переработку</button>
         
         <div class="overtime-section" id="overtimeSection">
@@ -306,19 +284,15 @@
     </div>
 </div>
 
-<!-- Загрузка -->
 <div class="loading-overlay" id="loadingOverlay">
     <div class="loading-spinner">
         <div class="spinner"></div>
         <p>Создаю картинку...</p>
     </div>
 </div>
-
-<!-- Уведомление -->
 <div class="toast" id="toast"></div>
 
 <script>
-    // Весь JavaScript без изменений
     (function() {
         let currentDate = new Date();
         let selectedDay = null;
@@ -345,11 +319,8 @@
         const dayNames = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
         
         let toastTimer;
-        let customStartHour = 9;
-        let customEndHour = 9;
-        let overtimeHours = 0;
-        let overtimeMinutes = 0;
-        let overtimeActive = false;
+        let customStartHour = 9, customEndHour = 9;
+        let overtimeHours = 0, overtimeMinutes = 0, overtimeActive = false;
         
         function showToast(message) {
             clearTimeout(toastTimer);
@@ -388,11 +359,8 @@
         }
         
         function updateStats() {
-            const year = currentDate.getFullYear();
-            const month = currentDate.getMonth();
-            let hours = 0;
-            let overtimeTotal = 0;
-            
+            const year = currentDate.getFullYear(), month = currentDate.getMonth();
+            let hours = 0, overtimeTotal = 0;
             for (const [key, value] of Object.entries(scheduleData)) {
                 const [y, m] = key.split('-').map(Number);
                 if (y === year && m === month + 1) {
@@ -400,59 +368,31 @@
                     overtimeTotal += (value.overtimeHours || 0) * 60 + (value.overtimeMinutes || 0);
                 }
             }
-            
             hoursCount.textContent = hours;
-            
-            const otH = Math.floor(overtimeTotal / 60);
-            const otM = overtimeTotal % 60;
+            const otH = Math.floor(overtimeTotal / 60), otM = overtimeTotal % 60;
             overtimeCount.textContent = otH + ' ч ' + otM + ' мин';
-            
-            if (overtimeTotal > 0) {
-                overtimeCard.classList.add('active');
-            } else {
-                overtimeCard.classList.remove('active');
-            }
+            if (overtimeTotal > 0) overtimeCard.classList.add('active');
+            else overtimeCard.classList.remove('active');
         }
         
         function updateMonthTitle() {
-            const year = currentDate.getFullYear();
-            const month = currentDate.getMonth();
-            const titleText = `${monthNames[month]} ${year}`;
-            monthTitleExport.textContent = titleText;
+            const year = currentDate.getFullYear(), month = currentDate.getMonth();
+            monthTitleExport.textContent = `${monthNames[month]} ${year}`;
         }
         
         function renderCalendar() {
-            const year = currentDate.getFullYear();
-            const month = currentDate.getMonth();
-            
+            const year = currentDate.getFullYear(), month = currentDate.getMonth();
             updateMonthTitle();
-            
-            const firstDay = new Date(year, month, 1);
-            const lastDay = new Date(year, month + 1, 0);
+            const firstDay = new Date(year, month, 1), lastDay = new Date(year, month + 1, 0);
             const startDayOfWeek = (firstDay.getDay() + 6) % 7;
-            
             let html = '';
-            
-            for (const day of dayNames) {
-                html += `<div class="day-header">${day}</div>`;
-            }
-            
-            for (let i = 0; i < startDayOfWeek; i++) {
-                html += `<div class="day-cell empty"></div>`;
-            }
-            
-            const today = new Date();
-            const todayKey = getDateKey(today.getFullYear(), today.getMonth(), today.getDate());
-            
+            dayNames.forEach(d => html += `<div class="day-header">${d}</div>`);
+            for (let i = 0; i < startDayOfWeek; i++) html += '<div class="day-cell empty"></div>';
+            const today = new Date(), todayKey = getDateKey(today.getFullYear(), today.getMonth(), today.getDate());
             for (let day = 1; day <= lastDay.getDate(); day++) {
-                const dateKey = getDateKey(year, month, day);
-                const savedData = scheduleData[dateKey];
-                let cellClass = 'day-cell';
-                let shiftTypeText = '';
-                let overtimeText = '';
-                
+                const dateKey = getDateKey(year, month, day), savedData = scheduleData[dateKey];
+                let cellClass = 'day-cell', shiftTypeText = '', overtimeText = '';
                 if (dateKey === todayKey) cellClass += ' today';
-                
                 if (savedData) {
                     cellClass += ' shift-active';
                     shiftTypeText = savedData.type || `${savedData.customStart || 9}/${savedData.customEnd || 9}`;
@@ -460,7 +400,6 @@
                         overtimeText = '+' + (savedData.overtimeHours || 0) + ':' + String(savedData.overtimeMinutes || 0).padStart(2, '0');
                     }
                 }
-                
                 let infoHtml = '';
                 if (shiftTypeText || overtimeText) {
                     infoHtml = '<div class="shift-info">';
@@ -468,87 +407,50 @@
                     if (overtimeText) infoHtml += `<span class="shift-overtime">${overtimeText}</span>`;
                     infoHtml += '</div>';
                 }
-                
-                html += `<div class="${cellClass}" data-date="${dateKey}" data-day="${day}">
-                    <span class="day-number">${day}</span>
-                    ${infoHtml}
-                </div>`;
+                html += `<div class="${cellClass}" data-date="${dateKey}" data-day="${day}"><span class="day-number">${day}</span>${infoHtml}</div>`;
             }
-            
             calendarGrid.innerHTML = html;
-            
-            document.querySelectorAll('.day-cell:not(.empty)').forEach(cell => {
-                cell.addEventListener('click', () => {
-                    openModal(cell.dataset.date, cell.dataset.day, month, year);
-                });
+            calendarGrid.querySelectorAll('.day-cell:not(.empty)').forEach(cell => {
+                cell.addEventListener('click', () => openModal(cell.dataset.date, cell.dataset.day, month, year));
             });
-            
             updateStats();
         }
         
         function openModal(dateKey, day, month, year) {
             selectedDay = dateKey;
             modalDate.textContent = `${day} ${monthNames[month].toLowerCase()} ${year} г.`;
-            
             const savedData = scheduleData[dateKey];
-            
             if (savedData) {
-                customStartHour = savedData.customStart || 9;
-                customEndHour = savedData.customEnd || 9;
-                overtimeHours = savedData.overtimeHours || 0;
-                overtimeMinutes = savedData.overtimeMinutes || 0;
+                customStartHour = savedData.customStart || 9; customEndHour = savedData.customEnd || 9;
+                overtimeHours = savedData.overtimeHours || 0; overtimeMinutes = savedData.overtimeMinutes || 0;
                 overtimeActive = (overtimeHours > 0 || overtimeMinutes > 0);
             } else {
-                customStartHour = 9;
-                customEndHour = 9;
-                overtimeHours = 0;
-                overtimeMinutes = 0;
-                overtimeActive = false;
+                customStartHour = 9; customEndHour = 9; overtimeHours = 0; overtimeMinutes = 0; overtimeActive = false;
             }
-            
-            updateTimeDisplay();
-            updateOvertimeUI();
-            modal.classList.add('active');
+            updateTimeDisplay(); updateOvertimeUI(); modal.classList.add('active');
         }
         
-        function closeModal() {
-            modal.classList.remove('active');
-            selectedDay = null;
-        }
+        function closeModal() { modal.classList.remove('active'); selectedDay = null; }
         
         function saveShift() {
             if (!selectedDay) return;
-            
-            const hours = calculateHours(customStartHour, customEndHour);
-            
             scheduleData[selectedDay] = {
-                shift: 'custom',
-                type: `${customStartHour}/${customEndHour}`,
-                customStart: customStartHour,
-                customEnd: customEndHour,
-                customHours: hours,
+                shift: 'custom', type: `${customStartHour}/${customEndHour}`,
+                customStart: customStartHour, customEnd: customEndHour,
+                customHours: calculateHours(customStartHour, customEndHour),
                 overtimeHours: overtimeActive ? overtimeHours : 0,
                 overtimeMinutes: overtimeActive ? overtimeMinutes : 0
             };
-            
             localStorage.setItem('scheduleData', JSON.stringify(scheduleData));
-            closeModal();
-            renderCalendar();
-            showToast('✅ Смена сохранена');
+            closeModal(); renderCalendar(); showToast('✅ Смена сохранена');
         }
         
         function clearShift() {
             if (!selectedDay) return;
             delete scheduleData[selectedDay];
             localStorage.setItem('scheduleData', JSON.stringify(scheduleData));
-            customStartHour = 9;
-            customEndHour = 9;
-            overtimeHours = 0;
-            overtimeMinutes = 0;
-            overtimeActive = false;
-            updateTimeDisplay();
-            updateOvertimeUI();
-            showToast('🗑️ День очищен');
+            customStartHour = 9; customEndHour = 9; overtimeHours = 0; overtimeMinutes = 0; overtimeActive = false;
+            updateTimeDisplay(); updateOvertimeUI(); showToast('🗑️ День очищен');
         }
         
         document.getElementById('startUp').addEventListener('click', () => { customStartHour = (customStartHour + 1) % 24; updateTimeDisplay(); });
@@ -563,55 +465,33 @@
         toggleOvertime.addEventListener('click', () => {
             overtimeActive = !overtimeActive;
             if (!overtimeActive) { overtimeHours = 0; overtimeMinutes = 0; }
-            updateTimeDisplay();
-            updateOvertimeUI();
+            updateTimeDisplay(); updateOvertimeUI();
         });
         
         async function captureCalendar() {
             loadingOverlay.classList.add('active');
-            const noExportElements = document.querySelectorAll('.no-export');
-            noExportElements.forEach(el => el.style.display = 'none');
+            document.querySelectorAll('.no-export').forEach(el => el.style.display = 'none');
             try {
                 const canvas = await html2canvas(calendarCard, { backgroundColor: '#ffffff', scale: 2, useCORS: true, logging: false });
                 return canvas;
             } finally {
-                noExportElements.forEach(el => el.style.display = '');
+                document.querySelectorAll('.no-export').forEach(el => el.style.display = '');
                 loadingOverlay.classList.remove('active');
             }
         }
         
         async function downloadAsImage() {
-            const canvas = await captureCalendar();
-            if (!canvas) return;
-            const titleText = monthTitleExport.textContent.replace(/\s/g, '_');
-            const link = document.createElement('a');
-            link.download = `график_смен_${titleText}.png`;
-            link.href = canvas.toDataURL('image/png');
-            link.click();
+            const canvas = await captureCalendar(); if (!canvas) return;
+            const a = document.createElement('a');
+            a.download = `график_смен_${monthTitleExport.textContent.replace(/\s/g, '_')}.png`;
+            a.href = canvas.toDataURL('image/png'); a.click();
             showToast('📥 Картинка сохранена');
         }
         
-        async function shareAsImage() {
-            const canvas = await captureCalendar();
-            if (!canvas) return;
-            const titleText = monthTitleExport.textContent;
-            canvas.toBlob(async (blob) => {
-                const file = new File([blob], `график_смен_${titleText.replace(/\s/g, '_')}.png`, { type: 'image/png' });
-                if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
-                    try {
-                        await navigator.share({ title: 'Мой график смен', text: `График смен за ${titleText}`, files: [file] });
-                        showToast('📲 Отправлено');
-                    } catch (err) { if (err.name !== 'AbortError') downloadAsImage(); }
-                } else { downloadAsImage(); showToast('📥 Картинка сохранена. Отправьте файл коллеге.'); }
-            }, 'image/png');
-        }
-        
         function clearAll() {
-            if (confirm('Удалить ВЕСЬ график за все месяцы? Это действие нельзя отменить.')) {
-                scheduleData = {};
-                localStorage.setItem('scheduleData', JSON.stringify(scheduleData));
-                renderCalendar();
-                showToast('🗑️ Весь график очищен');
+            if (confirm('Удалить весь график?')) {
+                scheduleData = {}; localStorage.setItem('scheduleData', JSON.stringify(scheduleData));
+                renderCalendar(); showToast('🗑️ Всё очищено');
             }
         }
         
@@ -621,13 +501,10 @@
         document.getElementById('cancelShift').addEventListener('click', closeModal);
         document.getElementById('clearShift').addEventListener('click', clearShift);
         document.getElementById('exportBtn').addEventListener('click', downloadAsImage);
-        document.getElementById('shareBtn').addEventListener('click', shareAsImage);
         document.getElementById('clearAllBtn').addEventListener('click', clearAll);
         modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
         
-        updateTimeDisplay();
-        updateOvertimeUI();
-        renderCalendar();
+        updateTimeDisplay(); updateOvertimeUI(); renderCalendar();
         
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('/SMP/sw.js')
