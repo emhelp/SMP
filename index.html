@@ -109,6 +109,55 @@
       color: white !important;
     }
     
+    /* Разделённая кнопка */
+    .split-btn-container {
+      display: flex;
+      width: 100%;
+      max-width: 500px;
+      margin: 12px auto 0 auto;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    
+    .split-btn {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 10px;
+      font-size: 15px;
+      font-weight: 600;
+      font-family: inherit;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      line-height: 1.3;
+      text-align: center;
+      background: linear-gradient(135deg, #800000 0%, #5a0000 100%);
+    }
+    
+    .split-btn-max {
+      clip-path: polygon(0 0, 100% 0, 92% 100%, 0 100%);
+      padding-right: 20px;
+    }
+    
+    .split-btn-vk {
+      clip-path: polygon(8% 0, 100% 0, 100% 100%, 0 100%);
+      padding-left: 20px;
+      margin-left: -10px;
+    }
+    
+    .split-btn:hover {
+      filter: brightness(1.15);
+    }
+    
+    .split-btn:active {
+      filter: brightness(0.9);
+    }
+    
     @media (max-width: 600px) {
       .news-block-custom {
         max-width: 90%;
@@ -123,6 +172,33 @@
       }
       .share-arrow i {
         font-size: 14px;
+      }
+      
+      .split-btn-container {
+        max-width: 90%;
+      }
+      
+      .split-btn {
+        font-size: 13px;
+        padding: 12px 8px;
+      }
+      
+      .split-btn-max {
+        clip-path: polygon(0 0, 100% 0, 90% 100%, 0 100%);
+        padding-right: 16px;
+      }
+      
+      .split-btn-vk {
+        clip-path: polygon(10% 0, 100% 0, 100% 100%, 0 100%);
+        padding-left: 16px;
+        margin-left: -8px;
+      }
+    }
+    
+    @media (max-width: 380px) {
+      .split-btn {
+        font-size: 12px;
+        padding: 10px 6px;
       }
     }
   </style>
@@ -179,7 +255,14 @@
     <a href="grify.html" class="menu-btn burgundy">ГРИФАМ МСК</a>
 
     <div class="main-actions">
-      <button class="main-btn" id="max-btn">Наш канал в MAX</button>
+      <div class="split-btn-container">
+        <button class="split-btn split-btn-max" id="max-btn">
+          Мы в Max
+        </button>
+        <a href="https://m.vk.ru/emhelp" target="_blank" rel="noopener noreferrer" class="split-btn split-btn-vk">
+          Мы ВКонтакте
+        </a>
+      </div>
     </div>
   </nav>
 
