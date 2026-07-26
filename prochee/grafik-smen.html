@@ -25,41 +25,42 @@
         body {
             background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
             font-family: 'Segoe UI', 'Roboto', sans-serif;
-            padding: 20px; min-height: 100vh; color: #1f3a4b;
+            padding: 16px; min-height: 100vh; color: #1f3a4b;
         }
         
-        .container { max-width: 800px; margin: 0 auto; }
+        .container { max-width: 720px; margin: 0 auto; }
         
         .card {
-            background: white; border-radius: 24px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1); padding: 24px 22px; margin-bottom: 20px;
+            background: white; border-radius: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08); padding: 18px 16px; margin-bottom: 14px;
         }
         
         .header-card {
             background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
-            color: white; text-align: center; padding: 28px 20px;
+            color: white; text-align: center; padding: 22px 18px; border-radius: 20px;
         }
         
-        .header-card h1 { font-size: 24px; color: white; font-weight: 700; margin-bottom: 6px; }
-        .header-card p { opacity: 0.9; font-size: 0.9rem; }
+        .header-card h1 { font-size: 22px; color: white; font-weight: 700; margin-bottom: 4px; }
+        .header-card p { opacity: 0.85; font-size: 0.85rem; }
         
-        .month-nav { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; gap: 12px; }
+        .month-nav { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; gap: 10px; }
         
         .month-nav button {
             background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
-            color: white; border: none; border-radius: 12px; padding: 10px 16px;
-            font-size: 16px; cursor: pointer; font-family: inherit; font-weight: 600; transition: all 0.2s;
+            color: white; border: none; border-radius: 10px; padding: 9px 14px;
+            font-size: 15px; cursor: pointer; font-family: inherit; font-weight: 600; transition: all 0.2s;
+            min-width: 40px; min-height: 40px; display: flex; align-items: center; justify-content: center;
         }
         
         .month-nav button:hover { filter: brightness(1.1); }
         .month-nav button:active { transform: scale(0.95); }
-        .month-title { font-size: 1.3rem; font-weight: 700; color: #0f1446; text-align: center; flex: 1; }
+        .month-title { font-size: 1.2rem; font-weight: 700; color: #0f1446; text-align: center; flex: 1; }
         
-        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; margin-bottom: 16px; }
+        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; margin-bottom: 14px; }
         
         .day-header {
-            text-align: center; font-weight: 700; font-size: 0.8rem;
-            color: #6f8eaa; padding: 8px 4px; text-transform: uppercase;
+            text-align: center; font-weight: 700; font-size: 0.75rem;
+            color: #6f8eaa; padding: 6px 2px; text-transform: uppercase;
         }
         
         .day-header.weekend {
@@ -68,36 +69,36 @@
         }
         
         .day-cell {
-            aspect-ratio: 0.6; display: flex; flex-direction: column; align-items: center; justify-content: center;
-            border-radius: 12px; cursor: pointer; transition: all 0.15s; font-weight: 600;
-            font-size: 0.9rem; border: 2px solid transparent; background: #f8f9fb; color: #1f3a4b; min-height: 80px;
+            aspect-ratio: 0.7; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            border-radius: 10px; cursor: pointer; transition: all 0.15s; font-weight: 600;
+            font-size: 0.85rem; border: 2px solid transparent; background: #f8f9fb; color: #1f3a4b; min-height: 60px;
         }
         
-        .day-cell:hover { border-color: #0f1446; transform: scale(1.05); z-index: 2; }
+        .day-cell:hover { border-color: #0f1446; transform: scale(1.04); z-index: 2; }
         .day-cell.empty { background: transparent; cursor: default; border: none; }
         .day-cell.empty:hover { border-color: transparent; transform: none; }
         
-        /* Сегодня без смены — тёмно-синий (как шапка) */
+        /* Сегодня без смены */
         .day-cell.today { 
             border: 3px solid #0f1446; 
             background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
             color: white;
-            box-shadow: 0 0 0 3px rgba(15, 20, 70, 0.3), 0 0 16px rgba(15, 20, 70, 0.2);
+            box-shadow: 0 0 0 3px rgba(15, 20, 70, 0.25), 0 0 12px rgba(15, 20, 70, 0.15);
         }
         .day-cell.today .day-number { color: white; font-weight: 800; }
         
-        /* Сегодня + смена — фиолетовый фон + ЖИРНАЯ ЧЁРНАЯ РАМКА */
+        /* Сегодня + смена */
         .day-cell.today.shift-active { 
             border: 4px solid #000000; 
             background: #7c3aed;
-            box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.4), 0 0 20px rgba(0, 0, 0, 0.3), 0 4px 12px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.35), 0 0 16px rgba(0, 0, 0, 0.25), 0 3px 10px rgba(0, 0, 0, 0.35);
             animation: pulse-border 2s ease-in-out infinite;
         }
         .day-cell.today.shift-active .day-number { color: white; font-weight: 900; }
         
         @keyframes pulse-border {
-            0%, 100% { box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.4), 0 0 20px rgba(0, 0, 0, 0.3), 0 4px 12px rgba(0, 0, 0, 0.4); }
-            50% { box-shadow: 0 0 0 6px rgba(0, 0, 0, 0.5), 0 0 28px rgba(0, 0, 0, 0.4), 0 6px 16px rgba(0, 0, 0, 0.5); }
+            0%, 100% { box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.35), 0 0 16px rgba(0, 0, 0, 0.25), 0 3px 10px rgba(0, 0, 0, 0.35); }
+            50% { box-shadow: 0 0 0 5px rgba(0, 0, 0, 0.45), 0 0 22px rgba(0, 0, 0, 0.35), 0 5px 14px rgba(0, 0, 0, 0.45); }
         }
         
         /* Суббота и воскресенье */
@@ -106,28 +107,26 @@
         
         .day-cell.shift-active { background: #7c3aed; border-color: #6d28d9; }
         .day-cell.shift-active.weekend { background: #7c3aed; border-color: #6d28d9; }
-        .day-cell.shift-active .day-number { color: white; font-size: 0.95rem; }
+        .day-cell.shift-active .day-number { color: white; font-size: 0.9rem; }
         .day-cell .shift-info { display: flex; flex-direction: column; align-items: center; gap: 1px; margin-top: 2px; }
         .day-cell.shift-active .shift-type { 
-            background: white; color: #000000; font-size: 0.6rem; padding: 1px 5px; 
+            background: white; color: #000000; font-size: 0.58rem; padding: 1px 5px; 
             border-radius: 5px; font-weight: 600; line-height: 1.15;
         }
-        .day-cell.today .shift-type {
-            background: rgba(255,255,255,0.9); color: #000000;
-        }
+        .day-cell.today .shift-type { background: rgba(255,255,255,0.9); color: #000000; }
         .day-cell.shift-active .shift-overtime {
-            background: rgba(255,255,255,0.25); color: white; font-size: 0.55rem;
+            background: rgba(255,255,255,0.25); color: white; font-size: 0.53rem;
             padding: 1px 5px; border-radius: 5px; font-weight: 500; line-height: 1.15;
         }
         
-        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1000; align-items: center; justify-content: center; padding: 20px; }
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1000; align-items: center; justify-content: center; padding: 16px; }
         .modal-overlay.active { display: flex; }
         
-        .modal-dialog { background: white; border-radius: 20px; padding: 24px; max-width: 420px; width: 100%; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
-        .modal-dialog h3 { font-size: 1.1rem; font-weight: 700; color: #0f1446; margin-bottom: 6px; }
-        .modal-date { font-size: 0.9rem; color: #6f8eaa; margin-bottom: 16px; }
+        .modal-dialog { background: white; border-radius: 18px; padding: 22px 18px; max-width: 400px; width: 100%; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .modal-dialog h3 { font-size: 1.05rem; font-weight: 700; color: #0f1446; margin-bottom: 4px; }
+        .modal-date { font-size: 0.85rem; color: #6f8eaa; margin-bottom: 14px; }
         
-        .time-picker-container { background: #f8f9fb; border-radius: 16px; padding: 16px; margin-bottom: 12px; }
+        .time-picker-container { background: #f8f9fb; border-radius: 14px; padding: 14px; margin-bottom: 10px; }
         .time-picker-row { display: flex; align-items: center; justify-content: center; gap: 4px; flex-wrap: wrap; }
         .time-picker-col { display: flex; flex-direction: column; align-items: center; gap: 4px; }
         .time-picker-label { font-size: 0.65rem; font-weight: 600; color: #6f8eaa; text-transform: uppercase; letter-spacing: 0.5px; }
@@ -146,42 +145,40 @@
         .time-picker-dash { font-size: 1.5rem; font-weight: 700; color: #0f1446; margin: 0 6px; padding-top: 16px; }
         
         .overtime-section {
-            background: #fff8e7; border-radius: 12px; padding: 12px; margin-bottom: 12px;
+            background: #fff8e7; border-radius: 10px; padding: 10px; margin-bottom: 10px;
             border: 1px solid #ffe0a3; display: none;
         }
-        
         .overtime-section.active { display: block; }
+        .overtime-title { font-weight: 700; font-size: 0.8rem; color: #e68a2e; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
         
-        .overtime-title {
-            font-weight: 700; font-size: 0.85rem; color: #e68a2e; margin-bottom: 8px;
-            display: flex; align-items: center; gap: 6px;
-        }
-        
-        .btn-row { display: flex; gap: 8px; margin-top: 12px; }
+        .btn-row { display: flex; gap: 8px; margin-top: 10px; }
         
         .btn {
-            flex: 1; padding: 12px; border-radius: 12px; border: none;
-            font-weight: 600; font-size: 0.95rem; cursor: pointer; font-family: inherit; transition: all 0.2s;
+            flex: 1; padding: 11px; border-radius: 10px; border: none;
+            font-weight: 600; font-size: 0.9rem; cursor: pointer; font-family: inherit; transition: all 0.2s;
+            min-height: 42px; display: flex; align-items: center; justify-content: center;
         }
         
         .btn-save { background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%); color: white; }
-        .btn-save:hover { filter: brightness(1.1); }
+        .btn-save:active { filter: brightness(1.15); transform: scale(0.97); }
         .btn-cancel { background: #eef7ff; color: #0f1446; border: 2px solid #d4e2f0; }
         .btn-clear { background: #fff0f0; color: #d32f2f; border: 2px solid #ffcdd2; margin-top: 8px; width: 100%; display: flex; flex-direction: column; align-items: center; padding: 10px; }
         .btn-clear-small { font-size: 0.65rem; opacity: 0.8; margin-top: 2px; }
         .btn-overtime {
             background: #fff8e7; color: #e68a2e; border: 2px solid #ffe0a3;
-            margin-top: 8px; width: 100%;
+            margin-top: 8px; width: 100%; padding: 11px; border-radius: 10px;
+            font-weight: 600; font-size: 0.9rem; cursor: pointer; font-family: inherit; min-height: 42px;
         }
-        .btn-overtime:hover { background: #ffecb3; }
+        .btn-overtime:active { background: #ffe0a3; }
         .btn-overtime.active { background: #ffe0a3; }
         
-        .action-buttons { display: flex; gap: 8px; margin-top: 16px; flex-wrap: wrap; }
+        .action-buttons { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
         
         .action-btn {
-            flex: 1; min-width: 100px; padding: 10px 14px; border-radius: 12px; border: none;
-            font-weight: 600; font-size: 0.9rem; cursor: pointer; font-family: inherit;
-            transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 6px;
+            flex: 1; min-width: 90px; padding: 9px 12px; border-radius: 10px; border: none;
+            font-weight: 600; font-size: 0.85rem; cursor: pointer; font-family: inherit;
+            transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 5px;
+            min-height: 40px;
         }
         
         .btn-export { background: #e8f5e9; color: #2e7d32; border: 2px solid #a5d6a7; }
@@ -189,43 +186,68 @@
         .btn-clear-all { background: #fff0f0; color: #d32f2f; border: 2px solid #ffcdd2; }
         .btn-clear-all:hover { background: #ffcdd2; }
         
-        .stats { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+        .stats { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
         
         .stat-card {
-            border-radius: 12px; padding: 14px; text-align: center; border-left: 4px solid;
+            border-radius: 10px; padding: 12px; text-align: center; border-left: 4px solid;
         }
         
         .stat-card.hours-stat { background: #fff8e7; border-left-color: #e68a2e; }
         .stat-card.overtime-stat { background: #fff0f0; border-left-color: #d32f2f; display: none; }
         .stat-card.overtime-stat.active { display: block; }
         
-        .stat-number { font-size: 1.5rem; font-weight: 700; color: #0f1446; }
-        .stat-label { font-size: 0.75rem; color: #6f8eaa; margin-top: 2px; }
+        .stat-number { font-size: 1.4rem; font-weight: 700; color: #0f1446; }
+        .stat-label { font-size: 0.7rem; color: #6f8eaa; margin-top: 2px; }
         
-        .toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: #0f1446; color: white; padding: 12px 24px; border-radius: 40px; font-weight: 600; font-size: 0.9rem; z-index: 2000; opacity: 0; transition: opacity 0.3s; pointer-events: none; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+        .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #0f1446; color: white; padding: 10px 20px; border-radius: 30px; font-weight: 600; font-size: 0.85rem; z-index: 2000; opacity: 0; transition: opacity 0.3s; pointer-events: none; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
         .toast.show { opacity: 1; }
         
         .loading-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 3000; align-items: center; justify-content: center; }
         .loading-overlay.active { display: flex; }
         
-        .loading-spinner { background: white; border-radius: 20px; padding: 30px 40px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
-        .loading-spinner .spinner { width: 40px; height: 40px; border: 4px solid #e2ecf3; border-top-color: #0f1446; border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 12px; }
+        .loading-spinner { background: white; border-radius: 16px; padding: 24px 32px; text-align: center; box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
+        .loading-spinner .spinner { width: 36px; height: 36px; border: 4px solid #e2ecf3; border-top-color: #0f1446; border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 10px; }
         @keyframes spin { to { transform: rotate(360deg); } }
-        .loading-spinner p { font-weight: 600; color: #0f1446; }
+        .loading-spinner p { font-weight: 600; color: #0f1446; font-size: 0.85rem; }
         
-        @media (max-width: 600px) {
-            body { padding: 10px; }
-            .card { padding: 16px 14px; }
-            .header-card { padding: 22px 16px; }
-            .header-card h1 { font-size: 20px; }
-            .day-cell { font-size: 0.75rem; min-height: 66px; aspect-ratio: 0.6; }
-            .day-cell.shift-active .day-number { font-size: 0.8rem; }
-            .day-cell.shift-active .shift-type { font-size: 0.5rem; padding: 1px 4px; }
-            .day-cell.shift-active .shift-overtime { font-size: 0.45rem; padding: 1px 4px; }
+        /* Компьютер — шрифт ещё в 2 раза крупнее, высота меньше */
+        @media (min-width: 768px) {
+            body { padding: 24px; }
+            .container { max-width: 720px; }
+            .card { padding: 24px 22px; border-radius: 24px; }
+            .header-card { padding: 28px 24px; border-radius: 24px; }
+            .header-card h1 { font-size: 26px; }
+            .header-card p { font-size: 0.95rem; }
+            .day-cell { min-height: 52px; font-size: 1rem; aspect-ratio: 0.8; }
+            .day-cell.shift-active .day-number { font-size: 1.2rem; }
+            .day-cell.shift-active .shift-type { font-size: 0.9rem; padding: 3px 8px; border-radius: 6px; }
+            .day-cell.shift-active .shift-overtime { font-size: 0.8rem; padding: 3px 8px; border-radius: 6px; }
+            .day-cell .shift-info { gap: 3px; margin-top: 3px; }
+            .day-header { font-size: 0.85rem; padding: 8px 2px; }
+            .calendar-grid { gap: 4px; }
+            .month-title { font-size: 1.4rem; }
+            .stat-number { font-size: 1.6rem; }
+            .stat-label { font-size: 0.8rem; }
+            .stat-card { padding: 14px; border-radius: 12px; }
+            .action-btn { font-size: 0.95rem; padding: 11px 16px; border-radius: 12px; }
+            .month-nav button { font-size: 16px; padding: 10px 16px; }
+            .btn { font-size: 0.95rem; }
+            .btn-clear-small { font-size: 0.7rem; }
+        }
+        
+        /* Мобильные */
+        @media (max-width: 400px) {
+            body { padding: 8px; }
+            .card { padding: 12px 10px; }
+            .header-card { padding: 16px 12px; }
+            .header-card h1 { font-size: 19px; }
+            .day-cell { min-height: 52px; font-size: 0.78rem; aspect-ratio: 0.65; }
+            .day-cell.shift-active .day-number { font-size: 0.82rem; }
+            .day-cell.shift-active .shift-type { font-size: 0.48rem; }
+            .day-cell.shift-active .shift-overtime { font-size: 0.43rem; }
             .day-header { font-size: 0.65rem; }
-            .action-btn { font-size: 0.8rem; padding: 8px 10px; }
-            .time-picker-btn { width: 34px; height: 26px; font-size: 0.85rem; }
-            .time-picker-value { font-size: 1.1rem; min-width: 34px; padding: 4px 5px; }
+            .action-btn { font-size: 0.75rem; padding: 8px 6px; }
+            .calendar-grid { gap: 2px; }
         }
     </style>
 </head>
@@ -240,11 +262,11 @@
     
     <div class="card" id="calendarCard">
         
-        <div class="month-title" id="monthTitleExport" style="font-size: 1.5rem; text-align: center; margin-bottom: 16px; color: #0f1446; font-weight: 700;">Июль 2026</div>
+        <div class="month-title" id="monthTitleExport" style="font-size: 1.4rem; text-align: center; margin-bottom: 12px; color: #0f1446; font-weight: 700;"></div>
         
         <div class="month-nav no-export">
             <button id="prevMonth">◀</button>
-            <div class="month-title" id="monthTitle" style="display: none;">Июль 2026</div>
+            <div class="month-title" id="monthTitle" style="display: none;"></div>
             <button id="nextMonth">▶</button>
         </div>
         
