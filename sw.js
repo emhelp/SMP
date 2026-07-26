@@ -1,7 +1,7 @@
 // sw.js — Service Worker для EMHelp PWA
-// Версия: v123 (обновлён график смен — выделение выходных более насыщенным цветом)
+// Версия: v124 (обновлён график смен — жирная чёрная рамка сегодня + смена)
 
-const CACHE_NAME = 'emhelp-v123';
+const CACHE_NAME = 'emhelp-v124';
 
 // Только самые важные страницы (пре-кэш)
 const urlsToCache = [
@@ -80,7 +80,7 @@ self.addEventListener('activate', event => {
         })
       );
     }).then(() => {
-      console.log('✅ Service Worker активирован (v123)');
+      console.log('✅ Service Worker активирован (v124)');
       return self.clients.claim();
     })
   );
