@@ -373,17 +373,13 @@
             const endHasMin = em !== 0;
             
             if (startHasMin && endHasMin) {
-                // Обе части с минутами — две строки
                 lines.push(`${sh}:${String(sm).padStart(2, '0')}/`);
                 lines.push(`${eh}:${String(em).padStart(2, '0')}`);
             } else if (startHasMin) {
-                // Только начало с минутами
                 lines.push(`${sh}:${String(sm).padStart(2, '0')}/${eh}`);
             } else if (endHasMin) {
-                // Только конец с минутами
                 lines.push(`${sh}/${eh}:${String(em).padStart(2, '0')}`);
             } else {
-                // Без минут
                 lines.push(`${sh}/${eh}`);
             }
             return lines;
@@ -510,7 +506,7 @@
             localStorage.setItem('scheduleData', JSON.stringify(scheduleData));
             customStartHour = 9; customStartMinute = 0; customEndHour = 9; customEndMinute = 0;
             overtimeHours = 0; overtimeMinutes = 0; overtimeActive = false;
-            updateTimeDisplay(); updateOvertimeUI(); showToast('🗑️ День очищен, перезагрузите приложение'');
+            updateTimeDisplay(); updateOvertimeUI(); showToast('🗑️ День очищен, перезагрузите приложение');
         }
         
         document.getElementById('startUp').addEventListener('click', () => { customStartHour = (customStartHour + 1) % 24; updateTimeDisplay(); });
