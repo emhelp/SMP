@@ -62,6 +62,11 @@
             color: #6f8eaa; padding: 8px 4px; text-transform: uppercase;
         }
         
+        .day-header.weekend {
+            color: #c62828;
+            font-weight: 800;
+        }
+        
         .day-cell {
             aspect-ratio: 0.6; display: flex; flex-direction: column; align-items: center; justify-content: center;
             border-radius: 12px; cursor: pointer; transition: all 0.15s; font-weight: 600;
@@ -73,7 +78,11 @@
         .day-cell.empty:hover { border-color: transparent; transform: none; }
         .day-cell.today { border-color: #e53935; box-shadow: 0 0 0 2px rgba(229, 57, 53, 0.2); }
         
+        /* Суббота и воскресенье — более насыщенный розовато-красный фон */
+        .day-cell.weekend { background: #ffebee; border-color: #ffcdd2; }
+        
         .day-cell.shift-active { background: #7c3aed; border-color: #6d28d9; }
+        .day-cell.shift-active.weekend { background: #7c3aed; border-color: #6d28d9; }
         .day-cell.shift-active .day-number { color: white; font-size: 0.95rem; }
         .day-cell .shift-info { display: flex; flex-direction: column; align-items: center; gap: 1px; margin-top: 2px; }
         .day-cell.shift-active .shift-type { 
@@ -428,18 +437,34 @@
             monthTitleExport.textContent = `${monthNames[month]} ${year}`;
         }
         
+        function isWeekend(dayIndex) {
+            return dayIndex === 5 || dayIndex === 6;
+        }
+        
         function renderCalendar() {
             const year = currentDate.getFullYear(), month = currentDate.getMonth();
             updateMonthTitle();
             const firstDay = new Date(year, month, 1), lastDay = new Date(year, month + 1, 0);
             const startDayOfWeek = (firstDay.getDay() + 6) % 7;
             let html = '';
-            dayNames.forEach(d => html += `<div class="day-header">${d}</div>`);
-            for (let i = 0; i < startDayOfWeek; i++) html += '<div class="day-cell empty"></div>';
+            
+            dayNames.forEach((d, index) => {
+                const weekendClass = isWeekend(index) ? ' weekend' : '';
+                html += `<div class="day-header${weekendClass}">${d}</div>`;
+            });
+            
+            for (let i = 0; i < startDayOfWeek; i++) {
+                html += '<div class="day-cell empty"></div>';
+            }
+            
             const today = new Date(), todayKey = getDateKey(today.getFullYear(), today.getMonth(), today.getDate());
             for (let day = 1; day <= lastDay.getDate(); day++) {
-                const dateKey = getDateKey(year, month, day), savedData = scheduleData[dateKey];
-                let cellClass = 'day-cell';
+                const dateKey = getDateKey(year, month, day);
+                const savedData = scheduleData[dateKey];
+                const dayOfWeek = (startDayOfWeek + day - 1) % 7;
+                const weekendClass = isWeekend(dayOfWeek) ? ' weekend' : '';
+                
+                let cellClass = 'day-cell' + weekendClass;
                 let infoHtml = '';
                 if (dateKey === todayKey) cellClass += ' today';
                 if (savedData) {
