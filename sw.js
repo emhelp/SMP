@@ -1,7 +1,7 @@
 // sw.js — Service Worker для EMHelp PWA
-// Версия: v117 (обновлена инструкция по установке приложения)
+// Версия: v118 (добавлен график смен)
 
-const CACHE_NAME = 'emhelp-v117';
+const CACHE_NAME = 'emhelp-v118';
 
 // Только самые важные страницы (пре-кэш)
 const urlsToCache = [
@@ -27,6 +27,9 @@ const urlsToCache = [
   
   // Страницы кодов МКБ
   '/SMP/prochee/akusherstvo-mkb.html',
+  
+  // График смен
+  '/SMP/prochee/grafik-smen.html',
   
   // CSS, манифест, иконки, скриншоты
   '/SMP/style.css',
@@ -77,7 +80,7 @@ self.addEventListener('activate', event => {
         })
       );
     }).then(() => {
-      console.log('✅ Service Worker активирован (v117)');
+      console.log('✅ Service Worker активирован (v118)');
       return self.clients.claim();
     })
   );
