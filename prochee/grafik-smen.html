@@ -96,6 +96,22 @@
         }
         .day-cell.today.shift-active .day-number { color: white; font-weight: 900; }
         
+        /* Сегодня + отпуск */
+        .day-cell.today.vacation-active { 
+            border: 4px solid #000000; 
+            background: #2e7d32;
+            box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.35), 0 0 16px rgba(0, 0, 0, 0.25);
+        }
+        .day-cell.today.vacation-active .day-number { color: white; font-weight: 900; }
+        
+        /* Сегодня + больничный */
+        .day-cell.today.sick-active { 
+            border: 4px solid #000000; 
+            background: #e68a2e;
+            box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.35), 0 0 16px rgba(0, 0, 0, 0.25);
+        }
+        .day-cell.today.sick-active .day-number { color: white; font-weight: 900; }
+        
         @keyframes pulse-border {
             0%, 100% { box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.35), 0 0 16px rgba(0, 0, 0, 0.25), 0 3px 10px rgba(0, 0, 0, 0.35); }
             50% { box-shadow: 0 0 0 5px rgba(0, 0, 0, 0.45), 0 0 22px rgba(0, 0, 0, 0.35), 0 5px 14px rgba(0, 0, 0, 0.45); }
@@ -105,9 +121,30 @@
         .day-cell.weekend { background: #ffebee; border-color: #ffcdd2; }
         .day-cell.weekend.today { background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%); border-color: #0f1446; }
         
+        /* Смены */
         .day-cell.shift-active { background: #7c3aed; border-color: #6d28d9; }
         .day-cell.shift-active.weekend { background: #7c3aed; border-color: #6d28d9; }
         .day-cell.shift-active .day-number { color: white; font-size: 0.9rem; }
+        
+        /* Отпуск */
+        .day-cell.vacation-active { background: #2e7d32; border-color: #1b5e20; }
+        .day-cell.vacation-active.weekend { background: #2e7d32; border-color: #1b5e20; }
+        .day-cell.vacation-active .day-number { color: white; font-size: 0.9rem; }
+        .day-cell .vacation-label {
+            color: white; font-size: 0.55rem; font-weight: 500; line-height: 1.15;
+            margin-top: 2px; text-align: center;
+        }
+        
+        /* Больничный */
+        .day-cell.sick-active { background: #e68a2e; border-color: #c77800; }
+        .day-cell.sick-active.weekend { background: #e68a2e; border-color: #c77800; }
+        .day-cell.sick-active .day-number { color: white; font-size: 0.9rem; }
+        .day-cell .sick-label {
+            color: white; font-size: 0.55rem; font-weight: 500; line-height: 1.15;
+            margin-top: 2px; text-align: center;
+            display: flex; flex-direction: column; align-items: center;
+        }
+        
         .day-cell .shift-info { display: flex; flex-direction: column; align-items: center; gap: 1px; margin-top: 2px; }
         .day-cell.shift-active .shift-type { 
             background: white; color: #000000; font-size: 0.58rem; padding: 1px 5px; 
@@ -122,8 +159,22 @@
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1000; align-items: center; justify-content: center; padding: 16px; }
         .modal-overlay.active { display: flex; }
         
-        .modal-dialog { background: white; border-radius: 18px; padding: 22px 18px; max-width: 400px; width: 100%; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
-        .modal-dialog h3 { font-size: 1.05rem; font-weight: 700; color: #0f1446; margin-bottom: 4px; }
+        .modal-dialog { 
+            background: white; border-radius: 18px; padding: 22px 18px; max-width: 400px; width: 100%; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2); position: relative;
+        }
+        
+        .modal-close {
+            position: absolute; top: 12px; right: 14px;
+            width: 32px; height: 32px; border: none; background: #f0f0f0;
+            border-radius: 50%; font-size: 1.1rem; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            color: #6f8eaa; transition: all 0.2s; line-height: 1;
+        }
+        .modal-close:hover { background: #e0e0e0; color: #0f1446; }
+        .modal-close:active { transform: scale(0.9); }
+        
+        .modal-dialog h3 { font-size: 1.05rem; font-weight: 700; color: #0f1446; margin-bottom: 4px; padding-right: 30px; }
         .modal-date { font-size: 0.85rem; color: #6f8eaa; margin-bottom: 14px; }
         
         .time-picker-container { background: #f8f9fb; border-radius: 14px; padding: 14px; margin-bottom: 10px; }
@@ -145,11 +196,11 @@
         .time-picker-dash { font-size: 1.5rem; font-weight: 700; color: #0f1446; margin: 0 6px; padding-top: 16px; }
         
         .overtime-section {
-            background: #fff8e7; border-radius: 10px; padding: 10px; margin-bottom: 10px;
-            border: 1px solid #ffe0a3; display: none;
+            background: #fff0f0; border-radius: 10px; padding: 10px; margin-bottom: 10px;
+            border: 1px solid #ffcdd2; display: none;
         }
         .overtime-section.active { display: block; }
-        .overtime-title { font-weight: 700; font-size: 0.8rem; color: #e68a2e; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+        .overtime-title { font-weight: 700; font-size: 0.8rem; color: #d32f2f; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
         
         .btn-row { display: flex; gap: 8px; margin-top: 10px; }
         
@@ -165,12 +216,24 @@
         .btn-clear { background: #fff0f0; color: #d32f2f; border: 2px solid #ffcdd2; margin-top: 8px; width: 100%; display: flex; flex-direction: column; align-items: center; padding: 10px; }
         .btn-clear-small { font-size: 0.65rem; opacity: 0.8; margin-top: 2px; }
         .btn-overtime {
-            background: #fff8e7; color: #e68a2e; border: 2px solid #ffe0a3;
+            background: #fce4ec; color: #d32f2f; border: 2px solid #f8bbd0;
             margin-top: 8px; width: 100%; padding: 11px; border-radius: 10px;
             font-weight: 600; font-size: 0.9rem; cursor: pointer; font-family: inherit; min-height: 42px;
         }
-        .btn-overtime:active { background: #ffe0a3; }
-        .btn-overtime.active { background: #ffe0a3; }
+        .btn-overtime:active { background: #f8bbd0; }
+        .btn-overtime.active { background: #f8bbd0; }
+        .btn-vacation {
+            background: #e8f5e9; color: #2e7d32; border: 2px solid #a5d6a7;
+            margin-top: 8px; width: 100%; padding: 11px; border-radius: 10px;
+            font-weight: 600; font-size: 0.9rem; cursor: pointer; font-family: inherit; min-height: 42px;
+        }
+        .btn-vacation:active { background: #c8e6c9; }
+        .btn-sick {
+            background: #fff3e0; color: #e68a2e; border: 2px solid #ffcc80;
+            margin-top: 8px; width: 100%; padding: 11px; border-radius: 10px;
+            font-weight: 600; font-size: 0.9rem; cursor: pointer; font-family: inherit; min-height: 42px;
+        }
+        .btn-sick:active { background: #ffe0b2; }
         
         .action-buttons { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
         
@@ -210,7 +273,7 @@
         @keyframes spin { to { transform: rotate(360deg); } }
         .loading-spinner p { font-weight: 600; color: #0f1446; font-size: 0.85rem; }
         
-        /* Компьютер — шрифт ещё в 2 раза крупнее, высота меньше */
+        /* Компьютер */
         @media (min-width: 768px) {
             body { padding: 24px; }
             .container { max-width: 720px; }
@@ -220,8 +283,12 @@
             .header-card p { font-size: 0.95rem; }
             .day-cell { min-height: 52px; font-size: 1rem; aspect-ratio: 0.8; }
             .day-cell.shift-active .day-number { font-size: 1.2rem; }
+            .day-cell.vacation-active .day-number { font-size: 1.2rem; }
+            .day-cell.sick-active .day-number { font-size: 1.2rem; }
             .day-cell.shift-active .shift-type { font-size: 0.9rem; padding: 3px 8px; border-radius: 6px; }
             .day-cell.shift-active .shift-overtime { font-size: 0.8rem; padding: 3px 8px; border-radius: 6px; }
+            .day-cell .vacation-label { font-size: 0.8rem; }
+            .day-cell .sick-label { font-size: 0.8rem; }
             .day-cell .shift-info { gap: 3px; margin-top: 3px; }
             .day-header { font-size: 0.85rem; padding: 8px 2px; }
             .calendar-grid { gap: 4px; }
@@ -243,8 +310,12 @@
             .header-card h1 { font-size: 19px; }
             .day-cell { min-height: 52px; font-size: 0.78rem; aspect-ratio: 0.65; }
             .day-cell.shift-active .day-number { font-size: 0.82rem; }
+            .day-cell.vacation-active .day-number { font-size: 0.82rem; }
+            .day-cell.sick-active .day-number { font-size: 0.82rem; }
             .day-cell.shift-active .shift-type { font-size: 0.48rem; }
             .day-cell.shift-active .shift-overtime { font-size: 0.43rem; }
+            .day-cell .vacation-label { font-size: 0.43rem; }
+            .day-cell .sick-label { font-size: 0.43rem; }
             .day-header { font-size: 0.65rem; }
             .action-btn { font-size: 0.75rem; padding: 8px 6px; }
             .calendar-grid { gap: 2px; }
@@ -288,6 +359,7 @@
 <!-- МОДАЛЬНОЕ ОКНО -->
 <div class="modal-overlay" id="modal">
     <div class="modal-dialog">
+        <button class="modal-close" id="modalClose">✕</button>
         <h3>📋 Выберите время смены</h3>
         <div class="modal-date" id="modalDate"></div>
         
@@ -351,6 +423,9 @@
                 </div>
             </div>
         </div>
+        
+        <button class="btn btn-vacation" id="setVacation">🏖️ Добавить отпуск</button>
+        <button class="btn btn-sick" id="setSick">🤒 Добавить больничный</button>
         
         <div class="btn-row">
             <button class="btn btn-save" id="saveShift">Сохранить</button>
@@ -469,6 +544,7 @@
             for (const [key, value] of Object.entries(scheduleData)) {
                 const [y, m] = key.split('-').map(Number);
                 if (y === year && m === month + 1) {
+                    if (value.type === 'vacation' || value.type === 'sick') continue;
                     hours += value.customHours || calculateHours(value.customStart || 9, value.customStartMinute || 0, value.customEnd || 9, value.customEndMinute || 0);
                     overtimeTotal += (value.overtimeHours || 0) * 60 + (value.overtimeMinutes || 0);
                 }
@@ -515,21 +591,30 @@
                 let cellClass = 'day-cell' + weekendClass;
                 let infoHtml = '';
                 if (dateKey === todayKey) cellClass += ' today';
+                
                 if (savedData) {
-                    cellClass += ' shift-active';
-                    const sh = savedData.customStart || 9, sm = savedData.customStartMinute || 0;
-                    const eh = savedData.customEnd || 9, em = savedData.customEndMinute || 0;
-                    const lines = formatShiftLines(sh, sm, eh, em);
-                    
-                    infoHtml = '<div class="shift-info">';
-                    lines.forEach(line => {
-                        infoHtml += `<span class="shift-type">${line}</span>`;
-                    });
-                    if (savedData.overtimeHours || savedData.overtimeMinutes) {
-                        const otText = '+' + (savedData.overtimeHours || 0) + ':' + String(savedData.overtimeMinutes || 0).padStart(2, '0');
-                        infoHtml += `<span class="shift-overtime">${otText}</span>`;
+                    if (savedData.type === 'vacation') {
+                        cellClass += ' vacation-active';
+                        infoHtml = '<span class="vacation-label">Отпуск</span>';
+                    } else if (savedData.type === 'sick') {
+                        cellClass += ' sick-active';
+                        infoHtml = '<span class="sick-label"><span>Больнич</span><span>ный</span></span>';
+                    } else {
+                        cellClass += ' shift-active';
+                        const sh = savedData.customStart || 9, sm = savedData.customStartMinute || 0;
+                        const eh = savedData.customEnd || 9, em = savedData.customEndMinute || 0;
+                        const lines = formatShiftLines(sh, sm, eh, em);
+                        
+                        infoHtml = '<div class="shift-info">';
+                        lines.forEach(line => {
+                            infoHtml += `<span class="shift-type">${line}</span>`;
+                        });
+                        if (savedData.overtimeHours || savedData.overtimeMinutes) {
+                            const otText = '+' + (savedData.overtimeHours || 0) + ':' + String(savedData.overtimeMinutes || 0).padStart(2, '0');
+                            infoHtml += `<span class="shift-overtime">${otText}</span>`;
+                        }
+                        infoHtml += '</div>';
                     }
-                    infoHtml += '</div>';
                 }
                 html += `<div class="${cellClass}" data-date="${dateKey}" data-day="${day}"><span class="day-number">${day}</span>${infoHtml}</div>`;
             }
@@ -545,8 +630,13 @@
             modalDate.textContent = `${day} ${monthNames[month].toLowerCase()} ${year} г.`;
             const savedData = scheduleData[dateKey];
             if (savedData) {
-                customStartHour = savedData.customStart || 9; customStartMinute = savedData.customStartMinute || 0;
-                customEndHour = savedData.customEnd || 9; customEndMinute = savedData.customEndMinute || 0;
+                if (savedData.type === 'vacation' || savedData.type === 'sick') {
+                    customStartHour = 9; customStartMinute = 0;
+                    customEndHour = 9; customEndMinute = 0;
+                } else {
+                    customStartHour = savedData.customStart || 9; customStartMinute = savedData.customStartMinute || 0;
+                    customEndHour = savedData.customEnd || 9; customEndMinute = savedData.customEndMinute || 0;
+                }
                 overtimeHours = savedData.overtimeHours || 0; overtimeMinutes = savedData.overtimeMinutes || 0;
                 overtimeActive = (overtimeHours > 0 || overtimeMinutes > 0);
             } else {
@@ -561,8 +651,7 @@
         function saveShift() {
             if (!selectedDay) return;
             scheduleData[selectedDay] = {
-                shift: 'custom',
-                type: `${customStartHour}:${String(customStartMinute).padStart(2, '0')}/${customEndHour}:${String(customEndMinute).padStart(2, '0')}`,
+                type: 'shift',
                 customStart: customStartHour, customStartMinute: customStartMinute,
                 customEnd: customEndHour, customEndMinute: customEndMinute,
                 customHours: calculateHours(customStartHour, customStartMinute, customEndHour, customEndMinute),
@@ -571,6 +660,20 @@
             };
             localStorage.setItem('scheduleData', JSON.stringify(scheduleData));
             closeModal(); renderCalendar(); showToast('✅ Смена сохранена');
+        }
+        
+        function setVacation() {
+            if (!selectedDay) return;
+            scheduleData[selectedDay] = { type: 'vacation' };
+            localStorage.setItem('scheduleData', JSON.stringify(scheduleData));
+            closeModal(); renderCalendar(); showToast('🏖️ Отпуск отмечен');
+        }
+        
+        function setSick() {
+            if (!selectedDay) return;
+            scheduleData[selectedDay] = { type: 'sick' };
+            localStorage.setItem('scheduleData', JSON.stringify(scheduleData));
+            closeModal(); renderCalendar(); showToast('🤒 Больничный отмечен');
         }
         
         function clearShift() {
@@ -600,6 +703,10 @@
             if (!overtimeActive) { overtimeHours = 0; overtimeMinutes = 0; }
             updateTimeDisplay(); updateOvertimeUI();
         });
+        
+        document.getElementById('setVacation').addEventListener('click', setVacation);
+        document.getElementById('setSick').addEventListener('click', setSick);
+        document.getElementById('modalClose').addEventListener('click', closeModal);
         
         async function captureCalendar() {
             loadingOverlay.classList.add('active');
