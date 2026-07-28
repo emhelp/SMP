@@ -290,6 +290,20 @@
 </div>
 
 <script>
+  // Вибрация
+  function vibrateBtn() {
+    if (navigator.vibrate) {
+      navigator.vibrate(10);
+    }
+  }
+  
+  // Добавляем вибрацию на все кнопки
+  document.querySelectorAll('.apps-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      vibrateBtn();
+    });
+  });
+  
   // Переменные для карусели
   let currentGallery = [];
   let currentIndex = 0;
@@ -376,8 +390,8 @@
   }
 
   // Обработчики для кнопок навигации
-  document.getElementById('prevBtn').addEventListener('click', prevImage);
-  document.getElementById('nextBtn').addEventListener('click', nextImage);
+  document.getElementById('prevBtn').addEventListener('click', () => { vibrateBtn(); prevImage(); });
+  document.getElementById('nextBtn').addEventListener('click', () => { vibrateBtn(); nextImage(); });
 
   // Закрытие по клику на фон (но не на кнопки)
   document.getElementById('imageModal').addEventListener('click', function(e) {
