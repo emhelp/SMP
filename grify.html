@@ -112,6 +112,15 @@
 
   <!-- РЕГИСТРАЦИЯ СЕРВИС-ВОРКЕРА -->
   <script>
+    // Вибрация при нажатии на любую кнопку
+    document.querySelectorAll('.menu-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (navigator.vibrate) {
+          navigator.vibrate(10);
+        }
+      });
+    });
+    
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/SMP/sw.js')
         .then(reg => console.log('✅ Сервис-воркер зарегистрирован:', reg))
