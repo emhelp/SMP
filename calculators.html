@@ -225,8 +225,16 @@
   </div>
 
   <script>
+    // Вибрация при нажатии на любую кнопку
+    function vibrateBtn() {
+      if (navigator.vibrate) {
+        navigator.vibrate(10);
+      }
+    }
+    
     document.querySelectorAll('.calc-btn').forEach(button => {
       button.addEventListener('click', function() {
+        vibrateBtn();
         const url = this.getAttribute('data-url');
         if (url) {
           window.location.href = url;
