@@ -118,7 +118,7 @@
     <div class="header-center">
       <img src="1712743647196.png" alt="Логотип" class="logo">
       <h1>Скорая помощь</h1>
-      <p>"EMHelp Group" 2012-2026 v.127</p>
+      <p>"EMHelp Group" 2012-2026 v.128</p>
     </div>
     
     <button class="header-btn header-btn-right" id="share-btn">
@@ -150,6 +150,15 @@
   </nav>
 
   <script>
+    // Вибрация при нажатии на любую кнопку меню
+    document.querySelectorAll('.menu-btn, .split-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (navigator.vibrate) {
+          navigator.vibrate(10);
+        }
+      });
+    });
+    
     // Кнопка Max
     document.getElementById('max-btn').addEventListener('click', () => {
       window.open('https://max.ru/EMHelp_Channel', '_blank');
