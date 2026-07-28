@@ -448,6 +448,13 @@
 <div class="toast" id="toast"></div>
 
 <script>
+    // Функция вибрации
+    function vibrate() {
+        if (navigator.vibrate) {
+            navigator.vibrate(10);
+        }
+    }
+    
     (function() {
         let currentDate = new Date();
         let selectedDay = null;
@@ -620,7 +627,10 @@
             }
             calendarGrid.innerHTML = html;
             calendarGrid.querySelectorAll('.day-cell:not(.empty)').forEach(cell => {
-                cell.addEventListener('click', () => openModal(cell.dataset.date, cell.dataset.day, month, year));
+                cell.addEventListener('click', () => {
+                    vibrate();
+                    openModal(cell.dataset.date, cell.dataset.day, month, year);
+                });
             });
             updateStats();
         }
@@ -650,6 +660,7 @@
         
         function saveShift() {
             if (!selectedDay) return;
+            vibrate();
             scheduleData[selectedDay] = {
                 type: 'shift',
                 customStart: customStartHour, customStartMinute: customStartMinute,
@@ -664,6 +675,7 @@
         
         function setVacation() {
             if (!selectedDay) return;
+            vibrate();
             scheduleData[selectedDay] = { type: 'vacation' };
             localStorage.setItem('scheduleData', JSON.stringify(scheduleData));
             closeModal(); renderCalendar(); showToast('🏖️ Отпуск отмечен');
@@ -671,6 +683,7 @@
         
         function setSick() {
             if (!selectedDay) return;
+            vibrate();
             scheduleData[selectedDay] = { type: 'sick' };
             localStorage.setItem('scheduleData', JSON.stringify(scheduleData));
             closeModal(); renderCalendar(); showToast('🤒 Больничный отмечен');
@@ -678,6 +691,7 @@
         
         function clearShift() {
             if (!selectedDay) return;
+            vibrate();
             delete scheduleData[selectedDay];
             localStorage.setItem('scheduleData', JSON.stringify(scheduleData));
             customStartHour = 9; customStartMinute = 0; customEndHour = 9; customEndMinute = 0;
@@ -686,20 +700,21 @@
             closeModal(); renderCalendar(); showToast('🗑️ День очищен');
         }
         
-        document.getElementById('startUp').addEventListener('click', () => { customStartHour = (customStartHour + 1) % 24; updateTimeDisplay(); });
-        document.getElementById('startDown').addEventListener('click', () => { customStartHour = (customStartHour - 1 + 24) % 24; updateTimeDisplay(); });
-        document.getElementById('startMinUp').addEventListener('click', () => { customStartMinute = (customStartMinute + 5) % 60; updateTimeDisplay(); });
-        document.getElementById('startMinDown').addEventListener('click', () => { customStartMinute = (customStartMinute - 5 + 60) % 60; updateTimeDisplay(); });
-        document.getElementById('endUp').addEventListener('click', () => { customEndHour = (customEndHour + 1) % 24; updateTimeDisplay(); });
-        document.getElementById('endDown').addEventListener('click', () => { customEndHour = (customEndHour - 1 + 24) % 24; updateTimeDisplay(); });
-        document.getElementById('endMinUp').addEventListener('click', () => { customEndMinute = (customEndMinute + 5) % 60; updateTimeDisplay(); });
-        document.getElementById('endMinDown').addEventListener('click', () => { customEndMinute = (customEndMinute - 5 + 60) % 60; updateTimeDisplay(); });
-        document.getElementById('otHoursUp').addEventListener('click', () => { overtimeHours = (overtimeHours + 1) % 24; updateTimeDisplay(); });
-        document.getElementById('otHoursDown').addEventListener('click', () => { overtimeHours = (overtimeHours - 1 + 24) % 24; updateTimeDisplay(); });
-        document.getElementById('otMinUp').addEventListener('click', () => { overtimeMinutes = (overtimeMinutes + 5) % 60; updateTimeDisplay(); });
-        document.getElementById('otMinDown').addEventListener('click', () => { overtimeMinutes = (overtimeMinutes - 5 + 60) % 60; updateTimeDisplay(); });
+        document.getElementById('startUp').addEventListener('click', () => { vibrate(); customStartHour = (customStartHour + 1) % 24; updateTimeDisplay(); });
+        document.getElementById('startDown').addEventListener('click', () => { vibrate(); customStartHour = (customStartHour - 1 + 24) % 24; updateTimeDisplay(); });
+        document.getElementById('startMinUp').addEventListener('click', () => { vibrate(); customStartMinute = (customStartMinute + 5) % 60; updateTimeDisplay(); });
+        document.getElementById('startMinDown').addEventListener('click', () => { vibrate(); customStartMinute = (customStartMinute - 5 + 60) % 60; updateTimeDisplay(); });
+        document.getElementById('endUp').addEventListener('click', () => { vibrate(); customEndHour = (customEndHour + 1) % 24; updateTimeDisplay(); });
+        document.getElementById('endDown').addEventListener('click', () => { vibrate(); customEndHour = (customEndHour - 1 + 24) % 24; updateTimeDisplay(); });
+        document.getElementById('endMinUp').addEventListener('click', () => { vibrate(); customEndMinute = (customEndMinute + 5) % 60; updateTimeDisplay(); });
+        document.getElementById('endMinDown').addEventListener('click', () => { vibrate(); customEndMinute = (customEndMinute - 5 + 60) % 60; updateTimeDisplay(); });
+        document.getElementById('otHoursUp').addEventListener('click', () => { vibrate(); overtimeHours = (overtimeHours + 1) % 24; updateTimeDisplay(); });
+        document.getElementById('otHoursDown').addEventListener('click', () => { vibrate(); overtimeHours = (overtimeHours - 1 + 24) % 24; updateTimeDisplay(); });
+        document.getElementById('otMinUp').addEventListener('click', () => { vibrate(); overtimeMinutes = (overtimeMinutes + 5) % 60; updateTimeDisplay(); });
+        document.getElementById('otMinDown').addEventListener('click', () => { vibrate(); overtimeMinutes = (overtimeMinutes - 5 + 60) % 60; updateTimeDisplay(); });
         
         toggleOvertime.addEventListener('click', () => {
+            vibrate();
             overtimeActive = !overtimeActive;
             if (!overtimeActive) { overtimeHours = 0; overtimeMinutes = 0; }
             updateTimeDisplay(); updateOvertimeUI();
@@ -707,7 +722,16 @@
         
         document.getElementById('setVacation').addEventListener('click', setVacation);
         document.getElementById('setSick').addEventListener('click', setSick);
-        document.getElementById('modalClose').addEventListener('click', closeModal);
+        document.getElementById('modalClose').addEventListener('click', () => { vibrate(); closeModal(); });
+        
+        document.getElementById('prevMonth').addEventListener('click', () => { vibrate(); currentDate.setMonth(currentDate.getMonth() - 1); renderCalendar(); });
+        document.getElementById('nextMonth').addEventListener('click', () => { vibrate(); currentDate.setMonth(currentDate.getMonth() + 1); renderCalendar(); });
+        document.getElementById('saveShift').addEventListener('click', saveShift);
+        document.getElementById('cancelShift').addEventListener('click', () => { vibrate(); closeModal(); });
+        document.getElementById('clearShift').addEventListener('click', clearShift);
+        document.getElementById('exportBtn').addEventListener('click', () => { vibrate(); downloadAsImage(); });
+        document.getElementById('clearAllBtn').addEventListener('click', () => { vibrate(); clearAll(); });
+        modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
         
         async function captureCalendar() {
             loadingOverlay.classList.add('active');
@@ -735,15 +759,6 @@
                 renderCalendar(); showToast('🗑️ Всё очищено');
             }
         }
-        
-        document.getElementById('prevMonth').addEventListener('click', () => { currentDate.setMonth(currentDate.getMonth() - 1); renderCalendar(); });
-        document.getElementById('nextMonth').addEventListener('click', () => { currentDate.setMonth(currentDate.getMonth() + 1); renderCalendar(); });
-        document.getElementById('saveShift').addEventListener('click', saveShift);
-        document.getElementById('cancelShift').addEventListener('click', closeModal);
-        document.getElementById('clearShift').addEventListener('click', clearShift);
-        document.getElementById('exportBtn').addEventListener('click', downloadAsImage);
-        document.getElementById('clearAllBtn').addEventListener('click', clearAll);
-        modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
         
         updateTimeDisplay(); updateOvertimeUI(); renderCalendar();
         
