@@ -78,48 +78,52 @@
         .day-cell.empty { background: transparent; cursor: default; border: none; }
         .day-cell.empty:hover { border-color: transparent; transform: none; }
         
-        /* Сегодня без смены */
+        /* Сегодня — ярко-жёлтый */
         .day-cell.today { 
-            border: 3px solid #0f1446; 
-            background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
-            color: white;
-            box-shadow: 0 0 0 3px rgba(15, 20, 70, 0.25), 0 0 12px rgba(15, 20, 70, 0.15);
+            border: 2px solid transparent;
+            background: #ffcc00;
+            color: #000000;
+            box-shadow: none;
         }
-        .day-cell.today .day-number { color: white; font-weight: 800; }
+        .day-cell.today .day-number { color: #000000; font-weight: 800; }
         
-        /* Сегодня + смена */
+        /* Сегодня + смена — тоже ярко-жёлтый, без анимации */
         .day-cell.today.shift-active { 
-            border: 4px solid #000000; 
-            background: #7c3aed;
-            box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.35), 0 0 16px rgba(0, 0, 0, 0.25), 0 3px 10px rgba(0, 0, 0, 0.35);
-            animation: pulse-border 2s ease-in-out infinite;
+            border: 2px solid transparent;
+            background: #ffcc00;
+            box-shadow: none;
+            animation: none;
         }
-        .day-cell.today.shift-active .day-number { color: white; font-weight: 900; }
+        .day-cell.today.shift-active .day-number { color: #000000; font-weight: 900; }
+        /* Время смены в сегодняшнем дне — белый фон, чёрный текст, как в другие дни */
+        .day-cell.today.shift-active .shift-type { 
+            background: white; color: #000000;
+        }
+        .day-cell.today.shift-active .shift-overtime {
+            background: rgba(255,255,255,0.25); color: #000000;
+        }
         
-        /* Сегодня + отпуск */
+        /* Сегодня + отпуск — ярко-жёлтый */
         .day-cell.today.vacation-active { 
-            border: 4px solid #000000; 
-            background: #2e7d32;
-            box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.35), 0 0 16px rgba(0, 0, 0, 0.25);
+            border: 2px solid transparent;
+            background: #ffcc00;
+            box-shadow: none;
         }
-        .day-cell.today.vacation-active .day-number { color: white; font-weight: 900; }
+        .day-cell.today.vacation-active .day-number { color: #000000; font-weight: 900; }
+        .day-cell.today .vacation-label { color: #000000; }
         
-        /* Сегодня + больничный */
+        /* Сегодня + больничный — ярко-жёлтый */
         .day-cell.today.sick-active { 
-            border: 4px solid #000000; 
-            background: #e68a2e;
-            box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.35), 0 0 16px rgba(0, 0, 0, 0.25);
+            border: 2px solid transparent;
+            background: #ffcc00;
+            box-shadow: none;
         }
-        .day-cell.today.sick-active .day-number { color: white; font-weight: 900; }
-        
-        @keyframes pulse-border {
-            0%, 100% { box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.35), 0 0 16px rgba(0, 0, 0, 0.25), 0 3px 10px rgba(0, 0, 0, 0.35); }
-            50% { box-shadow: 0 0 0 5px rgba(0, 0, 0, 0.45), 0 0 22px rgba(0, 0, 0, 0.35), 0 5px 14px rgba(0, 0, 0, 0.45); }
-        }
+        .day-cell.today.sick-active .day-number { color: #000000; font-weight: 900; }
+        .day-cell.today .sick-label { color: #000000; }
         
         /* Суббота и воскресенье */
         .day-cell.weekend { background: #ffebee; border-color: #ffcdd2; }
-        .day-cell.weekend.today { background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%); border-color: #0f1446; }
+        .day-cell.weekend.today { background: #ffcc00; border-color: transparent; }
         
         /* Смены */
         .day-cell.shift-active { background: #7c3aed; border-color: #6d28d9; }
@@ -150,7 +154,6 @@
             background: white; color: #000000; font-size: 0.58rem; padding: 1px 5px; 
             border-radius: 5px; font-weight: 600; line-height: 1.15;
         }
-        .day-cell.today .shift-type { background: rgba(255,255,255,0.9); color: #000000; }
         .day-cell.shift-active .shift-overtime {
             background: rgba(255,255,255,0.25); color: white; font-size: 0.53rem;
             padding: 1px 5px; border-radius: 5px; font-weight: 500; line-height: 1.15;
@@ -592,7 +595,7 @@
                 if (savedData) {
                     if (savedData.type === 'vacation') {
                         cellClass += ' vacation-active';
-                        infoHtml = '<span class="vacation-label">Отпуск</span>';
+                        infoHtml = `<span class="vacation-label">Отпуск</span>`;
                     } else if (savedData.type === 'sick') {
                         cellClass += ' sick-active';
                         infoHtml = '<span class="sick-label"><span>Больнич</span><span>ный</span></span>';
