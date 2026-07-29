@@ -330,6 +330,13 @@
 </div>
 
 <script>
+    // Вибрация
+    function vibrateBtn() {
+        if (navigator.vibrate) {
+            navigator.vibrate(10);
+        }
+    }
+    
     function extractGeoId(url) {
         if (!url || !url.includes('2gis.ru')) return null;
         const match = url.match(/\/geo\/(\d+)/);
@@ -420,6 +427,7 @@
         btn.setAttribute('aria-label', `Подстанция номер ${station.id === '31post' ? 'пост 31' : station.id}`);
         btn.addEventListener('click', (e) => {
             e.preventDefault();
+            vibrateBtn();
             openModal(station.id);
         });
         buttonsContainer.appendChild(btn);
@@ -497,7 +505,10 @@
         document.body.style.overflow = '';
     }
 
-    document.getElementById('closeModalBtn').addEventListener('click', closeModal);
+    document.getElementById('closeModalBtn').addEventListener('click', () => {
+        vibrateBtn();
+        closeModal();
+    });
     
     const modalOverlay = document.getElementById('stationModal');
     modalOverlay.addEventListener('click', (e) => {
