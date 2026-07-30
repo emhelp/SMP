@@ -1,7 +1,7 @@
 // sw.js — Service Worker для EMHelp PWA
-// Версия: v130 (добавлена вибрация на все страницы меню и подменю)
+// Версия: v131 (обновлены калькуляторы и status localis)
 
-const CACHE_NAME = 'emhelp-v130';
+const CACHE_NAME = 'emhelp-v131';
 
 // Только самые важные страницы (пре-кэш)
 const urlsToCache = [
@@ -80,7 +80,7 @@ self.addEventListener('activate', event => {
         })
       );
     }).then(() => {
-      console.log('✅ Service Worker активирован (v130)');
+      console.log('✅ Service Worker активирован (v131)');
       return self.clients.claim();
     })
   );
