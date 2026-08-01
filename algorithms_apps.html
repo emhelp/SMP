@@ -37,20 +37,32 @@
 
   .calc-mini-btn {
     display: inline-block;
-    background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
+    background: linear-gradient(135deg, #0f1446 0%, #800000 100%);
     color: white;
     text-decoration: none;
     font-weight: bold;
-    padding: 6px 16px;
-    border-radius: 20px;
+    padding: 8px 20px;
+    border-radius: 12px;
     margin-left: 8px;
     font-size: 16px;
     transition: all 0.2s;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    animation: pulse-btn 2s ease-in-out infinite;
+  }
+  
+  @keyframes pulse-btn {
+    0%, 100% { box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    50% { box-shadow: 0 4px 14px rgba(0,0,0,0.2); transform: scale(1.03); }
+  }
+
+  .calc-mini-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 14px rgba(0,0,0,0.2);
   }
 
   .calc-mini-btn:active {
     transform: scale(0.96);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
   }
 
   .apps-menu {
@@ -65,7 +77,6 @@
   .apps-btn {
     text-decoration: none;
     color: white;
-    background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
     padding: 14px 15px;
     border-radius: 12px;
     font-weight: bold;
@@ -88,117 +99,29 @@
   .apps-btn:active {
     transform: scale(0.98);
   }
-
-  /* Стиль для неактивных кнопок */
-  .apps-btn.disabled {
-    background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%);
-    cursor: not-allowed;
-    opacity: 0.65;
-    pointer-events: none;
-  }
+  
+  .apps-btn.dark-blue { background: #0f1446; color: white; }
+  .apps-btn.gradient { background: linear-gradient(135deg, #0f1446 0%, #800000 100%); color: white; }
+  .apps-btn.burgundy { background: #800000; color: white; }
+  .apps-btn.disabled { background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%); cursor: not-allowed; opacity: 0.65; pointer-events: none; }
 
   @media (max-width: 600px) {
-    .apps-menu {
-      max-width: 95%;
-    }
-    .apps-btn {
-      font-size: 14px;
-      padding: 12px 12px;
-    }
-    h1 {
-      font-size: 24px;
-    }
-    .subtitle {
-      font-size: 14px;
-    }
-    .calc-mini-btn {
-      font-size: 14px;
-      padding: 4px 14px;
-    }
+    .apps-menu { max-width: 95%; }
+    .apps-btn { font-size: 14px; padding: 12px 12px; }
+    h1 { font-size: 24px; }
+    .subtitle { font-size: 14px; }
+    .calc-mini-btn { font-size: 14px; padding: 6px 16px; }
   }
 
-  /* Модальное окно для просмотра изображений */
-  .modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.9);
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-  }
-
-  .modal-content {
-    max-width: 90%;
-    max-height: 70%;
-    object-fit: contain;
-  }
-
-  .close-modal {
-    position: absolute;
-    top: 20px;
-    right: 35px;
-    color: #fff;
-    font-size: 40px;
-    font-weight: bold;
-    cursor: pointer;
-    background: none;
-    border: none;
-    z-index: 1001;
-  }
-
-  .close-modal:hover {
-    color: #ccc;
-  }
-
-  /* Контейнер для кнопок навигации под изображением */
-  .nav-container {
-    position: absolute;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 30px;
-    align-items: center;
-    justify-content: center;
-    background-color: rgba(0,0,0,0.5);
-    padding: 6px 20px;
-    border-radius: 40px;
-    z-index: 1001;
-  }
-
-  .nav-btn {
-    background-color: transparent;
-    color: white;
-    font-size: 28px;
-    font-weight: bold;
-    border: none;
-    cursor: pointer;
-    padding: 0 12px;
-    transition: all 0.2s;
-  }
-
-  .nav-btn:hover {
-    color: #ccc;
-    transform: scale(1.1);
-  }
-
-  .nav-btn:active {
-    transform: scale(0.95);
-  }
-
-  .counter {
-    color: white;
-    background-color: rgba(0,0,0,0.6);
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 14px;
-    font-weight: bold;
-  }
+  .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.9); justify-content: center; align-items: center; flex-direction: column; }
+  .modal-content { max-width: 90%; max-height: 70%; object-fit: contain; }
+  .close-modal { position: absolute; top: 20px; right: 35px; color: #fff; font-size: 40px; font-weight: bold; cursor: pointer; background: none; border: none; z-index: 1001; }
+  .close-modal:hover { color: #ccc; }
+  .nav-container { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); display: flex; gap: 30px; align-items: center; justify-content: center; background-color: rgba(0,0,0,0.5); padding: 6px 20px; border-radius: 40px; z-index: 1001; }
+  .nav-btn { background-color: transparent; color: white; font-size: 28px; font-weight: bold; border: none; cursor: pointer; padding: 0 12px; transition: all 0.2s; }
+  .nav-btn:hover { color: #ccc; transform: scale(1.1); }
+  .nav-btn:active { transform: scale(0.95); }
+  .counter { color: white; background-color: rgba(0,0,0,0.6); padding: 4px 12px; border-radius: 20px; font-size: 14px; font-weight: bold; }
 </style>
 </head>
 <body>
@@ -207,78 +130,51 @@
 <div class="subtitle">Также смотрите раздел <a href="calculators.html" class="calc-mini-btn">Калькуляторы</a></div>
 
 <div class="apps-menu">
-  <!-- Активные кнопки 1-12 -->
-  <button class="apps-btn" onclick="openImage('Параметры проведения СЛР.jpg')">1) Параметры проведения СЛР</button>
-  <button class="apps-btn" onclick="openImage('Размеры эндотрахеальных трубок и катетеров.png')">2) Размеры эндотрахеальных, ларингеальных трубок и катетеров для аспирации</button>
-  <button class="apps-btn" onclick="openImage('Тактика обеспечения проходимости дыхательных путей у детей.png')">3) Тактика обеспечения проходимости дыхательных путей у детей</button>
-  <button class="apps-btn" onclick="openImage('Тактика обеспечения проходимости дыхательных путей у взрослых.png')">4) Тактика обеспечения проходимости дыхательных путей у взрослых</button>
-  <button class="apps-btn" onclick="openImage('Порядок действия при «трудной» интубации трахеи.png')">5) Порядок действий при "трудной" интубации трахеи у пациента с сохраненной сердечной деятельностью</button>
-  <button class="apps-btn" onclick="openImage('Параметры респираторной поддержки при сохраненном самостоятельном кровообращении.jpg')">6) Параметры респираторной поддержки при сохраненном самостоятельном кровообращении</button>
-  <button class="apps-btn" onclick="openImage('Критерии оценки новорождённого по Апгар.jpg')">7) Критерии оценки новорожденного по шкале Апгар</button>
-  <button class="apps-btn" onclick="openImage('Алгоритм первичной реанимации новорождённого при рождении.png')">8) Алгоритм первичной реанимации новорожденного (при рождении)</button>
-  <button class="apps-btn" onclick="openImage('Начальные параметры ИВЛ у новорожденных.jpg')">9) Начальные параметры ИВЛ у новорожденных</button>
-  <button class="apps-btn" onclick="openImage('Физиологические возрастные нормы у детей.jpg')">10) Физиологические возрастные нормы у детей (в покое)</button>
-  <button class="apps-btn" onclick="openImage('Промывание желудка у детей.png')">11) Промывание желудка у детей</button>
-  <button class="apps-btn" onclick="openImage('Определение площади ожогов у детей.png')">12) Определение площади ожогов у детей (по Lund и Browder)</button>
-
-  <!-- Активная кнопка 13 с каруселью (путь изменён на папку prochee/) -->
-  <button class="apps-btn" onclick="openImageGallery(['prochee/Шкалы оценки боли взрослая.png', 'prochee/Шкалы оценки боли детская.png'])">13) Шкалы для оценки интенсивности боли</button>
-
-  <!-- Активные кнопки 14, 15, 16 -->
-  <button class="apps-btn" onclick="openImage('Острая дыхательная недостаточность.png')">14) Острая дыхательная недостаточность</button>
-  <button class="apps-btn" onclick="openImage('Шкала оценки ТЭЛА.png')">15) Шкала оценки вероятности ТЭЛА (Revised Geneva Score)</button>
-  <button class="apps-btn" onclick="openImage('Шкала ШОКС.png')">16) ШОКС</button>
-  
-  <!-- Активированная кнопка 17 -->
-  <button class="apps-btn" onclick="openImage('Алгоритм ведения декомпенсированной СН.jpg')">17) Алгоритм ведения декомпенсированной сердечной недостаточности на этапе оказания СМП</button>
-  
-  <button class="apps-btn" onclick="openImage('Шкала комы.png')">18) Шкала комы ГЛАЗГО для взрослых и детей</button>
-
-  <!-- Активные кнопки 19, 20, 21 -->
-  <button class="apps-btn" onclick="openImage('Шкала LAMS.jpg')">19) Шкала моторного дефицита LAMS</button>
-  <button class="apps-btn" onclick="openImage('Шкала оценки отмены алкоголя.jpg')">20) Шкала оценки состояния отмены алкоголя</button>
-  <button class="apps-btn" onclick="openImage('Шкала RASS.jpg')">21) Шкала RASS</button>
-
-  <!-- Активированные кнопки 22 и 23 -->
-  <button class="apps-btn" onclick="openImage('Шкала оценки риска суицида.jpg')">22) Шкала оценки риска суицида (ШОРС)</button>
-  <button class="apps-btn" onclick="openImage('Тактика при суицидоопасных состояниях.jpg')">23) Тактика действий при суицидоопасных состояниях</button>
-
-  <!-- АКТИВИРОВАННАЯ кнопка 24 с каруселью (5 изображений) -->
-  <button class="apps-btn" onclick="openImageGallery(['Антидоты 1.png', 'Антидоты 2.png', 'Антидоты 3.png', 'Антидоты 4.png', 'Антидоты 5.png'])">24) Перечень антидотов</button>
-
-  <!-- АКТИВИРОВАННЫЕ кнопки 25-26 -->
-  <button class="apps-btn" onclick="openImage('Миоз.png')">25) Дифференциальная диагностика отравлений опиатами по признаку: "миоз" с угнетением сознания</button>
-  <button class="apps-btn" onclick="openImage('Мидриаз.png')">26) Дифференциальная диагностика отравлений опиатами по признаку: "мидриаз"</button>
-
-  <!-- АКТИВИРОВАННЫЕ кнопки 27-29 -->
-  <button class="apps-btn" onclick="openImage('Без четкого диаметра зрачка.png')">27) Дифференциальная диагностика отравлений - "Без четкого изменения диаметра зрачка"</button>
-  <button class="apps-btn" onclick="openImage('Дегидратация взрослые.png')">28) Дифференциальная диагностика дегидратации у взрослых</button>
-  <button class="apps-btn" onclick="openImage('Дегидратация дети.png')">29) Дифференциальная диагностика степеней токсикоза с эксикозом (дегидратации) у детей</button>
-
-  <!-- АКТИВИРОВАННАЯ кнопка 30 -->
-  <button class="apps-btn" onclick="openImage('Шкала NEWS.png')">30) NEWS - Оценка тяжести состояния пациента при пневмонии</button>
-
-  <!-- Активированные кнопки 31-36 - инфузии -->
-  <button class="apps-btn" onclick="location.href='dopamine-adult.html'">31) Инфузия Допамина у взрослых</button>
-  <button class="apps-btn" onclick="location.href='dopamine-child.html'">32) Инфузия Допамина у детей</button>
-  <button class="apps-btn" onclick="location.href='dobutamine-adult.html'">33) Инфузия Добутамина у взрослых</button>
-  <button class="apps-btn" onclick="location.href='dobutamine-child.html'">34) Инфузия Добутамина у детей</button>
-  <button class="apps-btn" onclick="location.href='norepinephrine-adult.html'">35) Инфузия Норэпинефрина у взрослых</button>
-  <button class="apps-btn" onclick="location.href='norepinephrine-child.html'">36) Инфузия Норэпинефрина у детей</button>
-
-  <!-- Активированные кнопки 37-40 -->
-  <button class="apps-btn" onclick="location.href='epinephrine-adult.html'">37) Инфузия Эпинефрина у взрослых</button>
-  <button class="apps-btn" onclick="location.href='epinephrine-child.html'">38) Инфузия Эпинефрина у детей</button>
-  <button class="apps-btn" onclick="location.href='nitroglycerin-infusion.html'">39) Инфузия Нитроглицерина капельно</button>
-  <button class="apps-btn" onclick="location.href='amiodarone-child.html'">40) Инфузия Амиодарона у детей</button>
-
-  <!-- Активированные кнопки 41-43 -->
-  <button class="apps-btn" onclick="location.href='burn-shock-infusion.html'">41) Инфузия растворов при ожоговом шоке у взрослых</button>
-  <button class="apps-btn" onclick="location.href='burn-shock-infusion.html'">42) Инфузия растворов при ожоговом шоке у детей</button>
-  <button class="apps-btn" onclick="location.href='diazepam-child.html'">43) Внутривенное введение раствора Диазепама у детей</button>
+  <button class="apps-btn dark-blue" onclick="openImage('Параметры проведения СЛР.jpg')">1) Параметры проведения СЛР</button>
+  <button class="apps-btn dark-blue" onclick="openImage('Размеры эндотрахеальных трубок и катетеров.png')">2) Размеры эндотрахеальных, ларингеальных трубок и катетеров для аспирации</button>
+  <button class="apps-btn dark-blue" onclick="openImage('Тактика обеспечения проходимости дыхательных путей у детей.png')">3) Тактика обеспечения проходимости дыхательных путей у детей</button>
+  <button class="apps-btn dark-blue" onclick="openImage('Тактика обеспечения проходимости дыхательных путей у взрослых.png')">4) Тактика обеспечения проходимости дыхательных путей у взрослых</button>
+  <button class="apps-btn dark-blue" onclick="openImage('Порядок действия при «трудной» интубации трахеи.png')">5) Порядок действий при "трудной" интубации трахеи у пациента с сохраненной сердечной деятельностью</button>
+  <button class="apps-btn dark-blue" onclick="openImage('Параметры респираторной поддержки при сохраненном самостоятельном кровообращении.jpg')">6) Параметры респираторной поддержки при сохраненном самостоятельном кровообращении</button>
+  <button class="apps-btn dark-blue" onclick="openImage('Критерии оценки новорождённого по Апгар.jpg')">7) Критерии оценки новорожденного по шкале Апгар</button>
+  <button class="apps-btn dark-blue" onclick="openImage('Алгоритм первичной реанимации новорождённого при рождении.png')">8) Алгоритм первичной реанимации новорожденного (при рождении)</button>
+  <button class="apps-btn dark-blue" onclick="openImage('Начальные параметры ИВЛ у новорожденных.jpg')">9) Начальные параметры ИВЛ у новорожденных</button>
+  <button class="apps-btn dark-blue" onclick="openImage('Физиологические возрастные нормы у детей.jpg')">10) Физиологические возрастные нормы у детей (в покое)</button>
+  <button class="apps-btn dark-blue" onclick="openImage('Промывание желудка у детей.png')">11) Промывание желудка у детей</button>
+  <button class="apps-btn dark-blue" onclick="openImage('Определение площади ожогов у детей.png')">12) Определение площади ожогов у детей (по Lund и Browder)</button>
+  <button class="apps-btn dark-blue" onclick="openImageGallery(['prochee/Шкалы оценки боли взрослая.png', 'prochee/Шкалы оценки боли детская.png'])">13) Шкалы для оценки интенсивности боли</button>
+  <button class="apps-btn dark-blue" onclick="openImage('Острая дыхательная недостаточность.png')">14) Острая дыхательная недостаточность</button>
+  <button class="apps-btn dark-blue" onclick="openImage('Шкала оценки ТЭЛА.png')">15) Шкала оценки вероятности ТЭЛА (Revised Geneva Score)</button>
+  <button class="apps-btn dark-blue" onclick="openImage('Шкала ШОКС.png')">16) ШОКС</button>
+  <button class="apps-btn dark-blue" onclick="openImage('Алгоритм ведения декомпенсированной СН.jpg')">17) Алгоритм ведения декомпенсированной сердечной недостаточности на этапе оказания СМП</button>
+  <button class="apps-btn dark-blue" onclick="openImage('Шкала комы.png')">18) Шкала комы ГЛАЗГО для взрослых и детей</button>
+  <button class="apps-btn dark-blue" onclick="openImage('Шкала LAMS.jpg')">19) Шкала моторного дефицита LAMS</button>
+  <button class="apps-btn dark-blue" onclick="openImage('Шкала оценки отмены алкоголя.jpg')">20) Шкала оценки состояния отмены алкоголя</button>
+  <button class="apps-btn dark-blue" onclick="openImage('Шкала RASS.jpg')">21) Шкала RASS</button>
+  <button class="apps-btn dark-blue" onclick="openImage('Шкала оценки риска суицида.jpg')">22) Шкала оценки риска суицида (ШОРС)</button>
+  <button class="apps-btn gradient" onclick="openImage('Тактика при суицидоопасных состояниях.jpg')">23) Тактика действий при суицидоопасных состояниях</button>
+  <button class="apps-btn burgundy" onclick="openImageGallery(['Антидоты 1.png', 'Антидоты 2.png', 'Антидоты 3.png', 'Антидоты 4.png', 'Антидоты 5.png'])">24) Перечень антидотов</button>
+  <button class="apps-btn burgundy" onclick="openImage('Миоз.png')">25) Дифференциальная диагностика отравлений опиатами по признаку: "миоз" с угнетением сознания</button>
+  <button class="apps-btn burgundy" onclick="openImage('Мидриаз.png')">26) Дифференциальная диагностика отравлений опиатами по признаку: "мидриаз"</button>
+  <button class="apps-btn burgundy" onclick="openImage('Без четкого диаметра зрачка.png')">27) Дифференциальная диагностика отравлений - "Без четкого изменения диаметра зрачка"</button>
+  <button class="apps-btn burgundy" onclick="openImage('Дегидратация взрослые.png')">28) Дифференциальная диагностика дегидратации у взрослых</button>
+  <button class="apps-btn burgundy" onclick="openImage('Дегидратация дети.png')">29) Дифференциальная диагностика степеней токсикоза с эксикозом (дегидратации) у детей</button>
+  <button class="apps-btn burgundy" onclick="openImage('Шкала NEWS.png')">30) NEWS - Оценка тяжести состояния пациента при пневмонии</button>
+  <button class="apps-btn burgundy" onclick="location.href='dopamine-adult.html'">31) Инфузия Допамина у взрослых</button>
+  <button class="apps-btn burgundy" onclick="location.href='dopamine-child.html'">32) Инфузия Допамина у детей</button>
+  <button class="apps-btn burgundy" onclick="location.href='dobutamine-adult.html'">33) Инфузия Добутамина у взрослых</button>
+  <button class="apps-btn burgundy" onclick="location.href='dobutamine-child.html'">34) Инфузия Добутамина у детей</button>
+  <button class="apps-btn burgundy" onclick="location.href='norepinephrine-adult.html'">35) Инфузия Норэпинефрина у взрослых</button>
+  <button class="apps-btn burgundy" onclick="location.href='norepinephrine-child.html'">36) Инфузия Норэпинефрина у детей</button>
+  <button class="apps-btn burgundy" onclick="location.href='epinephrine-adult.html'">37) Инфузия Эпинефрина у взрослых</button>
+  <button class="apps-btn burgundy" onclick="location.href='epinephrine-child.html'">38) Инфузия Эпинефрина у детей</button>
+  <button class="apps-btn burgundy" onclick="location.href='nitroglycerin-infusion.html'">39) Инфузия Нитроглицерина капельно</button>
+  <button class="apps-btn burgundy" onclick="location.href='amiodarone-child.html'">40) Инфузия Амиодарона у детей</button>
+  <button class="apps-btn burgundy" onclick="location.href='burn-shock-infusion.html'">41) Инфузия растворов при ожоговом шоке у взрослых</button>
+  <button class="apps-btn burgundy" onclick="location.href='burn-shock-infusion.html'">42) Инфузия растворов при ожоговом шоке у детей</button>
+  <button class="apps-btn burgundy" onclick="location.href='diazepam-child.html'">43) Внутривенное введение раствора Диазепама у детей</button>
 </div>
 
-<!-- Модальное окно для изображений -->
 <div id="imageModal" class="modal">
   <button class="close-modal" onclick="closeModal()">&times;</button>
   <img id="modalImage" class="modal-content">
@@ -290,129 +186,51 @@
 </div>
 
 <script>
-  // Вибрация
-  function vibrateBtn() {
-    if (navigator.vibrate) {
-      navigator.vibrate(10);
-    }
-  }
+  function vibrateBtn() { if (navigator.vibrate) navigator.vibrate(10); }
+  document.querySelectorAll('.apps-btn').forEach(btn => { btn.addEventListener('click', () => { vibrateBtn(); }); });
+  document.querySelector('.calc-mini-btn').addEventListener('click', () => { vibrateBtn(); });
   
-  // Добавляем вибрацию на все кнопки
-  document.querySelectorAll('.apps-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      vibrateBtn();
-    });
-  });
-  
-  // Вибрация на кнопку "Калькуляторы"
-  document.querySelector('.calc-mini-btn').addEventListener('click', () => {
-    vibrateBtn();
-  });
-  
-  // Переменные для карусели
-  let currentGallery = [];
-  let currentIndex = 0;
-  let isGalleryMode = false;
+  let currentGallery = [], currentIndex = 0, isGalleryMode = false;
 
-  // Функция открытия одного изображения
-  function openImage(imagePath) {
-    vibrateBtn();
-    isGalleryMode = false;
-    currentGallery = [];
-    const modal = document.getElementById('imageModal');
-    const modalImg = document.getElementById('modalImage');
-    const navContainer = document.getElementById('navContainer');
-    
-    navContainer.style.display = 'none';
-    
-    modal.style.display = 'flex';
-    modalImg.src = imagePath;
+  function openImage(p) {
+    vibrateBtn(); isGalleryMode = false; currentGallery = [];
+    document.getElementById('navContainer').style.display = 'none';
+    document.getElementById('imageModal').style.display = 'flex';
+    document.getElementById('modalImage').src = p;
   }
 
-  // Функция открытия галереи изображений
   function openImageGallery(images) {
-    vibrateBtn();
-    isGalleryMode = true;
-    currentGallery = images;
-    currentIndex = 0;
-    
-    const modal = document.getElementById('imageModal');
-    const modalImg = document.getElementById('modalImage');
-    const navContainer = document.getElementById('navContainer');
-    const counter = document.getElementById('imageCounter');
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
-    
-    navContainer.style.display = 'flex';
-    modal.style.display = 'flex';
-    
-    // Обновляем изображение и счетчик
-    modalImg.src = currentGallery[currentIndex];
-    counter.textContent = `${currentIndex + 1} / ${currentGallery.length}`;
-    
-    // Обновляем состояние кнопок
+    vibrateBtn(); isGalleryMode = true; currentGallery = images; currentIndex = 0;
+    document.getElementById('navContainer').style.display = 'flex';
+    document.getElementById('imageModal').style.display = 'flex';
+    document.getElementById('modalImage').src = currentGallery[0];
+    document.getElementById('imageCounter').textContent = `1 / ${currentGallery.length}`;
     updateNavButtons();
   }
 
-  // Обновление состояния кнопок навигации
   function updateNavButtons() {
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
-    prevBtn.style.opacity = currentIndex === 0 ? '0.4' : '1';
-    nextBtn.style.opacity = currentIndex === currentGallery.length - 1 ? '0.4' : '1';
+    document.getElementById('prevBtn').style.opacity = currentIndex === 0 ? '0.4' : '1';
+    document.getElementById('nextBtn').style.opacity = currentIndex === currentGallery.length - 1 ? '0.4' : '1';
   }
 
-  // Обновление текущего изображения в галерее
   function updateGalleryImage() {
-    const modalImg = document.getElementById('modalImage');
-    const counter = document.getElementById('imageCounter');
-    modalImg.src = currentGallery[currentIndex];
-    counter.textContent = `${currentIndex + 1} / ${currentGallery.length}`;
+    document.getElementById('modalImage').src = currentGallery[currentIndex];
+    document.getElementById('imageCounter').textContent = `${currentIndex + 1} / ${currentGallery.length}`;
     updateNavButtons();
   }
 
-  // Следующее изображение
-  function nextImage() {
-    if (!isGalleryMode) return;
-    if (currentIndex < currentGallery.length - 1) {
-      currentIndex++;
-      updateGalleryImage();
-    }
-  }
+  function nextImage() { if (isGalleryMode && currentIndex < currentGallery.length - 1) { currentIndex++; updateGalleryImage(); } }
+  function prevImage() { if (isGalleryMode && currentIndex > 0) { currentIndex--; updateGalleryImage(); } }
 
-  // Предыдущее изображение
-  function prevImage() {
-    if (!isGalleryMode) return;
-    if (currentIndex > 0) {
-      currentIndex--;
-      updateGalleryImage();
-    }
-  }
-
-  // Функция закрытия модального окна
   function closeModal() {
-    vibrateBtn();
-    document.getElementById('imageModal').style.display = 'none';
-    isGalleryMode = false;
-    currentGallery = [];
+    vibrateBtn(); document.getElementById('imageModal').style.display = 'none';
+    isGalleryMode = false; currentGallery = [];
   }
 
-  // Обработчики для кнопок навигации
   document.getElementById('prevBtn').addEventListener('click', () => { vibrateBtn(); prevImage(); });
   document.getElementById('nextBtn').addEventListener('click', () => { vibrateBtn(); nextImage(); });
-  
-  // Вибрация на крестик закрытия
-  document.querySelector('.close-modal').addEventListener('click', () => {
-    vibrateBtn();
-    closeModal();
-  });
-
-  // Закрытие по клику на фон (но не на кнопки)
-  document.getElementById('imageModal').addEventListener('click', function(e) {
-    if (e.target === this) {
-      closeModal();
-    }
-  });
+  document.querySelector('.close-modal').addEventListener('click', () => { vibrateBtn(); closeModal(); });
+  document.getElementById('imageModal').addEventListener('click', function(e) { if (e.target === this) closeModal(); });
 
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/SMP/sw.js')
