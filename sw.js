@@ -1,7 +1,7 @@
 // sw.js — Service Worker для EMHelp PWA
-// Версия: v134 (обновлены стили меню с градиентами)
+// Версия: v135 (обновление календаря с добавлением одиночества)
 
-const CACHE_NAME = 'emhelp-v134';
+const CACHE_NAME = 'emhelp-v135';
 
 // Только самые важные страницы (пре-кэш)
 const urlsToCache = [
@@ -80,7 +80,7 @@ self.addEventListener('activate', event => {
         })
       );
     }).then(() => {
-      console.log('✅ Service Worker активирован (v134)');
+      console.log('✅ Service Worker активирован (v135 - календарь с одиночеством)');
       return self.clients.claim();
     })
   );
