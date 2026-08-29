@@ -35,20 +35,70 @@
         .day-cell:active { transform: scale(0.95); }
         .day-cell.empty { background: transparent; cursor: default; border: none; }
         .day-cell.empty:active { transform: none; }
-        .day-cell.today { border: 2px solid transparent; background: #ffcc00; color: #000000; box-shadow: none; }
-        .day-cell.today .day-number { color: #000000; font-weight: 800; }
-        .day-cell.today.shift-active { border: 2px solid transparent; background: #ffcc00; box-shadow: none; animation: none; }
-        .day-cell.today.shift-active .day-number { color: #000000; font-weight: 900; }
-        .day-cell.today.shift-active .shift-type { background: white; color: #000000; }
-        .day-cell.today.shift-active .shift-overtime, .day-cell.today.shift-active .shift-solitude { background: rgba(255,255,255,0.25); color: #000000; }
-        .day-cell.today.vacation-active { border: 2px solid transparent; background: #ffcc00; box-shadow: none; }
-        .day-cell.today.vacation-active .day-number { color: #000000; font-weight: 900; }
-        .day-cell.today .vacation-label { color: #000000; }
-        .day-cell.today.sick-active { border: 2px solid transparent; background: #ffcc00; box-shadow: none; }
-        .day-cell.today.sick-active .day-number { color: #000000; font-weight: 900; }
-        .day-cell.today .sick-label { color: #000000; }
+        
+        /* Сегодняшний день - всегда оранжевый */
+        .day-cell.today { 
+            border: 2px solid #ff8c00; 
+            background: #ffcc00 !important; 
+            color: #000000; 
+            box-shadow: none; 
+        }
+        .day-cell.today .day-number { 
+            color: #000000 !important; 
+            font-weight: 800; 
+        }
+        
+        /* Сегодняшний день со сменой */
+        .day-cell.today.shift-active { 
+            border: 2px solid #ff8c00; 
+            background: #ffcc00 !important; 
+            box-shadow: none; 
+            animation: none; 
+        }
+        .day-cell.today.shift-active .day-number { 
+            color: #000000 !important; 
+            font-weight: 900; 
+        }
+        .day-cell.today.shift-active .shift-type { 
+            background: rgba(255,255,255,0.9) !important; 
+            color: #000000 !important; 
+        }
+        .day-cell.today.shift-active .shift-overtime, 
+        .day-cell.today.shift-active .shift-solitude { 
+            background: rgba(255,255,255,0.5) !important; 
+            color: #000000 !important; 
+        }
+        
+        /* Сегодняшний день с отпуском */
+        .day-cell.today.vacation-active { 
+            border: 2px solid #ff8c00; 
+            background: #ffcc00 !important; 
+            box-shadow: none; 
+        }
+        .day-cell.today.vacation-active .day-number { 
+            color: #000000 !important; 
+            font-weight: 900; 
+        }
+        .day-cell.today .vacation-label { 
+            color: #000000 !important; 
+        }
+        
+        /* Сегодняшний день с больничным */
+        .day-cell.today.sick-active { 
+            border: 2px solid #ff8c00; 
+            background: #ffcc00 !important; 
+            box-shadow: none; 
+        }
+        .day-cell.today.sick-active .day-number { 
+            color: #000000 !important; 
+            font-weight: 900; 
+        }
+        .day-cell.today .sick-label { 
+            color: #000000 !important; 
+        }
+        
         .day-cell.weekend { background: #ffebee; border-color: #ffcdd2; }
-        .day-cell.weekend.today { background: #ffcc00; border-color: transparent; }
+        .day-cell.weekend.today { background: #ffcc00 !important; border-color: #ff8c00; }
         .day-cell.shift-active { background: #7c3aed; border-color: #6d28d9; }
         .day-cell.shift-active.weekend { background: #7c3aed; border-color: #6d28d9; }
         .day-cell.shift-active .day-number { color: white; font-size: 0.9rem; }
@@ -298,7 +348,6 @@
         return `${h} ч ${m} мин`;
     }
     
-    // Функция для правильного согласования глагола с числительным
     function getTransferVerb(hours) {
         if (hours === 1) return 'переходит';
         return 'переходят';
@@ -399,7 +448,6 @@
         let hoursTransferTotal = 0, solitudeTransferTotal = 0;
         let hoursFromPrevTotal = 0, solitudeFromPrevTotal = 0;
         
-        // Проверяем переходы с предыдущего месяца
         const prevMonth = month - 1;
         const prevYear = prevMonth < 0 ? year - 1 : year;
         const prevM = prevMonth < 0 ? 11 : prevMonth;
@@ -452,7 +500,6 @@
             }
         }
         
-        // Проходим по всем дням текущего месяца
         const daysInMonth = new Date(year, month + 1, 0).getDate();
         for (let d = 1; d <= daysInMonth; d++) {
             const key = getDateKey(year, month, d);
@@ -496,7 +543,6 @@
             solitudeCard.classList.remove('active');
         }
         
-        // Отображаем информацию о переходах
         if (hoursFromPrevTotal > 0) {
             hoursFromPrev.textContent = `(в том числе ${formatHoursMinutes(Math.round(hoursFromPrevTotal * 60))} с предыдущего месяца)`;
             hoursFromPrev.style.display = 'block';
