@@ -1,7 +1,7 @@
 // sw.js — Service Worker для EMHelp PWA
-// Версия: v135 (обновление календаря с добавлением одиночества)
+// Версия: v136 (внесены изменения цвета в календарь)
 
-const CACHE_NAME = 'emhelp-v135';
+const CACHE_NAME = 'emhelp-v136';
 
 // Только самые важные страницы (пре-кэш)
 const urlsToCache = [
@@ -80,7 +80,7 @@ self.addEventListener('activate', event => {
         })
       );
     }).then(() => {
-      console.log('✅ Service Worker активирован (v135 - календарь с одиночеством)');
+      console.log('✅ Service Worker активирован (v136)');
       return self.clients.claim();
     })
   );
@@ -96,9 +96,11 @@ self.addEventListener('fetch', event => {
     caches.open(CACHE_NAME).then(cache => {
       return cache.match(event.request).then(cachedResponse => {
         
+        // Сеть с таймаутом 10 секунд
         const networkPromise = Promise.race([
           fetch(event.request)
             .then(networkResponse => {
+              // Кэшируем ВСЕ успешные запросы (авто-кэш)
               if (networkResponse && networkResponse.status === 200) {
                 cache.put(event.request, networkResponse.clone());
               }
@@ -112,14 +114,17 @@ self.addEventListener('fetch', event => {
           return null;
         });
         
+        // Есть в кэше — возвращаем мгновенно
         if (cachedResponse) {
           event.waitUntil(networkPromise);
           return cachedResponse;
         }
         
+        // Нет в кэше — ждём сеть (но не более 10 секунд)
         return networkPromise.then(networkResponse => {
           if (networkResponse) return networkResponse;
           
+          // HTML-запрос без кэша и сети → оффлайн-заглушка
           if (event.request.mode === 'navigate' || 
               event.request.headers.get('accept')?.includes('text/html')) {
             return caches.match('/SMP/offline.html');
