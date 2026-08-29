@@ -60,13 +60,16 @@
             font-weight: 900; 
         }
         .day-cell.today.shift-active .shift-type { 
-            background: rgba(255,255,255,0.9) !important; 
+            background: white !important; 
             color: #000000 !important; 
         }
-        .day-cell.today.shift-active .shift-overtime, 
+        .day-cell.today.shift-active .shift-overtime { 
+            background: white !important; 
+            color: #d32f2f !important; 
+        }
         .day-cell.today.shift-active .shift-solitude { 
-            background: rgba(255,255,255,0.5) !important; 
-            color: #000000 !important; 
+            background: white !important; 
+            color: #1e5b8a !important; 
         }
         
         /* Сегодняшний день с отпуском */
@@ -80,7 +83,8 @@
             font-weight: 900; 
         }
         .day-cell.today .vacation-label { 
-            color: #000000 !important; 
+            background: white !important; 
+            color: #2e7d32 !important; 
         }
         
         /* Сегодняшний день с больничным */
@@ -94,23 +98,113 @@
             font-weight: 900; 
         }
         .day-cell.today .sick-label { 
-            color: #000000 !important; 
+            background: white !important; 
+            color: #e68a2e !important; 
         }
         
         .day-cell.weekend { background: #ffebee; border-color: #ffcdd2; }
         .day-cell.weekend.today { background: #ffcc00 !important; border-color: #ff8c00; }
-        .day-cell.shift-active { background: #7c3aed; border-color: #6d28d9; }
-        .day-cell.shift-active.weekend { background: #7c3aed; border-color: #6d28d9; }
-        .day-cell.shift-active .day-number { color: white; font-size: 0.9rem; }
-        .day-cell.vacation-active { background: #2e7d32; border-color: #1b5e20; }
-        .day-cell.vacation-active .day-number { color: white; font-size: 0.9rem; }
-        .day-cell .vacation-label { color: white; font-size: 0.55rem; font-weight: 500; line-height: 1.15; margin-top: 2px; text-align: center; }
-        .day-cell.sick-active { background: #e68a2e; border-color: #c77800; }
-        .day-cell.sick-active .day-number { color: white; font-size: 0.9rem; }
-        .day-cell .sick-label { color: white; font-size: 0.55rem; font-weight: 500; line-height: 1.15; margin-top: 2px; text-align: center; display: flex; flex-direction: column; align-items: center; }
+        
+        /* Смена - фиолетовый фон */
+        .day-cell.shift-active { 
+            background: #7c3aed; 
+            border-color: #6d28d9; 
+        }
+        .day-cell.shift-active.weekend { 
+            background: #7c3aed; 
+            border-color: #6d28d9; 
+        }
+        .day-cell.shift-active .day-number { 
+            color: white; 
+            font-size: 0.9rem; 
+            font-weight: 700;
+        }
+        
+        /* Время смены - белый фон, черный текст */
+        .day-cell.shift-active .shift-type { 
+            background: white; 
+            color: #000000; 
+            font-size: 0.58rem; 
+            padding: 1px 5px; 
+            border-radius: 5px; 
+            font-weight: 600; 
+            line-height: 1.15; 
+        }
+        
+        /* Переработка - белый фон, красный текст */
+        .day-cell.shift-active .shift-overtime { 
+            background: white; 
+            color: #d32f2f; 
+            font-size: 0.53rem; 
+            padding: 1px 5px; 
+            border-radius: 5px; 
+            font-weight: 600; 
+            line-height: 1.15; 
+        }
+        
+        /* Одиночество - белый фон, синий текст */
+        .day-cell.shift-active .shift-solitude { 
+            background: white; 
+            color: #1e5b8a; 
+            font-size: 0.53rem; 
+            padding: 1px 5px; 
+            border-radius: 5px; 
+            font-weight: 600; 
+            line-height: 1.15; 
+        }
+        
+        /* Отпуск - зеленый фон */
+        .day-cell.vacation-active { 
+            background: #2e7d32; 
+            border-color: #1b5e20; 
+        }
+        .day-cell.vacation-active .day-number { 
+            color: white; 
+            font-size: 0.9rem; 
+            font-weight: 700;
+        }
+        
+        /* Надпись "Отпуск" - белый фон, зеленый текст */
+        .day-cell .vacation-label { 
+            background: white; 
+            color: #2e7d32; 
+            font-size: 0.55rem; 
+            font-weight: 600; 
+            line-height: 1.15; 
+            margin-top: 2px; 
+            text-align: center; 
+            padding: 1px 5px; 
+            border-radius: 5px; 
+        }
+        
+        /* Больничный - оранжевый фон */
+        .day-cell.sick-active { 
+            background: #e68a2e; 
+            border-color: #c77800; 
+        }
+        .day-cell.sick-active .day-number { 
+            color: white; 
+            font-size: 0.9rem; 
+            font-weight: 700;
+        }
+        
+        /* Надпись "Больничный" - белый фон, оранжевый текст */
+        .day-cell .sick-label { 
+            background: white; 
+            color: #e68a2e; 
+            font-size: 0.55rem; 
+            font-weight: 600; 
+            line-height: 1.15; 
+            margin-top: 2px; 
+            text-align: center; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            padding: 1px 5px; 
+            border-radius: 5px; 
+        }
+        
         .day-cell .shift-info { display: flex; flex-direction: column; align-items: center; gap: 1px; margin-top: 2px; }
-        .day-cell.shift-active .shift-type { background: white; color: #000000; font-size: 0.58rem; padding: 1px 5px; border-radius: 5px; font-weight: 600; line-height: 1.15; }
-        .day-cell.shift-active .shift-overtime, .day-cell.shift-active .shift-solitude { background: rgba(255,255,255,0.25); color: white; font-size: 0.53rem; padding: 1px 5px; border-radius: 5px; font-weight: 500; line-height: 1.15; }
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1000; align-items: center; justify-content: center; padding: 16px; }
         .modal-overlay.active { display: flex; }
         .modal-dialog { background: white; border-radius: 18px; padding: 22px 18px; max-width: 400px; width: 100%; box-shadow: 0 10px 30px rgba(0,0,0,0.2); position: relative; max-height: 90vh; overflow-y: auto; }
@@ -176,7 +270,7 @@
             .day-cell.shift-active .day-number { font-size: 1.2rem; }
             .day-cell.shift-active .shift-type { font-size: 0.9rem; padding: 3px 8px; }
             .day-cell.shift-active .shift-overtime, .day-cell.shift-active .shift-solitude { font-size: 0.8rem; padding: 3px 8px; }
-            .day-cell .vacation-label, .day-cell .sick-label { font-size: 0.8rem; }
+            .day-cell .vacation-label, .day-cell .sick-label { font-size: 0.8rem; padding: 3px 8px; }
             .day-header { font-size: 0.85rem; }
             .calendar-grid { gap: 4px; }
             .month-title { font-size: 1.4rem; }
