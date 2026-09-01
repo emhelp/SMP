@@ -1,7 +1,7 @@
 // sw.js — Service Worker для EMHelp PWA
-// Версия: v137 (добавлен белый фон надписей в календаре)
+// Версия: v138 (корректировка календаря)
 
-const CACHE_NAME = 'emhelp-v137';
+const CACHE_NAME = 'emhelp-v138';
 
 // Только самые важные страницы (пре-кэш)
 const urlsToCache = [
@@ -80,7 +80,7 @@ self.addEventListener('activate', event => {
         })
       );
     }).then(() => {
-      console.log('✅ Service Worker активирован (v137)');
+      console.log('✅ Service Worker активирован (v138)');
       return self.clients.claim();
     })
   );
