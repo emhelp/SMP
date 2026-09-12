@@ -238,17 +238,29 @@
         .action-btn { flex: 1; min-width: 90px; padding: 9px 12px; border-radius: 10px; border: none; font-weight: 600; font-size: 0.85rem; cursor: pointer; font-family: inherit; min-height: 40px; display: flex; align-items: center; justify-content: center; gap: 5px; }
         .btn-export { background: #e8f5e9; color: #2e7d32; border: 2px solid #a5d6a7; }
         .btn-clear-all { background: #fff0f0; color: #d32f2f; border: 2px solid #ffcdd2; }
+        
+        /* Статистика - компактная, в одну строку */
         .stats { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
-        .stat-card { border-radius: 10px; padding: 12px; text-align: center; border-left: 4px solid; }
+        .stat-card { 
+            border-radius: 10px; 
+            padding: 8px 12px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 6px; 
+            border-left: 4px solid; 
+            flex-wrap: wrap;
+        }
         .stat-card.hours-stat { background: #fff8e7; border-left-color: #e68a2e; }
         .stat-card.overtime-stat { background: #fff0f0; border-left-color: #d32f2f; display: none; }
-        .stat-card.overtime-stat.active { display: block; }
+        .stat-card.overtime-stat.active { display: flex; }
         .stat-card.solitude-stat { background: #e3f2fd; border-left-color: #1e5b8a; display: none; }
-        .stat-card.solitude-stat.active { display: block; }
-        .stat-number { font-size: 1.4rem; font-weight: 700; color: #0f1446; }
-        .stat-label { font-size: 0.7rem; color: #6f8eaa; margin-top: 2px; }
-        .stat-transfer { font-size: 0.7rem; color: #e68a2e; margin-top: 4px; font-weight: 600; }
-        .stat-from-prev { font-size: 0.7rem; color: #2e7d32; margin-top: 4px; font-weight: 600; }
+        .stat-card.solitude-stat.active { display: flex; }
+        .stat-number { font-size: 1rem; font-weight: 700; color: #0f1446; }
+        .stat-label { font-size: 0.75rem; color: #6f8eaa; }
+        .stat-transfer { font-size: 0.7rem; color: #e68a2e; font-weight: 600; }
+        .stat-from-prev { font-size: 0.7rem; color: #2e7d32; font-weight: 600; }
+        
         .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #0f1446; color: white; padding: 10px 20px; border-radius: 30px; font-weight: 600; font-size: 0.85rem; z-index: 2000; opacity: 0; transition: opacity 0.3s; pointer-events: none; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
         .toast.show { opacity: 1; }
         .loading-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 3000; align-items: center; justify-content: center; }
@@ -271,9 +283,9 @@
             .day-header { font-size: 0.85rem; }
             .calendar-grid { gap: 4px; }
             .month-title { font-size: 1.4rem; }
-            .stat-number { font-size: 1.6rem; }
-            .stat-label { font-size: 0.8rem; }
-            .stat-transfer, .stat-from-prev { font-size: 0.8rem; }
+            .stat-number { font-size: 1.1rem; }
+            .stat-label { font-size: 0.85rem; }
+            .stat-transfer, .stat-from-prev { font-size: 0.75rem; }
             .action-btn { font-size: 0.95rem; padding: 11px 16px; }
         }
         @media (max-width: 400px) {
@@ -287,6 +299,8 @@
             .day-cell.shift-active .shift-overtime, .day-cell.shift-active .shift-solitude { font-size: 0.43rem; }
             .day-cell .vacation-label, .day-cell .sick-label { font-size: 0.43rem; }
             .day-header { font-size: 0.65rem; }
+            .stat-number { font-size: 0.9rem; }
+            .stat-label { font-size: 0.7rem; }
             .stat-transfer, .stat-from-prev { font-size: 0.6rem; }
             .action-btn { font-size: 0.75rem; padding: 8px 6px; }
             .calendar-grid { gap: 2px; }
@@ -308,20 +322,20 @@
         </div>
         <div class="stats">
             <div class="stat-card hours-stat">
-                <div class="stat-number" id="hoursCount">0</div>
-                <div class="stat-label">Часов всего</div>
-                <div class="stat-from-prev" id="hoursFromPrev" style="display:none;"></div>
-                <div class="stat-transfer" id="hoursTransfer" style="display:none;"></div>
+                <span class="stat-number" id="hoursCount">0</span>
+                <span class="stat-label">(часов всего)</span>
+                <span class="stat-from-prev" id="hoursFromPrev" style="display:none;"></span>
+                <span class="stat-transfer" id="hoursTransfer" style="display:none;"></span>
             </div>
             <div class="stat-card overtime-stat" id="overtimeCard">
-                <div class="stat-number" id="overtimeCount">0</div>
-                <div class="stat-label">Часов переработки</div>
+                <span class="stat-number" id="overtimeCount">0</span>
+                <span class="stat-label">(часов переработки)</span>
             </div>
             <div class="stat-card solitude-stat" id="solitudeCard">
-                <div class="stat-number" id="solitudeCount">0</div>
-                <div class="stat-label">Часов одиночества</div>
-                <div class="stat-from-prev" id="solitudeFromPrev" style="display:none;"></div>
-                <div class="stat-transfer" id="solitudeTransfer" style="display:none;"></div>
+                <span class="stat-number" id="solitudeCount">0</span>
+                <span class="stat-label">(часов одиночества)</span>
+                <span class="stat-from-prev" id="solitudeFromPrev" style="display:none;"></span>
+                <span class="stat-transfer" id="solitudeTransfer" style="display:none;"></span>
             </div>
         </div>
         <div class="calendar-grid" id="calendarGrid"></div>
@@ -631,7 +645,7 @@
         
         if (hoursFromPrevTotal > 0) {
             hoursFromPrev.textContent = `(в том числе ${formatHoursMinutes(Math.round(hoursFromPrevTotal * 60))} с предыдущего месяца)`;
-            hoursFromPrev.style.display = 'block';
+            hoursFromPrev.style.display = 'inline';
         } else {
             hoursFromPrev.style.display = 'none';
         }
@@ -640,14 +654,14 @@
             const transferHours = Math.round(hoursTransferTotal * 60) / 60;
             const verb = getTransferVerb(transferHours);
             hoursTransfer.textContent = `(${formatHoursMinutes(Math.round(hoursTransferTotal * 60))} ${verb} на следующий месяц)`;
-            hoursTransfer.style.display = 'block';
+            hoursTransfer.style.display = 'inline';
         } else {
             hoursTransfer.style.display = 'none';
         }
         
         if (solitudeFromPrevTotal > 0) {
             solitudeFromPrev.textContent = `(в том числе ${formatHoursMinutes(solitudeFromPrevTotal)} с предыдущего месяца)`;
-            solitudeFromPrev.style.display = 'block';
+            solitudeFromPrev.style.display = 'inline';
         } else {
             solitudeFromPrev.style.display = 'none';
         }
@@ -656,7 +670,7 @@
             const transferHours = solitudeTransferTotal / 60;
             const verb = getTransferVerb(transferHours);
             solitudeTransfer.textContent = `(${formatHoursMinutes(solitudeTransferTotal)} ${verb} на следующий месяц)`;
-            solitudeTransfer.style.display = 'block';
+            solitudeTransfer.style.display = 'inline';
         } else {
             solitudeTransfer.style.display = 'none';
         }
@@ -817,14 +831,11 @@
         const fileName = `график_смен_${monthTitleExport.textContent.replace(/\s/g, '_')}.png`;
         const dataUrl = canvas.toDataURL('image/png');
         
-        // Определяем iOS
         const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
         
         if (isIOS) {
-            // На iOS показываем модальное окно с картинкой и инструкцией
             showIOSSaveDialog(dataUrl, fileName);
         } else {
-            // На Android и десктопе - обычное скачивание
             const a = document.createElement('a');
             a.download = fileName;
             a.href = dataUrl;
@@ -836,7 +847,6 @@
     }
     
     function showIOSSaveDialog(dataUrl, fileName) {
-        // Создаём модальное окно для iOS
         const overlay = document.createElement('div');
         overlay.style.cssText = `
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
