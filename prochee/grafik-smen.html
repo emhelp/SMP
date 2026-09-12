@@ -811,11 +811,70 @@
     }
     
     async function downloadAsImage() {
-        const canvas = await captureCalendar(); if(!canvas) return;
-        const a = document.createElement('a');
-        a.download = `график_смен_${monthTitleExport.textContent.replace(/\s/g,'_')}.png`;
-        a.href = canvas.toDataURL('image/png'); a.click();
-        showToast('📥 Картинка сохранена');
+        const canvas = await captureCalendar(); 
+        if (!canvas) return;
+        
+        const fileName = `график_смен_${monthTitleExport.textContent.replace(/\s/g, '_')}.png`;
+        const dataUrl = canvas.toDataURL('image/png');
+        
+        // Определяем iOS
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        
+        if (isIOS) {
+            // На iOS показываем модальное окно с картинкой и инструкцией
+            showIOSSaveDialog(dataUrl, fileName);
+        } else {
+            // На Android и десктопе - обычное скачивание
+            const a = document.createElement('a');
+            a.download = fileName;
+            a.href = dataUrl;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            showToast('📥 Картинка сохранена');
+        }
+    }
+    
+    function showIOSSaveDialog(dataUrl, fileName) {
+        // Создаём модальное окно для iOS
+        const overlay = document.createElement('div');
+        overlay.style.cssText = `
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9); z-index: 5000;
+            display: flex; flex-direction: column; align-items: center;
+            justify-content: center; padding: 20px; box-sizing: border-box;
+        `;
+        
+        const instruction = document.createElement('p');
+        instruction.style.cssText = `
+            color: white; font-size: 14px; text-align: center;
+            margin-bottom: 12px; font-weight: 600; line-height: 1.4;
+        `;
+        instruction.innerHTML = '📸 Нажмите на картинку и удерживайте,<br>затем выберите «Сохранить в Фото»';
+        
+        const img = document.createElement('img');
+        img.src = dataUrl;
+        img.style.cssText = `
+            max-width: 100%; max-height: 70vh;
+            border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        `;
+        
+        const closeBtn = document.createElement('button');
+        closeBtn.textContent = '✕ Закрыть';
+        closeBtn.style.cssText = `
+            margin-top: 16px; padding: 12px 32px;
+            background: white; color: #0f1446; border: none;
+            border-radius: 30px; font-weight: 700; font-size: 15px;
+            cursor: pointer; font-family: inherit;
+        `;
+        closeBtn.onclick = () => document.body.removeChild(overlay);
+        
+        overlay.appendChild(instruction);
+        overlay.appendChild(img);
+        overlay.appendChild(closeBtn);
+        document.body.appendChild(overlay);
+        
+        showToast('📸 Удерживайте картинку для сохранения');
     }
     
     function clearAll() {
