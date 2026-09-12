@@ -1,7 +1,7 @@
 // sw.js — Service Worker для EMHelp PWA
-// Версия: v139 (сохранение календаря на iOS)
+// Версия: v140 (уменьшен шрифт в календаре)
 
-const CACHE_NAME = 'emhelp-v139';
+const CACHE_NAME = 'emhelp-v140';
 
 // Только самые важные страницы (пре-кэш)
 const urlsToCache = [
@@ -80,7 +80,7 @@ self.addEventListener('activate', event => {
         })
       );
     }).then(() => {
-      console.log('✅ Service Worker активирован (v139)');
+      console.log('✅ Service Worker активирован (v140)');
       return self.clients.claim();
     })
   );
