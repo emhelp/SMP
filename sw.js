@@ -1,151 +1,908 @@
-// sw.js — Service Worker для EMHelp PWA
-// Версия: v140 (уменьшен шрифт в календаре)
-
-const CACHE_NAME = 'emhelp-v140';
-
-// Только самые важные страницы (пре-кэш)
-const urlsToCache = [
-  // Главная
-  '/SMP/',
-  '/SMP/index.html',
-  
-  // Оффлайн-заглушка
-  '/SMP/offline.html',
-  
-  // Основные страницы навигации (меню разделов)
-  '/SMP/install-instruction.html',
-  '/SMP/templates.html',
-  '/SMP/status.html',
-  '/SMP/calculators.html',
-  '/SMP/kody.html',
-  '/SMP/algorithmsSMP.html',
-  '/SMP/algorithms_apps.html',
-  '/SMP/grify.html',
-  '/SMP/consilium.html',
-  '/SMP/prikaz.html',
-  '/SMP/stations.html',
-  
-  // Страницы кодов МКБ
-  '/SMP/prochee/akusherstvo-mkb.html',
-  
-  // График смен
-  '/SMP/prochee/grafik-smen.html',
-  
-  // CSS, манифест, иконки, скриншоты
-  '/SMP/style.css',
-  '/SMP/manifest.json',
-  '/SMP/icon-192.png',
-  '/SMP/icon-512.png',
-  '/SMP/1712743647196.png',
-  '/SMP/screenshot-mobile-1.png',
-  '/SMP/screenshot-mobile-2.png',
-  '/SMP/screenshot-desktop-1.png'
-];
-
-// ============================================
-// УСТАНОВКА: кэшируем только важные файлы
-// ============================================
-self.addEventListener('install', event => {
-  event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => {
-        console.log('📦 Пре-кэш ' + urlsToCache.length + ' важных файлов...');
-        return Promise.allSettled(
-          urlsToCache.map(url =>
-            cache.add(url).catch(err => {
-              console.warn('⚠️ Не удалось закэшировать:', url, err);
-            })
-          )
-        );
-      })
-      .then(() => {
-        console.log('✅ Установка завершена');
-        return self.skipWaiting();
-      })
-  );
-});
-
-// ============================================
-// АКТИВАЦИЯ: удаляем старый кэш
-// ============================================
-self.addEventListener('activate', event => {
-  event.waitUntil(
-    caches.keys().then(cacheNames => {
-      return Promise.all(
-        cacheNames.map(cache => {
-          if (cache !== CACHE_NAME) {
-            console.log('🗑️ Удаляем старый кэш:', cache);
-            return caches.delete(cache);
-          }
-        })
-      );
-    }).then(() => {
-      console.log('✅ Service Worker активирован (v140)');
-      return self.clients.claim();
-    })
-  );
-});
-
-// ============================================
-// ЗАПРОСЫ: авто-кэш + таймаут 10 сек
-// ============================================
-self.addEventListener('fetch', event => {
-  if (event.request.method !== 'GET') return;
-  
-  event.respondWith(
-    caches.open(CACHE_NAME).then(cache => {
-      return cache.match(event.request).then(cachedResponse => {
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>График смен | Скорая помощь</title>
+    <meta name="description" content="Календарь графика смен для сотрудников скорой помощи">
+    
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0f1446">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="График смен">
+    <link rel="apple-touch-icon" href="icon-192.png">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%); font-family: 'Segoe UI', 'Roboto', sans-serif; padding: 16px; min-height: 100vh; color: #1f3a4b; }
+        .container { max-width: 720px; margin: 0 auto; }
+        .card { background: white; border-radius: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); padding: 18px 16px; margin-bottom: 14px; }
+        .header-card { background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%); color: white; text-align: center; padding: 22px 18px; border-radius: 20px; }
+        .header-card h1 { font-size: 22px; color: white; font-weight: 700; margin-bottom: 4px; }
+        .header-card p { opacity: 0.85; font-size: 0.85rem; }
+        .month-nav { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; gap: 10px; }
+        .month-nav button { background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%); color: white; border: none; border-radius: 10px; padding: 9px 14px; font-size: 15px; cursor: pointer; font-family: inherit; font-weight: 600; transition: all 0.2s; min-width: 40px; min-height: 40px; display: flex; align-items: center; justify-content: center; }
+        .month-nav button:active { transform: scale(0.95); }
+        .month-title { font-size: 1.2rem; font-weight: 700; color: #0f1446; text-align: center; flex: 1; }
+        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; margin-bottom: 14px; }
+        .day-header { text-align: center; font-weight: 700; font-size: 0.75rem; color: #6f8eaa; padding: 6px 2px; text-transform: uppercase; }
+        .day-header.weekend { color: #c62828; font-weight: 800; }
+        .day-cell { aspect-ratio: 0.7; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 10px; cursor: pointer; transition: all 0.15s; font-weight: 600; font-size: 0.85rem; border: 2px solid transparent; background: #f8f9fb; color: #1f3a4b; min-height: 60px; }
+        .day-cell:active { transform: scale(0.95); }
+        .day-cell.empty { background: transparent; cursor: default; border: none; }
+        .day-cell.empty:active { transform: none; }
         
-        // Сеть с таймаутом 10 секунд
-        const networkPromise = Promise.race([
-          fetch(event.request)
-            .then(networkResponse => {
-              // Кэшируем ВСЕ успешные запросы (авто-кэш)
-              if (networkResponse && networkResponse.status === 200) {
-                cache.put(event.request, networkResponse.clone());
-              }
-              return networkResponse;
-            }),
-          new Promise((_, reject) => 
-            setTimeout(() => reject(new Error('timeout')), 10000)
-          )
-        ]).catch(() => {
-          console.log('⏱️ Таймаут или нет сети:', event.request.url);
-          return null;
-        });
-        
-        // Есть в кэше — возвращаем мгновенно
-        if (cachedResponse) {
-          event.waitUntil(networkPromise);
-          return cachedResponse;
+        /* Сегодняшний день - всегда оранжевый */
+        .day-cell.today { 
+            border: 2px solid #ff8c00; 
+            background: #ffcc00 !important; 
+            color: #000000; 
+            box-shadow: none; 
+        }
+        .day-cell.today .day-number { 
+            color: #000000 !important; 
+            font-weight: 800; 
         }
         
-        // Нет в кэше — ждём сеть (но не более 10 секунд)
-        return networkPromise.then(networkResponse => {
-          if (networkResponse) return networkResponse;
-          
-          // HTML-запрос без кэша и сети → оффлайн-заглушка
-          if (event.request.mode === 'navigate' || 
-              event.request.headers.get('accept')?.includes('text/html')) {
-            return caches.match('/SMP/offline.html');
-          }
-          
-          return new Response('Оффлайн — данные недоступны', { 
-            status: 503,
-            statusText: 'Service Unavailable',
-            headers: { 'Content-Type': 'text/plain; charset=utf-8' }
-          });
-        });
-      });
-    })
-  );
-});
+        /* Сегодняшний день со сменой */
+        .day-cell.today.shift-active { 
+            border: 2px solid #ff8c00; 
+            background: #ffcc00 !important; 
+            box-shadow: none; 
+            animation: none; 
+        }
+        .day-cell.today.shift-active .day-number { 
+            color: #000000 !important; 
+            font-weight: 900; 
+        }
+        .day-cell.today.shift-active .shift-type { 
+            background: white !important; 
+            color: #000000 !important; 
+        }
+        .day-cell.today.shift-active .shift-overtime { 
+            background: white !important; 
+            color: #d32f2f !important; 
+        }
+        .day-cell.today.shift-active .shift-solitude { 
+            background: white !important; 
+            color: #1e5b8a !important; 
+        }
+        
+        /* Сегодняшний день с отпуском */
+        .day-cell.today.vacation-active { 
+            border: 2px solid #ff8c00; 
+            background: #ffcc00 !important; 
+            box-shadow: none; 
+        }
+        .day-cell.today.vacation-active .day-number { 
+            color: #000000 !important; 
+            font-weight: 900; 
+        }
+        .day-cell.today .vacation-label { 
+            background: white !important; 
+            color: #2e7d32 !important; 
+        }
+        
+        /* Сегодняшний день с больничным */
+        .day-cell.today.sick-active { 
+            border: 2px solid #ff8c00; 
+            background: #ffcc00 !important; 
+            box-shadow: none; 
+        }
+        .day-cell.today.sick-active .day-number { 
+            color: #000000 !important; 
+            font-weight: 900; 
+        }
+        .day-cell.today .sick-label { 
+            background: white !important; 
+            color: #e68a2e !important; 
+        }
+        
+        .day-cell.weekend { background: #ffebee; border-color: #ffcdd2; }
+        .day-cell.weekend.today { background: #ffcc00 !important; border-color: #ff8c00; }
+        
+        /* Смена - фиолетовый фон */
+        .day-cell.shift-active { 
+            background: #7c3aed; 
+            border-color: #6d28d9; 
+        }
+        .day-cell.shift-active.weekend { 
+            background: #7c3aed; 
+            border-color: #6d28d9; 
+        }
+        .day-cell.shift-active .day-number { 
+            color: white; 
+            font-size: 0.9rem; 
+            font-weight: 700;
+        }
+        
+        /* Время смены - белый фон, черный текст */
+        .day-cell.shift-active .shift-type { 
+            background: white; 
+            color: #000000; 
+            font-size: 0.58rem; 
+            padding: 1px 5px; 
+            border-radius: 5px; 
+            font-weight: 600; 
+            line-height: 1.15; 
+        }
+        
+        /* Переработка - белый фон, красный текст */
+        .day-cell.shift-active .shift-overtime { 
+            background: white; 
+            color: #d32f2f; 
+            font-size: 0.53rem; 
+            padding: 1px 5px; 
+            border-radius: 5px; 
+            font-weight: 600; 
+            line-height: 1.15; 
+        }
+        
+        /* Одиночество - белый фон, синий текст */
+        .day-cell.shift-active .shift-solitude { 
+            background: white; 
+            color: #1e5b8a; 
+            font-size: 0.53rem; 
+            padding: 1px 5px; 
+            border-radius: 5px; 
+            font-weight: 600; 
+            line-height: 1.15; 
+        }
+        
+        /* Отпуск - зеленый фон */
+        .day-cell.vacation-active { 
+            background: #2e7d32; 
+            border-color: #1b5e20; 
+        }
+        .day-cell.vacation-active .day-number { 
+            color: white; 
+            font-size: 0.9rem; 
+            font-weight: 700;
+        }
+        
+        /* Надпись "Отпуск" - белый фон, зеленый текст */
+        .day-cell .vacation-label { 
+            background: white; 
+            color: #2e7d32; 
+            font-size: 0.55rem; 
+            font-weight: 600; 
+            line-height: 1.15; 
+            margin-top: 2px; 
+            text-align: center; 
+            padding: 1px 5px; 
+            border-radius: 5px; 
+        }
+        
+        /* Больничный - оранжевый фон */
+        .day-cell.sick-active { 
+            background: #e68a2e; 
+            border-color: #c77800; 
+        }
+        .day-cell.sick-active .day-number { 
+            color: white; 
+            font-size: 0.9rem; 
+            font-weight: 700;
+        }
+        
+        /* Надпись "Больничный" - белый фон, оранжевый текст */
+        .day-cell .sick-label { 
+            background: white; 
+            color: #e68a2e; 
+            font-size: 0.55rem; 
+            font-weight: 600; 
+            line-height: 1.15; 
+            margin-top: 2px; 
+            text-align: center; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            padding: 1px 5px; 
+            border-radius: 5px; 
+        }
+        
+        .day-cell .shift-info { display: flex; flex-direction: column; align-items: center; gap: 1px; margin-top: 2px; }
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1000; align-items: center; justify-content: center; padding: 16px; }
+        .modal-overlay.active { display: flex; }
+        .modal-dialog { background: white; border-radius: 18px; padding: 22px 18px; max-width: 400px; width: 100%; box-shadow: 0 10px 30px rgba(0,0,0,0.2); position: relative; max-height: 90vh; overflow-y: auto; }
+        .modal-close { position: absolute; top: 12px; right: 14px; width: 32px; height: 32px; border: none; background: #f0f0f0; border-radius: 50%; font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; color: #6f8eaa; }
+        .modal-dialog h3 { font-size: 1.05rem; font-weight: 700; color: #0f1446; margin-bottom: 4px; padding-right: 30px; }
+        .modal-date { font-size: 0.85rem; color: #6f8eaa; margin-bottom: 14px; }
+        .time-picker-container { background: #f8f9fb; border-radius: 14px; padding: 14px; margin-bottom: 10px; }
+        .time-picker-row { display: flex; align-items: center; justify-content: center; gap: 4px; flex-wrap: wrap; }
+        .time-picker-col { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+        .time-picker-label { font-size: 0.65rem; font-weight: 600; color: #6f8eaa; }
+        .time-picker-btn { width: 40px; height: 30px; border: 2px solid #d4e2f0; border-radius: 8px; background: white; font-size: 1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; color: #0f1446; font-weight: 700; }
+        .time-picker-btn:active { background: #0f1446; color: white; }
+        .time-picker-value { font-size: 1.3rem; font-weight: 700; color: #0f1446; min-width: 40px; text-align: center; background: white; padding: 5px 6px; border-radius: 8px; border: 2px solid #d4e2f0; }
+        .time-picker-separator { font-size: 1.3rem; font-weight: 700; color: #0f1446; margin: 0 2px; padding-top: 16px; }
+        .time-picker-dash { font-size: 1.5rem; font-weight: 700; color: #0f1446; margin: 0 6px; padding-top: 16px; }
+        .overtime-section, .solitude-section { background: #fff0f0; border-radius: 10px; padding: 10px; margin-bottom: 10px; border: 1px solid #ffcdd2; display: none; }
+        .overtime-section.active, .solitude-section.active { display: block; }
+        .solitude-section { background: #f0f7ff; border-color: #b8d4f0; }
+        .btn-row { display: flex; gap: 8px; margin-top: 10px; }
+        .btn { flex: 1; padding: 11px; border-radius: 10px; border: none; font-weight: 600; font-size: 0.9rem; cursor: pointer; font-family: inherit; min-height: 42px; display: flex; align-items: center; justify-content: center; }
+        .btn-save { background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%); color: white; }
+        .btn-cancel { background: #eef7ff; color: #0f1446; border: 2px solid #d4e2f0; }
+        .btn-clear { background: #fff0f0; color: #d32f2f; border: 2px solid #ffcdd2; margin-top: 8px; width: 100%; display: flex; flex-direction: column; align-items: center; padding: 10px; }
+        .btn-overtime { background: #fce4ec; color: #d32f2f; border: 2px solid #f8bbd0; margin-top: 8px; width: 100%; padding: 11px; border-radius: 10px; font-weight: 600; font-size: 0.9rem; cursor: pointer; font-family: inherit; min-height: 42px; }
+        .btn-overtime.active { background: #f8bbd0; }
+        .btn-solitude { background: #e3f2fd; color: #1e5b8a; border: 2px solid #90caf9; margin-top: 8px; width: 100%; padding: 11px; border-radius: 10px; font-weight: 600; font-size: 0.9rem; cursor: pointer; font-family: inherit; min-height: 42px; }
+        .btn-solitude.active { background: #bbdefb; }
+        .btn-vacation { background: #e8f5e9; color: #2e7d32; border: 2px solid #a5d6a7; margin-top: 8px; width: 100%; padding: 11px; border-radius: 10px; font-weight: 600; font-size: 0.9rem; cursor: pointer; font-family: inherit; min-height: 42px; }
+        .btn-sick { background: #fff3e0; color: #e68a2e; border: 2px solid #ffcc80; margin-top: 8px; width: 100%; padding: 11px; border-radius: 10px; font-weight: 600; font-size: 0.9rem; cursor: pointer; font-family: inherit; min-height: 42px; }
+        .action-buttons { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
+        .action-btn { flex: 1; min-width: 90px; padding: 9px 12px; border-radius: 10px; border: none; font-weight: 600; font-size: 0.85rem; cursor: pointer; font-family: inherit; min-height: 40px; display: flex; align-items: center; justify-content: center; gap: 5px; }
+        .btn-export { background: #e8f5e9; color: #2e7d32; border: 2px solid #a5d6a7; }
+        .btn-clear-all { background: #fff0f0; color: #d32f2f; border: 2px solid #ffcdd2; }
+        
+        /* Статистика - компактная, в одну строку */
+        .stats { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+        .stat-card { 
+            border-radius: 10px; 
+            padding: 8px 12px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 6px; 
+            border-left: 4px solid; 
+            flex-wrap: wrap;
+        }
+        .stat-card.hours-stat { background: #fff8e7; border-left-color: #e68a2e; }
+        .stat-card.overtime-stat { background: #fff0f0; border-left-color: #d32f2f; display: none; }
+        .stat-card.overtime-stat.active { display: flex; }
+        .stat-card.solitude-stat { background: #e3f2fd; border-left-color: #1e5b8a; display: none; }
+        .stat-card.solitude-stat.active { display: flex; }
+        .stat-number { font-size: 1rem; font-weight: 700; color: #0f1446; }
+        .stat-label { font-size: 0.75rem; color: #000000; }
+        .stat-transfer { font-size: 0.7rem; color: #e68a2e; font-weight: 600; }
+        .stat-from-prev { font-size: 0.7rem; color: #2e7d32; font-weight: 600; }
+        
+        .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #0f1446; color: white; padding: 10px 20px; border-radius: 30px; font-weight: 600; font-size: 0.85rem; z-index: 2000; opacity: 0; transition: opacity 0.3s; pointer-events: none; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+        .toast.show { opacity: 1; }
+        .loading-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 3000; align-items: center; justify-content: center; }
+        .loading-overlay.active { display: flex; }
+        .loading-spinner { background: white; border-radius: 16px; padding: 24px 32px; text-align: center; box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
+        .loading-spinner .spinner { width: 36px; height: 36px; border: 4px solid #e2ecf3; border-top-color: #0f1446; border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 10px; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .loading-spinner p { font-weight: 600; color: #0f1446; font-size: 0.85rem; }
+        @media (min-width: 768px) {
+            body { padding: 24px; }
+            .container { max-width: 720px; }
+            .card { padding: 24px 22px; border-radius: 24px; }
+            .header-card { padding: 28px 24px; border-radius: 24px; }
+            .header-card h1 { font-size: 26px; }
+            .day-cell { min-height: 52px; font-size: 1rem; aspect-ratio: 0.8; }
+            .day-cell.shift-active .day-number { font-size: 1.2rem; }
+            .day-cell.shift-active .shift-type { font-size: 0.9rem; padding: 3px 8px; }
+            .day-cell.shift-active .shift-overtime, .day-cell.shift-active .shift-solitude { font-size: 0.8rem; padding: 3px 8px; }
+            .day-cell .vacation-label, .day-cell .sick-label { font-size: 0.8rem; padding: 3px 8px; }
+            .day-header { font-size: 0.85rem; }
+            .calendar-grid { gap: 4px; }
+            .month-title { font-size: 1.4rem; }
+            .stat-number { font-size: 1.1rem; }
+            .stat-label { font-size: 0.85rem; }
+            .stat-transfer, .stat-from-prev { font-size: 0.75rem; }
+            .action-btn { font-size: 0.95rem; padding: 11px 16px; }
+        }
+        @media (max-width: 400px) {
+            body { padding: 8px; }
+            .card { padding: 12px 10px; }
+            .header-card { padding: 16px 12px; }
+            .header-card h1 { font-size: 19px; }
+            .day-cell { min-height: 52px; font-size: 0.78rem; aspect-ratio: 0.65; }
+            .day-cell.shift-active .day-number { font-size: 0.82rem; }
+            .day-cell.shift-active .shift-type { font-size: 0.48rem; }
+            .day-cell.shift-active .shift-overtime, .day-cell.shift-active .shift-solitude { font-size: 0.43rem; }
+            .day-cell .vacation-label, .day-cell .sick-label { font-size: 0.43rem; }
+            .day-header { font-size: 0.65rem; }
+            .stat-number { font-size: 0.9rem; }
+            .stat-label { font-size: 0.7rem; }
+            .stat-transfer, .stat-from-prev { font-size: 0.6rem; }
+            .action-btn { font-size: 0.75rem; padding: 8px 6px; }
+            .calendar-grid { gap: 2px; }
+        }
+    </style>
+</head>
+<body>
 
-// ============================================
-// СООБЩЕНИЯ от страниц
-// ============================================
-self.addEventListener('message', event => {
-  if (event.data === 'skipWaiting') {
-    self.skipWaiting();
-  }
-});
+<div class="container">
+    <div class="card header-card no-export">
+        <h1>📅 График рабочих смен</h1>
+        <p>Нажмите на день, чтобы настроить время смены</p>
+    </div>
+    <div class="card" id="calendarCard">
+        <div class="month-title" id="monthTitleExport" style="font-size: 1.4rem; text-align: center; margin-bottom: 12px; color: #0f1446; font-weight: 700;"></div>
+        <div class="month-nav no-export">
+            <button id="prevMonth">◀</button>
+            <button id="nextMonth">▶</button>
+        </div>
+        <div class="stats">
+            <div class="stat-card hours-stat">
+                <span class="stat-number" id="hoursCount">0</span>
+                <span class="stat-label">(часов всего)</span>
+                <span class="stat-from-prev" id="hoursFromPrev" style="display:none;"></span>
+                <span class="stat-transfer" id="hoursTransfer" style="display:none;"></span>
+            </div>
+            <div class="stat-card overtime-stat" id="overtimeCard">
+                <span class="stat-number" id="overtimeCount">0</span>
+                <span class="stat-label">(часов переработки)</span>
+            </div>
+            <div class="stat-card solitude-stat" id="solitudeCard">
+                <span class="stat-number" id="solitudeCount">0</span>
+                <span class="stat-label">(часов одиночества)</span>
+                <span class="stat-from-prev" id="solitudeFromPrev" style="display:none;"></span>
+                <span class="stat-transfer" id="solitudeTransfer" style="display:none;"></span>
+            </div>
+        </div>
+        <div class="calendar-grid" id="calendarGrid"></div>
+        <div class="action-buttons no-export">
+            <button class="action-btn btn-export" id="exportBtn">📥 Сохранить как картинку</button>
+            <button class="action-btn btn-clear-all" id="clearAllBtn">🗑️ Очистить всё</button>
+        </div>
+    </div>
+</div>
+
+<div class="modal-overlay" id="modal">
+    <div class="modal-dialog">
+        <button class="modal-close" id="modalClose">✕</button>
+        <h3>📋 Выберите время смены</h3>
+        <div class="modal-date" id="modalDate"></div>
+        <div class="time-picker-container">
+            <div class="time-picker-row">
+                <div class="time-picker-col"><div class="time-picker-label">Час</div><button class="time-picker-btn" id="startUp">▲</button><div class="time-picker-value" id="startValue">9</div><button class="time-picker-btn" id="startDown">▼</button></div>
+                <div class="time-picker-separator">:</div>
+                <div class="time-picker-col"><div class="time-picker-label">Мин</div><button class="time-picker-btn" id="startMinUp">▲</button><div class="time-picker-value" id="startMinValue">00</div><button class="time-picker-btn" id="startMinDown">▼</button></div>
+                <div class="time-picker-dash">—</div>
+                <div class="time-picker-col"><div class="time-picker-label">Час</div><button class="time-picker-btn" id="endUp">▲</button><div class="time-picker-value" id="endValue">9</div><button class="time-picker-btn" id="endDown">▼</button></div>
+                <div class="time-picker-separator">:</div>
+                <div class="time-picker-col"><div class="time-picker-label">Мин</div><button class="time-picker-btn" id="endMinUp">▲</button><div class="time-picker-value" id="endMinValue">00</div><button class="time-picker-btn" id="endMinDown">▼</button></div>
+            </div>
+        </div>
+        <button class="btn btn-overtime" id="toggleOvertime">⏰ Добавить переработку</button>
+        <div class="overtime-section" id="overtimeSection">
+            <div class="time-picker-row">
+                <div class="time-picker-col"><div class="time-picker-label">Часы</div><button class="time-picker-btn" id="otHoursUp">▲</button><div class="time-picker-value" id="otHoursValue">0</div><button class="time-picker-btn" id="otHoursDown">▼</button></div>
+                <div class="time-picker-separator">:</div>
+                <div class="time-picker-col"><div class="time-picker-label">Мин</div><button class="time-picker-btn" id="otMinUp">▲</button><div class="time-picker-value" id="otMinValue">00</div><button class="time-picker-btn" id="otMinDown">▼</button></div>
+            </div>
+        </div>
+        <button class="btn btn-solitude" id="toggleSolitude">🧍 Добавить одиночество</button>
+        <div class="solitude-section" id="solitudeSection">
+            <div class="time-picker-row">
+                <div class="time-picker-col"><div class="time-picker-label">Часы</div><button class="time-picker-btn" id="solHoursUp">▲</button><div class="time-picker-value" id="solHoursValue">0</div><button class="time-picker-btn" id="solHoursDown">▼</button></div>
+                <div class="time-picker-separator">:</div>
+                <div class="time-picker-col"><div class="time-picker-label">Мин</div><button class="time-picker-btn" id="solMinUp">▲</button><div class="time-picker-value" id="solMinValue">00</div><button class="time-picker-btn" id="solMinDown">▼</button></div>
+            </div>
+        </div>
+        <button class="btn btn-vacation" id="setVacation">🏖️ Добавить отпуск</button>
+        <button class="btn btn-sick" id="setSick">🤒 Добавить больничный</button>
+        <div class="btn-row">
+            <button class="btn btn-save" id="saveShift">Сохранить</button>
+            <button class="btn btn-cancel" id="cancelShift">Отмена</button>
+        </div>
+        <button class="btn btn-clear" id="clearShift">🗑️ Очистить день</button>
+    </div>
+</div>
+
+<div class="loading-overlay" id="loadingOverlay"><div class="loading-spinner"><div class="spinner"></div><p>Создаю картинку...</p></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+(function() {
+    let currentDate = new Date();
+    let selectedDay = null;
+    let scheduleData = JSON.parse(localStorage.getItem('scheduleData') || '{}');
+    
+    const monthTitleExport = document.getElementById('monthTitleExport');
+    const calendarGrid = document.getElementById('calendarGrid');
+    const modal = document.getElementById('modal');
+    const modalDate = document.getElementById('modalDate');
+    const startValue = document.getElementById('startValue');
+    const startMinValue = document.getElementById('startMinValue');
+    const endValue = document.getElementById('endValue');
+    const endMinValue = document.getElementById('endMinValue');
+    const hoursCount = document.getElementById('hoursCount');
+    const overtimeCount = document.getElementById('overtimeCount');
+    const overtimeCard = document.getElementById('overtimeCard');
+    const solitudeCount = document.getElementById('solitudeCount');
+    const solitudeCard = document.getElementById('solitudeCard');
+    const hoursFromPrev = document.getElementById('hoursFromPrev');
+    const hoursTransfer = document.getElementById('hoursTransfer');
+    const solitudeFromPrev = document.getElementById('solitudeFromPrev');
+    const solitudeTransfer = document.getElementById('solitudeTransfer');
+    const overtimeSection = document.getElementById('overtimeSection');
+    const solitudeSection = document.getElementById('solitudeSection');
+    const toggleOvertime = document.getElementById('toggleOvertime');
+    const toggleSolitude = document.getElementById('toggleSolitude');
+    const otHoursValue = document.getElementById('otHoursValue');
+    const otMinValue = document.getElementById('otMinValue');
+    const solHoursValue = document.getElementById('solHoursValue');
+    const solMinValue = document.getElementById('solMinValue');
+    const toast = document.getElementById('toast');
+    const loadingOverlay = document.getElementById('loadingOverlay');
+    const calendarCard = document.getElementById('calendarCard');
+    
+    const monthNames = ['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'];
+    const dayNames = ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'];
+    
+    let toastTimer;
+    let customStartHour = 9, customStartMinute = 0;
+    let customEndHour = 9, customEndMinute = 0;
+    let overtimeHours = 0, overtimeMinutes = 0, overtimeActive = false;
+    let solitudeHours = 0, solitudeMinutes = 0, solitudeActive = false;
+    
+    const MAX_SOLITUDE_HOURS = 25;
+    
+    function vibrate() { if (navigator.vibrate) navigator.vibrate(10); }
+    function showToast(m) { clearTimeout(toastTimer); toast.textContent = m; toast.classList.add('show'); toastTimer = setTimeout(() => toast.classList.remove('show'), 2000); }
+    function getDateKey(y,m,d) { return `${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`; }
+    function formatHoursMinutes(minutes) {
+        const h = Math.floor(minutes / 60);
+        const m = minutes % 60;
+        if (h === 0) return `${m} мин`;
+        if (m === 0) return `${h} ч`;
+        return `${h} ч ${m} мин`;
+    }
+    
+    function getTransferVerb(hours) {
+        if (hours === 1) return 'переходит';
+        return 'переходят';
+    }
+    
+    function updateTimeDisplay() {
+        startValue.textContent = customStartHour;
+        startMinValue.textContent = String(customStartMinute).padStart(2,'0');
+        endValue.textContent = customEndHour;
+        endMinValue.textContent = String(customEndMinute).padStart(2,'0');
+        otHoursValue.textContent = overtimeHours;
+        otMinValue.textContent = String(overtimeMinutes).padStart(2,'0');
+        solHoursValue.textContent = solitudeHours;
+        solMinValue.textContent = String(solitudeMinutes).padStart(2,'0');
+    }
+    function updateOvertimeUI() {
+        if (overtimeActive) {
+            overtimeSection.classList.add('active');
+            toggleOvertime.classList.add('active');
+            toggleOvertime.innerHTML = '⏰ Переработка: '+overtimeHours+':'+String(overtimeMinutes).padStart(2,'0');
+        } else {
+            overtimeSection.classList.remove('active');
+            toggleOvertime.classList.remove('active');
+            toggleOvertime.innerHTML = '⏰ Добавить переработку';
+        }
+    }
+    function updateSolitudeUI() {
+        if (solitudeActive) {
+            solitudeSection.classList.add('active');
+            toggleSolitude.classList.add('active');
+            toggleSolitude.innerHTML = '🧍 Одиночество: '+solitudeHours+':'+String(solitudeMinutes).padStart(2,'0');
+        } else {
+            solitudeSection.classList.remove('active');
+            toggleSolitude.classList.remove('active');
+            toggleSolitude.innerHTML = '🧍 Добавить одиночество';
+        }
+    }
+    
+    function getShiftHoursInMonth(year, month, day, sh, sm, eh, em) {
+        const startTotal = sh * 60 + sm;
+        const endTotal = eh * 60 + em;
+        let duration;
+        if (endTotal > startTotal) duration = endTotal - startTotal;
+        else if (endTotal === startTotal) duration = 1440;
+        else duration = 1440 - startTotal + endTotal;
+        if (duration === 0) return { current: 0, transfer: 0 };
+        
+        const shiftStart = new Date(year, month, day, sh, sm, 0);
+        const shiftEnd = new Date(shiftStart.getTime() + duration * 60000);
+        
+        const monthStart = new Date(year, month, 1, 0, 0, 0);
+        const monthEnd = new Date(year, month + 1, 0, 23, 59, 59, 999);
+        const nextMonthStart = new Date(year, month + 1, 1, 0, 0, 0);
+        
+        const overlapStart = shiftStart > monthStart ? shiftStart : monthStart;
+        const overlapEnd = shiftEnd < monthEnd ? shiftEnd : monthEnd;
+        
+        let currentMinutes = 0;
+        if (overlapStart < overlapEnd) {
+            currentMinutes = Math.round((overlapEnd - overlapStart) / 60000);
+        }
+        
+        let transferMinutes = 0;
+        if (shiftEnd > nextMonthStart) {
+            transferMinutes = Math.round((shiftEnd - nextMonthStart) / 60000);
+        }
+        
+        return { current: currentMinutes / 60, transfer: transferMinutes / 60 };
+    }
+    
+    function getSolitudeMinutesInCurrentMonth(year, month, day, totalSolitudeMinutes, shiftStartHour, shiftStartMinute) {
+        const solitudeStart = new Date(year, month, day, shiftStartHour, shiftStartMinute, 0);
+        const solitudeEnd = new Date(solitudeStart.getTime() + totalSolitudeMinutes * 60000);
+        
+        const monthStart = new Date(year, month, 1, 0, 0, 0);
+        const monthEnd = new Date(year, month + 1, 0, 23, 59, 59, 999);
+        const nextMonthStart = new Date(year, month + 1, 1, 0, 0, 0);
+        
+        const overlapStart = solitudeStart > monthStart ? solitudeStart : monthStart;
+        const overlapEnd = solitudeEnd < monthEnd ? solitudeEnd : monthEnd;
+        
+        let currentMinutes = 0;
+        if (overlapStart < overlapEnd) {
+            currentMinutes = Math.round((overlapEnd - overlapStart) / 60000);
+        }
+        
+        let transferMinutes = 0;
+        if (solitudeEnd > nextMonthStart) {
+            transferMinutes = Math.round((solitudeEnd - nextMonthStart) / 60000);
+        }
+        
+        return { current: currentMinutes, transfer: transferMinutes };
+    }
+    
+    function updateStats() {
+        const year = currentDate.getFullYear(), month = currentDate.getMonth();
+        let hours = 0, overtimeTotal = 0, solitudeTotal = 0;
+        let hoursTransferTotal = 0, solitudeTransferTotal = 0;
+        let hoursFromPrevTotal = 0, solitudeFromPrevTotal = 0;
+        
+        const prevMonth = month - 1;
+        const prevYear = prevMonth < 0 ? year - 1 : year;
+        const prevM = prevMonth < 0 ? 11 : prevMonth;
+        const prevDaysInMonth = new Date(prevYear, prevM + 1, 0).getDate();
+        const lastDayPrevMonth = prevDaysInMonth;
+        const prevKey = getDateKey(prevYear, prevM, lastDayPrevMonth);
+        const prevValue = scheduleData[prevKey];
+        
+        if (prevValue && prevValue.type !== 'vacation' && prevValue.type !== 'sick') {
+            const sh = prevValue.customStart ?? 9;
+            const sm = prevValue.customStartMinute ?? 0;
+            const eh = prevValue.customEnd ?? 9;
+            const em = prevValue.customEndMinute ?? 0;
+            
+            const startTotal = sh * 60 + sm;
+            const endTotal = eh * 60 + em;
+            let duration;
+            if (endTotal > startTotal) duration = endTotal - startTotal;
+            else if (endTotal === startTotal) duration = 1440;
+            else duration = 1440 - startTotal + endTotal;
+            
+            const shiftStart = new Date(prevYear, prevM, lastDayPrevMonth, sh, sm, 0);
+            const shiftEnd = new Date(shiftStart.getTime() + duration * 60000);
+            
+            const currentMonthStart = new Date(year, month, 1, 0, 0, 0);
+            const currentMonthEnd = new Date(year, month + 1, 0, 23, 59, 59, 999);
+            
+            const overlapStart = shiftStart > currentMonthStart ? shiftStart : currentMonthStart;
+            const overlapEnd = shiftEnd < currentMonthEnd ? shiftEnd : currentMonthEnd;
+            
+            if (overlapStart < overlapEnd) {
+                const fromPrevMinutes = Math.round((overlapEnd - overlapStart) / 60000);
+                hoursFromPrevTotal += fromPrevMinutes / 60;
+                hours += fromPrevMinutes / 60;
+            }
+            
+            if (prevValue.solitudeHours || prevValue.solitudeMinutes) {
+                const totalSolitudeMinutes = (prevValue.solitudeHours || 0) * 60 + (prevValue.solitudeMinutes || 0);
+                const solitudeStart = new Date(prevYear, prevM, lastDayPrevMonth, sh, sm, 0);
+                const solitudeEnd = new Date(solitudeStart.getTime() + totalSolitudeMinutes * 60000);
+                
+                const overlapStartSol = solitudeStart > currentMonthStart ? solitudeStart : currentMonthStart;
+                const overlapEndSol = solitudeEnd < currentMonthEnd ? solitudeEnd : currentMonthEnd;
+                
+                if (overlapStartSol < overlapEndSol) {
+                    const fromPrevSolMinutes = Math.round((overlapEndSol - overlapStartSol) / 60000);
+                    solitudeFromPrevTotal += fromPrevSolMinutes;
+                    solitudeTotal += fromPrevSolMinutes;
+                }
+            }
+        }
+        
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+        for (let d = 1; d <= daysInMonth; d++) {
+            const key = getDateKey(year, month, d);
+            const value = scheduleData[key];
+            if (!value || value.type === 'vacation' || value.type === 'sick') continue;
+            
+            const sh = value.customStart ?? 9;
+            const sm = value.customStartMinute ?? 0;
+            const eh = value.customEnd ?? 9;
+            const em = value.customEndMinute ?? 0;
+            
+            const shiftResult = getShiftHoursInMonth(year, month, d, sh, sm, eh, em);
+            hours += shiftResult.current;
+            hoursTransferTotal += shiftResult.transfer;
+            
+            overtimeTotal += (value.overtimeHours || 0) * 60 + (value.overtimeMinutes || 0);
+            
+            if (value.solitudeHours || value.solitudeMinutes) {
+                const totalSolitudeMinutes = (value.solitudeHours || 0) * 60 + (value.solitudeMinutes || 0);
+                const solitudeResult = getSolitudeMinutesInCurrentMonth(year, month, d, totalSolitudeMinutes, sh, sm);
+                solitudeTotal += solitudeResult.current;
+                solitudeTransferTotal += solitudeResult.transfer;
+            }
+        }
+        
+        hoursCount.textContent = Math.round(hours * 10) / 10;
+        
+        const otH = Math.floor(overtimeTotal / 60), otM = overtimeTotal % 60;
+        overtimeCount.textContent = otH + ' ч ' + otM + ' мин';
+        if (overtimeTotal > 0) {
+            overtimeCard.classList.add('active');
+        } else {
+            overtimeCard.classList.remove('active');
+        }
+        
+        const solH = Math.floor(solitudeTotal / 60), solM = solitudeTotal % 60;
+        solitudeCount.textContent = solH + ' ч ' + solM + ' мин';
+        if (solitudeTotal > 0) {
+            solitudeCard.classList.add('active');
+        } else {
+            solitudeCard.classList.remove('active');
+        }
+        
+        if (hoursFromPrevTotal > 0) {
+            hoursFromPrev.textContent = `(в том числе ${formatHoursMinutes(Math.round(hoursFromPrevTotal * 60))} с предыдущего месяца)`;
+            hoursFromPrev.style.display = 'inline';
+        } else {
+            hoursFromPrev.style.display = 'none';
+        }
+        
+        if (hoursTransferTotal > 0) {
+            const transferHours = Math.round(hoursTransferTotal * 60) / 60;
+            const verb = getTransferVerb(transferHours);
+            hoursTransfer.textContent = `(${formatHoursMinutes(Math.round(hoursTransferTotal * 60))} ${verb} на следующий месяц)`;
+            hoursTransfer.style.display = 'inline';
+        } else {
+            hoursTransfer.style.display = 'none';
+        }
+        
+        if (solitudeFromPrevTotal > 0) {
+            solitudeFromPrev.textContent = `(в том числе ${formatHoursMinutes(solitudeFromPrevTotal)} с предыдущего месяца)`;
+            solitudeFromPrev.style.display = 'inline';
+        } else {
+            solitudeFromPrev.style.display = 'none';
+        }
+        
+        if (solitudeTransferTotal > 0) {
+            const transferHours = solitudeTransferTotal / 60;
+            const verb = getTransferVerb(transferHours);
+            solitudeTransfer.textContent = `(${formatHoursMinutes(solitudeTransferTotal)} ${verb} на следующий месяц)`;
+            solitudeTransfer.style.display = 'inline';
+        } else {
+            solitudeTransfer.style.display = 'none';
+        }
+    }
+    
+    function updateMonthTitle() {
+        const y = currentDate.getFullYear(), m = currentDate.getMonth();
+        monthTitleExport.textContent = `${monthNames[m]} ${y}`;
+    }
+    function isWeekend(i) { return i === 5 || i === 6; }
+    
+    function renderCalendar() {
+        const y = currentDate.getFullYear(), m = currentDate.getMonth();
+        updateMonthTitle();
+        const first = new Date(y,m,1), last = new Date(y,m+1,0);
+        const sd = (first.getDay()+6)%7;
+        let h = '';
+        dayNames.forEach((d,i) => h += `<div class="day-header${isWeekend(i)?' weekend':''}">${d}</div>`);
+        for (let i=0; i<sd; i++) h += '<div class="day-cell empty"></div>';
+        const today = new Date(), todayKey = getDateKey(today.getFullYear(), today.getMonth(), today.getDate());
+        for (let d=1; d<=last.getDate(); d++) {
+            const key = getDateKey(y,m,d), sv = scheduleData[key];
+            const dow = (sd+d-1)%7;
+            let cls = 'day-cell' + (isWeekend(dow)?' weekend':'');
+            let info = '';
+            if (key===todayKey) cls += ' today';
+            if (sv) {
+                if (sv.type==='vacation') { cls += ' vacation-active'; info = '<span class="vacation-label">Отпуск</span>'; }
+                else if (sv.type==='sick') { cls += ' sick-active'; info = '<span class="sick-label"><span>Больнич</span><span>ный</span></span>'; }
+                else {
+                    cls += ' shift-active';
+                    const sh = sv.customStart||9, sm = sv.customStartMinute||0;
+                    const eh = sv.customEnd||9, em = sv.customEndMinute||0;
+                    const lines = formatShiftLines(sh,sm,eh,em);
+                    info = '<div class="shift-info">';
+                    lines.forEach(l => info += `<span class="shift-type">${l}</span>`);
+                    if (sv.overtimeHours||sv.overtimeMinutes) {
+                        info += `<span class="shift-overtime">+${sv.overtimeHours||0}:${String(sv.overtimeMinutes||0).padStart(2,'0')}</span>`;
+                    }
+                    if (sv.solitudeHours||sv.solitudeMinutes) {
+                        info += `<span class="shift-solitude">👤${sv.solitudeHours||0}:${String(sv.solitudeMinutes||0).padStart(2,'0')}</span>`;
+                    }
+                    info += '</div>';
+                }
+            }
+            h += `<div class="${cls}" data-date="${key}" data-day="${d}"><span class="day-number">${d}</span>${info}</div>`;
+        }
+        calendarGrid.innerHTML = h;
+        calendarGrid.querySelectorAll('.day-cell:not(.empty)').forEach(c => {
+            c.addEventListener('click', () => { vibrate(); openModal(c.dataset.date, c.dataset.day, m, y); });
+        });
+        updateStats();
+    }
+    
+    function formatShiftLines(sh,sm,eh,em) {
+        const lines = [];
+        if (sm!==0 && em!==0) { lines.push(`${sh}:${String(sm).padStart(2,'0')}/`); lines.push(`${eh}:${String(em).padStart(2,'0')}`); }
+        else if (sm!==0) lines.push(`${sh}:${String(sm).padStart(2,'0')}/${eh}`);
+        else if (em!==0) lines.push(`${sh}/${eh}:${String(em).padStart(2,'0')}`);
+        else lines.push(`${sh}/${eh}`);
+        return lines;
+    }
+    
+    function openModal(key, day, month, year) {
+        selectedDay = key;
+        modalDate.textContent = `${day} ${monthNames[month].toLowerCase()} ${year} г.`;
+        const sv = scheduleData[key];
+        if (sv) {
+            if (sv.type==='vacation'||sv.type==='sick') { customStartHour=9;customStartMinute=0;customEndHour=9;customEndMinute=0; }
+            else { customStartHour=sv.customStart||9;customStartMinute=sv.customStartMinute||0;customEndHour=sv.customEnd||9;customEndMinute=sv.customEndMinute||0; }
+            overtimeHours=sv.overtimeHours||0;overtimeMinutes=sv.overtimeMinutes||0;
+            overtimeActive=(overtimeHours>0||overtimeMinutes>0);
+            solitudeHours=sv.solitudeHours||0;solitudeMinutes=sv.solitudeMinutes||0;
+            solitudeActive=(solitudeHours>0||solitudeMinutes>0);
+        } else {
+            customStartHour=9;customStartMinute=0;customEndHour=9;customEndMinute=0;
+            overtimeHours=0;overtimeMinutes=0;overtimeActive=false;
+            solitudeHours=0;solitudeMinutes=0;solitudeActive=false;
+        }
+        updateTimeDisplay();updateOvertimeUI();updateSolitudeUI();modal.classList.add('active');
+    }
+    
+    function closeModal() { modal.classList.remove('active'); selectedDay=null; }
+    
+    function saveShift() {
+        if (!selectedDay) return;
+        vibrate();
+        scheduleData[selectedDay] = {
+            type:'shift',
+            customStart:customStartHour, customStartMinute:customStartMinute,
+            customEnd:customEndHour, customEndMinute:customEndMinute,
+            overtimeHours:overtimeActive?overtimeHours:0,
+            overtimeMinutes:overtimeActive?overtimeMinutes:0,
+            solitudeHours:solitudeActive?solitudeHours:0,
+            solitudeMinutes:solitudeActive?solitudeMinutes:0
+        };
+        localStorage.setItem('scheduleData', JSON.stringify(scheduleData));
+        closeModal(); renderCalendar(); showToast('✅ Смена сохранена');
+    }
+    
+    function setVacation() { if(!selectedDay)return; vibrate(); scheduleData[selectedDay]={type:'vacation'}; localStorage.setItem('scheduleData', JSON.stringify(scheduleData)); closeModal(); renderCalendar(); showToast('🏖️ Отпуск отмечен'); }
+    function setSick() { if(!selectedDay)return; vibrate(); scheduleData[selectedDay]={type:'sick'}; localStorage.setItem('scheduleData', JSON.stringify(scheduleData)); closeModal(); renderCalendar(); showToast('🤒 Больничный отмечен'); }
+    function clearShift() { if(!selectedDay)return; vibrate(); delete scheduleData[selectedDay]; localStorage.setItem('scheduleData', JSON.stringify(scheduleData)); customStartHour=9;customStartMinute=0;customEndHour=9;customEndMinute=0;overtimeHours=0;overtimeMinutes=0;overtimeActive=false;solitudeHours=0;solitudeMinutes=0;solitudeActive=false; updateTimeDisplay();updateOvertimeUI();updateSolitudeUI(); closeModal(); renderCalendar(); showToast('🗑️ День очищен'); }
+    
+    document.getElementById('startUp').addEventListener('click',()=>{vibrate();customStartHour=(customStartHour+1)%24;updateTimeDisplay();});
+    document.getElementById('startDown').addEventListener('click',()=>{vibrate();customStartHour=(customStartHour-1+24)%24;updateTimeDisplay();});
+    document.getElementById('startMinUp').addEventListener('click',()=>{vibrate();customStartMinute=(customStartMinute+5)%60;updateTimeDisplay();});
+    document.getElementById('startMinDown').addEventListener('click',()=>{vibrate();customStartMinute=(customStartMinute-5+60)%60;updateTimeDisplay();});
+    document.getElementById('endUp').addEventListener('click',()=>{vibrate();customEndHour=(customEndHour+1)%24;updateTimeDisplay();});
+    document.getElementById('endDown').addEventListener('click',()=>{vibrate();customEndHour=(customEndHour-1+24)%24;updateTimeDisplay();});
+    document.getElementById('endMinUp').addEventListener('click',()=>{vibrate();customEndMinute=(customEndMinute+5)%60;updateTimeDisplay();});
+    document.getElementById('endMinDown').addEventListener('click',()=>{vibrate();customEndMinute=(customEndMinute-5+60)%60;updateTimeDisplay();});
+    
+    document.getElementById('otHoursUp').addEventListener('click',()=>{vibrate();overtimeHours=(overtimeHours+1)%24;updateTimeDisplay();});
+    document.getElementById('otHoursDown').addEventListener('click',()=>{vibrate();overtimeHours=(overtimeHours-1+24)%24;updateTimeDisplay();});
+    document.getElementById('otMinUp').addEventListener('click',()=>{vibrate();overtimeMinutes=(overtimeMinutes+5)%60;updateTimeDisplay();});
+    document.getElementById('otMinDown').addEventListener('click',()=>{vibrate();overtimeMinutes=(overtimeMinutes-5+60)%60;updateTimeDisplay();});
+    
+    document.getElementById('solHoursUp').addEventListener('click',()=>{
+        vibrate();
+        solitudeHours = (solitudeHours + 1) % (MAX_SOLITUDE_HOURS + 1);
+        updateTimeDisplay();
+    });
+    document.getElementById('solHoursDown').addEventListener('click',()=>{
+        vibrate();
+        solitudeHours = (solitudeHours - 1 + MAX_SOLITUDE_HOURS + 1) % (MAX_SOLITUDE_HOURS + 1);
+        updateTimeDisplay();
+    });
+    document.getElementById('solMinUp').addEventListener('click',()=>{vibrate();solitudeMinutes=(solitudeMinutes+5)%60;updateTimeDisplay();});
+    document.getElementById('solMinDown').addEventListener('click',()=>{vibrate();solitudeMinutes=(solitudeMinutes-5+60)%60;updateTimeDisplay();});
+    
+    toggleOvertime.addEventListener('click',()=>{vibrate();overtimeActive=!overtimeActive;if(!overtimeActive){overtimeHours=0;overtimeMinutes=0;}updateTimeDisplay();updateOvertimeUI();});
+    toggleSolitude.addEventListener('click',()=>{vibrate();solitudeActive=!solitudeActive;if(!solitudeActive){solitudeHours=0;solitudeMinutes=0;}updateTimeDisplay();updateSolitudeUI();});
+    
+    document.getElementById('setVacation').addEventListener('click',setVacation);
+    document.getElementById('setSick').addEventListener('click',setSick);
+    document.getElementById('modalClose').addEventListener('click',()=>{vibrate();closeModal();});
+    document.getElementById('prevMonth').addEventListener('click',()=>{vibrate();currentDate.setMonth(currentDate.getMonth()-1);renderCalendar();});
+    document.getElementById('nextMonth').addEventListener('click',()=>{vibrate();currentDate.setMonth(currentDate.getMonth()+1);renderCalendar();});
+    document.getElementById('saveShift').addEventListener('click',saveShift);
+    document.getElementById('cancelShift').addEventListener('click',()=>{vibrate();closeModal();});
+    document.getElementById('clearShift').addEventListener('click',clearShift);
+    document.getElementById('exportBtn').addEventListener('click',()=>{vibrate();downloadAsImage();});
+    document.getElementById('clearAllBtn').addEventListener('click',()=>{vibrate();clearAll();});
+    modal.addEventListener('click',e=>{if(e.target===modal)closeModal();});
+    
+    async function captureCalendar() {
+        loadingOverlay.classList.add('active');
+        document.querySelectorAll('.no-export').forEach(el=>el.style.display='none');
+        try { return await html2canvas(calendarCard,{backgroundColor:'#ffffff',scale:2,useCORS:true,logging:false}); }
+        finally { document.querySelectorAll('.no-export').forEach(el=>el.style.display=''); loadingOverlay.classList.remove('active'); }
+    }
+    
+    async function downloadAsImage() {
+        const canvas = await captureCalendar(); 
+        if (!canvas) return;
+        
+        const fileName = `график_смен_${monthTitleExport.textContent.replace(/\s/g, '_')}.png`;
+        const dataUrl = canvas.toDataURL('image/png');
+        
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        
+        if (isIOS) {
+            showIOSSaveDialog(dataUrl, fileName);
+        } else {
+            const a = document.createElement('a');
+            a.download = fileName;
+            a.href = dataUrl;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            showToast('📥 Картинка сохранена');
+        }
+    }
+    
+    function showIOSSaveDialog(dataUrl, fileName) {
+        const overlay = document.createElement('div');
+        overlay.style.cssText = `
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9); z-index: 5000;
+            display: flex; flex-direction: column; align-items: center;
+            justify-content: center; padding: 20px; box-sizing: border-box;
+        `;
+        
+        const instruction = document.createElement('p');
+        instruction.style.cssText = `
+            color: white; font-size: 14px; text-align: center;
+            margin-bottom: 12px; font-weight: 600; line-height: 1.4;
+        `;
+        instruction.innerHTML = '📸 Нажмите на картинку и удерживайте,<br>затем выберите «Сохранить в Фото»';
+        
+        const img = document.createElement('img');
+        img.src = dataUrl;
+        img.style.cssText = `
+            max-width: 100%; max-height: 70vh;
+            border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        `;
+        
+        const closeBtn = document.createElement('button');
+        closeBtn.textContent = '✕ Закрыть';
+        closeBtn.style.cssText = `
+            margin-top: 16px; padding: 12px 32px;
+            background: white; color: #0f1446; border: none;
+            border-radius: 30px; font-weight: 700; font-size: 15px;
+            cursor: pointer; font-family: inherit;
+        `;
+        closeBtn.onclick = () => document.body.removeChild(overlay);
+        
+        overlay.appendChild(instruction);
+        overlay.appendChild(img);
+        overlay.appendChild(closeBtn);
+        document.body.appendChild(overlay);
+        
+        showToast('📸 Удерживайте картинку для сохранения');
+    }
+    
+    function clearAll() {
+        if(confirm('Удалить весь график?')) {
+            scheduleData = {};
+            localStorage.setItem('scheduleData', JSON.stringify(scheduleData));
+            renderCalendar(); showToast('🗑️ Всё очищено');
+        }
+    }
+    
+    updateTimeDisplay(); updateOvertimeUI(); updateSolitudeUI(); renderCalendar();
+    
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/SMP/sw.js')
+            .then(reg => console.log('✅ SW зарегистрирован:', reg))
+            .catch(err => console.error('❌ Ошибка:', err));
+    }
+})();
+</script>
+</body>
+</html>
