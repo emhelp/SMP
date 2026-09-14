@@ -23,34 +23,9 @@
 
     h1 {
       text-align: center;
-      margin-bottom: 8px;
+      margin-bottom: 20px;
       color: #0f1446;
       font-size: 28px;
-    }
-
-    .scroll-hint {
-      text-align: center;
-      margin-top: 0;
-      margin-bottom: 20px;
-      color: #5e6f8c;
-      font-size: 16px;
-      font-weight: 400;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      opacity: 0.85;
-      letter-spacing: 0.3px;
-    }
-    
-    .scroll-hint span {
-      font-size: 20px;
-      animation: subtleBounce 1.8s infinite ease-in-out;
-    }
-    
-    @keyframes subtleBounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(5px); }
     }
 
     .calc-section {
@@ -121,20 +96,12 @@
       h1 {
         font-size: 24px;
       }
-      .scroll-hint {
-        font-size: 15px;
-        margin-bottom: 16px;
-      }
     }
   </style>
 </head>
 <body>
 
   <h1>📱 Калькуляторы СМП</h1>
-  
-  <div class="scroll-hint">
-    Листайте вниз <span>👇</span>
-  </div>
 
   <!-- Шкалы, индексы, манипуляции -->
   <div class="calc-section">
@@ -259,6 +226,49 @@
         }
       });
     });
+  </script>
+
+  <script>
+    // Авто-подсказка прокруткой: один раз за сессию
+    (function scrollHint() {
+      const shown = sessionStorage.getItem('calcScrollHintShown');
+      if (shown) return;
+      
+      // Отменяем анимацию, если пользователь сам начал скроллить
+      let cancelled = false;
+      const cancel = () => { cancelled = true; };
+      window.addEventListener('wheel', cancel, { passive: true, once: true });
+      window.addEventListener('touchstart', cancel, { passive: true, once: true });
+      window.addEventListener('keydown', cancel, { once: true });
+      
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      
+      window.addEventListener('load', () => {
+        if (prefersReduced) return;
+        
+        // Даём странице "устояться"
+        setTimeout(() => {
+          if (cancelled) return;
+          
+          // Сдвиг: чуть меньше высоты первого блока,
+          // чтобы стал виден заголовок второго раздела
+          const firstSection = document.querySelector('.calc-section');
+          const offset = firstSection
+            ? Math.min(firstSection.offsetHeight + 20, 340)
+            : 300;
+          
+          // 1) плавно вниз
+          window.scrollTo({ top: offset, behavior: 'smooth' });
+          
+          // 2) пауза и плавно наверх
+          setTimeout(() => {
+            if (cancelled) return;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            sessionStorage.setItem('calcScrollHintShown', '1');
+          }, 1400);
+        }, 600);
+      });
+    })();
   </script>
 
   <script>
