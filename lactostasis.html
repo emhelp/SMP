@@ -93,7 +93,7 @@
             font-weight: 700;
             color: #1e4663;
             display: inline-block;
-            min-width: 220px;
+            min-width: 240px;
         }
 
         .field-item .value {
@@ -111,7 +111,7 @@
             font-weight: 700;
             color: #1e4663;
             display: inline-block;
-            min-width: 220px;
+            min-width: 240px;
         }
 
         .status-local {
@@ -134,17 +134,6 @@
             margin: 8px 0;
         }
 
-        .note {
-            background: #e7f1ff;
-            border-left: 4px solid #1a4d6f;
-            padding: 12px 16px;
-            margin-top: 16px;
-            border-radius: 12px;
-            font-size: 0.9rem;
-            color: #1e4663;
-        }
-
-        /* Кнопка алгоритма */
         .algorithm-btn-container {
             margin-top: 32px;
             margin-bottom: 20px;
@@ -191,7 +180,6 @@
             margin-top: 2px;
         }
 
-        /* Модальное окно */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -230,14 +218,8 @@
         }
 
         @keyframes modalFadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .modal-header {
@@ -285,7 +267,6 @@
             line-height: 1.5;
         }
 
-        /* стили для алгоритма */
         .adult-block {
             border-left: 5px solid #dc2626;
             padding-left: 20px;
@@ -381,125 +362,102 @@
             border-radius: 10px;
         }
 
+        #imageModal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        #imageModal .modal-close-img {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            background: none;
+            border: none;
+            z-index: 2001;
+        }
+
+        #modalImage {
+            max-width: 90%;
+            max-height: 70%;
+            object-fit: contain;
+        }
+
+        #navContainer {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: none;
+            gap: 30px;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 6px 20px;
+            border-radius: 40px;
+            z-index: 2001;
+        }
+
+        #prevBtn, #nextBtn {
+            background-color: transparent;
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            padding: 0 12px;
+        }
+
+        #imageCounter {
+            color: white;
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
         @media (max-width: 700px) {
-            body {
-                padding: 16px 10px;
-            }
-
-            .mkb-row {
-                padding: 14px 18px;
-                font-size: 0.95rem;
-            }
-
-            .diagnosis {
-                padding: 10px 18px;
-                font-size: 0.9rem;
-            }
-
-            .content {
-                padding: 16px;
-            }
-
-            .section {
-                margin-bottom: 20px;
-            }
-
-            .section-title {
-                font-size: 1.15rem;
-                padding-left: 12px;
-                margin-bottom: 12px;
-            }
-
-            .field-item {
-                font-size: 0.85rem;
-                padding: 4px 0 4px 4px;
-            }
-
-            .field-item strong {
-                min-width: 140px;
-            }
-
-            .full-width-text {
-                font-size: 0.85rem;
-                padding: 6px 0 6px 4px;
-            }
-
-            .full-width-text strong {
-                min-width: 140px;
-            }
-
-            .status-local {
-                padding: 10px 14px;
-                font-size: 0.85rem;
-            }
-
-            .scales-list {
-                padding: 10px 14px;
-            }
-
-            .scales-list p {
-                font-size: 0.85rem;
-                margin: 6px 0;
-            }
-
-            .note {
-                padding: 10px 14px;
-                font-size: 0.8rem;
-            }
-
-            .btn-algorithm {
-                padding: 8px 22px;
-                font-size: 1rem;
-            }
-
-            .btn-hint {
-                font-size: 0.65rem;
-            }
-
-            .modal-overlay {
-                padding: 10px;
-            }
-
-            .modal-container {
-                max-height: 90vh;
-                border-radius: 20px;
-            }
-
-            .modal-header {
-                padding: 14px 18px;
-            }
-
-            .modal-header h2 {
-                font-size: 1rem;
-            }
-
-            .modal-body {
-                padding: 20px;
-            }
-
-            .list-styled {
-                margin-left: 20px;
-            }
-
-            .adult-block, .child-block {
-                padding-left: 14px;
-            }
+            body { padding: 16px 10px; }
+            .mkb-row { padding: 14px 18px; font-size: 0.95rem; }
+            .diagnosis { padding: 10px 18px; font-size: 0.9rem; }
+            .content { padding: 16px; }
+            .section { margin-bottom: 20px; }
+            .section-title { font-size: 1.15rem; padding-left: 12px; margin-bottom: 12px; }
+            .field-item { font-size: 0.85rem; padding: 4px 0 4px 4px; }
+            .field-item strong { min-width: 140px; }
+            .full-width-text { font-size: 0.85rem; padding: 6px 0 6px 4px; }
+            .full-width-text strong { min-width: 140px; }
+            .status-local { padding: 10px 14px; font-size: 0.85rem; }
+            .scales-list { padding: 10px 14px; }
+            .scales-list p { font-size: 0.85rem; margin: 6px 0; }
+            .btn-algorithm { padding: 8px 22px; font-size: 1rem; }
+            .btn-hint { font-size: 0.65rem; }
+            .modal-overlay { padding: 10px; }
+            .modal-container { max-height: 90vh; border-radius: 20px; }
+            .modal-header { padding: 14px 18px; }
+            .modal-header h2 { font-size: 1rem; }
+            .modal-body { padding: 20px; }
+            .list-styled { margin-left: 20px; }
+            .adult-block, .child-block { padding-left: 14px; }
         }
 
         @media (max-width: 480px) {
-            .field-item strong {
-                min-width: 120px;
-            }
-
-            .full-width-text strong {
-                min-width: 120px;
-            }
-
-            .btn-algorithm {
-                padding: 10px 18px;
-                font-size: 0.9rem;
-                border-radius: 40px;
-            }
+            .field-item strong { min-width: 120px; }
+            .full-width-text strong { min-width: 120px; }
+            .btn-algorithm { padding: 10px 18px; font-size: 0.9rem; border-radius: 40px; }
         }
     </style>
 </head>
@@ -533,7 +491,7 @@
         <div class="section">
             <div class="section-title">🩺 ОБЪЕКТИВНО</div>
             <div class="field-list">
-                <div class="field-item"><strong>Общее состояние:</strong> <span class="value">удовлетворительное</span></div>
+                <div class="field-item"><strong>Общее состояние:</strong> <span class="value">удовлетворительное (гемодинамика стабильна, интоксикации нет)</span></div>
                 <div class="field-item"><strong>Сознание:</strong> <span class="value">ясное</span></div>
                 <div class="field-item"><strong>Шкала комы Глазго (GCS):</strong> <span class="value">15 баллов</span></div>
                 <div class="field-item"><strong>Положение:</strong> <span class="value">активное, щадит правую сторону</span></div>
@@ -624,7 +582,7 @@
             </div>
         </div>
 
-        <!-- STATUS LOCALIS (ПОДРОБНО! ПРОФЕССИОНАЛЬНАЯ ВЕРСИЯ) -->
+        <!-- STATUS LOCALIS -->
         <div class="section">
             <div class="section-title">🔍 STATUS LOCALIS (подробно!)</div>
             <div class="status-local">
@@ -637,26 +595,30 @@
             </div>
         </div>
 
+        <!-- ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ -->
+        <div class="section">
+            <div class="section-title">📈 ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ</div>
+            <div class="scales-list">
+                <p>✔ <strong>Пульсоксиметрия:</strong> SpO₂ — 98%.</p>
+                <p>✔ <strong>Глюкометрия:</strong> не проводилась (нет показаний).</p>
+                <p>✔ <strong>ЭКГ:</strong> не проводилась (нет показаний).</p>
+            </div>
+        </div>
+
         <!-- ОЦЕНКА ПО ШКАЛАМ -->
         <div class="section">
             <div class="section-title">📊 ОЦЕНКА ПО ШКАЛАМ</div>
             <div class="scales-list">
-                <p>✔ <strong>Шкала NEWS2:</strong> 2 балла (ЧСС 85 — 1 балл, t° 37,5 — 1 балл, АД 110/70 — 0, ЧДД 18 — 0) — требуется наблюдение, возможна госпитализация при отсутствии эффекта от терапии.</p>
+                <p>✔ <strong>Шкала NEWS2:</strong> <span class="highlight-number">2 балла</span> (ЧСС 85 — 1 балл, t° 37,5 — 1 балл, АД 110/70 — 0, ЧДД 18 — 0).</p>
                 <p>✔ <strong>Пациент с острой дыхательной недостаточностью, шкала ОДН по Кассиль:</strong> не применимо.</p>
-                <p>✔ <strong>Пациент с шоком, индекс Альговера:</strong> Индекс Альговера = ЧСС / АД сист. = 85 / 110 = 0,77 (пограничное значение, гемодинамика стабильна).</p>
+                <p>✔ <strong>Пациент с шоком, индекс Альговера:</strong> Индекс Альговера = ЧСС / АД сист. = 85 / 110 = 0,77 — норма (шока нет).</p>
                 <p>✔ <strong>Пациент с травмой, шкала боли ВАШ:</strong> не применимо.</p>
                 <p>✔ <strong>Пациент с ХСН, шкала ШОКС:</strong> не применимо.</p>
                 <p>✔ <strong>Пациент с ТЭЛА, шкала риска ТЭЛА:</strong> не применимо.</p>
                 <p>✔ <strong>Алкогольное опьянение:</strong> не применимо (запаха алкоголя изо рта нет, поведение адекватное).</p>
                 <p>✔ <strong>Пациент с инсультом, шкала LAMS:</strong> не применимо.</p>
-                <p>✔ <strong>Пациент с ДЭП (симптомы, синдромы орального автоматизма):</strong> не применимо.</p>
+                <p>✔ <strong>Пациент с ДЭП:</strong> не применимо.</p>
             </div>
-        </div>
-
-        <!-- ПРИМЕЧАНИЕ ДЛЯ БРИГАДЫ СМП -->
-        <div class="note">
-            <strong>📌 Примечание для бригады СМП:</strong><br>
-            Ключевым дифференциально-диагностическим признаком лактостаза является эффективность сцеживания: боль и уплотнение уменьшаются, молоко выделяется. При мастите сцеживание неэффективно, резко болезненно, облегчения не приносит. Наличие флюктуации, фебрильной лихорадки, озноба, выраженного отека и диффузной гиперемии свидетельствует о развитии гнойного мастита и является показанием к экстренной госпитализации в хирургический стационар.
         </div>
 
         <!-- КРАСНАЯ КНОПКА -->
@@ -669,7 +631,7 @@
     </div>
 </div>
 
-<!-- НОВОЕ МОДАЛЬНОЕ ОКНО (Лактостаз) -->
+<!-- МОДАЛЬНОЕ ОКНО -->
 <div class="modal-overlay" id="algorithmModal">
     <div class="modal-container">
         <div class="modal-header">
@@ -707,6 +669,17 @@
     </div>
 </div>
 
+<!-- МОДАЛЬНОЕ ОКНО ДЛЯ ИЗОБРАЖЕНИЙ -->
+<div id="imageModal">
+    <button class="modal-close-img" onclick="document.getElementById('imageModal').style.display='none'; isGalleryMode=false; currentGallery=[];">&times;</button>
+    <img id="modalImage" src="" alt="Изображение">
+    <div id="navContainer">
+        <button id="prevBtn">❮</button>
+        <span id="imageCounter">1 / 2</span>
+        <button id="nextBtn">❯</button>
+    </div>
+</div>
+
 <script>
     const modal = document.getElementById('algorithmModal');
     const openBtn = document.getElementById('openAlgorithmBtn');
@@ -732,6 +705,58 @@
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && modal.classList.contains('active')) {
             closeModal();
+        }
+    });
+
+    let currentGallery = [];
+    let currentIndex = 0;
+    let isGalleryMode = false;
+
+    function openImage(imagePath) {
+        isGalleryMode = false;
+        currentGallery = [];
+        document.getElementById('navContainer').style.display = 'none';
+        document.getElementById('imageModal').style.display = 'flex';
+        document.getElementById('modalImage').src = imagePath;
+    }
+
+    function openImageGallery(images) {
+        isGalleryMode = true;
+        currentGallery = images;
+        currentIndex = 0;
+        document.getElementById('navContainer').style.display = 'flex';
+        document.getElementById('imageModal').style.display = 'flex';
+        document.getElementById('modalImage').src = currentGallery[currentIndex];
+        document.getElementById('imageCounter').textContent = `${currentIndex + 1} / ${currentGallery.length}`;
+        updateNavButtons();
+    }
+
+    function updateNavButtons() {
+        document.getElementById('prevBtn').style.opacity = currentIndex === 0 ? '0.4' : '1';
+        document.getElementById('nextBtn').style.opacity = currentIndex === currentGallery.length - 1 ? '0.4' : '1';
+    }
+
+    document.getElementById('prevBtn').addEventListener('click', function() {
+        if (!isGalleryMode || currentIndex === 0) return;
+        currentIndex--;
+        document.getElementById('modalImage').src = currentGallery[currentIndex];
+        document.getElementById('imageCounter').textContent = `${currentIndex + 1} / ${currentGallery.length}`;
+        updateNavButtons();
+    });
+
+    document.getElementById('nextBtn').addEventListener('click', function() {
+        if (!isGalleryMode || currentIndex === currentGallery.length - 1) return;
+        currentIndex++;
+        document.getElementById('modalImage').src = currentGallery[currentIndex];
+        document.getElementById('imageCounter').textContent = `${currentIndex + 1} / ${currentGallery.length}`;
+        updateNavButtons();
+    });
+
+    document.getElementById('imageModal').addEventListener('click', function(e) {
+        if (e.target === this) {
+            this.style.display = 'none';
+            isGalleryMode = false;
+            currentGallery = [];
         }
     });
 </script>
