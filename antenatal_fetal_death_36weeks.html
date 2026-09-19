@@ -93,7 +93,7 @@
             font-weight: 700;
             color: #1e4663;
             display: inline-block;
-            min-width: 220px;
+            min-width: 240px;
         }
 
         .field-item .value {
@@ -111,7 +111,7 @@
             font-weight: 700;
             color: #1e4663;
             display: inline-block;
-            min-width: 220px;
+            min-width: 240px;
         }
 
         .status-local {
@@ -134,7 +134,37 @@
             margin: 8px 0;
         }
 
-        /* Кнопка алгоритма */
+        .note {
+            background: #e7f1ff;
+            border-left: 4px solid #1a4d6f;
+            padding: 12px 16px;
+            margin-top: 16px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            color: #1e4663;
+        }
+
+        .note-list {
+            margin-top: 8px;
+            margin-left: 20px;
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .note-list li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .note-list li:before {
+            content: "•";
+            position: absolute;
+            left: 4px;
+            color: #1a4d6f;
+            font-weight: bold;
+        }
+
         .algorithm-btn-container {
             margin-top: 32px;
             margin-bottom: 20px;
@@ -157,7 +187,7 @@
             align-items: center;
             gap: 4px;
             letter-spacing: 0.3px;
-            border: 1px solid rgba(255,255,255,0.3);
+            border: 1px solid rgba(255, 255, 255, 0.3);
             max-width: 100%;
         }
 
@@ -176,12 +206,11 @@
             font-weight: normal;
             opacity: 0.9;
             letter-spacing: normal;
-            border-top: 1px dashed rgba(255,255,255,0.5);
+            border-top: 1px dashed rgba(255, 255, 255, 0.5);
             padding-top: 4px;
             margin-top: 2px;
         }
 
-        /* Модальное окно */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -220,14 +249,8 @@
         }
 
         @keyframes modalFadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .modal-header {
@@ -275,7 +298,6 @@
             line-height: 1.5;
         }
 
-        /* стили для нового алгоритма */
         .adult-block {
             border-left: 5px solid #dc2626;
             padding-left: 20px;
@@ -341,120 +363,102 @@
             border-radius: 16px;
         }
 
+        #imageModal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        #imageModal .modal-close-img {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            background: none;
+            border: none;
+            z-index: 2001;
+        }
+
+        #modalImage {
+            max-width: 90%;
+            max-height: 70%;
+            object-fit: contain;
+        }
+
+        #navContainer {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: none;
+            gap: 30px;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 6px 20px;
+            border-radius: 40px;
+            z-index: 2001;
+        }
+
+        #prevBtn, #nextBtn {
+            background-color: transparent;
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            padding: 0 12px;
+        }
+
+        #imageCounter {
+            color: white;
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
         @media (max-width: 700px) {
-            body {
-                padding: 16px 10px;
-            }
-
-            .mkb-row {
-                padding: 14px 18px;
-                font-size: 0.95rem;
-            }
-
-            .diagnosis {
-                padding: 10px 18px;
-                font-size: 0.9rem;
-            }
-
-            .content {
-                padding: 16px;
-            }
-
-            .section {
-                margin-bottom: 20px;
-            }
-
-            .section-title {
-                font-size: 1.15rem;
-                padding-left: 12px;
-                margin-bottom: 12px;
-            }
-
-            .field-item {
-                font-size: 0.85rem;
-                padding: 4px 0 4px 4px;
-            }
-
-            .field-item strong {
-                min-width: 140px;
-            }
-
-            .full-width-text {
-                font-size: 0.85rem;
-                padding: 6px 0 6px 4px;
-            }
-
-            .full-width-text strong {
-                min-width: 140px;
-            }
-
-            .status-local {
-                padding: 10px 14px;
-                font-size: 0.85rem;
-            }
-
-            .scales-list {
-                padding: 10px 14px;
-            }
-
-            .scales-list p {
-                font-size: 0.85rem;
-                margin: 6px 0;
-            }
-
-            .btn-algorithm {
-                padding: 8px 22px;
-                font-size: 1rem;
-            }
-
-            .btn-hint {
-                font-size: 0.65rem;
-            }
-
-            .modal-overlay {
-                padding: 10px;
-            }
-
-            .modal-container {
-                max-height: 90vh;
-                border-radius: 20px;
-            }
-
-            .modal-header {
-                padding: 14px 18px;
-            }
-
-            .modal-header h2 {
-                font-size: 1rem;
-            }
-
-            .modal-body {
-                padding: 20px;
-            }
-
-            .list-styled {
-                margin-left: 20px;
-            }
-
-            .adult-block, .child-block {
-                padding-left: 14px;
-            }
+            body { padding: 16px 10px; }
+            .mkb-row { padding: 14px 18px; font-size: 0.95rem; }
+            .diagnosis { padding: 10px 18px; font-size: 0.9rem; }
+            .content { padding: 16px; }
+            .section { margin-bottom: 20px; }
+            .section-title { font-size: 1.15rem; padding-left: 12px; margin-bottom: 12px; }
+            .field-item { font-size: 0.85rem; padding: 4px 0 4px 4px; }
+            .field-item strong { min-width: 140px; }
+            .full-width-text { font-size: 0.85rem; padding: 6px 0 6px 4px; }
+            .full-width-text strong { min-width: 140px; }
+            .status-local { padding: 10px 14px; font-size: 0.85rem; }
+            .scales-list { padding: 10px 14px; }
+            .scales-list p { font-size: 0.85rem; margin: 6px 0; }
+            .btn-algorithm { padding: 8px 22px; font-size: 1rem; }
+            .btn-hint { font-size: 0.65rem; }
+            .modal-overlay { padding: 10px; }
+            .modal-container { max-height: 90vh; border-radius: 20px; }
+            .modal-header { padding: 14px 18px; }
+            .modal-header h2 { font-size: 1rem; }
+            .modal-body { padding: 20px; }
+            .list-styled { margin-left: 20px; }
+            .adult-block, .child-block { padding-left: 14px; }
         }
 
         @media (max-width: 480px) {
-            .field-item strong {
-                min-width: 120px;
-            }
-
-            .full-width-text strong {
-                min-width: 120px;
-            }
-
-            .btn-algorithm {
-                padding: 10px 18px;
-                font-size: 0.9rem;
-                border-radius: 40px;
-            }
+            .field-item strong { min-width: 120px; }
+            .full-width-text strong { min-width: 120px; }
+            .btn-algorithm { padding: 10px 18px; font-size: 0.9rem; border-radius: 40px; }
         }
     </style>
 </head>
@@ -488,7 +492,7 @@
         <div class="section">
             <div class="section-title">🩺 ОБЪЕКТИВНО</div>
             <div class="field-list">
-                <div class="field-item"><strong>Общее состояние:</strong> <span class="value">средней тяжести</span></div>
+                <div class="field-item"><strong>Общее состояние:</strong> <span class="value">удовлетворительное</span></div>
                 <div class="field-item"><strong>Сознание:</strong> <span class="value">ясное</span></div>
                 <div class="field-item"><strong>Шкала комы Глазго (GCS):</strong> <span class="value">15 баллов (E4, V5, M6)</span></div>
                 <div class="field-item"><strong>Положение:</strong> <span class="value">активное</span></div>
@@ -579,17 +583,17 @@
             </div>
         </div>
 
-        <!-- STATUS LOCALIS (ПОДРОБНО! ПРОФЕССИОНАЛЬНАЯ ВЕРСИЯ) -->
+        <!-- STATUS LOCALIS -->
         <div class="section">
             <div class="section-title">🔍 STATUS LOCALIS (подробно!)</div>
             <div class="status-local">
                 <strong>Акушерский статус (локальный осмотр):</strong><br>
-                • Живот овоидной формы, симметричный, увеличен за счет беременной матки, окружность живота ~ 92 см (измерено сантиметровой лентой). Кожные покровы живота чистые, рубцов после операций нет. Видимой пульсации, расхождения прямых мышц живота нет.<br>
-                • Высота стояния дна матки (ВДМ): 34 см (между мечевидным отростком и пупком). Окружность живота (ОЖ) 92 см. Пальпаторно матка в нормотонусе, безболезненная, возбудимость матки не повышена.<br>
-                • Положение плода: продольное. Предлежание: головное. Головка плода прижата ко входу в малый таз (подвижность ограничена). Мелкие части плода не пальпируются из-за напряжения брюшной стенки? — пальпация затруднена, но признаки гибели плода: отсутствие шевелений, отсутствие сердцебиения при аускультации.<br>
-                • <strong>Аускультация плода:</strong> сердцебиение плода <strong>не выслушивается</strong> ни в одном отделе (аппарат СМП, стетоскоп). Материнские тоны ясные, ритмичные.<br>
-                • Наружные половые органы: развиты правильно, оволосение по женскому типу. Слизистые розовые, чистые. Варикозного расширения вен вульвы нет. Патологических выделений из половых путей нет (слизистые, светлые, в умеренном количестве, без запаха, без кровянистых примесей).<br>
-                • Околоплодные воды: целы (подтекание отрицает, сухие прокладки, симптом «пальцевой» амниотест — отрицательный).<br>
+                • Живот овоидной формы, симметричный, увеличен за счет беременной матки, окружность живота ~ 92 см. Кожные покровы живота чистые, рубцов после операций нет.<br>
+                • Высота стояния дна матки (ВДМ): 34 см. Окружность живота (ОЖ): 92 см. Размеры матки соответствуют сроку беременности. Пальпаторно матка в нормотонусе, безболезненная, возбудимость матки не повышена.<br>
+                • Положение плода: продольное. Предлежание: головное. Головка плода прижата ко входу в малый таз. Мелкие части плода пальпируются с трудом (из-за напряжения брюшной стенки).<br>
+                • <strong>Аускультация плода:</strong> сердцебиение плода <strong>не выслушивается</strong> ни в одном отделе (при аускультации акушерским стетоскопом). Материнские тоны ясные, ритмичные.<br>
+                • Наружные половые органы: развиты правильно, оволосение по женскому типу. Слизистые розовые, чистые. Патологических выделений из половых путей нет (слизистые, светлые, в умеренном количестве, без запаха, без кровянистых примесей).<br>
+                • Околоплодные воды: целы (симптом «сухих прокладок» отрицательный, тест на подтекание вод на догоспитальном этапе не проводился).<br>
                 • Влагалищное исследование на догоспитальном этапе не проводилось (будет выполнено в условиях родильного зала ГКБ N2).<br>
                 • Травм, гематом, видимых повреждений области промежности, лобка, поясницы нет.
             </div>
@@ -599,19 +603,45 @@
         <div class="section">
             <div class="section-title">📊 ОЦЕНКА ПО ШКАЛАМ</div>
             <div class="scales-list">
-                <p>✔ <strong>Шкала NEWS2:</strong> не применимо (отсутствуют признаки острого заболевания, инфекции, сепсиса, пациент стабилен).</p>
-                <p>✔ <strong>Пациент с острой дыхательной недостаточностью, шкала ОДН по Кассиль:</strong> не применимо (ЧДД 18, SpO₂ не измерялась, но клинически дыхательной недостаточности нет).</p>
-                <p>✔ <strong>Пациент с шоком, индекс Альговера:</strong> Индекс Альговера = ЧСС / АД сист. = 65 / 110 = 0,59 (норма до 0,7, риск шока низкий, гемодинамика стабильна).</p>
+                <p>✔ <strong>Шкала NEWS2:</strong> не применимо (отсутствуют признаки острого заболевания, инфекции, сепсиса, гемодинамика стабильна).</p>
+                <p>✔ <strong>Пациент с острой дыхательной недостаточностью, шкала ОДН по Кассиль:</strong> не применимо (ЧДД 18, клинически дыхательной недостаточности нет).</p>
+                <p>✔ <strong>Пациент с шоком, индекс Альговера:</strong> Индекс Альговера = ЧСС / АД сист. = 65 / 110 = 0,59 (норма, шока нет, гемодинамика стабильна).</p>
                 <p>✔ <strong>Пациент с травмой, шкала боли ВАШ:</strong> не применимо (болевого синдрома нет).</p>
-                <p>✔ <strong>Пациент с ХСН, шкала ШОКС:</strong> не применимо (признаков ХСН нет, ЧСС 65, АД 110/80, нет одышки, хрипов, отеков).</p>
+                <p>✔ <strong>Пациент с ХСН, шкала ШОКС:</strong> не применимо (признаков ХСН нет).</p>
                 <p>✔ <strong>Пациент с ТЭЛА, шкала риска ТЭЛА:</strong> не применимо (нет тахипноэ, кровохарканья, болей в грудной клетке, признаков тромбоза глубоких вен).</p>
-                <p>✔ <strong>Алкогольное опьянение:</strong> не применимо (запаха алкоголя изо рта нет, поведение адекватное, зрачки обычные, координация не нарушена).</p>
-                <p>✔ <strong>Пациент с инсультом, шкала LAMS:</strong> не применимо (нет асимметрии лица, парезов, нарушения речи, девиации языка).</p>
-                <p>✔ <strong>Пациент с ДЭП (симптомы, синдромы орального автоматизма):</strong> не применимо (неврологический статус без патологии, оральных автоматизмов нет).</p>
+                <p>✔ <strong>Алкогольное опьянение:</strong> не применимо (запаха алкоголя изо рта нет, поведение адекватное).</p>
+                <p>✔ <strong>Пациент с инсультом, шкала LAMS:</strong> не применимо (нет асимметрии лица, парезов, нарушения речи).</p>
+                <p>✔ <strong>Пациент с ДЭП:</strong> не применимо.</p>
             </div>
         </div>
 
-        <!-- КРАСНАЯ КНОПКА С АЛГОРИТМОМ -->
+        <!-- ПРИМЕЧАНИЕ -->
+        <div class="note">
+            <strong>📌 Примечание для бригады СМП (клиническая оценка + ключевые признаки):</strong><br>
+            <strong>🔑 Ключевые признаки антенатальной гибели плода:</strong><br>
+            – Отсутствие шевелений плода (в течение 10–24 часов и более).<br>
+            – Отсутствие сердцебиения плода при аускультации (акушерский стетоскоп, допплер).<br>
+            – Несоответствие размеров матки сроку беременности (в поздние сроки — уменьшение ВДМ).<br>
+            – Изменение формы и консистенции матки.<br>
+            – Снижение тонуса матки (при отсутствии схваток).<br>
+            – Возможные кровянистые выделения из половых путей (не всегда).<br>
+            – Психоэмоциональное состояние пациентки: шок, горе, тревога.<br>
+            <br>
+            <strong>Показания к экстренной госпитализации в родильный дом:</strong><br>
+            – Подтверждение антенатальной гибели плода → необходимость родоразрешения.<br>
+            – Риск коагулопатии (ДВС-синдром при длительной задержке мёртвого плода).<br>
+            – Риск инфицирования (восходящая инфекция при длительном стоянии мёртвого плода).<br>
+            – Психоэмоциональная поддержка пациентки (утрата, психологическая травма).<br>
+            <br>
+            <strong>Что НЕ делать на догоспитальном этапе:</strong><br>
+            – Не проводить влагалищное исследование без крайней необходимости.<br>
+            – Не проводить родоразрешающие манипуляции.<br>
+            – Не давать ложных надежд или не сообщать диагноз в категоричной форме до подтверждения в стационаре (УЗИ).<br>
+            – Обеспечить максимальную психологическую поддержку.<br>
+            – Эвакуация в специализированный стационар (перинатальный центр / родильный дом), транспортировка на носилках.
+        </div>
+
+        <!-- КРАСНАЯ КНОПКА -->
         <div class="algorithm-btn-container">
             <button class="btn-algorithm" id="openAlgorithmBtn">
                 <span>🚨 Оказание помощи в соответствии с Алгоритмами МСК</span>
@@ -621,7 +651,7 @@
     </div>
 </div>
 
-<!-- НОВОЕ МОДАЛЬНОЕ ОКНО (Антенатальная гибель плода) -->
+<!-- МОДАЛЬНОЕ ОКНО -->
 <div class="modal-overlay" id="algorithmModal">
     <div class="modal-container">
         <div class="modal-header">
@@ -659,15 +689,15 @@
     </div>
 </div>
 
-<!-- Модальное окно для изображений (оставлено на случай будущего использования) -->
-<div id="imageModal" class="modal" style="display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.9); justify-content: center; align-items: center; flex-direction: column;">
-  <button onclick="document.getElementById('imageModal').style.display='none'; isGalleryMode=false; currentGallery=[];" style="position: absolute; top: 20px; right: 35px; color: #fff; font-size: 40px; font-weight: bold; cursor: pointer; background: none; border: none; z-index: 2001;">&times;</button>
-  <img id="modalImage" style="max-width: 90%; max-height: 70%; object-fit: contain;">
-  <div id="navContainer" style="position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); display: none; gap: 30px; align-items: center; justify-content: center; background-color: rgba(0,0,0,0.5); padding: 6px 20px; border-radius: 40px; z-index: 2001;">
-    <button id="prevBtn" style="background-color: transparent; color: white; font-size: 28px; font-weight: bold; border: none; cursor: pointer; padding: 0 12px;">❮</button>
-    <span id="imageCounter" style="color: white; background-color: rgba(0,0,0,0.6); padding: 4px 12px; border-radius: 20px; font-size: 14px; font-weight: bold;">1 / 2</span>
-    <button id="nextBtn" style="background-color: transparent; color: white; font-size: 28px; font-weight: bold; border: none; cursor: pointer; padding: 0 12px;">❯</button>
-  </div>
+<!-- МОДАЛЬНОЕ ОКНО ДЛЯ ИЗОБРАЖЕНИЙ -->
+<div id="imageModal">
+    <button class="modal-close-img" onclick="document.getElementById('imageModal').style.display='none'; isGalleryMode=false; currentGallery=[];">&times;</button>
+    <img id="modalImage" src="" alt="Изображение">
+    <div id="navContainer">
+        <button id="prevBtn">❮</button>
+        <span id="imageCounter">1 / 2</span>
+        <button id="nextBtn">❯</button>
+    </div>
 </div>
 
 <script>
@@ -698,7 +728,6 @@
         }
     });
 
-    // Скрипт для галереи изображений (оставлен для совместимости)
     let currentGallery = [];
     let currentIndex = 0;
     let isGalleryMode = false;
