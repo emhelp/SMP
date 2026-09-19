@@ -93,7 +93,7 @@
             font-weight: 700;
             color: #1e4663;
             display: inline-block;
-            min-width: 220px;
+            min-width: 240px;
         }
 
         .field-item .value {
@@ -111,7 +111,7 @@
             font-weight: 700;
             color: #1e4663;
             display: inline-block;
-            min-width: 220px;
+            min-width: 240px;
         }
 
         .status-local {
@@ -134,7 +134,6 @@
             margin: 8px 0;
         }
 
-        /* Кнопка алгоритма */
         .algorithm-btn-container {
             margin-top: 32px;
             margin-bottom: 20px;
@@ -181,7 +180,6 @@
             margin-top: 2px;
         }
 
-        /* Модальное окно */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -220,14 +218,8 @@
         }
 
         @keyframes modalFadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .modal-header {
@@ -275,7 +267,6 @@
             line-height: 1.5;
         }
 
-        /* стили для алгоритма */
         .adult-block {
             border-left: 5px solid #dc2626;
             padding-left: 20px;
@@ -379,120 +370,102 @@
             margin-bottom: 8px;
         }
 
+        #imageModal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        #imageModal .modal-close-img {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            background: none;
+            border: none;
+            z-index: 2001;
+        }
+
+        #modalImage {
+            max-width: 90%;
+            max-height: 70%;
+            object-fit: contain;
+        }
+
+        #navContainer {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: none;
+            gap: 30px;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 6px 20px;
+            border-radius: 40px;
+            z-index: 2001;
+        }
+
+        #prevBtn, #nextBtn {
+            background-color: transparent;
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            padding: 0 12px;
+        }
+
+        #imageCounter {
+            color: white;
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
         @media (max-width: 700px) {
-            body {
-                padding: 16px 10px;
-            }
-
-            .mkb-row {
-                padding: 14px 18px;
-                font-size: 0.95rem;
-            }
-
-            .diagnosis {
-                padding: 10px 18px;
-                font-size: 0.9rem;
-            }
-
-            .content {
-                padding: 16px;
-            }
-
-            .section {
-                margin-bottom: 20px;
-            }
-
-            .section-title {
-                font-size: 1.15rem;
-                padding-left: 12px;
-                margin-bottom: 12px;
-            }
-
-            .field-item {
-                font-size: 0.85rem;
-                padding: 4px 0 4px 4px;
-            }
-
-            .field-item strong {
-                min-width: 140px;
-            }
-
-            .full-width-text {
-                font-size: 0.85rem;
-                padding: 6px 0 6px 4px;
-            }
-
-            .full-width-text strong {
-                min-width: 140px;
-            }
-
-            .status-local {
-                padding: 10px 14px;
-                font-size: 0.85rem;
-            }
-
-            .scales-list {
-                padding: 10px 14px;
-            }
-
-            .scales-list p {
-                font-size: 0.85rem;
-                margin: 6px 0;
-            }
-
-            .btn-algorithm {
-                padding: 8px 22px;
-                font-size: 1rem;
-            }
-
-            .btn-hint {
-                font-size: 0.65rem;
-            }
-
-            .modal-overlay {
-                padding: 10px;
-            }
-
-            .modal-container {
-                max-height: 90vh;
-                border-radius: 20px;
-            }
-
-            .modal-header {
-                padding: 14px 18px;
-            }
-
-            .modal-header h2 {
-                font-size: 1rem;
-            }
-
-            .modal-body {
-                padding: 20px;
-            }
-
-            .list-styled {
-                margin-left: 20px;
-            }
-
-            .adult-block, .child-block {
-                padding-left: 14px;
-            }
+            body { padding: 16px 10px; }
+            .mkb-row { padding: 14px 18px; font-size: 0.95rem; }
+            .diagnosis { padding: 10px 18px; font-size: 0.9rem; }
+            .content { padding: 16px; }
+            .section { margin-bottom: 20px; }
+            .section-title { font-size: 1.15rem; padding-left: 12px; margin-bottom: 12px; }
+            .field-item { font-size: 0.85rem; padding: 4px 0 4px 4px; }
+            .field-item strong { min-width: 140px; }
+            .full-width-text { font-size: 0.85rem; padding: 6px 0 6px 4px; }
+            .full-width-text strong { min-width: 140px; }
+            .status-local { padding: 10px 14px; font-size: 0.85rem; }
+            .scales-list { padding: 10px 14px; }
+            .scales-list p { font-size: 0.85rem; margin: 6px 0; }
+            .btn-algorithm { padding: 8px 22px; font-size: 1rem; }
+            .btn-hint { font-size: 0.65rem; }
+            .modal-overlay { padding: 10px; }
+            .modal-container { max-height: 90vh; border-radius: 20px; }
+            .modal-header { padding: 14px 18px; }
+            .modal-header h2 { font-size: 1rem; }
+            .modal-body { padding: 20px; }
+            .list-styled { margin-left: 20px; }
+            .adult-block, .child-block { padding-left: 14px; }
         }
 
         @media (max-width: 480px) {
-            .field-item strong {
-                min-width: 120px;
-            }
-
-            .full-width-text strong {
-                min-width: 120px;
-            }
-
-            .btn-algorithm {
-                padding: 10px 18px;
-                font-size: 0.9rem;
-                border-radius: 40px;
-            }
+            .field-item strong { min-width: 120px; }
+            .full-width-text strong { min-width: 120px; }
+            .btn-algorithm { padding: 10px 18px; font-size: 0.9rem; border-radius: 40px; }
         }
     </style>
 </head>
@@ -509,13 +482,13 @@
         <!-- ЖАЛОБЫ -->
         <div class="section">
             <div class="section-title">📢 ЖАЛОБЫ</div>
-            <div class="full-width-text"><em>На распирающие, пульсирующие боли в области правой половой губы, резко усиливающиеся при ходьбе, в положении сидя, при прикосновении. На выраженный отек и покраснение в области вульвы. На повышение температуры тела до 38,5°C, озноб, общую слабость. На затруднение мочеиспускания из-за резкой боли.</em></div>
+            <div class="full-width-text"><em>На распирающие, пульсирующие боли в области правой половой губы, резко усиливающиеся при ходьбе, в положении сидя, при прикосновении. На выраженный отек и покраснение в области вульвы. На повышение температуры тела до 38,4°C, озноб, общую слабость. На затруднение мочеиспускания из-за резкой боли.</em></div>
         </div>
 
         <!-- АНАМНЕЗ -->
         <div class="section">
             <div class="section-title">📋 АНАМНЕЗ</div>
-            <div class="full-width-text"><strong>Анамнез заболевания:</strong> Заболела остро 4 дня назад. Впервые отметила появление небольшого болезненного уплотнения в области правой половой губы. На 2-е сутки боль усилилась, появился отек и покраснение. На 3-и сутки поднялась температура до 38,0°C, появился озноб, слабость. Самостоятельно принимала парацетамол и ибупрофен, эффект был кратковременным. Сегодня утром боль стала нестерпимой, пульсирующей, температура повысилась до 38,5°C, в связи с чем вызвана бригада скорой медицинской помощи.</div>
+            <div class="full-width-text"><strong>Анамнез заболевания:</strong> Заболела остро 4 дня назад. Впервые отметила появление небольшого болезненного уплотнения в области правой половой губы. На 2-е сутки боль усилилась, появился отек и покраснение. На 3-и сутки поднялась температура до 38,0°C, появился озноб, слабость. Самостоятельно принимала парацетамол и ибупрофен, эффект был кратковременным. Сегодня утром боль стала нестерпимой, пульсирующей, температура повысилась до 38,4°C, в связи с чем вызвана бригада скорой медицинской помощи.</div>
             <div class="full-width-text"><strong>Эпидемиологический анамнез:</strong> Контакт с инфекционными больными, прилетевшими из эпидопасных районов в течение последних 14 дней отрицает. Вакцинацию от гриппа и COVID-19 отрицает. В регистре COVID-19 не состоит.</div>
             <div class="full-width-text"><strong>Аллергологический анамнез:</strong> Не отягощен. Лекарственной, пищевой, бытовой аллергии не выявлено.</div>
             <div class="full-width-text"><strong>Гинекологический анамнез:</strong> Менструальная функция с 13 лет, цикл установился сразу, продолжительность 4-5 дней, через 28 дней, регулярный, безболезненный. Последняя менструация 2 недели назад, в срок, обычная. Выделения из половых путей на момент осмотра: умеренные, слизисто-гнойные, желто-зеленые, с неприятным запахом. В анамнезе: рецидивирующий бартолинит справа (дважды — 2 и 4 года назад, проводилось вскрытие и дренирование). Беременностей 1 (срочные роды без осложнений). Абортов не было. Гинекологических операций не было.</div>
@@ -526,7 +499,7 @@
         <div class="section">
             <div class="section-title">🩺 ОБЪЕКТИВНО</div>
             <div class="field-list">
-                <div class="field-item"><strong>Общее состояние:</strong> <span class="value">средней тяжести</span></div>
+                <div class="field-item"><strong>Общее состояние:</strong> <span class="value">средней тяжести (обусловлено интоксикацией на фоне гнойно-воспалительного процесса и болевым синдромом)</span></div>
                 <div class="field-item"><strong>Сознание:</strong> <span class="value">ясное</span></div>
                 <div class="field-item"><strong>Шкала комы Глазго (GCS):</strong> <span class="value">15 баллов</span></div>
                 <div class="field-item"><strong>Положение:</strong> <span class="value">вынужденное (лежит на спине с разведенными ногами, при ходьбе щадит промежность)</span></div>
@@ -563,12 +536,12 @@
         <div class="section">
             <div class="section-title">❤️ ОРГАНЫ КРОВООБРАЩЕНИЯ</div>
             <div class="field-list">
-                <div class="field-item"><strong>Пульс в мин:</strong> <span class="value">95</span></div>
+                <div class="field-item"><strong>Пульс в мин:</strong> <span class="value">95 (тахикардия на фоне лихорадки)</span></div>
                 <div class="field-item"><strong>Ритмичный, аритмичный, наполнение пульса:</strong> <span class="value">ритмичный, удовлетворительного наполнения</span></div>
                 <div class="field-item"><strong>ЧСС:</strong> <span class="value">95 ударов в минуту</span></div>
                 <div class="field-item"><strong>Дефицит пульса:</strong> <span class="value">нет</span></div>
                 <div class="field-item"><strong>АД мм.рт.ст. на момент осмотра, привычное АД мм.рт.ст., максимальное АД мм.рт.ст.:</strong> <span class="value">120/70, привычное 120/70, максимальное не известно</span></div>
-                <div class="field-item"><strong>Тоны сердца:</strong> <span class="value">звучные, ритмичные, тахикардия</span></div>
+                <div class="field-item"><strong>Тоны сердца:</strong> <span class="value">звучные, ритмичные</span></div>
                 <div class="field-item"><strong>Шум (систолический, диастолический):</strong> <span class="value">нет</span></div>
                 <div class="field-item"><strong>Шум трения перикарда:</strong> <span class="value">нет</span></div>
                 <div class="field-item"><strong>Акцент какого тона на (где?):</strong> <span class="value">нет</span></div>
@@ -617,7 +590,7 @@
             </div>
         </div>
 
-        <!-- STATUS LOCALIS (ПОДРОБНО! ПРОФЕССИОНАЛЬНАЯ ВЕРСИЯ) -->
+        <!-- STATUS LOCALIS -->
         <div class="section">
             <div class="section-title">🔍 STATUS LOCALIS (подробно!)</div>
             <div class="status-local">
@@ -630,13 +603,23 @@
             </div>
         </div>
 
+        <!-- ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ -->
+        <div class="section">
+            <div class="section-title">📈 ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ</div>
+            <div class="scales-list">
+                <p>✔ <strong>Пульсоксиметрия:</strong> SpO₂ — 97%.</p>
+                <p>✔ <strong>Глюкометрия:</strong> не проводилась (нет показаний).</p>
+                <p>✔ <strong>ЭКГ:</strong> не проводилась (нет показаний).</p>
+            </div>
+        </div>
+
         <!-- ОЦЕНКА ПО ШКАЛАМ -->
         <div class="section">
             <div class="section-title">📊 ОЦЕНКА ПО ШКАЛАМ</div>
             <div class="scales-list">
-                <p>✔ <strong>Шкала NEWS2:</strong> 2 балла (ЧСС 95 — 1 балл, t° 38,4 — 1 балл, АД 120/70 — 0, ЧДД 18 — 0, сознание ясное — 0) — требуется наблюдение, госпитализация по гинекологическому показанию.</p>
+                <p>✔ <strong>Шкала NEWS2:</strong> <span class="highlight-number">2 балла</span> (ЧСС 95 — 1 балл, t° 38,4 — 1 балл, АД 120/70 — 0, ЧДД 18 — 0, сознание ясное — 0).</p>
                 <p>✔ <strong>Пациент с острой дыхательной недостаточностью, шкала ОДН по Кассиль:</strong> не применимо.</p>
-                <p>✔ <strong>Пациент с шоком, индекс Альговера:</strong> Индекс Альговера = ЧСС / АД сист. = 95 / 120 = 0,79 (пограничное значение, гемодинамика стабильна).</p>
+                <p>✔ <strong>Пациент с шоком, индекс Альговера:</strong> Индекс Альговера = ЧСС / АД сист. = 95 / 120 = 0,79 — норма (шока нет).</p>
                 <p>✔ <strong>Пациент с травмой, шкала боли ВАШ:</strong> не применимо.</p>
                 <p>✔ <strong>Пациент с ХСН, шкала ШОКС:</strong> не применимо.</p>
                 <p>✔ <strong>Пациент с ТЭЛА, шкала риска ТЭЛА:</strong> не применимо.</p>
@@ -646,7 +629,7 @@
             </div>
         </div>
 
-        <!-- КРАСНАЯ КНОПКА С АЛГОРИТМОМ -->
+        <!-- КРАСНАЯ КНОПКА -->
         <div class="algorithm-btn-container">
             <button class="btn-algorithm" id="openAlgorithmBtn">
                 <span>🚨 Оказание помощи в соответствии с Алгоритмами МСК</span>
@@ -656,7 +639,7 @@
     </div>
 </div>
 
-<!-- НОВОЕ МОДАЛЬНОЕ ОКНО (Киста бартолиновой железы. Абсцесс бартолиновой железы) -->
+<!-- МОДАЛЬНОЕ ОКНО -->
 <div class="modal-overlay" id="algorithmModal">
     <div class="modal-container">
         <div class="modal-header">
@@ -742,15 +725,15 @@
     </div>
 </div>
 
-<!-- Модальное окно для изображений (оставлено на случай будущего использования) -->
-<div id="imageModal" class="modal" style="display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.9); justify-content: center; align-items: center; flex-direction: column;">
-  <button onclick="document.getElementById('imageModal').style.display='none'; isGalleryMode=false; currentGallery=[];" style="position: absolute; top: 20px; right: 35px; color: #fff; font-size: 40px; font-weight: bold; cursor: pointer; background: none; border: none; z-index: 2001;">&times;</button>
-  <img id="modalImage" style="max-width: 90%; max-height: 70%; object-fit: contain;">
-  <div id="navContainer" style="position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); display: none; gap: 30px; align-items: center; justify-content: center; background-color: rgba(0,0,0,0.5); padding: 6px 20px; border-radius: 40px; z-index: 2001;">
-    <button id="prevBtn" style="background-color: transparent; color: white; font-size: 28px; font-weight: bold; border: none; cursor: pointer; padding: 0 12px;">❮</button>
-    <span id="imageCounter" style="color: white; background-color: rgba(0,0,0,0.6); padding: 4px 12px; border-radius: 20px; font-size: 14px; font-weight: bold;">1 / 2</span>
-    <button id="nextBtn" style="background-color: transparent; color: white; font-size: 28px; font-weight: bold; border: none; cursor: pointer; padding: 0 12px;">❯</button>
-  </div>
+<!-- МОДАЛЬНОЕ ОКНО ДЛЯ ИЗОБРАЖЕНИЙ -->
+<div id="imageModal">
+    <button class="modal-close-img" onclick="document.getElementById('imageModal').style.display='none'; isGalleryMode=false; currentGallery=[];">&times;</button>
+    <img id="modalImage" src="" alt="Изображение">
+    <div id="navContainer">
+        <button id="prevBtn">❮</button>
+        <span id="imageCounter">1 / 2</span>
+        <button id="nextBtn">❯</button>
+    </div>
 </div>
 
 <script>
@@ -781,7 +764,6 @@
         }
     });
 
-    // Скрипт для галереи изображений (оставлен для совместимости)
     let currentGallery = [];
     let currentIndex = 0;
     let isGalleryMode = false;
