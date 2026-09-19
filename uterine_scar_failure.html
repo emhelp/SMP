@@ -93,7 +93,7 @@
             font-weight: 700;
             color: #1e4663;
             display: inline-block;
-            min-width: 220px;
+            min-width: 240px;
         }
 
         .field-item .value {
@@ -111,7 +111,7 @@
             font-weight: 700;
             color: #1e4663;
             display: inline-block;
-            min-width: 220px;
+            min-width: 240px;
         }
 
         .status-local {
@@ -134,38 +134,6 @@
             margin: 8px 0;
         }
 
-        .note {
-            background: #e7f1ff;
-            border-left: 4px solid #1a4d6f;
-            padding: 12px 16px;
-            margin-top: 16px;
-            border-radius: 12px;
-            font-size: 0.9rem;
-            color: #1e4663;
-        }
-
-        .note-list {
-            margin-top: 8px;
-            margin-left: 20px;
-            list-style-type: none;
-            padding-left: 0;
-        }
-
-        .note-list li {
-            margin-bottom: 8px;
-            padding-left: 20px;
-            position: relative;
-        }
-
-        .note-list li:before {
-            content: "•";
-            position: absolute;
-            left: 4px;
-            color: #1a4d6f;
-            font-weight: bold;
-        }
-
-        /* Кнопка алгоритма */
         .algorithm-btn-container {
             margin-top: 32px;
             margin-bottom: 20px;
@@ -212,7 +180,6 @@
             margin-top: 2px;
         }
 
-        /* Модальное окно */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -251,14 +218,8 @@
         }
 
         @keyframes modalFadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .modal-header {
@@ -304,9 +265,9 @@
             background: #fefcf5;
             font-size: 0.95rem;
             line-height: 1.5;
+            hyphens: auto;
         }
 
-        /* стили для алгоритма */
         .adult-block {
             border-left: 5px solid #dc2626;
             padding-left: 20px;
@@ -371,130 +332,138 @@
             margin: 20px 0;
             border-radius: 16px;
         }
+        .drug-name {
+            background: #f3f3f3;
+            font-family: monospace;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-weight: 800;
+            color: #1a3c4a;
+            display: inline-block;
+        }
+        .highlight-number {
+            font-weight: 800;
+            color: #c2410c;
+            background: #fff0d0;
+            padding: 0 4px;
+            border-radius: 10px;
+        }
+        .bold-black {
+            font-weight: 800;
+            color: #000000;
+            background: transparent;
+        }
+        .italic-bold-ref {
+            font-weight: 800;
+            font-style: italic;
+            background: transparent;
+            color: #0a2f44;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+        .italic-bold-static {
+            font-weight: 800;
+            font-style: italic;
+            background: transparent;
+            color: #0a2f44;
+        }
+
+        #imageModal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        #imageModal .modal-close-img {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            background: none;
+            border: none;
+            z-index: 2001;
+        }
+
+        #modalImage {
+            max-width: 90%;
+            max-height: 70%;
+            object-fit: contain;
+        }
+
+        #navContainer {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: none;
+            gap: 30px;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 6px 20px;
+            border-radius: 40px;
+            z-index: 2001;
+        }
+
+        #prevBtn, #nextBtn {
+            background-color: transparent;
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            padding: 0 12px;
+        }
+
+        #imageCounter {
+            color: white;
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+        }
 
         @media (max-width: 700px) {
-            body {
-                padding: 16px 10px;
-            }
-
-            .mkb-row {
-                padding: 14px 18px;
-                font-size: 0.95rem;
-            }
-
-            .diagnosis {
-                padding: 10px 18px;
-                font-size: 0.9rem;
-            }
-
-            .content {
-                padding: 16px;
-            }
-
-            .section {
-                margin-bottom: 20px;
-            }
-
-            .section-title {
-                font-size: 1.15rem;
-                padding-left: 12px;
-                margin-bottom: 12px;
-            }
-
-            .field-item {
-                font-size: 0.85rem;
-                padding: 4px 0 4px 4px;
-            }
-
-            .field-item strong {
-                min-width: 140px;
-            }
-
-            .full-width-text {
-                font-size: 0.85rem;
-                padding: 6px 0 6px 4px;
-            }
-
-            .full-width-text strong {
-                min-width: 140px;
-            }
-
-            .status-local {
-                padding: 10px 14px;
-                font-size: 0.85rem;
-            }
-
-            .scales-list {
-                padding: 10px 14px;
-            }
-
-            .scales-list p {
-                font-size: 0.85rem;
-                margin: 6px 0;
-            }
-
-            .note {
-                padding: 10px 14px;
-                font-size: 0.8rem;
-            }
-
-            .note-list {
-                margin-left: 14px;
-            }
-
-            .btn-algorithm {
-                padding: 8px 22px;
-                font-size: 1rem;
-            }
-
-            .btn-hint {
-                font-size: 0.65rem;
-            }
-
-            .modal-overlay {
-                padding: 10px;
-            }
-
-            .modal-container {
-                max-height: 90vh;
-                border-radius: 20px;
-            }
-
-            .modal-header {
-                padding: 14px 18px;
-            }
-
-            .modal-header h2 {
-                font-size: 1rem;
-            }
-
-            .modal-body {
-                padding: 20px;
-            }
-
-            .list-styled {
-                margin-left: 20px;
-            }
-
-            .adult-block, .child-block {
-                padding-left: 14px;
-            }
+            body { padding: 16px 10px; }
+            .mkb-row { padding: 14px 18px; font-size: 0.95rem; }
+            .diagnosis { padding: 10px 18px; font-size: 0.9rem; }
+            .content { padding: 16px; }
+            .section { margin-bottom: 20px; }
+            .section-title { font-size: 1.15rem; padding-left: 12px; margin-bottom: 12px; }
+            .field-item { font-size: 0.85rem; padding: 4px 0 4px 4px; }
+            .field-item strong { min-width: 140px; }
+            .full-width-text { font-size: 0.85rem; padding: 6px 0 6px 4px; }
+            .full-width-text strong { min-width: 140px; }
+            .status-local { padding: 10px 14px; font-size: 0.85rem; }
+            .scales-list { padding: 10px 14px; }
+            .scales-list p { font-size: 0.85rem; margin: 6px 0; }
+            .btn-algorithm { padding: 8px 22px; font-size: 1rem; }
+            .btn-hint { font-size: 0.65rem; }
+            .modal-overlay { padding: 10px; align-items: center; }
+            .modal-container { max-height: 90vh; border-radius: 20px; }
+            .modal-header { padding: 14px 18px; }
+            .modal-header h2 { font-size: 1rem; }
+            .modal-body { padding: 20px; }
+            .list-styled { margin-left: 20px; }
+            .adult-block, .child-block { padding-left: 14px; }
         }
 
         @media (max-width: 480px) {
-            .field-item strong {
-                min-width: 120px;
-            }
-
-            .full-width-text strong {
-                min-width: 120px;
-            }
-
-            .btn-algorithm {
-                padding: 10px 18px;
-                font-size: 0.9rem;
-                border-radius: 40px;
-            }
+            .field-item strong { min-width: 120px; }
+            .full-width-text strong { min-width: 120px; }
+            .btn-algorithm { padding: 10px 18px; font-size: 0.9rem; border-radius: 40px; }
         }
     </style>
 </head>
@@ -517,11 +486,11 @@
         <!-- АНАМНЕЗ -->
         <div class="section">
             <div class="section-title">📋 АНАМНЕЗ</div>
-            <div class="full-width-text"><strong>Anamnesis morbi:</strong> В течение 2-3 дней отмечает умеренные, периодические, тянущие боли внизу живота, связывает с физической нагрузкой (длительная ходьба). К врачу не обращалась. Самостоятельно принимала дротаверин (но-шпа) 80 мг per os — эффект незначительный и кратковременный. В связи с сохранением болевого синдрома вызвана бригада СМП.</div>
+            <div class="full-width-text"><strong>Анамнез заболевания:</strong> В течение 2-3 дней отмечает умеренные, периодические, тянущие боли внизу живота, связывает с физической нагрузкой (длительная ходьба). К врачу не обращалась. Самостоятельно принимала дротаверин (но-шпа) 80 мг per os — эффект незначительный и кратковременный. В связи с сохранением болевого синдрома вызвана бригада СМП. Хронические заболевания отрицает.</div>
             <div class="full-width-text"><strong>Аллергологический анамнез:</strong> Не отягощен. Аллергические реакции на лекарственные препараты, пищевые продукты и бытовые аллергены отрицает.</div>
             <div class="full-width-text"><strong>Эпидемиологический анамнез:</strong> Контакт с инфекционными больными, в том числе с лихорадящими и с респираторными симптомами, отрицает. За пределы РФ не выезжала. Прививочный анамнез: вакцинация против COVID-19 и гриппа отрицает.</div>
             <div class="full-width-text"><strong>Гинекологический анамнез:</strong> Менструации с 13 лет. Цикл установился сразу, регулярный, продолжительностью 28 дней. Менструации по 4-5 дней, умеренные, безболезненные. Гинекологических заболеваний не было. Патологические выделения из половых путей отрицает.</div>
-            <div class="full-width-text"><strong>Акушерский анамнез (важно!):</strong> Настоящая беременность — <strong>2-я</strong>. <strong>1-я беременность</strong> (год не указан) завершилась операцией кесарева сечения в доношенном сроке (показания: тазовое предлежание плода). Послеоперационный период без осложнений. Абортов, выкидышей не было. В женской консультации по настоящей беременности наблюдается с ранних сроков. На учете состоит. Препараты: принимает утрожестан (по назначению врача).</div>
+            <div class="full-width-text"><strong>Акушерский анамнез (важно!):</strong> Настоящая беременность — <strong>2-я</strong>. <strong>1-я беременность</strong> завершилась операцией кесарева сечения в доношенном сроке (показания: тазовое предлежание плода). Послеоперационный период без осложнений. Абортов, выкидышей не было. В женской консультации по настоящей беременности наблюдается с ранних сроков. На учете состоит. Препараты: принимает утрожестан (по назначению врача).</div>
         </div>
 
         <!-- ОБЪЕКТИВНО -->
@@ -618,7 +587,7 @@
             <div class="status-local">
                 <strong>Акушерский статус (локальный осмотр):</strong><br>
                 • Живот увеличен за счет беременной матки, овоидной формы. Кожные покровы живота чистые.<br>
-                • <strong>Пальпация матки:</strong> Высота стояния дна матки (ВДМ) — 13 см (соответствует сроку 13 недель). Матка в нормотонусе (мягкая при пальпации). Безболезненна. Схваток нет. <strong>Рубец на матке</strong> (после кесарева сечения) пальпаторно не определяется, зона проекции рубца безболезненна.<br>
+                • <strong>Пальпация матки:</strong> Высота стояния дна матки (ВДМ) — 13 см (соответствует сроку 13 недель). Матка в нормотонусе (мягкая при пальпации). При глубокой пальпации — умеренная чувствительность в проекции послеоперационного рубца, без локальной болезненности и симптомов раздражения брюшины. Схваток нет.<br>
                 • <strong>Данные аускультации плода:</strong> Сердцебиение плода ясное, ритмичное, 140 ударов в минуту.<br>
                 • <strong>Осмотр наружных половых органов:</strong> Наружные половые органы развиты правильно. Слизистые розовые, чистые. Выделения из половых путей: на момент осмотра отсутствуют.<br>
                 • Травм, гематом, повреждений нет.
@@ -627,9 +596,11 @@
 
         <!-- ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ -->
         <div class="section">
-            <div class="section-title">📊 ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ</div>
+            <div class="section-title">📈 ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ</div>
             <div class="scales-list">
-                <p>✔ <strong>Пульсоксиметрия:</strong> SpO2 – 99%.</p>
+                <p>✔ <strong>Пульсоксиметрия:</strong> SpO₂ — 99%.</p>
+                <p>✔ <strong>Глюкометрия:</strong> не проводилась (нет показаний).</p>
+                <p>✔ <strong>ЭКГ:</strong> не проводилась (нет показаний).</p>
             </div>
         </div>
 
@@ -637,29 +608,15 @@
         <div class="section">
             <div class="section-title">📊 ОЦЕНКА ПО ШКАЛАМ</div>
             <div class="scales-list">
-                <p>✔ <strong>Шкала NEWS2:</strong> 0 баллов — состояние стабильное.</p>
-                <p>✔ <strong>Индекс Альговера:</strong> 76 / 110 = 0.69 (в пределах нормы, гемодинамика стабильна).</p>
-                <p>✔ <strong>Пациент с травмой, шкала боли ВАШ:</strong> не применимо.</p>
+                <p>✔ <strong>Шкала NEWS2:</strong> 0 баллов (АД 110/70, ЧСС 76, ЧДД 16, t° 36,6, SpO₂ 99%).</p>
+                <p>✔ <strong>Индекс Альговера:</strong> не применимо.</p>
+                <p>✔ <strong>Шкала боли ВАШ:</strong> не применимо.</p>
+                <p>✔ <strong>Шкала ШОКС:</strong> не применимо.</p>
+                <p>✔ <strong>Шкала риска ТЭЛА:</strong> не применимо.</p>
                 <p>✔ <strong>Алкогольное опьянение:</strong> не применимо.</p>
+                <p>✔ <strong>Шкала LAMS:</strong> не применимо.</p>
+                <p>✔ <strong>ДЭП:</strong> не применимо.</p>
             </div>
-        </div>
-
-        <!-- ПРИМЕЧАНИЕ ДЛЯ БРИГАДЫ СМП -->
-        <div class="note">
-            <strong>📌 Примечание для бригады СМП (дифференциальная диагностика):</strong><br>
-            Дифференциальный диагноз проведен с:
-            <ul class="note-list">
-                <li><strong>Угрозой прерывания беременности</strong> (тянущие боли внизу живота, гипертонус матки, возможны кровянистые выделения. У пациентки: матка в нормотонусе, выделений нет).</li>
-                <li><strong>Острым аппендицитом</strong> (боль в эпигастрии или правой подвздошной области, тошнота, рвота, симптомы раздражения брюшины. У пациентки: живот мягкий, симптомы отрицательные).</li>
-                <li><strong>Острым пиелонефритом беременных</strong> (боль в пояснице, дизурия, лихорадка, положительный симптом поколачивания. У пациентки: симптом отрицательный, температура нормальная).</li>
-                <li><strong>Перекрутом ножки кисты яичника</strong> (внезапная резкая боль, симптомы раздражения брюшины. У пациентки: боли умеренные, постепенные, живот мягкий).</li>
-            </ul>
-            <strong>Ключевые признаки несостоятельности рубца на матке:</strong><br>
-            – Наличие рубца на матке после кесарева сечения в анамнезе.<br>
-            – Боли внизу живота и/или в области рубца.<br>
-            – Отсутствие признаков острой хирургической патологии.<br>
-            – Нормотонус матки.<br>
-            – Стабильное состояние пациентки.
         </div>
 
         <!-- КРАСНАЯ КНОПКА -->
@@ -672,7 +629,7 @@
     </div>
 </div>
 
-<!-- МОДАЛЬНОЕ ОКНО: АЛГОРИТМ ПРИ НЕСОСТОЯТЕЛЬНОСТИ РУБЦА НА МАТКЕ (единый стиль) -->
+<!-- МОДАЛЬНОЕ ОКНО: АЛГОРИТМ ПРИ НЕСОСТОЯТЕЛЬНОСТИ РУБЦА НА МАТКЕ -->
 <div class="modal-overlay" id="algorithmModal">
     <div class="modal-container">
         <div class="modal-header">
@@ -710,6 +667,17 @@
     </div>
 </div>
 
+<!-- МОДАЛЬНОЕ ОКНО ДЛЯ ИЗОБРАЖЕНИЙ -->
+<div id="imageModal">
+    <button class="modal-close-img" onclick="document.getElementById('imageModal').style.display='none'; isGalleryMode=false; currentGallery=[];">&times;</button>
+    <img id="modalImage" src="" alt="Изображение">
+    <div id="navContainer">
+        <button id="prevBtn">❮</button>
+        <span id="imageCounter">1 / 2</span>
+        <button id="nextBtn">❯</button>
+    </div>
+</div>
+
 <script>
     const modal = document.getElementById('algorithmModal');
     const openBtn = document.getElementById('openAlgorithmBtn');
@@ -735,6 +703,58 @@
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && modal.classList.contains('active')) {
             closeModal();
+        }
+    });
+
+    let currentGallery = [];
+    let currentIndex = 0;
+    let isGalleryMode = false;
+
+    function openImage(imagePath) {
+        isGalleryMode = false;
+        currentGallery = [];
+        document.getElementById('navContainer').style.display = 'none';
+        document.getElementById('imageModal').style.display = 'flex';
+        document.getElementById('modalImage').src = imagePath;
+    }
+
+    function openImageGallery(images) {
+        isGalleryMode = true;
+        currentGallery = images;
+        currentIndex = 0;
+        document.getElementById('navContainer').style.display = 'flex';
+        document.getElementById('imageModal').style.display = 'flex';
+        document.getElementById('modalImage').src = currentGallery[currentIndex];
+        document.getElementById('imageCounter').textContent = `${currentIndex + 1} / ${currentGallery.length}`;
+        updateNavButtons();
+    }
+
+    function updateNavButtons() {
+        document.getElementById('prevBtn').style.opacity = currentIndex === 0 ? '0.4' : '1';
+        document.getElementById('nextBtn').style.opacity = currentIndex === currentGallery.length - 1 ? '0.4' : '1';
+    }
+
+    document.getElementById('prevBtn').addEventListener('click', function() {
+        if (!isGalleryMode || currentIndex === 0) return;
+        currentIndex--;
+        document.getElementById('modalImage').src = currentGallery[currentIndex];
+        document.getElementById('imageCounter').textContent = `${currentIndex + 1} / ${currentGallery.length}`;
+        updateNavButtons();
+    });
+
+    document.getElementById('nextBtn').addEventListener('click', function() {
+        if (!isGalleryMode || currentIndex === currentGallery.length - 1) return;
+        currentIndex++;
+        document.getElementById('modalImage').src = currentGallery[currentIndex];
+        document.getElementById('imageCounter').textContent = `${currentIndex + 1} / ${currentGallery.length}`;
+        updateNavButtons();
+    });
+
+    document.getElementById('imageModal').addEventListener('click', function(e) {
+        if (e.target === this) {
+            this.style.display = 'none';
+            isGalleryMode = false;
+            currentGallery = [];
         }
     });
 </script>
