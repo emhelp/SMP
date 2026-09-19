@@ -93,7 +93,7 @@
             font-weight: 700;
             color: #1e4663;
             display: inline-block;
-            min-width: 220px;
+            min-width: 240px;
         }
 
         .field-item .value {
@@ -111,7 +111,7 @@
             font-weight: 700;
             color: #1e4663;
             display: inline-block;
-            min-width: 220px;
+            min-width: 240px;
         }
 
         .status-local {
@@ -134,38 +134,6 @@
             margin: 8px 0;
         }
 
-        .note {
-            background: #e7f1ff;
-            border-left: 4px solid #1a4d6f;
-            padding: 12px 16px;
-            margin-top: 16px;
-            border-radius: 12px;
-            font-size: 0.9rem;
-            color: #1e4663;
-        }
-
-        .note-list {
-            margin-top: 8px;
-            margin-left: 20px;
-            list-style-type: none;
-            padding-left: 0;
-        }
-
-        .note-list li {
-            margin-bottom: 8px;
-            padding-left: 20px;
-            position: relative;
-        }
-
-        .note-list li:before {
-            content: "•";
-            position: absolute;
-            left: 4px;
-            color: #1a4d6f;
-            font-weight: bold;
-        }
-
-        /* Кнопка алгоритма */
         .algorithm-btn-container {
             margin-top: 32px;
             margin-bottom: 20px;
@@ -212,7 +180,6 @@
             margin-top: 2px;
         }
 
-        /* Модальное окно */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -251,14 +218,8 @@
         }
 
         @keyframes modalFadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .modal-header {
@@ -304,9 +265,9 @@
             background: #fefcf5;
             font-size: 0.95rem;
             line-height: 1.5;
+            hyphens: auto;
         }
 
-        /* стили для алгоритма */
         .adult-block {
             border-left: 5px solid #dc2626;
             padding-left: 20px;
@@ -401,136 +362,122 @@
             padding: 0 4px;
             border-radius: 10px;
         }
+        .bold-black {
+            font-weight: 800;
+            color: #000000;
+            background: transparent;
+        }
         .italic-bold-ref {
+            font-weight: 800;
+            font-style: italic;
+            background: transparent;
+            color: #0a2f44;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+        .italic-bold-static {
             font-weight: 800;
             font-style: italic;
             background: transparent;
             color: #0a2f44;
         }
 
+        #imageModal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        #imageModal .modal-close-img {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            background: none;
+            border: none;
+            z-index: 2001;
+        }
+
+        #modalImage {
+            max-width: 90%;
+            max-height: 70%;
+            object-fit: contain;
+        }
+
+        #navContainer {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: none;
+            gap: 30px;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 6px 20px;
+            border-radius: 40px;
+            z-index: 2001;
+        }
+
+        #prevBtn, #nextBtn {
+            background-color: transparent;
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            padding: 0 12px;
+        }
+
+        #imageCounter {
+            color: white;
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
         @media (max-width: 700px) {
-            body {
-                padding: 16px 10px;
-            }
-
-            .mkb-row {
-                padding: 14px 18px;
-                font-size: 0.95rem;
-            }
-
-            .diagnosis {
-                padding: 10px 18px;
-                font-size: 0.9rem;
-            }
-
-            .content {
-                padding: 16px;
-            }
-
-            .section {
-                margin-bottom: 20px;
-            }
-
-            .section-title {
-                font-size: 1.15rem;
-                padding-left: 12px;
-                margin-bottom: 12px;
-            }
-
-            .field-item {
-                font-size: 0.85rem;
-                padding: 4px 0 4px 4px;
-            }
-
-            .field-item strong {
-                min-width: 140px;
-            }
-
-            .full-width-text {
-                font-size: 0.85rem;
-                padding: 6px 0 6px 4px;
-            }
-
-            .full-width-text strong {
-                min-width: 140px;
-            }
-
-            .status-local {
-                padding: 10px 14px;
-                font-size: 0.85rem;
-            }
-
-            .scales-list {
-                padding: 10px 14px;
-            }
-
-            .scales-list p {
-                font-size: 0.85rem;
-                margin: 6px 0;
-            }
-
-            .note {
-                padding: 10px 14px;
-                font-size: 0.8rem;
-            }
-
-            .note-list {
-                margin-left: 14px;
-            }
-
-            .btn-algorithm {
-                padding: 8px 22px;
-                font-size: 1rem;
-            }
-
-            .btn-hint {
-                font-size: 0.65rem;
-            }
-
-            .modal-overlay {
-                padding: 10px;
-            }
-
-            .modal-container {
-                max-height: 90vh;
-                border-radius: 20px;
-            }
-
-            .modal-header {
-                padding: 14px 18px;
-            }
-
-            .modal-header h2 {
-                font-size: 1rem;
-            }
-
-            .modal-body {
-                padding: 20px;
-            }
-
-            .list-styled {
-                margin-left: 20px;
-            }
-
-            .adult-block, .child-block {
-                padding-left: 14px;
-            }
+            body { padding: 16px 10px; }
+            .mkb-row { padding: 14px 18px; font-size: 0.95rem; }
+            .diagnosis { padding: 10px 18px; font-size: 0.9rem; }
+            .content { padding: 16px; }
+            .section { margin-bottom: 20px; }
+            .section-title { font-size: 1.15rem; padding-left: 12px; margin-bottom: 12px; }
+            .field-item { font-size: 0.85rem; padding: 4px 0 4px 4px; }
+            .field-item strong { min-width: 140px; }
+            .full-width-text { font-size: 0.85rem; padding: 6px 0 6px 4px; }
+            .full-width-text strong { min-width: 140px; }
+            .status-local { padding: 10px 14px; font-size: 0.85rem; }
+            .scales-list { padding: 10px 14px; }
+            .scales-list p { font-size: 0.85rem; margin: 6px 0; }
+            .btn-algorithm { padding: 8px 22px; font-size: 1rem; }
+            .btn-hint { font-size: 0.65rem; }
+            .modal-overlay { padding: 10px; align-items: center; }
+            .modal-container { max-height: 90vh; border-radius: 20px; }
+            .modal-header { padding: 14px 18px; }
+            .modal-header h2 { font-size: 1rem; }
+            .modal-body { padding: 20px; }
+            .list-styled { margin-left: 20px; }
+            .adult-block, .child-block { padding-left: 14px; }
         }
 
         @media (max-width: 480px) {
-            .field-item strong {
-                min-width: 120px;
-            }
-
-            .full-width-text strong {
-                min-width: 120px;
-            }
-
-            .btn-algorithm {
-                padding: 10px 18px;
-                font-size: 0.9rem;
-                border-radius: 40px;
-            }
+            .field-item strong { min-width: 120px; }
+            .full-width-text strong { min-width: 120px; }
+            .btn-algorithm { padding: 10px 18px; font-size: 0.9rem; border-radius: 40px; }
         }
     </style>
 </head>
@@ -556,15 +503,14 @@
             <div class="full-width-text"><strong>Анамнез заболевания:</strong> Пациентке проведен медикаментозный аборт 7 дней назад на сроке 6-7 недель препаратами мифепристон + мизопростол. После приема препаратов отмечала кровянистые выделения, отхождение сгустков. Однако выделения не прекратились, сохраняются в течение 7 дней, периодически усиливаются, сопровождаются болями. Самостоятельно принимала транексам — с временным эффектом. Контрольное УЗИ не проводила. К врачу не обращалась.</div>
             <div class="full-width-text"><strong>Эпидемиологический анамнез:</strong> Контакт с инфекционными больными, прилетевшими из эпидопасных районов в течение последних 14 дней отрицает. Вакцинацию от гриппа и COVID-19 отрицает. В регистре COVID-19 не состоит.</div>
             <div class="full-width-text"><strong>Аллергологический анамнез:</strong> Не отягощен. Лекарственной, пищевой, бытовой аллергии не выявлено.</div>
-            <div class="full-width-text"><strong>Гинекологический анамнез:</strong> Менструальная функция с 13 лет, цикл установился сразу, продолжительность 4-5 дней, через 28 дней, регулярный, безболезненный. Последняя менструация (до аборта) 8 недель назад. Беременностей 2, родов 1 (срочные, через естественные родовые пути), абортов 1 (настоящий — медикаментозный). Гинекологических заболеваний нет. Выделения из половых путей на момент осмотра: умеренные, кровянистые, темно-красные, со сгустками, без запаха.</div>
-            <div class="full-width-text"><strong>Акушерско-гинекологический анамнез:</strong> Хронические заболевания отрицает. По данным ЕМИАС информации нет.</div>
+            <div class="full-width-text"><strong>Гинекологический анамнез:</strong> Менструальная функция с 13 лет, цикл установился сразу, продолжительность 4-5 дней, через 28 дней, регулярный, безболезненный. Последняя менструация (до аборта) 8 недель назад. Беременностей 2, родов 1 (срочные, через естественные родовые пути), абортов 1 (настоящий — медикаментозный). Гинекологических заболеваний нет. Выделения из половых путей на момент осмотра: умеренные, кровянистые, темно-красные, со сгустками, без запаха. Хронические заболевания отрицает. По данным ЕМИАС информации нет.</div>
         </div>
 
         <!-- ОБЪЕКТИВНО -->
         <div class="section">
             <div class="section-title">🩺 ОБЪЕКТИВНО</div>
             <div class="field-list">
-                <div class="field-item"><strong>Общее состояние:</strong> <span class="value">средней тяжести</span></div>
+                <div class="field-item"><strong>Общее состояние:</strong> <span class="value">средней тяжести (обусловлено кровопотерей на фоне неполного медицинского аборта)</span></div>
                 <div class="field-item"><strong>Сознание:</strong> <span class="value">ясное</span></div>
                 <div class="field-item"><strong>Шкала комы Глазго (GCS):</strong> <span class="value">15 баллов</span></div>
                 <div class="field-item"><strong>Положение:</strong> <span class="value">активное</span></div>
@@ -602,7 +548,7 @@
                 <div class="field-item"><strong>ЧСС:</strong> <span class="value">95 ударов в минуту</span></div>
                 <div class="field-item"><strong>Дефицит пульса:</strong> <span class="value">нет</span></div>
                 <div class="field-item"><strong>АД мм.рт.ст. на момент осмотра, привычное АД мм.рт.ст.:</strong> <span class="value">110/70, привычное 120/70</span></div>
-                <div class="field-item"><strong>Тоны сердца:</strong> <span class="value">приглушены, тахикардия</span></div>
+                <div class="field-item"><strong>Тоны сердца:</strong> <span class="value">приглушены, ритмичные</span></div>
                 <div class="field-item"><strong>Шум:</strong> <span class="value">систолический шум на верхушке</span></div>
             </div>
         </div>
@@ -664,23 +610,15 @@
         <div class="section">
             <div class="section-title">📊 ОЦЕНКА ПО ШКАЛАМ</div>
             <div class="scales-list">
-                <p>✔ <strong>Шкала NEWS2:</strong> 1 балл (ЧСС 95 — 1 балл, АД 110/70 — 0, ЧДД 18 — 0, t° 36,6 — 0) — требуется экстренная госпитализация по гинекологическому показанию.</p>
-                <p>✔ <strong>Индекс Альговера:</strong> 95 / 110 = 0,86 (пограничное значение, гемодинамика стабильна, риск декомпенсации).</p>
-                <p>✔ <strong>Пациент с травмой, шкала боли ВАШ:</strong> не применимо.</p>
+                <p>✔ <strong>Шкала NEWS2:</strong> <span class="highlight-number">1 балл</span> (ЧСС 95 — 1 балл, АД 110/70 — 0, ЧДД 18 — 0, t° 36,6 — 0).</p>
+                <p>✔ <strong>Индекс Альговера:</strong> Индекс Альговера = ЧСС / АД сист. = 95 / 110 = 0,86 — норма (шока нет).</p>
+                <p>✔ <strong>Шкала боли ВАШ:</strong> не применимо.</p>
+                <p>✔ <strong>Шкала ШОКС:</strong> не применимо.</p>
+                <p>✔ <strong>Шкала риска ТЭЛА:</strong> не применимо.</p>
                 <p>✔ <strong>Алкогольное опьянение:</strong> не применимо.</p>
+                <p>✔ <strong>Шкала LAMS:</strong> не применимо.</p>
+                <p>✔ <strong>ДЭП:</strong> не применимо.</p>
             </div>
-        </div>
-
-        <!-- ПРИМЕЧАНИЕ ДЛЯ БРИГАДЫ СМП -->
-        <div class="note">
-            <strong>📌 Примечание для бригады СМП:</strong><br>
-            Дифференциальная диагностика проведена с:
-            <ul class="note-list">
-                <li><strong>прогрессирующей беременностью</strong> (задержка менструации, положительный тест, матка соответствует сроку, зев закрыт, кровотечения нет / скудные);</li>
-                <li><strong>полным абортом</strong> (матка плотная, небольших размеров, кровотечение прекратилось);</li>
-                <li><strong>эндометритом (постабортным)</strong> (лихорадка, гнойные выделения, болезненность матки, интоксикация);</li>
-                <li><strong>внематочной беременностью</strong> (задержка менструации, схваткообразные боли, положительный тест).</li>
-            </ul>
         </div>
 
         <!-- КРАСНАЯ КНОПКА -->
@@ -693,7 +631,7 @@
     </div>
 </div>
 
-<!-- НОВОЕ МОДАЛЬНОЕ ОКНО (Прерывание беременности в сроке до 22 недель) -->
+<!-- МОДАЛЬНОЕ ОКНО (Прерывание беременности в сроке до 22 недель) — БЕЗ ИЗМЕНЕНИЙ ПО СОДЕРЖАНИЮ -->
 <div class="modal-overlay" id="algorithmModal">
     <div class="modal-container">
         <div class="modal-header">
@@ -744,15 +682,15 @@
     </div>
 </div>
 
-<!-- Модальное окно для изображений (оставлено на случай будущего использования) -->
-<div id="imageModal" class="modal" style="display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.9); justify-content: center; align-items: center; flex-direction: column;">
-  <button onclick="document.getElementById('imageModal').style.display='none'; isGalleryMode=false; currentGallery=[];" style="position: absolute; top: 20px; right: 35px; color: #fff; font-size: 40px; font-weight: bold; cursor: pointer; background: none; border: none; z-index: 2001;">&times;</button>
-  <img id="modalImage" style="max-width: 90%; max-height: 70%; object-fit: contain;">
-  <div id="navContainer" style="position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); display: none; gap: 30px; align-items: center; justify-content: center; background-color: rgba(0,0,0,0.5); padding: 6px 20px; border-radius: 40px; z-index: 2001;">
-    <button id="prevBtn" style="background-color: transparent; color: white; font-size: 28px; font-weight: bold; border: none; cursor: pointer; padding: 0 12px;">❮</button>
-    <span id="imageCounter" style="color: white; background-color: rgba(0,0,0,0.6); padding: 4px 12px; border-radius: 20px; font-size: 14px; font-weight: bold;">1 / 2</span>
-    <button id="nextBtn" style="background-color: transparent; color: white; font-size: 28px; font-weight: bold; border: none; cursor: pointer; padding: 0 12px;">❯</button>
-  </div>
+<!-- МОДАЛЬНОЕ ОКНО ДЛЯ ИЗОБРАЖЕНИЙ -->
+<div id="imageModal">
+    <button class="modal-close-img" onclick="document.getElementById('imageModal').style.display='none'; isGalleryMode=false; currentGallery=[];">&times;</button>
+    <img id="modalImage" src="" alt="Изображение">
+    <div id="navContainer">
+        <button id="prevBtn">❮</button>
+        <span id="imageCounter">1 / 2</span>
+        <button id="nextBtn">❯</button>
+    </div>
 </div>
 
 <script>
@@ -783,7 +721,6 @@
         }
     });
 
-    // Скрипт для галереи изображений (оставлен для совместимости)
     let currentGallery = [];
     let currentIndex = 0;
     let isGalleryMode = false;
