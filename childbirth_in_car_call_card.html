@@ -16,10 +16,10 @@
         .section-title { font-size: 1.4rem; font-weight: 700; color: #1a4d6f; border-left: 6px solid #ffc107; padding-left: 16px; margin-bottom: 18px; margin-top: 8px; background: #f4f9ff; border-radius: 0 12px 12px 0; line-height: 1.3; }
         .field-list { display: flex; flex-direction: column; gap: 10px; }
         .field-item { padding: 6px 0 4px 8px; border-bottom: 1px dotted #e0e6ed; font-size: 0.94rem; line-height: 1.45; }
-        .field-item strong { font-weight: 700; color: #1e4663; display: inline-block; min-width: 220px; }
+        .field-item strong { font-weight: 700; color: #1e4663; display: inline-block; min-width: 240px; }
         .field-item .value { color: #2c3e4e; font-weight: 500; }
         .full-width-text { padding: 8px 0 8px 8px; border-bottom: 1px dotted #e0e6ed; font-size: 0.94rem; }
-        .full-width-text strong { font-weight: 700; color: #1e4663; display: inline-block; min-width: 220px; }
+        .full-width-text strong { font-weight: 700; color: #1e4663; display: inline-block; min-width: 240px; }
         .status-local { background: #fef7e0; padding: 14px 18px; border-radius: 18px; margin-top: 6px; border: 1px solid #ffe3a4; font-size: 0.94rem; }
         .scales-list { background: #f1f4f9; padding: 12px 20px; border-radius: 20px; margin-top: 10px; }
         .scales-list p { margin: 8px 0; }
@@ -42,7 +42,7 @@
         .modal-header h2 { font-size: 1.25rem; font-weight: 700; line-height: 1.3; word-break: break-word; }
         .modal-close { background: none; border: none; color: white; font-size: 28px; cursor: pointer; line-height: 1; transition: 0.2s; padding: 0 8px; border-radius: 40px; flex-shrink: 0; }
         .modal-close:hover { background-color: rgba(255,255,255,0.2); transform: scale(1.1); }
-        .modal-body { flex: 1; overflow-y: auto; padding: 28px 32px; background: #fefcf5; font-size: 0.95rem; line-height: 1.5; }
+        .modal-body { flex: 1; overflow-y: auto; padding: 28px 32px; background: #fefcf5; font-size: 0.95rem; line-height: 1.5; hyphens: auto; }
         .adult-block { border-left: 5px solid #dc2626; padding-left: 20px; background: #fff9f0; border-radius: 0 18px 18px 0; margin-bottom: 40px; }
         .adult-header { display: flex; align-items: center; gap: 12px; margin: 10px 0 20px 0; }
         .badge-adult { background: #c2410c; color: white; padding: 6px 14px; border-radius: 40px; font-weight: bold; }
@@ -54,7 +54,8 @@
         .bold-black { font-weight: 800; color: #000000; background: transparent; }
         .highlight-number { font-weight: 800; color: #c2410c; background: #fff0d0; padding: 0 4px; border-radius: 10px; }
         .drug-name { background: #f3f3f3; font-family: monospace; padding: 2px 8px; border-radius: 20px; font-weight: 800; color: #1a3c4a; display: inline-block; }
-        .italic-bold-ref { font-weight: 800; font-style: italic; background: transparent; color: #0a2f44; }
+        .italic-bold-ref { font-weight: 800; font-style: italic; background: transparent; color: #0a2f44; text-decoration: underline; cursor: pointer; }
+        .italic-bold-static { font-weight: 800; font-style: italic; background: transparent; color: #0a2f44; }
         .modal-obstetric { max-width: 900px; width: 100%; max-height: 85vh; background-color: #fffef7; border-radius: 28px; display: flex; flex-direction: column; overflow: hidden; }
         .modal-obstetric .modal-header { background: #e67e22; }
         .modal-obstetric .modal-body { background: #fefcf5; }
@@ -72,6 +73,12 @@
         .solo-step { background: white; border-radius: 16px; padding: 14px; margin-bottom: 15px; border-left: 6px solid #e67e22; }
         .solo-step h4 { color: #c0392b; margin-bottom: 10px; font-size: 1.1rem; }
         .alert-banner { background: #fff3e0; border-left: 6px solid #e67e22; padding: 12px 16px; border-radius: 12px; margin-bottom: 20px; }
+        #imageModal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.9); justify-content: center; align-items: center; flex-direction: column; }
+        #imageModal .modal-close-img { position: absolute; top: 20px; right: 35px; color: #fff; font-size: 40px; font-weight: bold; cursor: pointer; background: none; border: none; z-index: 2001; }
+        #modalImage { max-width: 90%; max-height: 70%; object-fit: contain; }
+        #navContainer { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); display: none; gap: 30px; align-items: center; justify-content: center; background-color: rgba(0, 0, 0, 0.5); padding: 6px 20px; border-radius: 40px; z-index: 2001; }
+        #prevBtn, #nextBtn { background-color: transparent; color: white; font-size: 28px; font-weight: bold; border: none; cursor: pointer; padding: 0 12px; }
+        #imageCounter { color: white; background-color: rgba(0, 0, 0, 0.6); padding: 4px 12px; border-radius: 20px; font-size: 14px; font-weight: bold; }
         @media (max-width: 700px) {
             body { padding: 16px 10px; }
             .mkb-row { padding: 14px 18px; font-size: 0.95rem; }
@@ -88,7 +95,7 @@
             .scales-list p { font-size: 0.85rem; margin: 6px 0; }
             .btn-algorithm-red, .btn-algorithm-orange { padding: 8px 22px; font-size: 1rem; }
             .btn-hint { font-size: 0.65rem; }
-            .modal-overlay { padding: 10px; }
+            .modal-overlay { padding: 10px; align-items: center; }
             .modal-container, .modal-obstetric { max-height: 90vh; border-radius: 20px; }
             .modal-header { padding: 14px 18px; }
             .modal-header h2 { font-size: 1rem; }
@@ -216,19 +223,26 @@
             </div>
         </div>
         <div class="section">
-            <div class="section-title">📊 ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ</div>
+            <div class="section-title">📈 ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ</div>
             <div class="scales-list">
-                <p>✔ <strong>Пульсоксиметрия (мать):</strong> SpO2 – 96% (норма).</p>
-                <p>✔ <strong>Пульсоксиметрия (новорожденная):</strong> SpO2 – 98%.</p>
+                <p>✔ <strong>Пульсоксиметрия (мать):</strong> SpO₂ — 96%.</p>
+                <p>✔ <strong>Пульсоксиметрия (новорожденная):</strong> SpO₂ — 98%.</p>
+                <p>✔ <strong>Глюкометрия:</strong> не проводилась (нет показаний).</p>
+                <p>✔ <strong>ЭКГ:</strong> не проводилась (нет показаний).</p>
             </div>
         </div>
         <div class="section">
             <div class="section-title">📊 ОЦЕНКА ПО ШКАЛАМ</div>
             <div class="scales-list">
-                <p>✔ <strong>Шкала NEWS2:</strong> 0 баллов (АД 130/70, ЧСС 85, ЧДД 18, t° 36,1) — состояние стабильное.</p>
-                <p>✔ <strong>Индекс Альговера:</strong> 85 / 130 = 0,65 (в пределах нормы).</p>
+                <p>✔ <strong>Шкала NEWS2:</strong> 0 баллов (АД 130/70, ЧСС 85, ЧДД 18, t° 36,1, SpO₂ 96%).</p>
+                <p>✔ <strong>Индекс Альговера:</strong> Индекс Альговера = ЧСС / АД сист. = 85 / 130 = 0,65 — норма (шока нет).</p>
                 <p>✔ <strong>Шкала Апгар:</strong> на 1-й минуте — 8 баллов, на 5-й минуте — 9 баллов (новорожденная).</p>
+                <p>✔ <strong>Шкала боли ВАШ:</strong> не применимо.</p>
+                <p>✔ <strong>Шкала ШОКС:</strong> не применимо.</p>
+                <p>✔ <strong>Шкала риска ТЭЛА:</strong> не применимо.</p>
                 <p>✔ <strong>Алкогольное опьянение:</strong> не применимо.</p>
+                <p>✔ <strong>Шкала LAMS:</strong> не применимо.</p>
+                <p>✔ <strong>ДЭП:</strong> не применимо.</p>
             </div>
         </div>
         <div class="section">
@@ -241,7 +255,7 @@
                 <div class="assistance-step"><strong>5. Катетеризация мочевого пузыря роженицы:</strong> Проведена катетеризация мочевого пузыря у роженицы. Моча соломенно-желтая, около 100 мл.</div>
                 <div class="assistance-step"><strong>6. Рождение последа:</strong> <span class="assistance-time">В 09:10</span> самостоятельно отделилась плацента и выделился послед. Осмотрен послед: дольки, оболочки целы, дефектов не выявлено. Матка сократилась, плотная, кровопотеря 150 мл. Состояние родильницы удовлетворительное. <em>АД 120/70 мм.рт.ст., ЧСС 84 в мин., ЧДД 18 в мин.</em></div>
                 <div class="assistance-step"><strong>7. Инфузионная и утеротоническая терапия:</strong> Катетеризация периферической вены: <span class="drug-name">Sol. Oxitocini</span> 5 МЕ в разведении <span class="drug-name">Sol. Natrii chloridi 0,9%</span> - 10 ml внутривенно. <span class="drug-name">Sol. Natrii chloridi 0,9%</span> - 200 ml внутривенно-капельно. Через 20 мин. состояние родильницы удовлетворительное.</div>
-                <div class="assistance-step"><strong>8. Передача новорожденной:</strong> <span class="assistance-time">В 09:15</span> новорожденная передана бригаде № 41 подстанции № 9 (наряд), в удовлетворительном состоянии: ЧД 50 в мин., ЧСС 140 в мин., тоны сердца ритмичные, звучные. SpO2 - 98%.</div>
+                <div class="assistance-step"><strong>8. Передача новорожденной:</strong> <span class="assistance-time">В 09:15</span> новорожденная передана бригаде № 41 подстанции № 9 (наряд), в удовлетворительном состоянии: ЧД 50 в мин., ЧСС 140 в мин., тоны сердца ритмичные, звучные. SpO₂ - 98%.</div>
                 <div class="assistance-step"><strong>9. Транспортировка в стационар:</strong> Пациентка доставлена в род.дом и передана врачу приемного отделения в удовлетворительном состоянии. <em>АД 120/70 мм.рт.ст., ЧСС 84 в мин., ЧДД 18 в мин.</em> Матка плотная, лохии умеренные. Послед доставлен в стационар.</div>
             </div>
         </div>
@@ -262,7 +276,7 @@
 <div class="modal-overlay" id="algorithmModal">
     <div class="modal-container">
         <div class="modal-header">
-            <h2>📋 О80 «Домашние роды». «Роды вне родильного дома» – роды в головном предлежании</h2>
+            <h2>О80 «Домашние роды». «Роды вне родильного дома» – роды в головном предлежании</h2>
             <button class="modal-close" id="closeModalBtn">&times;</button>
         </div>
         <div class="modal-body">
@@ -276,9 +290,9 @@
                         <li>Катетеризация вены или внутрикостный доступ</li>
                         <li><span class="bold-black">Акушерское пособие</span></li>
                         <li>Под половые пути родильницы после рождения ребенка поместить лоток для оценки объема кровопотери</li>
-                        <li>Оценить необходимость проведения ребенку реанимационных мероприятий <a href="#" class="italic-bold-ref" onclick="openImage('Алгоритм первичной реанимации новорождённого при рождении.png'); return false;">(см. «Приложение 8»)</a></li>
+                        <li>Оценить необходимость проведения ребенку реанимационных мероприятий <span class="italic-bold-ref" onclick="openImage('Алгоритм первичной реанимации новорожденного при рождении.png'); return false;">(см. «Приложение 8»)</span></li>
                         <li>Санация ротоглотки и носа у новорожденного с помощью стерильной резиновой «груши» проводится только при отсутствии самостоятельного дыхания</li>
-                        <li>Оценка состояния новорожденного по шкале Апгар <a href="#" class="italic-bold-ref" onclick="openImage('Критерии оценки новорождённого по Апгар.jpg'); return false;">(см. «Приложение 7»)</a></li>
+                        <li>Оценка состояния новорожденного по шкале Апгар <span class="italic-bold-ref" onclick="openImage('Критерии оценки новорожденного по Апгар.jpg'); return false;">(см. «Приложение 7»)</span></li>
                         <li>Новорожденного обсушить пеленкой, мокрую пеленку утилизировать, завернуть в теплые сухие пеленки, согреть, выложить на живот и грудь матери, обеспечив контакт «кожа к коже», убедившись, что голова повернута набок (нос не упирается в грудь матери)</li>
                         <li>Первичная обработка пуповины: Наложить <span class="highlight-number">2</span> стерильных зажима: один – на расстоянии <span class="highlight-number">10 см</span> от пупочного кольца, второй – на <span class="highlight-number">2 см</span> дистальнее от него; участок пуповины между зажимами обработать <span class="drug-name">70° этиловым спиртом</span> и пересечь; поверхность среза пуповины обработать <span class="drug-name">70° этиловым спиртом</span></li>
                         <li>Вторичная обработка пуповины: Пластмассовый зажим наложить на пуповинный остаток не ближе <span class="highlight-number">2 см</span> к коже живота ребенка, ткань пуповины отсечь и на культю пуповины наложить стерильную повязку</li>
@@ -376,15 +390,15 @@
     </div>
 </div>
 
-<!-- Модальное окно для изображений -->
-<div id="imageModal" class="modal" style="display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.9); justify-content: center; align-items: center; flex-direction: column;">
-  <button onclick="document.getElementById('imageModal').style.display='none'; isGalleryMode=false; currentGallery=[];" style="position: absolute; top: 20px; right: 35px; color: #fff; font-size: 40px; font-weight: bold; cursor: pointer; background: none; border: none; z-index: 2001;">&times;</button>
-  <img id="modalImage" style="max-width: 90%; max-height: 70%; object-fit: contain;">
-  <div id="navContainer" style="position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); display: none; gap: 30px; align-items: center; justify-content: center; background-color: rgba(0,0,0,0.5); padding: 6px 20px; border-radius: 40px; z-index: 2001;">
-    <button id="prevBtn" style="background-color: transparent; color: white; font-size: 28px; font-weight: bold; border: none; cursor: pointer; padding: 0 12px;">❮</button>
-    <span id="imageCounter" style="color: white; background-color: rgba(0,0,0,0.6); padding: 4px 12px; border-radius: 20px; font-size: 14px; font-weight: bold;">1 / 2</span>
-    <button id="nextBtn" style="background-color: transparent; color: white; font-size: 28px; font-weight: bold; border: none; cursor: pointer; padding: 0 12px;">❯</button>
-  </div>
+<!-- МОДАЛЬНОЕ ОКНО ДЛЯ ИЗОБРАЖЕНИЙ -->
+<div id="imageModal">
+    <button class="modal-close-img" onclick="document.getElementById('imageModal').style.display='none'; isGalleryMode=false; currentGallery=[];">&times;</button>
+    <img id="modalImage" src="" alt="Изображение">
+    <div id="navContainer">
+        <button id="prevBtn">❮</button>
+        <span id="imageCounter">1 / 2</span>
+        <button id="nextBtn">❯</button>
+    </div>
 </div>
 
 <script>
