@@ -93,7 +93,7 @@
             font-weight: 700;
             color: #1e4663;
             display: inline-block;
-            min-width: 220px;
+            min-width: 240px;
         }
 
         .field-item .value {
@@ -111,7 +111,7 @@
             font-weight: 700;
             color: #1e4663;
             display: inline-block;
-            min-width: 220px;
+            min-width: 240px;
         }
 
         .status-local {
@@ -134,38 +134,6 @@
             margin: 8px 0;
         }
 
-        .note {
-            background: #e7f1ff;
-            border-left: 4px solid #1a4d6f;
-            padding: 12px 16px;
-            margin-top: 16px;
-            border-radius: 12px;
-            font-size: 0.9rem;
-            color: #1e4663;
-        }
-
-        .note-list {
-            margin-top: 8px;
-            margin-left: 20px;
-            list-style-type: none;
-            padding-left: 0;
-        }
-
-        .note-list li {
-            margin-bottom: 8px;
-            padding-left: 20px;
-            position: relative;
-        }
-
-        .note-list li:before {
-            content: "•";
-            position: absolute;
-            left: 4px;
-            color: #1a4d6f;
-            font-weight: bold;
-        }
-
-        /* Кнопки */
         .algorithm-btn-container {
             margin-top: 32px;
             margin-bottom: 20px;
@@ -242,7 +210,6 @@
             margin-top: 2px;
         }
 
-        /* Модальные окна */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -281,14 +248,8 @@
         }
 
         @keyframes modalFadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .modal-header {
@@ -334,9 +295,9 @@
             background: #fefcf5;
             font-size: 0.95rem;
             line-height: 1.5;
+            hyphens: auto;
         }
 
-        /* стили для алгоритма */
         .adult-block {
             border-left: 5px solid #dc2626;
             padding-left: 20px;
@@ -407,9 +368,16 @@
             font-style: italic;
             background: transparent;
             color: #0a2f44;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+        .italic-bold-static {
+            font-weight: 800;
+            font-style: italic;
+            background: transparent;
+            color: #0a2f44;
         }
 
-        /* Модальное окно акушерского пособия */
         .modal-obstetric {
             max-width: 900px;
             width: 100%;
@@ -513,137 +481,104 @@
             margin-bottom: 20px;
         }
 
+        #imageModal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        #imageModal .modal-close-img {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            background: none;
+            border: none;
+            z-index: 2001;
+        }
+
+        #modalImage {
+            max-width: 90%;
+            max-height: 70%;
+            object-fit: contain;
+        }
+
+        #navContainer {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: none;
+            gap: 30px;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 6px 20px;
+            border-radius: 40px;
+            z-index: 2001;
+        }
+
+        #prevBtn, #nextBtn {
+            background-color: transparent;
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            padding: 0 12px;
+        }
+
+        #imageCounter {
+            color: white;
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
         @media (max-width: 700px) {
-            body {
-                padding: 16px 10px;
-            }
-
-            .mkb-row {
-                padding: 14px 18px;
-                font-size: 0.95rem;
-            }
-
-            .diagnosis {
-                padding: 10px 18px;
-                font-size: 0.9rem;
-            }
-
-            .content {
-                padding: 16px;
-            }
-
-            .section {
-                margin-bottom: 20px;
-            }
-
-            .section-title {
-                font-size: 1.15rem;
-                padding-left: 12px;
-                margin-bottom: 12px;
-            }
-
-            .field-item {
-                font-size: 0.85rem;
-                padding: 4px 0 4px 4px;
-            }
-
-            .field-item strong {
-                min-width: 140px;
-            }
-
-            .full-width-text {
-                font-size: 0.85rem;
-                padding: 6px 0 6px 4px;
-            }
-
-            .full-width-text strong {
-                min-width: 140px;
-            }
-
-            .status-local {
-                padding: 10px 14px;
-                font-size: 0.85rem;
-            }
-
-            .scales-list {
-                padding: 10px 14px;
-            }
-
-            .scales-list p {
-                font-size: 0.85rem;
-                margin: 6px 0;
-            }
-
-            .note {
-                padding: 10px 14px;
-                font-size: 0.8rem;
-            }
-
-            .note-list {
-                margin-left: 14px;
-            }
-
-            .btn-algorithm-red, .btn-algorithm-orange {
-                padding: 8px 22px;
-                font-size: 1rem;
-            }
-
-            .btn-hint {
-                font-size: 0.65rem;
-            }
-
-            .modal-overlay {
-                padding: 10px;
-            }
-
-            .modal-container, .modal-obstetric {
-                max-height: 90vh;
-                border-radius: 20px;
-            }
-
-            .modal-header {
-                padding: 14px 18px;
-            }
-
-            .modal-header h2 {
-                font-size: 1rem;
-            }
-
-            .modal-body {
-                padding: 20px;
-            }
-
-            .list-styled {
-                margin-left: 20px;
-            }
-
-            .adult-block {
-                padding-left: 14px;
-            }
-
-            .obstetric-step-desc {
-                margin-left: 20px;
-            }
-
-            .obstetric-warning, .obstetric-maneuver {
-                margin-left: 20px;
-            }
+            body { padding: 16px 10px; }
+            .mkb-row { padding: 14px 18px; font-size: 0.95rem; }
+            .diagnosis { padding: 10px 18px; font-size: 0.9rem; }
+            .content { padding: 16px; }
+            .section { margin-bottom: 20px; }
+            .section-title { font-size: 1.15rem; padding-left: 12px; margin-bottom: 12px; }
+            .field-item { font-size: 0.85rem; padding: 4px 0 4px 4px; }
+            .field-item strong { min-width: 140px; }
+            .full-width-text { font-size: 0.85rem; padding: 6px 0 6px 4px; }
+            .full-width-text strong { min-width: 140px; }
+            .status-local { padding: 10px 14px; font-size: 0.85rem; }
+            .scales-list { padding: 10px 14px; }
+            .scales-list p { font-size: 0.85rem; margin: 6px 0; }
+            .btn-algorithm-red, .btn-algorithm-orange { padding: 8px 22px; font-size: 1rem; }
+            .btn-hint { font-size: 0.65rem; }
+            .modal-overlay { padding: 10px; align-items: center; }
+            .modal-container, .modal-obstetric { max-height: 90vh; border-radius: 20px; }
+            .modal-header { padding: 14px 18px; }
+            .modal-header h2 { font-size: 1rem; }
+            .modal-body { padding: 20px; }
+            .list-styled { margin-left: 20px; }
+            .adult-block { padding-left: 14px; }
+            .obstetric-step-desc { margin-left: 20px; }
+            .obstetric-warning, .obstetric-maneuver { margin-left: 20px; }
         }
 
         @media (max-width: 480px) {
-            .field-item strong {
-                min-width: 120px;
-            }
-
-            .full-width-text strong {
-                min-width: 120px;
-            }
-
-            .btn-algorithm-red, .btn-algorithm-orange {
-                padding: 10px 18px;
-                font-size: 0.9rem;
-                border-radius: 40px;
-            }
+            .field-item strong { min-width: 120px; }
+            .full-width-text strong { min-width: 120px; }
+            .btn-algorithm-red, .btn-algorithm-orange { padding: 10px 18px; font-size: 0.9rem; border-radius: 40px; }
         }
     </style>
 </head>
@@ -666,14 +601,13 @@
         <!-- АНАМНЕЗ -->
         <div class="section">
             <div class="section-title">📋 АНАМНЕЗ</div>
-            <div class="full-width-text"><strong>Анамнез заболевания:</strong> Сегодня в 08:00 отметила появление ноющих болей внизу живота. Самостоятельно лекарств не принимала. Вызвана бригада скорой медицинской помощи. Во время транспортировки в родильный дом схватки участились, стали регулярными, продолжительностью 50 секунд через 2-3 минуты. Машина СМП остановлена для повторного осмотра в связи с началом II периода родов.</div>
+            <div class="full-width-text"><strong>Анамнез заболевания:</strong> Сегодня в 08:00 отметила появление ноющих болей внизу живота. Самостоятельно лекарств не принимала. Вызвана бригада скорой медицинской помощи. Во время транспортировки в родильный дом схватки участились, стали регулярными, продолжительностью 50 секунд через 2-3 минуты. Машина СМП остановлена для повторного осмотра в связи с началом II периода родов. Хронические заболевания отрицает.</div>
             <div class="full-width-text"><strong>Эпидемиологический анамнез:</strong> Контакт с инфекционными больными, прилетевшими из эпидопасных районов в течение последних 14 дней отрицает. Вакцинацию от гриппа и COVID-19 отрицает. В регистре COVID-19 не состоит.</div>
             <div class="full-width-text"><strong>Аллергологический анамнез:</strong> Не отягощен. Лекарственной, пищевой, бытовой аллергии не выявлено.</div>
             <div class="full-width-text"><strong>Гинекологический и акушерский анамнез:</strong> Менструальная функция с 12 лет, цикл установился сразу, продолжительность 4-5 дней, через 28 дней, регулярный, безболезненный. Беременностей 2, родов 2 (первые роды срочные, 3 года назад, без осложнений). Настоящая беременность протекала без осложнений. Состоит на учете в женской консультации с 6 недель. По УЗИ срок 39 недель, головное предлежание. Гинекологических заболеваний нет. Выделения из половых путей на момент осмотра: околоплодные воды целы.</div>
-            <div class="full-width-text"><strong>Акушерско-гинекологический анамнез:</strong> Хронические заболевания отрицает. По данным ЕМИАС информации нет.</div>
         </div>
 
-        <!-- ОБЪЕКТИВНО (до родов) -->
+        <!-- ОБЪЕКТИВНО -->
         <div class="section">
             <div class="section-title">🩺 ОБЪЕКТИВНО</div>
             <div class="field-list">
@@ -748,7 +682,7 @@
                 <div class="field-item"><strong>Асимметрия лица:</strong> <span class="value">нет</span></div>
                 <div class="field-item"><strong>Менингеальные симптомы:</strong> <span class="value">отрицательные</span></div>
                 <div class="field-item"><strong>Очаговые симптомы:</strong> <span class="value">нет</span></div>
-                <div class="field-item"><strong>Координаторные пробы:</strong> <span class="value">не проводились (ввиду начавшихся родов и активной родовой деятельности)</span></div>
+                <div class="field-item"><strong>Координаторные пробы:</strong> <span class="value">пальце-носовую пробу выполняет верно, пяточно-коленная проба и проба в позе Ромберга не проводились (ввиду активной родовой деятельности)</span></div>
             </div>
         </div>
 
@@ -775,7 +709,7 @@
             </div>
         </div>
 
-        <!-- ДИНАМИКА СОСТОЯНИЯ (во время транспортировки) -->
+        <!-- ДИНАМИКА СОСТОЯНИЯ -->
         <div class="section">
             <div class="section-title">📈 ДИНАМИКА СОСТОЯНИЯ (во время транспортировки)</div>
             <div class="status-local">
@@ -800,7 +734,7 @@
             </div>
         </div>
 
-        <!-- STATUS LOCALIS (после родов, перед продолжением транспортировки) -->
+        <!-- STATUS LOCALIS (после родов) -->
         <div class="section">
             <div class="section-title">🔍 STATUS LOCALIS (после родов)</div>
             <div class="status-local">
@@ -812,30 +746,31 @@
             </div>
         </div>
 
+        <!-- ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ -->
+        <div class="section">
+            <div class="section-title">📈 ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ</div>
+            <div class="scales-list">
+                <p>✔ <strong>Пульсоксиметрия (родильница):</strong> SpO₂ — 98%.</p>
+                <p>✔ <strong>Пульсоксиметрия (новорожденный):</strong> SpO₂ — 98%.</p>
+                <p>✔ <strong>Глюкометрия:</strong> не проводилась (нет показаний).</p>
+                <p>✔ <strong>ЭКГ:</strong> не проводилась (нет показаний).</p>
+            </div>
+        </div>
+
         <!-- ОЦЕНКА ПО ШКАЛАМ -->
         <div class="section">
             <div class="section-title">📊 ОЦЕНКА ПО ШКАЛАМ</div>
             <div class="scales-list">
                 <p>✔ <strong>Шкала Апгар (новорожденный):</strong> 1-я минута — 8 баллов, 5-я минута — 9 баллов.</p>
-                <p>✔ <strong>Шкала NEWS2 (родильница):</strong> 0 баллов (АД 120/70, ЧСС 84, ЧДД 18, t° 36,6) — состояние стабильное.</p>
-                <p>✔ <strong>Индекс Альговера:</strong> 84 / 120 = 0,70 (пограничное значение, гемодинамика стабильна).</p>
-                <p>✔ <strong>Пациент с травмой, шкала боли ВАШ:</strong> не применимо.</p>
+                <p>✔ <strong>Шкала NEWS2 (родильница):</strong> 0 баллов (АД 120/70, ЧСС 84, ЧДД 18, t° 36,6, SpO₂ 98%).</p>
+                <p>✔ <strong>Индекс Альговера:</strong> Индекс Альговера = ЧСС / АД сист. = 84 / 120 = 0,70 — норма (шока нет).</p>
+                <p>✔ <strong>Шкала боли ВАШ:</strong> не применимо.</p>
+                <p>✔ <strong>Шкала ШОКС:</strong> не применимо.</p>
+                <p>✔ <strong>Шкала риска ТЭЛА:</strong> не применимо.</p>
                 <p>✔ <strong>Алкогольное опьянение:</strong> не применимо.</p>
+                <p>✔ <strong>Шкала LAMS:</strong> не применимо.</p>
+                <p>✔ <strong>ДЭП:</strong> не применимо.</p>
             </div>
-        </div>
-
-        <!-- ПРИМЕЧАНИЕ ДЛЯ БРИГАДЫ СМП -->
-        <div class="note">
-            <strong>📌 Примечание для бригады СМП:</strong><br>
-            <strong>Выполнено:</strong><br>
-            – Приняты срочные самопроизвольные роды в головном предлежании в машине СМП.<br>
-            – Проведен первичный туалет новорожденного (обработка и пересечение пуповины, обтирание, терморегуляция).<br>
-            – Проведена профилактика гонобленнореи.<br>
-            – Проведена оценка состояния новорожденного по шкале Апгар (8/9 баллов).<br>
-            – Проведена катетеризация мочевого пузыря родильницы.<br>
-            – Оценен объем кровопотери (250 мл).<br>
-            – Обеспечена транспортировка в родильный дом.<br>
-            <strong>Транспортировка:</strong> родильница и новорожденный продолжают транспортировку в родильный дом. Положение лежа на носилках. Контроль гемодинамики родильницы, тонуса матки, объема кровопотери. Контроль состояния новорожденного (дыхание, сердцебиение, температура).
         </div>
 
         <!-- КНОПКИ -->
@@ -852,7 +787,7 @@
     </div>
 </div>
 
-<!-- ОСНОВНОЕ МОДАЛЬНОЕ ОКНО (Домашние роды) -->
+<!-- ОСНОВНОЕ МОДАЛЬНОЕ ОКНО (Домашние роды) — БЕЗ ИЗМЕНЕНИЙ ПО СОДЕРЖАНИЮ -->
 <div class="modal-overlay" id="algorithmModal">
     <div class="modal-container">
         <div class="modal-header">
@@ -870,9 +805,9 @@
                         <li>Катетеризация вены или внутрикостный доступ</li>
                         <li><span class="bold-black">Акушерское пособие</span></li>
                         <li>Под половые пути родильницы после рождения ребенка поместить лоток для оценки объема кровопотери</li>
-                        <li>Оценить необходимость проведения ребенку реанимационных мероприятий <a href="#" class="italic-bold-ref" onclick="openImage('Алгоритм первичной реанимации новорождённого при рождении.png'); return false;">(см. «Приложение 8»)</a></li>
+                        <li>Оценить необходимость проведения ребенку реанимационных мероприятий <a href="#" class="italic-bold-ref" onclick="openImage('Алгоритм первичной реанимации новорожденного при рождении.png'); return false;">(см. «Приложение 8»)</a></li>
                         <li>Санация ротоглотки и носа у новорожденного с помощью стерильной резиновой «груши» проводится только при отсутствии самостоятельного дыхания</li>
-                        <li>Оценка состояния новорожденного по шкале Апгар <a href="#" class="italic-bold-ref" onclick="openImage('Критерии оценки новорождённого по Апгар.jpg'); return false;">(см. «Приложение 7»)</a></li>
+                        <li>Оценка состояния новорожденного по шкале Апгар <a href="#" class="italic-bold-ref" onclick="openImage('Критерии оценки новорожденного по Апгар.jpg'); return false;">(см. «Приложение 7»)</a></li>
                         <li>Новорожденного обсушить пеленкой, мокрую пеленку утилизировать, завернуть в теплые сухие пеленки, согреть, выложить на живот и грудь матери, обеспечив контакт «кожа к коже», убедившись, что голова повернута набок (нос не упирается в грудь матери)</li>
                         <li>Первичная обработка пуповины: Наложить <span class="highlight-number">2</span> стерильных зажима: один – на расстоянии <span class="highlight-number">10 см</span> от пупочного кольца, второй – на <span class="highlight-number">2 см</span> дистальнее от него; участок пуповины между зажимами обработать <span class="drug-name">70° этиловым спиртом</span> и пересечь; поверхность среза пуповины обработать <span class="drug-name">70° этиловым спиртом</span></li>
                         <li>Вторичная обработка пуповины: Пластмассовый зажим наложить на пуповинный остаток не ближе <span class="highlight-number">2 см</span> к коже живота ребенка, ткань пуповины отсечь и на культю пуповины наложить стерильную повязку</li>
@@ -901,11 +836,11 @@
     </div>
 </div>
 
-<!-- МОДАЛЬНОЕ ОКНО: АКУШЕРСКОЕ ПОСОБИЕ -->
+<!-- МОДАЛЬНОЕ ОКНО: АКУШЕРСКОЕ ПОСОБИЕ (БЕЗ ЭМОДЗИ В ЗАГОЛОВКЕ) -->
 <div class="modal-overlay" id="obstetricModal">
     <div class="modal-obstetric">
         <div class="modal-header">
-            <h2>📖 Акушерское пособие при родах</h2>
+            <h2>Акушерское пособие при родах</h2>
             <button class="modal-close" id="closeObstetricBtn">&times;</button>
         </div>
         <div class="modal-body">
@@ -992,19 +927,18 @@
     </div>
 </div>
 
-<!-- Модальное окно для изображений -->
-<div id="imageModal" class="modal" style="display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.9); justify-content: center; align-items: center; flex-direction: column;">
-  <button onclick="document.getElementById('imageModal').style.display='none'; isGalleryMode=false; currentGallery=[];" style="position: absolute; top: 20px; right: 35px; color: #fff; font-size: 40px; font-weight: bold; cursor: pointer; background: none; border: none; z-index: 2001;">&times;</button>
-  <img id="modalImage" style="max-width: 90%; max-height: 70%; object-fit: contain;">
-  <div id="navContainer" style="position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); display: none; gap: 30px; align-items: center; justify-content: center; background-color: rgba(0,0,0,0.5); padding: 6px 20px; border-radius: 40px; z-index: 2001;">
-    <button id="prevBtn" style="background-color: transparent; color: white; font-size: 28px; font-weight: bold; border: none; cursor: pointer; padding: 0 12px;">❮</button>
-    <span id="imageCounter" style="color: white; background-color: rgba(0,0,0,0.6); padding: 4px 12px; border-radius: 20px; font-size: 14px; font-weight: bold;">1 / 2</span>
-    <button id="nextBtn" style="background-color: transparent; color: white; font-size: 28px; font-weight: bold; border: none; cursor: pointer; padding: 0 12px;">❯</button>
-  </div>
+<!-- МОДАЛЬНОЕ ОКНО ДЛЯ ИЗОБРАЖЕНИЙ -->
+<div id="imageModal">
+    <button class="modal-close-img" onclick="document.getElementById('imageModal').style.display='none'; isGalleryMode=false; currentGallery=[];">&times;</button>
+    <img id="modalImage" src="" alt="Изображение">
+    <div id="navContainer">
+        <button id="prevBtn">❮</button>
+        <span id="imageCounter">1 / 2</span>
+        <button id="nextBtn">❯</button>
+    </div>
 </div>
 
 <script>
-    // Основное модальное окно
     const modal = document.getElementById('algorithmModal');
     const openBtn = document.getElementById('openAlgorithmBtn');
     const closeModalBtn = document.getElementById('closeModalBtn');
@@ -1027,7 +961,6 @@
         }
     });
 
-    // Модальное окно акушерского пособия
     const obstetricModal = document.getElementById('obstetricModal');
     const openObstetricBtn = document.getElementById('openObstetricBtn');
     const openObstetricBtnFromModal = document.getElementById('openObstetricBtnFromModal');
@@ -1062,7 +995,6 @@
         }
     });
 
-    // Скрипт для галереи изображений
     let currentGallery = [];
     let currentIndex = 0;
     let isGalleryMode = false;
