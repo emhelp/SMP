@@ -78,14 +78,16 @@
       filter: brightness(0.9);
     }
 
-    /* ==== Кнопка-конверт с круговой надписью ==== */
-    .header-btn-left {
+    /* ==== Круглые надписи вокруг кнопок шапки ==== */
+    .header-btn-left,
+    .header-btn-right {
       position: relative;
       overflow: visible;
     }
     
     /* SVG с круговым текстом — по размеру больше кнопки */
-    .header-btn-left .circle-label {
+    .header-btn-left .circle-label,
+    .header-btn-right .circle-label {
       position: absolute;
       top: 50%;
       left: 50%;
@@ -96,7 +98,8 @@
       overflow: visible;
     }
     
-    .header-btn-left .circle-label text {
+    .header-btn-left .circle-label text,
+    .header-btn-right .circle-label text {
       font-family: 'Segoe UI', 'Roboto', sans-serif;
       font-size: 11px;
       font-weight: 700;
@@ -125,12 +128,14 @@
         margin-left: -8px;
       }
 
-      .header-btn-left .circle-label {
+      .header-btn-left .circle-label,
+      .header-btn-right .circle-label {
         width: 88px;
         height: 88px;
       }
       
-      .header-btn-left .circle-label text {
+      .header-btn-left .circle-label text,
+      .header-btn-right .circle-label text {
         font-size: 10px;
         letter-spacing: 0.6px;
       }
@@ -142,12 +147,14 @@
         padding: 10px 6px;
       }
 
-      .header-btn-left .circle-label {
+      .header-btn-left .circle-label,
+      .header-btn-right .circle-label {
         width: 82px;
         height: 82px;
       }
       
-      .header-btn-left .circle-label text {
+      .header-btn-left .circle-label text,
+      .header-btn-right .circle-label text {
         font-size: 9px;
         letter-spacing: 0.5px;
       }
@@ -160,16 +167,14 @@
     <a href="feedback.html" class="header-btn header-btn-left" id="contact-btn">
       <svg class="circle-label" viewBox="0 0 100 100" aria-hidden="true">
         <defs>
-          <!-- Верхняя дуга: слева-направо над кнопкой -->
-          <path id="arc-top" d="M 12,50 A 38,38 0 0 1 88,50" fill="none" />
-          <!-- Нижняя дуга: слева-направо под кнопкой (по нижней полуокружности) -->
-          <path id="arc-bottom" d="M 12,50 A 38,38 0 0 0 88,50" fill="none" />
+          <path id="arc-top-left" d="M 12,50 A 38,38 0 0 1 88,50" fill="none" />
+          <path id="arc-bottom-left" d="M 12,50 A 38,38 0 0 0 88,50" fill="none" />
         </defs>
         <text>
-          <textPath href="#arc-top" startOffset="50%" text-anchor="middle">нашли ошибку</textPath>
+          <textPath href="#arc-top-left" startOffset="50%" text-anchor="middle">нашли ошибку</textPath>
         </text>
         <text>
-          <textPath href="#arc-bottom" startOffset="50%" text-anchor="middle" side="left">напишите</textPath>
+          <textPath href="#arc-bottom-left" startOffset="50%" text-anchor="middle" side="left">напишите</textPath>
         </text>
       </svg>
       <i class="fas fa-envelope"></i>
@@ -182,6 +187,18 @@
     </div>
     
     <button class="header-btn header-btn-right" id="share-btn">
+      <svg class="circle-label" viewBox="0 0 100 100" aria-hidden="true">
+        <defs>
+          <path id="arc-top-right" d="M 12,50 A 38,38 0 0 1 88,50" fill="none" />
+          <path id="arc-bottom-right" d="M 12,50 A 38,38 0 0 0 88,50" fill="none" />
+        </defs>
+        <text>
+          <textPath href="#arc-top-right" startOffset="50%" text-anchor="middle">Поделись</textPath>
+        </text>
+        <text>
+          <textPath href="#arc-bottom-right" startOffset="50%" text-anchor="middle" side="left">с другом</textPath>
+        </text>
+      </svg>
       <i class="fas fa-share-alt"></i>
     </button>
   </div>
