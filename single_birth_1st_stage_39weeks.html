@@ -23,10 +23,6 @@
         .status-local { background: #fef7e0; padding: 14px 18px; border-radius: 18px; margin-top: 6px; border: 1px solid #ffe3a4; font-size: 0.94rem; }
         .scales-list { background: #f1f4f9; padding: 12px 20px; border-radius: 20px; margin-top: 10px; }
         .scales-list p { margin: 8px 0; }
-        .note { background: #e7f1ff; border-left: 4px solid #1a4d6f; padding: 12px 16px; margin-top: 16px; border-radius: 12px; font-size: 0.9rem; color: #1e4663; }
-        .note-list { margin-top: 8px; margin-left: 20px; list-style-type: none; padding-left: 0; }
-        .note-list li { margin-bottom: 8px; padding-left: 20px; position: relative; }
-        .note-list li:before { content: "•"; position: absolute; left: 4px; color: #1a4d6f; font-weight: bold; }
         .algorithm-btn-container { margin-top: 32px; margin-bottom: 20px; text-align: center; }
         .btn-algorithm { background-color: #dc2626; color: white; border: none; padding: 10px 28px; font-size: 1.15rem; font-weight: 700; border-radius: 50px; cursor: pointer; box-shadow: 0 6px 14px rgba(220, 38, 38, 0.3); transition: all 0.2s ease; display: inline-flex; flex-direction: column; align-items: center; gap: 4px; letter-spacing: 0.3px; border: 1px solid rgba(255,255,255,0.3); max-width: 100%; }
         .btn-algorithm:hover { background-color: #b91c1c; transform: scale(1.02); box-shadow: 0 10px 20px rgba(185, 28, 28, 0.4); }
@@ -40,7 +36,7 @@
         .modal-header h2 { font-size: 1.25rem; font-weight: 700; line-height: 1.3; word-break: break-word; }
         .modal-close { background: none; border: none; color: white; font-size: 28px; cursor: pointer; line-height: 1; transition: 0.2s; padding: 0 8px; border-radius: 40px; flex-shrink: 0; }
         .modal-close:hover { background-color: rgba(255,255,255,0.2); transform: scale(1.1); }
-        .modal-body { flex: 1; overflow-y: auto; padding: 28px 32px; background: #fefcf5; font-size: 0.95rem; line-height: 1.5; }
+        .modal-body { flex: 1; overflow-y: auto; padding: 28px 32px; background: #fefcf5; font-size: 0.95rem; line-height: 1.5; hyphens: auto; }
         .adult-block { border-left: 5px solid #dc2626; padding-left: 20px; background: #fff9f0; border-radius: 0 18px 18px 0; margin-bottom: 40px; }
         .adult-header { display: flex; align-items: center; gap: 12px; margin: 10px 0 20px 0; }
         .badge-adult { background: #c2410c; color: white; padding: 6px 14px; border-radius: 40px; font-weight: bold; }
@@ -55,7 +51,14 @@
         .bold-black { font-weight: 800; color: #000000; background: transparent; }
         .highlight-number { font-weight: 800; color: #c2410c; background: #fff0d0; padding: 0 4px; border-radius: 10px; }
         .drug-name { background: #f3f3f3; font-family: monospace; padding: 2px 8px; border-radius: 20px; font-weight: 800; color: #1a3c4a; display: inline-block; }
-        .italic-bold-ref { font-weight: 800; font-style: italic; background: transparent; color: #0a2f44; }
+        .italic-bold-ref { font-weight: 800; font-style: italic; background: transparent; color: #0a2f44; text-decoration: underline; cursor: pointer; }
+        .italic-bold-static { font-weight: 800; font-style: italic; background: transparent; color: #0a2f44; }
+        #imageModal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.9); justify-content: center; align-items: center; flex-direction: column; }
+        #imageModal .modal-close-img { position: absolute; top: 20px; right: 35px; color: #fff; font-size: 40px; font-weight: bold; cursor: pointer; background: none; border: none; z-index: 2001; }
+        #modalImage { max-width: 90%; max-height: 70%; object-fit: contain; }
+        #navContainer { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); display: none; gap: 30px; align-items: center; justify-content: center; background-color: rgba(0, 0, 0, 0.5); padding: 6px 20px; border-radius: 40px; z-index: 2001; }
+        #prevBtn, #nextBtn { background-color: transparent; color: white; font-size: 28px; font-weight: bold; border: none; cursor: pointer; padding: 0 12px; }
+        #imageCounter { color: white; background-color: rgba(0, 0, 0, 0.6); padding: 4px 12px; border-radius: 20px; font-size: 14px; font-weight: bold; }
         @media (max-width: 700px) {
             body { padding: 16px 10px; }
             .mkb-row { padding: 14px 18px; font-size: 0.95rem; }
@@ -70,11 +73,9 @@
             .status-local { padding: 10px 14px; font-size: 0.85rem; }
             .scales-list { padding: 10px 14px; }
             .scales-list p { font-size: 0.85rem; margin: 6px 0; }
-            .note { padding: 10px 14px; font-size: 0.8rem; }
-            .note-list { margin-left: 14px; }
             .btn-algorithm { padding: 8px 22px; font-size: 1rem; }
             .btn-hint { font-size: 0.65rem; }
-            .modal-overlay { padding: 10px; }
+            .modal-overlay { padding: 10px; align-items: center; }
             .modal-container { max-height: 90vh; border-radius: 20px; }
             .modal-header { padding: 14px 18px; }
             .modal-header h2 { font-size: 1rem; }
@@ -106,7 +107,7 @@
             <div class="section-title">📋 АНАМНЕЗ</div>
             <div class="full-width-text"><strong>Anamnesis morbi:</strong> Сегодня с 00-30 отмечает появление схваток с периодичностью в среднем 8-9 минут, отхождение околоплодных вод.</div>
             <div class="full-width-text"><strong>Акушерский анамнез:</strong> Беременность вторая, дата последней менструации 5 декабря 2019. 2019 год - неразвивающаяся беременность. Другие хронические заболевания отрицает.</div>
-            <div class="full-width-text"><strong>Гинекологический анамнез:</strong> Менструация с 12 лет, установились сразу, по 5 дней через 28 дней, в срок, без задержек, кровотечение умеренное. Половой жизнью живёт с 20 лет. Состоит на учете в ЖК. По данным ЕМИАС не развивающаяся беременность.</div>
+            <div class="full-width-text"><strong>Гинекологический анамнез:</strong> Менструация с 12 лет, установились сразу, по 5 дней через 28 дней, в срок, без задержек, кровотечение умеренное. Половой жизнью живёт с 20 лет. Состоит на учете в ЖК. В 2019 году — неразвивающаяся беременность.</div>
             <div class="full-width-text"><strong>Аллергологический анамнез:</strong> Аллергии на лекарственные препараты, продукты питания и пр. отрицает. Не отягощена.</div>
             <div class="full-width-text"><strong>Эпидемиологический анамнез:</strong> За пределы РФ не выезжала, контакт с прибывшими из других стран, контакт с больными, температурящими отрицает. Последние 2 недели температура не повышалась. Прививочный анамнез не известен.</div>
         </div>
@@ -208,25 +209,25 @@
             </div>
         </div>
         <div class="section">
-            <div class="section-title">📊 ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ</div>
+            <div class="section-title">📈 ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ</div>
             <div class="scales-list">
-                <p>✔ <strong>ЭКГ:</strong> не проводилась (нет кардиальных жалоб, показаний нет).</p>
-                <p>✔ <strong>Пульсоксиметрия:</strong> SpO2 – 98% (ориентировочно, в норме для беременных).</p>
+                <p>✔ <strong>Пульсоксиметрия:</strong> SpO₂ — 98%.</p>
                 <p>✔ <strong>Глюкометрия:</strong> не проводилась (нет показаний).</p>
+                <p>✔ <strong>ЭКГ:</strong> не проводилась (нет показаний).</p>
             </div>
         </div>
         <div class="section">
             <div class="section-title">📊 ОЦЕНКА ПО ШКАЛАМ</div>
             <div class="scales-list">
-                <p>✔ <strong>Шкала NEWS2:</strong> ЧДД 18 (0), SpO2 98% (0), t° 36.5 (0), АД сист. 110 (0), ЧСС 80 (0), сознание ясное (0). Сумма: 0 баллов (низкий риск, состояние стабильное).</p>
-                <p>✔ <strong>Шкала ОДН по Кассиль:</strong> не применима (дыхательной недостаточности нет).</p>
-                <p>✔ <strong>Индекс Альговера (шоковый индекс):</strong> ЧСС/АДсист = 80/110 = 0.73 (в пределах нормы, гемодинамика стабильна).</p>
+                <p>✔ <strong>Шкала NEWS2:</strong> 0 баллов (ЧДД 18, SpO₂ 98%, t° 36,5, АД 110/70, ЧСС 80, сознание ясное).</p>
+                <p>✔ <strong>Индекс Альговера:</strong> не применимо.</p>
                 <p>✔ <strong>Шкала боли ВАШ:</strong> не применимо.</p>
+                <p>✔ <strong>Шкала ШОКС:</strong> не применимо.</p>
                 <p>✔ <strong>Шкала риска ТЭЛА:</strong> не применимо.</p>
-                <p>✔ <strong>Шкала ШОКС (ХСН):</strong> не применимо.</p>
-                <p>✔ <strong>Состояние алкогольного опьянения:</strong> запах алкоголя не определяется. Поведение адекватное.</p>
-                <p>✔ <strong>Шкала LAMS (инсульт):</strong> не применимо.</p>
-                <p>✔ <strong>Признаки ДЭП:</strong> не применимо.</p>
+                <p>✔ <strong>Шкала ОДН по Кассиль:</strong> не применимо.</p>
+                <p>✔ <strong>Алкогольное опьянение:</strong> не применимо (запаха алкоголя изо рта нет, поведение адекватное).</p>
+                <p>✔ <strong>Шкала LAMS:</strong> не применимо.</p>
+                <p>✔ <strong>ДЭП:</strong> не применимо.</p>
             </div>
         </div>
         <div class="section">
@@ -238,27 +239,6 @@
                 • Состояние удовлетворительное, АД 110/70, ЧСС-80, пульс-80 уд. в мин. ЧДД-18.
             </div>
         </div>
-        <div class="note">
-            <strong>📌 Примечание для бригады СМП (дифференциальная диагностика):</strong><br>
-            Дифференциальный диагноз проведен с:
-            <ul class="note-list">
-                <li><strong>Преждевременными родами:</strong> (срок беременности менее 37 недель. У пациентки срок 39-40 недель — доношенная беременность).</li>
-                <li><strong>Отслойкой плаценты:</strong> (кровянистые выделения, гипертонус матки, боль в животе, гипоксия плода. У пациентки выделения светлые воды, матка без гипертонуса, сердцебиение плода удовлетворительное).</li>
-                <li><strong>Предлежанием плаценты:</strong> (безболезненные кровянистые выделения. У пациентки подтекают светлые воды, кровотечения нет).</li>
-                <li><strong>Ложными схватками (предвестники родов):</strong> (нерегулярные, безболезненные, не приводят к раскрытию шейки матки. У пациентки схватки регулярные, есть отхождение вод — истинные роды).</li>
-                <li><strong>Аномалиями родовой деятельности:</strong> (дискоординация, слабость схваток. У пациентки схватки через 10 минут по 25-30 сек, слабые — возможно, первичная слабость родовой деятельности, но это не противопоказание к эвакуации).</li>
-            </ul>
-            <strong>Ключевые признаки первого периода срочных родов (головное предлежание):</strong><br>
-            – Доношенная беременность (39-40 недель).<br>
-            – Регулярная родовая деятельность (схватки с 00:30, периодичностью 8-9 минут, к моменту осмотра через 10 минут).<br>
-            – Отхождение светлых околоплодных вод (своевременное).<br>
-            – Головное предлежание плода, продольное положение.<br>
-            – Удовлетворительное состояние плода (сердцебиение 148 уд/мин, ясное, ритмичное).<br>
-            – Отсутствие патологических выделений из половых путей.<br>
-            – Стабильная гемодинамика матери (АД 110/70, ЧСС 80).<br>
-            – В анамнезе: неразвивающаяся беременность в 2019 году (фактор риска).<br>
-            – Тактика: экстренная госпитализация в родильный дом.
-        </div>
         <div class="algorithm-btn-container">
             <button class="btn-algorithm" id="openAlgorithmBtn">
                 <span>🚨 Оказание помощи в соответствии с Алгоритмами МСК</span>
@@ -268,11 +248,11 @@
     </div>
 </div>
 
-<!-- МОДАЛЬНОЕ ОКНО (ЗАМЕНЕНО) -->
+<!-- МОДАЛЬНОЕ ОКНО -->
 <div class="modal-overlay" id="algorithmModal">
     <div class="modal-container">
         <div class="modal-header">
-            <h2>📋 О47, О42, О60, О80, О84 Угрожающие преждевременные роды. Преждевременный разрыв плодных оболочек. Преждевременные роды. Роды одноплодные. Роды многоплодные</h2>
+            <h2>О47, О42, О60, О80, О84 Угрожающие преждевременные роды. Преждевременный разрыв плодных оболочек. Преждевременные роды. Роды одноплодные. Роды многоплодные</h2>
             <button class="modal-close" id="closeModalBtn">&times;</button>
         </div>
         <div class="modal-body">
@@ -305,15 +285,15 @@
     </div>
 </div>
 
-<!-- Модальное окно для изображений -->
-<div id="imageModal" class="modal" style="display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.9); justify-content: center; align-items: center; flex-direction: column;">
-  <button onclick="document.getElementById('imageModal').style.display='none'; isGalleryMode=false; currentGallery=[];" style="position: absolute; top: 20px; right: 35px; color: #fff; font-size: 40px; font-weight: bold; cursor: pointer; background: none; border: none; z-index: 2001;">&times;</button>
-  <img id="modalImage" style="max-width: 90%; max-height: 70%; object-fit: contain;">
-  <div id="navContainer" style="position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); display: none; gap: 30px; align-items: center; justify-content: center; background-color: rgba(0,0,0,0.5); padding: 6px 20px; border-radius: 40px; z-index: 2001;">
-    <button id="prevBtn" style="background-color: transparent; color: white; font-size: 28px; font-weight: bold; border: none; cursor: pointer; padding: 0 12px;">❮</button>
-    <span id="imageCounter" style="color: white; background-color: rgba(0,0,0,0.6); padding: 4px 12px; border-radius: 20px; font-size: 14px; font-weight: bold;">1 / 2</span>
-    <button id="nextBtn" style="background-color: transparent; color: white; font-size: 28px; font-weight: bold; border: none; cursor: pointer; padding: 0 12px;">❯</button>
-  </div>
+<!-- МОДАЛЬНОЕ ОКНО ДЛЯ ИЗОБРАЖЕНИЙ -->
+<div id="imageModal">
+    <button class="modal-close-img" onclick="document.getElementById('imageModal').style.display='none'; isGalleryMode=false; currentGallery=[];">&times;</button>
+    <img id="modalImage" src="" alt="Изображение">
+    <div id="navContainer">
+        <button id="prevBtn">❮</button>
+        <span id="imageCounter">1 / 2</span>
+        <button id="nextBtn">❯</button>
+    </div>
 </div>
 
 <script>
