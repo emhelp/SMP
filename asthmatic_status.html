@@ -16,17 +16,13 @@
         .section-title { font-size: 1.4rem; font-weight: 700; color: #1a4d6f; border-left: 6px solid #ffc107; padding-left: 16px; margin-bottom: 18px; margin-top: 8px; background: #f4f9ff; border-radius: 0 12px 12px 0; line-height: 1.3; }
         .field-list { display: flex; flex-direction: column; gap: 10px; }
         .field-item { padding: 6px 0 4px 8px; border-bottom: 1px dotted #e0e6ed; font-size: 0.94rem; line-height: 1.45; }
-        .field-item strong { font-weight: 700; color: #1e4663; display: inline-block; min-width: 220px; }
+        .field-item strong { font-weight: 700; color: #1e4663; display: inline-block; min-width: 240px; }
         .field-item .value { color: #2c3e4e; font-weight: 500; }
         .full-width-text { padding: 8px 0 8px 8px; border-bottom: 1px dotted #e0e6ed; font-size: 0.94rem; }
-        .full-width-text strong { font-weight: 700; color: #1e4663; display: inline-block; min-width: 220px; }
+        .full-width-text strong { font-weight: 700; color: #1e4663; display: inline-block; min-width: 240px; }
         .status-local { background: #fef7e0; padding: 14px 18px; border-radius: 18px; margin-top: 6px; border: 1px solid #ffe3a4; font-size: 0.94rem; }
         .scales-list { background: #f1f4f9; padding: 12px 20px; border-radius: 20px; margin-top: 10px; }
         .scales-list p { margin: 8px 0; }
-        .note { background: #e7f1ff; border-left: 4px solid #1a4d6f; padding: 12px 16px; margin-top: 16px; border-radius: 12px; font-size: 0.9rem; color: #1e4663; }
-        .note-list { margin-top: 8px; margin-left: 20px; list-style-type: none; padding-left: 0; }
-        .note-list li { margin-bottom: 8px; padding-left: 20px; position: relative; }
-        .note-list li:before { content: "•"; position: absolute; left: 4px; color: #1a4d6f; font-weight: bold; }
         .algorithm-btn-container { margin-top: 32px; margin-bottom: 20px; text-align: center; }
         .btn-algorithm { background-color: #dc2626; color: white; border: none; padding: 10px 28px; font-size: 1.15rem; font-weight: 700; border-radius: 50px; cursor: pointer; box-shadow: 0 6px 14px rgba(220, 38, 38, 0.3); transition: all 0.2s ease; display: inline-flex; flex-direction: column; align-items: center; gap: 4px; letter-spacing: 0.3px; border: 1px solid rgba(255,255,255,0.3); max-width: 100%; }
         .btn-algorithm:hover { background-color: #b91c1c; transform: scale(1.02); box-shadow: 0 10px 20px rgba(185, 28, 28, 0.4); }
@@ -40,7 +36,7 @@
         .modal-header h2 { font-size: 1.25rem; font-weight: 700; line-height: 1.3; word-break: break-word; }
         .modal-close { background: none; border: none; color: white; font-size: 28px; cursor: pointer; line-height: 1; transition: 0.2s; padding: 0 8px; border-radius: 40px; flex-shrink: 0; }
         .modal-close:hover { background-color: rgba(255,255,255,0.2); transform: scale(1.1); }
-        .modal-body { flex: 1; overflow-y: auto; padding: 28px 32px; background: #fefcf5; font-size: 0.95rem; line-height: 1.5; }
+        .modal-body { flex: 1; overflow-y: auto; padding: 28px 32px; background: #fefcf5; font-size: 0.95rem; line-height: 1.5; hyphens: auto; }
         .adult-block { border-left: 5px solid #dc2626; padding-left: 20px; background: #fff9f0; border-radius: 0 18px 18px 0; margin-bottom: 40px; }
         .adult-header { display: flex; align-items: center; gap: 12px; margin: 10px 0 20px 0; }
         .badge-adult { background: #c2410c; color: white; padding: 6px 14px; border-radius: 40px; font-weight: bold; }
@@ -55,8 +51,16 @@
         .condition-title { font-weight: 800; color: #b91c1c; margin-bottom: 10px; font-size: 1rem; }
         .important-red { background: #ffc4c4; border-left: 6px solid #dc2626; padding: 12px 18px; margin: 14px 0; border-radius: 14px; font-weight: 800; color: #9b1c1c; font-size: 0.98rem; }
         .highlight-number { font-weight: 800; color: #c2410c; background: #fff0d0; padding: 0 4px; border-radius: 10px; }
+        .bold-black { font-weight: 800; color: #000000; background: transparent; }
         .drug-name { background: #f3f3f3; font-family: monospace; padding: 2px 8px; border-radius: 20px; font-weight: 800; color: #1a3c4a; display: inline-block; }
-        .italic-bold-ref { font-weight: 800; font-style: italic; background: transparent; color: #0a2f44; }
+        .italic-bold-ref { font-weight: 800; font-style: italic; background: transparent; color: #0a2f44; text-decoration: underline; cursor: pointer; }
+        .italic-bold-static { font-weight: 800; font-style: italic; background: transparent; color: #0a2f44; }
+        #imageModal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.9); justify-content: center; align-items: center; flex-direction: column; }
+        #imageModal .modal-close-img { position: absolute; top: 20px; right: 35px; color: #fff; font-size: 40px; font-weight: bold; cursor: pointer; background: none; border: none; z-index: 2001; }
+        #modalImage { max-width: 90%; max-height: 70%; object-fit: contain; }
+        #navContainer { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); display: none; gap: 30px; align-items: center; justify-content: center; background-color: rgba(0, 0, 0, 0.5); padding: 6px 20px; border-radius: 40px; z-index: 2001; }
+        #prevBtn, #nextBtn { background-color: transparent; color: white; font-size: 28px; font-weight: bold; border: none; cursor: pointer; padding: 0 12px; }
+        #imageCounter { color: white; background-color: rgba(0, 0, 0, 0.6); padding: 4px 12px; border-radius: 20px; font-size: 14px; font-weight: bold; }
         @media (max-width: 700px) {
             body { padding: 16px 10px; }
             .mkb-row { padding: 14px 18px; font-size: 0.95rem; }
@@ -71,11 +75,9 @@
             .status-local { padding: 10px 14px; font-size: 0.85rem; }
             .scales-list { padding: 10px 14px; }
             .scales-list p { font-size: 0.85rem; margin: 6px 0; }
-            .note { padding: 10px 14px; font-size: 0.8rem; }
-            .note-list { margin-left: 14px; }
             .btn-algorithm { padding: 8px 22px; font-size: 1rem; }
             .btn-hint { font-size: 0.65rem; }
-            .modal-overlay { padding: 10px; }
+            .modal-overlay { padding: 10px; align-items: center; }
             .modal-container { max-height: 90vh; border-radius: 20px; }
             .modal-header { padding: 14px 18px; }
             .modal-header h2 { font-size: 1rem; }
@@ -105,24 +107,23 @@
         </div>
         <div class="section">
             <div class="section-title">📋 АНАМНЕЗ</div>
-            <div class="full-width-text"><strong>Анамнез заболевания:</strong> Много лет пациент страдает бронхиальной астмой. Наблюдается в ЛПУ. Пользуется ингаляторами: планово — сальбутамол, при приступах — беродуал. Ухудшение состояния сегодня с утра. Самостоятельно пользовался Беродуалом — без эффекта. Вызывал скорую медицинскую помощь. Была оказана помощь (небулайзер, медопред, эуфиллин), стало лучше, но приступ не купирован. От медицинской эвакуации отказался. Через 1,5 часа состояние ухудшилось: усилилось удушье, наросла слабость, появился цианоз. Вызвали скорую медицинскую помощь повторно.</div>
-            <div class="full-width-text"><strong>Эпидемиологический анамнез:</strong> Контакт с инфекционными больными, прилетевшими из эпидопасных районов в течение последних 14 дней отрицает. Вакцинацию от гриппа и COVID-19 отрицает. В регистре COVID-19 не состоит.</div>
-            <div class="full-width-text"><strong>Аллергологический анамнез:</strong> Не отягощен. Лекарственной, пищевой, бытовой аллергии не выявлено. Другие заболевания отрицает.</div>
-            <div class="full-width-text"><strong>Гинекологический анамнез:</strong> Менструальная функция с 13 лет, цикл установился сразу, продолжительность 4-5 дней, через 28 дней, регулярный, безболезненный. Выделения из половых путей на момент осмотра: отсутствуют. Гинекологических заболеваний не было. Операций на матке и придатках не было. Беременностей не было.</div>
-            <div class="full-width-text"><strong>Акушерско-гинекологический анамнез:</strong> По данным ЕМИАС информации нет.</div>
+            <div class="full-width-text"><strong>Анамнез заболевания:</strong> Много лет пациент страдает бронхиальной астмой. Наблюдается в ЛПУ. Пользуется ингаляторами: планово — сальбутамол, при приступах — беродуал. Ухудшение состояния сегодня с утра. Самостоятельно пользовался Беродуалом — без эффекта. Вызывал скорую медицинскую помощь. Была оказана помощь (небулайзер, медопред, эуфиллин), стало лучше, но приступ не купирован. От медицинской эвакуации отказался. Через 1,5 часа состояние ухудшилось: усилилось удушье, наросла слабость, появился цианоз. Вызвали скорую медицинскую помощь повторно. Хронические заболевания: бронхиальная астма. Регулярно принимает сальбутамол планово.</div>
+            <div class="full-width-text"><strong>Эпидемиологический анамнез:</strong> Контакт с инфекционными больными, прилетевшими из эпидопасных районов в течение последних 14 дней отрицает.</div>
+            <div class="full-width-text"><strong>Аллергологический анамнез:</strong> Не отягощен. Лекарственной, пищевой, бытовой аллергии не выявлено.</div>
+            <div class="full-width-text"><strong>Гинекологический анамнез:</strong> Менструальная функция с 13 лет, цикл установился сразу, продолжительность 4-5 дней, через 28 дней, регулярный, безболезненный. Гинекологических заболеваний не было. Операций на матке и придатках не было. Беременностей не было.</div>
         </div>
         <div class="section">
             <div class="section-title">🩺 ОБЪЕКТИВНО</div>
             <div class="field-list">
-                <div class="field-item"><strong>Общее состояние:</strong> <span class="value">тяжелое</span></div>
+                <div class="field-item"><strong>Общее состояние:</strong> <span class="value">тяжелое (обусловлено дыхательной недостаточностью II–III ст., гипоксемией, угнетением сознания до оглушения)</span></div>
                 <div class="field-item"><strong>Сознание:</strong> <span class="value">оглушение</span></div>
                 <div class="field-item"><strong>Шкала комы Глазго (GCS):</strong> <span class="value">13 баллов</span></div>
                 <div class="field-item"><strong>Положение:</strong> <span class="value">вынужденное (ортопноэ)</span></div>
-                <div class="field-item"><strong>Кожные покровы:</strong> <span class="value">цианоз, влажные. Сыпи, желтушности нет.</span></div>
+                <div class="field-item"><strong>Кожные покровы:</strong> <span class="value">цианотичные, влажные. Сыпи, желтушности нет.</span></div>
                 <div class="field-item"><strong>Сыпь:</strong> <span class="value">нет</span></div>
-                <div class="field-item"><strong>Зев:</strong> <span class="value">чистый</span></div>
+                <div class="field-item"><strong>Зев:</strong> <span class="value">чистый, розовый</span></div>
                 <div class="field-item"><strong>Миндалины:</strong> <span class="value">не увеличены</span></div>
-                <div class="field-item"><strong>Лимфоузлы:</strong> <span class="value">не увеличены</span></div>
+                <div class="field-item"><strong>Лимфоузлы:</strong> <span class="value">периферические не увеличены</span></div>
                 <div class="field-item"><strong>Пролежни:</strong> <span class="value">нет</span></div>
                 <div class="field-item"><strong>Отеки:</strong> <span class="value">нет</span></div>
                 <div class="field-item"><strong>t°:</strong> <span class="value">36,6 °C</span></div>
@@ -134,8 +135,8 @@
                 <div class="field-item"><strong>ЧДД в мин:</strong> <span class="value">36</span></div>
                 <div class="field-item"><strong>Одышка:</strong> <span class="value">экспираторная</span></div>
                 <div class="field-item"><strong>Патологическое дыхание:</strong> <span class="value">нет</span></div>
-                <div class="field-item"><strong>Аускультативно:</strong> <span class="value">дыхание ослаблено с двух сторон до верхушек</span></div>
-                <div class="field-item"><strong>Хрипы сухие (свистящие, жужжащие):</strong> <span class="value">в верхних отделах с двух сторон</span></div>
+                <div class="field-item"><strong>Аускультативно:</strong> <span class="value">дыхание резко ослаблено с двух сторон до верхушек («немые легкие»)</span></div>
+                <div class="field-item"><strong>Хрипы сухие (свистящие, жужжащие):</strong> <span class="value">единичные в верхних отделах с двух сторон</span></div>
                 <div class="field-item"><strong>Влажные (мелко-, средне-, крупнопузырчатые):</strong> <span class="value">нет</span></div>
                 <div class="field-item"><strong>Крепитация:</strong> <span class="value">нет</span></div>
                 <div class="field-item"><strong>Шум трения плевры:</strong> <span class="value">нет</span></div>
@@ -148,11 +149,11 @@
             <div class="section-title">❤️ ОРГАНЫ КРОВООБРАЩЕНИЯ</div>
             <div class="field-list">
                 <div class="field-item"><strong>Пульс в мин:</strong> <span class="value">130</span></div>
-                <div class="field-item"><strong>Ритмичный, аритмичный, наполнение пульса:</strong> <span class="value">ритмичный, удовлетворительного наполнения</span></div>
+                <div class="field-item"><strong>Ритмичный, аритмичный, наполнение пульса:</strong> <span class="value">ритмичный, удовлетворительного наполнения и напряжения</span></div>
                 <div class="field-item"><strong>ЧСС:</strong> <span class="value">130 ударов в минуту</span></div>
                 <div class="field-item"><strong>Дефицит пульса:</strong> <span class="value">нет</span></div>
                 <div class="field-item"><strong>АД мм.рт.ст. на момент осмотра, привычное АД мм.рт.ст., максимальное АД мм.рт.ст.:</strong> <span class="value">130/100, привычное 110/70, максимальное 160/100</span></div>
-                <div class="field-item"><strong>Тоны сердца:</strong> <span class="value">приглушены</span></div>
+                <div class="field-item"><strong>Тоны сердца:</strong> <span class="value">приглушены, ритмичные</span></div>
                 <div class="field-item"><strong>Шум (систолический, диастолический):</strong> <span class="value">нет</span></div>
                 <div class="field-item"><strong>Шум трения перикарда:</strong> <span class="value">нет</span></div>
                 <div class="field-item"><strong>Акцент какого тона на (где?):</strong> <span class="value">нет</span></div>
@@ -161,12 +162,12 @@
         <div class="section">
             <div class="section-title">🍽️ ОРГАНЫ ПИЩЕВАРЕНИЯ</div>
             <div class="field-list">
-                <div class="field-item"><strong>Язык:</strong> <span class="value">чистый</span></div>
+                <div class="field-item"><strong>Язык:</strong> <span class="value">чистый, влажный</span></div>
                 <div class="field-item"><strong>Живот (форма, мягкий, напряжен):</strong> <span class="value">обычной формы, мягкий, не напряжен</span></div>
                 <div class="field-item"><strong>Болезненный в:</strong> <span class="value">безболезненный во всех отделах</span></div>
-                <div class="field-item"><strong>Положительные симптомы:</strong> <span class="value">Симптомы Образцова, Ровзинга, Ситковского, Ортнера, Мерфи, Мейо-Робсона, Щёткина-Блюмберга, Валя — отрицательные</span></div>
-                <div class="field-item"><strong>Перистальтика:</strong> <span class="value">выслушивается</span></div>
-                <div class="field-item"><strong>Печень:</strong> <span class="value">не увеличена</span></div>
+                <div class="field-item"><strong>Положительные симптомы:</strong> <span class="value">нет (живот мягкий, безболезненный)</span></div>
+                <div class="field-item"><strong>Перистальтика:</strong> <span class="value">выслушивается, активная</span></div>
+                <div class="field-item"><strong>Печень:</strong> <span class="value">не увеличена, не пальпируется</span></div>
                 <div class="field-item"><strong>Селезенка:</strong> <span class="value">не пальпируется</span></div>
                 <div class="field-item"><strong>Стул (частота, консистенция):</strong> <span class="value">вчера 1 раз, оформлен, коричневый</span></div>
             </div>
@@ -174,8 +175,8 @@
         <div class="section">
             <div class="section-title">🧠 НЕРВНАЯ СИСТЕМА</div>
             <div class="field-list">
-                <div class="field-item"><strong>Поведение:</strong> <span class="value">беспокойное</span></div>
-                <div class="field-item"><strong>Контакт:</strong> <span class="value">затруднен из-за удушья</span></div>
+                <div class="field-item"><strong>Поведение:</strong> <span class="value">беспокойное (обусловлено удушьем и гипоксией)</span></div>
+                <div class="field-item"><strong>Контакт:</strong> <span class="value">затруднен из-за удушья и оглушения</span></div>
                 <div class="field-item"><strong>Чувствительность:</strong> <span class="value">не нарушена</span></div>
                 <div class="field-item"><strong>Речь:</strong> <span class="value">односложная, прерывистая</span></div>
                 <div class="field-item"><strong>Зрачки (OD, OS), обычные, широкие, узкие:</strong> <span class="value">OD = OS, обычные</span></div>
@@ -184,65 +185,46 @@
                 <div class="field-item"><strong>Асимметрия лица:</strong> <span class="value">нет</span></div>
                 <div class="field-item"><strong>Менингеальные симптомы:</strong> <span class="value">отрицательные</span></div>
                 <div class="field-item"><strong>Очаговые симптомы:</strong> <span class="value">нет</span></div>
-                <div class="field-item"><strong>Координаторные пробы:</strong> <span class="value">выполнить невозможно из-за состояния</span></div>
+                <div class="field-item"><strong>Координаторные пробы:</strong> <span class="value">не выполняет (ввиду тяжести состояния и вынужденного положения)</span></div>
             </div>
         </div>
         <div class="section">
             <div class="section-title">🚽 МОЧЕПОЛОВАЯ СИСТЕМА</div>
             <div class="field-list">
                 <div class="field-item"><strong>Мочеиспускание:</strong> <span class="value">свободное, безболезненное, моча светлая, прозрачная</span></div>
-                <div class="field-item"><strong>Симптом поколачивания:</strong> <span class="value">отрицательный с обеих сторон</span></div>
+                <div class="field-item"><strong>Симптом поколачивания:</strong> <span class="value">не проводился (нецелесообразно ввиду тяжести состояния)</span></div>
             </div>
         </div>
         <div class="section">
             <div class="section-title">🔍 STATUS LOCALIS</div>
             <div class="status-local">
                 <strong>Локальный статус (осмотр):</strong><br>
-                • Кожные покровы: цианоз, влажные. Видимых травм и повреждений нет.<br>
-                • Наружные половые органы: развиты правильно, оволосение по женскому типу. Слизистые розовые, чистые.<br>
-                • Выделения из половых путей: отсутствуют.<br>
-                • Травм, гематом, видимых повреждений области промежности, лобка, поясницы нет.
+                • Кожные покровы: диффузный цианоз, влажные. Видимых травм и повреждений нет.<br>
+                • Видимых травм, гематом, повреждений области грудной клетки, промежности, лобка, поясницы нет.<br>
+                • Участие вспомогательной мускулатуры в акте дыхания (втяжение межреберных промежутков, надключичных ямок).
             </div>
         </div>
         <div class="section">
-            <div class="section-title">📊 ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ</div>
-            <div class="field-list">
-                <div class="field-item"><strong>SpO2:</strong> <span class="value">84%</span></div>
-                <div class="field-item"><strong>PS:</strong> <span class="value">130</span></div>
-                <div class="field-item"><strong>ЭКГ:</strong> <span class="value">синусовая тахикардия 130 в минуту, отклонение ЭОС вправо</span></div>
+            <div class="section-title">📈 ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ</div>
+            <div class="scales-list">
+                <p>✔ <strong>Пульсоксиметрия:</strong> SpO₂ — 84%.</p>
+                <p>✔ <strong>Глюкометрия:</strong> не проводилась (нет показаний).</p>
+                <p>✔ <strong>ЭКГ:</strong> синусовая тахикардия 130 в минуту, отклонение ЭОС вправо.</p>
             </div>
         </div>
         <div class="section">
             <div class="section-title">📊 ОЦЕНКА ПО ШКАЛАМ</div>
             <div class="scales-list">
-                <p>✔ <strong>Шкала NEWS2:</strong> 11 баллов (ЧДД 36 — 3 балла, SpO2 84% — 3 балла, ЧСС 130 — 2 балла, АД 130/100 — 0 баллов, сознание оглушение — 2 балла, t° 36,6 — 0 баллов) — высокий риск, критическое состояние.</p>
-                <p>✔ <strong>Пациент с острой дыхательной недостаточностью, шкала ОДН по Кассиль:</strong> II-III степени (тахипноэ 36 в мин, SpO2 84%, участие вспомогательной мускулатуры, цианоз).</p>
-                <p>✔ <strong>Пациент с шоком, индекс Альговера:</strong> Индекс Альговера = ЧСС / АД сист. = 130 / 130 = 1,0 (пограничное значение).</p>
-                <p>✔ <strong>Пациент с травмой, шкала боли ВАШ:</strong> не применимо.</p>
-                <p>✔ <strong>Пациент с ХСН, шкала ШОКС:</strong> не применимо.</p>
-                <p>✔ <strong>Пациент с ТЭЛА, шкала риска ТЭЛА:</strong> не применимо.</p>
+                <p>✔ <strong>Шкала NEWS2:</strong> <span class="highlight-number">11 баллов</span> (ЧДД 36 — 3 балла; SpO₂ 84% — 3 балла; ЧСС 130 — 2 балла; АД сист. 130 — 0 баллов; сознание оглушение — 2 балла; t° 36,6 — 0 баллов).</p>
+                <p>✔ <strong>Шкала ОДН по Кассиль:</strong> II–III степени (ЧДД 36, SpO₂ 84%, цианоз, участие вспомогательной мускулатуры).</p>
+                <p>✔ <strong>Индекс Альговера:</strong> не применимо.</p>
+                <p>✔ <strong>Шкала боли ВАШ:</strong> не применимо.</p>
+                <p>✔ <strong>Шкала ШОКС:</strong> не применимо.</p>
+                <p>✔ <strong>Шкала риска ТЭЛА:</strong> не применимо.</p>
                 <p>✔ <strong>Алкогольное опьянение:</strong> не применимо (запаха алкоголя изо рта нет).</p>
-                <p>✔ <strong>Пациент с инсультом, шкала LAMS:</strong> не применимо.</p>
-                <p>✔ <strong>Пациент с ДЭП (симптомы, синдромы орального автоматизма):</strong> не применимо.</p>
+                <p>✔ <strong>Шкала LAMS:</strong> не применимо.</p>
+                <p>✔ <strong>Признаки ДЭП:</strong> не применимо.</p>
             </div>
-        </div>
-        <div class="note">
-            <strong>📌 Примечание для бригады СМП:</strong><br>
-            Дифференциальная диагностика проведена с:
-            <ul class="note-list">
-                <li><strong>ТЭЛА</strong> (острое начало, боль в грудной клетке, кровохарканье, тахипноэ, гипоксемия, ЭКГ-признаки перегрузки правых отделов сердца);</li>
-                <li><strong>отеком легких</strong> (влажные хрипы в нижних отделах, пенистая мокрота, ортопноэ, признаки сердечной недостаточности);</li>
-                <li><strong>спонтанным пневмотораксом</strong> (внезапная боль в грудной клетке, исчезновение дыхания на стороне поражения, коробочный звук при перкуссии);</li>
-                <li><strong>обструкцией верхних дыхательных путей (инородное тело, отек гортани)</strong> (стридор, инспираторная одышка, осиплость голоса).</li>
-            </ul>
-            <strong>Ключевые признаки астматического статуса:</strong><br>
-            – Длительный (более 6-8 часов) приступ удушья, не купирующийся бронхолитиками.<br>
-            – Нарастающая дыхательная недостаточность, гипоксемия (SpO2 <90%).<br>
-            – «Немые легкие» (ослабление дыхания, хрипы отсутствуют или единичные) — признак тяжелого статуса.<br>
-            – Парадоксальный пульс (снижение АД на вдохе).<br>
-            – Нарушение сознания, цианоз, тахикардия, гипертензия.<br>
-            – Неэффективность ингаляционных β2-агонистов, эуфиллина, глюкокортикостероидов.<br>
-            – При прогрессировании — гиперкапния, ацидоз, угнетение дыхания, кома.
         </div>
         <div class="algorithm-btn-container">
             <button class="btn-algorithm" id="openAlgorithmBtn">
@@ -257,7 +239,7 @@
 <div class="modal-overlay" id="algorithmModal">
     <div class="modal-container">
         <div class="modal-header">
-            <h2>📋 J96, J81, J80 Дыхательная недостаточность: – гипоксемическая (острый респираторный дистресс синдром (некардиогенный отек легких), острая сердечная недостаточность) – вентиляционная (ХОБЛ, бронхиальная астма) II–IV ст.</h2>
+            <h2>J96, J81, J80 Дыхательная недостаточность: – гипоксемическая (острый респираторный дистресс синдром (некардиогенный отек легких), острая сердечная недостаточность) – вентиляционная (ХОБЛ, бронхиальная астма) II–IV ст.</h2>
             <button class="modal-close" id="closeModalBtn">&times;</button>
         </div>
         <div class="modal-body">
@@ -279,14 +261,14 @@
                     </ul>
                     <div class="condition-title" style="margin-top: 10px;">При сохранении SpO2 ≤ 90% на фоне ингаляции кислорода максимальным потоком</div>
                     <ul class="list-styled">
-                        <li>Масочная вентиляция (НИВЛ/СРАР) с ПДКВ <span class="highlight-number">5–10 см вод.ст.</span> <span class="italic-bold-ref">(НИВЛ/СРАР противопоказаны при пневмотораксе, инородном теле дыхательных путей, слабости дыхательных мышц, поражениях дыхательного центра, поражениях периферических нервов, частоте дыхания > 35 или < 10 в мин, артериальной гипотонии (САД < 90 мм рт.ст.), нарушении сознания)</span></li>
+                        <li>Масочная вентиляция (НИВЛ/СРАР) с ПДКВ <span class="highlight-number">5–10 см вод.ст.</span> <span class="italic-bold-static">(НИВЛ/СРАР противопоказаны при пневмотораксе, инородном теле дыхательных путей, слабости дыхательных мышц, поражениях дыхательного центра, поражениях периферических нервов, частоте дыхания > 35 или < 10 в мин, артериальной гипотонии (САД < 90 мм рт.ст.), нарушении сознания)</span></li>
                         <li>Капнометрия-капнография (для бригад АиР). Целевые значения EtCO2 – <span class="highlight-number">35–45 мм рт.ст.</span></li>
                     </ul>
                 </div>
                 <div class="condition-block">
                     <div class="condition-title">– при SpO2 ≤ 80% на фоне масочной вентиляции (НИВЛ/СРАР) или при противопоказаниях к НИВЛ/СРАР</div>
                     <ul class="list-styled">
-                        <li>Интубация трахеи или применение надгортанного герметизирующего устройства <a href="#" class="italic-bold-ref" onclick="openImage('Тактика обеспечения проходимости дыхательных путей у взрослых.png'); return false;">(см. «Приложение 4»)</a></li>
+                        <li>Интубация трахеи или применение надгортанного герметизирующего устройства <a href="#" class="italic-bold-ref" onclick="openImage('Тактика обеспечения проходимости дыхательных путей у взрослых.png'); return false;">(см. «Приложение 4»)</a></li>
                         <li>ИВЛ/ВВЛ (ДО <span class="highlight-number">6–8 мл/кг</span> идеальной массы тела, ПДКВ <span class="highlight-number">5–10 см вод.ст.</span>)</li>
                         <li>Капнометрия-капнография (для бригад АиР). Целевые значения EtCO2 – <span class="highlight-number">35–45 мм рт.ст.</span></li>
                     </ul>
@@ -294,7 +276,7 @@
                 <div class="condition-block">
                     <div class="condition-title">– при САД < 90 мм рт.ст.</div>
                     <ul class="list-styled">
-                        <li><span class="drug-name">Норэпинефрин 0,5–5 мкг/кг/мин</span> в разведении Декстрозы 5% или <span class="drug-name">Допамин 5–10 мкг/кг/мин</span> (при брадикардии) в разведении Натрия хлорида 0,9% в/венно через шприцевой дозатор или капельно <a href="norepinephrine-adult.html" class="italic-bold-ref" target="_blank">(см. «Приложение 35»)</a>, <a href="dopamine-adult.html" class="italic-bold-ref" target="_blank">(см. «Приложение 31»)</a></li>
+                        <li><span class="drug-name">Норадреналин (Норэпинефрин) 0,5–5 мкг/кг/мин</span> в разведении Декстрозы 5% или <span class="drug-name">Допамин 5–10 мкг/кг/мин</span> (при брадикардии) в разведении Натрия хлорида 0,9% в/венно через шприцевой дозатор или капельно <a href="https://emhelp.github.io/SMP/norepinephrine-adult.html" class="italic-bold-ref" target="_blank">(см. «Приложение 35»)</a>, <a href="https://emhelp.github.io/SMP/dopamine-adult.html" class="italic-bold-ref" target="_blank">(см. «Приложение 31»)</a></li>
                     </ul>
                 </div>
                 <div class="condition-block">
@@ -325,15 +307,15 @@
     </div>
 </div>
 
-<!-- Модальное окно для изображений -->
-<div id="imageModal" class="modal" style="display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.9); justify-content: center; align-items: center; flex-direction: column;">
-  <button onclick="document.getElementById('imageModal').style.display='none'; isGalleryMode=false; currentGallery=[];" style="position: absolute; top: 20px; right: 35px; color: #fff; font-size: 40px; font-weight: bold; cursor: pointer; background: none; border: none; z-index: 2001;">&times;</button>
-  <img id="modalImage" style="max-width: 90%; max-height: 70%; object-fit: contain;">
-  <div id="navContainer" style="position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); display: none; gap: 30px; align-items: center; justify-content: center; background-color: rgba(0,0,0,0.5); padding: 6px 20px; border-radius: 40px; z-index: 2001;">
-    <button id="prevBtn" style="background-color: transparent; color: white; font-size: 28px; font-weight: bold; border: none; cursor: pointer; padding: 0 12px;">❮</button>
-    <span id="imageCounter" style="color: white; background-color: rgba(0,0,0,0.6); padding: 4px 12px; border-radius: 20px; font-size: 14px; font-weight: bold;">1 / 2</span>
-    <button id="nextBtn" style="background-color: transparent; color: white; font-size: 28px; font-weight: bold; border: none; cursor: pointer; padding: 0 12px;">❯</button>
-  </div>
+<!-- МОДАЛЬНОЕ ОКНО ДЛЯ ИЗОБРАЖЕНИЙ -->
+<div id="imageModal">
+    <button class="modal-close-img" onclick="document.getElementById('imageModal').style.display='none'; isGalleryMode=false; currentGallery=[];">&times;</button>
+    <img id="modalImage" src="" alt="Изображение">
+    <div id="navContainer">
+        <button id="prevBtn">❮</button>
+        <span id="imageCounter">1 / 2</span>
+        <button id="nextBtn">❯</button>
+    </div>
 </div>
 
 <script>
