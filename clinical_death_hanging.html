@@ -33,13 +33,20 @@
         .btn-asphyxia:active { transform: scale(0.98); }
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.75); backdrop-filter: blur(4px); z-index: 1000; display: flex; align-items: center; justify-content: center; visibility: hidden; opacity: 0; transition: visibility 0.2s, opacity 0.2s; padding: 20px; }
         .modal-overlay.active { visibility: visible; opacity: 1; }
-        .modal-container { max-width: 1200px; width: 100%; max-height: 85vh; background-color: #fffef7; border-radius: 28px; box-shadow: 0 25px 45px -12px rgba(0,0,0,0.25); display: flex; flex-direction: column; overflow: hidden; border: 1px solid #ffd7a5; animation: modalFadeIn 0.25s ease-out; }
+        /* Общие стили модального окна */
+        .modal-container { max-width: 1200px; width: 100%; max-height: 85vh; background-color: #fffef7; border-radius: 28px; box-shadow: 0 25px 45px -12px rgba(0,0,0,0.25); display: flex; flex-direction: column; border: 1px solid #ffd7a5; animation: modalFadeIn 0.25s ease-out; }
         @keyframes modalFadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .modal-header { background: #c2410c; color: white; padding: 18px 28px; display: flex; justify-content: space-between; align-items: center; border-bottom: 4px solid #ffb347; flex-shrink: 0; }
+        /* Сценарий B (§12): короткий заголовок — шапка фиксирована */
+        #asphyxiaModal .modal-container { overflow: hidden; }
+        #asphyxiaModal .modal-header { flex-shrink: 0; }
+        #asphyxiaModal .modal-body { flex: 1; overflow-y: auto; }
+        /* Сценарий A (§12): длинный заголовок — шапка уходит при прокрутке */
+        #algorithmModal .modal-container { overflow-y: auto; overflow-x: hidden; }
+        .modal-header { background: #c2410c; color: white; padding: 18px 28px; display: flex; justify-content: space-between; align-items: center; border-bottom: 4px solid #ffb347; }
         .modal-header h2 { font-size: 1.25rem; font-weight: 700; line-height: 1.3; word-break: break-word; }
         .modal-close { background: none; border: none; color: white; font-size: 28px; cursor: pointer; line-height: 1; transition: 0.2s; padding: 0 8px; border-radius: 40px; flex-shrink: 0; }
         .modal-close:hover { background-color: rgba(255,255,255,0.2); transform: scale(1.1); }
-        .modal-body { flex: 1; overflow-y: auto; padding: 28px 32px; background: #fefcf5; font-size: 0.95rem; line-height: 1.5; hyphens: auto; }
+        .modal-body { padding: 28px 32px; background: #fefcf5; font-size: 0.95rem; line-height: 1.5; hyphens: auto; }
         .adult-block { border-left: 5px solid #dc2626; padding-left: 20px; background: #fff9f0; border-radius: 0 18px 18px 0; margin-bottom: 40px; }
         .adult-header { display: flex; align-items: center; gap: 12px; margin: 10px 0 20px 0; }
         .badge-adult { background: #c2410c; color: white; padding: 6px 14px; border-radius: 40px; font-weight: bold; }
@@ -246,7 +253,7 @@
         </div>
         <div class="algorithm-btn-container">
             <button class="btn-algorithm" id="openAlgorithmBtn">
-                <span>🚨 Оказание помощи в соответствии с Алгоритмами МСК</span>
+                <span>🚨 Алгоритм при остановке сердца</span>
                 <span class="btn-hint">▼ нажмите для открытия ▼</span>
             </button>
             <button class="btn-asphyxia" id="openAsphyxiaBtn">
@@ -257,7 +264,7 @@
     </div>
 </div>
 
-<!-- МОДАЛЬНОЕ ОКНО 1: ОСТАНОВКА СЕРДЦА -->
+<!-- МОДАЛЬНОЕ ОКНО 1: ОСТАНОВКА СЕРДЦА (Сценарий A) -->
 <div class="modal-overlay" id="algorithmModal">
     <div class="modal-container">
         <div class="modal-header">
@@ -604,7 +611,7 @@
     </div>
 </div>
 
-<!-- МОДАЛЬНОЕ ОКНО 2: СТРАНГУЛЯЦИОННАЯ АСФИКСИЯ -->
+<!-- МОДАЛЬНОЕ ОКНО 2: СТРАНГУЛЯЦИОННАЯ АСФИКСИЯ (Сценарий B) -->
 <div class="modal-overlay" id="asphyxiaModal">
     <div class="modal-container">
         <div class="modal-header">
@@ -638,7 +645,7 @@
                     <div class="condition-title" style="margin-top: 10px;">При сохранении судорог:</div>
                     <ul class="list-styled">
                         <li><span class="drug-name">Ардуан (Пипекурония бромид) 4 мг</span> в/венно (для бригад АиР), затем</li>
-                        <li>ИВЛ/ВВЛ <a href="#" class="italic-bold-ref" onclick="openImage('Параметры респираторной поддержки при сохраненном самостоятельном кровообращении.jpg'); return false;">(см. «Приложение 6»)</a></li>
+                        <li>ИВЛ/ВВЛ <a href="javascript:void(0);" class="italic-bold-ref" onclick="openImage('respiratory-support-spontaneous.jpg'); return false;">(см. «Приложение 6»)</a></li>
                         <li>Капнометрия-капнография (для бригад АиР). Целевые значения EtCO2 – <span class="highlight-number">35–45 мм рт.ст.</span></li>
                     </ul>
                 </div>
@@ -647,12 +654,12 @@
                     <div class="important-red"><strong>Применение надгортанного герметизирующего устройства противопоказано</strong></div>
                     <ul class="list-styled">
                         <li>Санация верхних дыхательных путей</li>
-                        <li>Интубация трахеи <a href="#" class="italic-bold-ref" onclick="openImage('Тактика обеспечения проходимости дыхательных путей у взрослых.png'); return false;">(см. «Приложение 4»)</a></li>
+                        <li>Интубация трахеи <a href="javascript:void(0);" class="italic-bold-ref" onclick="openImage('airway-management-adult.png'); return false;">(см. «Приложение 4»)</a></li>
                     </ul>
                     <div class="condition-title" style="margin-top: 10px;">При невозможности интубации трахеи:</div>
                     <ul class="list-styled">
                         <li>Коникотомия</li>
-                        <li>ИВЛ/ВВЛ <a href="#" class="italic-bold-ref" onclick="openImage('Параметры респираторной поддержки при сохраненном самостоятельном кровообращении.jpg'); return false;">(см. «Приложение 6»)</a></li>
+                        <li>ИВЛ/ВВЛ <a href="javascript:void(0);" class="italic-bold-ref" onclick="openImage('respiratory-support-spontaneous.jpg'); return false;">(см. «Приложение 6»)</a></li>
                         <li>Капнометрия-капнография (для бригад АиР). Целевые значения EtCO2 – <span class="highlight-number">35–45 мм рт.ст.</span></li>
                     </ul>
                 </div>
@@ -660,8 +667,8 @@
                     <div class="condition-title">– при коме (без признаков нарастающего отека гортани)</div>
                     <ul class="list-styled">
                         <li>Санация верхних дыхательных путей</li>
-                        <li>Интубация трахеи <a href="#" class="italic-bold-ref" onclick="openImage('Тактика обеспечения проходимости дыхательных путей у взрослых.png'); return false;">(см. «Приложение 4»)</a></li>
-                        <li>ИВЛ/ВВЛ <a href="#" class="italic-bold-ref" onclick="openImage('Параметры респираторной поддержки при сохраненном самостоятельном кровообращении.jpg'); return false;">(см. «Приложение 6»)</a></li>
+                        <li>Интубация трахеи <a href="javascript:void(0);" class="italic-bold-ref" onclick="openImage('airway-management-adult.png'); return false;">(см. «Приложение 4»)</a></li>
+                        <li>ИВЛ/ВВЛ <a href="javascript:void(0);" class="italic-bold-ref" onclick="openImage('respiratory-support-spontaneous.jpg'); return false;">(см. «Приложение 6»)</a></li>
                         <li>Капнометрия-капнография (для бригад АиР). Целевые значения EtCO2 – <span class="highlight-number">35–45 мм рт.ст.</span></li>
                     </ul>
                 </div>
@@ -698,8 +705,8 @@
                         <li><span class="drug-name">Реланиум (Диазепам) 0,3–0,5 мг/кг (0,06–0,1 мл/кг)</span> в/венно медленно</li>
                         <li><span class="drug-name">Дормикум (Мидазолам) 0,2 мг/кг (0,04 мл/кг)</span> в/венно болюсно, затем <span class="highlight-number">0,02–0,1 мкг/кг/мин</span> в разведении Натрия хлорида 0,9% до 20–50 мл через шприцевой дозатор (для бригад АиР) или <span class="drug-name">Диприван (Пропофол) 2 мг/кг (0,2 мл/кг)</span> в/венно болюсно, затем <span class="highlight-number">2–6 мг/кг/час (0,2–0,6 мл/кг/час)</span> (для бригад АиР) или <span class="drug-name">Тиопентал натрия 1–2 мг/кг</span> в/венно (для бригад АиР) с последующей интубацией трахеи и переводом на ИВЛ</li>
                         <li>Санация верхних дыхательных путей</li>
-                        <li>Интубация трахеи или применение надгортанного герметизирующего устройства <a href="#" class="italic-bold-ref" onclick="openImage('Тактика обеспечения проходимости дыхательных путей у детей.png'); return false;">(см. «Приложение 3»)</a></li>
-                        <li>ИВЛ/ВВЛ <a href="#" class="italic-bold-ref" onclick="openImage('Параметры респираторной поддержки при сохраненном самостоятельном кровообращении.jpg'); return false;">(см. «Приложение 6»)</a></li>
+                        <li>Интубация трахеи или применение надгортанного герметизирующего устройства <a href="javascript:void(0);" class="italic-bold-ref" onclick="openImage('airway-management-child.png'); return false;">(см. «Приложение 3»)</a></li>
+                        <li>ИВЛ/ВВЛ <a href="javascript:void(0);" class="italic-bold-ref" onclick="openImage('respiratory-support-spontaneous.jpg'); return false;">(см. «Приложение 6»)</a></li>
                         <li>Капнометрия-капнография (для бригад АиР). Целевые значения EtCO2 – <span class="highlight-number">32–35 мм рт.ст.</span></li>
                         <li>ЭКГ-мониторинг</li>
                     </ul>
@@ -708,8 +715,8 @@
                     <div class="condition-title">– при коме (без признаков нарастающего отека гортани)</div>
                     <ul class="list-styled">
                         <li>Санация верхних дыхательных путей</li>
-                        <li>Интубация трахеи или применение надгортанного герметизирующего устройства <a href="#" class="italic-bold-ref" onclick="openImage('Тактика обеспечения проходимости дыхательных путей у детей.png'); return false;">(см. «Приложение 3»)</a></li>
-                        <li>ИВЛ/ВВЛ <a href="#" class="italic-bold-ref" onclick="openImage('Параметры респираторной поддержки при сохраненном самостоятельном кровообращении.jpg'); return false;">(см. «Приложение 6»)</a></li>
+                        <li>Интубация трахеи или применение надгортанного герметизирующего устройства <a href="javascript:void(0);" class="italic-bold-ref" onclick="openImage('airway-management-child.png'); return false;">(см. «Приложение 3»)</a></li>
+                        <li>ИВЛ/ВВЛ <a href="javascript:void(0);" class="italic-bold-ref" onclick="openImage('respiratory-support-spontaneous.jpg'); return false;">(см. «Приложение 6»)</a></li>
                         <li>Капнометрия-капнография (для бригад АиР). Целевые значения EtCO2 – <span class="highlight-number">32–35 мм рт.ст.</span></li>
                         <li>ЭКГ-мониторинг</li>
                     </ul>
@@ -720,8 +727,8 @@
                     <div class="important-red"><strong>Попытка интубации трахеи должна быть однократной</strong></div>
                     <ul class="list-styled">
                         <li>Санация верхних дыхательных путей</li>
-                        <li>Интубация трахеи <a href="#" class="italic-bold-ref" onclick="openImage('Тактика обеспечения проходимости дыхательных путей у детей.png'); return false;">(см. «Приложение 3»)</a></li>
-                        <li>ИВЛ/ВВЛ <a href="#" class="italic-bold-ref" onclick="openImage('Параметры респираторной поддержки при сохраненном самостоятельном кровообращении.jpg'); return false;">(см. «Приложение 6»)</a></li>
+                        <li>Интубация трахеи <a href="javascript:void(0);" class="italic-bold-ref" onclick="openImage('airway-management-child.png'); return false;">(см. «Приложение 3»)</a></li>
+                        <li>ИВЛ/ВВЛ <a href="javascript:void(0);" class="italic-bold-ref" onclick="openImage('respiratory-support-spontaneous.jpg'); return false;">(см. «Приложение 6»)</a></li>
                         <li>Капнометрия-капнография (для бригад АиР). Целевые значения EtCO2 – <span class="highlight-number">35–45 мм рт.ст.</span></li>
                         <li>ЭКГ-мониторинг</li>
                     </ul>
@@ -755,26 +762,39 @@
 </div>
 
 <script>
-    // Модальное окно 1: Остановка сердца
+    /* ============================================================
+       МОДАЛЬНОЕ ОКНО 1: ОСТАНОВКА СЕРДЦА
+       ============================================================ */
     const modal1 = document.getElementById('algorithmModal');
     const openBtn1 = document.getElementById('openAlgorithmBtn');
     const closeBtn1 = document.getElementById('closeModalBtn');
-    function openModal1() { modal1.classList.add('active'); document.body.style.overflow = 'hidden'; }
+    function openModal1() {
+        window.history.pushState({ modal: 'algorithm' }, '');
+        modal1.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
     function closeModal1() { modal1.classList.remove('active'); document.body.style.overflow = ''; }
     openBtn1.addEventListener('click', openModal1);
     closeBtn1.addEventListener('click', closeModal1);
     modal1.addEventListener('click', (e) => { if (e.target === modal1) closeModal1(); });
 
-    // Модальное окно 2: Странгуляционная асфиксия
+    /* ============================================================
+       МОДАЛЬНОЕ ОКНО 2: СТРАНГУЛЯЦИОННАЯ АСФИКСИЯ
+       ============================================================ */
     const modal2 = document.getElementById('asphyxiaModal');
     const openBtn2 = document.getElementById('openAsphyxiaBtn');
     const closeBtn2 = document.getElementById('closeAsphyxiaBtn');
-    function openModal2() { modal2.classList.add('active'); document.body.style.overflow = 'hidden'; }
+    function openModal2() {
+        window.history.pushState({ modal: 'asphyxia' }, '');
+        modal2.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
     function closeModal2() { modal2.classList.remove('active'); document.body.style.overflow = ''; }
     openBtn2.addEventListener('click', openModal2);
     closeBtn2.addEventListener('click', closeModal2);
     modal2.addEventListener('click', (e) => { if (e.target === modal2) closeModal2(); });
 
+    /* Escape закрывает активное окно */
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
             if (modal1.classList.contains('active')) closeModal1();
@@ -782,17 +802,35 @@
         }
     });
 
+    /* popstate (PWA) — закрывает активное модальное окно */
+    window.addEventListener('popstate', function () {
+        if (modal1.classList.contains('active')) {
+            modal1.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        if (modal2.classList.contains('active')) {
+            modal2.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    });
+
+    /* ============================================================
+       ГАЛЕРЕЯ ИЗОБРАЖЕНИЙ + UNICODE NFC-НОРМАЛИЗАЦИЯ (§18, п.89)
+       ============================================================ */
     let currentGallery = [];
     let currentIndex = 0;
     let isGalleryMode = false;
+
     function openImage(imagePath) {
         isGalleryMode = false; currentGallery = [];
         document.getElementById('navContainer').style.display = 'none';
         document.getElementById('imageModal').style.display = 'flex';
-        document.getElementById('modalImage').src = imagePath;
+        document.getElementById('modalImage').src = imagePath.normalize('NFC');
     }
     function openImageGallery(images) {
-        isGalleryMode = true; currentGallery = images; currentIndex = 0;
+        isGalleryMode = true;
+        currentGallery = images.map(p => p.normalize('NFC'));
+        currentIndex = 0;
         document.getElementById('navContainer').style.display = 'flex';
         document.getElementById('imageModal').style.display = 'flex';
         document.getElementById('modalImage').src = currentGallery[currentIndex];
@@ -803,22 +841,26 @@
         document.getElementById('prevBtn').style.opacity = currentIndex === 0 ? '0.4' : '1';
         document.getElementById('nextBtn').style.opacity = currentIndex === currentGallery.length - 1 ? '0.4' : '1';
     }
-    document.getElementById('prevBtn').addEventListener('click', function() {
+    document.getElementById('prevBtn').addEventListener('click', function () {
         if (!isGalleryMode || currentIndex === 0) return;
         currentIndex--;
         document.getElementById('modalImage').src = currentGallery[currentIndex];
         document.getElementById('imageCounter').textContent = `${currentIndex + 1} / ${currentGallery.length}`;
         updateNavButtons();
     });
-    document.getElementById('nextBtn').addEventListener('click', function() {
+    document.getElementById('nextBtn').addEventListener('click', function () {
         if (!isGalleryMode || currentIndex === currentGallery.length - 1) return;
         currentIndex++;
         document.getElementById('modalImage').src = currentGallery[currentIndex];
         document.getElementById('imageCounter').textContent = `${currentIndex + 1} / ${currentGallery.length}`;
         updateNavButtons();
     });
-    document.getElementById('imageModal').addEventListener('click', function(e) {
-        if (e.target === this) { this.style.display = 'none'; isGalleryMode = false; currentGallery = []; }
+    document.getElementById('imageModal').addEventListener('click', function (e) {
+        if (e.target === this) {
+            this.style.display = 'none';
+            isGalleryMode = false;
+            currentGallery = [];
+        }
     });
 </script>
 </body>
