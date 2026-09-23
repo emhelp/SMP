@@ -203,6 +203,7 @@
             opacity: 1;
         }
 
+        /* Сценарий B (§12): короткий заголовок — шапка фиксирована */
         .modal-container {
             max-width: 1200px;
             width: 100%;
@@ -606,11 +607,21 @@
             </div>
         </div>
 
+        <!-- ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ -->
+        <div class="section">
+            <div class="section-title">📈 ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ</div>
+            <div class="scales-list">
+                <p>✔ <strong>Пульсоксиметрия:</strong> SpO₂ — <span class="highlight-number">98</span>%.</p>
+                <p>✔ <strong>Глюкометрия:</strong> не проводилась (нет показаний).</p>
+                <p>✔ <strong>ЭКГ:</strong> не проводилась (нет показаний).</p>
+            </div>
+        </div>
+
         <!-- ОЦЕНКА ПО ШКАЛАМ -->
         <div class="section">
             <div class="section-title">📊 ОЦЕНКА ПО ШКАЛАМ</div>
             <div class="scales-list">
-                <p>✔ <strong>Шкала NEWS2:</strong> <span class="highlight-number">1 балл</span> (ЧСС 95 — 1 балл, АД 110/70 — 0, ЧДД 18 — 0, t° 36,6 — 0).</p>
+                <p>✔ <strong>Шкала NEWS2:</strong> <span class="highlight-number">1 балл</span> (ЧСС 95 — 1 балл, АД 110/70 — 0, ЧДД 18 — 0, t° 36,6 — 0, SpO₂ 98% — 0).</p>
                 <p>✔ <strong>Индекс Альговера:</strong> Индекс Альговера = ЧСС / АД сист. = 95 / 110 = 0,86 — норма (шока нет).</p>
                 <p>✔ <strong>Шкала боли ВАШ:</strong> не применимо.</p>
                 <p>✔ <strong>Шкала ШОКС:</strong> не применимо.</p>
@@ -631,7 +642,7 @@
     </div>
 </div>
 
-<!-- МОДАЛЬНОЕ ОКНО (Прерывание беременности в сроке до 22 недель) — БЕЗ ИЗМЕНЕНИЙ ПО СОДЕРЖАНИЮ -->
+<!-- МОДАЛЬНОЕ ОКНО (Прерывание беременности в сроке до 22 недель) -->
 <div class="modal-overlay" id="algorithmModal">
     <div class="modal-container">
         <div class="modal-header">
@@ -652,13 +663,13 @@
                     <div class="condition-title">– при кровотечении</div>
                     <ul class="list-styled">
                         <li>Катетеризация вены или внутрикостный доступ</li>
-                        <li><span class="drug-name">Транексамовая кислота</span> <span class="highlight-number">1000 мг</span> (<span class="highlight-number">20 мл</span>) в/венно</li>
+                        <li><span class="drug-name">Транексам (Транексамовая кислота)</span> <span class="highlight-number">1000 мг</span> (<span class="highlight-number">20 мл</span>) в/венно</li>
                     </ul>
                 </div>
                 <div class="red-block">
                     <div class="condition-title">– при САД &lt; 90 мм рт.ст., шоке</div>
                     <ul class="list-styled">
-                        <li>См. раздел <span class="italic-bold-ref">«Анестезиология и реаниматология»</span> <span class="italic-bold-ref">(Геморрагический шок)</span></li>
+                        <li>См. раздел <span class="italic-bold-static">«Анестезиология и реаниматология»</span> <span class="italic-bold-static">(Геморрагический шок)</span></li>
                     </ul>
                 </div>
                 <div class="tactic-block">
@@ -694,11 +705,16 @@
 </div>
 
 <script>
+    /* ============================================================
+       УПРАВЛЕНИЕ МОДАЛЬНЫМ ОКНОМ + HISTORY API
+       (PWA: кнопка «Назад» закрывает модалку, а не приложение)
+       ============================================================ */
     const modal = document.getElementById('algorithmModal');
     const openBtn = document.getElementById('openAlgorithmBtn');
     const closeBtn = document.getElementById('closeModalBtn');
 
     function openModal() {
+        window.history.pushState({ modal: 'algorithm' }, '');
         modal.classList.add('active');
         document.body.style.overflow = 'hidden';
     }
@@ -720,7 +736,16 @@
             closeModal();
         }
     });
+    window.addEventListener('popstate', function () {
+        if (modal.classList.contains('active')) {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    });
 
+    /* ============================================================
+       ГАЛЕРЕЯ ИЗОБРАЖЕНИЙ + UNICODE NFC-НОРМАЛИЗАЦИЯ (§18, п.89)
+       ============================================================ */
     let currentGallery = [];
     let currentIndex = 0;
     let isGalleryMode = false;
@@ -730,12 +755,12 @@
         currentGallery = [];
         document.getElementById('navContainer').style.display = 'none';
         document.getElementById('imageModal').style.display = 'flex';
-        document.getElementById('modalImage').src = imagePath;
+        document.getElementById('modalImage').src = imagePath.normalize('NFC');
     }
 
     function openImageGallery(images) {
         isGalleryMode = true;
-        currentGallery = images;
+        currentGallery = images.map(p => p.normalize('NFC'));
         currentIndex = 0;
         document.getElementById('navContainer').style.display = 'flex';
         document.getElementById('imageModal').style.display = 'flex';
