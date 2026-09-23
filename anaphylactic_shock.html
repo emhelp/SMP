@@ -429,7 +429,9 @@
     });
 
     /* ============================================================
-       ГАЛЕРЕЯ ИЗОБРАЖЕНИЙ
+       ГАЛЕРЕЯ ИЗОБРАЖЕНИЙ + UNICODE NFC-НОРМАЛИЗАЦИЯ (§18, п.89)
+       .normalize('NFC') защищает от NFD-формы букв «й», «ё» и др.,
+       при которой визуально одинаковое имя файла не находит картинку.
        ============================================================ */
 
     let currentGallery = [];
@@ -440,11 +442,13 @@
         isGalleryMode = false; currentGallery = [];
         document.getElementById('navContainer').style.display = 'none';
         document.getElementById('imageModal').style.display = 'flex';
-        document.getElementById('modalImage').src = imagePath;
+        document.getElementById('modalImage').src = imagePath.normalize('NFC');
     }
 
     function openImageGallery(images) {
-        isGalleryMode = true; currentGallery = images; currentIndex = 0;
+        isGalleryMode = true;
+        currentGallery = images.map(p => p.normalize('NFC'));
+        currentIndex = 0;
         document.getElementById('navContainer').style.display = 'flex';
         document.getElementById('imageModal').style.display = 'flex';
         document.getElementById('modalImage').src = currentGallery[currentIndex];
