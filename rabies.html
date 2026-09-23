@@ -5,127 +5,115 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Карта вызова скорой медицинской помощи | Бешенство A82.9</title>
     <style>
-        :root {
-            --primary: #1a4d6f;
-            --primary-light: #f4f9ff;
-            --accent: #ffc107;
-            --diagnosis-bg: #fef9e6;
-            --danger: #dc2626;
-            --danger-light: #ffc4c4;
-            --danger-text: #9b1c1c;
-            --success: #2e7d32;
-            --success-light: #ecf7ec;
-            --warning: #c2410c;
-            --warning-light: #fff0d0;
-            --info: #0284c7;
-            --info-light: #d9effa;
-            --text-dark: #1e4663;
-            --border-light: #e0e6ed;
-            --white: #ffffff;
-            --shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.15);
-            --radius: 20px;
-            --radius-sm: 12px;
-            --radius-btn: 50px;
-        }
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: #f0f4f8;
-            color: #2c3e50;
-            line-height: 1.6;
-            padding: 24px 16px;
-            -webkit-font-smoothing: antialiased;
-            word-wrap: break-word;
-            overflow-wrap: break-word;
+            background-color: #e9ecef;
+            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+            padding: 40px 20px;
+            color: #212529;
+            line-height: 1.45;
         }
+
         .card {
             max-width: 1100px;
             margin: 0 auto;
-            background: var(--white);
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            border: 1px solid #dee2e6;
+            background-color: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.15);
             overflow: hidden;
+            border: 1px solid #dee2e6;
         }
+
         .mkb-row {
             background: linear-gradient(135deg, #0b3b5f 0%, #1a4d6f 100%);
-            color: var(--white);
+            color: white;
             padding: 20px 32px;
             font-weight: 600;
             font-size: 1.1rem;
-            border-bottom: 4px solid var(--accent);
-            word-break: break-word;
+            border-bottom: 4px solid #ffc107;
         }
+
         .mkb-row span {
             font-weight: 700;
-            color: var(--accent);
+            color: #ffc107;
         }
+
         .diagnosis {
-            background: var(--diagnosis-bg);
+            background: #fef9e6;
             padding: 12px 32px;
-            border-left: 6px solid var(--accent);
+            border-left: 6px solid #ffc107;
             font-weight: 500;
             font-size: 0.98rem;
             color: #2d3e50;
-            word-break: break-word;
+            border-bottom: 1px solid #f0e2b6;
         }
+
         .content {
             padding: 24px 32px 40px 32px;
         }
+
         .section {
             margin-bottom: 32px;
+            break-inside: avoid;
+            page-break-inside: avoid;
         }
+
         .section-title {
             font-size: 1.4rem;
             font-weight: 700;
-            color: var(--primary);
-            border-left: 6px solid var(--accent);
+            color: #1a4d6f;
+            border-left: 6px solid #ffc107;
             padding-left: 16px;
             margin-bottom: 18px;
             margin-top: 8px;
-            background: var(--primary-light);
-            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            background: #f4f9ff;
+            border-radius: 0 12px 12px 0;
             line-height: 1.3;
-            word-break: break-word;
         }
+
+        .field-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
         .field-item {
             padding: 6px 0 4px 8px;
-            border-bottom: 1px dotted var(--border-light);
+            border-bottom: 1px dotted #e0e6ed;
             font-size: 0.94rem;
             line-height: 1.45;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: baseline;
-            word-break: break-word;
         }
+
         .field-item strong {
             font-weight: 700;
-            color: var(--text-dark);
+            color: #1e4663;
             display: inline-block;
             min-width: 240px;
-            flex-shrink: 0;
         }
+
         .field-item .value {
             color: #2c3e4e;
             font-weight: 500;
-            word-break: break-word;
         }
+
         .full-width-text {
             padding: 8px 0 8px 8px;
-            border-bottom: 1px dotted var(--border-light);
+            border-bottom: 1px dotted #e0e6ed;
             font-size: 0.94rem;
-            word-break: break-word;
         }
+
         .full-width-text strong {
             font-weight: 700;
-            color: var(--text-dark);
+            color: #1e4663;
             display: inline-block;
             min-width: 240px;
         }
+
         .status-local {
             background: #fef7e0;
             padding: 14px 18px;
@@ -133,204 +121,217 @@
             margin-top: 6px;
             border: 1px solid #ffe3a4;
             font-size: 0.94rem;
-            word-break: break-word;
         }
+
         .scales-list {
             background: #f1f4f9;
             padding: 12px 20px;
             border-radius: 20px;
             margin-top: 10px;
-            word-break: break-word;
         }
+
         .scales-list p {
             margin: 8px 0;
-            word-break: break-word;
         }
-        .note {
-            background: #e7f1ff;
-            border-left: 4px solid var(--primary);
-            padding: 12px 16px;
-            margin-top: 16px;
-            border-radius: var(--radius-sm);
-            font-size: 0.9rem;
-            color: var(--text-dark);
-            word-break: break-word;
+
+        .algorithm-btn-container {
+            margin-top: 32px;
+            margin-bottom: 20px;
+            text-align: center;
         }
-        .note-list {
-            margin-top: 8px;
-            margin-left: 20px;
-            list-style-type: none;
-            padding-left: 0;
-        }
-        .note-list li {
-            margin-bottom: 8px;
-            padding-left: 20px;
-            position: relative;
-        }
-        .note-list li:before {
-            content: "•";
-            position: absolute;
-            left: 4px;
-            color: var(--primary);
-            font-weight: bold;
-        }
+
         .btn-algorithm {
-            display: block;
-            width: 100%;
-            max-width: 100%;
-            margin: 20px 0;
+            background-color: #dc2626;
+            color: white;
+            border: none;
             padding: 10px 28px;
-            background: var(--danger);
-            color: var(--white);
             font-size: 1.15rem;
             font-weight: 700;
-            border: none;
-            border-radius: var(--radius-btn);
-            box-shadow: 0 6px 14px rgba(220, 38, 38, 0.3);
+            border-radius: 50px;
             cursor: pointer;
-            text-align: center;
-            transition: transform 0.2s, box-shadow 0.2s;
-            word-break: break-word;
+            box-shadow: 0 6px 14px rgba(220, 38, 38, 0.3);
+            transition: all 0.2s ease;
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            letter-spacing: 0.3px;
+            border: 1px solid rgba(255,255,255,0.3);
+            max-width: 100%;
         }
+
         .btn-algorithm:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(220, 38, 38, 0.4);
+            background-color: #b91c1c;
+            transform: scale(1.02);
+            box-shadow: 0 10px 20px rgba(185, 28, 28, 0.4);
         }
+
+        .btn-algorithm:active {
+            transform: scale(0.98);
+        }
+
         .btn-hint {
-            display: block;
             font-size: 0.7rem;
-            font-weight: 400;
-            border-top: 1px dashed rgba(255, 255, 255, 0.5);
-            margin-top: 6px;
-            padding-top: 6px;
+            font-weight: normal;
             opacity: 0.9;
+            letter-spacing: normal;
+            border-top: 1px dashed rgba(255,255,255,0.5);
+            padding-top: 4px;
+            margin-top: 2px;
         }
+
         .modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.75);
+            background-color: rgba(0, 0, 0, 0.75);
             backdrop-filter: blur(4px);
             z-index: 1000;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px;
             visibility: hidden;
             opacity: 0;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
+            transition: visibility 0.2s, opacity 0.2s;
+            padding: 20px;
         }
+
         .modal-overlay.active {
             visibility: visible;
             opacity: 1;
         }
+
+        /* Сценарий B (§12): короткий заголовок — шапка фиксирована */
         .modal-container {
             max-width: 1200px;
             width: 100%;
             max-height: 85vh;
-            background: #fffef7;
+            background-color: #fffef7;
             border-radius: 28px;
-            box-shadow: 0 30px 50px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 25px 45px -12px rgba(0,0,0,0.25);
             display: flex;
             flex-direction: column;
             overflow: hidden;
             border: 1px solid #ffd7a5;
-            animation: modalFadeIn 0.25s ease;
+            animation: modalFadeIn 0.25s ease-out;
         }
+
         @keyframes modalFadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(-20px) scale(0.96);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
+
         .modal-header {
             background: #c2410c;
-            color: var(--white);
+            color: white;
             padding: 18px 28px;
             display: flex;
-            align-items: flex-start;
             justify-content: space-between;
-            flex-shrink: 0;
+            align-items: center;
             border-bottom: 4px solid #ffb347;
-            gap: 12px;
+            flex-shrink: 0;
         }
+
         .modal-header h2 {
             font-size: 1.25rem;
             font-weight: 700;
+            line-height: 1.3;
             word-break: break-word;
-            overflow-wrap: break-word;
-            hyphens: auto;
-            flex: 1;
-            min-width: 0;
         }
+
         .modal-close {
-            background: transparent;
-            color: var(--white);
+            background: none;
             border: none;
+            color: white;
             font-size: 28px;
             cursor: pointer;
-            flex-shrink: 0;
-            padding: 0 8px;
-            transition: transform 0.2s;
             line-height: 1;
+            transition: 0.2s;
+            padding: 0 8px;
+            border-radius: 40px;
+            flex-shrink: 0;
         }
+
         .modal-close:hover {
-            transform: scale(1.2);
+            background-color: rgba(255,255,255,0.2);
+            transform: scale(1.1);
         }
+
         .modal-body {
+            flex: 1;
+            overflow-y: auto;
             padding: 28px 32px;
             background: #fefcf5;
             font-size: 0.95rem;
-            overflow-y: auto;
-            flex-grow: 1;
-            word-break: break-word;
-            overflow-wrap: break-word;
+            line-height: 1.5;
+            hyphens: auto;
         }
+
         .adult-block {
-            border-left: 5px solid var(--danger);
+            border-left: 5px solid #dc2626;
             padding-left: 20px;
             background: #fff9f0;
             border-radius: 0 18px 18px 0;
             margin-bottom: 40px;
-            padding-top: 14px;
-            padding-bottom: 14px;
-            padding-right: 14px;
-            word-break: break-word;
+        }
+        .adult-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 10px 0 20px 0;
         }
         .badge-adult {
             background: #c2410c;
-            color: var(--white);
+            color: white;
             padding: 6px 14px;
             border-radius: 40px;
             font-weight: bold;
-            display: inline-block;
-            margin-bottom: 12px;
         }
         .child-block {
-            border-left: 5px solid var(--success);
+            border-left: 5px solid #2e7d32;
             padding-left: 20px;
-            background: var(--success-light);
+            background: #ecf7ec;
             border-radius: 0 18px 18px 0;
             margin-bottom: 20px;
-            padding-top: 14px;
-            padding-bottom: 14px;
-            padding-right: 14px;
-            word-break: break-word;
+        }
+        .child-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 10px 0 20px 0;
         }
         .badge-child {
-            background: var(--success);
-            color: var(--white);
+            background: #2e7d32;
+            color: white;
             padding: 6px 14px;
             border-radius: 40px;
             font-weight: bold;
-            display: inline-block;
-            margin-bottom: 12px;
+        }
+        .list-styled {
+            margin: 12px 0 14px 28px;
+        }
+        .list-styled li {
+            margin: 8px 0;
+        }
+        .tactic-block {
+            background: #d9effa;
+            border-radius: 20px;
+            padding: 14px 20px;
+            margin: 18px 0 16px 0;
+            border-left: 4px solid #0284c7;
+        }
+        .tactic-title {
+            font-weight: 800;
+            color: #0369a1;
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+        .no-bg-block {
+            padding: 14px 20px;
+            margin: 20px 0;
+            border-radius: 16px;
         }
         .light-block {
             background: #ffe6cc;
@@ -339,33 +340,6 @@
             margin: 20px 0;
             border-radius: 16px;
             box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-            word-break: break-word;
-        }
-        .no-bg-block {
-            padding: 14px 20px;
-            margin: 20px 0;
-            border-radius: 16px;
-            word-break: break-word;
-        }
-        .tactic-block {
-            background: var(--info-light);
-            border-left: 4px solid var(--info);
-            border-radius: 20px;
-            padding: 14px 20px;
-            margin: 18px 0 16px 0;
-            word-break: break-word;
-        }
-        .tactic-title {
-            font-weight: 800;
-            color: #0369a1;
-            margin-bottom: 8px;
-            font-size: 1rem;
-        }
-        .condition-title {
-            font-weight: 800;
-            color: #b91c1c;
-            margin-bottom: 10px;
-            font-size: 1rem;
         }
         .child-red-block {
             background: #ffb3b3;
@@ -373,48 +347,38 @@
             padding: 14px 20px;
             margin: 20px 0;
             border-radius: 16px;
-            word-break: break-word;
         }
-        .important-red {
-            background: var(--danger-light);
-            border-left: 6px solid var(--danger);
+        .condition-title {
             font-weight: 800;
-            color: var(--danger-text);
-            padding: 14px 20px;
-            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-            margin: 16px 0;
-            word-break: break-word;
+            color: #b91c1c;
+            margin-bottom: 10px;
+            font-size: 1rem;
         }
-        .list-styled {
-            margin: 12px 0 14px 28px;
-        }
-        .list-styled li {
-            margin: 8px 0;
+        .drug-name {
+            background: #f3f3f3;
+            font-family: monospace;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-weight: 800;
+            color: #1a3c4a;
+            display: inline-block;
         }
         .highlight-number {
+            font-weight: 800;
             color: #c2410c;
             background: #fff0d0;
-            font-weight: 800;
             padding: 0 4px;
             border-radius: 10px;
-            white-space: nowrap;
         }
         .bold-black {
             font-weight: 800;
             color: #000000;
-        }
-        .drug-name {
-            background: #f3f3f3;
-            font-family: 'Courier New', Courier, monospace;
-            font-weight: 800;
-            color: #1a3c4a;
-            padding: 2px 8px;
-            border-radius: 20px;
-            display: inline-block;
+            background: transparent;
         }
         .italic-bold-ref {
             font-weight: 800;
             font-style: italic;
+            background: transparent;
             color: #0a2f44;
             text-decoration: underline;
             cursor: pointer;
@@ -422,317 +386,140 @@
         .italic-bold-static {
             font-weight: 800;
             font-style: italic;
+            background: transparent;
             color: #0a2f44;
         }
+
         #imageModal {
             display: none;
             position: fixed;
-            top: 0;
+            z-index: 2000;
             left: 0;
+            top: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            z-index: 2000;
-            align-items: center;
+            background-color: rgba(0, 0, 0, 0.9);
             justify-content: center;
+            align-items: center;
             flex-direction: column;
         }
-        #imageModal.active {
-            display: flex;
-        }
-        #imageModal img {
-            max-width: 90vw;
-            max-height: 85vh;
-            border-radius: 12px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
-        }
-        #imageModal .close-img {
+
+        #imageModal .modal-close-img {
             position: absolute;
             top: 20px;
-            right: 30px;
-            color: white;
+            right: 35px;
+            color: #fff;
             font-size: 40px;
             font-weight: bold;
             cursor: pointer;
+            background: none;
+            border: none;
             z-index: 2001;
         }
-        .img-nav {
-            display: flex;
-            gap: 24px;
-            margin-top: 16px;
-            color: white;
-            font-size: 1.2rem;
+
+        #modalImage {
+            max-width: 90%;
+            max-height: 70%;
+            object-fit: contain;
+        }
+
+        #navContainer {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: none;
+            gap: 30px;
             align-items: center;
+            justify-content: center;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 6px 20px;
+            border-radius: 40px;
+            z-index: 2001;
         }
-        .img-nav button {
-            background: rgba(255, 255, 255, 0.2);
-            border: 2px solid white;
+
+        #prevBtn, #nextBtn {
+            background-color: transparent;
             color: white;
-            padding: 8px 20px;
-            border-radius: 30px;
-            cursor: pointer;
+            font-size: 28px;
             font-weight: bold;
-            transition: 0.2s;
+            border: none;
+            cursor: pointer;
+            padding: 0 12px;
         }
-        .img-nav button:hover {
-            background: rgba(255, 255, 255, 0.4);
+
+        #imageCounter {
+            color: white;
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
         }
-        .img-counter {
-            font-weight: 600;
-        }
+
         @media (max-width: 700px) {
-            body {
-                padding: 16px 10px;
-            }
-            .mkb-row {
-                padding: 14px 18px;
-                font-size: 0.95rem;
-            }
-            .diagnosis {
-                padding: 10px 18px;
-                font-size: 0.9rem;
-            }
-            .content {
-                padding: 16px;
-            }
-            .section {
-                margin-bottom: 20px;
-            }
-            .section-title {
-                font-size: 1.15rem;
-                padding-left: 12px;
-                margin-bottom: 12px;
-            }
-            .field-item {
-                font-size: 0.85rem;
-                padding: 4px 0 4px 4px;
-            }
-            .field-item strong {
-                min-width: 140px;
-            }
-            .full-width-text {
-                font-size: 0.85rem;
-                padding: 6px 0 6px 4px;
-            }
-            .full-width-text strong {
-                min-width: 140px;
-            }
-            .status-local {
-                padding: 10px 14px;
-                font-size: 0.85rem;
-            }
-            .scales-list {
-                padding: 10px 14px;
-            }
-            .scales-list p {
-                font-size: 0.85rem;
-                margin: 6px 0;
-            }
-            .note {
-                padding: 10px 14px;
-                font-size: 0.8rem;
-            }
-            .note-list {
-                margin-left: 14px;
-            }
-            .btn-algorithm {
-                padding: 8px 22px;
-                font-size: 1rem;
-            }
-            .btn-hint {
-                font-size: 0.65rem;
-            }
-            .modal-overlay {
-                padding: 12px;
-                align-items: center;
-            }
-            .modal-container {
-                max-height: 85vh;
-                border-radius: 20px;
-            }
-            .modal-header {
-                padding: 14px 16px;
-                gap: 8px;
-                border-bottom: 3px solid #ffb347;
-            }
-            .modal-header h2 {
-                font-size: 1rem;
-                line-height: 1.25;
-            }
-            .modal-close {
-                font-size: 26px;
-                padding: 0 4px;
-            }
-            .modal-body {
-                padding: 16px;
-                font-size: 0.88rem;
-            }
-            .list-styled {
-                margin-left: 18px;
-            }
-            .list-styled li {
-                margin: 6px 0;
-                font-size: 0.85rem;
-            }
-            .adult-block {
-                padding-left: 12px;
-                padding-right: 10px;
-                padding-top: 10px;
-                padding-bottom: 10px;
-                border-radius: 0 14px 14px 0;
-                margin-bottom: 28px;
-            }
-            .child-block {
-                padding-left: 12px;
-                padding-right: 10px;
-                padding-top: 10px;
-                padding-bottom: 10px;
-                border-radius: 0 14px 14px 0;
-                margin-bottom: 16px;
-            }
-            .badge-adult, .badge-child {
-                font-size: 0.8rem;
-                padding: 4px 10px;
-                border-radius: 30px;
-            }
-            .condition-title {
-                font-size: 0.9rem;
-                margin-bottom: 6px;
-            }
-            .light-block, .no-bg-block, .child-red-block {
-                padding: 10px 14px;
-                margin: 14px 0;
-                border-radius: 12px;
-            }
-            .tactic-block {
-                padding: 10px 14px;
-                margin: 14px 0;
-                border-radius: 16px;
-            }
-            .tactic-title {
-                font-size: 0.9rem;
-            }
-            .important-red {
-                padding: 10px 14px;
-                font-size: 0.85rem;
-                border-radius: 0 10px 10px 0;
-            }
-            .drug-name {
-                font-size: 0.82rem;
-                padding: 1px 6px;
-            }
-            .highlight-number {
-                font-size: 0.85rem;
-            }
+            body { padding: 16px 10px; }
+            .mkb-row { padding: 14px 18px; font-size: 0.95rem; }
+            .diagnosis { padding: 10px 18px; font-size: 0.9rem; }
+            .content { padding: 16px; }
+            .section { margin-bottom: 20px; }
+            .section-title { font-size: 1.15rem; padding-left: 12px; margin-bottom: 12px; }
+            .field-item { font-size: 0.85rem; padding: 4px 0 4px 4px; }
+            .field-item strong { min-width: 140px; }
+            .full-width-text { font-size: 0.85rem; padding: 6px 0 6px 4px; }
+            .full-width-text strong { min-width: 140px; }
+            .status-local { padding: 10px 14px; font-size: 0.85rem; }
+            .scales-list { padding: 10px 14px; }
+            .scales-list p { font-size: 0.85rem; margin: 6px 0; }
+            .btn-algorithm { padding: 8px 22px; font-size: 1rem; }
+            .btn-hint { font-size: 0.65rem; }
+            .modal-overlay { padding: 10px; align-items: center; }
+            .modal-container { max-height: 90vh; border-radius: 20px; }
+            .modal-header { padding: 14px 18px; }
+            .modal-header h2 { font-size: 1rem; }
+            .modal-body { padding: 20px; }
+            .list-styled { margin-left: 20px; }
+            .adult-block, .child-block { padding-left: 14px; }
         }
+
         @media (max-width: 480px) {
-            .field-item strong {
-                min-width: 120px;
-            }
-            .full-width-text strong {
-                min-width: 120px;
-            }
-            .btn-algorithm {
-                padding: 10px 18px;
-                font-size: 0.9rem;
-                border-radius: 40px;
-            }
-            .modal-overlay {
-                padding: 8px;
-                align-items: center;
-            }
-            .modal-container {
-                max-height: 85vh;
-                border-radius: 16px;
-            }
-            .modal-header {
-                padding: 10px 12px;
-                gap: 6px;
-            }
-            .modal-header h2 {
-                font-size: 0.9rem;
-                line-height: 1.2;
-            }
-            .modal-close {
-                font-size: 22px;
-            }
-            .modal-body {
-                padding: 12px;
-                font-size: 0.82rem;
-            }
-            .adult-block {
-                padding-left: 8px;
-                padding-right: 8px;
-                border-left-width: 4px;
-            }
-            .child-block {
-                padding-left: 8px;
-                padding-right: 8px;
-                border-left-width: 4px;
-            }
-            .list-styled {
-                margin-left: 14px;
-            }
-            .list-styled li {
-                font-size: 0.8rem;
-                margin: 4px 0;
-            }
-            .condition-title {
-                font-size: 0.82rem;
-            }
-            .light-block, .no-bg-block, .child-red-block {
-                padding: 8px 10px;
-                margin: 10px 0;
-            }
-            .tactic-block {
-                padding: 8px 10px;
-                margin: 10px 0;
-            }
-            .tactic-title {
-                font-size: 0.82rem;
-            }
-            .important-red {
-                padding: 8px 10px;
-                font-size: 0.8rem;
-            }
-            .drug-name {
-                font-size: 0.75rem;
-            }
-            .highlight-number {
-                font-size: 0.8rem;
-            }
-            .badge-adult, .badge-child {
-                font-size: 0.7rem;
-                padding: 3px 8px;
-            }
+            .field-item strong { min-width: 120px; }
+            .full-width-text strong { min-width: 120px; }
+            .btn-algorithm { padding: 10px 18px; font-size: 0.9rem; border-radius: 40px; }
         }
     </style>
 </head>
 <body>
-    <div class="card">
-        <div class="mkb-row">
-            📌 Код по МКБ-10: <span>A82.9</span> (Бешенство неуточненное)
+<div class="card">
+    <div class="mkb-row">
+        📌 Код по МКБ-10: <span>A82.9</span> (Бешенство неуточненное)
+    </div>
+    <div class="diagnosis">
+        🧾 <strong>Диагноз:</strong> Бешенство (гидрофобия). Клиническая форма: бульбарная / менингоэнцефалитическая / паралитическая. Стадия: продромальная / возбуждения / параличей.
+    </div>
+
+    <div class="content">
+        <!-- ЖАЛОБЫ -->
+        <div class="section">
+            <div class="section-title">📢 ЖАЛОБЫ</div>
+            <div class="full-width-text"><em>Собраны со слов родственников/сопровождающих (при невозможности контакта с пациентом — ввиду тяжести состояния, психомоторного возбуждения, нарушения сознания).</em></div>
+            <div class="full-width-text"><strong>При продромальном периоде:</strong> неприятные ощущения в области бывшего укуса/ослюнения (жжение, зуд, тянущие боли с иррадиацией к центру, гиперестезия кожи, отечность и болезненность рубца). Общее недомогание, головная боль, субфебрильная температура. Беспокойство, раздражительность, подавленное настроение, чувство страха, тоски, тревоги. Нарушение сна: устрашающие сновидения, бессонница. Повышенная чувствительность к зрительным и слуховым раздражителям. Сухость во рту, снижение аппетита.</div>
+            <div class="full-width-text"><strong>При периоде возбуждения:</strong> приступы водобоязни (гидрофобия) — судорожные сокращения глотательной мускулатуры при виде воды, звуках льющейся воды, попытке глотнуть. Аэрофобия — патологическая реакция на движение воздуха, сопровождающаяся страхом и судорогами. Фотофобия, акустикофобия. Периодические приступы психомоторного возбуждения, агрессии, буйства. Обильное слюнотечение (гиперсаливация), пена изо рта. Затрудненное, болезненное глотание (дисфагия).</div>
+            <div class="full-width-text"><strong>При паралитическом периоде:</strong> восходящие параличи конечностей. Нарушение функции тазовых органов. Отсутствие сознания (кома).</div>
         </div>
-        <div class="diagnosis">
-            🧾 <strong>Диагноз:</strong> Бешенство (гидрофобия). Клиническая форма: бульбарная / менингоэнцефалитическая / паралитическая. Стадия: продромальная / возбуждения / параличей.
+
+        <!-- АНАМНЕЗ -->
+        <div class="section">
+            <div class="section-title">📋 АНАМНЕЗ (в т.ч. — эпид., аллерг., гинекол. по показаниям)</div>
+            <div class="full-width-text"><strong>Анамнез заболевания:</strong> Заболевание развилось остро/подостро. Начало: появление неприятных ощущений в области бывшего укуса, общее недомогание, повышение температуры. Затем присоединились возбуждение, гидрофобия, судороги. Вызвана бригада СМП.</div>
+            <div class="full-width-text"><strong>Эпидемиологический анамнез — КЛЮЧЕВОЙ РАЗДЕЛ:</strong> Наличие контакта с животным: укус, царапина, ослюнение поврежденных кожных покровов или слизистых. Вид животного: собака / кошка / лиса / волк / летучая мышь / другое. Характер животного: домашнее / безнадзорное / дикое. Дата контакта: ______ (указать). Постэкспозиционная профилактика: проводилась / не проводилась. Судьба животного: здорово / пало / убито / под наблюдением / неизвестна.</div>
+            <div class="full-width-text"><strong>Аллергологический анамнез:</strong> Не отягощен / отягощен.</div>
         </div>
-        <div class="content">
-            <div class="section">
-                <div class="section-title">📢 ЖАЛОБЫ</div>
-                <div class="full-width-text"><em>Собраны со слов родственников/сопровождающих (при невозможности контакта с пациентом — ввиду тяжести состояния, психомоторного возбуждения, нарушения сознания).</em></div>
-                <div class="full-width-text"><strong>При продромальном периоде:</strong> неприятные ощущения в области бывшего укуса/осалюнения (жжение, зуд, тянущие боли с иррадиацией к центру, гиперестезия кожи, отечность и болезненность рубца). Общее недомогание, головная боль, субфебрильная температура. Беспокойство, раздражительность, подавленное настроение, чувство страха, тоски, тревоги. Нарушение сна: устрашающие сновидения, бессонница. Повышенная чувствительность к зрительным и слуховым раздражителям. Сухость во рту, снижение аппетита.</div>
-                <div class="full-width-text"><strong>При периоде возбуждения:</strong> приступы водобоязни (гидрофобия) — судорожные сокращения глотательной мускулатуры при виде воды, звуках льющейся воды, попытке глотнуть. Аэрофобия — патологическая реакция на движение воздуха, сопровождающаяся страхом и судорогами. Фотофобия, акустикофобия. Периодические приступы психомоторного возбуждения, агрессии, буйства. Обильное слюнотечение (гиперсаливация), пена изо рта. Затрудненное, болезненное глотание (дисфагия).</div>
-                <div class="full-width-text"><strong>При паралитическом периоде:</strong> восходящие параличи конечностей. Нарушение функции тазовых органов. Отсутствие сознания (кома).</div>
-            </div>
-            <div class="section">
-                <div class="section-title">📋 АНАМНЕЗ (в т.ч. - эпид., аллерг., гинекол. по показаниям)</div>
-                <div class="full-width-text"><strong>Данные ЕМИАС:</strong> Нет.</div>
-                <div class="full-width-text"><strong>Анамнез заболевания:</strong> Заболевание развилось остро/подостро. Начало: появление неприятных ощущений в области бывшего укуса, общее недомогание, повышение температуры. Затем присоединились возбуждение, гидрофобия, судороги. Вызвана бригада СМП.</div>
-                <div class="full-width-text"><strong>Эпидемиологический анамнез — КЛЮЧЕВОЙ РАЗДЕЛ:</strong> Наличие контакта с животным: укус, царапина, ослюнение поврежденных кожных покровов или слизистых. Вид животного: собака / кошка / лиса / волк / летучая мышь / другое. Характер животного: домашнее / безнадзорное / дикое. Дата контакта: ______ (указать). Постэкспозиционная профилактика: проводилась / не проводилась. Судьба животного: здорово / пало / убито / под наблюдением / неизвестна.</div>
-                <div class="full-width-text"><strong>Аллергологический анамнез:</strong> Не отягощен / отягощен.</div>
-            </div>
-            <div class="section">
-                <div class="section-title">🩺 ОБЪЕКТИВНО</div>
+
+        <!-- ОБЪЕКТИВНО -->
+        <div class="section">
+            <div class="section-title">🩺 ОБЪЕКТИВНО</div>
+            <div class="field-list">
                 <div class="field-item"><strong>Общее состояние:</strong> <span class="value">Тяжелое / Крайне тяжелое.</span></div>
                 <div class="field-item"><strong>Сознание:</strong> <span class="value">В продромальном периоде: ясное. В периоде возбуждения: качественное расстройство сознания (бред, галлюцинации), психомоторное возбуждение, агрессия. В паралитическом периоде: кома.</span></div>
                 <div class="field-item"><strong>Шкала комы Глазго (GCS):</strong> <span class="value">15 баллов / менее 8 баллов (при коме).</span></div>
@@ -745,11 +532,15 @@
                 <div class="field-item"><strong>Пролежни:</strong> <span class="value">отсутствуют.</span></div>
                 <div class="field-item"><strong>Отёки:</strong> <span class="value">нет / пастозность лица.</span></div>
                 <div class="field-item"><strong>Лицо больного:</strong> <span class="value">выражает ужас и страдания, взгляд устремлен в одну точку, экзофтальм, расширение зрачков.</span></div>
-                <div class="field-item"><strong>Температура тела:</strong> <span class="value">Субфебрильная / Фебрильная / Гиперпиретическая (до 40–42°С) в терминальной стадии.</span></div>
+                <div class="field-item"><strong>Температура тела:</strong> <span class="value">Субфебрильная / Фебрильная / Гиперпиретическая (до 40–42 °С) в терминальной стадии.</span></div>
             </div>
-            <div class="section">
-                <div class="section-title">🌬️ ОРГАНЫ ДЫХАНИЯ</div>
-                <div class="field-item"><strong>ЧДД в мин:</strong> <span class="value">Тахипноэ (> 24 в мин) / Брадипноэ (терминальное) / Апноэ.</span></div>
+        </div>
+
+        <!-- ОРГАНЫ ДЫХАНИЯ -->
+        <div class="section">
+            <div class="section-title">🌬️ ОРГАНЫ ДЫХАНИЯ</div>
+            <div class="field-list">
+                <div class="field-item"><strong>ЧДД в мин:</strong> <span class="value">Тахипноэ (&gt; 24 в мин) / Брадипноэ (терминальное) / Апноэ.</span></div>
                 <div class="field-item"><strong>Одышка:</strong> <span class="value">инспираторная (спазм мышц глотки и гортани).</span></div>
                 <div class="field-item"><strong>Тип дыхания:</strong> <span class="value">спонтанное, пароксизмальное — на фоне приступа гидрофобии или аэрофобии развивается судорожное сокращение диафрагмы и дыхательной мускулатуры.</span></div>
                 <div class="field-item"><strong>Патологическое дыхание:</strong> <span class="value">Чейна-Стокса, Биота — в терминальной стадии.</span></div>
@@ -758,8 +549,12 @@
                 <div class="field-item"><strong>Кашель:</strong> <span class="value">нет / рефлекторный (при аспирации).</span></div>
                 <div class="field-item"><strong>Мокрота:</strong> <span class="value">нет / пенистая (при отеке легких).</span></div>
             </div>
-            <div class="section">
-                <div class="section-title">❤️ ОРГАНЫ КРОВООБРАЩЕНИЯ</div>
+        </div>
+
+        <!-- ОРГАНЫ КРОВООБРАЩЕНИЯ -->
+        <div class="section">
+            <div class="section-title">❤️ ОРГАНЫ КРОВООБРАЩЕНИЯ</div>
+            <div class="field-list">
                 <div class="field-item"><strong>Пульс в мин:</strong> <span class="value">Выраженная тахикардия (100–140 в мин). Наполнение: слабое. Ритм: ритмичный / аритмичный.</span></div>
                 <div class="field-item"><strong>ЧСС:</strong> <span class="value">100–140 ударов в минуту.</span></div>
                 <div class="field-item"><strong>Дефицит пульса:</strong> <span class="value">нет / есть.</span></div>
@@ -768,8 +563,12 @@
                 <div class="field-item"><strong>Шум:</strong> <span class="value">нет.</span></div>
                 <div class="field-item"><strong>ЦВД:</strong> <span class="value">снижено (спавшиеся подкожные вены, дегидратация).</span></div>
             </div>
-            <div class="section">
-                <div class="section-title">🍽️ ОРГАНЫ ПИЩЕВАРЕНИЯ</div>
+        </div>
+
+        <!-- ОРГАНЫ ПИЩЕВАРЕНИЯ -->
+        <div class="section">
+            <div class="section-title">🍽️ ОРГАНЫ ПИЩЕВАРЕНИЯ</div>
+            <div class="field-list">
                 <div class="field-item"><strong>Язык:</strong> <span class="value">влажный / сухой, обложен налетом. Следы прикуса — могут быть (при судорогах).</span></div>
                 <div class="field-item"><strong>Глотание:</strong> <span class="value">резко затруднено (дисфагия), невозможность глотнуть воду, слюну (патогномоничный признак!).</span></div>
                 <div class="field-item"><strong>Слюноотделение:</strong> <span class="value">выраженная гиперсаливация. Слюна жидкая, обильная, больной не может ее проглотить, сплевывает, или она непрерывно стекает по подбородку («пена у рта»).</span></div>
@@ -781,12 +580,16 @@
                 <div class="field-item"><strong>Рвота:</strong> <span class="value">за время осмотра — нет / есть (центрального генеза).</span></div>
                 <div class="field-item"><strong>Стул:</strong> <span class="value">задержка стула (обезвоживание). Непроизвольная дефекация — в терминальной стадии.</span></div>
             </div>
-            <div class="section">
-                <div class="section-title">🧠 НЕРВНАЯ СИСТЕМА — КЛЮЧЕВОЙ РАЗДЕЛ</div>
+        </div>
+
+        <!-- НЕРВНАЯ СИСТЕМА -->
+        <div class="section">
+            <div class="section-title">🧠 НЕРВНАЯ СИСТЕМА — КЛЮЧЕВОЙ РАЗДЕЛ</div>
+            <div class="field-list">
                 <div class="field-item"><strong>Поведение:</strong> <span class="value">Продром: подавленность, тревога, страх. Разгар: психомоторное возбуждение, агрессия, буйство, аутоагрессия.</span></div>
                 <div class="field-item"><strong>Контакт:</strong> <span class="value">сохранен / затруднен / невозможен.</span></div>
                 <div class="field-item"><strong>Речь:</strong> <span class="value">внятная / невнятная, отрывистая / афазия.</span></div>
-                <div class="field-item"><strong>Фобии — ПАТОГНОМОНИЧНЫ!:</strong> <span class="value">Гидрофобия — боязнь воды, проявляющаяся болезненным спазмом мышц глотки и гортани при попытке пить, виде воды, звуке льющейся воды или даже упоминании о воде. Аэрофобия — судороги, возникающие при дуновении воздуха в лицо. Акустикофобия — реакция на громкие звуки. Фотофобия — реакция на яркий свет.</span></div>
+                <div class="field-item"><strong>Фобии — ПАТОГНОМОНИЧНЫ:</strong> <span class="value">Гидрофобия — боязнь воды, проявляющаяся болезненным спазмом мышц глотки и гортани при попытке пить, виде воды, звуке льющейся воды или даже упоминании о воде. Аэрофобия — судороги, возникающие при дуновении воздуха в лицо. Акустикофобия — реакция на громкие звуки. Фотофобия — реакция на яркий свет.</span></div>
                 <div class="field-item"><strong>Пароксизм бешенства:</strong> <span class="value">Под влиянием какого-либо раздражителя (звук, свет, воздух) больной вздрагивает, руки вытягиваются вперед и дрожат, голова и туловище откидываются назад, появляется одышка инспираторного типа.</span></div>
                 <div class="field-item"><strong>Зрачки (OD, OS):</strong> <span class="value">расширены (мидриаз).</span></div>
                 <div class="field-item"><strong>Фотореакция:</strong> <span class="value">вялая / снижена.</span></div>
@@ -801,223 +604,248 @@
                 <div class="field-item"><strong>Тазовые расстройства:</strong> <span class="value">приапизм, спонтанная эякуляция (у мужчин), задержка/недержание мочи и кала.</span></div>
                 <div class="field-item"><strong>Сознание:</strong> <span class="value">до терминальной стадии — ЯСНОЕ! Пациент осознает свое состояние, испытывает ужас. Помрачение сознания — перед смертью.</span></div>
                 <div class="field-item"><strong>Мышечный тонус:</strong> <span class="value">повышен (спастика) / снижен (параличи).</span></div>
+                <div class="field-item"><strong>Координаторные пробы:</strong> <span class="value">не выполняет (ввиду тяжести состояния, психомоторного возбуждения).</span></div>
             </div>
-            <div class="section">
-                <div class="section-title">🧍 КООРДИНАТОРНЫЕ ПРОБЫ</div>
-                <div class="field-item"><strong>Оценка:</strong> <span class="value">не выполняет (ввиду тяжести состояния, психомоторного возбуждения).</span></div>
-            </div>
-            <div class="section">
-                <div class="section-title">🚽 МОЧЕПОЛОВАЯ СИСТЕМА</div>
+        </div>
+
+        <!-- МОЧЕПОЛОВАЯ СИСТЕМА -->
+        <div class="section">
+            <div class="section-title">🚽 МОЧЕПОЛОВАЯ СИСТЕМА</div>
+            <div class="field-list">
                 <div class="field-item"><strong>Мочеиспускание:</strong> <span class="value">олигурия / анурия (при обезвоживании, шоке). Непроизвольное мочеиспускание — в паралитической стадии.</span></div>
-                <div class="field-item"><strong>Симптом поколачивания:</strong> <span class="value">не исследовался / отрицательный.</span></div>
+                <div class="field-item"><strong>Симптом поколачивания:</strong> <span class="value">не исследовался / отрицательный</span></div>
             </div>
-            <div class="section">
-                <div class="section-title">🔍 STATUS LOCALIS</div>
-                <div class="status-local">
-                    <strong>Область повреждения (место укуса/царапины/ослюнения):</strong><br>
-                    Локализация: ______ (голова, лицо, шея, верхняя конечность, нижняя конечность, туловище).<br>
-                    Характер повреждения: рана (укушенная, рваная), ссадина, царапина, ослюнение.<br>
-                    Состояние рубца/раны на момент осмотра: отечность, гиперемия, инфильтрация, болезненность (патогномоничный признак!). Чувство жжения, зуда, ползания мурашек, тянущие боли с иррадиацией к центру (по ходу нервов).<br><br>
-                    <strong>Общий осмотр:</strong><br>
-                    Кожные покровы: бледные, влажные.<br>
-                    Следы травм, полученных в период возбуждения (ссадины, гематомы) — есть/нет.<br>
-                    Прикус языка, губ — есть/нет (после судорог).
-                </div>
+        </div>
+
+        <!-- STATUS LOCALIS -->
+        <div class="section">
+            <div class="section-title">🔍 STATUS LOCALIS</div>
+            <div class="status-local">
+                <strong>Область повреждения (место укуса/царапины/ослюнения):</strong><br>
+                Локализация: ______ (голова, лицо, шея, верхняя конечность, нижняя конечность, туловище).<br>
+                Характер повреждения: рана (укушенная, рваная), ссадина, царапина, ослюнение.<br>
+                Состояние рубца/раны на момент осмотра: отечность, гиперемия, инфильтрация, болезненность (патогномоничный признак!). Чувство жжения, зуда, ползания мурашек, тянущие боли с иррадиацией к центру (по ходу нервов).<br><br>
+                <strong>Общий осмотр:</strong><br>
+                Кожные покровы: бледные, влажные.<br>
+                Следы травм, полученных в период возбуждения (ссадины, гематомы) — есть/нет.<br>
+                Прикус языка, губ — есть/нет (после судорог).
             </div>
-            <div class="section">
-                <div class="section-title">📈 ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ</div>
-                <div class="scales-list">
-                    <p>✔ <strong>Пульсоксиметрия:</strong> SpO₂ – ______ % (снижение < 90% — признак ОДН).</p>
-                    <p>✔ <strong>Глюкометрия:</strong> ______ ммоль/л.</p>
-                    <p>✔ <strong>ЭКГ:</strong> Ритм: синусовая тахикардия. ЧСС: ______ в мин. Признаки гипоксии миокарда, электролитных нарушений.</p>
-                </div>
+        </div>
+
+        <!-- ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ -->
+        <div class="section">
+            <div class="section-title">📈 ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ</div>
+            <div class="scales-list">
+                <p>✔ <strong>Пульсоксиметрия:</strong> SpO₂ — ______ % (снижение &lt; 90% — признак ОДН).</p>
+                <p>✔ <strong>Глюкометрия:</strong> ______ ммоль/л.</p>
+                <p>✔ <strong>ЭКГ:</strong> Ритм: синусовая тахикардия. ЧСС: ______ в мин. Признаки гипоксии миокарда, электролитных нарушений.</p>
             </div>
-            <div class="section">
-                <div class="section-title">📊 ОЦЕНКА ПО ШКАЛАМ</div>
-                <div class="scales-list">
-                    <p>✔ <strong>Шкала комы Глазго (GCS):</strong> 15 / <8 баллов.</p>
-                    <p>✔ <strong>Шкала NEWS2:</strong> <span class="highlight-number">5–9 баллов и выше</span> (лихорадка, тахикардия, тахипноэ, гипотензия, нарушение сознания).</p>
-                    <p>✔ <strong>Индекс Альговера:</strong> ЧСС/АД сист. = ______ — (расчёт зависит от показателей).</p>
-                    <p>✔ <strong>Стадия заболевания (клиническая):</strong> Продромальная / Возбуждения / Паралитическая.</p>
-                    <p>✔ <strong>Оценка степени дегидратации:</strong> Легкая / Средняя / Тяжелая.</p>
-                    <p>✔ <strong>Пациент с острой дыхательной недостаточностью?</strong> ДА (центрального генеза, обструктивного генеза — спазм глотки).</p>
-                    <p>✔ <strong>Шкала боли ВАШ:</strong> не применимо.</p>
-                    <p>✔ <strong>Шкала LAMS:</strong> не применимо.</p>
-                    <p>✔ <strong>Шкала ОДН по Кассиль:</strong> не применимо.</p>
-                    <p>✔ <strong>Шкала ШОКС:</strong> не применимо.</p>
-                    <p>✔ <strong>Шкала риска ТЭЛА:</strong> не применимо.</p>
-                    <p>✔ <strong>Алкогольное опьянение:</strong> клинических признаков нет, запах алкоголя не определяется.</p>
-                    <p>✔ <strong>Признаки ДЭП:</strong> не выявлены.</p>
-                </div>
+        </div>
+
+        <!-- ОЦЕНКА ПО ШКАЛАМ -->
+        <div class="section">
+            <div class="section-title">📊 ОЦЕНКА ПО ШКАЛАМ</div>
+            <div class="scales-list">
+                <p>✔ <strong>Шкала NEWS2:</strong> <span class="highlight-number">5–9 баллов и выше</span> (лихорадка, тахикардия, тахипноэ, гипотензия, нарушение сознания).</p>
+                <p>✔ <strong>Индекс Альговера:</strong> не применимо.</p>
+                <p>✔ <strong>Шкала комы Глазго (GCS):</strong> 15 баллов / &lt; 8 баллов (при коме).</p>
+                <p>✔ <strong>Стадия заболевания (клиническая):</strong> продромальная / возбуждения / паралитическая.</p>
+                <p>✔ <strong>Шкала боли ВАШ:</strong> не применимо.</p>
+                <p>✔ <strong>Шкала ОДН по Кассиль:</strong> не применимо.</p>
+                <p>✔ <strong>Шкала ШОКС:</strong> не применимо.</p>
+                <p>✔ <strong>Шкала риска ТЭЛА:</strong> не применимо.</p>
+                <p>✔ <strong>Алкогольное опьянение:</strong> клинических признаков нет, запах алкоголя не определяется.</p>
+                <p>✔ <strong>Шкала LAMS:</strong> не применимо.</p>
+                <p>✔ <strong>ДЭП:</strong> не применимо.</p>
             </div>
-            <div class="note">
-                <strong>📌 Примечание для бригады СМП (дифференциальная диагностика + ключевые признаки)</strong><br>
-                Дифференциальная диагностика проведена с:
-                <ul class="note-list">
-                    <li><strong>столбняком</strong> (тризм жевательной мускулатуры, сардоническая улыбка, опистотонус. НЕТ гидрофобии, аэрофобии. Сохранено глотание, НЕТ гиперсаливации. Сознание ЯСНОЕ всегда);</li>
-                    <li><strong>ботулизмом</strong> (неврологические симптомы: опущение век, двоение в глазах, затруднение глотания, но НЕТ гидрофобии и возбуждения. Температура нормальная. Связь с употреблением консервов, грибов);</li>
-                    <li><strong>энцефалитами (герпетический, клещевой, энтеровирусный)</strong> (менингеальные симптомы, очаговая симптоматика. Лихорадка, интоксикация. НЕТ специфических фобий и парестезий в месте укуса);</li>
-                    <li><strong>полиомиелитом (паралитическая форма)</strong> (восходящие вялые параличи. НЕТ возбуждения, гидрофобии, гиперсаливации);</li>
-                    <li><strong>истерией (лисофобия — боязнь заболеть бешенством)</strong> (после укуса животного, психогенная реакция. НЕТ вегетативных нарушений (тахикардия, потливость, лихорадка). НЕТ истинных спазмов глотки — глотание сохранено, «симптом пустой кружки». Убеждение, внушение, седация — купируют симптомы).</li>
-                </ul>
-                <br>
-                <strong>🔑 Ключевые признаки бешенства (период разгара):</strong><br>
-                – Достоверный эпидемиологический анамнез (укус/осалюнение животным).<br>
-                – Парестезии и воспаление в области бывшего укуса.<br>
-                – Гидрофобия, аэрофобия — специфические пароксизмальные спазмы глотки и гортани.<br>
-                – Психомоторное возбуждение, агрессия, бред, галлюцинации.<br>
-                – Гиперсаливация, пена изо рта, дисфагия.<br>
-                – Сознание ясное до терминальной стадии.<br>
-                – Быстрое прогрессирование, летальный исход.
-            </div>
+        </div>
+
+        <!-- КРАСНАЯ КНОПКА -->
+        <div class="algorithm-btn-container">
             <button class="btn-algorithm" id="openAlgorithmBtn">
-                🚨 Оказание помощи в соответствии с Алгоритмами МСК
+                <span>🚨 Оказание помощи в соответствии с Алгоритмами МСК</span>
                 <span class="btn-hint">▼ нажмите для открытия ▼</span>
             </button>
         </div>
     </div>
+</div>
 
-    <div class="modal-overlay" id="algorithmModal">
-        <div class="modal-container">
-            <div class="modal-header">
-                <h2>А82 Бешенство</h2>
-                <button class="modal-close" id="closeModalBtn">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div class="adult-block">
-                    <div class="badge-adult">ВЗРОСЛЫЙ ПРОТОКОЛ</div>
+<!-- МОДАЛЬНОЕ ОКНО -->
+<div class="modal-overlay" id="algorithmModal">
+    <div class="modal-container">
+        <div class="modal-header">
+            <h2>А82 Бешенство</h2>
+            <button class="modal-close" id="closeModalBtn">&times;</button>
+        </div>
+        <div class="modal-body">
 
-                    <div class="light-block">
-                        <div class="condition-title">– при психомоторном возбуждении, судорогах</div>
-                        <ul class="list-styled">
-                            <li><span class="drug-name">Диазепам 10–20 мг (2–4 мл)</span> в/мышечно</li>
-                        </ul>
-                    </div>
-
-                    <div class="tactic-block">
-                        <div class="tactic-title">▶ Тактика:</div>
-                        <ul class="list-styled">
-                            <li>1. Медицинская эвакуация в больницу <span class="bold-black">(13)</span></li>
-                            <li>2. При отказе от медицинской эвакуации в больницу – рекомендовать обратиться в поликлинику <span class="bold-black">(35)</span></li>
-                        </ul>
-                    </div>
-
-                    <div class="no-bg-block">
-                        <div class="condition-title">– при нарушении дыхания</div>
-                        <ul class="list-styled">
-                            <li><span class="italic-bold-static">См. раздел «Анестезиология и реаниматология» (Дыхательная недостаточность)</span></li>
-                        </ul>
-                    </div>
+            <div class="adult-block">
+                <div class="adult-header">
+                    <span class="badge-adult">ВЗРОСЛЫЙ ПРОТОКОЛ</span>
                 </div>
 
-                <div class="child-block">
-                    <div class="badge-child">ДЕТСКИЙ ПРОТОКОЛ</div>
+                <div class="light-block">
+                    <div class="condition-title">– при психомоторном возбуждении, судорогах</div>
+                    <ul class="list-styled">
+                        <li><span class="drug-name">Реланиум (Диазепам) 10–20 мг (2–4 мл)</span> в/мышечно</li>
+                    </ul>
+                </div>
 
-                    <div class="child-red-block">
-                        <div class="condition-title">– при психомоторном возбуждении, судорогах</div>
-                        <ul class="list-styled">
-                            <li><span class="drug-name">Диазепам</span> в/венно <a href="diazepam-child.html" class="italic-bold-ref" target="_blank">(см. «Приложение 43»)</a> или <span class="highlight-number">0,3 мг/кг (0,06 мл/кг)</span> в/мышечно</li>
-                        </ul>
-                    </div>
+                <div class="no-bg-block">
+                    <div class="condition-title">– при нарушении дыхания</div>
+                    <ul class="list-styled">
+                        <li><span class="italic-bold-static">См. раздел «Анестезиология и реаниматология» (Дыхательная недостаточность)</span></li>
+                    </ul>
+                </div>
 
-                    <div class="child-red-block">
-                        <div class="condition-title">– при нарушении дыхания (ДН III–IV ст.)</div>
-                        <ul class="list-styled">
-                            <li>Санация верхних дыхательных путей</li>
-                            <li>Интубация трахеи или применение надгортанного герметизирующего устройства <span class="italic-bold-ref" onclick="openImage('Тактика обеспечения проходимости дыхательных путей у детей.png'); return false;">(см. «Приложение 3»)</span></li>
-                            <li>ИВЛ/ВВЛ <span class="italic-bold-ref" onclick="openImage('Параметры респираторной поддержки при сохраненном самостоятельном кровообращении.jpg'); return false;">(см. «Приложение 6»)</span></li>
-                            <li>Капнометрия-капнография (для бригад АиР)</li>
-                        </ul>
-                    </div>
-
-                    <div class="tactic-block">
-                        <div class="tactic-title">▶ Тактика:</div>
-                        <ul class="list-styled">
-                            <li>1. Медицинская эвакуация в больницу <span class="bold-black">(13)</span></li>
-                            <li>2. При отказе от медицинской эвакуации в больницу – актив в поликлинику <span class="bold-black">(27)</span></li>
-                        </ul>
-                    </div>
+                <div class="tactic-block">
+                    <div class="tactic-title">▶ Тактика:</div>
+                    <ul class="list-styled">
+                        <li>1. Медицинская эвакуация в больницу <span class="bold-black">(13)</span></li>
+                        <li>2. При отказе от медицинской эвакуации в больницу – рекомендовать обратиться в поликлинику <span class="bold-black">(35)</span></li>
+                    </ul>
                 </div>
             </div>
+
+            <div class="child-block">
+                <div class="child-header">
+                    <span class="badge-child">ДЕТСКИЙ ПРОТОКОЛ</span>
+                </div>
+
+                <div class="child-red-block">
+                    <div class="condition-title">– при психомоторном возбуждении, судорогах</div>
+                    <ul class="list-styled">
+                        <li><span class="drug-name">Реланиум (Диазепам)</span> в/венно <a href="/SMP/diazepam-child.html" class="italic-bold-ref">(см. «Приложение 43»)</a> или <span class="highlight-number">0,3 мг/кг (0,06 мл/кг)</span> в/мышечно</li>
+                    </ul>
+                </div>
+
+                <div class="child-red-block">
+                    <div class="condition-title">– при нарушении дыхания (ДН III–IV ст.)</div>
+                    <ul class="list-styled">
+                        <li>Санация верхних дыхательных путей</li>
+                        <li>Интубация трахеи или применение надгортанного герметизирующего устройства <span class="italic-bold-ref" onclick="openImage('airway-management-child.png'); return false;">(см. «Приложение 3»)</span></li>
+                        <li>ИВЛ/ВВЛ <span class="italic-bold-ref" onclick="openImage('respiratory-support-spontaneous.jpg'); return false;">(см. «Приложение 6»)</span></li>
+                        <li>Капнометрия-капнография (для бригад АиР)</li>
+                    </ul>
+                </div>
+
+                <div class="tactic-block">
+                    <div class="tactic-title">▶ Тактика:</div>
+                    <ul class="list-styled">
+                        <li>1. Медицинская эвакуация в больницу <span class="bold-black">(13)</span></li>
+                        <li>2. При отказе от медицинской эвакуации в больницу – актив в поликлинику <span class="bold-black">(27)</span></li>
+                    </ul>
+                </div>
+            </div>
+
         </div>
     </div>
+</div>
 
-    <div id="imageModal">
-        <span class="close-img" onclick="document.getElementById('imageModal').classList.remove('active')">&times;</span>
-        <img id="imgDisplay" src="" alt="Изображение" />
-        <div class="img-nav" id="imgNav" style="display:none;">
-            <button onclick="prevImage()">◀ Назад</button>
-            <span class="img-counter" id="imgCounter"></span>
-            <button onclick="nextImage()">Вперёд ▶</button>
-        </div>
+<!-- МОДАЛЬНОЕ ОКНО ДЛЯ ИЗОБРАЖЕНИЙ -->
+<div id="imageModal">
+    <button class="modal-close-img" onclick="document.getElementById('imageModal').style.display='none'; isGalleryMode=false; currentGallery=[];">&times;</button>
+    <img id="modalImage" src="" alt="Изображение">
+    <div id="navContainer">
+        <button id="prevBtn">❮</button>
+        <span id="imageCounter">1 / 2</span>
+        <button id="nextBtn">❯</button>
     </div>
+</div>
 
-    <script>
-        const modal = document.getElementById('algorithmModal');
-        const openBtn = document.getElementById('openAlgorithmBtn');
-        const closeBtn = document.getElementById('closeModalBtn');
-        function openModal() {
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
+<script>
+    /* ============================================================
+       УПРАВЛЕНИЕ МОДАЛЬНЫМ ОКНОМ + HISTORY API
+       (PWA: кнопка «Назад» закрывает модалку, а не приложение)
+       ============================================================ */
+    const modal = document.getElementById('algorithmModal');
+    const openBtn = document.getElementById('openAlgorithmBtn');
+    const closeBtn = document.getElementById('closeModalBtn');
+
+    function openModal() {
+        window.history.pushState({ modal: 'algorithm' }, '');
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    openBtn.addEventListener('click', openModal);
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            closeModal();
         }
-        function closeModal() {
+    });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+            closeModal();
+        }
+    });
+    window.addEventListener('popstate', function () {
+        if (modal.classList.contains('active')) {
             modal.classList.remove('active');
             document.body.style.overflow = '';
         }
-        openBtn.addEventListener('click', openModal);
-        closeBtn.addEventListener('click', closeModal);
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) closeModal();
-        });
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && modal.classList.contains('active')) closeModal();
-        });
-        let currentGallery = [];
-        let currentIndex = 0;
-        function openImage(src) {
-            document.getElementById('imageModal').classList.add('active');
-            document.getElementById('imgDisplay').src = src;
-            document.getElementById('imgNav').style.display = 'none';
-            document.body.style.overflow = 'hidden';
+    });
+
+    /* ============================================================
+       ГАЛЕРЕЯ ИЗОБРАЖЕНИЙ + UNICODE NFC-НОРМАЛИЗАЦИЯ (§18, п.89)
+       ============================================================ */
+    let currentGallery = [];
+    let currentIndex = 0;
+    let isGalleryMode = false;
+
+    function openImage(imagePath) {
+        isGalleryMode = false;
+        currentGallery = [];
+        document.getElementById('navContainer').style.display = 'none';
+        document.getElementById('imageModal').style.display = 'flex';
+        document.getElementById('modalImage').src = imagePath.normalize('NFC');
+    }
+
+    function openImageGallery(images) {
+        isGalleryMode = true;
+        currentGallery = images.map(p => p.normalize('NFC'));
+        currentIndex = 0;
+        document.getElementById('navContainer').style.display = 'flex';
+        document.getElementById('imageModal').style.display = 'flex';
+        document.getElementById('modalImage').src = currentGallery[currentIndex];
+        document.getElementById('imageCounter').textContent = `${currentIndex + 1} / ${currentGallery.length}`;
+        updateNavButtons();
+    }
+
+    function updateNavButtons() {
+        document.getElementById('prevBtn').style.opacity = currentIndex === 0 ? '0.4' : '1';
+        document.getElementById('nextBtn').style.opacity = currentIndex === currentGallery.length - 1 ? '0.4' : '1';
+    }
+
+    document.getElementById('prevBtn').addEventListener('click', function() {
+        if (!isGalleryMode || currentIndex === 0) return;
+        currentIndex--;
+        document.getElementById('modalImage').src = currentGallery[currentIndex];
+        document.getElementById('imageCounter').textContent = `${currentIndex + 1} / ${currentGallery.length}`;
+        updateNavButtons();
+    });
+
+    document.getElementById('nextBtn').addEventListener('click', function() {
+        if (!isGalleryMode || currentIndex === currentGallery.length - 1) return;
+        currentIndex++;
+        document.getElementById('modalImage').src = currentGallery[currentIndex];
+        document.getElementById('imageCounter').textContent = `${currentIndex + 1} / ${currentGallery.length}`;
+        updateNavButtons();
+    });
+
+    document.getElementById('imageModal').addEventListener('click', function(e) {
+        if (e.target === this) {
+            this.style.display = 'none';
+            isGalleryMode = false;
+            currentGallery = [];
         }
-        function openImageGallery(images) {
-            currentGallery = images;
-            currentIndex = 0;
-            document.getElementById('imageModal').classList.add('active');
-            document.getElementById('imgDisplay').src = currentGallery[currentIndex];
-            document.getElementById('imgNav').style.display = 'flex';
-            updateCounter();
-            document.body.style.overflow = 'hidden';
-        }
-        function updateCounter() {
-            document.getElementById('imgCounter').textContent =
-                (currentIndex + 1) + ' / ' + currentGallery.length;
-        }
-        function nextImage() {
-            if (currentGallery.length === 0) return;
-            currentIndex = (currentIndex + 1) % currentGallery.length;
-            document.getElementById('imgDisplay').src = currentGallery[currentIndex];
-            updateCounter();
-        }
-        function prevImage() {
-            if (currentGallery.length === 0) return;
-            currentIndex = (currentIndex - 1 + currentGallery.length) % currentGallery.length;
-            document.getElementById('imgDisplay').src = currentGallery[currentIndex];
-            updateCounter();
-        }
-        document.getElementById('imageModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                this.classList.remove('active');
-                document.body.style.overflow = '';
-            }
-        });
-        document.addEventListener('keydown', function(e) {
-            const imgModal = document.getElementById('imageModal');
-            if (e.key === 'Escape' && imgModal.classList.contains('active')) {
-                imgModal.classList.remove('active');
-                document.body.style.overflow = '';
-            }
-        });
-    </script>
+    });
+</script>
 </body>
 </html>
