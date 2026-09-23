@@ -193,7 +193,6 @@
                 <strong>Локальный статус (осмотр):</strong><br>
                 • Кожные покровы лица, шеи, груди гиперемированы. Высыпаний на кожных покровах нет. Видимых травм и повреждений не обнаружено.<br>
                 • Место инъекции ботокса (область лица/лба): гиперемия, отек тканей в месте введения. Пальпация места инъекции безболезненная.<br>
-                • Наружные половые органы: не осматривались (не относятся к диагнозу).<br>
                 • Травм, гематом, видимых повреждений нет.
             </div>
         </div>
@@ -228,7 +227,7 @@
     </div>
 </div>
 
-<!-- МОДАЛЬНОЕ ОКНО — ССЫЛКИ НА ПРИЛОЖЕНИЯ -->
+<!-- МОДАЛЬНОЕ ОКНО -->
 <div class="modal-overlay" id="algorithmModal">
     <div class="modal-container">
         <div class="modal-header">
@@ -391,25 +390,63 @@
 </div>
 
 <script>
+    /* ============================================================
+       УПРАВЛЕНИЕ МОДАЛЬНЫМ ОКНОМ + HISTORY API
+       (решение проблемы PWA: кнопка «Назад» закрывает модалку,
+       а не приложение)
+       ============================================================ */
+
     const modal = document.getElementById('algorithmModal');
     const openBtn = document.getElementById('openAlgorithmBtn');
     const closeBtn = document.getElementById('closeModalBtn');
-    function openModal() { modal.classList.add('active'); document.body.style.overflow = 'hidden'; }
-    function closeModal() { modal.classList.remove('active'); document.body.style.overflow = ''; }
+
+    // Открытие модального окна — pushState
+    function openModal() {
+        window.history.pushState({ modal: 'algorithm' }, '');
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    // Закрытие по кнопке «×» — без изменения истории (popstate сам обработает)
+    function closeModal() {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
     openBtn.addEventListener('click', openModal);
     closeBtn.addEventListener('click', closeModal);
+
+    // Закрытие по клику на затемнённый фон
     modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
-    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('active')) closeModal(); });
+
+    // Закрытие по Escape
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('active')) closeModal();
+    });
+
+    // Обработчик «Назад» — закрывает модалку, не выкидывая из приложения
+    window.addEventListener('popstate', function () {
+        if (modal.classList.contains('active')) {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    });
+
+    /* ============================================================
+       ГАЛЕРЕЯ ИЗОБРАЖЕНИЙ
+       ============================================================ */
 
     let currentGallery = [];
     let currentIndex = 0;
     let isGalleryMode = false;
+
     function openImage(imagePath) {
         isGalleryMode = false; currentGallery = [];
         document.getElementById('navContainer').style.display = 'none';
         document.getElementById('imageModal').style.display = 'flex';
         document.getElementById('modalImage').src = imagePath;
     }
+
     function openImageGallery(images) {
         isGalleryMode = true; currentGallery = images; currentIndex = 0;
         document.getElementById('navContainer').style.display = 'flex';
@@ -418,26 +455,34 @@
         document.getElementById('imageCounter').textContent = `${currentIndex + 1} / ${currentGallery.length}`;
         updateNavButtons();
     }
+
     function updateNavButtons() {
         document.getElementById('prevBtn').style.opacity = currentIndex === 0 ? '0.4' : '1';
         document.getElementById('nextBtn').style.opacity = currentIndex === currentGallery.length - 1 ? '0.4' : '1';
     }
-    document.getElementById('prevBtn').addEventListener('click', function() {
+
+    document.getElementById('prevBtn').addEventListener('click', function () {
         if (!isGalleryMode || currentIndex === 0) return;
         currentIndex--;
         document.getElementById('modalImage').src = currentGallery[currentIndex];
         document.getElementById('imageCounter').textContent = `${currentIndex + 1} / ${currentGallery.length}`;
         updateNavButtons();
     });
-    document.getElementById('nextBtn').addEventListener('click', function() {
+
+    document.getElementById('nextBtn').addEventListener('click', function () {
         if (!isGalleryMode || currentIndex === currentGallery.length - 1) return;
         currentIndex++;
         document.getElementById('modalImage').src = currentGallery[currentIndex];
         document.getElementById('imageCounter').textContent = `${currentIndex + 1} / ${currentGallery.length}`;
         updateNavButtons();
     });
-    document.getElementById('imageModal').addEventListener('click', function(e) {
-        if (e.target === this) { this.style.display = 'none'; isGalleryMode = false; currentGallery = []; }
+
+    document.getElementById('imageModal').addEventListener('click', function (e) {
+        if (e.target === this) {
+            this.style.display = 'none';
+            isGalleryMode = false;
+            currentGallery = [];
+        }
     });
 </script>
 </body>
