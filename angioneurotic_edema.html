@@ -30,6 +30,7 @@
         .btn-hint { font-size: 0.7rem; font-weight: normal; opacity: 0.9; letter-spacing: normal; border-top: 1px dashed rgba(255,255,255,0.5); padding-top: 4px; margin-top: 2px; }
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.75); backdrop-filter: blur(4px); z-index: 1000; display: flex; align-items: center; justify-content: center; visibility: hidden; opacity: 0; transition: visibility 0.2s, opacity 0.2s; padding: 20px; }
         .modal-overlay.active { visibility: visible; opacity: 1; }
+        /* Сценарий B (§12): короткий заголовок — шапка фиксирована */
         .modal-container { max-width: 1200px; width: 100%; max-height: 85vh; background-color: #fffef7; border-radius: 28px; box-shadow: 0 25px 45px -12px rgba(0,0,0,0.25); display: flex; flex-direction: column; overflow: hidden; border: 1px solid #ffd7a5; animation: modalFadeIn 0.25s ease-out; }
         @keyframes modalFadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         .modal-header { background: #c2410c; color: white; padding: 18px 28px; display: flex; justify-content: space-between; align-items: center; border-bottom: 4px solid #ffb347; flex-shrink: 0; }
@@ -114,7 +115,7 @@
             <div class="full-width-text"><strong>Анамнез заболевания:</strong> Ухудшение с 00:30. Самостоятельно лекарства не принимала. Вызвана бригада скорой медицинской помощи. Свое состояние ни с чем связать не может. Одышки, осиплости голоса, чувства нехватки воздуха не было и нет. Хронические заболевания отрицает. Регулярно лекарственные препараты не принимает.</div>
             <div class="full-width-text"><strong>Эпидемиологический анамнез:</strong> Не отягощен. За пределы РФ не выезжала. Укусы насекомых, животных отрицает. Контакты с инфекционными больными отрицает. Гемотрансфузии и другие вмешательства отрицает. Последние 2 недели температура не повышалась.</div>
             <div class="full-width-text"><strong>Аллергологический анамнез:</strong> Не отягощен. Аллергии на лекарственные препараты, продукты питания, бытовую химию и пр. отрицает.</div>
-            <div class="full-width-text"><strong>Гинекологический анамнез:</strong> Менструальная функция с 13 лет, цикл установился сразу, продолжительность 5 дней, через 28 дней, регулярный, безболезненный. Последняя менструация 27 июля, в срок, без задержки. Выделения из половых путей на момент осмотра: патологических выделений нет. Гинекологических заболеваний и операций не было. Беременностей не было.</div>
+            <div class="full-width-text"><strong>Гинекологический анамнез:</strong> Менструальная функция с 13 лет, цикл установился сразу, продолжительность 5 дней, через 28 дней, регулярный, безболезненный. Последняя менструация 27 июля, в срок, без задержки. Гинекологических заболеваний и операций не было. Беременностей не было.</div>
         </div>
         <div class="section">
             <div class="section-title">🩺 ОБЪЕКТИВНО</div>
@@ -204,6 +205,8 @@
             <div class="section-title">📈 ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ</div>
             <div class="scales-list">
                 <p>✔ <strong>Пульсоксиметрия:</strong> SpO₂ — 98%.</p>
+                <p>✔ <strong>Глюкометрия:</strong> не проводилась (нет показаний).</p>
+                <p>✔ <strong>ЭКГ:</strong> не проводилась (нет показаний).</p>
             </div>
         </div>
         <div class="section">
@@ -405,27 +408,53 @@
 </div>
 
 <script>
+    /* ============================================================
+       УПРАВЛЕНИЕ МОДАЛЬНЫМ ОКНОМ + HISTORY API
+       (PWA: кнопка «Назад» закрывает модалку, а не приложение)
+       ============================================================ */
     const modal = document.getElementById('algorithmModal');
     const openBtn = document.getElementById('openAlgorithmBtn');
     const closeBtn = document.getElementById('closeModalBtn');
-    function openModal() { modal.classList.add('active'); document.body.style.overflow = 'hidden'; }
-    function closeModal() { modal.classList.remove('active'); document.body.style.overflow = ''; }
+
+    function openModal() {
+        window.history.pushState({ modal: 'algorithm' }, '');
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+    function closeModal() {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
     openBtn.addEventListener('click', openModal);
     closeBtn.addEventListener('click', closeModal);
     modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
-    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('active')) closeModal(); });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('active')) closeModal();
+    });
+    window.addEventListener('popstate', function () {
+        if (modal.classList.contains('active')) {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    });
 
+    /* ============================================================
+       ГАЛЕРЕЯ ИЗОБРАЖЕНИЙ + UNICODE NFC-НОРМАЛИЗАЦИЯ (§18, п.89)
+       ============================================================ */
     let currentGallery = [];
     let currentIndex = 0;
     let isGalleryMode = false;
+
     function openImage(imagePath) {
         isGalleryMode = false; currentGallery = [];
         document.getElementById('navContainer').style.display = 'none';
         document.getElementById('imageModal').style.display = 'flex';
-        document.getElementById('modalImage').src = imagePath;
+        document.getElementById('modalImage').src = imagePath.normalize('NFC');
     }
     function openImageGallery(images) {
-        isGalleryMode = true; currentGallery = images; currentIndex = 0;
+        isGalleryMode = true;
+        currentGallery = images.map(p => p.normalize('NFC'));
+        currentIndex = 0;
         document.getElementById('navContainer').style.display = 'flex';
         document.getElementById('imageModal').style.display = 'flex';
         document.getElementById('modalImage').src = currentGallery[currentIndex];
@@ -436,22 +465,26 @@
         document.getElementById('prevBtn').style.opacity = currentIndex === 0 ? '0.4' : '1';
         document.getElementById('nextBtn').style.opacity = currentIndex === currentGallery.length - 1 ? '0.4' : '1';
     }
-    document.getElementById('prevBtn').addEventListener('click', function() {
+    document.getElementById('prevBtn').addEventListener('click', function () {
         if (!isGalleryMode || currentIndex === 0) return;
         currentIndex--;
         document.getElementById('modalImage').src = currentGallery[currentIndex];
         document.getElementById('imageCounter').textContent = `${currentIndex + 1} / ${currentGallery.length}`;
         updateNavButtons();
     });
-    document.getElementById('nextBtn').addEventListener('click', function() {
+    document.getElementById('nextBtn').addEventListener('click', function () {
         if (!isGalleryMode || currentIndex === currentGallery.length - 1) return;
         currentIndex++;
         document.getElementById('modalImage').src = currentGallery[currentIndex];
         document.getElementById('imageCounter').textContent = `${currentIndex + 1} / ${currentGallery.length}`;
         updateNavButtons();
     });
-    document.getElementById('imageModal').addEventListener('click', function(e) {
-        if (e.target === this) { this.style.display = 'none'; isGalleryMode = false; currentGallery = []; }
+    document.getElementById('imageModal').addEventListener('click', function (e) {
+        if (e.target === this) {
+            this.style.display = 'none';
+            isGalleryMode = false;
+            currentGallery = [];
+        }
     });
 </script>
 </body>
