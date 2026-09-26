@@ -5,424 +5,106 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Карта вызова скорой медицинской помощи | Кишечная инфекция, эксикоз 3 степени</title>
     <style>
-        /* ----- ОБЩИЕ СТИЛИ (как в шаблонах) ----- */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background-color: #e9ecef;
-            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
-            padding: 40px 20px;
-            color: #212529;
-            line-height: 1.45;
-        }
-
-        .card {
-            max-width: 1100px;
-            margin: 0 auto;
-            background-color: #ffffff;
-            border-radius: 20px;
-            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.15);
-            overflow: hidden;
-            border: 1px solid #dee2e6;
-        }
-
-        .mkb-row {
-            background: linear-gradient(135deg, #0b3b5f 0%, #1a4d6f 100%);
-            color: white;
-            padding: 20px 32px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            border-bottom: 4px solid #ffc107;
-        }
-
-        .mkb-row span {
-            font-weight: 700;
-            color: #ffc107;
-        }
-
-        .diagnosis {
-            background: #fef9e6;
-            padding: 12px 32px;
-            border-left: 6px solid #ffc107;
-            font-weight: 500;
-            font-size: 0.98rem;
-            color: #2d3e50;
-            border-bottom: 1px solid #f0e2b6;
-        }
-
-        .content {
-            padding: 24px 32px 40px 32px;
-        }
-
-        .section {
-            margin-bottom: 32px;
-            break-inside: avoid;
-            page-break-inside: avoid;
-        }
-
-        .section-title {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: #1a4d6f;
-            border-left: 6px solid #ffc107;
-            padding-left: 16px;
-            margin-bottom: 18px;
-            margin-top: 8px;
-            background: #f4f9ff;
-            border-radius: 0 12px 12px 0;
-            line-height: 1.3;
-        }
-
-        .field-list {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .field-item {
-            padding: 6px 0 4px 8px;
-            border-bottom: 1px dotted #e0e6ed;
-            font-size: 0.94rem;
-            line-height: 1.45;
-        }
-
-        .field-item strong {
-            font-weight: 700;
-            color: #1e4663;
-            display: inline-block;
-            min-width: 240px;
-        }
-
-        .field-item .value {
-            color: #2c3e4e;
-            font-weight: 500;
-        }
-
-        .full-width-text {
-            padding: 8px 0 8px 8px;
-            border-bottom: 1px dotted #e0e6ed;
-            font-size: 0.94rem;
-        }
-
-        .full-width-text strong {
-            font-weight: 700;
-            color: #1e4663;
-            display: inline-block;
-            min-width: 240px;
-        }
-
-        .status-local {
-            background: #fef7e0;
-            padding: 14px 18px;
-            border-radius: 18px;
-            margin-top: 6px;
-            border: 1px solid #ffe3a4;
-            font-size: 0.94rem;
-        }
-
-        .scales-list {
-            background: #f1f4f9;
-            padding: 12px 20px;
-            border-radius: 20px;
-            margin-top: 10px;
-        }
-
-        .scales-list p {
-            margin: 8px 0;
-        }
-
-        .note {
-            background: #e7f1ff;
-            border-left: 4px solid #1a4d6f;
-            padding: 12px 16px;
-            margin-top: 16px;
-            border-radius: 12px;
-            font-size: 0.9rem;
-            color: #1e4663;
-        }
-
-        .note-list {
-            margin-top: 8px;
-            margin-left: 20px;
-            list-style-type: none;
-            padding-left: 0;
-        }
-
-        .note-list li {
-            margin-bottom: 8px;
-            padding-left: 20px;
-            position: relative;
-        }
-
-        .note-list li:before {
-            content: "•";
-            position: absolute;
-            left: 4px;
-            color: #1a4d6f;
-            font-weight: bold;
-        }
-
-        /* ----- КНОПКА АЛГОРИТМА ----- */
-        .algorithm-btn-container {
-            margin-top: 32px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .btn-algorithm {
-            background-color: #dc2626;
-            color: white;
-            border: none;
-            padding: 10px 28px;
-            font-size: 1.15rem;
-            font-weight: 700;
-            border-radius: 50px;
-            cursor: pointer;
-            box-shadow: 0 6px 14px rgba(220, 38, 38, 0.3);
-            transition: all 0.2s ease;
-            display: inline-flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 4px;
-            letter-spacing: 0.3px;
-            border: 1px solid rgba(255,255,255,0.3);
-        }
-
-        .btn-algorithm:hover {
-            background-color: #b91c1c;
-            transform: scale(1.02);
-            box-shadow: 0 10px 20px rgba(185, 28, 28, 0.4);
-        }
-
-        .btn-algorithm:active {
-            transform: scale(0.98);
-        }
-
-        .btn-hint {
-            font-size: 0.7rem;
-            font-weight: normal;
-            opacity: 0.9;
-            letter-spacing: normal;
-            border-top: 1px dashed rgba(255,255,255,0.5);
-            padding-top: 4px;
-            margin-top: 2px;
-        }
-
-        /* ----- МОДАЛЬНОЕ ОКНО ----- */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.75);
-            backdrop-filter: blur(4px);
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            visibility: hidden;
-            opacity: 0;
-            transition: visibility 0.2s, opacity 0.2s;
-            padding: 20px;
-        }
-
-        .modal-overlay.active {
-            visibility: visible;
-            opacity: 1;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: #e9ecef; font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif; padding: 40px 20px; color: #212529; line-height: 1.45; }
+        .card { max-width: 1100px; margin: 0 auto; background-color: #ffffff; border-radius: 20px; box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.15); overflow: hidden; border: 1px solid #dee2e6; }
+        .mkb-row { background: linear-gradient(135deg, #0b3b5f 0%, #1a4d6f 100%); color: white; padding: 20px 32px; font-weight: 600; font-size: 1.1rem; border-bottom: 4px solid #ffc107; }
+        .mkb-row span { font-weight: 700; color: #ffc107; }
+        .diagnosis { background: #fef9e6; padding: 12px 32px; border-left: 6px solid #ffc107; font-weight: 500; font-size: 0.98rem; color: #2d3e50; border-bottom: 1px solid #f0e2b6; }
+        .content { padding: 24px 32px 40px 32px; }
+        .section { margin-bottom: 32px; break-inside: avoid; page-break-inside: avoid; }
+        .section-title { font-size: 1.4rem; font-weight: 700; color: #1a4d6f; border-left: 6px solid #ffc107; padding-left: 16px; margin-bottom: 18px; margin-top: 8px; background: #f4f9ff; border-radius: 0 12px 12px 0; line-height: 1.3; }
+        .field-list { display: flex; flex-direction: column; gap: 10px; }
+        .field-item { padding: 6px 0 4px 8px; border-bottom: 1px dotted #e0e6ed; font-size: 0.94rem; line-height: 1.45; }
+        .field-item strong { font-weight: 700; color: #1e4663; display: inline-block; min-width: 240px; }
+        .field-item .value { color: #2c3e4e; font-weight: 500; }
+        .full-width-text { padding: 8px 0 8px 8px; border-bottom: 1px dotted #e0e6ed; font-size: 0.94rem; }
+        .full-width-text strong { font-weight: 700; color: #1e4663; display: inline-block; min-width: 240px; }
+        .status-local { background: #fef7e0; padding: 14px 18px; border-radius: 18px; margin-top: 6px; border: 1px solid #ffe3a4; font-size: 0.94rem; }
+        .scales-list { background: #f1f4f9; padding: 12px 20px; border-radius: 20px; margin-top: 10px; }
+        .scales-list p { margin: 8px 0; }
+        .algorithm-btn-container { margin-top: 32px; margin-bottom: 20px; text-align: center; }
+        .btn-algorithm { background-color: #dc2626; color: white; border: none; padding: 10px 28px; font-size: 1.15rem; font-weight: 700; border-radius: 50px; cursor: pointer; box-shadow: 0 6px 14px rgba(220, 38, 38, 0.3); transition: all 0.2s ease; display: inline-flex; flex-direction: column; align-items: center; gap: 4px; letter-spacing: 0.3px; border: 1px solid rgba(255,255,255,0.3); max-width: 100%; }
+        .btn-algorithm:hover { background-color: #b91c1c; transform: scale(1.02); box-shadow: 0 10px 20px rgba(185, 28, 28, 0.4); }
+        .btn-algorithm:active { transform: scale(0.98); }
+        .btn-hint { font-size: 0.7rem; font-weight: normal; opacity: 0.9; letter-spacing: normal; border-top: 1px dashed rgba(255,255,255,0.5); padding-top: 4px; margin-top: 2px; }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.75); backdrop-filter: blur(4px); z-index: 1000; display: flex; align-items: center; justify-content: center; visibility: hidden; opacity: 0; transition: visibility 0.2s, opacity 0.2s; padding: 20px; }
+        .modal-overlay.active { visibility: visible; opacity: 1; }
+        /* Сценарий B (§12): короткий заголовок — шапка фиксирована */
         .modal-container {
-            background-color: #fffef7;
-            max-width: 850px;
+            max-width: 1200px;
             width: 100%;
             max-height: 85vh;
+            background-color: #fffef7;
             border-radius: 28px;
-            box-shadow: 0 25px 45px -12px black;
+            box-shadow: 0 25px 45px -12px rgba(0,0,0,0.25);
             display: flex;
             flex-direction: column;
             overflow: hidden;
+            border: 1px solid #ffd7a5;
             animation: modalFadeIn 0.25s ease-out;
         }
-
-        @keyframes modalFadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .modal-header {
-            background: #b91c1c;
-            color: white;
-            padding: 18px 24px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 3px solid #ffc107;
-        }
-
-        .modal-header h2 {
-            font-size: 1.3rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .modal-close {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 28px;
-            cursor: pointer;
-            line-height: 1;
-            transition: 0.2s;
-            padding: 0 8px;
-            border-radius: 40px;
-        }
-
-        .modal-close:hover {
-            background-color: rgba(255,255,255,0.2);
-            transform: scale(1.1);
-        }
-
-        .modal-body {
-            flex: 1;
-            overflow-y: auto;
-            padding: 24px 28px;
-            background: #fefcf5;
-            font-size: 0.95rem;
-            line-height: 1.5;
-        }
-
-        /* стили для алгоритма */
-        .alg-section {
-            margin-bottom: 24px;
-            border-left: 4px solid #dc2626;
-            padding-left: 18px;
-            background: #fff9f0;
-            border-radius: 0 14px 14px 0;
-        }
-        
-        .alg-section.child-section {
-            border-left: 4px solid #2e7d32;
-            background: #f1f8e9;
-        }
-
-        .alg-title {
-            font-weight: 800;
-            font-size: 1rem;
-            color: #a51c1c;
-            margin: 8px 0 8px 0;
-            display: inline-block;
-            background: #ffeeee;
-            padding: 4px 14px;
-            border-radius: 30px;
-        }
-        
-        .alg-section.child-section .alg-title {
-            color: #1b5e20;
-            background: #e8f5e9;
-        }
-
-        .list-styled {
-            margin: 8px 0 10px 24px;
-        }
-
-        .list-styled li {
-            margin: 6px 0;
-        }
-
-        .tactic-block {
-            background: #eef2fa;
-            border-radius: 16px;
-            padding: 12px 18px;
-            margin-top: 12px;
-            margin-bottom: 8px;
-        }
-
-        .tactic-title {
-            font-weight: 700;
-            color: #1e4663;
-            margin-bottom: 6px;
-        }
-
-        .condition-block {
-            background: #fff0d4;
-            border-left: 5px solid #dc2626;
-            padding: 10px 16px;
-            margin: 10px 0;
-            border-radius: 12px;
-        }
-        
-        .alg-section.child-section .condition-block {
-            background: #e8f5e9;
-            border-left: 5px solid #2e7d32;
-        }
-
-        .condition-title {
-            font-weight: 700;
-            color: #a51c1c;
-            margin-bottom: 6px;
-        }
-        
-        .alg-section.child-section .condition-title {
-            color: #1b5e20;
-        }
-
-        .warning-block {
-            background: #ffe6e6;
-            border-left: 5px solid #dc2626;
-            padding: 10px 16px;
-            margin: 10px 0;
-            border-radius: 12px;
-        }
-        
-        .alg-section.child-section .warning-block {
-            background: #ffebee;
-            border-left: 5px solid #c62828;
-        }
-        
-        .warning-title {
-            font-weight: 700;
-            color: #b91c1c;
-            margin-bottom: 6px;
-        }
-
-        hr {
-            margin: 16px 0;
-            border-color: #f0dbb2;
-        }
-
+        @keyframes modalFadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .modal-header { background: #c2410c; color: white; padding: 18px 28px; display: flex; justify-content: space-between; align-items: center; border-bottom: 4px solid #ffb347; flex-shrink: 0; }
+        .modal-header h2 { font-size: 1.25rem; font-weight: 700; line-height: 1.3; word-break: break-word; }
+        .modal-close { background: none; border: none; color: white; font-size: 28px; cursor: pointer; line-height: 1; transition: 0.2s; padding: 0 8px; border-radius: 40px; flex-shrink: 0; }
+        .modal-close:hover { background-color: rgba(255,255,255,0.2); transform: scale(1.1); }
+        .modal-body { flex: 1; overflow-y: auto; padding: 28px 32px; background: #fefcf5; font-size: 0.95rem; line-height: 1.5; hyphens: auto; }
+        .adult-block { border-left: 5px solid #dc2626; padding-left: 20px; background: #fff9f0; border-radius: 0 18px 18px 0; margin-bottom: 40px; }
+        .adult-header { display: flex; align-items: center; gap: 12px; margin: 10px 0 20px 0; }
+        .badge-adult { background: #c2410c; color: white; padding: 6px 14px; border-radius: 40px; font-weight: bold; }
+        .child-block { border-left: 5px solid #2e7d32; padding-left: 20px; background: #ecf7ec; border-radius: 0 18px 18px 0; margin-bottom: 20px; }
+        .child-header { display: flex; align-items: center; gap: 12px; margin: 10px 0 20px 0; }
+        .badge-child { background: #2e7d32; color: white; padding: 6px 14px; border-radius: 40px; font-weight: bold; }
+        .list-styled { margin: 12px 0 14px 28px; }
+        .list-styled li { margin: 8px 0; }
+        .tactic-block { background: #d9effa; border-radius: 20px; padding: 14px 20px; margin: 18px 0 16px 0; border-left: 4px solid #0284c7; }
+        .tactic-title { font-weight: 800; color: #0369a1; margin-bottom: 8px; font-size: 1rem; }
+        .no-bg-block { padding: 14px 20px; margin: 20px 0; border-radius: 16px; }
+        .light-block { background: #ffe6cc; border-left: 6px solid #e03a3a; padding: 14px 20px; margin: 20px 0; border-radius: 16px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
+        .child-condition-block { background: #d9f0d9; border-left: 6px solid #2e7d32; padding: 14px 20px; margin: 20px 0; border-radius: 16px; }
+        .red-block { background: #ffb3b3; border-left: 6px solid #b91c1c; padding: 14px 20px; margin: 20px 0; border-radius: 16px; }
+        .child-red-block { background: #ffb3b3; border-left: 6px solid #b91c1c; padding: 14px 20px; margin: 20px 0; border-radius: 16px; }
+        .condition-title { font-weight: 800; color: #b91c1c; margin-bottom: 10px; font-size: 1rem; }
+        .drug-name { background: #f3f3f3; font-family: monospace; padding: 2px 8px; border-radius: 20px; font-weight: 800; color: #1a3c4a; display: inline-block; }
+        .highlight-number { font-weight: 800; color: #c2410c; background: #fff0d0; padding: 0 4px; border-radius: 10px; }
+        .bold-black { font-weight: 800; color: #000000; background: transparent; }
+        .italic-bold-ref { font-weight: 800; font-style: italic; background: transparent; color: #0a2f44; text-decoration: underline; cursor: pointer; }
+        .italic-bold-static { font-weight: 800; font-style: italic; background: transparent; color: #0a2f44; }
+        #imageModal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.9); justify-content: center; align-items: center; flex-direction: column; }
+        #imageModal .modal-close-img { position: absolute; top: 20px; right: 35px; color: #fff; font-size: 40px; font-weight: bold; cursor: pointer; background: none; border: none; z-index: 2001; }
+        #modalImage { max-width: 90%; max-height: 70%; object-fit: contain; }
+        #navContainer { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); display: none; gap: 30px; align-items: center; justify-content: center; background-color: rgba(0, 0, 0, 0.5); padding: 6px 20px; border-radius: 40px; z-index: 2001; }
+        #prevBtn, #nextBtn { background-color: transparent; color: white; font-size: 28px; font-weight: bold; border: none; cursor: pointer; padding: 0 12px; }
+        #imageCounter { color: white; background-color: rgba(0, 0, 0, 0.6); padding: 4px 12px; border-radius: 20px; font-size: 14px; font-weight: bold; }
         @media (max-width: 700px) {
-            .field-item strong {
-                min-width: 170px;
-            }
-            .full-width-text strong {
-                min-width: 170px;
-            }
-            .content {
-                padding: 20px;
-            }
-            .modal-body {
-                padding: 16px;
-            }
-            .btn-algorithm {
-                padding: 8px 22px;
-                font-size: 1rem;
-            }
-            .btn-hint {
-                font-size: 0.65rem;
-            }
+            body { padding: 16px 10px; }
+            .mkb-row { padding: 14px 18px; font-size: 0.95rem; }
+            .diagnosis { padding: 10px 18px; font-size: 0.9rem; }
+            .content { padding: 16px; }
+            .section { margin-bottom: 20px; }
+            .section-title { font-size: 1.15rem; padding-left: 12px; margin-bottom: 12px; }
+            .field-item { font-size: 0.85rem; padding: 4px 0 4px 4px; }
+            .field-item strong { min-width: 140px; }
+            .full-width-text { font-size: 0.85rem; padding: 6px 0 6px 4px; }
+            .full-width-text strong { min-width: 140px; }
+            .status-local { padding: 10px 14px; font-size: 0.85rem; }
+            .scales-list { padding: 10px 14px; }
+            .scales-list p { font-size: 0.85rem; margin: 6px 0; }
+            .btn-algorithm { padding: 8px 22px; font-size: 1rem; }
+            .btn-hint { font-size: 0.65rem; }
+            .modal-overlay { padding: 10px; align-items: center; }
+            .modal-container { max-height: 90vh; border-radius: 20px; }
+            .modal-header { padding: 14px 18px; }
+            .modal-header h2 { font-size: 1rem; }
+            .modal-body { padding: 20px; }
+            .list-styled { margin-left: 20px; }
+            .adult-block, .child-block { padding-left: 14px; }
+        }
+        @media (max-width: 480px) {
+            .field-item strong { min-width: 120px; }
+            .full-width-text strong { min-width: 120px; }
+            .btn-algorithm { padding: 10px 18px; font-size: 0.9rem; border-radius: 40px; }
         }
     </style>
 </head>
@@ -445,10 +127,9 @@
         <!-- АНАМНЕЗ -->
         <div class="section">
             <div class="section-title">📋 АНАМНЕЗ</div>
-            <div class="full-width-text"><strong>Anamnesis morbi:</strong> Со слов, считает себя больным в течение нескольких дней, когда появилась тошнота, сильные схваткообразные боли в эпигастрии, 5-6 раз была рвота съеденной пищей. Затем присоединился обильный водянистый стул без примесей до 7-8 раз, озноб, ломота в теле, температура 38,0°С. За медпомощью не обращался, самостоятельно принимал препараты. Сегодня состояние значительно ухудшилось - рвота участилась до 10 раз, обильная, без предшествующей тошноты, обильный жидкий стул до 16-18 раз, белесоватого цвета, жажда стала неутолимой, выраженная слабость.</div>
+            <div class="full-width-text"><strong>Anamnesis morbi:</strong> Со слов, считает себя больным в течение нескольких дней, когда появилась тошнота, сильные схваткообразные боли в эпигастрии, 5–6 раз была рвота съеденной пищей. Затем присоединился обильный водянистый стул без примесей до 7–8 раз, озноб, ломота в теле, температура 38,0 °C. За медпомощью не обращался, самостоятельно принимал препараты. Сегодня состояние значительно ухудшилось — рвота участилась до 10 раз, обильная, без предшествующей тошноты, обильный жидкий стул до 16–18 раз, белесоватого цвета, жажда стала неутолимой, выраженная слабость.</div>
             <div class="full-width-text"><strong>Аллергологический анамнез:</strong> Не отягощён.</div>
-            <div class="full-width-text"><strong>Эпидемиологический анамнез:</strong> Выезды за пределы РФ, Москвы, в эндемические зоны, контакты с инфекционными больными, употребление недоброкачественной и плохо приготовленной продуктов в пищу – отрицает. Остальные члены семьи полностью здоровы.</div>
-            <div class="full-width-text"><strong>Гинекологический анамнез:</strong> Не применимо (пациент мужского пола).</div>
+            <div class="full-width-text"><strong>Эпидемиологический анамнез:</strong> Выезды за пределы РФ, Москвы, в эндемические зоны, контакты с инфекционными больными, употребление недоброкачественной и плохо приготовленной продуктов в пищу — отрицает. Остальные члены семьи полностью здоровы.</div>
         </div>
 
         <!-- ОБЪЕКТИВНО -->
@@ -459,7 +140,7 @@
                 <div class="field-item"><strong>Сознание:</strong> <span class="value">оглушение</span></div>
                 <div class="field-item"><strong>Шкала комы Глазго (GCS):</strong> <span class="value">14 баллов</span></div>
                 <div class="field-item"><strong>Положение:</strong> <span class="value">активное</span></div>
-                <div class="field-item"><strong>Кожные покровы:</strong> <span class="value">см. status localis</span></div>
+                <div class="field-item"><strong>Кожные покровы:</strong> <span class="value">бледные, холодные, липкие; акроцианоз, тургор кожи снижен значительно. Сыпи нет.</span></div>
                 <div class="field-item"><strong>Сыпь:</strong> <span class="value">нет</span></div>
                 <div class="field-item"><strong>Зев:</strong> <span class="value">розовый</span></div>
                 <div class="field-item"><strong>Миндалины:</strong> <span class="value">не увеличены, без налётов</span></div>
@@ -511,7 +192,7 @@
                 <div class="field-item"><strong>Язык:</strong> <span class="value">сухой, обложен густым белым налётом</span></div>
                 <div class="field-item"><strong>Живот:</strong> <span class="value">правильной формы, мягкий, запавший</span></div>
                 <div class="field-item"><strong>Болезненный в:</strong> <span class="value">околопупочной области</span></div>
-                <div class="field-item"><strong>Положительные симптомы:</strong> <span class="value">Симптом Образцова, Ровзинга, Ситковского, Ортнера, Мерфи, Мейо-Робсона, Щёткина-Блюмберга, Валя — отрицательные. Симптом Склярова — положительный</span></div>
+                <div class="field-item"><strong>Положительные симптомы:</strong> <span class="value">нет (живот мягкий, безболезненный). Симптом Склярова — положительный</span></div>
                 <div class="field-item"><strong>Перистальтика:</strong> <span class="value">усилена</span></div>
                 <div class="field-item"><strong>Печень:</strong> <span class="value">не увеличена</span></div>
                 <div class="field-item"><strong>Селезенка:</strong> <span class="value">не пальпируется</span></div>
@@ -528,13 +209,12 @@
                 <div class="field-item"><strong>Контакт:</strong> <span class="value">контактен</span></div>
                 <div class="field-item"><strong>Чувствительность:</strong> <span class="value">сохранена</span></div>
                 <div class="field-item"><strong>Речь:</strong> <span class="value">не нарушена</span></div>
-                <div class="field-item"><strong>Зрачки (OD, OS):</strong> <span class="value">D=S, обычные</span></div>
-                <div class="field-item"><strong>Фотореакция:</strong> <span class="value">живая</span></div>
+                <div class="field-item"><strong>Зрачки (OD, OS):</strong> <span class="value">D=S, обычные, фотореакция живая</span></div>
                 <div class="field-item"><strong>Нистагм:</strong> <span class="value">нет</span></div>
                 <div class="field-item"><strong>Асимметрия лица:</strong> <span class="value">нет</span></div>
                 <div class="field-item"><strong>Менингеальные симптомы:</strong> <span class="value">ригидность затылочных мышц, Кернига, Брудзинского — отрицательные</span></div>
                 <div class="field-item"><strong>Очаговые симптомы:</strong> <span class="value">нет</span></div>
-                <div class="field-item"><strong>Координаторные пробы:</strong> <span class="value">выполняет чётко</span></div>
+                <div class="field-item"><strong>Координаторные пробы:</strong> <span class="value">не выполняет (ввиду тяжести состояния)</span></div>
             </div>
         </div>
 
@@ -543,7 +223,7 @@
             <div class="section-title">🚽 МОЧЕПОЛОВАЯ СИСТЕМА</div>
             <div class="field-list">
                 <div class="field-item"><strong>Мочеиспускание:</strong> <span class="value">редкое, безболезненное, моча светло-жёлтая</span></div>
-                <div class="field-item"><strong>Симптом поколачивания:</strong> <span class="value">отрицателен с обеих сторон</span></div>
+                <div class="field-item"><strong>Симптом поколачивания:</strong> <span class="value">не проводился</span></div>
             </div>
         </div>
 
@@ -551,7 +231,17 @@
         <div class="section">
             <div class="section-title">🔍 STATUS LOCALIS</div>
             <div class="status-local">
-                При осмотре – кожа холодная, липкая; акроцианоз, тургор кожи снижен значительно, складки. Видимых повреждений нет.
+                При осмотре — кожа холодная, липкая; акроцианоз, тургор кожи снижен значительно, складки. Видимых повреждений нет.
+            </div>
+        </div>
+
+        <!-- ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ -->
+        <div class="section">
+            <div class="section-title">📈 ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ</div>
+            <div class="scales-list">
+                <p>✔ <strong>Пульсоксиметрия:</strong> SpO₂ — 96%.</p>
+                <p>✔ <strong>Глюкометрия:</strong> не проводилась (нет показаний).</p>
+                <p>✔ <strong>ЭКГ:</strong> не проводилась (нет показаний).</p>
             </div>
         </div>
 
@@ -559,23 +249,17 @@
         <div class="section">
             <div class="section-title">📊 ОЦЕНКА ПО ШКАЛАМ</div>
             <div class="scales-list">
-                <p>✔ <strong>Шкала NEWS2:</strong> ЧДД 20 (2 балла), t° 37,7 (1 балл), АД сист. 70 (3 балла), ЧСС 110 (2 балла), сознание оглушение (3 балла). Сумма: 11 баллов (высокий риск).</p>
-                <p>✔ <strong>Индекс Альговера:</strong> ЧСС/АДсист = 110/70 = 1,57 (тяжелый шок, значительная гиповолемия).</p>
+                <p>✔ <strong>Шкала NEWS2:</strong> <span class="highlight-number">11 баллов</span> (ЧДД 20 — 0, SpO₂ 96% — 0, t° 37,7 — 1, АД сист. 70 — 3, ЧСС 110 — 2, сознание — 3).</p>
+                <p>✔ <strong>Индекс Альговера:</strong> Индекс Альговера = ЧСС / АД сист. = 110 / 70 = 1,57 — <span class="bold-black">шок III степени (декомпенсированный)</span>.</p>
                 <p>✔ <strong>Степень эксикоза:</strong> III степень.</p>
-                <p>✔ <strong>Состояние алкогольного опьянения:</strong> запах алкоголя не определяется.</p>
+                <p>✔ <strong>Шкала боли ВАШ:</strong> не применимо.</p>
+                <p>✔ <strong>Шкала ОДН по Кассиль:</strong> не применимо.</p>
+                <p>✔ <strong>Шкала ШОКС:</strong> не применимо.</p>
+                <p>✔ <strong>Шкала риска ТЭЛА:</strong> не применимо.</p>
+                <p>✔ <strong>Шкала LAMS:</strong> не применимо.</p>
+                <p>✔ <strong>Алкогольное опьянение:</strong> не применимо.</p>
+                <p>✔ <strong>ДЭП:</strong> не применимо.</p>
             </div>
-        </div>
-
-        <!-- ПРИМЕЧАНИЕ ДЛЯ БРИГАДЫ СМП -->
-        <div class="note">
-            <strong>📌 Примечание для бригады СМП (дифференциальная диагностика):</strong><br>
-            Дифференциальный диагноз проведен с: холерой, сальмонеллезом, дизентерией, ротавирусной инфекцией, пищевой токсикоинфекцией, острым панкреатитом, острым аппендицитом.<br><br>
-            <strong>Ключевые признаки:</strong><br>
-            – Профузная диарея (до 16-18 раз).<br>
-            – Многократная рвота (до 10 раз).<br>
-            – Признаки тяжелого обезвоживания.<br>
-            – Гипотензия (АД 70/40), тахикардия (ЧСС 110).<br>
-            – Олигурия, сознание: оглушение.
         </div>
 
         <!-- КРАСНАЯ КНОПКА -->
@@ -588,148 +272,217 @@
     </div>
 </div>
 
-<!-- МОДАЛЬНОЕ ОКНО -->
+<!-- МОДАЛЬНОЕ ОКНО — Сценарий B -->
 <div class="modal-overlay" id="algorithmModal">
     <div class="modal-container">
         <div class="modal-header">
-            <h2>📋 Алгоритм оказания помощи (МСК)</h2>
+            <h2>Алгоритм оказания помощи (МСК)</h2>
             <button class="modal-close" id="closeModalBtn">&times;</button>
         </div>
         <div class="modal-body">
-            <!-- ВЗРОСЛЫЕ -->
-            <div class="alg-section">
-                <div class="alg-title">🔹 A02–A05 — Острые кишечные инфекции. Бактериальное пищевое отравление (взрослые)</div>
-                <div class="condition-block">
+
+            <div class="adult-block">
+                <div class="adult-header">
+                    <span class="badge-adult">ВЗРОСЛЫЙ ПРОТОКОЛ</span>
+                </div>
+
+                <div class="no-bg-block">
+                    <div style="font-weight: 800; color: #b91c1c; margin-bottom: 10px; font-size: 1rem;">A02–A05 — Острые кишечные инфекции. Бактериальное пищевое отравление</div>
+                </div>
+
+                <ul class="list-styled">
+                    <li>Оценка степени дегидратации <span class="italic-bold-ref" onclick="openImage('dehydration-adult.png'); return false;">(см. «Приложение 28»)</span></li>
+                    <li><span class="drug-name">Активированный уголь 5000 мг</span> размешать в воде, принять внутрь</li>
+                </ul>
+
+                <div class="light-block">
+                    <div class="condition-title">– при температуре тела &gt; 38°С</div>
                     <ul class="list-styled">
-                        <li>Оценка степени дегидратации (см. «Приложение 28»)</li>
-                        <li>Активированный уголь 5000 мг размешать в воде, принять внутрь</li>
+                        <li><span class="drug-name">Парацетамол 500 мг</span> внутрь или <span class="drug-name">Анальгин (Метамизол натрия) 1000 мг (2 мл)</span> в/венно</li>
                     </ul>
                 </div>
-                <div class="condition-block">
-                    <div class="condition-title">▶ при температуре тела > 38°С</div>
-                    <ul class="list-styled"><li>Парацетамол 500 мг внутрь или Метамизол натрия 1000 мг (2 мл) в/венно</li></ul>
-                </div>
-                <div class="condition-block">
-                    <div class="condition-title">▶ при боли в животе</div>
-                    <ul class="list-styled"><li>Дротаверин 40 мг (2 мл) в/мышечно</li></ul>
-                </div>
-                <div class="condition-block">
-                    <div class="condition-title">▶ при многократной рвоте</div>
-                    <ul class="list-styled"><li>Метоклопрамид 10 мг (2 мл) в/мышечно</li></ul>
-                </div>
-                <!-- Тактика 1 (ОКИ) -->
-                <div class="tactic-block">
-                    <div class="tactic-title">▶ Тактика ведения (ОКИ):</div>
-                    <ul class="list-styled" style="margin-top: 4px;">
-                        <li>1. Медицинская эвакуация в больницу (13):<br>– беременных и родильниц<br>– лиц из закрытых организованных коллективов<br>– при отсутствии эффекта от проводимой амбулаторной терапии в течение 5 суток<br>– больные острыми кишечными инфекциями, прибывшие из эндемичных стран в течение 5-ти дней с момента прибытия и больные, прибывшие из зарубежных стран, при наличии у них проявлений дисфункции желудочно-кишечного тракта – в первые 5 дней после прибытия.<br>Транспортировка на носилках при обезвоживании II, III, IV степени</li>
-                        <li>2. При отказе от медицинской эвакуации в больницу – рекомендовать обратиться в поликлинику (35)</li>
-                        <li>3. Рекомендовать обратиться в поликлинику в клинических ситуациях, не указанных в п. 1 (34)</li>
-                    </ul>
-                </div>
-                <!-- Дегидратация -->
-                <div style="margin-bottom: 8px; margin-top: 16px;"><span style="font-weight: 700; color: #a51c1c;">▶ при обезвоживании</span></div>
-                <div style="margin-bottom: 4px; font-weight: 700; color: #1e4663; padding-left: 8px;">Дегидратация, уменьшение объема жидкости, гиповолемический шок</div>
-                <div class="condition-block">
+
+                <div class="light-block">
+                    <div class="condition-title">– при боли в животе</div>
                     <ul class="list-styled">
-                        <li>Пульсоксиметрия</li><li>ЭКГ-мониторинг</li><li>Катетеризация вены или внутрикостный доступ</li>
-                        <li>Стерофундин (Натрия хлорид+калия хлорид+кальция хлорида дигидрат+магния хлорида гексагидрат+натрия ацетата тригидрат+яблочная кислота) 500–1000 мл в/венно капельно со скоростью 10 мл/кг/час</li>
+                        <li><span class="drug-name">Но-шпа (Дротаверин) 40 мг (2 мл)</span> в/мышечно</li>
                     </ul>
-                    <div class="condition-title" style="margin-top: 8px;">При сохранении САД < 80 мм рт.ст.:</div>
-                    <ul class="list-styled"><li>Установка второго в/венного катетера</li></ul>
-                    <div class="condition-title" style="margin-top: 8px;">Одновременно с инфузией солевого раствора:</div>
-                    <ul class="list-styled"><li>Норэпинефрин 0,5–5 мкг/кг/мин в разведении Декстрозы 5% в/венно через шприцевой дозатор или капельно (см. «Приложение 35»)</li></ul>
                 </div>
-                <div class="condition-block">
-                    <div class="condition-title">▶ развитие гиповолемии на фоне рвоты</div>
-                    <ul class="list-styled"><li>Натрия хлорид 0,9% – 500 мл в/венно капельно со скоростью 10 мл/кг/час</li></ul>
+
+                <div class="light-block">
+                    <div class="condition-title">– при многократной рвоте</div>
+                    <ul class="list-styled">
+                        <li><span class="drug-name">Церукал (Метоклопрамид) 10 мг (2 мл)</span> в/мышечно</li>
+                    </ul>
                 </div>
-                <div class="warning-block">
-                    <div class="warning-title">▶ при коме</div>
-                    <ul class="list-styled"><li>Санация верхних дыхательных путей</li><li>Интубация трахеи или применение надгортанного герметизирующего устройства (см. «Приложение 4»)</li><li>ИВЛ/ВВЛ (см. «Приложение 6»)</li><li>Капнометрия-капнография (для бригад АиР). Целевые значения EtCO₂ – 35–40 мм рт.ст.</li></ul>
-                </div>
-                <!-- Тактика 2 (Дегидратация) ИСПРАВЛЕНО -->
+
                 <div class="tactic-block">
-                    <div class="tactic-title">▶ Тактика ведения (при обезвоживании):</div>
-                    <ul class="list-styled" style="margin-top: 4px;">
-                        <li>1. Медицинская эвакуация в больницу (13):<br>- при обезвоживании 2 степени и выше<br>- при тяжелом течении, обусловленном выраженным интоксикационным синдромом с гемодинамическими нарушениями<br>- по эпидпоказаниям.<br>Транспортировка на носилках</li>
-                        <li>2. При отказе от медицинской эвакуации в больницу – активный аудиоконтроль (55)</li>
-                        <li>3. При повторном отказе от медицинской эвакуации в больницу – рекомендовать обратиться в поликлинику (34)</li>
+                    <div class="tactic-title">▶ Тактика (ОКИ):</div>
+                    <ul class="list-styled">
+                        <li>1. Медицинская эвакуация в больницу <span class="bold-black">(13)</span>:<br>– беременных и родильниц<br>– лиц из закрытых организованных коллективов<br>– при отсутствии эффекта от проводимой амбулаторной терапии в течение 5 суток<br>– больные острыми кишечными инфекциями, прибывшие из эндемичных стран в течение 5-ти дней с момента прибытия и больные, прибывшие из зарубежных стран, при наличии у них проявлений дисфункции желудочно-кишечного тракта – в первые 5 дней после прибытия. Транспортировка на носилках при обезвоживании II, III, IV степени</li>
+                        <li>2. При отказе от медицинской эвакуации в больницу – рекомендовать обратиться в поликлинику <span class="bold-black">(35)</span></li>
+                        <li>3. Рекомендовать обратиться в поликлинику в клинических ситуациях, не указанных в п. 1 <span class="bold-black">(34)</span></li>
+                    </ul>
+                </div>
+
+                <div class="no-bg-block">
+                    <div class="condition-title">– при обезвоживании</div>
+                    <div style="font-weight: 700; color: #1e4663; margin-bottom: 8px; font-size: 0.95rem;">Дегидратация, уменьшение объема жидкости, гиповолемический шок</div>
+                    <ul class="list-styled">
+                        <li>Пульсоксиметрия</li>
+                        <li>ЭКГ-мониторинг</li>
+                        <li>Катетеризация вены или внутрикостный доступ</li>
+                        <li><span class="drug-name">Стерофундин (Натрия хлорид + калия хлорид + кальция хлорида дигидрат + магния хлорида гексагидрат + натрия ацетата тригидрат + яблочная кислота) 500–1000 мл</span> в/венно капельно со скоростью <span class="highlight-number">10 мл/кг/час</span></li>
+                    </ul>
+                    <div class="condition-title" style="margin-top: 8px;">– при сохранении САД &lt; 80 мм рт.ст.:</div>
+                    <ul class="list-styled">
+                        <li>Установка второго в/венного катетера</li>
+                    </ul>
+                    <div class="condition-title" style="margin-top: 8px;">– одновременно с инфузией солевого раствора:</div>
+                    <ul class="list-styled">
+                        <li><span class="drug-name">Норадреналин (Норэпинефрин) 0,5–5 мкг/кг/мин</span> в разведении <span class="drug-name">Глюкозы 5% (Декстрозы)</span> в/венно через шприцевой дозатор или капельно <a href="/SMP/norepinephrine-adult.html" class="italic-bold-ref">(см. «Приложение 35»)</a></li>
+                    </ul>
+                    <div class="condition-title" style="margin-top: 8px;">– развитие гиповолемии на фоне рвоты:</div>
+                    <ul class="list-styled">
+                        <li><span class="drug-name">Натрия хлорид 0,9% — 500 мл</span> в/венно капельно со скоростью <span class="highlight-number">10 мл/кг/час</span></li>
+                    </ul>
+                </div>
+
+                <div class="red-block">
+                    <div class="condition-title">– при коме</div>
+                    <ul class="list-styled">
+                        <li>Санация верхних дыхательных путей</li>
+                        <li>Интубация трахеи или применение надгортанного герметизирующего устройства <span class="italic-bold-ref" onclick="openImage('airway-management-adult.png'); return false;">(см. «Приложение 4»)</span></li>
+                        <li>ИВЛ/ВВЛ <span class="italic-bold-ref" onclick="openImage('respiratory-support-spontaneous.jpg'); return false;">(см. «Приложение 6»)</span></li>
+                        <li>Капнометрия-капнография (для бригад АиР). Целевые значения EtCO₂ — <span class="highlight-number">35–40 мм рт.ст.</span></li>
+                    </ul>
+                </div>
+
+                <div class="tactic-block">
+                    <div class="tactic-title">▶ Тактика (при обезвоживании):</div>
+                    <ul class="list-styled">
+                        <li>1. Медицинская эвакуация в больницу <span class="bold-black">(13)</span>:<br>– при обезвоживании II степени и выше<br>– при тяжелом течении, обусловленном выраженным интоксикационным синдромом с гемодинамическими нарушениями<br>– по эпидпоказаниям. Транспортировка на носилках</li>
+                        <li>2. При отказе от медицинской эвакуации в больницу – активный аудиоконтроль <span class="bold-black">(55)</span></li>
+                        <li>3. При повторном отказе от медицинской эвакуации в больницу – рекомендовать обратиться в поликлинику <span class="bold-black">(34)</span></li>
                     </ul>
                 </div>
             </div>
-            <hr>
-            <!-- ДЕТИ -->
-            <div class="alg-section child-section">
-                <div class="alg-title">🔹 A02–A05 — Острые кишечные инфекции. Бактериальное пищевое отравление (дети)</div>
-                <div class="condition-block">
+
+            <div class="child-block">
+                <div class="child-header">
+                    <span class="badge-child">ДЕТСКИЙ ПРОТОКОЛ</span>
+                </div>
+
+                <div class="no-bg-block">
+                    <div style="font-weight: 800; color: #2e7d32; margin-bottom: 10px; font-size: 1rem;">A02–A05 — Острые кишечные инфекции. Бактериальное пищевое отравление</div>
+                </div>
+
+                <ul class="list-styled">
+                    <li>Оценка степени дегидратации <span class="italic-bold-ref" onclick="openImage('dehydration-child.png'); return false;">(см. «Приложение 29»)</span></li>
+                    <li><span class="drug-name">Активированный уголь 0,05 г/кг</span> или <span class="drug-name">Полифепан (Лигнин гидролизный)</span> <span class="bold-black">до 1 года</span> – по 1 ч.ложке на прием, <span class="bold-black">1–7 лет</span> – по 1 дес. ложке, <span class="bold-black">7 лет и старше</span> – по 1 ст. ложке размешать в воде, принять внутрь</li>
+                </ul>
+
+                <div class="child-condition-block">
+                    <div class="condition-title" style="color: #2e7d32;">– при температуре тела ≥ 38,5°С</div>
                     <ul class="list-styled">
-                        <li>Оценка степени дегидратации (см. «Приложение 29»)</li>
-                        <li>Активированный уголь 0,05 г/кг или Лигнин гидролизный до 1 года – по 1 ч.ложке на прием, 1–7 лет – по 1 дес. ложке, 7 лет и старше – по 1 ст. ложке размешать в воде, принять внутрь</li>
+                        <li><span class="drug-name">Парацетамол 15 мг/кг</span> внутрь или суппозитории ректально или <span class="drug-name">Анальгин (Метамизол натрия) 10 мг/кг (0,02 мл/кг)</span> в/венно или в/мышечно</li>
                     </ul>
                 </div>
-                <div class="condition-block">
-                    <div class="condition-title">▶ при температуре тела ≥ 38,5°С</div>
-                    <ul class="list-styled"><li>Парацетамол 15 мг/кг внутрь или суппозитории ректально или Метамизол натрия 10 мг/кг (0,02 мл/кг) в/венно или в/мышечно</li></ul>
-                </div>
-                <div class="condition-block">
-                    <div class="condition-title">▶ при боли в животе</div>
-                    <ul class="list-styled"><li>Платифиллин 0,2% подкожно до 1 года – 0,035 мг/кг (0,0175 мл/кг); 1–5 лет – 0,03 мг/кг (0,015 мл/кг); 6–10 лет – 0,025 мг/кг (0,125 мл/кг); с 11 лет – 0,02 мг/кг (0,01 мл/кг)</li></ul>
-                </div>
-                <div class="condition-block">
-                    <div class="condition-title">▶ при многократной рвоте</div>
-                    <ul class="list-styled"><li>Метоклопрамид 0,02 мл/кг, не более 1 мл до 12 лет, с 12 лет – 2 мл в/мышечно</li></ul>
-                </div>
-                <!-- Тактика 1 (ОКИ) -->
-                <div class="tactic-block">
-                    <div class="tactic-title">▶ Тактика ведения (ОКИ):</div>
-                    <ul class="list-styled" style="margin-top: 4px;">
-                        <li>1. Медицинская эвакуация в больницу (13):<br>– при тяжелом и осложненном течении<br>– детей до 3-х лет<br>– лиц из организованных закрытых коллективов<br>– при отсутствии эффекта от проводимой амбулаторной терапии в течение 5 суток<br>– при наличии проявлений дисфункций желудочно-кишечного тракта у прибывших из эндемичных и зарубежных по карантинным инфекциям стран (районов) в течение 5 дней до начала заболевания.<br>Транспортировка на носилках при эксикозе II, III степени</li>
-                        <li>2. При отказе от медицинской эвакуации в больницу – актив в поликлинику (27)</li>
-                        <li>3. Рекомендовать обратиться в поликлинику в клинических ситуациях, не указанных в п. 1 (34)</li>
-                    </ul>
-                </div>
-                <!-- Дегидратация -->
-                <div style="margin-bottom: 8px; margin-top: 16px;"><span style="font-weight: 700; color: #1b5e20;">▶ при обезвоживании</span></div>
-                <div style="margin-bottom: 4px; font-weight: 700; color: #1b5e20; padding-left: 8px;">Дегидратация, уменьшение объема жидкости, гиповолемический шок</div>
-                <div class="condition-block">
+
+                <div class="child-condition-block">
+                    <div class="condition-title" style="color: #2e7d32;">– при боли в животе</div>
                     <ul class="list-styled">
-                        <li>Пульсоксиметрия</li><li>ЭКГ-мониторинг</li><li>Катетеризация вены или внутрикостный доступ</li>
-                        <li>Стерофундин (Натрия хлорид+калия хлорид+кальция хлорида дигидрат+магния хлорида гексагидрат+натрия ацетата тригидрат+яблочная кислота) 20 мл/кг в/венно болюсно или через шприцевой дозатор в течение 10 минут</li>
+                        <li><span class="drug-name">Платифиллин 0,2%</span> подкожно<br><span class="bold-black">до 1 года</span> – <span class="highlight-number">0,035 мг/кг (0,0175 мл/кг)</span>; <span class="bold-black">1–5 лет</span> – <span class="highlight-number">0,03 мг/кг (0,015 мл/кг)</span>; <span class="bold-black">6–10 лет</span> – <span class="highlight-number">0,025 мг/кг (0,125 мл/кг)</span>; <span class="bold-black">с 11 лет</span> – <span class="highlight-number">0,02 мг/кг (0,01 мл/кг)</span></li>
                     </ul>
-                    <div class="condition-title" style="margin-top: 8px;">При отсутствии эффекта – через 10 минут:</div>
-                    <ul class="list-styled"><li>Стерофундин или Натрия хлорид 0,9% – 20 мл/кг в/венно болюсно или через шприцевой дозатор в течение 10–15 мин</li></ul>
-                    <div class="condition-title" style="margin-top: 8px;">При положительном эффекте продолжить инфузию:</div>
-                    <ul class="list-styled"><li>Стерофундин или Натрия хлорид 0,9% – 10 мл/кг в/венно капельно</li></ul>
-                    <div class="condition-title" style="margin-top: 8px;">При отсутствии эффекта:</div>
-                    <ul class="list-styled"><li>Норэпинефрин 0,1–0,5 мкг/кг/мин или Допамин 10–20 мкг/кг/мин в разведении Натрия хлорида 0,9% в/венно капельно или через шприцевой дозатор (см. «Приложения 36, 32»)</li></ul>
                 </div>
-                <div class="condition-block">
-                    <div class="condition-title">▶ развитие гиповолемии на фоне рвоты</div>
-                    <ul class="list-styled"><li>Натрия хлорид 0,9% – 20 мл/кг в/венно болюсно или через шприцевой дозатор в течение 10 минут</li></ul>
+
+                <div class="child-condition-block">
+                    <div class="condition-title" style="color: #2e7d32;">– при многократной рвоте</div>
+                    <ul class="list-styled">
+                        <li><span class="drug-name">Церукал (Метоклопрамид) 0,02 мл/кг</span>, не более <span class="highlight-number">1 мл</span> до 12 лет, с 12 лет – <span class="highlight-number">2 мл</span> в/мышечно</li>
+                    </ul>
                 </div>
-                <div class="warning-block">
-                    <div class="warning-title">▶ при коме</div>
-                    <ul class="list-styled"><li>Интубация трахеи или применение надгортанного герметизирующего устройства (см. «Приложение 3»)</li><li>ИВЛ/ВВЛ (см. «Приложение 6»)</li><li>Капнометрия-капнография (для бригад АиР)</li></ul>
-                </div>
-                <!-- Тактика 2 (Дегидратация) ИСПРАВЛЕНО -->
+
                 <div class="tactic-block">
-                    <div class="tactic-title">▶ Тактика ведения (при обезвоживании):</div>
-                    <ul class="list-styled" style="margin-top: 4px;">
-                        <li>1. Медицинская эвакуация в больницу (13):<br>- при обезвоживании 2 степени и выше<br>- при тяжелом течении, обусловленном выраженным интоксикационным синдромом с гемодинамическими нарушениями<br>- у детей до 3 лет<br>- по эпидпоказаниям.<br>Транспортировка на носилках</li>
-                        <li>2. При отказе от медицинской эвакуации в больницу – актив в поликлинику (27)</li>
+                    <div class="tactic-title">▶ Тактика (ОКИ):</div>
+                    <ul class="list-styled">
+                        <li>1. Медицинская эвакуация в больницу <span class="bold-black">(13)</span>:<br>– при тяжелом и осложненном течении<br>– детей до 3-х лет<br>– лиц из организованных закрытых коллективов<br>– при отсутствии эффекта от проводимой амбулаторной терапии в течение 5 суток<br>– при наличии проявлений дисфункций желудочно-кишечного тракта у прибывших из эндемичных и зарубежных по карантинным инфекциям стран (районов) в течение 5 дней до начала заболевания. Транспортировка на носилках при эксикозе II, III степени</li>
+                        <li>2. При отказе от медицинской эвакуации в больницу – актив в поликлинику <span class="bold-black">(27)</span></li>
+                        <li>3. Рекомендовать обратиться в поликлинику в клинических ситуациях, не указанных в п. 1 <span class="bold-black">(34)</span></li>
+                    </ul>
+                </div>
+
+                <div class="no-bg-block">
+                    <div class="condition-title">– при обезвоживании</div>
+                    <div style="font-weight: 700; color: #2e7d32; margin-bottom: 8px; font-size: 0.95rem;">Дегидратация, уменьшение объема жидкости, гиповолемический шок</div>
+                    <ul class="list-styled">
+                        <li>Пульсоксиметрия</li>
+                        <li>ЭКГ-мониторинг</li>
+                        <li>Катетеризация вены или внутрикостный доступ</li>
+                        <li><span class="drug-name">Стерофундин (Натрия хлорид + калия хлорид + кальция хлорида дигидрат + магния хлорида гексагидрат + натрия ацетата тригидрат + яблочная кислота) 20 мл/кг</span> в/венно болюсно или через шприцевой дозатор в течение <span class="highlight-number">10 минут</span></li>
+                    </ul>
+                    <div class="condition-title" style="margin-top: 8px;">– при отсутствии эффекта — через 10 минут:</div>
+                    <ul class="list-styled">
+                        <li><span class="drug-name">Стерофундин</span> или <span class="drug-name">Натрия хлорид 0,9% — 20 мл/кг</span> в/венно болюсно или через шприцевой дозатор в течение <span class="highlight-number">10–15 минут</span></li>
+                    </ul>
+                    <div class="condition-title" style="margin-top: 8px;">– при положительном эффекте продолжить инфузию:</div>
+                    <ul class="list-styled">
+                        <li><span class="drug-name">Стерофундин</span> или <span class="drug-name">Натрия хлорид 0,9% — 10 мл/кг</span> в/венно капельно</li>
+                    </ul>
+                    <div class="condition-title" style="margin-top: 8px;">– при отсутствии эффекта:</div>
+                    <ul class="list-styled">
+                        <li><span class="drug-name">Норадреналин (Норэпинефрин) 0,1–0,5 мкг/кг/мин</span> или <span class="drug-name">Допамин 10–20 мкг/кг/мин</span> в разведении <span class="drug-name">Натрия хлорида 0,9%</span> в/венно капельно или через шприцевой дозатор <a href="/SMP/norepinephrine-child.html" class="italic-bold-ref">(см. «Приложение 36»)</a>, <a href="/SMP/dopamine-child.html" class="italic-bold-ref">(см. «Приложение 32»)</a></li>
+                    </ul>
+                    <div class="condition-title" style="margin-top: 8px;">– развитие гиповолемии на фоне рвоты:</div>
+                    <ul class="list-styled">
+                        <li><span class="drug-name">Натрия хлорид 0,9% — 20 мл/кг</span> в/венно болюсно или через шприцевой дозатор в течение <span class="highlight-number">10 минут</span></li>
+                    </ul>
+                </div>
+
+                <div class="child-red-block">
+                    <div class="condition-title">– при коме</div>
+                    <ul class="list-styled">
+                        <li>Интубация трахеи или применение надгортанного герметизирующего устройства <span class="italic-bold-ref" onclick="openImage('airway-management-child.png'); return false;">(см. «Приложение 3»)</span></li>
+                        <li>ИВЛ/ВВЛ <span class="italic-bold-ref" onclick="openImage('respiratory-support-spontaneous.jpg'); return false;">(см. «Приложение 6»)</span></li>
+                        <li>Капнометрия-капнография (для бригад АиР)</li>
+                    </ul>
+                </div>
+
+                <div class="tactic-block">
+                    <div class="tactic-title">▶ Тактика (при обезвоживании):</div>
+                    <ul class="list-styled">
+                        <li>1. Медицинская эвакуация в больницу <span class="bold-black">(13)</span>:<br>– при обезвоживании II степени и выше<br>– при тяжелом течении, обусловленном выраженным интоксикационным синдромом с гемодинамическими нарушениями<br>– у детей до 3 лет<br>– по эпидпоказаниям. Транспортировка на носилках</li>
+                        <li>2. При отказе от медицинской эвакуации в больницу – актив в поликлинику <span class="bold-black">(27)</span></li>
                     </ul>
                 </div>
             </div>
+
         </div>
     </div>
 </div>
 
+<!-- МОДАЛЬНОЕ ОКНО ДЛЯ ИЗОБРАЖЕНИЙ -->
+<div id="imageModal">
+    <button class="modal-close-img" onclick="document.getElementById('imageModal').style.display='none'; isGalleryMode=false; currentGallery=[];">&times;</button>
+    <img id="modalImage" src="" alt="Изображение">
+    <div id="navContainer">
+        <button id="prevBtn">❮</button>
+        <span id="imageCounter">1 / 2</span>
+        <button id="nextBtn">❯</button>
+    </div>
+</div>
+
 <script>
+    /* ============================================================
+       УПРАВЛЕНИЕ МОДАЛЬНЫМ ОКНОМ + HISTORY API
+       (PWA: кнопка «Назад» закрывает модалку, а не приложение)
+       ============================================================ */
     const modal = document.getElementById('algorithmModal');
     const openBtn = document.getElementById('openAlgorithmBtn');
     const closeBtn = document.getElementById('closeModalBtn');
 
     function openModal() {
+        window.history.pushState({ modal: 'algorithm' }, '');
         modal.classList.add('active');
         document.body.style.overflow = 'hidden';
     }
@@ -749,6 +502,67 @@
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && modal.classList.contains('active')) {
             closeModal();
+        }
+    });
+    window.addEventListener('popstate', function () {
+        if (modal.classList.contains('active')) {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    });
+
+    /* ============================================================
+       ГАЛЕРЕЯ ИЗОБРАЖЕНИЙ + UNICODE NFC-НОРМАЛИЗАЦИЯ (§18, п.89)
+       ============================================================ */
+    let currentGallery = [];
+    let currentIndex = 0;
+    let isGalleryMode = false;
+
+    function openImage(imagePath) {
+        isGalleryMode = false;
+        currentGallery = [];
+        document.getElementById('navContainer').style.display = 'none';
+        document.getElementById('imageModal').style.display = 'flex';
+        document.getElementById('modalImage').src = imagePath.normalize('NFC');
+    }
+
+    function openImageGallery(images) {
+        isGalleryMode = true;
+        currentGallery = images.map(p => p.normalize('NFC'));
+        currentIndex = 0;
+        document.getElementById('navContainer').style.display = 'flex';
+        document.getElementById('imageModal').style.display = 'flex';
+        document.getElementById('modalImage').src = currentGallery[currentIndex];
+        document.getElementById('imageCounter').textContent = `${currentIndex + 1} / ${currentGallery.length}`;
+        updateNavButtons();
+    }
+
+    function updateNavButtons() {
+        document.getElementById('prevBtn').style.opacity = currentIndex === 0 ? '0.4' : '1';
+        document.getElementById('nextBtn').style.opacity = currentIndex === currentGallery.length - 1 ? '0.4' : '1';
+    }
+
+    document.getElementById('prevBtn').addEventListener('click', function() {
+        if (!isGalleryMode || currentIndex === 0) return;
+        currentIndex--;
+        document.getElementById('modalImage').src = currentGallery[currentIndex];
+        document.getElementById('imageCounter').textContent = `${currentIndex + 1} / ${currentGallery.length}`;
+        updateNavButtons();
+    });
+
+    document.getElementById('nextBtn').addEventListener('click', function() {
+        if (!isGalleryMode || currentIndex === currentGallery.length - 1) return;
+        currentIndex++;
+        document.getElementById('modalImage').src = currentGallery[currentIndex];
+        document.getElementById('imageCounter').textContent = `${currentIndex + 1} / ${currentGallery.length}`;
+        updateNavButtons();
+    });
+
+    document.getElementById('imageModal').addEventListener('click', function(e) {
+        if (e.target === this) {
+            this.style.display = 'none';
+            isGalleryMode = false;
+            currentGallery = [];
         }
     });
 </script>
