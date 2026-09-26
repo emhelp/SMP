@@ -2,428 +2,107 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Карта вызова скорой медицинской помощи | Бактериальный менингит (ребенок 13 лет, тяжелое течение)</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background-color: #e9ecef;
-            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
-            padding: 40px 20px;
-            color: #212529;
-            line-height: 1.45;
-        }
-
-        .card {
-            max-width: 1100px;
-            margin: 0 auto;
-            background-color: #ffffff;
-            border-radius: 20px;
-            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.15);
-            overflow: hidden;
-            border: 1px solid #dee2e6;
-        }
-
-        .mkb-row {
-            background: linear-gradient(135deg, #0b3b5f 0%, #1a4d6f 100%);
-            color: white;
-            padding: 20px 32px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            border-bottom: 4px solid #ffc107;
-        }
-
-        .mkb-row span {
-            font-weight: 700;
-            color: #ffc107;
-        }
-
-        .diagnosis {
-            background: #fef9e6;
-            padding: 12px 32px;
-            border-left: 6px solid #ffc107;
-            font-weight: 500;
-            font-size: 0.98rem;
-            color: #2d3e50;
-            border-bottom: 1px solid #f0e2b6;
-        }
-
-        .content {
-            padding: 24px 32px 40px 32px;
-        }
-
-        .section {
-            margin-bottom: 32px;
-            break-inside: avoid;
-            page-break-inside: avoid;
-        }
-
-        .section-title {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: #1a4d6f;
-            border-left: 6px solid #ffc107;
-            padding-left: 16px;
-            margin-bottom: 18px;
-            margin-top: 8px;
-            background: #f4f9ff;
-            border-radius: 0 12px 12px 0;
-            line-height: 1.3;
-        }
-
-        .field-list {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .field-item {
-            padding: 6px 0 4px 8px;
-            border-bottom: 1px dotted #e0e6ed;
-            font-size: 0.94rem;
-            line-height: 1.45;
-        }
-
-        .field-item strong {
-            font-weight: 700;
-            color: #1e4663;
-            display: inline-block;
-            min-width: 240px;
-        }
-
-        .field-item .value {
-            color: #2c3e4e;
-            font-weight: 500;
-        }
-
-        .full-width-text {
-            padding: 8px 0 8px 8px;
-            border-bottom: 1px dotted #e0e6ed;
-            font-size: 0.94rem;
-        }
-
-        .full-width-text strong {
-            font-weight: 700;
-            color: #1e4663;
-            display: inline-block;
-            min-width: 240px;
-        }
-
-        .status-local {
-            background: #fef7e0;
-            padding: 14px 18px;
-            border-radius: 18px;
-            margin-top: 6px;
-            border: 1px solid #ffe3a4;
-            font-size: 0.94rem;
-        }
-
-        .scales-list {
-            background: #f1f4f9;
-            padding: 12px 20px;
-            border-radius: 20px;
-            margin-top: 10px;
-        }
-
-        .scales-list p {
-            margin: 8px 0;
-        }
-
-        .note {
-            background: #e7f1ff;
-            border-left: 4px solid #1a4d6f;
-            padding: 12px 16px;
-            margin-top: 16px;
-            border-radius: 12px;
-            font-size: 0.9rem;
-            color: #1e4663;
-        }
-
-        .note-list {
-            margin-top: 8px;
-            margin-left: 20px;
-            list-style-type: none;
-            padding-left: 0;
-        }
-
-        .note-list li {
-            margin-bottom: 8px;
-            padding-left: 20px;
-            position: relative;
-        }
-
-        .note-list li:before {
-            content: "•";
-            position: absolute;
-            left: 4px;
-            color: #1a4d6f;
-            font-weight: bold;
-        }
-
-        /* ----- КНОПКА АЛГОРИТМА ----- */
-        .algorithm-btn-container {
-            margin-top: 32px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .btn-algorithm {
-            background-color: #dc2626;
-            color: white;
-            border: none;
-            padding: 10px 28px;
-            font-size: 1.15rem;
-            font-weight: 700;
-            border-radius: 50px;
-            cursor: pointer;
-            box-shadow: 0 6px 14px rgba(220, 38, 38, 0.3);
-            transition: all 0.2s ease;
-            display: inline-flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 4px;
-            letter-spacing: 0.3px;
-            border: 1px solid rgba(255,255,255,0.3);
-        }
-
-        .btn-algorithm:hover {
-            background-color: #b91c1c;
-            transform: scale(1.02);
-            box-shadow: 0 10px 20px rgba(185, 28, 28, 0.4);
-        }
-
-        .btn-algorithm:active {
-            transform: scale(0.98);
-        }
-
-        .btn-hint {
-            font-size: 0.7rem;
-            font-weight: normal;
-            opacity: 0.9;
-            letter-spacing: normal;
-            border-top: 1px dashed rgba(255,255,255,0.5);
-            padding-top: 4px;
-            margin-top: 2px;
-        }
-
-        /* ----- МОДАЛЬНОЕ ОКНО ----- */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.75);
-            backdrop-filter: blur(4px);
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            visibility: hidden;
-            opacity: 0;
-            transition: visibility 0.2s, opacity 0.2s;
-            padding: 20px;
-        }
-
-        .modal-overlay.active {
-            visibility: visible;
-            opacity: 1;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: #e9ecef; font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif; padding: 40px 20px; color: #212529; line-height: 1.45; }
+        .card { max-width: 1100px; margin: 0 auto; background-color: #ffffff; border-radius: 20px; box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.15); overflow: hidden; border: 1px solid #dee2e6; }
+        .mkb-row { background: linear-gradient(135deg, #0b3b5f 0%, #1a4d6f 100%); color: white; padding: 20px 32px; font-weight: 600; font-size: 1.1rem; border-bottom: 4px solid #ffc107; }
+        .mkb-row span { font-weight: 700; color: #ffc107; }
+        .diagnosis { background: #fef9e6; padding: 12px 32px; border-left: 6px solid #ffc107; font-weight: 500; font-size: 0.98rem; color: #2d3e50; border-bottom: 1px solid #f0e2b6; }
+        .content { padding: 24px 32px 40px 32px; }
+        .section { margin-bottom: 32px; break-inside: avoid; page-break-inside: avoid; }
+        .section-title { font-size: 1.4rem; font-weight: 700; color: #1a4d6f; border-left: 6px solid #ffc107; padding-left: 16px; margin-bottom: 18px; margin-top: 8px; background: #f4f9ff; border-radius: 0 12px 12px 0; line-height: 1.3; }
+        .field-list { display: flex; flex-direction: column; gap: 10px; }
+        .field-item { padding: 6px 0 4px 8px; border-bottom: 1px dotted #e0e6ed; font-size: 0.94rem; line-height: 1.45; }
+        .field-item strong { font-weight: 700; color: #1e4663; display: inline-block; min-width: 240px; }
+        .field-item .value { color: #2c3e4e; font-weight: 500; }
+        .full-width-text { padding: 8px 0 8px 8px; border-bottom: 1px dotted #e0e6ed; font-size: 0.94rem; }
+        .full-width-text strong { font-weight: 700; color: #1e4663; display: inline-block; min-width: 240px; }
+        .status-local { background: #fef7e0; padding: 14px 18px; border-radius: 18px; margin-top: 6px; border: 1px solid #ffe3a4; font-size: 0.94rem; }
+        .scales-list { background: #f1f4f9; padding: 12px 20px; border-radius: 20px; margin-top: 10px; }
+        .scales-list p { margin: 8px 0; }
+        .algorithm-btn-container { margin-top: 32px; margin-bottom: 20px; text-align: center; }
+        .btn-algorithm { background-color: #dc2626; color: white; border: none; padding: 10px 28px; font-size: 1.15rem; font-weight: 700; border-radius: 50px; cursor: pointer; box-shadow: 0 6px 14px rgba(220, 38, 38, 0.3); transition: all 0.2s ease; display: inline-flex; flex-direction: column; align-items: center; gap: 4px; letter-spacing: 0.3px; border: 1px solid rgba(255,255,255,0.3); max-width: 100%; }
+        .btn-algorithm:hover { background-color: #b91c1c; transform: scale(1.02); box-shadow: 0 10px 20px rgba(185, 28, 28, 0.4); }
+        .btn-algorithm:active { transform: scale(0.98); }
+        .btn-hint { font-size: 0.7rem; font-weight: normal; opacity: 0.9; letter-spacing: normal; border-top: 1px dashed rgba(255,255,255,0.5); padding-top: 4px; margin-top: 2px; }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.75); backdrop-filter: blur(4px); z-index: 1000; display: flex; align-items: center; justify-content: center; visibility: hidden; opacity: 0; transition: visibility 0.2s, opacity 0.2s; padding: 20px; }
+        .modal-overlay.active { visibility: visible; opacity: 1; }
+        /* Сценарий B (§12): короткий заголовок — шапка фиксирована */
         .modal-container {
-            background-color: #fffef7;
-            max-width: 850px;
+            max-width: 1200px;
             width: 100%;
             max-height: 85vh;
+            background-color: #fffef7;
             border-radius: 28px;
-            box-shadow: 0 25px 45px -12px black;
+            box-shadow: 0 25px 45px -12px rgba(0,0,0,0.25);
             display: flex;
             flex-direction: column;
             overflow: hidden;
+            border: 1px solid #ffd7a5;
             animation: modalFadeIn 0.25s ease-out;
         }
-
-        @keyframes modalFadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .modal-header {
-            background: #b91c1c;
-            color: white;
-            padding: 18px 24px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 3px solid #ffc107;
-        }
-
-        .modal-header h2 {
-            font-size: 1.3rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .modal-close {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 28px;
-            cursor: pointer;
-            line-height: 1;
-            transition: 0.2s;
-            padding: 0 8px;
-            border-radius: 40px;
-        }
-
-        .modal-close:hover {
-            background-color: rgba(255,255,255,0.2);
-            transform: scale(1.1);
-        }
-
-        .modal-body {
-            flex: 1;
-            overflow-y: auto;
-            padding: 24px 28px;
-            background: #fefcf5;
-            font-size: 0.95rem;
-            line-height: 1.5;
-        }
-
-        /* стили для алгоритма */
-        .alg-section {
-            margin-bottom: 24px;
-            border-left: 4px solid #dc2626;
-            padding-left: 18px;
-            background: #fff9f0;
-            border-radius: 0 14px 14px 0;
-        }
-        
-        /* ОТДЕЛЬНЫЙ КЛАСС ДЛЯ ДЕТСКОЙ СЕКЦИИ (ЗЕЛЕНАЯ ГАММА) */
-        .alg-section.child-section {
-            border-left: 4px solid #2e7d32;
-            background: #f1f8e9;
-        }
-
-        .alg-title {
-            font-weight: 800;
-            font-size: 1rem;
-            color: #a51c1c;
-            margin: 8px 0 8px 0;
-            display: inline-block;
-            background: #ffeeee;
-            padding: 4px 14px;
-            border-radius: 30px;
-        }
-        
-        .alg-section.child-section .alg-title {
-            color: #1b5e20;
-            background: #e8f5e9;
-        }
-
-        .list-styled {
-            margin: 8px 0 10px 24px;
-        }
-
-        .list-styled li {
-            margin: 6px 0;
-        }
-
-        .tactic-block {
-            background: #eef2fa;
-            border-radius: 16px;
-            padding: 12px 18px;
-            margin-top: 12px;
-            margin-bottom: 8px;
-        }
-
-        .tactic-title {
-            font-weight: 700;
-            color: #1e4663;
-            margin-bottom: 6px;
-        }
-
-        .condition-block {
-            background: #fff0d4;
-            border-left: 5px solid #dc2626;
-            padding: 10px 16px;
-            margin: 10px 0;
-            border-radius: 12px;
-        }
-        
-        /* ДЕТСКИЕ УСЛОВИЯ - ЗЕЛЕНЫЙ АКЦЕНТ */
-        .alg-section.child-section .condition-block {
-            background: #e8f5e9;
-            border-left: 5px solid #2e7d32;
-        }
-
-        .condition-title {
-            font-weight: 700;
-            color: #a51c1c;
-            margin-bottom: 6px;
-        }
-        
-        .alg-section.child-section .condition-title {
-            color: #1b5e20;
-        }
-
-        .warning-block {
-            background: #ffe6e6;
-            border-left: 5px solid #dc2626;
-            padding: 10px 16px;
-            margin: 10px 0;
-            border-radius: 12px;
-        }
-        
-        .alg-section.child-section .warning-block {
-            background: #ffebee;
-            border-left: 5px solid #c62828;
-        }
-        
-        .warning-title {
-            font-weight: 700;
-            color: #b91c1c;
-            margin-bottom: 6px;
-        }
-
-        hr {
-            margin: 16px 0;
-            border-color: #f0dbb2;
-        }
-
+        @keyframes modalFadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .modal-header { background: #c2410c; color: white; padding: 18px 28px; display: flex; justify-content: space-between; align-items: center; border-bottom: 4px solid #ffb347; flex-shrink: 0; }
+        .modal-header h2 { font-size: 1.25rem; font-weight: 700; line-height: 1.3; word-break: break-word; }
+        .modal-close { background: none; border: none; color: white; font-size: 28px; cursor: pointer; line-height: 1; transition: 0.2s; padding: 0 8px; border-radius: 40px; flex-shrink: 0; }
+        .modal-close:hover { background-color: rgba(255,255,255,0.2); transform: scale(1.1); }
+        .modal-body { flex: 1; overflow-y: auto; padding: 28px 32px; background: #fefcf5; font-size: 0.95rem; line-height: 1.5; hyphens: auto; }
+        .adult-block { border-left: 5px solid #dc2626; padding-left: 20px; background: #fff9f0; border-radius: 0 18px 18px 0; margin-bottom: 40px; }
+        .adult-header { display: flex; align-items: center; gap: 12px; margin: 10px 0 20px 0; }
+        .badge-adult { background: #c2410c; color: white; padding: 6px 14px; border-radius: 40px; font-weight: bold; }
+        .child-block { border-left: 5px solid #2e7d32; padding-left: 20px; background: #ecf7ec; border-radius: 0 18px 18px 0; margin-bottom: 20px; }
+        .child-header { display: flex; align-items: center; gap: 12px; margin: 10px 0 20px 0; }
+        .badge-child { background: #2e7d32; color: white; padding: 6px 14px; border-radius: 40px; font-weight: bold; }
+        .list-styled { margin: 12px 0 14px 28px; }
+        .list-styled li { margin: 8px 0; }
+        .tactic-block { background: #d9effa; border-radius: 20px; padding: 14px 20px; margin: 18px 0 16px 0; border-left: 4px solid #0284c7; }
+        .tactic-title { font-weight: 800; color: #0369a1; margin-bottom: 8px; font-size: 1rem; }
+        .light-block { background: #ffe6cc; border-left: 6px solid #e03a3a; padding: 14px 20px; margin: 20px 0; border-radius: 16px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
+        .child-condition-block { background: #d9f0d9; border-left: 6px solid #2e7d32; padding: 14px 20px; margin: 20px 0; border-radius: 16px; }
+        .red-block { background: #ffb3b3; border-left: 6px solid #b91c1c; padding: 14px 20px; margin: 20px 0; border-radius: 16px; }
+        .child-red-block { background: #ffb3b3; border-left: 6px solid #b91c1c; padding: 14px 20px; margin: 20px 0; border-radius: 16px; }
+        .condition-title { font-weight: 800; color: #b91c1c; margin-bottom: 10px; font-size: 1rem; }
+        .drug-name { background: #f3f3f3; font-family: monospace; padding: 2px 8px; border-radius: 20px; font-weight: 800; color: #1a3c4a; display: inline-block; }
+        .highlight-number { font-weight: 800; color: #c2410c; background: #fff0d0; padding: 0 4px; border-radius: 10px; }
+        .bold-black { font-weight: 800; color: #000000; background: transparent; }
+        .italic-bold-static { font-weight: 800; font-style: italic; background: transparent; color: #0a2f44; }
+        #imageModal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.9); justify-content: center; align-items: center; flex-direction: column; }
+        #imageModal .modal-close-img { position: absolute; top: 20px; right: 35px; color: #fff; font-size: 40px; font-weight: bold; cursor: pointer; background: none; border: none; z-index: 2001; }
+        #modalImage { max-width: 90%; max-height: 70%; object-fit: contain; }
+        #navContainer { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); display: none; gap: 30px; align-items: center; justify-content: center; background-color: rgba(0, 0, 0, 0.5); padding: 6px 20px; border-radius: 40px; z-index: 2001; }
+        #prevBtn, #nextBtn { background-color: transparent; color: white; font-size: 28px; font-weight: bold; border: none; cursor: pointer; padding: 0 12px; }
+        #imageCounter { color: white; background-color: rgba(0, 0, 0, 0.6); padding: 4px 12px; border-radius: 20px; font-size: 14px; font-weight: bold; }
         @media (max-width: 700px) {
-            .field-item strong {
-                min-width: 170px;
-            }
-            .full-width-text strong {
-                min-width: 170px;
-            }
-            .content {
-                padding: 20px;
-            }
-            .modal-body {
-                padding: 16px;
-            }
-            .btn-algorithm {
-                padding: 8px 22px;
-                font-size: 1rem;
-            }
-            .btn-hint {
-                font-size: 0.65rem;
-            }
+            body { padding: 16px 10px; }
+            .mkb-row { padding: 14px 18px; font-size: 0.95rem; }
+            .diagnosis { padding: 10px 18px; font-size: 0.9rem; }
+            .content { padding: 16px; }
+            .section { margin-bottom: 20px; }
+            .section-title { font-size: 1.15rem; padding-left: 12px; margin-bottom: 12px; }
+            .field-item { font-size: 0.85rem; padding: 4px 0 4px 4px; }
+            .field-item strong { min-width: 140px; }
+            .full-width-text { font-size: 0.85rem; padding: 6px 0 6px 4px; }
+            .full-width-text strong { min-width: 140px; }
+            .status-local { padding: 10px 14px; font-size: 0.85rem; }
+            .scales-list { padding: 10px 14px; }
+            .scales-list p { font-size: 0.85rem; margin: 6px 0; }
+            .btn-algorithm { padding: 8px 22px; font-size: 1rem; }
+            .btn-hint { font-size: 0.65rem; }
+            .modal-overlay { padding: 10px; align-items: center; }
+            .modal-container { max-height: 90vh; border-radius: 20px; }
+            .modal-header { padding: 14px 18px; }
+            .modal-header h2 { font-size: 1rem; }
+            .modal-body { padding: 20px; }
+            .list-styled { margin-left: 20px; }
+            .adult-block, .child-block { padding-left: 14px; }
+        }
+        @media (max-width: 480px) {
+            .field-item strong { min-width: 120px; }
+            .full-width-text strong { min-width: 120px; }
+            .btn-algorithm { padding: 10px 18px; font-size: 0.9rem; border-radius: 40px; }
         }
     </style>
 </head>
@@ -443,13 +122,12 @@
             <div class="full-width-text"><em>Не предъявляет по тяжести состояния.</em></div>
         </div>
 
-        <!-- АНАМНЕЗ (с жалобами со слов матери) -->
+        <!-- АНАМНЕЗ -->
         <div class="section">
             <div class="section-title">📋 АНАМНЕЗ</div>
-            <div class="full-width-text"><strong>Anamnesis morbi (со слов матери):</strong> Ребенок заболел остро 2 дня назад. Поднялась температура до 39,0°С, жаловался на головную боль, был вялым. На следующие сутки головная боль усилилась, присоединилась многократная рвота «фонтаном», не связанная с приемом пищи. Ребенок стал заторможенным, появилась светобоязнь. Мать отмечает, что ребенок жалуется на сильную головную боль («всю голову ломит»), резко усиливающуюся при попытке повернуть голову или открыть глаза; на сильный жар, озноб, ломоту во всем теле. При попытке дотронуться до кожи ребенок вскрикивает. Сегодня утром отметила, что ребенок лежит в вынужденной позе — на боку, голова запрокинута, ноги поджаты к животу. От еды и воды отказывается. Вызвала бригаду СМП.</div>
+            <div class="full-width-text"><strong>Anamnesis morbi (со слов матери):</strong> Ребенок заболел остро 2 дня назад. Поднялась температура до 39,0 °C, жаловался на головную боль, был вялым. На следующие сутки головная боль усилилась, присоединилась многократная рвота «фонтаном», не связанная с приемом пищи. Ребенок стал заторможенным, появилась светобоязнь. Мать отмечает, что ребенок жалуется на сильную головную боль («всю голову ломит»), резко усиливающуюся при попытке повернуть голову или открыть глаза; на сильный жар, озноб, ломоту во всем теле. При попытке дотронуться до кожи ребенок вскрикивает. Сегодня утром отметила, что ребенок лежит в вынужденной позе — на боку, голова запрокинута, ноги поджаты к животу. От еды и воды отказывается. Вызвала бригаду СМП.</div>
             <div class="full-width-text"><strong>Анамнез жизни:</strong> Ребенок 13 лет, рост 160 см, вес 50 кг. Привит по национальному календарю (АКДС, корь, краснуха, паротит, полиомиелит, гепатит В). Хронические заболевания отрицает. Аллергологический анамнез не отягощен.</div>
-            <div class="full-width-text"><strong>Эпидемиологический анамнез:</strong> За пределы РФ не выезжал. В школе был контакт с одноклассником, пропустившим занятия по болезни (диагноз не известен). Прививок от менингококковой инфекции не получал. В регистре COVID-19 не состоит.</div>
-            <div class="full-width-text"><strong>Гинекологический анамнез:</strong> Не применимо (пациент мужского пола, 13 лет).</div>
+            <div class="full-width-text"><strong>Эпидемиологический анамнез:</strong> За пределы РФ не выезжал. В школе был контакт с одноклассником, пропустившим занятия по болезни (диагноз не известен). Прививок от менингококковой инфекции не получал.</div>
         </div>
 
         <!-- ОБЪЕКТИВНО -->
@@ -461,7 +139,7 @@
                 <div class="field-item"><strong>Шкала комы Глазго (GCS):</strong> <span class="value">14 баллов (E3 — открывает глаза на оклик, V4 — спутанная речь/стоны, M6 — выполняет команды)</span></div>
                 <div class="field-item"><strong>Положение:</strong> <span class="value">вынужденное (менингеальная поза — лежит на боку, голова запрокинута назад, ноги согнуты и подтянуты к животу, руки согнуты в локтях и прижаты к груди)</span></div>
                 <div class="field-item"><strong>Кожные покровы:</strong> <span class="value">бледные, влажные, акроцианоз. На коже голеней и стоп — геморрагическая сыпь (петехии, единичные экхимозы)</span></div>
-                <div class="field-item"><strong>Сыпь:</strong> <span class="value">геморрагическая, мелкоточечная, не исчезает при надавливании (симптом щипка положительный)</span></div>
+                <div class="field-item"><strong>Сыпь:</strong> <span class="value">геморрагическая, мелкоточечная, не исчезает при надавливании</span></div>
                 <div class="field-item"><strong>Зев:</strong> <span class="value">умеренно гиперемирован, миндалины не увеличены, налетов нет</span></div>
                 <div class="field-item"><strong>Миндалины:</strong> <span class="value">не увеличены, чистые</span></div>
                 <div class="field-item"><strong>Лимфоузлы:</strong> <span class="value">не увеличены</span></div>
@@ -479,7 +157,8 @@
                 <div class="field-item"><strong>Одышка:</strong> <span class="value">смешанная (на фоне интоксикации и лихорадки)</span></div>
                 <div class="field-item"><strong>Патологическое дыхание:</strong> <span class="value">нет</span></div>
                 <div class="field-item"><strong>Аускультативно:</strong> <span class="value">везикулярное, ослаблено в нижних отделах (поверхностное дыхание)</span></div>
-                <div class="field-item"><strong>Хрипы:</strong> <span class="value">не выслушиваются</span></div>
+                <div class="field-item"><strong>Хрипы сухие:</strong> <span class="value">отсутствуют</span></div>
+                <div class="field-item"><strong>Влажные хрипы:</strong> <span class="value">отсутствуют</span></div>
                 <div class="field-item"><strong>Крепитация:</strong> <span class="value">нет</span></div>
                 <div class="field-item"><strong>Шум трения плевры:</strong> <span class="value">нет</span></div>
                 <div class="field-item"><strong>Перкуторный звук:</strong> <span class="value">ясный легочный, с коробочным оттенком</span></div>
@@ -496,7 +175,7 @@
                 <div class="field-item"><strong>Ритмичный, аритмичный, наполнение пульса:</strong> <span class="value">ритмичный, слабого наполнения</span></div>
                 <div class="field-item"><strong>ЧСС:</strong> <span class="value">120</span></div>
                 <div class="field-item"><strong>Дефицит пульса:</strong> <span class="value">нет</span></div>
-                <div class="field-item"><strong>АД мм.рт.ст.:</strong> <span class="value">90/60, привычное 110/70 (со слов матери), максимальное неизвестно</span></div>
+                <div class="field-item"><strong>АД мм.рт.ст.:</strong> <span class="value">на момент осмотра 90/60, привычное 110/70 (со слов матери), максимальное не известно</span></div>
                 <div class="field-item"><strong>Тоны сердца:</strong> <span class="value">приглушены, ритмичные, тахикардия</span></div>
                 <div class="field-item"><strong>Шум:</strong> <span class="value">нет</span></div>
                 <div class="field-item"><strong>Шум трения перикарда:</strong> <span class="value">нет</span></div>
@@ -511,29 +190,28 @@
                 <div class="field-item"><strong>Язык:</strong> <span class="value">сухой, обложен густым белым налетом</span></div>
                 <div class="field-item"><strong>Живот:</strong> <span class="value">правильной формы, мягкий, не вздут</span></div>
                 <div class="field-item"><strong>Болезненный в:</strong> <span class="value">безболезненный при пальпации во всех отделах</span></div>
-                <div class="field-item"><strong>Положительные симптомы:</strong> <span class="value">Симптомы раздражения брюшины — отрицательные</span></div>
-                <div class="field-item"><strong>Перистальтика:</strong> <span class="value">выслушивается</span></div>
-                <div class="field-item"><strong>Печень:</strong> <span class="value">не увеличена</span></div>
+                <div class="field-item"><strong>Положительные симптомы:</strong> <span class="value">нет (живот мягкий, безболезненный)</span></div>
+                <div class="field-item"><strong>Перистальтика:</strong> <span class="value">выслушивается, обычная</span></div>
+                <div class="field-item"><strong>Печень:</strong> <span class="value">не увеличена, край эластичный, безболезненный</span></div>
                 <div class="field-item"><strong>Селезенка:</strong> <span class="value">не пальпируется</span></div>
                 <div class="field-item"><strong>Рвота:</strong> <span class="value">была многократная (до 5 раз), «фонтаном», не приносящая облегчения</span></div>
                 <div class="field-item"><strong>Стул:</strong> <span class="value">без особенностей, был сегодня утром (со слов матери)</span></div>
             </div>
         </div>
 
-        <!-- НЕРВНАЯ СИСТЕМА (КЛЮЧЕВОЙ РАЗДЕЛ) -->
+        <!-- НЕРВНАЯ СИСТЕМА -->
         <div class="section">
-            <div class="section-title">🧠 НЕРВНАЯ СИСТЕМА — КЛЮЧЕВОЙ РАЗДЕЛ</div>
+            <div class="section-title">🧠 НЕРВНАЯ СИСТЕМА</div>
             <div class="field-list">
                 <div class="field-item"><strong>Поведение:</strong> <span class="value">беспокойное (периодически стонет, вскрикивает, мечется в постели, однако при попытке осмотра замирает из-за боли)</span></div>
                 <div class="field-item"><strong>Контакт:</strong> <span class="value">затруднен (на вопросы отвечает односложно, с трудом, быстро истощается, может не отвечать)</span></div>
                 <div class="field-item"><strong>Чувствительность:</strong> <span class="value">сохранена, выраженная гиперестезия (прикосновение к коже вызывает крик)</span></div>
                 <div class="field-item"><strong>Речь:</strong> <span class="value">затруднена, смазанная, отвечает с трудом</span></div>
-                <div class="field-item"><strong>Зрачки (OD, OS):</strong> <span class="value">D=S, умеренно расширены</span></div>
-                <div class="field-item"><strong>Фотореакция:</strong> <span class="value">вялая, содружественная</span></div>
+                <div class="field-item"><strong>Зрачки (OD, OS):</strong> <span class="value">D=S, умеренно расширены, фотореакция вялая, содружественная</span></div>
                 <div class="field-item"><strong>Нистагм:</strong> <span class="value">нет</span></div>
                 <div class="field-item"><strong>Асимметрия лица:</strong> <span class="value">нет</span></div>
-                <div class="field-item"><strong>Менингеальные симптомы (патогномоничные!):</strong> <span class="value">ригидность затылочных мышц — резко выраженная (голова не приводится к груди, расстояние 4-5 см). Симптом Кернига — резко положительный (невозможно разогнуть ногу в коленном суставе при согнутом бедре). Симптом Брудзинского — верхний: при сгибании головы ноги сгибаются в коленях; нижний: при сгибании одной ноги сгибается другая — оба положительные.</span></div>
-                <div class="field-item"><strong>Очаговые симптомы:</strong> <span class="value">нет</span></div>
+                <div class="field-item"><strong>Менингеальные симптомы:</strong> <span class="value">ригидность затылочных мышц — резко выраженная (голова не приводится к груди, расстояние 4–5 см). Симптом Кернига — резко положительный. Симптом Брудзинского — верхний и нижний — положительные</span></div>
+                <div class="field-item"><strong>Очаговые симптомы:</strong> <span class="value">не выявлены</span></div>
                 <div class="field-item"><strong>Координаторные пробы:</strong> <span class="value">не проводятся (отсутствует контакт, ребенок стонет)</span></div>
             </div>
         </div>
@@ -552,7 +230,7 @@
             <div class="section-title">🔍 STATUS LOCALIS</div>
             <div class="status-local">
                 <strong>Антропометрические данные:</strong> возраст 13 лет, рост 160 см, вес 50 кг.<br><br>
-                <strong>Кожные покровы и сыпь:</strong> При осмотре на коже голеней, стоп и ягодиц имеются множественные геморрагические элементы: мелкоточечные петехии размером 1-3 мм, не возвышающиеся над поверхностью кожи, не исчезающие при надавливании (симптом щипка положительный). На разгибательной поверхности правого локтевого сустава — единичное пятно размерами 1,5×1,0 см темно-багрового цвета (экхимоз). Остальная кожа бледная, влажная, холодная на ощупь. Тургор снижен.<br><br>
+                <strong>Кожные покровы и сыпь:</strong> При осмотре на коже голеней, стоп и ягодиц имеются множественные геморрагические элементы: мелкоточечные петехии размером 1–3 мм, не возвышающиеся над поверхностью кожи, не исчезающие при надавливании. На разгибательной поверхности правого локтевого сустава — единичное пятно размерами 1,5×1,0 см темно-багрового цвета (экхимоз). Остальная кожа бледная, влажная, холодная на ощупь. Тургор снижен.<br><br>
                 <strong>Менингеальная поза:</strong> Ребенок лежит на боку, голова запрокинута назад (ригидность затылочных мышц), ноги согнуты и подтянуты к животу, руки согнуты в локтях и прижаты к груди. Любая попытка изменить положение тела вызывает крик и усиление стона.<br><br>
                 <strong>Нервная система:</strong> Выраженная ригидность затылочных мышц. Симптомы Кернига и Брудзинского (верхний, средний, нижний) — положительные. Общая гиперестезия.<br><br>
                 <strong>Видимые повреждения:</strong> Травм и видимых телесных повреждений иного генеза не обнаружено.
@@ -561,11 +239,11 @@
 
         <!-- ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ -->
         <div class="section">
-            <div class="section-title">📊 ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ</div>
+            <div class="section-title">📈 ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ</div>
             <div class="scales-list">
-                <p>✔ <strong>Пульсоксиметрия (SpO2):</strong> 92% (на воздухе).</p>
-                <p>✔ <strong>Глюкометрия (экспресс-метод):</strong> 6,1 ммоль/л (стресоговая гипергликемия).</p>
-                <p>✔ <strong>ЭКГ:</strong> синусовая тахикардия с ЧСС 120 в мин. Признаков ишемии нет. ЭОС нормальная.</p>
+                <p>✔ <strong>Пульсоксиметрия:</strong> SpO₂ — 92% (на воздухе).</p>
+                <p>✔ <strong>Глюкометрия:</strong> 6,1 ммоль/л.</p>
+                <p>✔ <strong>ЭКГ:</strong> ритм синусовый, ЧСС 120 в мин. Признаков ишемии нет. ЭОС нормальная.</p>
             </div>
         </div>
 
@@ -573,42 +251,19 @@
         <div class="section">
             <div class="section-title">📊 ОЦЕНКА ПО ШКАЛАМ</div>
             <div class="scales-list">
-                <p>✔ <strong>Шкала NEWS2 (педиатрическая):</strong> ЧДД 24 (2 балла), SpO2 92% (2 балла), t° 39,5 (2 балла), АД сист. 90 (1 балл), ЧСС 120 (2 балла), сознание оглушение (0 балла — по педиатрической шкале? обычно 2-3 балла за нарушение сознания). Сумма: 9-11 баллов (высокий риск, критическое состояние).</p>
-                <p>✔ <strong>Шкала ОДН по Кассиль:</strong> I-II степени (ЧДД 24, SpO2 92%, одышка смешанная, участие вспомогательной мускулатуры).</p>
-                <p>✔ <strong>Индекс Альговера (шоковый индекс):</strong> ЧСС/АДсист = 120/90 = 1,33 (повышен, риск гиповолемии/септического шока).</p>
+                <p>✔ <strong>Шкала NEWS2:</strong> <span class="highlight-number">9 баллов</span> (ЧДД 24 — 2, SpO₂ 92% — 2, t° 39,5 — 2, АД сист. 90 — 1, ЧСС 120 — 2, сознание оглушение — 0).</p>
+                <p>✔ <strong>Индекс Альговера:</strong> не применимо.</p>
                 <p>✔ <strong>Шкала боли ВАШ:</strong> 9 баллов (интенсивная головная боль, мучительная, не купируется анальгетиками).</p>
-                <p>✔ <strong>Шкала ШОКС:</strong> не применима.</p>
-                <p>✔ <strong>Шкала риска ТЭЛА:</strong> не применима.</p>
-                <p>✔ <strong>Шкала LAMS (инсульт):</strong> 0 баллов (нет очаговой неврологической симптоматики).</p>
-                <p>✔ <strong>Состояние алкогольного опьянения:</strong> запах алкоголя не определяется.</p>
-                <p>✔ <strong>Признаки ДЭП:</strong> не применимо.</p>
-                <p>✔ <strong>Шкала менингита (клиническая оценка):</strong> Высокая вероятность бактериального (гнойного) менингита — наличие менингеальных симптомов, геморрагической сыпи, высокой лихорадки, нарушения сознания (оглушение), отсутствие эффекта от анальгетиков.</p>
+                <p>✔ <strong>Шкала ОДН по Кассиль:</strong> не применимо.</p>
+                <p>✔ <strong>Шкала ШОКС:</strong> не применимо.</p>
+                <p>✔ <strong>Шкала риска ТЭЛА:</strong> не применимо.</p>
+                <p>✔ <strong>Шкала LAMS:</strong> не применимо.</p>
+                <p>✔ <strong>Алкогольное опьянение:</strong> не применимо.</p>
+                <p>✔ <strong>ДЭП:</strong> не применимо.</p>
             </div>
         </div>
 
-        <!-- ПРИМЕЧАНИЕ ДЛЯ БРИГАДЫ СМП -->
-        <div class="note">
-            <strong>📌 Примечание для бригады СМП (дифференциальная диагностика):</strong><br>
-            Дифференциальный диагноз проведен с:
-            <ul class="note-list">
-                <li><strong>Менингококковой инфекцией (генерализованная форма — менингококкемия + менингит):</strong> (характерна геморрагическая сыпь, часто звездчатая, на фоне высокой лихорадки, тяжелое течение, инфекционно-токсический шок).</li>
-                <li><strong>Серозным менингитом (вирусной этиологии):</strong> (более легкое течение, лимфоцитарный плеоцитоз в ликворе, геморрагической сыпи обычно нет, чаще болеют дети и подростки в летне-осенний период).</li>
-                <li><strong>Субарахноидальным кровоизлиянием:</strong> (внезапная «громоподобная» головная боль, ригидность затылочных мышц, отсутствие лихорадки (может быть позже), кровь в ликворе. У ребенка лихорадка высокая).</li>
-                <li><strong>Тяжелым течением гриппа с менингеальным синдромом (менингизм):</strong> (высокая лихорадка, менингеальные симптомы, но в ликворе — нормальный состав, нет возбудителя. В анамнезе — катаральные явления).</li>
-                <li><strong>Энцефалитом (клещевым, герпетическим):</strong> (очаговая неврологическая симптоматика, нарушение сознания, судороги, изменения в ликворе).</li>
-            </ul>
-            <strong>Ключевые признаки бактериального (гнойного) менингита у ребенка 13 лет:</strong><br>
-            – Острое начало с высокой лихорадки (39,5°С), озноба, многократной рвоты «фонтаном».<br>
-            – Интенсивная головная боль, светобоязнь, гиперестезия.<br>
-            – Менингеальные симптомы: ригидность затылочных мышц, Кернига и Брудзинского — резко положительные.<br>
-            – Нарушение сознания: оглушение (ШКГ 14 баллов).<br>
-            – Характерная вынужденная поза («поза легавой собаки»).<br>
-            – Геморрагическая сыпь (петехии, экхимозы) — подозрение на менингококкемию.<br>
-            – Тахикардия, тахипноэ, гипотензия (АД 90/60).<br>
-            – Отсутствие катаральных явлений (насморк, кашель — быстро прошли).<br>
-        </div>
-
-        <!-- КРАСНАЯ КНОПКА (ДОБАВЛЕНО) -->
+        <!-- КРАСНАЯ КНОПКА -->
         <div class="algorithm-btn-container">
             <button class="btn-algorithm" id="openAlgorithmBtn">
                 <span>🚨 Оказание помощи в соответствии с Алгоритмами МСК</span>
@@ -618,139 +273,216 @@
     </div>
 </div>
 
-<!-- МОДАЛЬНОЕ ОКНО: БАКТЕРИАЛЬНЫЙ МЕНИНГИТ - ДЛЯ ВЗРОСЛЫХ И ДЕТЕЙ -->
+<!-- МОДАЛЬНОЕ ОКНО — Сценарий B -->
 <div class="modal-overlay" id="algorithmModal">
     <div class="modal-container">
         <div class="modal-header">
-            <h2>📋 Алгоритм оказания помощи (МСК)</h2>
+            <h2>G00 — Бактериальный менингит, не классифицированный в других рубриках | G00.9 — Бактериальный менингит неуточненный | G01 — Менингит при бактериальных болезнях, классифицированных в других рубриках | G03.8 — Менингит, вызванный другими уточненными возбудителями</h2>
             <button class="modal-close" id="closeModalBtn">&times;</button>
         </div>
         <div class="modal-body">
-            <!-- Раздел для взрослых (ОРАНЖЕВО-КРАСНО-ГОЛУБОЙ) -->
-            <div class="alg-section">
-                <div class="alg-title">🔹 Бактериальный менингит неуточненный | Менингит, вызванный другими уточненными возбудителями (взрослые)</div>
-                
-                <div class="condition-block">
+
+            <!-- ВЗРОСЛЫЙ ПРОТОКОЛ -->
+            <div class="adult-block">
+                <div class="adult-header">
+                    <span class="badge-adult">ВЗРОСЛЫЙ ПРОТОКОЛ</span>
+                </div>
+
+                <div class="light-block">
                     <ul class="list-styled">
                         <li>Катетеризация вены или внутрикостный доступ</li>
-                        <li>Дисоль (Калия хлорид + натрия ацетат + натрия хлорид) 400 мл или Хлосоль (Калия хлорид + кальция хлорид + натрия хлорид) 500 мл в/венно капельно</li>
+                        <li><span class="drug-name">Дисоль (Калия хлорид + натрия ацетат + натрия хлорид) 400 мл</span> или <span class="drug-name">Хлосоль (Калия хлорид + кальция хлорид + натрия хлорид) 500 мл</span> в/венно капельно</li>
                     </ul>
                 </div>
 
-                <div class="condition-block">
-                    <div class="condition-title">▶ при температуре тела > 38°С</div>
+                <div class="light-block">
+                    <div class="condition-title">– при температуре тела &gt; 38°С</div>
                     <ul class="list-styled">
-                        <li>Парацетамол 500 мг внутрь или Метамизол натрия 1000 мг (2 мл) в/венно</li>
+                        <li><span class="drug-name">Парацетамол 500 мг</span> внутрь или <span class="drug-name">Анальгин (Метамизол натрия) 1000 мг (2 мл)</span> в/венно</li>
                     </ul>
                 </div>
 
-                <div class="condition-block">
-                    <div class="condition-title">▶ при головной боли</div>
+                <div class="light-block">
+                    <div class="condition-title">– при головной боли</div>
                     <ul class="list-styled">
-                        <li>Кеторолак 30 мг (1 мл) в/мышечно или в/венно</li>
+                        <li><span class="drug-name">Кеторолак 30 мг (1 мл)</span> в/мышечно или в/венно</li>
                     </ul>
                 </div>
 
-                <div class="condition-block">
-                    <div class="condition-title">▶ при судорогах и/или психомоторном возбуждении</div>
+                <div class="light-block">
+                    <div class="condition-title">– при судорогах и/или психомоторном возбуждении</div>
                     <ul class="list-styled">
-                        <li>Диазепам 10–20 мг (2–4 мл) в/венно</li>
+                        <li><span class="drug-name">Диазепам 10–20 мг (2–4 мл)</span> в/венно</li>
                     </ul>
                 </div>
 
-                <div class="warning-block">
-                    <div class="warning-title">▶ при отеке головного мозга / при коме</div>
+                <div class="red-block">
+                    <div class="condition-title">– при отеке головного мозга / при коме</div>
                     <ul class="list-styled">
-                        <li>См. раздел «Анестезиология и реаниматология»</li>
+                        <li><span class="italic-bold-static">См. раздел «Анестезиология и реаниматология»</span></li>
                     </ul>
                 </div>
 
                 <div class="tactic-block">
-                    <div class="tactic-title">▶ Тактика ведения:</div>
-                    <ul class="list-styled" style="margin-top: 4px;">
-                        <li>1. Медицинская эвакуация в больницу (13). Транспортировка на носилках</li>
-                        <li>2. При отказе от медицинской эвакуации в больницу – активный аудиоконтроль (55)</li>
+                    <div class="tactic-title">▶ Тактика:</div>
+                    <ul class="list-styled">
+                        <li>1. Медицинская эвакуация в больницу <span class="bold-black">(13)</span>. Транспортировка на носилках</li>
+                        <li>2. При отказе от медицинской эвакуации в больницу — активный аудиоконтроль <span class="bold-black">(55)</span></li>
                     </ul>
                 </div>
             </div>
 
-            <hr>
+            <!-- ДЕТСКИЙ ПРОТОКОЛ -->
+            <div class="child-block">
+                <div class="child-header">
+                    <span class="badge-child">ДЕТСКИЙ ПРОТОКОЛ</span>
+                </div>
 
-            <!-- Раздел для детей (ЗЕЛЕНО-КРАСНО-ГОЛУБОЙ) -->
-            <div class="alg-section child-section">
-                <div class="alg-title">🔹 Бактериальный менингит неуточненный | Менингит, вызванный другими уточненными возбудителями (дети)</div>
-                
-                <div class="condition-block">
+                <div class="child-condition-block">
                     <ul class="list-styled">
                         <li>Катетеризация вены или внутрикостный доступ</li>
-                        <li>Хлосоль (Калия хлорид + кальция хлорид + натрия хлорид) 20–30 мл/кг в/венно капельно</li>
+                        <li><span class="drug-name">Хлосоль (Калия хлорид + кальция хлорид + натрия хлорид) 20–30 мл/кг</span> в/венно капельно</li>
                     </ul>
                 </div>
 
-                <div class="condition-block">
-                    <div class="condition-title">▶ при температуре тела ≥ 38,5°С и/или при головной боли</div>
+                <div class="child-condition-block">
+                    <div class="condition-title" style="color: #2e7d32;">– при температуре тела ≥ 38,5°С и/или при головной боли</div>
                     <ul class="list-styled">
-                        <li>Парацетамол 15 мг/кг внутрь или свечи ректально или Кеторолак 30 мг (1 мл) в/мышечно или в/венно (с 16 лет)</li>
+                        <li><span class="drug-name">Парацетамол 15 мг/кг</span> внутрь или свечи ректально или <span class="drug-name">Кеторолак 30 мг (1 мл)</span> в/мышечно или в/венно (с 16 лет)</li>
                     </ul>
                 </div>
 
-                <div class="condition-block">
-                    <div class="condition-title">▶ при судорогах и/или психомоторном возбуждении</div>
+                <div class="child-condition-block">
+                    <div class="condition-title" style="color: #2e7d32;">– при судорогах и/или психомоторном возбуждении</div>
                     <ul class="list-styled">
-                        <li>Диазепам в/венно (см. «Приложение 43») или 0,3 мг/кг в/мышечно</li>
+                        <li><span class="drug-name">Диазепам</span> в/венно (см. «Приложение 43») или <span class="drug-name">0,3 мг/кг</span> в/мышечно</li>
                     </ul>
                 </div>
 
-                <div class="warning-block">
-                    <div class="warning-title">▶ при отеке головного мозга / при коме</div>
+                <div class="child-red-block">
+                    <div class="condition-title">– при отеке головного мозга / при коме</div>
                     <ul class="list-styled">
-                        <li>См. раздел «Детская анестезиология и реаниматология» (Отек головного мозга) (Кома неустановленного генеза)</li>
+                        <li><span class="italic-bold-static">См. раздел «Детская анестезиология и реаниматология» (Отек головного мозга) (Кома неустановленного генеза)</span></li>
                     </ul>
                 </div>
 
                 <div class="tactic-block">
-                    <div class="tactic-title">▶ Тактика ведения:</div>
-                    <ul class="list-styled" style="margin-top: 4px;">
-                        <li>1. Медицинская эвакуация в больницу (13). Транспортировка на носилках</li>
-                        <li>2. При отказе от медицинской эвакуации в больницу – актив в ОНМПВиДН (31)</li>
+                    <div class="tactic-title">▶ Тактика:</div>
+                    <ul class="list-styled">
+                        <li>1. Медицинская эвакуация в больницу <span class="bold-black">(13)</span>. Транспортировка на носилках</li>
+                        <li>2. При отказе от медицинской эвакуации в больницу — актив в ОНМПВиДН <span class="bold-black">(31)</span></li>
                     </ul>
                 </div>
             </div>
+
         </div>
     </div>
 </div>
 
+<!-- МОДАЛЬНОЕ ОКНО ДЛЯ ИЗОБРАЖЕНИЙ -->
+<div id="imageModal">
+    <button class="modal-close-img" onclick="document.getElementById('imageModal').style.display='none'; isGalleryMode=false; currentGallery=[];">&times;</button>
+    <img id="modalImage" src="" alt="Изображение">
+    <div id="navContainer">
+        <button id="prevBtn">❮</button>
+        <span id="imageCounter">1 / 2</span>
+        <button id="nextBtn">❯</button>
+    </div>
+</div>
+
 <script>
-    (function() {
-        const modal = document.getElementById('algorithmModal');
-        const openBtn = document.getElementById('openAlgorithmBtn');
-        const closeBtn = document.getElementById('closeModalBtn');
+    /* ============================================================
+       УПРАВЛЕНИЕ МОДАЛЬНЫМ ОКНОМ + HISTORY API
+       (PWA: кнопка «Назад» закрывает модалку, а не приложение)
+       ============================================================ */
+    const modal = document.getElementById('algorithmModal');
+    const openBtn = document.getElementById('openAlgorithmBtn');
+    const closeBtn = document.getElementById('closeModalBtn');
 
-        if (!modal || !openBtn || !closeBtn) return;
+    function openModal() {
+        window.history.pushState({ modal: 'algorithm' }, '');
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
 
-        function openModal() {
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
+    function closeModal() {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    openBtn.addEventListener('click', openModal);
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            closeModal();
         }
-
-        function closeModal() {
+    });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+            closeModal();
+        }
+    });
+    window.addEventListener('popstate', function () {
+        if (modal.classList.contains('active')) {
             modal.classList.remove('active');
             document.body.style.overflow = '';
         }
+    });
 
-        openBtn.addEventListener('click', openModal);
-        closeBtn.addEventListener('click', closeModal);
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                closeModal();
-            }
-        });
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && modal.classList.contains('active')) {
-                closeModal();
-            }
-        });
-    })();
+    /* ============================================================
+       ГАЛЕРЕЯ ИЗОБРАЖЕНИЙ + UNICODE NFC-НОРМАЛИЗАЦИЯ (§18, п.89)
+       ============================================================ */
+    let currentGallery = [];
+    let currentIndex = 0;
+    let isGalleryMode = false;
+
+    function openImage(imagePath) {
+        isGalleryMode = false;
+        currentGallery = [];
+        document.getElementById('navContainer').style.display = 'none';
+        document.getElementById('imageModal').style.display = 'flex';
+        document.getElementById('modalImage').src = imagePath.normalize('NFC');
+    }
+
+    function openImageGallery(images) {
+        isGalleryMode = true;
+        currentGallery = images.map(p => p.normalize('NFC'));
+        currentIndex = 0;
+        document.getElementById('navContainer').style.display = 'flex';
+        document.getElementById('imageModal').style.display = 'flex';
+        document.getElementById('modalImage').src = currentGallery[currentIndex];
+        document.getElementById('imageCounter').textContent = `${currentIndex + 1} / ${currentGallery.length}`;
+        updateNavButtons();
+    }
+
+    function updateNavButtons() {
+        document.getElementById('prevBtn').style.opacity = currentIndex === 0 ? '0.4' : '1';
+        document.getElementById('nextBtn').style.opacity = currentIndex === currentGallery.length - 1 ? '0.4' : '1';
+    }
+
+    document.getElementById('prevBtn').addEventListener('click', function() {
+        if (!isGalleryMode || currentIndex === 0) return;
+        currentIndex--;
+        document.getElementById('modalImage').src = currentGallery[currentIndex];
+        document.getElementById('imageCounter').textContent = `${currentIndex + 1} / ${currentGallery.length}`;
+        updateNavButtons();
+    });
+
+    document.getElementById('nextBtn').addEventListener('click', function() {
+        if (!isGalleryMode || currentIndex === currentGallery.length - 1) return;
+        currentIndex++;
+        document.getElementById('modalImage').src = currentGallery[currentIndex];
+        document.getElementById('imageCounter').textContent = `${currentIndex + 1} / ${currentGallery.length}`;
+        updateNavButtons();
+    });
+
+    document.getElementById('imageModal').addEventListener('click', function(e) {
+        if (e.target === this) {
+            this.style.display = 'none';
+            isGalleryMode = false;
+            currentGallery = [];
+        }
+    });
 </script>
 </body>
 </html>
