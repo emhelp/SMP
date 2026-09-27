@@ -30,7 +30,7 @@
         .btn-hint { font-size: 0.7rem; font-weight: normal; opacity: 0.9; letter-spacing: normal; border-top: 1px dashed rgba(255,255,255,0.5); padding-top: 4px; margin-top: 2px; }
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.75); backdrop-filter: blur(4px); z-index: 1000; display: flex; align-items: center; justify-content: center; visibility: hidden; opacity: 0; transition: visibility 0.2s, opacity 0.2s; padding: 20px; }
         .modal-overlay.active { visibility: visible; opacity: 1; }
-        /* Сценарий B (§12): короткий заголовок — шапка фиксирована */
+        /* Сценарий A (§12): длинный заголовок — шапка уходит при прокрутке */
         .modal-container {
             max-width: 1200px;
             width: 100%;
@@ -38,18 +38,17 @@
             background-color: #fffef7;
             border-radius: 28px;
             box-shadow: 0 25px 45px -12px rgba(0,0,0,0.25);
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
             border: 1px solid #ffd7a5;
+            overflow-y: auto;
+            overflow-x: hidden;
             animation: modalFadeIn 0.25s ease-out;
         }
         @keyframes modalFadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .modal-header { background: #c2410c; color: white; padding: 18px 28px; display: flex; justify-content: space-between; align-items: center; border-bottom: 4px solid #ffb347; flex-shrink: 0; }
+        .modal-header { background: #c2410c; color: white; padding: 18px 28px; display: flex; justify-content: space-between; align-items: center; border-bottom: 4px solid #ffb347; }
         .modal-header h2 { font-size: 1.25rem; font-weight: 700; line-height: 1.3; word-break: break-word; }
         .modal-close { background: none; border: none; color: white; font-size: 28px; cursor: pointer; line-height: 1; transition: 0.2s; padding: 0 8px; border-radius: 40px; flex-shrink: 0; }
         .modal-close:hover { background-color: rgba(255,255,255,0.2); transform: scale(1.1); }
-        .modal-body { flex: 1; overflow-y: auto; padding: 28px 32px; background: #fefcf5; font-size: 0.95rem; line-height: 1.5; hyphens: auto; }
+        .modal-body { padding: 28px 32px; background: #fefcf5; font-size: 0.95rem; line-height: 1.5; hyphens: auto; }
         .adult-block { border-left: 5px solid #dc2626; padding-left: 20px; background: #fff9f0; border-radius: 0 18px 18px 0; margin-bottom: 40px; }
         .adult-header { display: flex; align-items: center; gap: 12px; margin: 10px 0 20px 0; }
         .badge-adult { background: #c2410c; color: white; padding: 6px 14px; border-radius: 40px; font-weight: bold; }
@@ -60,9 +59,10 @@
         .list-styled li { margin: 8px 0; }
         .tactic-block { background: #d9effa; border-radius: 20px; padding: 14px 20px; margin: 18px 0 16px 0; border-left: 4px solid #0284c7; }
         .tactic-title { font-weight: 800; color: #0369a1; margin-bottom: 8px; font-size: 1rem; }
-        .no-bg-block { padding: 14px 20px; margin: 20px 0; border-radius: 16px; }
         .light-block { background: #ffe6cc; border-left: 6px solid #e03a3a; padding: 14px 20px; margin: 20px 0; border-radius: 16px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
         .child-condition-block { background: #d9f0d9; border-left: 6px solid #2e7d32; padding: 14px 20px; margin: 20px 0; border-radius: 16px; }
+        .red-block { background: #ffb3b3; border-left: 6px solid #b91c1c; padding: 14px 20px; margin: 20px 0; border-radius: 16px; }
+        .child-red-block { background: #ffb3b3; border-left: 6px solid #b91c1c; padding: 14px 20px; margin: 20px 0; border-radius: 16px; }
         .condition-title { font-weight: 800; color: #b91c1c; margin-bottom: 10px; font-size: 1rem; }
         .drug-name { background: #f3f3f3; font-family: monospace; padding: 2px 8px; border-radius: 20px; font-weight: 800; color: #1a3c4a; display: inline-block; }
         .highlight-number { font-weight: 800; color: #c2410c; background: #fff0d0; padding: 0 4px; border-radius: 10px; }
@@ -116,107 +116,116 @@
     </div>
 
     <div class="content">
+        <!-- ЖАЛОБЫ -->
         <div class="section">
             <div class="section-title">📢 ЖАЛОБЫ</div>
             <div class="full-width-text"><em>На момент осмотра пациентка предъявляет жалобы на повышение температуры тела до 38,4 °C, слабость, головную боль, наличие зудящих высыпаний на коже волосистой части головы, лица, туловища и конечностей.</em></div>
         </div>
 
+        <!-- АНАМНЕЗ -->
         <div class="section">
             <div class="section-title">📋 АНАМНЕЗ</div>
             <div class="full-width-text"><strong>Anamnesis morbi:</strong> Со слов матери, заболела остро около 2 дней назад, когда повысилась температура до 37,8 °C, появилась слабость. На следующий день обнаружили единичные высыпания на волосистой части головы и лице. Сегодня температура повысилась до 38,4 °C, количество высыпаний значительно увеличилось, распространились на туловище и конечности, появился выраженный зуд. Мать вызвала бригаду СМП для осмотра и рекомендаций. Контакт с больным ветряной оспой был в школе около 2 недель назад (одноклассник болел).</div>
-            <div class="full-width-text"><strong>Гинекологический анамнез:</strong> Менструации нет, по возрасту (менархе не наступило, 10 лет). Выделения из половых путей отсутствуют.</div>
             <div class="full-width-text"><strong>Аллергологический анамнез:</strong> Не отягощен. Аллергии на лекарственные препараты, пищевые продукты не отмечает.</div>
             <div class="full-width-text"><strong>Эпидемиологический анамнез:</strong> Контакт с больным ветряной оспой (одноклассник) около 2 недель назад. За пределы города не выезжала, укусы насекомых отрицает. Привита по календарю (ветряная оспа не входит в Национальный календарь, но возможна вакцинация по желанию — со слов матери, не привита).</div>
         </div>
 
+        <!-- ОБЪЕКТИВНО -->
         <div class="section">
             <div class="section-title">🩺 ОБЪЕКТИВНО</div>
             <div class="field-list">
-                <div class="field-item"><strong>Общее состояние:</strong> <span class="value">средней тяжести (за счет интоксикационного синдрома и распространенных высыпаний).</span></div>
-                <div class="field-item"><strong>Сознание:</strong> <span class="value">ясное.</span></div>
-                <div class="field-item"><strong>Шкала комы Глазго (GCS):</strong> <span class="value">15 баллов (E4,V5,M6).</span></div>
-                <div class="field-item"><strong>Положение:</strong> <span class="value">активное.</span></div>
-                <div class="field-item"><strong>Кожные покровы:</strong> <span class="value">на волосистой части головы, лице, туловище, верхних и нижних конечностях (включая сгибательные поверхности) — обильная полиморфная сыпь (пятна, папулы, везикулы, единичные корочки). Везикулы напряженные, с прозрачным содержимым, окружены венчиком гиперемии. На ладонях и подошвах сыпи нет. Кожные покровы вне сыпи обычной окраски, умеренно влажные. Расчесов нет (зуд контролирует).</span></div>
-                <div class="field-item"><strong>Сыпь:</strong> <span class="value">полиморфная (пятна, папулы, везикулы, корочки) на всех участках, кроме ладоней и подошв.</span></div>
-                <div class="field-item"><strong>Зев:</strong> <span class="value">умеренная гиперемия слизистой, налетов нет. На слизистой щек и мягкого неба единичные везикулы (энантема).</span></div>
-                <div class="field-item"><strong>Миндалины:</strong> <span class="value">не увеличены, без налетов.</span></div>
-                <div class="field-item"><strong>Лимфоузлы:</strong> <span class="value">пальпируются подчелюстные, шейные, единичные, безболезненные, эластичные.</span></div>
-                <div class="field-item"><strong>Пролежни:</strong> <span class="value">нет.</span></div>
-                <div class="field-item"><strong>Отеки:</strong> <span class="value">нет.</span></div>
-                <div class="field-item"><strong>t°:</strong> <span class="value">38,4 °C (аксиллярно).</span></div>
+                <div class="field-item"><strong>Общее состояние:</strong> <span class="value">средней тяжести (за счет интоксикационного синдрома и распространенных высыпаний)</span></div>
+                <div class="field-item"><strong>Сознание:</strong> <span class="value">ясное</span></div>
+                <div class="field-item"><strong>Шкала комы Глазго (GCS):</strong> <span class="value">15 баллов (E4,V5,M6)</span></div>
+                <div class="field-item"><strong>Положение:</strong> <span class="value">активное</span></div>
+                <div class="field-item"><strong>Кожные покровы:</strong> <span class="value">на волосистой части головы, лице, туловище, верхних и нижних конечностях (включая сгибательные поверхности) — обильная полиморфная сыпь (пятна, папулы, везикулы, единичные корочки). Везикулы напряженные, с прозрачным содержимым, окружены венчиком гиперемии. На ладонях и подошвах сыпи нет. Кожные покровы вне сыпи обычной окраски, умеренно влажные. Расчесов нет</span></div>
+                <div class="field-item"><strong>Сыпь:</strong> <span class="value">полиморфная (пятна, папулы, везикулы, корочки) на всех участках, кроме ладоней и подошв</span></div>
+                <div class="field-item"><strong>Зев:</strong> <span class="value">умеренная гиперемия слизистой, налетов нет. На слизистой щек и мягкого неба единичные везикулы (энантема)</span></div>
+                <div class="field-item"><strong>Миндалины:</strong> <span class="value">не увеличены, без налетов</span></div>
+                <div class="field-item"><strong>Лимфоузлы:</strong> <span class="value">пальпируются подчелюстные, шейные, единичные, безболезненные, эластичные</span></div>
+                <div class="field-item"><strong>Пролежни:</strong> <span class="value">нет</span></div>
+                <div class="field-item"><strong>Отеки:</strong> <span class="value">нет</span></div>
+                <div class="field-item"><strong>t°:</strong> <span class="value">38,4 °C (аксиллярно)</span></div>
             </div>
         </div>
 
+        <!-- ОРГАНЫ ДЫХАНИЯ -->
         <div class="section">
             <div class="section-title">🌬️ ОРГАНЫ ДЫХАНИЯ</div>
             <div class="field-list">
                 <div class="field-item"><strong>ЧДД в мин:</strong> <span class="value">20</span></div>
-                <div class="field-item"><strong>Одышка:</strong> <span class="value">нет.</span></div>
-                <div class="field-item"><strong>Патологическое дыхание:</strong> <span class="value">нет.</span></div>
-                <div class="field-item"><strong>Аускультативно:</strong> <span class="value">везикулярное, проводится во все отделы.</span></div>
-                <div class="field-item"><strong>Хрипы:</strong> <span class="value">отсутствуют.</span></div>
-                <div class="field-item"><strong>Крепитация:</strong> <span class="value">нет.</span></div>
-                <div class="field-item"><strong>Шум трения плевры:</strong> <span class="value">нет.</span></div>
-                <div class="field-item"><strong>Перкуторный звук:</strong> <span class="value">ясный легочный, симметричный.</span></div>
-                <div class="field-item"><strong>Кашель:</strong> <span class="value">нет.</span></div>
-                <div class="field-item"><strong>Мокрота:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Одышка:</strong> <span class="value">нет</span></div>
+                <div class="field-item"><strong>Патологическое дыхание:</strong> <span class="value">нет</span></div>
+                <div class="field-item"><strong>Аускультативно:</strong> <span class="value">везикулярное, проводится во все отделы</span></div>
+                <div class="field-item"><strong>Хрипы сухие:</strong> <span class="value">отсутствуют</span></div>
+                <div class="field-item"><strong>Влажные хрипы:</strong> <span class="value">отсутствуют</span></div>
+                <div class="field-item"><strong>Крепитация:</strong> <span class="value">нет</span></div>
+                <div class="field-item"><strong>Шум трения плевры:</strong> <span class="value">нет</span></div>
+                <div class="field-item"><strong>Перкуторный звук:</strong> <span class="value">ясный легочный, симметричный</span></div>
+                <div class="field-item"><strong>Кашель:</strong> <span class="value">нет</span></div>
+                <div class="field-item"><strong>Мокрота:</strong> <span class="value">нет</span></div>
             </div>
         </div>
 
+        <!-- ОРГАНЫ КРОВООБРАЩЕНИЯ -->
         <div class="section">
             <div class="section-title">❤️ ОРГАНЫ КРОВООБРАЩЕНИЯ</div>
             <div class="field-list">
                 <div class="field-item"><strong>Пульс в мин:</strong> <span class="value">90</span></div>
-                <div class="field-item"><strong>Ритмичный, аритмичный, наполнение пульса:</strong> <span class="value">ритмичный, удовлетворительного наполнения и напряжения.</span></div>
+                <div class="field-item"><strong>Ритмичный, аритмичный, наполнение пульса:</strong> <span class="value">ритмичный, удовлетворительного наполнения и напряжения</span></div>
                 <div class="field-item"><strong>ЧСС:</strong> <span class="value">90</span></div>
-                <div class="field-item"><strong>Дефицит пульса:</strong> <span class="value">нет.</span></div>
-                <div class="field-item"><strong>АД мм.рт.ст. на момент осмотра:</strong> <span class="value">100/65, привычное АД мм.рт.ст.: неизвестно (ребенок), максимальное АД мм.рт.ст.: неизвестно.</span></div>
-                <div class="field-item"><strong>Тоны сердца:</strong> <span class="value">ясные, звучные, ритмичные, тахикардия умеренная.</span></div>
-                <div class="field-item"><strong>Шум:</strong> <span class="value">нет.</span></div>
-                <div class="field-item"><strong>Шум трения перикарда:</strong> <span class="value">нет.</span></div>
-                <div class="field-item"><strong>Акцент какого тона на:</strong> <span class="value">нет.</span></div>
+                <div class="field-item"><strong>Дефицит пульса:</strong> <span class="value">нет</span></div>
+                <div class="field-item"><strong>АД мм.рт.ст.:</strong> <span class="value">на момент осмотра 100/65, привычное не известно (ребенок), максимальное не известно</span></div>
+                <div class="field-item"><strong>Тоны сердца:</strong> <span class="value">ясные, звучные, ритмичные, тахикардия умеренная</span></div>
+                <div class="field-item"><strong>Шум:</strong> <span class="value">нет</span></div>
+                <div class="field-item"><strong>Шум трения перикарда:</strong> <span class="value">нет</span></div>
+                <div class="field-item"><strong>Акцент какого тона на:</strong> <span class="value">нет</span></div>
             </div>
         </div>
 
+        <!-- ОРГАНЫ ПИЩЕВАРЕНИЯ -->
         <div class="section">
             <div class="section-title">🍽️ ОРГАНЫ ПИЩЕВАРЕНИЯ</div>
             <div class="field-list">
-                <div class="field-item"><strong>Язык:</strong> <span class="value">влажный, обложен белым налетом.</span></div>
-                <div class="field-item"><strong>Живот:</strong> <span class="value">правильной формы, мягкий, не вздут, участвует в акте дыхания.</span></div>
-                <div class="field-item"><strong>Болезненный в:</strong> <span class="value">безболезненный при пальпации во всех отделах.</span></div>
+                <div class="field-item"><strong>Язык:</strong> <span class="value">влажный, обложен белым налетом</span></div>
+                <div class="field-item"><strong>Живот:</strong> <span class="value">правильной формы, мягкий, не вздут, участвует в акте дыхания</span></div>
+                <div class="field-item"><strong>Болезненный в:</strong> <span class="value">безболезненный при пальпации во всех отделах</span></div>
                 <div class="field-item"><strong>Положительные симптомы:</strong> <span class="value">нет (живот мягкий, безболезненный)</span></div>
-                <div class="field-item"><strong>Перистальтика:</strong> <span class="value">выслушивается, обычная.</span></div>
-                <div class="field-item"><strong>Печень:</strong> <span class="value">не увеличена, край эластичный, безболезненный.</span></div>
-                <div class="field-item"><strong>Селезенка:</strong> <span class="value">не пальпируется.</span></div>
-                <div class="field-item"><strong>Стул:</strong> <span class="value">регулярный, оформленный (сегодня утром был).</span></div>
+                <div class="field-item"><strong>Перистальтика:</strong> <span class="value">выслушивается, обычная</span></div>
+                <div class="field-item"><strong>Печень:</strong> <span class="value">не увеличена, край эластичный, безболезненный</span></div>
+                <div class="field-item"><strong>Селезенка:</strong> <span class="value">не пальпируется</span></div>
+                <div class="field-item"><strong>Рвота:</strong> <span class="value">не было, не тошнит</span></div>
+                <div class="field-item"><strong>Стул:</strong> <span class="value">регулярный, оформленный, 1 раз в сутки</span></div>
             </div>
         </div>
 
+        <!-- НЕРВНАЯ СИСТЕМА -->
         <div class="section">
             <div class="section-title">🧠 НЕРВНАЯ СИСТЕМА</div>
             <div class="field-list">
-                <div class="field-item"><strong>Поведение:</strong> <span class="value">спокойное, несколько вялая из-за интоксикации.</span></div>
-                <div class="field-item"><strong>Контакт:</strong> <span class="value">доступен, продуктивный.</span></div>
-                <div class="field-item"><strong>Чувствительность:</strong> <span class="value">сохранена.</span></div>
-                <div class="field-item"><strong>Речь:</strong> <span class="value">внятная.</span></div>
-                <div class="field-item"><strong>Зрачки (OD, OS):</strong> <span class="value">D=S, обычные.</span></div>
-                <div class="field-item"><strong>Фотореакция:</strong> <span class="value">живая, содружественная.</span></div>
-                <div class="field-item"><strong>Нистагм:</strong> <span class="value">нет.</span></div>
-                <div class="field-item"><strong>Асимметрия лица:</strong> <span class="value">нет.</span></div>
-                <div class="field-item"><strong>Менингеальные симптомы:</strong> <span class="value">ригидность затылочных мышц, Кернига, Брудзинского — отрицательные.</span></div>
-                <div class="field-item"><strong>Очаговые симптомы:</strong> <span class="value">нет.</span></div>
-                <div class="field-item"><strong>Координаторные пробы:</strong> <span class="value">выполняет уверенно.</span></div>
+                <div class="field-item"><strong>Поведение:</strong> <span class="value">спокойное, несколько вялая из-за интоксикации</span></div>
+                <div class="field-item"><strong>Контакт:</strong> <span class="value">доступен, продуктивный</span></div>
+                <div class="field-item"><strong>Чувствительность:</strong> <span class="value">сохранена</span></div>
+                <div class="field-item"><strong>Речь:</strong> <span class="value">внятная</span></div>
+                <div class="field-item"><strong>Зрачки (OD, OS):</strong> <span class="value">D=S, обычные, фотореакция живая, содружественная</span></div>
+                <div class="field-item"><strong>Нистагм:</strong> <span class="value">нет</span></div>
+                <div class="field-item"><strong>Асимметрия лица:</strong> <span class="value">нет</span></div>
+                <div class="field-item"><strong>Менингеальные симптомы:</strong> <span class="value">ригидность затылочных мышц, Кернига, Брудзинского — отрицательные</span></div>
+                <div class="field-item"><strong>Очаговые симптомы:</strong> <span class="value">не выявлены</span></div>
+                <div class="field-item"><strong>Координаторные пробы:</strong> <span class="value">выполняет уверенно (по возрасту)</span></div>
             </div>
         </div>
 
+        <!-- МОЧЕПОЛОВАЯ СИСТЕМА -->
         <div class="section">
             <div class="section-title">🚽 МОЧЕПОЛОВАЯ СИСТЕМА</div>
             <div class="field-list">
-                <div class="field-item"><strong>Мочеиспускание:</strong> <span class="value">свободное, безболезненное. Цвет мочи — соломенно-желтый, прозрачная (со слов).</span></div>
-                <div class="field-item"><strong>Симптом поколачивания:</strong> <span class="value">отрицательный с обеих сторон.</span></div>
+                <div class="field-item"><strong>Мочеиспускание:</strong> <span class="value">свободное, безболезненное. Цвет мочи — соломенно-желтый, прозрачная (со слов)</span></div>
+                <div class="field-item"><strong>Симптом поколачивания:</strong> <span class="value">отрицательный с обеих сторон</span></div>
             </div>
         </div>
 
+        <!-- STATUS LOCALIS -->
         <div class="section">
             <div class="section-title">🔍 STATUS LOCALIS</div>
             <div class="status-local">
@@ -224,6 +233,7 @@
             </div>
         </div>
 
+        <!-- ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ -->
         <div class="section">
             <div class="section-title">📈 ДАННЫЕ ИНСТРУМЕНТАЛЬНЫХ ИССЛЕДОВАНИЙ</div>
             <div class="scales-list">
@@ -233,22 +243,23 @@
             </div>
         </div>
 
+        <!-- ОЦЕНКА ПО ШКАЛАМ -->
         <div class="section">
             <div class="section-title">📊 ОЦЕНКА ПО ШКАЛАМ</div>
             <div class="scales-list">
                 <p>✔ <strong>Шкала NEWS2:</strong> <span class="highlight-number">2 балла</span> (ЧДД 20 — 0, SpO₂ 98% — 0, t° 38,4 — 1, АД сист. 100 — 1, ЧСС 90 — 0, сознание ясное — 0).</p>
-                <p>✔ <strong>Шкала комы Глазго (GCS):</strong> 15 баллов.</p>
                 <p>✔ <strong>Индекс Альговера:</strong> не применимо.</p>
                 <p>✔ <strong>Шкала боли ВАШ:</strong> не применимо.</p>
-                <p>✔ <strong>Шкала ОДН по Кассиль:</strong> 0 степени.</p>
+                <p>✔ <strong>Шкала ОДН по Кассиль:</strong> не применимо.</p>
                 <p>✔ <strong>Шкала ШОКС:</strong> не применимо.</p>
                 <p>✔ <strong>Шкала риска ТЭЛА:</strong> не применимо.</p>
-                <p>✔ <strong>Алкогольное опьянение:</strong> не применимо.</p>
                 <p>✔ <strong>Шкала LAMS:</strong> не применимо.</p>
+                <p>✔ <strong>Алкогольное опьянение:</strong> не применимо.</p>
                 <p>✔ <strong>ДЭП:</strong> не применимо.</p>
             </div>
         </div>
 
+        <!-- КРАСНАЯ КНОПКА -->
         <div class="algorithm-btn-container">
             <button class="btn-algorithm" id="openAlgorithmBtn">
                 <span>🚨 Оказание помощи в соответствии с Алгоритмами МСК</span>
@@ -258,21 +269,19 @@
     </div>
 </div>
 
-<!-- МОДАЛЬНОЕ ОКНО — Сценарий B -->
+<!-- МОДАЛЬНОЕ ОКНО — Сценарий A: длинный заголовок, шапка уходит при прокрутке -->
 <div class="modal-overlay" id="algorithmModal">
     <div class="modal-container">
         <div class="modal-header">
-            <h2>Алгоритм оказания помощи (МСК)</h2>
+            <h2>B01, B05, B06, A37, A38, B26, A04, A28 — Ветряная оспа | Корь | Краснуха | Скарлатина | Эпидемический паротит | Иерсиниоз | Псевдотуберкулез | Коклюш</h2>
             <button class="modal-close" id="closeModalBtn">&times;</button>
         </div>
         <div class="modal-body">
 
+            <!-- ВЗРОСЛЫЙ ПРОТОКОЛ -->
             <div class="adult-block">
                 <div class="adult-header">
                     <span class="badge-adult">ВЗРОСЛЫЙ ПРОТОКОЛ</span>
-                </div>
-                <div class="no-bg-block">
-                    <div style="font-weight: 800; color: #b91c1c; margin-bottom: 10px; font-size: 1rem;">B01, B05, B06, A37, A38, B26, A04, A28 — Ветряная оспа | Корь | Краснуха | Скарлатина | Эпидемический паротит | Иерсиниоз | Псевдотуберкулез | Коклюш</div>
                 </div>
 
                 <div class="light-block">
@@ -286,18 +295,16 @@
                     <div class="tactic-title">▶ Тактика:</div>
                     <ul class="list-styled">
                         <li>1. Медицинская эвакуация в больницу <span class="bold-black">(13)</span>:<br>– беременных<br>– лиц из организованных закрытых коллективов<br>– при тяжелом или осложненном течении<br>– при лихорадке ≥ 5 суток подряд и/или при отсутствии эффекта от проводимой амбулаторной терапии</li>
-                        <li>2. При отказе от медицинской эвакуации в больницу – рекомендовать обратиться в поликлинику <span class="bold-black">(35)</span></li>
+                        <li>2. При отказе от медицинской эвакуации в больницу — рекомендовать обратиться в поликлинику <span class="bold-black">(35)</span></li>
                         <li>3. Рекомендовать обратиться в поликлинику в клинических ситуациях, не указанных в п. 1 <span class="bold-black">(34)</span></li>
                     </ul>
                 </div>
             </div>
 
+            <!-- ДЕТСКИЙ ПРОТОКОЛ -->
             <div class="child-block">
                 <div class="child-header">
                     <span class="badge-child">ДЕТСКИЙ ПРОТОКОЛ</span>
-                </div>
-                <div class="no-bg-block">
-                    <div style="font-weight: 800; color: #2e7d32; margin-bottom: 10px; font-size: 1rem;">B01, B05, B06, A37, A38, B26, A04, A28 — Ветряная оспа | Корь | Краснуха | Скарлатина | Эпидемический паротит | Иерсиниоз | Псевдотуберкулез | Коклюш</div>
                 </div>
 
                 <div class="child-condition-block">
@@ -312,7 +319,7 @@
                     <div class="tactic-title">▶ Тактика:</div>
                     <ul class="list-styled">
                         <li>1. Медицинская эвакуация в больницу <span class="bold-black">(13)</span>:<br>– лиц из организованных закрытых коллективов<br>– при тяжелом или осложненном течении<br>– при лихорадке ≥ 5 суток подряд и/или при отсутствии эффекта от проводимой амбулаторной терапии</li>
-                        <li>2. При отказе от медицинской эвакуации в больницу – рекомендовать обратиться в поликлинику <span class="bold-black">(35)</span></li>
+                        <li>2. При отказе от медицинской эвакуации в больницу — рекомендовать обратиться в поликлинику <span class="bold-black">(35)</span></li>
                         <li>3. Рекомендовать обратиться в поликлинику в клинических ситуациях, не указанных в п. 1 <span class="bold-black">(34)</span></li>
                     </ul>
                 </div>
