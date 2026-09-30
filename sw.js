@@ -1,5 +1,5 @@
 // sw.js — Service Worker для EMHelp PWA
-// Версия: v148 (редактирование карт)
+// Версия: v149 (редактирование карт)
 
 const CACHE_NAME = 'emhelp-v147';
 
