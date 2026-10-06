@@ -229,7 +229,7 @@
   </script>
 
   <script>
-    // Авто-подсказка прокруткой: один раз за сессию
+    // Авто-подсказка прокруткой: один раз за сессию, только вниз
     (function scrollHint() {
       const shown = sessionStorage.getItem('calcScrollHintShown');
       if (shown) return;
@@ -257,15 +257,9 @@
             ? Math.min(firstSection.offsetHeight + 20, 340)
             : 300;
           
-          // 1) плавно вниз
+          // Плавно вниз (без возврата наверх)
           window.scrollTo({ top: offset, behavior: 'smooth' });
-          
-          // 2) пауза и плавно наверх
-          setTimeout(() => {
-            if (cancelled) return;
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            sessionStorage.setItem('calcScrollHintShown', '1');
-          }, 1400);
+          sessionStorage.setItem('calcScrollHintShown', '1');
         }, 600);
       });
     })();
