@@ -112,30 +112,6 @@
             box-shadow: 0 0 0 3px rgba(31,110,156,0.1);
         }
 
-        .reset-btn {
-            text-decoration: none;
-            color: #0f1446;
-            background: #ffffff;
-            padding: 14px 24px;
-            border-radius: 12px;
-            font-weight: 600;
-            text-align: center;
-            transition: all 0.2s;
-            border: 2px solid #d4e2f0;
-            cursor: pointer;
-            font-size: 15px;
-            font-family: inherit;
-            line-height: 1.3;
-            width: 100%;
-            margin-top: 8px;
-        }
-
-        .reset-btn:hover {
-            background: #eef7ff;
-            border-color: #0f1446;
-            transform: translateY(-1px);
-        }
-
         .result-section {
             background: #ffffff;
             border-radius: 16px;
@@ -196,6 +172,14 @@
 
         .drug-item strong {
             color: #0f1446;
+        }
+
+        .placeholder-text {
+            text-align: center;
+            color: #6f8eaa;
+            padding: 30px 20px;
+            font-size: 0.95rem;
+            line-height: 1.6;
         }
 
         .footnote {
@@ -262,28 +246,31 @@
             <div class="form-row">
                 <div class="form-group">
                     <label>📅 Возраст (лет)</label>
-                    <input type="number" id="ageYears" min="0" max="16" step="1" value="5">
+                    <input type="number" id="ageYears" min="0" max="16" step="1" placeholder="Лет" inputmode="numeric">
                 </div>
                 <div class="form-group">
                     <label>📅 Возраст (мес)</label>
-                    <input type="number" id="ageMonths" min="0" max="11" step="1" value="0">
+                    <input type="number" id="ageMonths" min="0" max="11" step="1" placeholder="Мес" inputmode="numeric">
                 </div>
                 <div class="form-group">
                     <label>📏 Рост (см, опционально)</label>
-                    <input type="number" id="heightCm" step="0.1" placeholder="Например, 110">
+                    <input type="number" id="heightCm" step="0.1" placeholder="Например, 110" inputmode="decimal">
                 </div>
                 <div class="form-group">
                     <label>⚖️ Вес (кг, опционально)</label>
-                    <input type="number" id="weightKg" step="0.1" placeholder="Например, 18">
+                    <input type="number" id="weightKg" step="0.1" placeholder="Например, 18" inputmode="decimal">
                 </div>
             </div>
-            <button class="reset-btn" id="resetBtn">🗑️ Сбросить (5 лет)</button>
         </div>
         
         <!-- ===== РЕЗУЛЬТАТЫ ===== -->
         <div class="result-section">
             <h2>📋 Результаты расчёта</h2>
-            <div id="output" style="min-height: 100px;">Введите данные — результат появится автоматически</div>
+            <div id="output">
+                <div class="placeholder-text">
+                    👆 Введите возраст, чтобы увидеть<br>физиологические нормы и параметры неотложной помощи
+                </div>
+            </div>
         </div>
         
         <div class="footnote">
@@ -423,8 +410,18 @@
     }
 
     function calculate() {
-        let years = parseFloat(document.getElementById('ageYears').value);
-        let months = parseFloat(document.getElementById('ageMonths').value);
+        const yearsInput = document.getElementById('ageYears').value;
+        const monthsInput = document.getElementById('ageMonths').value;
+
+        // Если возраст не введён — показываем заглушку
+        if (yearsInput === '' && monthsInput === '') {
+            document.getElementById('output').innerHTML =
+                '<div class="placeholder-text">👆 Введите возраст, чтобы увидеть<br>физиологические нормы и параметры неотложной помощи</div>';
+            return;
+        }
+
+        let years = parseFloat(yearsInput);
+        let months = parseFloat(monthsInput);
         if (isNaN(years)) years = 0;
         if (isNaN(months)) months = 0;
         if (years < 0) years = 0;
@@ -463,8 +460,8 @@
             drugsHtml += `<div class="drug-item"><strong>${drug.name}</strong><br>${ml} мл (доза ${drug.doseMgPerKg} мг/кг, конц. ${drug.concentration} мг/мл)<br><span style="font-size:0.75rem; color:#6f8eaa;">${drug.note}</span></div>`;
         });
 
-        let ageDisplay = `${years} лет ${months} мес`;
-        
+        let ageDisplay = months > 0 ? `${years} лет ${months} мес` : `${years} лет`;
+
         let outputHtml = `
             <div class="table-wrap">
                 <table>
@@ -506,16 +503,7 @@
     document.getElementById('heightCm').addEventListener('input', calculate);
     document.getElementById('weightKg').addEventListener('input', calculate);
 
-    // Сброс
-    document.getElementById('resetBtn').addEventListener('click', function() {
-        document.getElementById('ageYears').value = 5;
-        document.getElementById('ageMonths').value = 0;
-        document.getElementById('heightCm').value = '';
-        document.getElementById('weightKg').value = '';
-        calculate();
-    });
-
-    // Первичный расчёт
+    // Первичный расчёт (показывает заглушку, если поля пусты)
     calculate();
     
     // Service Worker
