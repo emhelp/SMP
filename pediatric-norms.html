@@ -4,17 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>👶 Детские возрастные нормы</title>
-    
+
     <!-- PWA -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#0f1446">
-    
+
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
@@ -25,10 +21,7 @@
             min-height: 100vh;
         }
 
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-        }
+        .container { max-width: 1000px; margin: 0 auto; }
 
         .card {
             background: white;
@@ -45,18 +38,8 @@
             padding: 28px 20px;
         }
 
-        .card.header-card h1 {
-            font-size: 28px;
-            color: white;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-
-        .card.header-card p {
-            opacity: 0.9;
-            font-size: 0.95rem;
-            margin-top: 8px;
-        }
+        .card.header-card h1 { font-size: 28px; color: white; font-weight: 700; margin-bottom: 8px; }
+        .card.header-card p { opacity: 0.9; font-size: 0.95rem; margin-top: 8px; }
 
         h2 {
             color: #0f1446;
@@ -74,17 +57,9 @@
             border-left: 4px solid #1f6e9c;
         }
 
-        .form-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            margin-bottom: 12px;
-        }
+        .form-row { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 12px; }
 
-        .form-group {
-            flex: 1;
-            min-width: 130px;
-        }
+        .form-group { flex: 1; min-width: 130px; }
 
         .form-group label {
             font-weight: 600;
@@ -126,11 +101,7 @@
             border: 1px solid #d4e2f0;
         }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.85rem;
-        }
+        table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
 
         th, td {
             padding: 10px 12px;
@@ -146,13 +117,8 @@
             font-size: 0.9rem;
         }
 
-        tr:nth-child(odd) {
-            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-        }
-
-        tr:nth-child(even) {
-            background: linear-gradient(135deg, #eef7ff 0%, #f0f4f8 100%);
-        }
+        tr:nth-child(odd) { background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%); }
+        tr:nth-child(even) { background: linear-gradient(135deg, #eef7ff 0%, #f0f4f8 100%); }
 
         .drug-list {
             display: grid;
@@ -170,8 +136,41 @@
             color: #1f3a4b;
         }
 
-        .drug-item strong {
+        .drug-item strong { color: #0f1446; }
+
+        .drug-item.adrenaline {
+            background: #fff0f0;
+            border-left-color: #d32f2f;
+        }
+
+        .drug-item.adrenaline strong { color: #b71c1c; }
+
+        .drug-item.contraindicated {
+            background: #ffebee;
+            border-left-color: #c62828;
+            border: 2px solid #c62828;
+        }
+
+        .drug-item.contraindicated strong { color: #b71c1c; }
+
+        .contraindication-text {
+            color: #c62828;
+            font-weight: 700;
+            font-size: 0.8rem;
+            margin-top: 6px;
+            display: block;
+        }
+
+        .drug-dose {
+            font-size: 0.95rem;
+            font-weight: 700;
             color: #0f1446;
+        }
+
+        .drug-route {
+            font-size: 0.75rem;
+            color: #6f8eaa;
+            font-weight: 600;
         }
 
         .placeholder-text {
@@ -193,55 +192,31 @@
         }
 
         @media (max-width: 768px) {
-            body {
-                padding: 10px;
-            }
-            .card {
-                padding: 16px 14px;
-            }
-            .card.header-card {
-                padding: 20px 14px;
-            }
-            .card.header-card h1 {
-                font-size: 22px;
-            }
-            .form-card {
-                padding: 14px;
-            }
-            .form-group input {
-                padding: 10px 12px;
-                font-size: 0.85rem;
-            }
-            th, td {
-                padding: 8px;
-                font-size: 0.8rem;
-            }
-            .drug-list {
-                grid-template-columns: 1fr;
-            }
+            body { padding: 10px; }
+            .card { padding: 16px 14px; }
+            .card.header-card { padding: 20px 14px; }
+            .card.header-card h1 { font-size: 22px; }
+            .form-card { padding: 14px; }
+            .form-group input { padding: 10px 12px; font-size: 0.85rem; }
+            th, td { padding: 8px; font-size: 0.8rem; }
+            .drug-list { grid-template-columns: 1fr; }
         }
 
         @media (max-width: 480px) {
-            .form-row {
-                flex-direction: column;
-                gap: 8px;
-            }
+            .form-row { flex-direction: column; gap: 8px; }
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    
-    <!-- ===== ШАПКА ===== -->
+
     <div class="card header-card">
         <h1>👶 Детские возрастные нормы</h1>
         <p>Физиологические показатели, параметры неотложной помощи и дозировки препаратов для детей от 0 до 16 лет</p>
     </div>
-    
-    <!-- ===== ФОРМА ВВОДА ===== -->
+
     <div class="card">
-        
         <div class="form-card">
             <div class="form-row">
                 <div class="form-group">
@@ -262,8 +237,7 @@
                 </div>
             </div>
         </div>
-        
-        <!-- ===== РЕЗУЛЬТАТЫ ===== -->
+
         <div class="result-section">
             <h2>📋 Результаты расчёта</h2>
             <div id="output">
@@ -272,14 +246,15 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="footnote">
-            ⚕️ Формулы основаны на клинических рекомендациях (ВОЗ, педиатрические протоколы). Данные носят ориентировочный характер. Всегда уточняйте индивидуальные особенности пациента.
+            ⚕️ Формулы основаны на клинических рекомендациях (ВОЗ, ERC 2025, педиатрические протоколы). Данные носят ориентировочный характер. Всегда уточняйте индивидуальные особенности пациента.
         </div>
     </div>
 </div>
 
 <script>
+    // ===== ФУНКЦИИ НОРМ =====
     function getNormalWeight(years, months) {
         let ageYears = years + months / 12;
         if (ageYears <= 0.25) return 4.5;
@@ -335,18 +310,20 @@
     }
 
     function getNormalHeartRate(years) {
-        if (years < 1) return 130;
-        if (years <= 2) return 115;
-        if (years <= 5) return 100;
-        if (years <= 10) return 85;
+        if (years < 1) return 140;
+        if (years <= 2) return 120;
+        if (years <= 5) return 105;
+        if (years <= 8) return 95;
+        if (years <= 11) return 85;
         return 75;
     }
 
     function getNormalRespRate(years) {
-        if (years < 1) return 35;
-        if (years <= 2) return 28;
-        if (years <= 5) return 24;
-        if (years <= 10) return 20;
+        if (years < 1) return 40;
+        if (years <= 2) return 30;
+        if (years <= 5) return 25;
+        if (years <= 8) return 22;
+        if (years <= 11) return 18;
         return 16;
     }
 
@@ -358,12 +335,28 @@
         return "№ 3–4 (взрослый)";
     }
 
-    function getETTSize(years, weightKg) {
-        if (years <= 0) return "3.0 (недоношенные) – 3.5";
-        let size = Math.round((years / 4) + 3.5);
-        if (size < 3) size = 3;
-        if (size > 7) size = 7;
-        return `${size}.0 мм ID (внутренний диаметр)`;
+    // ===== ЭТТ: без манжеты / с манжетой, шаг 0,5 мм =====
+    function getETTSize(ageYears, weightKg) {
+        // Новорождённые и младенцы (< 1 года) — отдельно
+        if (ageYears < 1) {
+            if (weightKg < 3.5) {
+                return "Без манжеты: 3,0–3,5 мм | С манжетой: не рекомендуется (< 3,5 кг)";
+            }
+            return "Без манжеты: 3,5 мм | С манжетой: 3,0 мм";
+        }
+
+        // 1 год и старше: шаг 0,5 мм, ±0,5 для подготовки
+        const uncuffed = (4 + ageYears / 4);
+        const cuffed = (3.5 + ageYears / 4);
+
+        // Округление до 0,5 мм
+        const uncuffedRound = Math.round(uncuffed * 2) / 2;
+        const cuffedRound = Math.round(cuffed * 2) / 2;
+
+        const uncuffedLower = (uncuffedRound - 0.5).toFixed(1);
+        const uncuffedHigher = (uncuffedRound + 0.5).toFixed(1);
+
+        return `Без манжеты: ${uncuffedRound.toFixed(1)} мм (готовить ${uncuffedLower} и ${uncuffedHigher}) | С манжетой: ${cuffedRound.toFixed(1)} мм`;
     }
 
     function getTidalVolume(weightKg, rr) {
@@ -372,48 +365,260 @@
         return `${tidal} мл (7 мл/кг) | Минутная вентиляция: ${minuteVentilation} мл/мин`;
     }
 
+    // ===== ДЕФИБРИЛЛЯЦИЯ: ERC 2025 =====
     function getDefibJoules(weightKg) {
-        let joules = Math.min(weightKg * 4, 360);
-        if (joules < 2) joules = 2;
-        return `${Math.round(joules)} Дж (4 Дж/кг, макс 360)`;
+        const standard = weightKg * 4;       // 4 Дж/кг — стандарт ERC
+        const maxAdult = 200;                 // не превышать взрослую дозу
+        const refractory = weightKg * 8;      // рефрактерная: 8 Дж/кг
+
+        const firstShock = Math.min(standard, maxAdult);
+        const refractoryShock = Math.min(Math.max(standard, refractory), 360);
+
+        return `Первый/стандартный: ${Math.round(firstShock)} Дж (4 Дж/кг) | Рефрактерная ФЖ/ЖТ: до ${Math.round(refractoryShock)} Дж (8 Дж/кг, макс. 360 Дж)`;
     }
 
     function getGastricLavage(weightKg) {
         let single = Math.round(weightKg * 10);
         let total = Math.min(weightKg * 50, 1000);
-        return `Однократно: ${single} мл (10 мл/кг). Общий объём процедуры: до ${total} мл (макс 50 мл/кг или 1000 мл)`;
+        return `Однократно: ${single} мл (10 мл/кг). Общий объём: до ${total} мл (макс 50 мл/кг или 1000 мл)`;
     }
 
+    // ===== ПРЕПАРАТЫ =====
     const drugListRaw = [
-        { name: "Адреналин", doseMgPerKg: 0.01, concentration: 0.1, note: "(0.1 мг/мл, 1:10 000) – внутривенно при анафилаксии/остановке" },
-        { name: "Анальгин (метамизол натрия)", doseMgPerKg: 10, concentration: 500, note: "500 мг/мл (50% раствор). В/в или в/м медленно, разовая доза 5–10 мг/кг." },
-        { name: "Атропин", doseMgPerKg: 0.02, concentration: 0.5, note: "0.5 мг/мл (минимальная доза 0.1 мг)" },
-        { name: "Дексаметазон", doseMgPerKg: 0.2, concentration: 4, note: "4 мг/мл" },
-        { name: "Кетамин", doseMgPerKg: 1, concentration: 50, note: "50 мг/мл, в/в" },
-        { name: "Метоклопрамид", doseMgPerKg: 0.15, concentration: 5, note: "5 мг/мл" },
-        { name: "Мидазолам", doseMgPerKg: 0.1, concentration: 5, note: "5 мг/мл, в/в или интраназально" },
-        { name: "Морфин", doseMgPerKg: 0.1, concentration: 10, note: "10 мг/мл, разведение" },
-        { name: "Платифиллин", doseMgPerKg: 0.02, concentration: 2, note: "2 мг/мл, спазмолитик" },
-        { name: "Преднизолон", doseMgPerKg: 1, concentration: 30, note: "30 мг/мл (разовая доза)" },
-        { name: "Сибазон (Диазепам)", doseMgPerKg: 0.3, concentration: 5, note: "5 мг/мл, медленно в/в" },
-        { name: "Трамал (Трамадол)", doseMgPerKg: 1, concentration: 50, note: "50 мг/мл, в/в медленно" },
-        { name: "Фентанил", doseMgPerKg: 0.001, concentration: 0.05, note: "0.05 мг/мл (50 мкг/мл)" },
-        { name: "Хлоропирамин (Супрастин)", doseMgPerKg: 0.3, concentration: 20, note: "20 мг/мл" }
+        // ===== АДРЕНАЛИН =====
+        { 
+            name: "Адреналин (анафилаксия)", 
+            doseMgPerKg: 0.01, 
+            concentration: 1,
+            maxDoseMg: 0.5,
+            route: "в/м (бедро)",
+            indication: "Анафилаксия",
+            note: "1:1000 (1 мг/мл). в/м в бедро. Повтор каждые 5–15 мин, до 3–4 раз. Макс. 0.5 мг/доза.",
+            isAdrenaline: true
+        },
+        { 
+            name: "Адреналин (асистолия)", 
+            doseMgPerKg: 0.01, 
+            concentration: 0.1,
+            maxDoseMg: 1,
+            route: "в/в, в/к",
+            indication: "Асистолия/PEA",
+            note: "1:10000 (0.1 мг/мл). в/в/в/к. Повтор каждые 3–5 мин. Макс. 1 мг/доза.",
+            isAdrenaline: true
+        },
+
+        // ===== АТРОПИН =====
+        { 
+            name: "Атропин", 
+            doseMgPerKg: 0.02, 
+            concentration: 0.5, 
+            minDoseMg: 0.1,
+            maxDoseMg: 0.5,
+            route: "в/в",
+            indication: "Брадикардия (вагус/АВ-блокада)",
+            note: "0.5 мг/мл. Мин. 0.1 мг (для брадикардии). Макс. 0.5 мг (ребёнок), 1 мг (подросток)."
+        },
+
+        // ===== МЕТОКЛОПРАМИД =====
+        { 
+            name: "Метоклопрамид", 
+            doseMgPerKg: 0.15, 
+            concentration: 5,
+            minAgeYears: 1,
+            indication: "Тошнота/рвота (2-я линия)",
+            note: "Противопоказан детям до 1 года (EMA). Экстрапирамидные реакции 1–10%, дистония 0.1–1.5%."
+        },
+
+        // ===== МИДАЗОЛАМ =====
+        { 
+            name: "Мидазолам (в/в)", 
+            doseMgPerKg: 0.1, 
+            concentration: 5,
+            maxDoseMg: 5,
+            route: "в/в",
+            indication: "Седация/судороги",
+            note: "5 мг/мл. в/в медленно. Макс. 5 мг/доза."
+        },
+        { 
+            name: "Мидазолам (интраназально)", 
+            doseMgPerKg: 0.2, 
+            concentration: 5,
+            maxDoseMg: 10,
+            route: "интраназально",
+            indication: "Седация/судороги (без в/в доступа)",
+            note: "5 мг/мл. Интраназально через MAD. Макс. 10 мг/доза."
+        },
+
+        // ===== ДИАЗЕПАМ =====
+        { 
+            name: "Диазепам", 
+            doseMgPerKg: 0.3, 
+            concentration: 5,
+            maxDoseMg: 10,
+            minAgeDays: 28,
+            route: "в/в",
+            indication: "Судороги",
+            note: "5 мг/мл. в/в медленно. Макс. 10 мг/доза. Не применять новорождённым < 4 недель."
+        },
+
+        // ===== МОРФИН =====
+        { 
+            name: "Морфин", 
+            doseMgPerKg: 0.1,
+            concentration: 10,
+            route: "в/в",
+            indication: "Сильная боль",
+            note: "10 мг/мл. Новорождённые: 0.025 мг/кг. Старшие: 0.1 мг/кг. Титровать по эффекту.",
+            neonateDoseMgPerKg: 0.025
+        },
+
+        // ===== ФЕНТАНИЛ =====
+        { 
+            name: "Фентанил", 
+            doseMgPerKg: 0.001,
+            concentration: 0.05,
+            minAgeYears: 2,
+            route: "в/в",
+            indication: "Обезболивание",
+            note: "50 мкг/мл. Доза: 1–2 мкг/кг. Выводится в мкг. Нет данных до 2 лет.",
+            displayUnit: "mcg"
+        },
+
+        // ===== ТРАМАДОЛ =====
+        { 
+            name: "Трамадол", 
+            doseMgPerKg: 1, 
+            concentration: 50,
+            minAgeYears: 12,
+            route: "в/в",
+            indication: "Умеренная/сильная боль",
+            note: "50 мг/мл. FDA black-box: противопоказан детям < 12 лет. Угнетение дыхания."
+        },
+
+        // ===== ПЛАТИФИЛЛИН =====
+        { 
+            name: "Платифиллин", 
+            doseMgPerKg: 0.02,
+            concentration: 2,
+            route: "п/к",
+            indication: "Спазмолитик",
+            note: "2 мг/мл. Возрастные дозы: до 1 года — 0.035 мг/кг, 1–5 лет — 0.03 мг/кг, 6–10 лет — 0.025 мг/кг, 11–14 лет — 0.02 мг/кг."
+        },
+
+        // ===== КЕТАМИН =====
+        { 
+            name: "Кетамин", 
+            doseMgPerKg: 1,
+            concentration: 50,
+            route: "в/в",
+            indication: "Процедурная седация",
+            note: "50 мг/мл. Седация: 1–1.5 мг/кг в/в. Индукция: 2–3 мг/кг. Анальгезия: 0.1–0.3 мг/кг."
+        },
+
+        // ===== ХЛОРОПИРАМИН =====
+        { 
+            name: "Хлоропирамин (Супрастин)", 
+            doseMgPerKg: 0.3, 
+            concentration: 20,
+            route: "в/в, в/м",
+            indication: "Аллергия/анафилаксия (после стабилизации АД)",
+            note: "20 мг/мл. Для анафилаксии: начальная детская доза 5 мг. 1–12 мес — 1/4 ампулы, 1–6 лет — 1/2 ампулы, 6–14 лет — 1/2–1 ампула."
+        },
+
+        // ===== ДЕКСАМЕТАЗОН =====
+        { 
+            name: "Дексаметазон", 
+            doseMgPerKg: 0.2, 
+            concentration: 4,
+            maxDoseMg: 10,
+            route: "в/в, в/м",
+            indication: "Круп/анафилаксия",
+            note: "4 мг/мл. Круп: 0.15–0.6 мг/кг. Анафилаксия: 0.1–0.4 мг/кг, макс. 10 мг."
+        },
+
+        // ===== ПРЕДНИЗОЛОН =====
+        { 
+            name: "Преднизолон", 
+            doseMgPerKg: 1, 
+            concentration: 30,
+            maxDoseMg: 50,
+            route: "в/в, в/м",
+            indication: "Анафилаксия/аллергия",
+            note: "30 мг/мл. Анафилаксия: 1.3–2.6 мг/кг, макс. 50 мг."
+        },
+
+        // ===== АНАЛЬГИН =====
+        { 
+            name: "Анальгин (метамизол)", 
+            doseMgPerKg: 10, 
+            concentration: 500,
+            minAgeMonths: 3,
+            minWeightKg: 5,
+            route: "в/в, в/м",
+            indication: "Боль/лихорадка",
+            note: "500 мг/мл (50%). Противопоказан до 3 мес или при массе < 5 кг."
+        }
     ];
 
-    const drugList = drugListRaw.sort((a, b) => a.name.localeCompare(b.name));
+    const drugList = drugListRaw.sort((a, b) => {
+        if (a.isAdrenaline && !b.isAdrenaline) return -1;
+        if (!a.isAdrenaline && b.isAdrenaline) return 1;
+        return a.name.localeCompare(b.name);
+    });
 
-    function getDrugMl(weight, drug) {
+    // ===== РАСЧЁТ ДОЗЫ =====
+    function getDrugDose(weight, drug, ageYears, ageMonths) {
+        if (drug.minAgeYears && ageYears < drug.minAgeYears) {
+            return { contraindicated: true, reason: `Противопоказан до ${drug.minAgeYears} лет` };
+        }
+        if (drug.minAgeMonths && (ageYears * 12 + ageMonths) < drug.minAgeMonths) {
+            return { contraindicated: true, reason: `Противопоказан до ${drug.minAgeMonths} мес` };
+        }
+        if (drug.minWeightKg && weight < drug.minWeightKg) {
+            return { contraindicated: true, reason: `Противопоказан при массе < ${drug.minWeightKg} кг` };
+        }
+
         let doseMg = drug.doseMgPerKg * weight;
+
+        if (drug.neonateDoseMgPerKg && ageYears < 0.25) {
+            doseMg = drug.neonateDoseMgPerKg * weight;
+        }
+
+        if (drug.minDoseMg && doseMg < drug.minDoseMg) {
+            doseMg = drug.minDoseMg;
+        }
+
+        if (drug.maxDoseMg && doseMg > drug.maxDoseMg) {
+            doseMg = drug.maxDoseMg;
+        }
+
         let ml = doseMg / drug.concentration;
-        return ml.toFixed(2);
+
+        let displayDose, displayUnit;
+        if (drug.displayUnit === 'mcg') {
+            displayDose = (doseMg * 1000).toFixed(0);
+            displayUnit = 'мкг';
+        } else {
+            displayDose = doseMg.toFixed(2);
+            displayUnit = 'мг';
+        }
+
+        return {
+            contraindicated: false,
+            ml: ml.toFixed(2),
+            doseMg: doseMg.toFixed(2),
+            displayDose: displayDose,
+            displayUnit: displayUnit,
+            wasCapped: drug.maxDoseMg && (drug.doseMgPerKg * weight) > drug.maxDoseMg,
+            wasRaised: drug.minDoseMg && (drug.doseMgPerKg * weight) < drug.minDoseMg
+        };
     }
 
+    // ===== ОСНОВНАЯ ФУНКЦИЯ =====
     function calculate() {
         const yearsInput = document.getElementById('ageYears').value;
         const monthsInput = document.getElementById('ageMonths').value;
 
-        // Если возраст не введён — показываем заглушку
         if (yearsInput === '' && monthsInput === '') {
             document.getElementById('output').innerHTML =
                 '<div class="placeholder-text">👆 Введите возраст, чтобы увидеть<br>физиологические нормы и параметры неотложной помощи</div>';
@@ -456,8 +661,27 @@
 
         let drugsHtml = '';
         drugList.forEach(drug => {
-            let ml = getDrugMl(weight, drug);
-            drugsHtml += `<div class="drug-item"><strong>${drug.name}</strong><br>${ml} мл (доза ${drug.doseMgPerKg} мг/кг, конц. ${drug.concentration} мг/мл)<br><span style="font-size:0.75rem; color:#6f8eaa;">${drug.note}</span></div>`;
+            let result = getDrugDose(weight, drug, years, months);
+
+            if (result.contraindicated) {
+                drugsHtml += `<div class="drug-item contraindicated">
+                    <strong>⚠️ ${drug.name}</strong>
+                    <span class="contraindication-text">${result.reason}</span>
+                </div>`;
+            } else {
+                let cls = drug.isAdrenaline ? 'drug-item adrenaline' : 'drug-item';
+                let routeText = drug.route ? `<span class="drug-route">${drug.route}</span>` : '';
+                let indicationText = drug.indication ? ` • ${drug.indication}` : '';
+                let cappedText = result.wasCapped ? ' <span style="color:#d32f2f; font-size:0.75rem;">(макс.)</span>' : '';
+                let raisedText = result.wasRaised ? ' <span style="color:#1f6e9c; font-size:0.75rem;">(мин.)</span>' : '';
+
+                drugsHtml += `<div class="${cls}">
+                    <strong>${drug.name}</strong>${indicationText}<br>
+                    <span class="drug-dose">${result.displayDose} ${result.displayUnit}</span>${cappedText}${raisedText}
+                    ${routeText} → ${result.ml} мл<br>
+                    <span style="font-size:0.75rem; color:#6f8eaa;">${drug.note}</span>
+                </div>`;
+            }
         });
 
         let ageDisplay = months > 0 ? `${years} лет ${months} мес` : `${years} лет`;
@@ -465,9 +689,7 @@
         let outputHtml = `
             <div class="table-wrap">
                 <table>
-                    <tr>
-                        <th colspan="2">📊 Физиологические показатели</th>
-                    </tr>
+                    <tr><th colspan="2">📊 Физиологические показатели</th></tr>
                     <tr><td><strong>Возраст</strong></td><td>${ageDisplay}</td></tr>
                     <tr><td><strong>Рост</strong></td><td>${height} см ${isNaN(userHeight) ? '(расчётная норма)' : '(введён)'}</td></tr>
                     <tr><td><strong>Вес</strong></td><td>${weight} кг ${isNaN(userWeight) ? '(расчётная норма)' : '(введён)'}</td></tr>
@@ -478,39 +700,32 @@
             </div>
             <div class="table-wrap">
                 <table>
-                    <tr>
-                        <th colspan="2">🩺 Параметры неотложной помощи (вес ${weight} кг)</th>
-                    </tr>
+                    <tr><th colspan="2">🩺 Параметры неотложной помощи (вес ${weight} кг)</th></tr>
                     <tr><td><strong>Ларингеальная трубка (LMA)</strong></td><td>${laryngeal}</td></tr>
-                    <tr><td><strong>Эндотрахеальная трубка (ETT)</strong></td><td>${ett}</td></tr>
+                    <tr><td><strong>Эндотрахеальная трубка (ЭТТ)</strong></td><td>${ett}</td></tr>
                     <tr><td><strong>Дыхательный объём и минутная вентиляция</strong></td><td>${tidalWithMinute}</td></tr>
-                    <tr><td><strong>Мощность разряда дефибриллятора</strong></td><td>${defib}</td></tr>
+                    <tr><td><strong>Дефибрилляция (ERC 2025)</strong></td><td>${defib}</td></tr>
                     <tr><td><strong>Промывание желудка</strong></td><td>${gastric}</td></tr>
                 </table>
             </div>
-            <h2>💊 Дозировки препаратов (мл на инъекцию)</h2>
-            <div class="drug-list">
-                ${drugsHtml}
-            </div>
+            <h2>💊 Дозировки препаратов</h2>
+            <div class="drug-list">${drugsHtml}</div>
         `;
 
         document.getElementById('output').innerHTML = outputHtml;
     }
 
-    // Авторасчёт при изменении любого поля
     document.getElementById('ageYears').addEventListener('input', calculate);
     document.getElementById('ageMonths').addEventListener('input', calculate);
     document.getElementById('heightCm').addEventListener('input', calculate);
     document.getElementById('weightKg').addEventListener('input', calculate);
 
-    // Первичный расчёт (показывает заглушку, если поля пусты)
     calculate();
-    
-    // Service Worker
+
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('/SMP/sw.js')
-            .then(reg => console.log('✅ Service Worker зарегистрирован:', reg.scope))
-            .catch(err => console.error('❌ Ошибка регистрации SW:', err));
+            .then(reg => console.log('✅ SW зарегистрирован:', reg.scope))
+            .catch(err => console.error('❌ Ошибка SW:', err));
     }
 </script>
 
