@@ -4,382 +4,153 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <title>Калькулятор площади ожоговой поверхности</title>
-
-    <!-- PWA -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#0f1446">
-
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
             font-family: 'Segoe UI', 'Roboto', sans-serif;
-            margin: 0;
             padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            display: flex; flex-direction: column; align-items: center;
             min-height: 100vh;
         }
-
-        .container {
-            max-width: 1200px;
-            width: 100%;
-        }
-
+        .container { max-width: 1200px; width: 100%; }
         .card {
-            background: white;
-            border-radius: 24px;
+            background: white; border-radius: 24px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            padding: 24px 22px;
-            margin-bottom: 24px;
+            padding: 24px 22px; margin-bottom: 24px;
         }
-
         .header-card {
             background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
-            color: white;
-            text-align: center;
-            padding: 28px 20px;
+            color: white; text-align: center; padding: 28px 20px;
         }
-        .header-card h1 {
-            color: white;
-            margin-bottom: 8px;
-            font-size: 28px;
-            font-weight: 700;
-        }
-        .header-card p {
-            opacity: 0.9;
-            font-size: 0.95rem;
-            margin-top: 4px;
-            line-height: 1.5;
-        }
+        .header-card h1 { color: white; margin-bottom: 8px; font-size: 28px; font-weight: 700; }
+        .header-card p { opacity: 0.9; font-size: 0.95rem; margin-top: 4px; line-height: 1.5; }
 
-        .age-selector {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
-        }
-
+        .age-selector { display: flex; gap: 12px; margin-bottom: 1.5rem; flex-wrap: wrap; }
         .age-btn {
-            background: #ffffff;
-            border: 2px solid #d4e2f0;
-            text-align: center;
-            padding: 12px 20px;
-            border-radius: 12px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-family: inherit;
-            color: #0f1446;
-            flex: 1;
-            min-width: 100px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            background: #ffffff; border: 2px solid #d4e2f0; text-align: center;
+            padding: 12px 20px; border-radius: 12px; font-size: 0.9rem; font-weight: 600;
+            cursor: pointer; transition: all 0.2s; font-family: inherit; color: #0f1446;
+            flex: 1; min-width: 100px; box-shadow: 0 2px 6px rgba(0,0,0,0.05);
         }
-
-        .age-btn:hover {
-            background: #eef7ff;
-            border-color: #0f1446;
-            transform: translateY(-1px);
-        }
-
+        .age-btn:hover { background: #eef7ff; border-color: #0f1446; transform: translateY(-1px); }
         .age-btn.active {
             background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
-            border-color: #0f1446;
-            color: white;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            border-color: #0f1446; color: white; box-shadow: 0 4px 10px rgba(0,0,0,0.15);
         }
 
-        .two-columns {
-            display: flex;
-            gap: 1.5rem;
-            flex-wrap: wrap;
-        }
-
+        .two-columns { display: flex; gap: 1.5rem; flex-wrap: wrap; }
         .body-parts {
-            flex: 1;
-            min-width: 280px;
-            background: #eef7ff;
-            border-radius: 16px;
-            padding: 1rem;
-            border: 1px solid #d4e2f0;
+            flex: 1; min-width: 280px; background: #eef7ff;
+            border-radius: 16px; padding: 1rem; border: 1px solid #d4e2f0;
         }
-
-        .calc-section {
-            flex: 1;
-            min-width: 260px;
-        }
-
+        .calc-section { flex: 1; min-width: 260px; }
         .parts-title {
-            font-weight: 700;
-            color: #0f1446;
-            margin-bottom: 1rem;
-            font-size: 0.95rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            border-left: 4px solid #1f6e9c;
-            padding-left: 12px;
+            font-weight: 700; color: #0f1446; margin-bottom: 1rem; font-size: 0.95rem;
+            display: flex; align-items: center; gap: 8px;
+            border-left: 4px solid #1f6e9c; padding-left: 12px;
         }
-
         .parts-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 8px;
-            max-height: 500px;
-            overflow-y: auto;
-            padding-right: 6px;
+            display: grid; grid-template-columns: 1fr; gap: 8px;
+            max-height: 520px; overflow-y: auto; padding-right: 6px;
         }
-
         .part-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: white;
-            border-radius: 12px;
-            padding: 8px 10px;
-            border: 2px solid #d4e2f0;
-            cursor: pointer;
-            transition: all 0.2s;
+            display: flex; align-items: center; gap: 8px; background: white;
+            border-radius: 12px; padding: 10px 12px; border: 2px solid #d4e2f0;
+            cursor: pointer; transition: all 0.2s;
         }
-
-        .part-item:hover {
-            border-color: #0f1446;
-            background: #eef7ff;
-            transform: translateY(-1px);
-        }
-
+        .part-item:hover { border-color: #0f1446; background: #eef7ff; transform: translateY(-1px); }
         .part-item.selected {
             background: linear-gradient(135deg, #0f1446 0%, #1a1f5e 100%);
             border-color: #0f1446;
         }
         .part-item.selected .part-name,
-        .part-item.selected .part-percent {
-            color: white;
-        }
-        .part-item.selected .part-percent {
-            background: rgba(255,255,255,0.2);
-        }
-
-        .part-checkbox {
-            width: 18px;
-            height: 18px;
-            cursor: pointer;
-            accent-color: #0f1446;
-            flex-shrink: 0;
-        }
-
-        .part-name {
-            flex: 1;
-            font-size: 0.85rem;
-            font-weight: 500;
-            color: #1f3a4b;
-        }
-
+        .part-item.selected .part-percent { color: white; }
+        .part-item.selected .part-percent { background: rgba(255,255,255,0.2); }
+        .part-checkbox { width: 18px; height: 18px; cursor: pointer; accent-color: #0f1446; flex-shrink: 0; }
+        .part-name { flex: 1; font-size: 0.9rem; font-weight: 500; color: #1f3a4b; }
         .part-percent {
-            font-size: 0.75rem;
-            font-weight: 700;
-            color: #0f1446;
-            background: #eef7ff;
-            padding: 3px 8px;
-            border-radius: 10px;
-            flex-shrink: 0;
+            font-size: 0.8rem; font-weight: 700; color: #0f1446;
+            background: #eef7ff; padding: 3px 8px; border-radius: 10px; flex-shrink: 0;
         }
 
-        .input-group {
-            margin-bottom: 1rem;
-        }
-
-        .input-group label {
-            font-weight: 600;
-            color: #0f1446;
-            display: block;
-            margin-bottom: 6px;
-            font-size: 0.85rem;
-        }
-
+        .input-group { margin-bottom: 1rem; }
+        .input-group label { font-weight: 600; color: #0f1446; display: block; margin-bottom: 6px; font-size: 0.85rem; }
         .input-group input {
-            width: 100%;
-            padding: 12px 16px;
-            font-size: 0.95rem;
-            border: 2px solid #d4e2f0;
-            border-radius: 12px;
-            transition: 0.2s;
-            font-family: inherit;
-            background: white;
-            color: #1f3a4b;
+            width: 100%; padding: 12px 16px; font-size: 0.95rem;
+            border: 2px solid #d4e2f0; border-radius: 12px; transition: 0.2s;
+            font-family: inherit; background: white; color: #1f3a4b;
         }
-
-        .input-group input:focus {
-            outline: none;
-            border-color: #0f1446;
-            box-shadow: 0 0 0 3px rgba(15,20,70,0.1);
-        }
-
-        .input-row {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
-        .input-row .input-group {
-            flex: 1;
-            min-width: 120px;
-        }
-
-        .manual-percent {
-            margin-top: 1rem;
-            padding-top: 1rem;
-            border-top: 1px solid #d4e2f0;
-        }
+        .input-group input:focus { outline: none; border-color: #0f1446; box-shadow: 0 0 0 3px rgba(15,20,70,0.1); }
+        .input-group input:disabled { background: #f0f3f7; opacity: 0.6; cursor: not-allowed; }
+        .input-row { display: flex; gap: 12px; flex-wrap: wrap; }
+        .input-row .input-group { flex: 1; min-width: 120px; }
+        .manual-percent { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #d4e2f0; }
 
         .result-block {
-            background: #eef7ff;
-            border-radius: 16px;
-            padding: 1.2rem;
-            margin: 1rem 0;
-            border: 1px solid #d4e2f0;
-            border-left: 5px solid #1f6e9c;
+            background: #eef7ff; border-radius: 16px; padding: 1.2rem;
+            margin: 1rem 0; border: 1px solid #d4e2f0; border-left: 5px solid #1f6e9c;
         }
-
         .result-title {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            color: #6f8eaa;
-            margin-bottom: 0.8rem;
-            font-weight: 600;
+            font-size: 0.75rem; text-transform: uppercase; color: #6f8eaa;
+            margin-bottom: 0.8rem; font-weight: 600;
         }
-
-        .burn-area {
-            text-align: center;
-            margin-bottom: 1rem;
-        }
-
-        .burn-percent {
-            font-size: 2.2rem;
-            font-weight: 700;
-            color: #0f1446;
-        }
-
+        .burn-area { text-align: center; margin-bottom: 1rem; }
+        .burn-percent { font-size: 2.2rem; font-weight: 700; color: #0f1446; }
         .shock-card {
-            background: white;
-            border-radius: 12px;
-            padding: 0.8rem;
-            margin: 0.8rem 0;
-            border: 1px solid #d4e2f0;
+            background: white; border-radius: 12px; padding: 0.8rem;
+            margin: 0.8rem 0; border: 1px solid #d4e2f0;
         }
-
-        .shock-level {
-            font-weight: 700;
-            font-size: 1rem;
-        }
-
+        .shock-level { font-weight: 700; font-size: 1rem; }
         .infusion-card {
-            background: #eef7ff;
-            border-radius: 12px;
-            padding: 0.8rem;
-            margin-top: 0.8rem;
-            border: 1px solid #d4e2f0;
+            background: #eef7ff; border-radius: 12px; padding: 0.8rem;
+            margin-top: 0.8rem; border: 1px solid #d4e2f0;
         }
-
-        .infusion-value {
-            font-size: 0.95rem;
-            font-weight: 700;
-            color: #0f1446;
-            line-height: 1.5;
-        }
+        .infusion-value { font-size: 0.95rem; font-weight: 700; color: #0f1446; line-height: 1.6; }
+        .infusion-value div { margin-bottom: 2px; }
 
         .btn-reset {
-            width: 100%;
-            padding: 12px 20px;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-family: inherit;
-            border: 2px solid #d4e2f0;
-            background: #eef7ff;
-            color: #0f1446;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            margin-top: 1rem;
+            width: 100%; padding: 12px 20px; border-radius: 12px; font-weight: 600;
+            font-size: 0.9rem; cursor: pointer; transition: all 0.2s; font-family: inherit;
+            border: 2px solid #d4e2f0; background: #eef7ff; color: #0f1446;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05); margin-top: 1rem;
         }
-
-        .btn-reset:hover {
-            background: #d4e2f0;
-            transform: translateY(-1px);
-        }
-
-        .btn-reset:active {
-            transform: scale(0.98);
-        }
+        .btn-reset:hover { background: #d4e2f0; transform: translateY(-1px); }
+        .btn-reset:active { transform: scale(0.98); }
 
         .selected-summary {
-            background: #fff8e7;
-            border-radius: 12px;
-            padding: 0.8rem;
-            margin-top: 1rem;
-            font-size: 0.82rem;
-            border: 1px solid #f0b849;
-            border-left: 4px solid #e68a2e;
-            color: #1f3a4b;
+            background: #fff8e7; border-radius: 12px; padding: 0.8rem;
+            margin-top: 1rem; font-size: 0.82rem; border: 1px solid #f0b849;
+            border-left: 4px solid #e68a2e; color: #1f3a4b;
         }
-
         .info-text {
-            font-size: 0.75rem;
-            color: #6f8eaa;
-            text-align: center;
-            margin-top: 1.2rem;
-            padding-top: 1rem;
-            border-top: 1px solid #e2ecf3;
-            line-height: 1.5;
+            font-size: 0.75rem; color: #6f8eaa; text-align: center;
+            margin-top: 1.2rem; padding-top: 1rem; border-top: 1px solid #e2ecf3;
+            line-height: 1.6;
         }
-
-        .parts-grid::-webkit-scrollbar {
-            width: 6px;
+        .burn-photo {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            margin: 1.2rem auto 0;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
-        .parts-grid::-webkit-scrollbar-track {
-            background: #d4e2f0;
-            border-radius: 10px;
-        }
-        .parts-grid::-webkit-scrollbar-thumb {
-            background: #0f1446;
-            border-radius: 10px;
-        }
+        .parts-grid::-webkit-scrollbar { width: 6px; }
+        .parts-grid::-webkit-scrollbar-track { background: #d4e2f0; border-radius: 10px; }
+        .parts-grid::-webkit-scrollbar-thumb { background: #0f1446; border-radius: 10px; }
 
         @media (max-width: 768px) {
-            body {
-                padding: 10px;
-            }
-            .card {
-                padding: 16px 14px;
-            }
-            .header-card h1 {
-                font-size: 24px;
-            }
-            .age-btn {
-                padding: 10px 16px;
-                font-size: 0.8rem;
-            }
-            .parts-grid {
-                grid-template-columns: 1fr;
-                max-height: 400px;
-            }
-            .burn-percent {
-                font-size: 1.8rem;
-            }
-            .two-columns {
-                gap: 1rem;
-            }
-            .body-parts, .calc-section {
-                min-width: 100%;
-            }
+            body { padding: 10px; }
+            .card { padding: 16px 14px; }
+            .header-card h1 { font-size: 24px; }
+            .age-btn { padding: 10px 16px; font-size: 0.8rem; }
+            .parts-grid { max-height: 400px; }
+            .burn-percent { font-size: 1.8rem; }
+            .two-columns { gap: 1rem; }
+            .body-parts, .calc-section { min-width: 100%; }
         }
     </style>
 </head>
@@ -394,7 +165,7 @@
     <div class="card">
         <div class="age-selector" id="ageSelector">
             <button class="age-btn active" data-age="adult">🧑 Взрослый</button>
-            <button class="age-btn" data-age="teen">🧒 Подросток (12-17 лет)</button>
+            <button class="age-btn" data-age="teen">🧒 Подросток (12–17 лет)</button>
             <button class="age-btn" data-age="child">👶 Ребенок (до 12 лет)</button>
         </div>
 
@@ -412,18 +183,18 @@
                 <div class="input-row">
                     <div class="input-group">
                         <label>⚖️ Вес пациента (кг)</label>
-                        <input type="number" id="weight" step="1" value="70" placeholder="вес в кг">
+                        <input type="number" id="weight" step="1" value="70" placeholder="вес в кг" min="1" max="300">
                     </div>
                     <div class="input-group">
                         <label>📏 Возраст (лет) для детей</label>
-                        <input type="number" id="childAge" step="1" value="5" placeholder="до 12 лет" disabled>
+                        <input type="number" id="childAge" step="1" value="5" placeholder="до 12 лет" min="0" max="12" disabled>
                     </div>
                 </div>
 
                 <div class="manual-percent">
                     <div class="input-group">
                         <label>✏️ Или введите площадь ожога вручную (%)</label>
-                        <input type="number" id="burnPercent" step="1" value="" placeholder="например, 15">
+                        <input type="number" id="burnPercent" step="1" value="" placeholder="например, 15" min="0" max="100">
                     </div>
                 </div>
 
@@ -439,9 +210,8 @@
                         <div id="hypovolemia"></div>
                     </div>
                     <div class="infusion-card">
-                        <strong>💧 Инфузионная терапия (первые 8 часов):</strong>
+                        <strong>💧 Инфузионная терапия:</strong>
                         <div class="infusion-value" id="infusionVolume">—</div>
-                        <div style="font-size:0.7rem;margin-top:6px;color:#6f8eaa;">* По формуле Паркленда: 4 мл × вес (кг) × % ожога (50% в первые 8 часов)</div>
                     </div>
                     <div id="warningMsg" style="color:#d32f2f;font-size:0.8rem;margin-top:8px;font-weight:600;"></div>
                 </div>
@@ -450,13 +220,12 @@
             </div>
         </div>
 
-        <div class="info-text">
-            ⚕️ <strong>Формула Паркленда:</strong> Объем инфузии (мл) за 24 часа = 4 × вес (кг) × % ожога<br>
-            • Первые 8 часов — 50% объема<br>
-            • Следующие 16 часов — 50% объема<br>
-            • <strong>Степень ожогового шока:</strong> легкий (10-20%), средний (21-40%), тяжелый (>40%)<br>
-            • У детей: голова 18%, ноги 14% (вместо 18% у взрослых)
+        <div class="info-text" id="infoText">
+            ⚕️ <strong>Степень ожогового шока:</strong> легкий (10–20%), тяжелый (21–40%), крайне тяжелый (&gt;40%)<br>
+            • У детей — модифицированная формула Паркленда: (3 мл × вес × %) + поддерживающий объём по Холидею-Сигару
         </div>
+
+        <img src="burn-area-child.png" alt="Схема площади ожоговой поверхности" class="burn-photo">
     </div>
 </div>
 
@@ -467,31 +236,41 @@
             .catch(err => console.error('❌ Ошибка:', err));
     }
 
+    // ======================= СПРАВОЧНИКИ (ВАРИАНТ Б) =======================
+    // Порядок: анатомически сверху вниз, парные конечности рядом (правая → левая)
     const bodyPartsAdult = [
-        { id: "head", name: "Голова", percent: 9 }, { id: "neck", name: "Шея", percent: 1 },
-        { id: "chest", name: "Грудная клетка (перед)", percent: 9 }, { id: "abdomen", name: "Живот", percent: 9 },
-        { id: "back", name: "Спина", percent: 18 }, { id: "buttocks", name: "Ягодицы (обе)", percent: 5 },
-        { id: "genitals", name: "Гениталии", percent: 1 }, { id: "arms", name: "Руки (обе)", percent: 18 },
-        { id: "hands", name: "Кисти (обе)", percent: 5 }, { id: "legs", name: "Ноги (обе)", percent: 18 },
-        { id: "feet", name: "Стопы (обе)", percent: 7 }
-    ];
+        { id: "head",        name: "Голова и шея",                                          percent: 9  },
+        { id: "chest_front", name: "Передняя поверхность туловища (грудь + живот)",         percent: 18 },
+        { id: "back",        name: "Задняя поверхность туловища (спина + ягодицы)",         percent: 18 },
+        { id: "genitals",    name: "Гениталии / промежность",                                percent: 1  },
+        { id: "arm_r",       name: "Правая рука (с кистью)",                                 percent: 9  },
+        { id: "arm_l",       name: "Левая рука (с кистью)",                                  percent: 9  },
+        { id: "leg_r",       name: "Правая нога (со стопой)",                                percent: 18 },
+        { id: "leg_l",       name: "Левая нога (со стопой)",                                 percent: 18 }
+    ]; // сумма = 100%
 
-    const bodyPartsChild = [
-        { id: "head", name: "Голова", percent: 18 }, { id: "neck", name: "Шея", percent: 1 },
-        { id: "chest", name: "Грудная клетка (перед)", percent: 9 }, { id: "abdomen", name: "Живот", percent: 9 },
-        { id: "back", name: "Спина", percent: 18 }, { id: "buttocks", name: "Ягодицы (обе)", percent: 5 },
-        { id: "genitals", name: "Гениталии", percent: 1 }, { id: "arms", name: "Руки (обе)", percent: 18 },
-        { id: "hands", name: "Кисти (обе)", percent: 5 }, { id: "legs", name: "Ноги (обе)", percent: 14 },
-        { id: "feet", name: "Стопы (обе)", percent: 7 }
-    ];
+    function getChildParts(age) {
+        let headPercent = 18;
+        if (age >= 5) headPercent = 9;
+        else if (age >= 1) headPercent = 13;
+        return [
+            { id: "head",        name: "Голова и шея",                                          percent: headPercent },
+            { id: "chest_front", name: "Передняя поверхность туловища (грудь + живот)",         percent: 18 },
+            { id: "back",        name: "Задняя поверхность туловища (спина + ягодицы)",         percent: 18 },
+            { id: "genitals",    name: "Гениталии / промежность",                                percent: 1  },
+            { id: "arm_r",       name: "Правая рука (с кистью)",                                 percent: 9  },
+            { id: "arm_l",       name: "Левая рука (с кистью)",                                  percent: 9  },
+            { id: "leg_r",       name: "Правая нога (со стопой)",                                percent: 13.5 },
+            { id: "leg_l",       name: "Левая нога (со стопой)",                                 percent: 13.5 }
+        ];
+    }
 
-    const bodyPartsAdultSorted = [...bodyPartsAdult].sort((a,b) => a.name.localeCompare(b.name,'ru'));
-    const bodyPartsChildSorted = [...bodyPartsChild].sort((a,b) => a.name.localeCompare(b.name,'ru'));
-
-    let currentParts = [...bodyPartsAdultSorted];
+    // ======================= СОСТОЯНИЕ =======================
+    let currentParts = [];
     let selectedParts = new Set();
     let currentAge = 'adult';
 
+    // ======================= ОТРИСОВКА =======================
     function updatePartsDisplay() {
         const grid = document.getElementById('partsGrid');
         grid.innerHTML = '';
@@ -499,21 +278,29 @@
             const isSelected = selectedParts.has(part.id);
             const item = document.createElement('div');
             item.className = `part-item ${isSelected ? 'selected' : ''}`;
-            item.innerHTML = `<input type="checkbox" class="part-checkbox" data-id="${part.id}" ${isSelected ? 'checked' : ''}><span class="part-name">${part.name}</span><span class="part-percent">${part.percent}%</span>`;
+            item.innerHTML = `
+                <input type="checkbox" class="part-checkbox" data-id="${part.id}" ${isSelected ? 'checked' : ''}>
+                <span class="part-name">${part.name}</span>
+                <span class="part-percent">${part.percent}%</span>`;
             grid.appendChild(item);
             const checkbox = item.querySelector('.part-checkbox');
-            checkbox.addEventListener('change', (e) => {
+
+            const toggle = (checked) => {
+                if (checked) selectedParts.add(part.id);
+                else selectedParts.delete(part.id);
+                item.classList.toggle('selected', checked);
+                updateSelectedSummary();
+                updateBurnPercentFromParts();
+            };
+
+            checkbox.addEventListener('change', e => {
                 e.stopPropagation();
-                if (e.target.checked) selectedParts.add(part.id); else selectedParts.delete(part.id);
-                updateSelectedSummary(); updateBurnPercentFromParts();
-                item.classList.toggle('selected', e.target.checked);
+                toggle(e.target.checked);
             });
-            item.addEventListener('click', (e) => {
+            item.addEventListener('click', e => {
                 if (e.target !== checkbox) {
                     checkbox.checked = !checkbox.checked;
-                    if (checkbox.checked) selectedParts.add(part.id); else selectedParts.delete(part.id);
-                    updateSelectedSummary(); updateBurnPercentFromParts();
-                    item.classList.toggle('selected', checkbox.checked);
+                    toggle(checkbox.checked);
                 }
             });
         });
@@ -526,7 +313,10 @@
         const selectedList = [];
         let totalPercent = 0;
         currentParts.forEach(part => {
-            if (selectedParts.has(part.id)) { selectedList.push(`${part.name} (${part.percent}%)`); totalPercent += part.percent; }
+            if (selectedParts.has(part.id)) {
+                selectedList.push(`${part.name} (${part.percent}%)`);
+                totalPercent += part.percent;
+            }
         });
         summarySpan.innerHTML = selectedList.join(', ') + `<br><strong>Всего: ${totalPercent}%</strong>`;
     }
@@ -538,77 +328,140 @@
         updateCalculation();
     }
 
+    // ======================= РАСЧЁТ =======================
+    function getShockInfo(percent) {
+        if (percent <= 0)  return { level: "Нет ожогового шока", hypovolemia: "Гиповолемии нет", color: "#2e7d32" };
+        if (percent < 10)  return { level: "Ожоговый шок отсутствует", hypovolemia: "Риск гиповолемии минимальный", color: "#2e7d32" };
+        if (percent <= 20) return { level: "Легкий ожоговый шок", hypovolemia: "Умеренная гиповолемия. Требуется инфузионная терапия.", color: "#e68a2e" };
+        if (percent <= 40) return { level: "Тяжелый ожоговый шок", hypovolemia: "Выраженная гиповолемия. Срочная инфузионная терапия!", color: "#e68a2e" };
+        return { level: "Крайне тяжелый ожоговый шок", hypovolemia: "Угрожающая жизни гиповолемия. Реанимационные мероприятия!", color: "#d32f2f" };
+    }
+
+    function holidaySegar(weight) {
+        if (weight <= 10) return 100 * weight;
+        if (weight <= 20) return 1000 + 50 * (weight - 10);
+        return 1500 + 20 * (weight - 20);
+    }
+
+    function calculateInfusion(weight, percent, age) {
+        if (age !== 'child') {
+            const total24h = 4 * weight * percent;
+            return {
+                total24h,
+                first8h: total24h / 2,
+                next16h: total24h / 2,
+                maintenance: 0,
+                burnVolume: total24h,
+                isChild: false
+            };
+        }
+        const burnVolume = 3 * weight * percent;
+        const maintenance = holidaySegar(weight);
+        const total24h = burnVolume + maintenance;
+        const first8h = burnVolume / 2 + maintenance / 3;
+        const next16h = total24h - first8h;
+        return {
+            total24h,
+            first8h,
+            next16h,
+            maintenance,
+            burnVolume,
+            isChild: true
+        };
+    }
+
     function updateCalculation() {
         let percent = parseFloat(document.getElementById('burnPercent').value);
-        let weight = parseFloat(document.getElementById('weight').value);
+        let weight  = parseFloat(document.getElementById('weight').value);
+        let childAgeYears = parseFloat(document.getElementById('childAge').value);
         if (isNaN(percent)) percent = 0;
-        if (isNaN(weight)) weight = 0;
+        if (isNaN(weight))  weight  = 0;
+        if (isNaN(childAgeYears)) childAgeYears = 0;
         percent = Math.max(0, Math.min(100, percent));
-        weight = Math.max(0, Math.min(300, weight));
+        weight  = Math.max(0, Math.min(300, weight));
+
         document.getElementById('burnPercentDisplay').innerHTML = `${percent}%`;
+
         const shock = getShockInfo(percent);
         document.getElementById('shockLevel').innerHTML = shock.level;
         document.getElementById('shockLevel').style.color = shock.color;
         document.getElementById('hypovolemia').innerHTML = shock.hypovolemia;
         document.getElementById('hypovolemia').style.color = shock.color;
+
         let warningMsg = '', infusionHtml = '';
+
         if (percent <= 0 || weight <= 0) {
             infusionHtml = '<span style="color:#6f8eaa;">Введите данные для расчета</span>';
         } else {
-            const infusion = calculateInfusion(weight, percent);
-            infusionHtml = `<div>📌 Общий объем за 24 часа: <strong>${Math.round(infusion.total24h)} мл</strong></div><div>🕐 Первые 8 часов: <strong>${Math.round(infusion.first8h)} мл</strong></div><div>🕑 Следующие 16 часов: <strong>${Math.round(infusion.next16h)} мл</strong></div>`;
+            const inf = calculateInfusion(weight, percent, currentAge);
+            infusionHtml = `
+                <div>📌 Общий объем за 24 часа: <strong>${Math.round(inf.total24h)} мл</strong></div>
+                <div>🕐 Первые 8 часов: <strong>${Math.round(inf.first8h)} мл</strong></div>
+                <div>🕑 Следующие 16 часов: <strong>${Math.round(inf.next16h)} мл</strong></div>`;
+
             if (percent >= 40) warningMsg = '⚠️ КРИТИЧЕСКИЙ ОЖОГ! Немедленная госпитализация в ожоговый центр!';
             else if (percent >= 20) warningMsg = '⚠️ Тяжелый ожог. Обязательная госпитализация!';
             else if (percent >= 10) warningMsg = '⚠️ Среднетяжелый ожог. Рекомендована госпитализация.';
             else if (percent > 0) warningMsg = 'ℹ️ Легкий ожог. Амбулаторное лечение возможно при отсутствии других факторов.';
         }
+
         document.getElementById('infusionVolume').innerHTML = infusionHtml;
         document.getElementById('warningMsg').innerHTML = warningMsg;
     }
 
-    function getShockInfo(percent) {
-        if (percent <= 0) return { level: "Нет ожогового шока", hypovolemia: "Гиповолемии нет", color: "#2e7d32" };
-        if (percent < 10) return { level: "Ожоговый шок отсутствует", hypovolemia: "Риск гиповолемии минимальный", color: "#2e7d32" };
-        if (percent <= 20) return { level: "Легкий ожоговый шок", hypovolemia: "Умеренная гиповолемия. Требуется инфузионная терапия.", color: "#e68a2e" };
-        if (percent <= 40) return { level: "Средний ожоговый шок", hypovolemia: "Выраженная гиповолемия. Срочная инфузионная терапия!", color: "#e68a2e" };
-        if (percent <= 60) return { level: "Тяжелый ожоговый шок", hypovolemia: "Критическая гиповолемия. Немедленная инфузия!", color: "#d32f2f" };
-        return { level: "Крайне тяжелый ожоговый шок", hypovolemia: "Угрожающая жизни гиповолемия. Реанимационные мероприятия!", color: "#d32f2f" };
-    }
-
-    function calculateInfusion(weight, percent) {
-        const total24h = 4 * weight * percent;
-        return { total24h, first8h: total24h/2, next16h: total24h/2 };
+    // ======================= ПЕРЕКЛЮЧЕНИЕ ВОЗРАСТА =======================
+    function getPartsForAge(age, childAgeYears) {
+        if (age === 'child') return getChildParts(childAgeYears);
+        return bodyPartsAdult;
     }
 
     function setAge(age) {
         currentAge = age;
-        document.querySelectorAll('.age-btn').forEach(b => b.classList.toggle('active', b.dataset.age === age));
-        currentParts = age === 'child' ? JSON.parse(JSON.stringify(bodyPartsChildSorted)) : JSON.parse(JSON.stringify(bodyPartsAdultSorted));
+        document.querySelectorAll('.age-btn').forEach(b =>
+            b.classList.toggle('active', b.dataset.age === age)
+        );
+        const childAgeInput = document.getElementById('childAge');
+        childAgeInput.disabled = age !== 'child';
+        const childAgeYears = parseFloat(childAgeInput.value) || 0;
+        currentParts = getPartsForAge(age, childAgeYears);
         selectedParts.clear();
-        document.getElementById('childAge').disabled = age !== 'child';
-        document.getElementById('childAge').style.opacity = age === 'child' ? '1' : '0.6';
+        updatePartsDisplay();
+        updateBurnPercentFromParts();
+    }
+
+    function onChildAgeChange() {
+        if (currentAge !== 'child') { updateCalculation(); return; }
+        const childAgeYears = parseFloat(document.getElementById('childAge').value) || 0;
+        currentParts = getChildParts(childAgeYears);
         updatePartsDisplay();
         updateBurnPercentFromParts();
     }
 
     function resetAll() {
         selectedParts.clear();
-        setAge('adult');
         document.getElementById('weight').value = '70';
         document.getElementById('childAge').value = '5';
         document.getElementById('burnPercent').value = '';
-        updatePartsDisplay();
+        setAge('adult');
         updateCalculation();
     }
 
-    document.querySelectorAll('.age-btn').forEach(b => b.addEventListener('click', () => setAge(b.dataset.age)));
+    // ======================= ОБРАБОТЧИКИ =======================
+    document.querySelectorAll('.age-btn').forEach(b =>
+        b.addEventListener('click', () => setAge(b.dataset.age))
+    );
     document.getElementById('resetBtn').addEventListener('click', resetAll);
     document.getElementById('burnPercent').addEventListener('input', (e) => {
-        if (e.target.value !== '') { selectedParts.clear(); updatePartsDisplay(); }
+        if (e.target.value !== '' && selectedParts.size > 0) {
+            selectedParts.clear();
+            updatePartsDisplay();
+        }
         updateCalculation();
     });
     document.getElementById('weight').addEventListener('input', updateCalculation);
-    document.getElementById('childAge').addEventListener('input', updateCalculation);
+    document.getElementById('childAge').addEventListener('input', onChildAgeChange);
+
+    // ======================= ИНИЦИАЛИЗАЦИЯ =======================
     setAge('adult');
 </script>
 
